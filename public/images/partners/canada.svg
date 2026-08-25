@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" role="img" aria-label="Gouvernement du Canada">
+  <!-- Flag simplified -->
+  <rect x="6" y="20" width="68" height="40" fill="#fff"/>
+  <rect x="6" y="20" width="17" height="40" fill="#FF0000"/>
+  <rect x="57" y="20" width="17" height="40" fill="#FF0000"/>
+  <!-- Maple leaf -->
+  <path d="M37 58 L34 44 Q28 44 26 42 L31 37 Q28 33 29 31 L37 36 Q37 28 37 24 Q37 28 37 36 L45 31 Q46 33 43 37 L48 42 Q46 44 40 44 Z" fill="#FF0000"/>
+  <!-- Canada wordmark -->
+  <text x="84" y="38" font-family="Georgia,serif" font-weight="700" font-size="24" fill="#FF0000">Canada</text>
+  <rect x="84" y="44" width="90" height="2" fill="#FF0000"/>
+  <text x="84" y="60" font-family="Arial,sans-serif" font-size="10" fill="#555">Gouvernement du Canada</text>
+  <text x="84" y="74" font-family="Arial,sans-serif" font-size="9" fill="#888">Partenaire au développement</text>
+</svg>

@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Report;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class AdminReportController extends Controller
+{
+    public function index()
+    {
+        $reports = Report::latest('published_at')->paginate(15);
+        return view('admin.reports.index', compact('reports'));
+    }
+
+    public function create()
+    {
+        return view('admin.reports.form', ['report' => new Report()]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title'        => ['required', 'string', 'max:255'],
+            'category'     => ['required', 'string', 'max:80'],
+            'description'  => ['nullable', 'string'],
+            'file'         => ['nullable', 'file', 'mimes:pdf', 'max:20480'],
+            'cover'        => ['nullable', 'image', 'max:4096'],
+            'published_at' => ['nullable', 'date'],
+        ]);
+
+        if ($request->hasFile('file')) {
+            $data['file_path'] = $request->file('file')->store('reports', 'public');
+        }
+        if ($request->hasFile('cover')) {
+            $data['cover_image'] = $request->file('cover')->store('reports/covers', 'public');
+        }
+        unset($data['file'], $data['cover']);
+
+        Report::create($data);
+
+        return redirect()->route('admin.reports.index')
+            ->with('success', 'Publication créée.');
+    }
+
+    public function edit(Report $report)
+    {
+        return view('admin.reports.form', compact('report'));
+    }
+
+    public function update(Request $request, Report $report)
+    {
+        $data = $request->validate([
+            'title'        => ['required', 'string', 'max:255'],
+            'category'     => ['required', 'string', 'max:80'],
+            'description'  => ['nullable', 'string'],
+            'file'         => ['nullable', 'file', 'mimes:pdf', 'max:20480'],
+            'cover'        => ['nullable', 'image', 'max:4096'],
+            'published_at' => ['nullable', 'date'],
+        ]);
+
+        if ($request->hasFile('file')) {
+            if ($report->file_path) Storage::disk('public')->delete($report->file_path);
+            $data['file_path'] = $request->file('file')->store('reports', 'public');
+        }
+        if ($request->hasFile('cover')) {
+            if ($report->cover_image) Storage::disk('public')->delete($report->cover_image);
+            $data['cover_image'] = $request->file('cover')->store('reports/covers', 'public');
+        }
+        unset($data['file'], $data['cover']);
+
+        $report->update($data);
+
+        return redirect()->route('admin.reports.index')
+            ->with('success', 'Publication mise à jour.');
+    }
+
+    public function destroy(Report $report)
+    {
+        if ($report->file_path)   Storage::disk('public')->delete($report->file_path);
+        if ($report->cover_image) Storage::disk('public')->delete($report->cover_image);
+        $report->delete();
+
+        return redirect()->route('admin.reports.index')
+            ->with('success', 'Publication supprimée.');
+    }
+}

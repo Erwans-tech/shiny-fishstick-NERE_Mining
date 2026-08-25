@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" role="img" aria-label="ITIE Burkina Faso">
+  <!-- Green circle -->
+  <circle cx="36" cy="40" r="30" fill="#009A44"/>
+  <!-- BF flag stripes in circle (clip) -->
+  <clipPath id="c1"><circle cx="36" cy="40" r="30"/></clipPath>
+  <rect x="6" y="10" width="60" height="30" fill="#EF2B2D" clip-path="url(#c1)"/>
+  <rect x="6" y="40" width="60" height="30" fill="#009A44" clip-path="url(#c1)"/>
+  <polygon points="36,26 38.9,34.5 47.9,34.5 40.5,39.5 43.4,48 36,43 28.6,48 31.5,39.5 24.1,34.5 33.1,34.5" fill="#FFD700" clip-path="url(#c1)"/>
+  <!-- ITIE text -->
+  <text x="76" y="36" font-family="Arial,sans-serif" font-weight="700" font-size="22" fill="#009A44" letter-spacing="1">ITIE</text>
+  <!-- BF underline -->
+  <rect x="76" y="42" width="52" height="2" fill="#EF2B2D"/>
+  <text x="76" y="58" font-family="Arial,sans-serif" font-weight="600" font-size="12" fill="#444">Burkina Faso</text>
+  <text x="76" y="72" font-family="Arial,sans-serif" font-size="9" fill="#777">Initiative pour la Transparence</text>
+</svg>

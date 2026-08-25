@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" role="img" aria-label="ENAHM Burkina Faso">
+  <!-- Book/diploma icon -->
+  <rect x="8" y="18" width="52" height="44" rx="4" fill="#1a3c6e"/>
+  <rect x="12" y="22" width="44" height="36" rx="3" fill="#2855a0"/>
+  <!-- Pages lines -->
+  <line x1="18" y1="30" x2="50" y2="30" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <line x1="18" y1="37" x2="50" y2="37" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <line x1="18" y1="44" x2="42" y2="44" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <!-- Star -->
+  <polygon points="34,8 35.9,13.5 41.7,13.5 37,17 38.8,22.5 34,19.2 29.2,22.5 31,17 26.3,13.5 32.1,13.5" fill="#FFD700"/>
+  <!-- ENAHM text -->
+  <text x="72" y="34" font-family="Arial,sans-serif" font-weight="800" font-size="22" fill="#1a3c6e" letter-spacing="1">ENAHM</text>
+  <rect x="72" y="40" width="110" height="2" fill="#FFD700"/>
+  <text x="72" y="56" font-family="Arial,sans-serif" font-size="9" fill="#555" textLength="124" lengthAdjust="spacing">École Nationale des Hauts Métiers</text>
+  <text x="72" y="70" font-family="Arial,sans-serif" font-weight="600" font-size="9" fill="#009A44">du Bâtiment et des Travaux Publics</text>
+</svg>
