@@ -16,8 +16,8 @@ RUN apk add --no-cache \
     freetype-dev \
     oniguruma-dev \
     libxml2-dev \
-    mysql-client \
-    shadow
+    postgresql-client \
+    libpq-dev
 
 # ── Extensions PHP ───────────────────────────────────────────
 RUN docker-php-ext-configure gd \
@@ -26,7 +26,8 @@ RUN docker-php-ext-configure gd \
         --with-webp \
  && docker-php-ext-install \
         pdo \
-        pdo_mysql \
+        pdo_pgsql \
+        pgsql \
         mbstring \
         exif \
         pcntl \
@@ -41,7 +42,7 @@ COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 # ── Répertoire de travail ────────────────────────────────────
 WORKDIR /var/www/html
 
-# ── Copier les fichiers de dépendances en premier (cache layer) ──
+# ── Dépendances Composer (layer mis en cache) ────────────────
 COPY composer.json composer.lock ./
 RUN composer install \
         --no-dev \
@@ -50,7 +51,7 @@ RUN composer install \
         --no-interaction \
         --prefer-dist
 
-# ── Copier le reste du code ──────────────────────────────────
+# ── Code source ──────────────────────────────────────────────
 COPY . .
 
 # ── Assets front-end ────────────────────────────────────────
@@ -83,11 +84,13 @@ COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/start.sh /start.sh
 RUN chmod +x /start.sh
 
-# ── OPcache optimisée prod ────────────────────────────────────
-RUN echo "opcache.enable=1" >> /usr/local/etc/php/conf.d/opcache.ini \
- && echo "opcache.memory_consumption=128" >> /usr/local/etc/php/conf.d/opcache.ini \
- && echo "opcache.max_accelerated_files=10000" >> /usr/local/etc/php/conf.d/opcache.ini \
- && echo "opcache.validate_timestamps=0" >> /usr/local/etc/php/conf.d/opcache.ini
+# ── OPcache prod ─────────────────────────────────────────────
+RUN { \
+        echo "opcache.enable=1"; \
+        echo "opcache.memory_consumption=128"; \
+        echo "opcache.max_accelerated_files=10000"; \
+        echo "opcache.validate_timestamps=0"; \
+    } > /usr/local/etc/php/conf.d/opcache.ini
 
 EXPOSE 80
 

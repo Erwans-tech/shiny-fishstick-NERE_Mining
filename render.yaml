@@ -10,7 +10,6 @@ services:
     plan: free
 
     envVars:
-      # Laravel
       - key: APP_NAME
         value: "Nere Mining"
       - key: APP_ENV
@@ -24,34 +23,24 @@ services:
           property: host
       - key: APP_KEY
         generateValue: true
-
-      # Locale
       - key: APP_LOCALE
         value: fr
       - key: APP_FALLBACK_LOCALE
         value: fr
 
-      # Base de données MySQL (lien vers le service MySQL privé)
+      # PostgreSQL — base native Render (free tier compatible)
       - key: DB_CONNECTION
-        value: mysql
-      - key: DB_HOST
-        fromService:
-          name: nere-mining-mysql
-          type: pserv
-          property: host
-      - key: DB_PORT
-        value: "3306"
-      - key: DB_DATABASE
-        value: nere_mining
-      - key: DB_USERNAME
-        value: nere_user
-      - key: DB_PASSWORD
-        fromService:
-          name: nere-mining-mysql
-          type: pserv
-          envVarKey: MYSQL_PASSWORD
+        value: pgsql
+      - key: DB_URL
+        fromDatabase:
+          name: nere-mining-db
+          property: connectionString
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nere-mining-db
+          property: connectionString
 
-      # Session & cache via fichier (pas de Redis en free tier)
+      # Session & cache fichier (pas de Redis en free)
       - key: SESSION_DRIVER
         value: file
       - key: CACHE_STORE
@@ -61,35 +50,19 @@ services:
       - key: FILESYSTEM_DISK
         value: public
 
-      # Forcer HTTPS (Render gère les TLS)
+      # HTTPS (Render gère le TLS)
       - key: FORCE_HTTPS
         value: "true"
 
-      # Logs
+      # Logs vers stderr (visible dans Render logs)
       - key: LOG_CHANNEL
         value: stderr
       - key: LOG_LEVEL
         value: error
 
-  # ── MySQL Private Service ────────────────────────────────────
-  - type: pserv
-    name: nere-mining-mysql
-    runtime: docker
-    repo: https://github.com/render-examples/mysql
-    branch: master
+# ── Base de données PostgreSQL native Render (free tier) ────────
+databases:
+  - name: nere-mining-db
     plan: free
-
-    envVars:
-      - key: MYSQL_DATABASE
-        value: nere_mining
-      - key: MYSQL_USER
-        value: nere_user
-      - key: MYSQL_PASSWORD
-        generateValue: true
-      - key: MYSQL_ROOT_PASSWORD
-        generateValue: true
-
-    disk:
-      name: mysql-data
-      mountPath: /var/lib/mysql
-      sizeGB: 1
+    databaseName: nere_mining
+    user: nere_user
