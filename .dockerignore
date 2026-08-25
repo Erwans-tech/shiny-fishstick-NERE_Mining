@@ -1,0 +1,41 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Environnement local
+.env
+.env.*
+!.env.example
+
+# Dépendances (installées dans le build)
+node_modules
+vendor
+
+# Fichiers de dev
+*.log
+*.cache
+.phpunit.cache
+.phpunit.result.cache
+
+# Storage (volumes)
+storage/app/public/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+public/uploads/*
+
+# Docs & outils
+*.md
+arborescence.md
+plan.md
+phpunit.xml
+
+# Docker (évite la récursion)
+Dockerfile
+docker/
+
+# Build
+public/build
+public/hot

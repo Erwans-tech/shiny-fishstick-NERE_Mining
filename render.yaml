@@ -1,0 +1,95 @@
+services:
+  # ── Web Service (Laravel) ─────────────────────────────────────
+  - type: web
+    name: nere-mining
+    runtime: docker
+    repo: https://github.com/Erwans-tech/shiny-fishstick-NERE_Mining
+    branch: main
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /up
+    plan: free
+
+    envVars:
+      # Laravel
+      - key: APP_NAME
+        value: "Nere Mining"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        fromService:
+          name: nere-mining
+          type: web
+          property: host
+      - key: APP_KEY
+        generateValue: true
+
+      # Locale
+      - key: APP_LOCALE
+        value: fr
+      - key: APP_FALLBACK_LOCALE
+        value: fr
+
+      # Base de données MySQL (lien vers le service MySQL privé)
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        fromService:
+          name: nere-mining-mysql
+          type: pserv
+          property: host
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_DATABASE
+        value: nere_mining
+      - key: DB_USERNAME
+        value: nere_user
+      - key: DB_PASSWORD
+        fromService:
+          name: nere-mining-mysql
+          type: pserv
+          envVarKey: MYSQL_PASSWORD
+
+      # Session & cache via fichier (pas de Redis en free tier)
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: FILESYSTEM_DISK
+        value: public
+
+      # Forcer HTTPS (Render gère les TLS)
+      - key: FORCE_HTTPS
+        value: "true"
+
+      # Logs
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: error
+
+  # ── MySQL Private Service ────────────────────────────────────
+  - type: pserv
+    name: nere-mining-mysql
+    runtime: docker
+    repo: https://github.com/render-examples/mysql
+    branch: master
+    plan: free
+
+    envVars:
+      - key: MYSQL_DATABASE
+        value: nere_mining
+      - key: MYSQL_USER
+        value: nere_user
+      - key: MYSQL_PASSWORD
+        generateValue: true
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+
+    disk:
+      name: mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 1
