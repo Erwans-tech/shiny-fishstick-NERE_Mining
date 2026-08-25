@@ -32,9 +32,8 @@ arborescence.md
 plan.md
 phpunit.xml
 
-# Docker (évite la récursion)
+# Fichier Docker principal seulement (pas le dossier docker/)
 Dockerfile
-docker/
 
 # Build
 public/build
