@@ -67,4 +67,3 @@ services:
         value: stderr
       - key: LOG_LEVEL
         value: error
-

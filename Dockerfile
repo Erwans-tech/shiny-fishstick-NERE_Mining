@@ -2,18 +2,18 @@ FROM php:8.4-fpm-alpine
 
 # ── Dépendances système ──────────────────────────────────────
 RUN apk add --no-cache \
-    nginx \
-    supervisor \
-    nodejs \
-    npm \
-    curl \
-    zip \
-    unzip \
-    git \
-    libpng-dev \
-    libjpeg-turbo-dev \
-    libwebp-dev \
-    freetype-dev \
+        nginx \
+        supervisor \
+        nodejs \
+        npm \
+        curl \
+        zip \
+        unzip \
+        git \
+        libpng-dev \
+        libjpeg-turbo-dev \
+        libwebp-dev \
+        freetype-dev \
         oniguruma-dev \
         libxml2-dev \
         icu-dev
@@ -23,7 +23,7 @@ RUN docker-php-ext-configure gd \
         --with-freetype \
         --with-jpeg \
         --with-webp \
- && docker-php-ext-install \
+        && docker-php-ext-install \
         pdo \
         pdo_mysql \
         mbstring \
@@ -63,11 +63,11 @@ RUN mkdir -p \
         storage/logs \
         bootstrap/cache \
         public/uploads \
- && chown -R www-data:www-data \
+        && chown -R www-data:www-data \
         storage \
         bootstrap/cache \
         public/uploads \
- && chmod -R 775 \
+        && chmod -R 775 \
         storage \
         bootstrap/cache \
         public/uploads
@@ -88,7 +88,7 @@ RUN { \
         echo "opcache.memory_consumption=128"; \
         echo "opcache.max_accelerated_files=10000"; \
         echo "opcache.validate_timestamps=0"; \
-    } > /usr/local/etc/php/conf.d/opcache.ini
+        } > /usr/local/etc/php/conf.d/opcache.ini
 
 EXPOSE 80
 

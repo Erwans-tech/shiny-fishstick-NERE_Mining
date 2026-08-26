@@ -1,4 +1,7 @@
-@php $en = ($locale ?? 'fr') === 'en'; @endphp
+@php
+    $loc = $locale ?? 'fr';
+    $en = $loc === 'en';
+@endphp
 <!DOCTYPE html>
 <html lang="{{ $locale ?? 'fr' }}">
 <head>
@@ -137,6 +140,9 @@
             </div>
         </section>
 
+        @if(view()->exists('resources.' . $section))
+            @include('resources.' . $section)
+        @else
         @if($section === 'partners')
         <section>
             <p class="lead">{{ $en ? 'Our institutional and technical partners contribute to mining development rooted in Burkina Faso\'s priorities.' : 'Nos partenaires institutionnels et techniques contribuent à un développement minier ancré dans les priorités du Burkina Faso.' }}</p>
@@ -194,6 +200,7 @@
                 @endforelse
             </div>
         </section>
+        @endif
         @endif
 
         {{-- Newsletter --}}
