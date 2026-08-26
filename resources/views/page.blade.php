@@ -186,6 +186,15 @@
         .governance-legend i { width:11px; height:11px; display:inline-block; border-radius:50%; }
         .governance-legend .legend-pdg { background:#b94040; }
         .governance-legend .legend-dga { background:#e88840; }
+        .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+        .project-card { height:100%; display:flex; flex-direction:column; border-top:4px solid var(--gold); }
+        .project-card h3 { min-height:52px; }
+        .project-card p { margin-top:auto; }
+        .project-card .card-tag { color:var(--red); }
+        .project-map { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; }
+        .project-map-copy { padding:30px; background:#fff; border-left:4px solid var(--gold); border-radius:6px; }
+        .project-map-copy h3 { margin-bottom:10px; }
+        .project-map-copy p { margin:0; }
         .company-overview-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
         .company-overview-grid .card { height:100%; display:flex !important; flex-direction:column; }
         .company-overview-grid .card .btn { margin-top:auto !important; align-self:flex-start; }
@@ -214,6 +223,7 @@
             .governance-chart-heading { display:block; }
             .governance-chart-heading p { text-align:left; margin-top:8px; }
             .company-overview-grid { grid-template-columns:1fr; }
+            .projects-grid, .project-map { grid-template-columns:1fr; }
             .org-level--dga { grid-template-columns:1fr 1fr; }
             .org-hbar { width:calc(50% + 8px); }
             footer { flex-direction:column; gap:12px; text-align:center; }
@@ -648,23 +658,29 @@
         <section id="exploration">
             <h2>{{ __('site.projects_expl_h2', [], $loc) }}</h2>
             <p class="lead">{{ __('site.projects_expl_lead', [], $loc) }}</p>
-            <div class="grid-3">
+            <div class="projects-grid">
                 @foreach(range(1,3) as $i)
-                <div class="card">
+                <article class="card project-card">
                     <div class="card-tag">{{ __('site.projects_card'.$i.'_tag', [], $loc) }}</div>
                     <h3>{{ __('site.projects_card'.$i.'_h3', [], $loc) }}</h3>
                     <p>{!! __('site.projects_card'.$i.'_p', [], $loc) !!}</p>
-                </div>
+                </article>
                 @endforeach
             </div>
         </section>
 
         <section id="permits" class="sand">
             <h2>{{ __('site.projects_map_h2', [], $loc) }}</h2>
-            <div class="permits-placeholder">
-                <div style="font-size:40px; margin-bottom:16px;">🗺️</div>
-                <p style="font-size:16px; font-weight:600; color:var(--green); margin-bottom:8px;">{{ __('site.projects_map_icon_label', [], $loc) }}</p>
-                <p>{{ __('site.projects_map_soon', [], $loc) }}</p>
+            <div class="project-map">
+                <div class="permits-placeholder">
+                    <div style="font-size:40px; margin-bottom:16px;">🗺️</div>
+                    <p style="font-size:16px; font-weight:600; color:var(--green); margin-bottom:8px;">{{ __('site.projects_map_icon_label', [], $loc) }}</p>
+                    <p>{{ __('site.projects_map_soon', [], $loc) }}</p>
+                </div>
+                <div class="project-map-copy">
+                    <h3>{{ __('site.projects_map_context_h3', [], $loc) }}</h3>
+                    <p>{{ __('site.projects_map_context_p', [], $loc) }}</p>
+                </div>
             </div>
         </section>
 
