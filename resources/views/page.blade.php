@@ -472,7 +472,6 @@
             <div class="governance-chart-panel">
                 <div class="governance-chart-heading">
                     <h3>{{ __('site.company_gov_chart_h3', [], $loc) }}</h3>
-                    <p>{{ __('site.company_gov_chart_p', [], $loc) }}</p>
                 </div>
                 <div class="governance-legend">
                     <span><i class="legend-pdg"></i>{{ __('site.company_gov_legend_pdg', [], $loc) }}</span>
