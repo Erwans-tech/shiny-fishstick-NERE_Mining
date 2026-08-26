@@ -485,7 +485,7 @@
              KARMA
         ═══════════════════════════════════════════════════════════ --}}
         @elseif($section === 'karma')
-        <section>
+        <section id="presentation">
             <h2>{{ __('site.karma_pres_h2', [], $loc) }}</h2>
             <p class="lead">{{ __('site.karma_pres_lead', [], $loc) }}</p>
             <div class="grid-2" style="margin-bottom:40px;">
@@ -514,7 +514,7 @@
             </div>
         </section>
 
-        <section class="sand">
+        <section id="exploitation" class="sand">
             <h2>{{ __('site.karma_prod_h2', [], $loc) }}</h2>
             <div class="stat-band">
                 <div class="stat-item"><span class="stat-value">80 koz</span><span class="stat-label">{{ $en ? 'Annual gold production (oz)' : "Production annuelle d'or (onces)" }}</span></div>
@@ -541,7 +541,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="organisation">
             <h2>{{ __('site.karma_org_h2', [], $loc) }}</h2>
             <p class="lead">{{ __('site.karma_org_lead', [], $loc) }}</p>
             <div class="grid-3">
@@ -555,7 +555,7 @@
             </div>
         </section>
 
-        <section class="sand">
+        <section id="modele-operationnel" class="sand">
             <h2>{{ __('site.karma_model_h2', [], $loc) }}</h2>
             <p class="lead">{{ __('site.karma_model_lead', [], $loc) }}</p>
             <div class="steps" style="border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#fff; margin-bottom:40px;">
@@ -569,7 +569,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="impact">
             <h2>{{ __('site.karma_impact_h2', [], $loc) }}</h2>
             <p class="lead">{{ __('site.karma_impact_lead', [], $loc) }}</p>
             <div class="grid-2">
@@ -598,7 +598,7 @@
              NOS PROJETS EN DÉVELOPPEMENT
         ═══════════════════════════════════════════════════════════ --}}
         @elseif($section === 'projects')
-        <section>
+        <section id="exploration">
             <h2>{{ __('site.projects_expl_h2', [], $loc) }}</h2>
             <p class="lead">{{ __('site.projects_expl_lead', [], $loc) }}</p>
             <div class="grid-3">
@@ -612,7 +612,7 @@
             </div>
         </section>
 
-        <section class="sand">
+        <section id="permits" class="sand">
             <h2>{{ __('site.projects_map_h2', [], $loc) }}</h2>
             <div class="permits-placeholder">
                 <div style="font-size:40px; margin-bottom:16px;">🗺️</div>
@@ -621,7 +621,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="partnerships">
             <h2>{{ __('site.projects_join_h2', [], $loc) }}</h2>
             <p class="lead">{{ __('site.projects_join_lead', [], $loc) }}</p>
             <div class="grid-2">

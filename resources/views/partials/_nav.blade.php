@@ -6,6 +6,31 @@
     $isCompany = in_array($sec, ['company','company-ceo','company-identity','company-history','company-values','company-governance']);
 @endphp
 <style>
+/* ── Header public ── */
+.site-header {
+    background: #fff !important;
+    border-bottom: 1px solid var(--line, #eadcc5);
+    box-shadow: 0 4px 18px rgba(40,29,24,.12) !important;
+    min-height: 84px;
+}
+.site-header .logo { width: 230px; }
+.site-header .nav-link {
+    color: var(--green, #4b1716) !important;
+    font-weight: 700;
+    padding: 12px 13px;
+}
+.site-header .nav-link:hover,
+.site-header .nav-link.active {
+    background: var(--sand, #fff4dc) !important;
+    color: var(--green, #4b1716) !important;
+}
+.site-header .nav-link.active { box-shadow: inset 0 -3px 0 var(--gold, #ffc247); }
+.site-header .nav-lang { border-color: var(--green, #4b1716); }
+.site-header .menu-btn {
+    border-color: var(--green, #4b1716);
+    color: var(--green, #4b1716);
+}
+
 /* ── Dropdown nav — robuste sans gap ── */
 .nav-dropdown { position: relative; }
 
@@ -72,7 +97,7 @@
 }
 </style>
 
-<header>
+<header class="site-header">
     <a class="logo" href="{{ $en ? route('english') : url('/') }}">
         <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining">
     </a>
@@ -103,15 +128,31 @@
             </div>
         </span>
 
-        <a class="nav-link {{ $sec === 'karma' ? 'active' : '' }}"
-           href="{{ $en ? route('english.karma') : route('karma') }}">
-            {{ __('site.nav_karma') }}
-        </a>
+        <span class="nav-dropdown" data-dropdown>
+            <a class="nav-link {{ $sec === 'karma' ? 'active' : '' }}"
+               href="{{ $en ? route('english.karma') : route('karma') }}">
+                {{ __('site.nav_karma') }}
+            </a>
+            <div class="dropdown-menu" role="menu">
+                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#presentation' }}">{{ __('site.nav_karma_presentation') }}</a>
+                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#exploitation' }}">{{ __('site.nav_karma_operations') }}</a>
+                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#organisation' }}">{{ __('site.nav_karma_organisation') }}</a>
+                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#modele-operationnel' }}">{{ __('site.nav_karma_model') }}</a>
+                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#impact' }}">{{ __('site.nav_karma_impact') }}</a>
+            </div>
+        </span>
 
-        <a class="nav-link {{ $sec === 'projects' ? 'active' : '' }}"
-           href="{{ $en ? route('english.projects') : route('projects') }}">
-            {{ __('site.nav_projects') }}
-        </a>
+        <span class="nav-dropdown" data-dropdown>
+            <a class="nav-link {{ $sec === 'projects' ? 'active' : '' }}"
+               href="{{ $en ? route('english.projects') : route('projects') }}">
+                {{ __('site.nav_projects') }}
+            </a>
+            <div class="dropdown-menu" role="menu">
+                <a href="{{ ($en ? route('english.projects') : route('projects')) . '#exploration' }}">{{ __('site.nav_projects_exploration') }}</a>
+                <a href="{{ ($en ? route('english.projects') : route('projects')) . '#permits' }}">{{ __('site.nav_projects_permits') }}</a>
+                <a href="{{ ($en ? route('english.projects') : route('projects')) . '#partnerships' }}">{{ __('site.nav_projects_join') }}</a>
+            </div>
+        </span>
 
         {{-- Développement durable --}}
         <span class="nav-dropdown" data-dropdown>
