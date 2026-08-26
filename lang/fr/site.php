@@ -360,6 +360,13 @@ return [
     'karma_standards_h3' => 'Une exigence de conformité au quotidien',
     'karma_standards_p'  => "La performance de Karma repose sur la discipline opérationnelle, la prévention des risques et l'amélioration continue de nos pratiques.",
     'karma_cil_link'     => 'Voir le projet CIL',
+    'karma_cil_tag'       => 'Projet industriel',
+    'karma_cil_title'     => 'Un circuit pensé pour Karma',
+    'karma_cil_intro'     => "L'emplacement de l'usine CIL a été choisi à proximité d'infrastructures existantes afin de réduire considérablement les coûts opérationnels et de faciliter l'intégration et l'optimisation du traitement.",
+    'karma_cil_asset1'    => 'Ancien concasseur',
+    'karma_cil_asset2'    => 'Plateformes de lixiviation',
+    'karma_cil_asset3'    => "Circuit d'élution",
+    'karma_cil_asset4'    => "Salle d'or",
 
     'karma_imp_jobs_h3'   => 'Emploi',
     'karma_imp_job1_tag'  => 'Emplois directs',

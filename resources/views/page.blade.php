@@ -169,6 +169,14 @@
         .karma-standards { margin-top:28px; padding:24px 28px; border-left:4px solid var(--gold); background:#fff; border-radius:6px; }
         .karma-standards h3 { margin-bottom:8px; }
         .karma-standards p { margin:0; }
+        .cil-feature { display:grid; grid-template-columns:.8fr 1.2fr; gap:28px; align-items:stretch; margin-top:30px; }
+        .cil-feature-label { padding:30px; background:var(--green); color:#fff; border-radius:6px; border-left:5px solid var(--gold); }
+        .cil-feature-label .card-tag { color:var(--gold); }
+        .cil-feature-label h3 { color:#fff; font-size:28px; margin:0; }
+        .cil-feature-copy { padding:28px; background:#fff; border:1px solid var(--line); border-radius:6px; }
+        .cil-feature-copy p { margin-bottom:16px; }
+        .cil-assets { display:flex; flex-wrap:wrap; gap:8px; list-style:none; }
+        .cil-assets li { padding:8px 12px; background:var(--sand); color:var(--green); font:600 12px Inter,sans-serif; border-radius:4px; }
         .org-branch { display:flex; flex-direction:column; align-items:center; }
         .org-connector-branch { width:2px; height:36px; background:#333; }
         .org-hbar { width:calc(75% + 8px); height:2px; background:#333; margin:0 auto; }
@@ -217,6 +225,7 @@
             .governance-chart-heading { display:block; }
             .governance-chart-heading p { text-align:left; margin-top:8px; }
             .company-overview-grid { grid-template-columns:1fr; }
+            .cil-feature { grid-template-columns:1fr; }
             .org-level--dga { grid-template-columns:1fr 1fr; }
             .org-hbar { width:calc(50% + 8px); }
             footer { flex-direction:column; gap:12px; text-align:center; }
@@ -625,6 +634,23 @@
             <div class="karma-standards">
                 <h3>{{ __('site.karma_standards_h3', [], $loc) }}</h3>
                 <p>{{ __('site.karma_standards_p', [], $loc) }}</p>
+            </div>
+            <div id="projet-cil" class="cil-feature">
+                <div class="cil-feature-label">
+                    <div class="card-tag">{{ __('site.karma_cil_tag', [], $loc) }}</div>
+                    <h3>{{ __('site.karma_cil_title', [], $loc) }}</h3>
+                </div>
+                <div class="cil-feature-copy">
+                    <p>{{ __('site.karma_cil_intro', [], $loc) }}</p>
+                    <ul class="cil-assets">
+                        @foreach(range(1,4) as $i)
+                        <li>{{ __('site.karma_cil_asset'.$i, [], $loc) }}</li>
+                        @endforeach
+                    </ul>
+                    <a class="btn btn-outline" href="https://www.nere-mining.bf/projet-cil/" target="_blank" rel="noopener" style="margin-top:20px;">
+                        {{ __('site.karma_cil_link', [], $loc) }}
+                    </a>
+                </div>
             </div>
         </section>
 

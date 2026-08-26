@@ -360,6 +360,13 @@ return [
     'karma_standards_h3' => 'Compliance as a daily discipline',
     'karma_standards_p'  => 'Karma performance depends on operational discipline, risk prevention and continuous improvement of our practices.',
     'karma_cil_link'     => 'View the CIL project',
+    'karma_cil_tag'       => 'Industrial project',
+    'karma_cil_title'     => 'A circuit designed for Karma',
+    'karma_cil_intro'     => 'The CIL plant location was selected near existing infrastructure to significantly reduce operating costs and facilitate the integration and optimisation of the processing circuit.',
+    'karma_cil_asset1'    => 'Former crusher',
+    'karma_cil_asset2'    => 'Leach pads',
+    'karma_cil_asset3'    => 'Elution circuit',
+    'karma_cil_asset4'    => 'Gold room',
 
     'karma_imp_jobs_h3'   => 'Employment',
     'karma_imp_job1_tag'  => 'Direct jobs',
