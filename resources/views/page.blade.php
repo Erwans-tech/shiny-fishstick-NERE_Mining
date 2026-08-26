@@ -186,6 +186,9 @@
         .governance-legend i { width:11px; height:11px; display:inline-block; border-radius:50%; }
         .governance-legend .legend-pdg { background:#b94040; }
         .governance-legend .legend-dga { background:#e88840; }
+        .company-overview-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+        .company-overview-grid .card { height:100%; display:flex !important; flex-direction:column; }
+        .company-overview-grid .card .btn { margin-top:auto !important; align-self:flex-start; }
 
         /* ── Footer ── */
         footer { padding:32px 5vw; background:#351312; color:#eadcca; display:flex; justify-content:space-between; align-items:center; font:12px Inter,sans-serif; }
@@ -210,6 +213,7 @@
             .governance-principles { grid-template-columns:1fr; }
             .governance-chart-heading { display:block; }
             .governance-chart-heading p { text-align:left; margin-top:8px; }
+            .company-overview-grid { grid-template-columns:1fr; }
             .org-level--dga { grid-template-columns:1fr 1fr; }
             .org-hbar { width:calc(50% + 8px); }
             footer { flex-direction:column; gap:12px; text-align:center; }
@@ -261,7 +265,7 @@
                 <a href="{{ $en ? route('english.company.governance') : route('company.governance') }}">{{ __('site.subnav_company_governance', [], $loc) }}</a>
             </div>
             <p class="lead">{{ __('site.company_identity_lead', [], $loc) }}</p>
-            <div class="grid-2">
+            <div class="company-overview-grid">
                 <a href="{{ $en ? route('english.company.ceo') : route('company.ceo') }}" class="card" style="display:block;">
                     <div class="card-tag">01</div>
                     <h3>{{ __('site.subnav_company_ceo', [], $loc) }}</h3>
@@ -286,9 +290,7 @@
                     <p>{{ __('site.company_vision_lead', [], $loc) }}</p>
                     <span class="btn btn-outline" style="margin-top:16px; display:inline-block;">{{ __('site.discover', [], $loc) }}</span>
                 </a>
-            </div>
-            <div style="margin-top:22px;">
-                <a href="{{ $en ? route('english.company.governance') : route('company.governance') }}" class="card" style="display:block; max-width:480px;">
+                <a href="{{ $en ? route('english.company.governance') : route('company.governance') }}" class="card">
                     <div class="card-tag">05</div>
                     <h3>{{ __('site.subnav_company_governance', [], $loc) }}</h3>
                     <p>{{ __('site.company_gov_lead', [], $loc) }}</p>
