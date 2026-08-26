@@ -6,7 +6,6 @@ services:
     repo: https://github.com/Erwans-tech/shiny-fishstick-NERE_Mining
     branch: main
     dockerfilePath: ./Dockerfile
-    region: oregon
     healthCheckPath: /up
     plan: free
 
@@ -29,19 +28,19 @@ services:
       - key: APP_FALLBACK_LOCALE
         value: fr
 
-      # PostgreSQL — base native Render (free tier compatible)
+      # MySQL externe — renseigner ces valeurs dans Render
       - key: DB_CONNECTION
-        value: pgsql
-      - key: DB_URL
-        fromDatabase:
-          name: nere-mining-db
-          property: connectionString
-      - key: DATABASE_URL
-        fromDatabase:
-          name: nere-mining-db
-          property: connectionString
-      - key: DB_SSLMODE
-        value: prefer
+        value: mysql
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
 
       # Session & cache fichier (pas de Redis en free)
       - key: SESSION_DRIVER
@@ -69,10 +68,3 @@ services:
       - key: LOG_LEVEL
         value: error
 
-# ── Base de données PostgreSQL native Render (free tier) ────────
-databases:
-  - name: nere-mining-db
-    plan: free
-    region: oregon
-    databaseName: nere_mining
-    user: nere_user

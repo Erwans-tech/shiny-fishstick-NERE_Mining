@@ -15,8 +15,8 @@ php artisan cache:clear   2>/dev/null || true
 php artisan view:clear    2>/dev/null || true
 php artisan route:clear   2>/dev/null || true
 
-# ── 3. Attendre PostgreSQL ───────────────────────────────────
-echo "[INFO] Attente de la base de donnees PostgreSQL..."
+# ── 3. Attendre MySQL ────────────────────────────────────────
+echo "[INFO] Attente de la base de donnees MySQL..."
 MAX=40
 i=0
 until php artisan db:show --no-interaction; do

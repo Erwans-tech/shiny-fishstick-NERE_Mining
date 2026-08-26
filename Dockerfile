@@ -14,11 +14,9 @@ RUN apk add --no-cache \
     libjpeg-turbo-dev \
     libwebp-dev \
     freetype-dev \
-    oniguruma-dev \
-    libxml2-dev \
-        icu-dev \
-    postgresql-client \
-    libpq-dev
+        oniguruma-dev \
+        libxml2-dev \
+        icu-dev
 
 # ── Extensions PHP ───────────────────────────────────────────
 RUN docker-php-ext-configure gd \
@@ -27,8 +25,7 @@ RUN docker-php-ext-configure gd \
         --with-webp \
  && docker-php-ext-install \
         pdo \
-        pdo_pgsql \
-        pgsql \
+        pdo_mysql \
         mbstring \
         exif \
         pcntl \
@@ -41,7 +38,6 @@ RUN docker-php-ext-configure gd \
 # ── Composer ─────────────────────────────────────────────────
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
-# ── Répertoire de travail ────────────────────────────────────
 WORKDIR /var/www/html
 
 # ── Dépendances Composer (layer mis en cache) ────────────────
