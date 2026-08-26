@@ -6,6 +6,7 @@ services:
     repo: https://github.com/Erwans-tech/shiny-fishstick-NERE_Mining
     branch: main
     dockerfilePath: ./Dockerfile
+    region: oregon
     healthCheckPath: /up
     plan: free
 
@@ -39,6 +40,8 @@ services:
         fromDatabase:
           name: nere-mining-db
           property: connectionString
+      - key: DB_SSLMODE
+        value: prefer
 
       # Session & cache fichier (pas de Redis en free)
       - key: SESSION_DRIVER
@@ -70,5 +73,6 @@ services:
 databases:
   - name: nere-mining-db
     plan: free
+    region: oregon
     databaseName: nere_mining
     user: nere_user

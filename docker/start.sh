@@ -19,7 +19,10 @@ php artisan route:clear   2>/dev/null || true
 echo "[INFO] Attente de la base de donnees PostgreSQL..."
 MAX=40
 i=0
-until php artisan db:show --no-interaction > /dev/null 2>&1 || [ $i -ge $MAX ]; do
+until php artisan db:show --no-interaction; do
+    if [ $i -ge $MAX ]; then
+        break
+    fi
     echo "  Tentative $((i+1))/$MAX..."
     sleep 3
     i=$((i+1))
