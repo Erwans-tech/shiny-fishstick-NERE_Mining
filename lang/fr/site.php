@@ -354,11 +354,12 @@ return [
     'karma_step2_h4' => 'Traitement',
     'karma_step2_p'  => "Concassage, broyage, lixiviation et affinage : chaque étape est suivie pour maîtriser la qualité et les taux de récupération.",
     'karma_step3_h4' => 'Projet CIL',
-    'karma_step3_p'  => "Le projet Carbon-in-Leach vise à renforcer le circuit de traitement et à améliorer progressivement les performances de récupération de l'or.",
+    'karma_step3_p'  => "Le projet Carbon-in-Leach s'appuie sur des infrastructures existantes : ancien concasseur, plateformes de lixiviation, circuit d'élution et salle d'or. Cette proximité doit faciliter l'intégration du circuit et réduire les coûts opérationnels.",
     'karma_step4_h4' => 'Standards et certifications',
     'karma_step4_p'  => "Des procédures HSE, des contrôles opérationnels, des audits et le respect des exigences réglementaires encadrent nos activités.",
     'karma_standards_h3' => 'Une exigence de conformité au quotidien',
     'karma_standards_p'  => "La performance de Karma repose sur la discipline opérationnelle, la prévention des risques et l'amélioration continue de nos pratiques.",
+    'karma_cil_link'     => 'Voir le projet CIL',
 
     'karma_imp_jobs_h3'   => 'Emploi',
     'karma_imp_job1_tag'  => 'Emplois directs',

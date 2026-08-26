@@ -614,6 +614,11 @@
                     <div class="step-num">0{{ $i }}</div>
                     <h4>{{ __('site.karma_step'.$i.'_h4', [], $loc) }}</h4>
                     <p>{{ __('site.karma_step'.$i.'_p', [], $loc) }}</p>
+                    @if($i === 3)
+                    <a class="btn btn-outline" href="https://www.nere-mining.bf/projet-cil/" target="_blank" rel="noopener">
+                        {{ __('site.karma_cil_link', [], $loc) }}
+                    </a>
+                    @endif
                 </div>
                 @endforeach
             </div>

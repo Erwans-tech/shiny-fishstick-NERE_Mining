@@ -354,11 +354,12 @@ return [
     'karma_step2_h4' => 'Processing',
     'karma_step2_p'  => 'Crushing, grinding, leaching and refining, with each stage monitored for quality and recovery rates.',
     'karma_step3_h4' => 'CIL project',
-    'karma_step3_p'  => 'The Carbon-in-Leach project aims to strengthen the processing circuit and progressively improve recovery performance.',
+    'karma_step3_p'  => 'The Carbon-in-Leach project builds on existing infrastructure: the former crusher, leach pads, elution circuit and gold room. This proximity should facilitate circuit integration and reduce operating costs.',
     'karma_step4_h4' => 'Standards and certifications',
     'karma_step4_p'  => 'HSE procedures, operational controls, audits and regulatory requirements provide the framework for our activities.',
     'karma_standards_h3' => 'Compliance as a daily discipline',
     'karma_standards_p'  => 'Karma performance depends on operational discipline, risk prevention and continuous improvement of our practices.',
+    'karma_cil_link'     => 'View the CIL project',
 
     'karma_imp_jobs_h3'   => 'Employment',
     'karma_imp_job1_tag'  => 'Direct jobs',
