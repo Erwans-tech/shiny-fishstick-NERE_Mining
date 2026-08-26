@@ -8,14 +8,17 @@
 <style>
 /* ── Header public ── */
 .site-header {
-    background: var(--green, #4b1716) !important;
-    border-bottom: 3px solid var(--gold, #ffc247);
+    background: rgba(75,23,22,.78) !important;
+    border: 1px solid rgba(255,255,255,.18);
+    border-bottom: 3px solid rgba(255,194,71,.82);
     box-shadow: 0 4px 18px rgba(40,29,24,.24) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     min-height: 84px;
 }
 .site-header .logo {
     width: 230px;
-    background: #fff;
+    background: rgba(255,255,255,.94);
     padding: 4px 10px;
 }
 .site-header .nav-link {
