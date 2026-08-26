@@ -166,6 +166,9 @@
         .org-connector-v { width:2px; height:40px; background:#333; }
         .org-connector-h-wrap { display:flex; align-items:flex-start; justify-content:center; width:100%; position:relative; }
         .org-level--dga { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; width:100%; }
+        .karma-standards { margin-top:28px; padding:24px 28px; border-left:4px solid var(--gold); background:#fff; border-radius:6px; }
+        .karma-standards h3 { margin-bottom:8px; }
+        .karma-standards p { margin:0; }
         .org-branch { display:flex; flex-direction:column; align-items:center; }
         .org-connector-branch { width:2px; height:36px; background:#333; }
         .org-hbar { width:calc(75% + 8px); height:2px; background:#333; margin:0 auto; }
@@ -614,6 +617,10 @@
                 </div>
                 @endforeach
             </div>
+            <div class="karma-standards">
+                <h3>{{ __('site.karma_standards_h3', [], $loc) }}</h3>
+                <p>{{ __('site.karma_standards_p', [], $loc) }}</p>
+            </div>
         </section>
 
         <section id="impact">
@@ -631,7 +638,7 @@
                 </div>
                 <div>
                     <h3>{{ __('site.karma_imp_eco_h3', [], $loc) }}</h3>
-                    @foreach(range(1,3) as $i)
+                    @foreach(range(1,4) as $i)
                     <div class="card" style="margin-bottom:14px;">
                         <div class="card-tag">{{ __('site.karma_imp_eco'.$i.'_tag', [], $loc) }}</div>
                         <p>{{ __('site.karma_imp_eco'.$i.'_p', [], $loc) }}</p>
