@@ -169,6 +169,23 @@
         .org-branch { display:flex; flex-direction:column; align-items:center; }
         .org-connector-branch { width:2px; height:36px; background:#333; }
         .org-hbar { width:calc(75% + 8px); height:2px; background:#333; margin:0 auto; }
+        .governance-intro { display:grid; grid-template-columns:1.2fr .8fr; gap:30px; align-items:stretch; margin:36px 0 48px; }
+        .governance-callout { padding:32px; background:var(--green); border-left:5px solid var(--gold); border-radius:6px; }
+        .governance-callout h3 { color:#fff; font-size:26px; margin-bottom:12px; }
+        .governance-callout p { color:rgba(255,255,255,.75); margin:0; }
+        .governance-principles { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .governance-principle { padding:22px; background:#fff; border-top:3px solid var(--gold); border-radius:5px; box-shadow:0 3px 14px rgba(40,29,24,.07); }
+        .governance-principle strong { display:block; color:var(--green); font:600 14px/1.3 Inter,sans-serif; margin-bottom:8px; }
+        .governance-principle span { color:var(--muted); font:13px/1.55 Inter,sans-serif; }
+        .governance-chart-panel { padding:34px 28px 18px; background:var(--sand); border:1px solid var(--line); border-radius:8px; }
+        .governance-chart-heading { display:flex; justify-content:space-between; gap:20px; align-items:end; margin-bottom:8px; }
+        .governance-chart-heading h3 { margin:0; }
+        .governance-chart-heading p { margin:0; text-align:right; font-size:12px; }
+        .governance-legend { display:flex; justify-content:center; gap:22px; flex-wrap:wrap; padding:0 0 18px; color:var(--muted); font:12px Inter,sans-serif; }
+        .governance-legend span { display:flex; align-items:center; gap:7px; }
+        .governance-legend i { width:11px; height:11px; display:inline-block; border-radius:50%; }
+        .governance-legend .legend-pdg { background:#b94040; }
+        .governance-legend .legend-dga { background:#e88840; }
 
         /* ── Footer ── */
         footer { padding:32px 5vw; background:#351312; color:#eadcca; display:flex; justify-content:space-between; align-items:center; font:12px Inter,sans-serif; }
@@ -189,6 +206,10 @@
             .step::after { display:none; }
             .step { border-right:0; border-bottom:1px solid var(--line); }
             .pdg-block { grid-template-columns:1fr; padding:32px; gap:24px; }
+            .governance-intro { grid-template-columns:1fr; }
+            .governance-principles { grid-template-columns:1fr; }
+            .governance-chart-heading { display:block; }
+            .governance-chart-heading p { text-align:left; margin-top:8px; }
             .org-level--dga { grid-template-columns:1fr 1fr; }
             .org-hbar { width:calc(50% + 8px); }
             footer { flex-direction:column; gap:12px; text-align:center; }
@@ -433,7 +454,31 @@
             <h2>{{ __('site.company_gov_h2', [], $loc) }}</h2>
             <p class="lead">{{ __('site.company_gov_lead', [], $loc) }}</p>
 
-            <div class="org-chart">
+            <div class="governance-intro">
+                <div class="governance-callout">
+                    <h3>{{ __('site.company_gov_callout_h3', [], $loc) }}</h3>
+                    <p>{{ __('site.company_gov_callout_p', [], $loc) }}</p>
+                </div>
+                <div class="governance-principles">
+                    @foreach(range(1,3) as $i)
+                    <div class="governance-principle">
+                        <strong>{{ __('site.company_gov_principle'.$i.'_title', [], $loc) }}</strong>
+                        <span>{{ __('site.company_gov_principle'.$i.'_p', [], $loc) }}</span>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="governance-chart-panel">
+                <div class="governance-chart-heading">
+                    <h3>{{ __('site.company_gov_chart_h3', [], $loc) }}</h3>
+                    <p>{{ __('site.company_gov_chart_p', [], $loc) }}</p>
+                </div>
+                <div class="governance-legend">
+                    <span><i class="legend-pdg"></i>{{ __('site.company_gov_legend_pdg', [], $loc) }}</span>
+                    <span><i class="legend-dga"></i>{{ __('site.company_gov_legend_dga', [], $loc) }}</span>
+                </div>
+                <div class="org-chart">
                 {{-- PDG --}}
                 <div class="org-level org-level--top">
                     <div class="org-box org-box--pdg">
@@ -477,6 +522,7 @@
                             <div class="org-title">{{ $en ? 'Operations' : 'Opérations' }}</div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </section>
