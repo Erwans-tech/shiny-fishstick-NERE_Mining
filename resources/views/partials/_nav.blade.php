@@ -8,27 +8,31 @@
 <style>
 /* ── Header public ── */
 .site-header {
-    background: #fff !important;
-    border-bottom: 1px solid var(--line, #eadcc5);
-    box-shadow: 0 4px 18px rgba(40,29,24,.12) !important;
+    background: var(--green, #4b1716) !important;
+    border-bottom: 3px solid var(--gold, #ffc247);
+    box-shadow: 0 4px 18px rgba(40,29,24,.24) !important;
     min-height: 84px;
 }
-.site-header .logo { width: 230px; }
+.site-header .logo {
+    width: 230px;
+    background: #fff;
+    padding: 4px 10px;
+}
 .site-header .nav-link {
-    color: var(--green, #4b1716) !important;
+    color: rgba(255,255,255,.92) !important;
     font-weight: 700;
     padding: 12px 13px;
 }
 .site-header .nav-link:hover,
 .site-header .nav-link.active {
-    background: var(--sand, #fff4dc) !important;
-    color: var(--green, #4b1716) !important;
+    background: rgba(255,194,71,.16) !important;
+    color: var(--gold, #ffc247) !important;
 }
 .site-header .nav-link.active { box-shadow: inset 0 -3px 0 var(--gold, #ffc247); }
-.site-header .nav-lang { border-color: var(--green, #4b1716); }
+.site-header .nav-lang { border-color: rgba(255,194,71,.7); color: var(--gold, #ffc247) !important; }
 .site-header .menu-btn {
-    border-color: var(--green, #4b1716);
-    color: var(--green, #4b1716);
+    border-color: rgba(255,194,71,.7);
+    color: var(--gold, #ffc247);
 }
 
 /* ── Dropdown nav — robuste sans gap ── */
