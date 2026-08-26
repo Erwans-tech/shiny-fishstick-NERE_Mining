@@ -669,21 +669,6 @@
             </div>
         </section>
 
-        <section id="permits" class="sand">
-            <h2>{{ __('site.projects_map_h2', [], $loc) }}</h2>
-            <div class="project-map">
-                <div class="permits-placeholder">
-                    <div style="font-size:40px; margin-bottom:16px;">🗺️</div>
-                    <p style="font-size:16px; font-weight:600; color:var(--green); margin-bottom:8px;">{{ __('site.projects_map_icon_label', [], $loc) }}</p>
-                    <p>{{ __('site.projects_map_soon', [], $loc) }}</p>
-                </div>
-                <div class="project-map-copy">
-                    <h3>{{ __('site.projects_map_context_h3', [], $loc) }}</h3>
-                    <p>{{ __('site.projects_map_context_p', [], $loc) }}</p>
-                </div>
-            </div>
-        </section>
-
         <section id="partnerships">
             <h2>{{ __('site.projects_join_h2', [], $loc) }}</h2>
             <p class="lead">{{ __('site.projects_join_lead', [], $loc) }}</p>

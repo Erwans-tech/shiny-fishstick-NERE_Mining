@@ -124,7 +124,6 @@
             </a>
             <div class="dropdown-menu" role="menu">
                 <a href="{{ ($en ? route('english.projects') : route('projects')) . '#exploration' }}">{{ __('site.nav_projects_exploration') }}</a>
-                <a href="{{ ($en ? route('english.projects') : route('projects')) . '#permits' }}">{{ __('site.nav_projects_permits') }}</a>
                 <a href="{{ ($en ? route('english.projects') : route('projects')) . '#partnerships' }}">{{ __('site.nav_projects_join') }}</a>
             </div>
         </span>
