@@ -6,38 +6,6 @@
     $isCompany = in_array($sec, ['company','company-ceo','company-identity','company-history','company-values','company-governance']);
 @endphp
 <style>
-/* ── Header public ── */
-.site-header {
-    background: rgba(75,23,22,.78) !important;
-    border: 1px solid rgba(255,255,255,.18);
-    border-bottom: 3px solid rgba(255,194,71,.82);
-    box-shadow: 0 4px 18px rgba(40,29,24,.24) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    min-height: 84px;
-}
-.site-header .logo {
-    width: 230px;
-    background: rgba(255,255,255,.94);
-    padding: 4px 10px;
-}
-.site-header .nav-link {
-    color: rgba(255,255,255,.92) !important;
-    font-weight: 700;
-    padding: 12px 13px;
-}
-.site-header .nav-link:hover,
-.site-header .nav-link.active {
-    background: rgba(255,194,71,.16) !important;
-    color: var(--gold, #ffc247) !important;
-}
-.site-header .nav-link.active { box-shadow: inset 0 -3px 0 var(--gold, #ffc247); }
-.site-header .nav-lang { border-color: rgba(255,194,71,.7); color: var(--gold, #ffc247) !important; }
-.site-header .menu-btn {
-    border-color: rgba(255,194,71,.7);
-    color: var(--gold, #ffc247);
-}
-
 /* ── Dropdown nav — robuste sans gap ── */
 .nav-dropdown { position: relative; }
 
@@ -104,7 +72,7 @@
 }
 </style>
 
-<header class="site-header">
+<header>
     <a class="logo" href="{{ $en ? route('english') : url('/') }}">
         <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining">
     </a>
