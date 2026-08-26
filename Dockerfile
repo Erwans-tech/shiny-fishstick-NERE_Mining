@@ -16,6 +16,7 @@ RUN apk add --no-cache \
     freetype-dev \
     oniguruma-dev \
     libxml2-dev \
+        icu-dev \
     postgresql-client \
     libpq-dev
 
@@ -32,6 +33,7 @@ RUN docker-php-ext-configure gd \
         exif \
         pcntl \
         bcmath \
+        intl \
         gd \
         xml \
         opcache
