@@ -157,15 +157,15 @@
         .org-chart { display:flex; flex-direction:column; align-items:center; padding:20px 0 40px; }
         .org-level { display:flex; justify-content:center; width:100%; }
         .org-level--top { margin-bottom:0; }
-        .org-box { padding:18px 28px; border-radius:10px; text-align:center; min-width:220px; max-width:300px; }
+        .org-box { width:100%; min-width:0; padding:18px 14px; border-radius:10px; text-align:center; max-width:300px; }
         .org-box--pdg { background:#b94040; color:#fff; box-shadow:0 4px 16px rgba(180,40,40,.25); }
         .org-box--dga { background:#e88840; color:#fff; box-shadow:0 4px 14px rgba(230,130,50,.22); }
         .org-name { font:700 14px/1.3 Inter,sans-serif; margin-bottom:5px; }
         .org-grade { font:600 12px Inter,sans-serif; opacity:.85; margin-bottom:3px; }
-        .org-title { font:400 13px/1.35 Inter,sans-serif; opacity:.92; }
+        .org-title { font:400 13px/1.35 Inter,sans-serif; opacity:.92; overflow-wrap:anywhere; }
         .org-connector-v { width:2px; height:40px; background:#333; }
         .org-connector-h-wrap { display:flex; align-items:flex-start; justify-content:center; width:100%; position:relative; }
-        .org-level--dga { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; width:100%; }
+        .org-level--dga { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; width:100%; }
         .org-branch { display:flex; flex-direction:column; align-items:center; }
         .org-connector-branch { width:2px; height:36px; background:#333; }
         .org-hbar { width:calc(75% + 8px); height:2px; background:#333; margin:0 auto; }
@@ -495,7 +495,7 @@
                         <div class="org-box org-box--dga">
                             <div class="org-name">Justin SAVADOGO</div>
                             <div class="org-grade">{{ $en ? 'Deputy CEO' : 'DGA' }}</div>
-                            <div class="org-title">{{ $en ? 'Administration &amp; Finance' : 'Administration &amp; Finance' }}</div>
+                            <div class="org-title">{{ $en ? 'Administration & Finance' : 'Administration & Finance' }}</div>
                         </div>
                     </div>
                     <div class="org-branch">
@@ -503,7 +503,7 @@
                         <div class="org-box org-box--dga">
                             <div class="org-name">Pascal Y. OUEDRAOGO</div>
                             <div class="org-grade">{{ $en ? 'Deputy CEO' : 'DGA' }}</div>
-                            <div class="org-title">{{ $en ? 'Supply &amp; Procurement' : 'Approvisionnements' }}</div>
+                            <div class="org-title">{{ $en ? 'Supply & Procurement' : 'Approvisionnements' }}</div>
                         </div>
                     </div>
                     <div class="org-branch">
@@ -511,7 +511,7 @@
                         <div class="org-box org-box--dga">
                             <div class="org-name">Laurent Michel DABIRE</div>
                             <div class="org-grade">{{ $en ? 'Deputy CEO' : 'DGA' }}</div>
-                            <div class="org-title">{{ $en ? 'Corporate &amp; Legal Affairs' : 'Affaires Corporatives &amp; Juridiques' }}</div>
+                            <div class="org-title">{{ $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques' }}</div>
                         </div>
                     </div>
                     <div class="org-branch">
