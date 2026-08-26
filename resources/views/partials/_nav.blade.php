@@ -72,11 +72,6 @@
 }
 </style>
 
-<div class="topbar">
-    <span>{{ __('site.topbar_left') }}</span>
-    <span>{{ __('site.topbar_right') }}</span>
-</div>
-
 <header>
     <a class="logo" href="{{ $en ? route('english') : url('/') }}">
         <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining">
