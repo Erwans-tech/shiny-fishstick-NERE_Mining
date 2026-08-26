@@ -72,13 +72,13 @@
             <div class="card-header"><h2>Pièces jointes</h2></div>
             <div class="card-body" style="display:flex;gap:14px;flex-wrap:wrap;">
                 @if($application->cv_path)
-                <a href="{{ asset('uploads/'.$application->cv_path) }}" target="_blank"
+                <a href="{{ route('admin.applications.cv', $application) }}" target="_blank"
                    class="btn btn-gold" style="display:inline-flex;align-items:center;gap:8px;">
                     📎 Télécharger le CV
                 </a>
                 @endif
                 @if($application->cover_letter_path)
-                <a href="{{ asset('uploads/'.$application->cover_letter_path) }}" target="_blank"
+                <a href="{{ route('admin.applications.cover-letter', $application) }}" target="_blank"
                    class="btn btn-ghost" style="display:inline-flex;align-items:center;gap:8px;">
                     📄 Lettre de motivation
                 </a>

@@ -4,6 +4,7 @@ use App\Models\News;
 use App\Models\ContactMessage;
 use App\Models\JobOffer;
 use App\Models\MediaAsset;
+use App\Models\NewsletterSubscriber;
 use App\Models\Partner;
 use App\Models\PressDocument;
 use App\Models\Report;
@@ -213,6 +214,10 @@ Route::get('/en/reports',  fn() => redirect()->route('english.reports', status: 
 */
 Route::post('/newsletter', function (Request $request) {
     $request->validate(['email' => ['required', 'email', 'max:180']]);
+    NewsletterSubscriber::firstOrCreate(
+        ['email' => strtolower(trim($request->string('email')->toString()))],
+        ['subscribed_at' => now()],
+    );
     $msg = App::getLocale() === 'en'
         ? 'Thank you. Your newsletter subscription is confirmed.'
         : 'Merci. Votre inscription à la newsletter est confirmée.';
@@ -222,6 +227,10 @@ Route::post('/newsletter', function (Request $request) {
 Route::post('/en/newsletter', function (Request $request) {
     App::setLocale('en');
     $request->validate(['email' => ['required', 'email', 'max:180']]);
+    NewsletterSubscriber::firstOrCreate(
+        ['email' => strtolower(trim($request->string('email')->toString()))],
+        ['subscribed_at' => now()],
+    );
     return back()->with('success', 'Thank you. Your newsletter subscription is confirmed.');
 })->name('english.newsletter.store');
 
@@ -337,6 +346,8 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         // Candidatures
         Route::get('/candidatures',                              [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'index'])->name('applications.index');
         Route::get('/candidatures/{application}',                [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'show'])->name('applications.show');
+        Route::get('/candidatures/{application}/cv',             [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'downloadCv'])->name('applications.cv');
+        Route::get('/candidatures/{application}/lettre',         [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'downloadCoverLetter'])->name('applications.cover-letter');
         Route::patch('/candidatures/{application}/statut',       [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'updateStatus'])->name('applications.status');
         Route::delete('/candidatures/{application}',             [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'destroy'])->name('applications.destroy');
 

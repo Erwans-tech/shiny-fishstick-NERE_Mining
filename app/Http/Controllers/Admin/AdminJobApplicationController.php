@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\JobApplication;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminJobApplicationController extends Controller
 {
@@ -39,6 +40,20 @@ class AdminJobApplicationController extends Controller
         ]);
     }
 
+    public function downloadCv(JobApplication $application)
+    {
+        abort_unless($application->cv_path, 404);
+
+        return response()->download(Storage::disk('private')->path($application->cv_path));
+    }
+
+    public function downloadCoverLetter(JobApplication $application)
+    {
+        abort_unless($application->cover_letter_path, 404);
+
+        return response()->download(Storage::disk('private')->path($application->cover_letter_path));
+    }
+
     public function updateStatus(Request $request, JobApplication $application)
     {
         $request->validate([
@@ -58,10 +73,10 @@ class AdminJobApplicationController extends Controller
     {
         // Supprimer les fichiers liés
         if ($application->cv_path) {
-            \Storage::disk('public')->delete($application->cv_path);
+            Storage::disk('private')->delete($application->cv_path);
         }
         if ($application->cover_letter_path) {
-            \Storage::disk('public')->delete($application->cover_letter_path);
+            Storage::disk('private')->delete($application->cover_letter_path);
         }
 
         $application->delete();

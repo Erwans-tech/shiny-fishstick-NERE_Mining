@@ -110,11 +110,11 @@ class JobOfferController extends Controller
         $data['job_offer_id'] = $job->id;
 
         if ($request->hasFile('cv')) {
-            $data['cv_path'] = $request->file('cv')->store('applications/cv', 'public');
+            $data['cv_path'] = $request->file('cv')->store('applications/cv', 'private');
         }
         if ($request->hasFile('cover_letter_file')) {
             $data['cover_letter_path'] = $request->file('cover_letter_file')
-                ->store('applications/cover', 'public');
+                ->store('applications/cover', 'private');
         }
 
         unset($data['cv'], $data['cover_letter_file'], $data['locale']);

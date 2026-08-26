@@ -54,6 +54,12 @@ services:
       - key: FORCE_HTTPS
         value: "true"
 
+      # Identifiants admin — à renseigner dans Render, jamais dans Git
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+
       # Logs vers stderr (visible dans Render logs)
       - key: LOG_CHANNEL
         value: stderr

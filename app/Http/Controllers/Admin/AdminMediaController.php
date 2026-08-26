@@ -26,7 +26,7 @@ class AdminMediaController extends Controller
             'title'        => ['required', 'string', 'max:255'],
             'type'         => ['required', 'in:image,video,document'],
             'caption'      => ['nullable', 'string'],
-            'file'         => ['nullable', 'file', 'max:20480'],
+            'file'         => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,svg,mp4,mov,webm,pdf,doc,docx', 'max:20480'],
             'is_published' => ['boolean'],
             'sort_order'   => ['integer', 'min:0'],
         ]);
@@ -54,7 +54,7 @@ class AdminMediaController extends Controller
             'title'        => ['required', 'string', 'max:255'],
             'type'         => ['required', 'in:image,video,document'],
             'caption'      => ['nullable', 'string'],
-            'file'         => ['nullable', 'file', 'max:20480'],
+            'file'         => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,svg,mp4,mov,webm,pdf,doc,docx', 'max:20480'],
             'is_published' => ['boolean'],
             'sort_order'   => ['integer', 'min:0'],
         ]);

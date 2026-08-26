@@ -46,7 +46,6 @@ fi
 # ── 6. Cache prod ────────────────────────────────────────────
 echo "[INFO] Mise en cache production..."
 php artisan config:cache
-php artisan route:cache
 php artisan view:cache
 
 # ── 7. Permissions ───────────────────────────────────────────
