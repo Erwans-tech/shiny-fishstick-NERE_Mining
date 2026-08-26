@@ -166,26 +166,6 @@
         .org-connector-v { width:2px; height:40px; background:#333; }
         .org-connector-h-wrap { display:flex; align-items:flex-start; justify-content:center; width:100%; position:relative; }
         .org-level--dga { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; width:100%; }
-        .karma-standards { margin-top:28px; padding:24px 28px; border-left:4px solid var(--gold); background:#fff; border-radius:6px; }
-        .karma-standards h3 { margin-bottom:8px; }
-        .karma-standards p { margin:0; }
-        .cil-feature { display:grid; grid-template-columns:.8fr 1.2fr; gap:28px; align-items:stretch; margin-top:30px; }
-        .cil-feature-label { padding:30px; background:var(--green); color:#fff; border-radius:6px; border-left:5px solid var(--gold); }
-        .cil-feature-label .card-tag { color:var(--gold); }
-        .cil-feature-label h3 { color:#fff; font-size:28px; margin:0; }
-        .cil-feature-copy { padding:28px; background:#fff; border:1px solid var(--line); border-radius:6px; }
-        .cil-feature-copy p { margin-bottom:16px; }
-        .cil-assets { display:flex; flex-wrap:wrap; gap:8px; list-style:none; }
-        .cil-assets li { padding:8px 12px; background:var(--sand); color:var(--green); font:600 12px Inter,sans-serif; border-radius:4px; }
-        .cil-page-intro { display:grid; grid-template-columns:1fr 180px; gap:30px; align-items:center; margin-bottom:38px; }
-        .cil-page-intro h2 { margin-bottom:16px; }
-        .cil-page-intro .lead { margin-bottom:0; }
-        .cil-page-mark { display:grid; place-items:center; aspect-ratio:1; background:var(--green); color:var(--gold); border:8px solid var(--gold); border-radius:50%; font:700 34px Inter,sans-serif; letter-spacing:.08em; box-shadow:0 8px 24px rgba(75,23,22,.2); }
-        .cil-page-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
-        .cil-page-grid .card { height:100%; }
-        .cil-page-note { margin-top:30px; padding:26px 30px; background:var(--sand); border-left:4px solid var(--gold); border-radius:6px; }
-        .cil-page-note h3 { margin-bottom:8px; }
-        .cil-page-note p { margin:0; }
         .org-branch { display:flex; flex-direction:column; align-items:center; }
         .org-connector-branch { width:2px; height:36px; background:#333; }
         .org-hbar { width:calc(75% + 8px); height:2px; background:#333; margin:0 auto; }
@@ -234,9 +214,6 @@
             .governance-chart-heading { display:block; }
             .governance-chart-heading p { text-align:left; margin-top:8px; }
             .company-overview-grid { grid-template-columns:1fr; }
-            .cil-feature { grid-template-columns:1fr; }
-            .cil-page-intro, .cil-page-grid { grid-template-columns:1fr; }
-            .cil-page-mark { width:130px; }
             .org-level--dga { grid-template-columns:1fr 1fr; }
             .org-hbar { width:calc(50% + 8px); }
             footer { flex-direction:column; gap:12px; text-align:center; }
@@ -584,39 +561,6 @@
             </div>
         </section>
 
-        {{-- ════════════════════════════════════════════════════════
-             PROJET CIL
-        ═══════════════════════════════════════════════════════════ --}}
-        @elseif($section === 'cil')
-        <section>
-            <div class="sub-nav">
-                <a href="{{ $en ? route('english.karma') : route('karma') }}">{{ __('site.nav_karma') }}</a>
-                <a href="{{ $en ? route('english.karma.cil') : route('karma.cil') }}" class="active">{{ __('site.nav_karma_cil') }}</a>
-                <a href="{{ $en ? route('english.projects') : route('projects') }}">{{ __('site.nav_projects') }}</a>
-            </div>
-            <div class="cil-page-intro">
-                <div>
-                    <div class="eyebrow" style="color:var(--gold);">{{ __('site.cil_page_tag', [], $loc) }}</div>
-                    <h2>{{ __('site.cil_page_h2', [], $loc) }}</h2>
-                    <p class="lead">{{ __('site.cil_page_lead', [], $loc) }}</p>
-                </div>
-                <div class="cil-page-mark" aria-hidden="true">CIL</div>
-            </div>
-            <div class="cil-page-grid">
-                @foreach(range(1,4) as $i)
-                <article class="card">
-                    <div class="card-tag">0{{ $i }}</div>
-                    <h3>{{ __('site.cil_page_card'.$i.'_h3', [], $loc) }}</h3>
-                    <p>{{ __('site.cil_page_card'.$i.'_p', [], $loc) }}</p>
-                </article>
-                @endforeach
-            </div>
-            <div class="cil-page-note">
-                <h3>{{ __('site.cil_page_note_h3', [], $loc) }}</h3>
-                <p>{{ __('site.cil_page_note_p', [], $loc) }}</p>
-            </div>
-        </section>
-
         <section id="exploitation" class="sand">
             <h2>{{ __('site.karma_prod_h2', [], $loc) }}</h2>
             <div class="stat-band">
@@ -667,34 +611,8 @@
                     <div class="step-num">0{{ $i }}</div>
                     <h4>{{ __('site.karma_step'.$i.'_h4', [], $loc) }}</h4>
                     <p>{{ __('site.karma_step'.$i.'_p', [], $loc) }}</p>
-                    @if($i === 3)
-                    <a class="btn btn-outline" href="{{ $en ? route('english.karma.cil') : route('karma.cil') }}">
-                        {{ __('site.karma_cil_link', [], $loc) }}
-                    </a>
-                    @endif
                 </div>
                 @endforeach
-            </div>
-            <div class="karma-standards">
-                <h3>{{ __('site.karma_standards_h3', [], $loc) }}</h3>
-                <p>{{ __('site.karma_standards_p', [], $loc) }}</p>
-            </div>
-            <div id="projet-cil" class="cil-feature">
-                <div class="cil-feature-label">
-                    <div class="card-tag">{{ __('site.karma_cil_tag', [], $loc) }}</div>
-                    <h3>{{ __('site.karma_cil_title', [], $loc) }}</h3>
-                </div>
-                <div class="cil-feature-copy">
-                    <p>{{ __('site.karma_cil_intro', [], $loc) }}</p>
-                    <ul class="cil-assets">
-                        @foreach(range(1,4) as $i)
-                        <li>{{ __('site.karma_cil_asset'.$i, [], $loc) }}</li>
-                        @endforeach
-                    </ul>
-                    <a class="btn btn-outline" href="{{ $en ? route('english.karma.cil') : route('karma.cil') }}" style="margin-top:20px;">
-                        {{ __('site.karma_cil_link', [], $loc) }}
-                    </a>
-                </div>
             </div>
         </section>
 
@@ -713,7 +631,7 @@
                 </div>
                 <div>
                     <h3>{{ __('site.karma_imp_eco_h3', [], $loc) }}</h3>
-                    @foreach(range(1,4) as $i)
+                    @foreach(range(1,3) as $i)
                     <div class="card" style="margin-bottom:14px;">
                         <div class="card-tag">{{ __('site.karma_imp_eco'.$i.'_tag', [], $loc) }}</div>
                         <p>{{ __('site.karma_imp_eco'.$i.'_p', [], $loc) }}</p>
