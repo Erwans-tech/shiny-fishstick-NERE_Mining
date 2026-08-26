@@ -36,8 +36,8 @@ $homeHandler = function (string $locale) {
             'category' => $item->category,
             'title'    => $item->title,
             'image'    => $item->image_path
-                            ? asset('uploads/' . $item->image_path)
-                            : null,
+                ? asset('uploads/' . $item->image_path)
+                : null,
         ]);
 
     $partners = Partner::where('is_published', true)->orderBy('sort_order')->get();
@@ -86,11 +86,12 @@ Route::get('/qui-sommes-nous/histoire',    fn() => $page('fr', 'company-history'
 Route::get('/qui-sommes-nous/valeurs',     fn() => $page('fr', 'company-values'))->name('company.values');
 Route::get('/qui-sommes-nous/gouvernance', fn() => $page('fr', 'company-governance'))->name('company.governance');
 Route::get('/karma',                        fn() => $page('fr', 'karma'))->name('karma');
+Route::get('/karma/projet-cil',             fn() => $page('fr', 'cil'))->name('karma.cil');
 Route::get('/projets',                      fn() => $page('fr', 'projects'))->name('projects');
 Route::get('/developpement-durable',        fn() => $page('fr', 'sustainability'))->name('sustainability');
 Route::get('/developpement-durable/communautes',   fn() => $page('fr', 'communities'))->name('sustainability.communities');
 Route::get('/developpement-durable/environnement', fn() => $page('fr', 'environment'))->name('sustainability.environment');
-Route::get('/developpement-durable/sante-securite',fn() => $page('fr', 'hse'))->name('sustainability.hse');
+Route::get('/developpement-durable/sante-securite', fn() => $page('fr', 'hse'))->name('sustainability.hse');
 Route::get('/developpement-durable/contenu-local', fn() => $page('fr', 'local-content'))->name('sustainability.local-content');
 
 Route::get('/actualites',         [NewsController::class, 'index'])->name('news.index');
@@ -161,6 +162,7 @@ Route::get('/en/about/history',     fn() => $page('en', 'company-history'))->nam
 Route::get('/en/about/values',      fn() => $page('en', 'company-values'))->name('english.company.values');
 Route::get('/en/about/governance',  fn() => $page('en', 'company-governance'))->name('english.company.governance');
 Route::get('/en/karma',              fn() => $page('en', 'karma'))->name('english.karma');
+Route::get('/en/karma/cil-project',  fn() => $page('en', 'cil'))->name('english.karma.cil');
 Route::get('/en/projects',           fn() => $page('en', 'projects'))->name('english.projects');
 Route::get('/en/sustainability',                       fn() => $page('en', 'sustainability'))->name('english.sustainability');
 Route::get('/en/sustainability/communities',    fn() => $page('en', 'communities'))->name('english.communities');
@@ -268,6 +270,7 @@ Route::post('/en/contact', function (Request $request) {
 | Accès : /gestion-nm
 |--------------------------------------------------------------------------
 */
+
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminNewsController;
@@ -294,7 +297,7 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::get('/actualites',               [AdminNewsController::class, 'index'])->name('news.index');
         Route::get('/actualites/creer',         [AdminNewsController::class, 'create'])->name('news.create');
         Route::post('/actualites',              [AdminNewsController::class, 'store'])->name('news.store');
-        Route::get('/actualites/{news}/modifier',[AdminNewsController::class, 'edit'])->name('news.edit');
+        Route::get('/actualites/{news}/modifier', [AdminNewsController::class, 'edit'])->name('news.edit');
         Route::put('/actualites/{news}',        [AdminNewsController::class, 'update'])->name('news.update');
         Route::delete('/actualites/{news}',     [AdminNewsController::class, 'destroy'])->name('news.destroy');
 
@@ -350,6 +353,5 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::get('/candidatures/{application}/lettre',         [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'downloadCoverLetter'])->name('applications.cover-letter');
         Route::patch('/candidatures/{application}/statut',       [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'updateStatus'])->name('applications.status');
         Route::delete('/candidatures/{application}',             [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'destroy'])->name('applications.destroy');
-
     });
 });
