@@ -3,7 +3,7 @@ set -e
 
 echo "=== Nere Mining — Demarrage ==="
 
-# Railway fournit le port public via PORT ; conserver 80 en local/Docker.
+# Render/Railway fournissent le port public via PORT ; conserver 80 en local/Docker.
 PORT=${PORT:-80}
 sed -i "s/listen 80;/listen ${PORT};/" /etc/nginx/nginx.conf
 
@@ -19,8 +19,8 @@ php artisan cache:clear   2>/dev/null || true
 php artisan view:clear    2>/dev/null || true
 php artisan route:clear   2>/dev/null || true
 
-# ── 3. Attendre MySQL ────────────────────────────────────────
-echo "[INFO] Attente de la base de donnees MySQL..."
+# ── 3. Attendre PostgreSQL ──────────────────────────────────
+echo "[INFO] Attente de la base de donnees PostgreSQL..."
 MAX=40
 i=0
 until php artisan db:show --no-interaction; do
@@ -33,7 +33,7 @@ until php artisan db:show --no-interaction; do
 done
 
 if [ $i -ge $MAX ]; then
-    echo "[ERREUR] Impossible de joindre la base de donnees apres $MAX tentatives."
+    echo "[ERREUR] Impossible de joindre PostgreSQL apres $MAX tentatives."
     exit 1
 fi
 echo "[INFO] Base de donnees disponible."
