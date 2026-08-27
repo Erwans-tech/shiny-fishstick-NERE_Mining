@@ -22,7 +22,7 @@ services:
           type: web
           property: host
       - key: APP_KEY
-        generateValue: true
+        sync: false
       - key: APP_LOCALE
         value: fr
       - key: APP_FALLBACK_LOCALE
