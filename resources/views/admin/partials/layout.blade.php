@@ -518,6 +518,10 @@
         </a>
 
         <div class="nav-section">Site public</div>
+        <a href="{{ route('admin.hero.index') }}"
+           class="nav-item {{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">
+            <span class="nav-icon">🎠</span> Carrousel Hero
+        </a>
         <a href="{{ url('/') }}" target="_blank" class="nav-item">
             <span class="nav-icon">🌐</span> Voir le site ↗
         </a>

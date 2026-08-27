@@ -42,12 +42,8 @@ $homeHandler = function (string $locale) {
 
     $partners = Partner::where('is_published', true)->orderBy('sort_order')->get();
 
-    $slides = MediaAsset::where('type', 'image')
-        ->where('placement', 'homepage_slideshow')
-        ->where('is_published', true)
-        ->orderBy('sort_order')
-        ->take(5)
-        ->get();
+    // Slides du carrousel hero — fallback sur les images statiques si table vide
+    $slides = HeroSlide::active()->get();
 
     $statsLabels = $locale === 'en'
         ? ['Annual gold production', 'Direct and indirect jobs', 'National workforce', 'Fiscal & social contributions']
@@ -113,7 +109,7 @@ Route::get('/mediatheque', function () {
         'locale'    => 'fr',
         'section'   => 'gallery',
         'partners'  => collect(),
-        'media'     => MediaAsset::where('is_published', true)->orderBy('sort_order')->get(),
+        'media'     => MediaAsset::gallery()->get(),
         'documents' => collect(),
     ]);
 })->name('gallery');
@@ -191,7 +187,7 @@ Route::get('/en/media', function () {
         'locale'    => 'en',
         'section'   => 'gallery',
         'partners'  => collect(),
-        'media'     => MediaAsset::where('is_published', true)->orderBy('sort_order')->get(),
+        'media'     => MediaAsset::gallery()->get(),
         'documents' => collect(),
     ]);
 })->name('english.gallery');
@@ -291,6 +287,7 @@ use App\Http\Controllers\Admin\AdminPartnerController;
 use App\Http\Controllers\Admin\AdminPressController;
 use App\Http\Controllers\Admin\AdminMediaController;
 use App\Http\Controllers\Admin\AdminMessageController;
+use App\Models\HeroSlide;
 
 // Login / logout (public, pas de middleware)
 Route::prefix('gestion-nm')->name('admin.')->group(function () {
@@ -364,6 +361,16 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::get('/candidatures/{application}/lettre',         [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'downloadCoverLetter'])->name('applications.cover-letter');
         Route::patch('/candidatures/{application}/statut',       [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'updateStatus'])->name('applications.status');
         Route::delete('/candidatures/{application}',             [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'destroy'])->name('applications.destroy');
+
+        // Hero Slideshow (carrousel page d'accueil)
+        Route::get('/hero-slideshow',                     [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'index'])->name('hero.index');
+        Route::get('/hero-slideshow/ajouter',             [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'create'])->name('hero.create');
+        Route::post('/hero-slideshow',                    [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'store'])->name('hero.store');
+        Route::get('/hero-slideshow/{heroSlide}/modifier',[\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'edit'])->name('hero.edit');
+        Route::put('/hero-slideshow/{heroSlide}',         [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'update'])->name('hero.update');
+        Route::patch('/hero-slideshow/{heroSlide}/toggle',[\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'toggle'])->name('hero.toggle');
+        Route::post('/hero-slideshow/reorder',            [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'reorder'])->name('hero.reorder');
+        Route::delete('/hero-slideshow/{heroSlide}',      [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'destroy'])->name('hero.destroy');
 
     });
 });
