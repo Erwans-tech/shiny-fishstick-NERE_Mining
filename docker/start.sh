@@ -60,5 +60,6 @@ chown -R www-data:www-data storage bootstrap/cache public/uploads 2>/dev/null ||
 
 # ── 8. Supervisord (php-fpm + nginx) ────────────────────────
 echo "[INFO] Demarrage services..."
+grep -R "^[[:space:]]*listen[[:space:]]*=" /usr/local/etc/php-fpm.d 2>/dev/null || true
 mkdir -p /var/log/supervisor
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf

@@ -37,8 +37,8 @@ RUN docker-php-ext-configure gd \
         xml \
         opcache
 
-RUN sed -i 's#^[[:space:]]*listen[[:space:]]*=.*#listen = /var/run/php-fpm.sock#' \
-        /usr/local/etc/php-fpm.d/www.conf
+RUN sed -E -i 's#^[;[:space:]]*listen[[:space:]]*=.*#listen = /var/run/php-fpm.sock#' \
+        /usr/local/etc/php-fpm.d/*.conf
 
 # ── Composer ─────────────────────────────────────────────────
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
