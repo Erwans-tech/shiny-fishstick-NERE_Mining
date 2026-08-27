@@ -67,7 +67,7 @@
     <h2>{{ __('site.karma_org_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.karma_org_lead', [], $loc) }}</p>
     <div class="grid-3">
-        @foreach(range(1, 6) as $i)
+        @foreach(range(1, 9) as $i)
         <div class="card">
             <div class="card-tag">{{ __('site.karma_dept'.$i.'_tag', [], $loc) }}</div>
             <h3>{{ __('site.karma_dept'.$i.'_h3', [], $loc) }}</h3>
