@@ -32,6 +32,8 @@ return [
     'nav_karma_organisation' => 'Organisation de la mine',
     'nav_karma_model'       => 'Modèle opérationnel',
     'nav_karma_impact'      => 'Notre impact',
+    'nav_karma_resources'   => 'Ressources',
+    'nav_karma_reserves'    => 'Réserves',
     'nav_projects'          => 'Nos Projets',
     'nav_projects_exploration' => "Projets d'exploration",
     'nav_projects_permits'  => 'Carte des permis',
@@ -162,6 +164,14 @@ return [
     'karma_model_lead' => "De l'extraction à l'affinage, chaque étape est pilotée avec rigueur pour maximiser la valeur produite et minimiser les impacts.",
     'karma_impact_h2'  => 'Notre impact',
     'karma_impact_lead' => "L'activité de Néré Mining génère des retombées directes et mesurables pour l'économie locale, régionale et nationale.",
+    'karma_resources_h2' => 'Ressources minérales',
+    'karma_resources_lead' => "La mine de Karma dispose de ressources minérales importantes, identifiées grâce à des campagnes d'exploration géologiques rigoureuses.",
+    'karma_resources_detail' => "Ces ressources comprennent des quantités significatives d'or, réparties dans plusieurs zones exploitables, avec un potentiel d'extension encore en cours d'évaluation.",
+    'karma_resources_image_alt' => 'Installations de la mine de Karma',
+    'karma_reserves_h2' => 'Réserves minérales',
+    'karma_reserves_lead' => "Les réserves minérales représentent les parties économiquement exploitables des ressources identifiées.",
+    'karma_reserves_detail' => "Elles sont régulièrement mises à jour selon les normes internationales, en tenant compte des facteurs techniques, économiques et environnementaux, afin d'assurer une exploitation durable de la mine.",
+    'karma_reserves_image_alt' => 'Opérations de la mine de Karma',
 
     /* ── Projets ── */
     'projects_eyebrow'    => 'Néré Mining · Nos Projets',

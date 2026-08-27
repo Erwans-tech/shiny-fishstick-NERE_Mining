@@ -32,6 +32,8 @@ return [
     'nav_karma_organisation' => 'Mine organisation',
     'nav_karma_model'       => 'Operating model',
     'nav_karma_impact'      => 'Our impact',
+    'nav_karma_resources'   => 'Resources',
+    'nav_karma_reserves'    => 'Reserves',
     'nav_projects'          => 'Our Projects',
     'nav_projects_exploration' => 'Exploration projects',
     'nav_projects_permits'  => 'Permit map',
@@ -162,6 +164,14 @@ return [
     'karma_model_lead' => "From extraction to refining, every step is managed with rigour to maximise value created and minimise impacts.",
     'karma_impact_h2'  => 'Our impact',
     'karma_impact_lead' => "Néré Mining's activities generate direct, measurable benefits for the local, regional and national economy.",
+    'karma_resources_h2' => 'Mineral resources',
+    'karma_resources_lead' => "The Karma mine has significant mineral resources identified through rigorous geological exploration campaigns.",
+    'karma_resources_detail' => "These resources include significant quantities of gold distributed across several exploitable areas, with further extension potential still under evaluation.",
+    'karma_resources_image_alt' => 'Karma mine facilities',
+    'karma_reserves_h2' => 'Mineral reserves',
+    'karma_reserves_lead' => "Mineral reserves represent the economically exploitable portions of identified resources.",
+    'karma_reserves_detail' => "They are regularly updated according to international standards, taking technical, economic and environmental factors into account to ensure sustainable mining.",
+    'karma_reserves_image_alt' => 'Karma mine operations',
 
     /* ── Projects ── */
     'projects_eyebrow'    => 'Néré Mining · Our Projects',
