@@ -26,7 +26,7 @@
         'news','press','gallery','reports','press-contact',
     ]);
 
-    $mastheadSection = $section;
+    $mastheadSection = str_replace('-', '_', $section);
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $loc }}">
