@@ -3,6 +3,7 @@
 
 @section('content')
 
+{{-- ── 1. Politique environnementale ──────────────────── --}}
 <section>
     <div class="sub-nav">
         <a href="{{ $en ? route('english.sustainability') : route('sustainability') }}">{{ __('site.subnav_overview', [], $loc) }}</a>
@@ -12,14 +13,47 @@
         <a href="{{ $en ? route('english.local-content') : route('sustainability.local-content') }}">{{ __('site.subnav_local_content', [], $loc) }}</a>
     </div>
 
-    <p class="lead">{{ __('site.environment_lead', [], $loc) }}</p>
+    <h2>{{ __('site.env_policy_h2', [], $loc) }}</h2>
+    <p class="lead">{{ __('site.env_policy_lead', [], $loc) }}</p>
 
     <div class="grid-3">
         @foreach(range(1, 3) as $i)
         <div class="card">
-            <div class="card-tag">{{ __('site.env_card'.$i.'_tag', [], $loc) }}</div>
-            <h3>{{ __('site.env_card'.$i.'_h3', [], $loc) }}</h3>
-            <p>{{ __('site.env_card'.$i.'_p', [], $loc) }}</p>
+            <div class="card-tag">{{ __('site.env_policy'.$i.'_tag', [], $loc) }}</div>
+            <h3>{{ __('site.env_policy'.$i.'_h3', [], $loc) }}</h3>
+            <p>{{ __('site.env_policy'.$i.'_p', [], $loc) }}</p>
+        </div>
+        @endforeach
+    </div>
+</section>
+
+{{-- ── 2. Mesures de mitigation et de réhabilitation ───── --}}
+<section class="sand">
+    <h2>{{ __('site.env_mitigation_h2', [], $loc) }}</h2>
+    <p class="lead">{{ __('site.env_mitigation_lead', [], $loc) }}</p>
+
+    <div class="grid-3">
+        @foreach(range(1, 3) as $i)
+        <div class="card">
+            <div class="card-tag">{{ __('site.env_mitigation'.$i.'_tag', [], $loc) }}</div>
+            <h3>{{ __('site.env_mitigation'.$i.'_h3', [], $loc) }}</h3>
+            <p>{{ __('site.env_mitigation'.$i.'_p', [], $loc) }}</p>
+        </div>
+        @endforeach
+    </div>
+</section>
+
+{{-- ── 3. Gestion de l'eau, déchets et émissions ──────── --}}
+<section>
+    <h2>{{ __('site.env_water_h2', [], $loc) }}</h2>
+    <p class="lead">{{ __('site.env_water_lead', [], $loc) }}</p>
+
+    <div class="grid-3">
+        @foreach(range(1, 3) as $i)
+        <div class="card">
+            <div class="card-tag">{{ __('site.env_water'.$i.'_tag', [], $loc) }}</div>
+            <h3>{{ __('site.env_water'.$i.'_h3', [], $loc) }}</h3>
+            <p>{{ __('site.env_water'.$i.'_p', [], $loc) }}</p>
         </div>
         @endforeach
     </div>
