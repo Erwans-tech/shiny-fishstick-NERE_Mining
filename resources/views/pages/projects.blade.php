@@ -19,6 +19,16 @@
     </div>
 </section>
 
+{{-- Projet CIL --}}
+<section class="sand" id="cil-project">
+    <h2>{{ __('site.cil_project_h2', [], $loc) }}</h2>
+    <p class="lead">{{ __('site.cil_project_lead', [], $loc) }}</p>
+    <a class="btn btn-dark" style="margin-top:20px; display:inline-block;"
+       href="{{ $en ? route('english.projects.cil') : route('projects.cil') }}">
+        {{ __('site.cil_project_cta', [], $loc) }}
+    </a>
+</section>
+
 {{-- Carte des permis --}}
 <section class="sand">
     <h2>{{ __('site.projects_map_h2', [], $loc) }}</h2>

@@ -173,6 +173,18 @@ return [
     'projects_map_soon'   => "La carte interactive présentant l'ensemble des permis miniers de Néré Mining sera intégrée prochainement. Contactez-nous pour plus d'informations.",
     'projects_join_h2'    => 'Rejoignez-nous',
     'projects_join_lead'  => "Néré Mining est ouvert aux opportunités de partenariat technique, financier et opérationnel avec des acteurs partageant notre vision d'une mine responsable et burkinabè.",
+    'nav_projects_cil'    => 'Projet CIL',
+    'cil_project_h2'      => 'Projet CIL',
+    'cil_project_cta'     => 'Découvrir le projet CIL',
+    'cil_project_lead'    => "L'emplacement de l'usine CIL a été choisi en raison de sa proximité avec des infrastructures existantes, permettant de réduire considérablement les coûts opérationnels. La présence d'équipements déjà en place facilite l'intégration et l'optimisation du processus de traitement.",
+    'cil_project_location_tag' => 'Implantation',
+    'cil_project_location_h3'   => 'Un emplacement stratégique',
+    'cil_project_location_p'    => "L'usine CIL est implantée à proximité des infrastructures existantes de la mine de Karma. Ce choix permet de limiter les coûts opérationnels et de valoriser les installations déjà disponibles sur le site.",
+    'cil_project_assets_tag' => 'Infrastructures existantes',
+    'cil_project_assets_h3'   => 'Des équipements déjà en place',
+    'cil_project_assets_p'    => "L'ancien concasseur, les plateformes de lixiviation, le circuit d'élution ainsi que la salle d'or facilitent l'intégration du projet et l'optimisation du processus de traitement.",
+    'cil_project_value_h2' => 'Optimiser le traitement du minerai',
+    'cil_project_value_p'  => "Le projet CIL s'appuie sur les installations existantes pour contribuer à un processus de traitement plus intégré et économiquement efficient à Karma.",
 
     /* ── Développement durable ── */
     'sustain_eyebrow'    => 'Néré Mining · Développement Durable',

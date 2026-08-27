@@ -173,6 +173,18 @@ return [
     'projects_map_soon'   => "An interactive map of all Néré Mining permits will be integrated shortly. Contact us for more information.",
     'projects_join_h2'    => 'Partner with us',
     'projects_join_lead'  => "Néré Mining is open to technical, financial and operational partnership opportunities with actors who share our vision of responsible, Burkinabe mining.",
+    'nav_projects_cil'    => 'CIL Project',
+    'cil_project_h2'      => 'CIL Project',
+    'cil_project_cta'     => 'Discover the CIL project',
+    'cil_project_lead'    => "The CIL plant location was chosen because of its proximity to existing infrastructure, significantly reducing operating costs. Existing equipment makes it easier to integrate and optimise the processing project.",
+    'cil_project_location_tag' => 'Location',
+    'cil_project_location_h3'   => 'A strategic location',
+    'cil_project_location_p'    => "The CIL plant is located near Karma mine's existing infrastructure. This choice helps limit operating costs and make use of facilities already available on site.",
+    'cil_project_assets_tag' => 'Existing infrastructure',
+    'cil_project_assets_h3'   => 'Equipment already in place',
+    'cil_project_assets_p'    => "The former crusher, leach pads, elution circuit and gold room make it easier to integrate the project and optimise the processing circuit.",
+    'cil_project_value_h2' => 'Optimising ore processing',
+    'cil_project_value_p'  => "The CIL project uses existing facilities to support a more integrated and economically efficient processing operation at Karma.",
 
     /* ── Sustainability ── */
     'sustain_eyebrow'    => 'Néré Mining · Sustainability',
