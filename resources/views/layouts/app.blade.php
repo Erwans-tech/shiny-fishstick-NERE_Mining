@@ -252,6 +252,7 @@
         }
     </style>
     @yield('head')
+    @stack('styles')
 </head>
 <body>
     @include('partials._nav', ['locale' => $loc, 'section' => $section])
