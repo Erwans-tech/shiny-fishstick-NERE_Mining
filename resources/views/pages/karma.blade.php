@@ -62,31 +62,6 @@
     </div>
 </section>
 
-{{-- Ressources et réserves --}}
-<section id="resources" class="sand">
-    <h2>{{ __('site.karma_resources_h2', [], $loc) }}</h2>
-    <div class="grid-2" style="align-items:center;">
-        <div>
-            <p class="lead">{{ __('site.karma_resources_lead', [], $loc) }}</p>
-            <p style="margin-top:20px;">{{ __('site.karma_resources_detail', [], $loc) }}</p>
-        </div>
-        <img class="card-img" src="{{ asset('images/mining/karma-02.jpg') }}"
-             alt="{{ __('site.karma_resources_image_alt', [], $loc) }}">
-    </div>
-</section>
-
-<section id="reserves">
-    <h2>{{ __('site.karma_reserves_h2', [], $loc) }}</h2>
-    <div class="grid-2" style="align-items:center;">
-        <img class="card-img" src="{{ asset('images/mining/karma-05.jpg') }}"
-             alt="{{ __('site.karma_reserves_image_alt', [], $loc) }}">
-        <div>
-            <p class="lead">{{ __('site.karma_reserves_lead', [], $loc) }}</p>
-            <p style="margin-top:20px;">{{ __('site.karma_reserves_detail', [], $loc) }}</p>
-        </div>
-    </div>
-</section>
-
 {{-- Organisation --}}
 <section id="organisation">
     <h2>{{ __('site.karma_org_h2', [], $loc) }}</h2>

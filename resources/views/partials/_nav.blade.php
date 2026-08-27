@@ -112,8 +112,10 @@
                 <a href="{{ ($en ? route('english.karma') : route('karma')) . '#presentation' }}">{{ __('site.nav_karma_presentation') }}</a>
                 <a href="{{ ($en ? route('english.karma') : route('karma')) . '#exploitation' }}">{{ __('site.nav_karma_operations') }}</a>
                 <a href="{{ ($en ? route('english.karma') : route('karma')) . '#organisation' }}">{{ __('site.nav_karma_organisation') }}</a>
-                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#resources' }}">{{ __('site.nav_karma_resources') }}</a>
-                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#reserves' }}">{{ __('site.nav_karma_reserves') }}</a>
+                     <a href="{{ $en ? route('english.resources') : route('resources') }}"
+                         class="{{ $sec === 'resources' ? 'current' : '' }}">{{ __('site.nav_karma_resources') }}</a>
+                     <a href="{{ $en ? route('english.reserves') : route('reserves') }}"
+                         class="{{ $sec === 'reserves' ? 'current' : '' }}">{{ __('site.nav_karma_reserves') }}</a>
                 <a href="{{ ($en ? route('english.karma') : route('karma')) . '#modele-operationnel' }}">{{ __('site.nav_karma_model') }}</a>
                 <a href="{{ ($en ? route('english.karma') : route('karma')) . '#impact' }}">{{ __('site.nav_karma_impact') }}</a>
             </div>
