@@ -3,6 +3,23 @@
 
 @section('content')
 
+{{-- Projet CIL en tête de rubrique --}}
+<section class="sand" id="cil-project">
+    <div class="grid-2" style="align-items:center;">
+        <div>
+            <div class="card-tag">{{ __('site.nav_projects_cil', [], $loc) }}</div>
+            <h2>{{ __('site.cil_project_h2', [], $loc) }}</h2>
+            <p class="lead">{{ __('site.cil_project_lead', [], $loc) }}</p>
+            <a class="btn btn-dark" style="display:inline-block;"
+               href="{{ $en ? route('english.projects.cil') : route('projects.cil') }}">
+                {{ __('site.cil_project_cta', [], $loc) }}
+            </a>
+        </div>
+        <img class="card-img" src="{{ asset('images/cil/cil-01.png') }}"
+             alt="{{ __('site.cil_project_image_alt', [], $loc) }}">
+    </div>
+</section>
+
 {{-- Projets d'exploration --}}
 <section id="exploration">
     <h2>{{ __('site.projects_expl_h2', [], $loc) }}</h2>
@@ -17,16 +34,6 @@
         </article>
         @endforeach
     </div>
-</section>
-
-{{-- Projet CIL --}}
-<section class="sand" id="cil-project">
-    <h2>{{ __('site.cil_project_h2', [], $loc) }}</h2>
-    <p class="lead">{{ __('site.cil_project_lead', [], $loc) }}</p>
-    <a class="btn btn-dark" style="margin-top:20px; display:inline-block;"
-       href="{{ $en ? route('english.projects.cil') : route('projects.cil') }}">
-        {{ __('site.cil_project_cta', [], $loc) }}
-    </a>
 </section>
 
 {{-- Carte des permis --}}
