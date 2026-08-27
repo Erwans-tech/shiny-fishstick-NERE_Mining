@@ -3,9 +3,9 @@ set -e
 
 echo "=== Nere Mining — Demarrage ==="
 
-# Render/Railway fournissent le port public via PORT ; conserver 80 en local/Docker.
-PORT=${PORT:-80}
-sed -i "s/listen 80;/listen ${PORT};/" /etc/nginx/nginx.conf
+# Render fournit le port public via PORT ; 10000 est le port HTTP par defaut.
+PORT=${PORT:-10000}
+sed -i "s/listen 80;/listen 0.0.0.0:${PORT};/" /etc/nginx/nginx.conf
 
 # ── 1. APP_KEY ────────────────────────────────────────────────
 if [ -z "$APP_KEY" ]; then
