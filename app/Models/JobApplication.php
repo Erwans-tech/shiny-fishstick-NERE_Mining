@@ -11,7 +11,7 @@ class JobApplication extends Model
         'job_offer_id', 'first_name', 'last_name', 'email', 'phone',
         'nationality', 'current_position', 'experience_years',
         'motivation', 'cv_path', 'cover_letter_path',
-        'status', 'admin_notes',
+        'status', 'admin_notes', 'read_at',
     ];
 
     protected function casts(): array

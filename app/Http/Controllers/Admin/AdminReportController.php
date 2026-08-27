@@ -9,9 +9,17 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminReportController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $reports = Report::latest('published_at')->paginate(15);
+        $query = Report::query();
+        if ($search = trim((string) $request->input('q'))) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('category', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+        $reports = $query->latest('published_at')->paginate(15)->withQueryString();
         return view('admin.reports.index', compact('reports'));
     }
 

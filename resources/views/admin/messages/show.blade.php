@@ -40,8 +40,49 @@
             </div>
         </div>
         <div class="form-actions" style="margin-top:20px;">
-            <a href="mailto:{{ $message->email }}?subject=RE: {{ $message->subject }}" class="btn btn-primary">
-                Répondre par e-mail
+            @php
+                $messageType = strtolower((string) $message->type);
+                $messageTemplateKey = str_contains($messageType, 'press')
+                    ? 'press'
+                    : (str_contains($messageType, 'fourn') || str_contains($messageType, 'supplier')
+                        ? 'supplier'
+                        : (str_contains($messageType, 'commu') || str_contains($messageType, 'community')
+                            ? 'community'
+                            : 'general'));
+                $messageTemplates = [
+                    'general' => [
+                        'label' => 'Réponse générale',
+                        'subject' => 'RE: '.($message->subject ?: 'Votre demande'),
+                        'body' => "Bonjour :first_name,\n\nNous vous remercions pour votre message. Nous avons bien pris en compte votre demande et reviendrons vers vous dans les meilleurs délais.\n\nCordialement,\nL'équipe Néré Mining",
+                    ],
+                    'press' => [
+                        'label' => 'Demande presse',
+                        'subject' => 'RE: Votre demande presse',
+                        'body' => "Bonjour :first_name,\n\nNous vous remercions pour votre intérêt pour Néré Mining. Votre demande presse a bien été transmise à notre équipe communication, qui reviendra vers vous prochainement.\n\nCordialement,\nL'équipe Communication Néré Mining",
+                    ],
+                    'supplier' => [
+                        'label' => 'Demande fournisseur',
+                        'subject' => 'RE: Votre demande fournisseur',
+                        'body' => "Bonjour :first_name,\n\nNous accusons réception de votre proposition. Elle sera examinée par l'équipe concernée, qui vous recontactera si elle correspond à nos besoins.\n\nCordialement,\nL'équipe Néré Mining",
+                    ],
+                    'community' => [
+                        'label' => 'Demande communauté',
+                        'subject' => 'RE: Votre demande',
+                        'body' => "Bonjour :first_name,\n\nNous vous remercions pour votre message. Votre demande a été transmise à notre équipe en charge des relations avec les communautés locales. Nous reviendrons vers vous après examen.\n\nCordialement,\nL'équipe Néré Mining",
+                    ],
+                ];
+            @endphp
+            <div class="form-group full" style="width:100%;margin-bottom:14px;">
+                <label for="message-template">Réponse pré-enregistrée</label>
+                <select id="message-template" style="width:100%;margin-top:6px;">
+                    @foreach($messageTemplates as $key => $template)
+                        <option value="{{ $key }}" {{ $messageTemplateKey === $key ? 'selected' : '' }}>{{ $template['label'] }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <textarea id="message-reply" style="width:100%;min-height:170px;margin-bottom:14px;border:1px solid var(--line);border-radius:6px;padding:12px;font:14px/1.6 Inter,sans-serif;resize:vertical;"></textarea>
+            <a id="message-mail-link" href="#" class="btn btn-primary">
+                Préparer l’e-mail
             </a>
             <form method="POST" action="{{ route('admin.messages.destroy', $message) }}" style="display:inline;" onsubmit="return confirm('Supprimer ce message ?')">
                 @csrf @method('DELETE')
@@ -52,3 +93,31 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    (() => {
+        const templates = @json($messageTemplates);
+        const firstName = @json(strtok(trim($message->name), ' '));
+        const recipient = @json($message->email);
+        const selector = document.getElementById('message-template');
+        const reply = document.getElementById('message-reply');
+        const link = document.getElementById('message-mail-link');
+
+        const refreshMailto = () => {
+            const template = templates[selector.value];
+            const body = reply.value.replaceAll(':first_name', firstName);
+            link.href = `mailto:${recipient}?subject=${encodeURIComponent(template.subject)}&body=${encodeURIComponent(body)}`;
+        };
+
+        const selectTemplate = () => {
+            reply.value = templates[selector.value].body;
+            refreshMailto();
+        };
+
+        selector.addEventListener('change', selectTemplate);
+        reply.addEventListener('input', refreshMailto);
+        selectTemplate();
+    })();
+</script>
+@endpush

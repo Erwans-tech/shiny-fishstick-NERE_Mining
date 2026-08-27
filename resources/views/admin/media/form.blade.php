@@ -22,8 +22,8 @@
                 <div class="form-group">
                     <label>Type *</label>
                     <select name="type">
-                        @foreach(['image','video','document'] as $t)
-                        <option value="{{ $t }}" {{ old('type', $asset->type ?? 'image') === $t ? 'selected' : '' }}>{{ ucfirst($t) }}</option>
+                        @foreach(['image' => 'Image', 'video' => 'Vidéo', 'document' => 'Document', 'youtube' => 'YouTube', 'google_drive' => 'Google Drive'] as $value => $label)
+                        <option value="{{ $value }}" {{ old('type', $asset->type ?? 'image') === $value ? 'selected' : '' }}>{{ $label }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -36,12 +36,20 @@
                     <textarea name="caption" style="min-height:80px;">{{ old('caption', $asset->caption) }}</textarea>
                 </div>
                 <div class="form-group full">
+                    <label>Lien YouTube ou Google Drive</label>
+                    @if($asset->external_url)
+                        <div style="margin-bottom:10px;"><a href="{{ $asset->external_url }}" target="_blank" rel="noopener" class="badge badge-green">Lien actuel ↗</a></div>
+                    @endif
+                    <input type="url" name="external_url" value="{{ old('external_url', $asset->external_url) }}" placeholder="https://www.youtube.com/watch?v=... ou https://drive.google.com/file/d/...">
+                    <small style="display:block;margin-top:6px;color:var(--muted);">Obligatoire pour les types YouTube et Google Drive.</small>
+                </div>
+                <div class="form-group full">
                     <label>Fichier</label>
                     @if($asset->file_path)
                         @if($asset->type === 'image' && $asset->file_path)
-                        <img src="{{ asset('uploads/'.$asset->file_path) }}" style="height:100px;border-radius:6px;object-fit:cover;">
+                        <img src="{{ $asset->url }}" style="height:100px;border-radius:6px;object-fit:cover;">
                     @else
-                        <div style="margin-bottom:10px;"><a href="{{ asset('uploads/'.$asset->file_path) }}" target="_blank" class="badge badge-green">Fichier actuel ↗</a></div>
+                        <div style="margin-bottom:10px;"><a href="{{ $asset->url }}" target="_blank" class="badge badge-green">Fichier actuel ↗</a></div>
                     @endif
                     @endif
                     <input type="file" name="file">

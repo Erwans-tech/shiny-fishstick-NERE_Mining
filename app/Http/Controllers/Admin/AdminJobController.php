@@ -8,9 +8,18 @@ use Illuminate\Http\Request;
 
 class AdminJobController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = JobOffer::latest()->paginate(15);
+        $query = JobOffer::query();
+        if ($search = trim((string) $request->input('q'))) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('department', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%")
+                    ->orWhere('contract_type', 'like', "%{$search}%");
+            });
+        }
+        $jobs = $query->latest()->paginate(15)->withQueryString();
         return view('admin.jobs.index', compact('jobs'));
     }
 

@@ -26,7 +26,7 @@ class AdminDashboardController extends Controller
             'jobs_expiring'    => JobOffer::open()->whereNotNull('deadline')
                                     ->where('deadline', '<=', now()->addDays(7))->count(),
             'applications'     => JobApplication::count(),
-            'applications_new' => JobApplication::where('status', 'new')->count(),
+            'applications_new' => JobApplication::whereNull('read_at')->count(),
             'partners'         => Partner::where('is_published', true)->count(),
             'media'            => MediaAsset::count(),
             'press'            => PressDocument::count(),

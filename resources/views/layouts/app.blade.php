@@ -45,7 +45,12 @@
             --sand:#fff4dc; --muted:#70645c; --line:#eadcc5; --light:#fbfaf7;
         }
         *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-        body { color:var(--ink); background:var(--light); font-family:'Inter',Arial,Helvetica,sans-serif; }
+        body { color:var(--ink); background-color:var(--light); background-image:linear-gradient(115deg,rgba(255,194,71,.045),transparent 38%,rgba(75,23,22,.03)),repeating-linear-gradient(135deg,rgba(75,23,22,.025) 0,rgba(75,23,22,.025) 1px,transparent 1px,transparent 46px); background-size:180% 180%,46px 46px; animation:siteAtmosphere 42s ease-in-out infinite alternate; font-family:'Inter',Arial,Helvetica,sans-serif; }
+        @keyframes siteAtmosphere { from { background-position:0% 0%,0 0; } to { background-position:100% 100%,23px 23px; } }
+        .masthead { animation:contentRise .8s ease-out both; }
+        main > section { animation:contentRise .7s ease-out both; }
+        @keyframes contentRise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+        @media (prefers-reduced-motion: reduce) { body, .masthead, main > section { animation:none; } }
         a { color:inherit; text-decoration:none; }
 
         /* ── Topbar ── */

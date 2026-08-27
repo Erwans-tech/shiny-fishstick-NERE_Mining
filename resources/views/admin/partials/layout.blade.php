@@ -589,6 +589,8 @@
     </div>
 </div>
 
+@stack('scripts')
+
 <script>
 // Mobile sidebar toggle
 (function(){

@@ -6,6 +6,8 @@
 {{-- Filtres --}}
 <form method="GET" action="{{ route('admin.applications.index') }}"
       style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:center;">
+    <input type="search" name="q" value="{{ request('q') }}" placeholder="Nom, e-mail, téléphone..." aria-label="Rechercher une candidature"
+           style="padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;min-width:240px;">
     <select name="job" class="filter-select" style="padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;min-width:200px;" onchange="this.form.submit()">
         <option value="">Toutes les offres</option>
         @foreach($jobs as $j)
@@ -18,7 +20,17 @@
         <option value="{{ $key }}" {{ request('status') === $key ? 'selected' : '' }}>{{ $s['label'] }}</option>
         @endforeach
     </select>
-    @if(request()->hasAny(['job','status']))
+    <select name="read" style="padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;" onchange="this.form.submit()">
+        <option value="">Lues et non lues</option>
+        <option value="unread" {{ request('read') === 'unread' ? 'selected' : '' }}>Non lues</option>
+        <option value="read" {{ request('read') === 'read' ? 'selected' : '' }}>Lues</option>
+    </select>
+    <select name="sort" style="padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;" onchange="this.form.submit()">
+        <option value="recent" {{ request('sort', 'recent') === 'recent' ? 'selected' : '' }}>Plus récentes</option>
+        <option value="oldest" {{ request('sort') === 'oldest' ? 'selected' : '' }}>Plus anciennes</option>
+    </select>
+    <button type="submit" class="btn btn-primary btn-sm">Rechercher</button>
+    @if(request()->hasAny(['q','job','status','read','sort']))
     <a href="{{ route('admin.applications.index') }}" style="font:500 12px Inter,sans-serif;color:var(--red);">✕ Réinitialiser</a>
     @endif
     <span style="margin-left:auto;font:600 13px Inter,sans-serif;color:var(--muted);">

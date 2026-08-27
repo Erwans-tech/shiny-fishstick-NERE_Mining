@@ -48,7 +48,7 @@
                     </div>
                     @endif
                     <input id="image" type="file" name="image" accept="image/*">
-                    <span class="form-hint">PNG, JPG — max 4 Mo. Laissez vide pour conserver l'image actuelle.</span>
+                    <span class="form-hint">PNG, JPG — max 8 Mo. En local, la limite PHP doit être configurée à 8 Mo minimum.</span>
                 </div>
                 <div class="form-actions full">
                     <button type="submit" class="btn btn-primary">

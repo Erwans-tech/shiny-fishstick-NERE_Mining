@@ -9,9 +9,17 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminPressController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $documents = PressDocument::latest('published_at')->paginate(15);
+        $query = PressDocument::query();
+        if ($search = trim((string) $request->input('q'))) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('document_type', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+        $documents = $query->latest('published_at')->paginate(15)->withQueryString();
         return view('admin.press.index', compact('documents'));
     }
 

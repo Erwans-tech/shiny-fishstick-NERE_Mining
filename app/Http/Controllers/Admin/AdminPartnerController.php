@@ -9,9 +9,17 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminPartnerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $partners = Partner::orderBy('sort_order')->paginate(20);
+        $query = Partner::query();
+        if ($search = trim((string) $request->input('q'))) {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('category', 'like', "%{$search}%")
+                    ->orWhere('website_url', 'like', "%{$search}%");
+            });
+        }
+        $partners = $query->orderBy('sort_order')->paginate(20)->withQueryString();
         return view('admin.partners.index', compact('partners'));
     }
 

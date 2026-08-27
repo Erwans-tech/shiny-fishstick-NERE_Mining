@@ -3,6 +3,12 @@
 @section('page-title','Partenaires institutionnels')
 
 @section('content')
+<form method="GET" action="{{ route('admin.partners.index') }}" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:center;">
+    <input type="search" name="q" value="{{ request('q') }}" placeholder="Rechercher un partenaire..." aria-label="Rechercher un partenaire"
+           style="padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;min-width:280px;">
+    <button type="submit" class="btn btn-primary btn-sm">Rechercher</button>
+    @if(request('q'))<a href="{{ route('admin.partners.index') }}" style="font:500 12px Inter,sans-serif;color:var(--red);">✕ Réinitialiser</a>@endif
+</form>
 <div class="card">
     <div class="card-header">
         <h2>Partenaires ({{ $partners->total() }})</h2>

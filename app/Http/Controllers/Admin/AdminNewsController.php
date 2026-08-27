@@ -9,9 +9,17 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminNewsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $news = News::latest()->paginate(15);
+        $query = News::query();
+        if ($search = trim((string) $request->input('q'))) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('category', 'like', "%{$search}%")
+                    ->orWhere('excerpt', 'like', "%{$search}%");
+            });
+        }
+        $news = $query->latest()->paginate(15)->withQueryString();
         return view('admin.news.index', compact('news'));
     }
 
@@ -29,6 +37,8 @@ class AdminNewsController extends Controller
             'content'      => ['nullable', 'string'],
             'image'        => ['nullable', 'image', 'max:4096'],
             'published_at' => ['nullable', 'date'],
+        ], [
+            'image.uploaded' => 'L’image n’a pas pu être envoyée. Vérifiez la taille du fichier et la limite PHP autorisée.',
         ]);
 
         if ($request->hasFile('image')) {
@@ -56,6 +66,8 @@ class AdminNewsController extends Controller
             'content'      => ['nullable', 'string'],
             'image'        => ['nullable', 'image', 'max:4096'],
             'published_at' => ['nullable', 'date'],
+        ], [
+            'image.uploaded' => 'L’image n’a pas pu être envoyée. Vérifiez la taille du fichier et la limite PHP autorisée.',
         ]);
 
         if ($request->hasFile('image')) {

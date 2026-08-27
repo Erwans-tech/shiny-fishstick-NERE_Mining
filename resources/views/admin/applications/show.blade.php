@@ -91,9 +91,47 @@
         <div class="card">
             <div class="card-header"><h2>Répondre par e-mail</h2></div>
             <div class="card-body">
-                <a href="mailto:{{ $application->email }}?subject=Votre candidature — {{ $application->jobOffer?->title }}"
-                   class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
-                    ✉️ Envoyer un e-mail à {{ $application->first_name }}
+                @php
+                    $applicationTemplateKey = match($application->status) {
+                        'interview' => 'interview',
+                        'accepted' => 'accepted',
+                        'rejected' => 'rejected',
+                        default => 'received',
+                    };
+                    $applicationTemplates = [
+                        'received' => [
+                            'label' => 'Accusé de réception',
+                            'subject' => 'Votre candidature — '.$application->jobOffer?->title,
+                            'body' => "Bonjour :first_name,\n\nNous vous confirmons la bonne réception de votre candidature au poste de :job_title. Notre équipe va étudier votre dossier avec attention et reviendra vers vous dès que possible.\n\nCordialement,\nL'équipe Néré Mining",
+                        ],
+                        'interview' => [
+                            'label' => 'Proposer un entretien',
+                            'subject' => 'Entretien — '.$application->jobOffer?->title,
+                            'body' => "Bonjour :first_name,\n\nAprès examen de votre candidature au poste de :job_title, nous souhaitons échanger avec vous lors d'un entretien. Merci de nous indiquer vos disponibilités afin que nous puissions convenir d'un créneau.\n\nCordialement,\nL'équipe Néré Mining",
+                        ],
+                        'accepted' => [
+                            'label' => 'Candidature retenue',
+                            'subject' => 'Suite à votre candidature — '.$application->jobOffer?->title,
+                            'body' => "Bonjour :first_name,\n\nNous avons le plaisir de vous informer que votre candidature au poste de :job_title a retenu notre attention. Nous vous contacterons prochainement pour vous communiquer les prochaines étapes.\n\nCordialement,\nL'équipe Néré Mining",
+                        ],
+                        'rejected' => [
+                            'label' => 'Réponse négative',
+                            'subject' => 'Suite à votre candidature — '.$application->jobOffer?->title,
+                            'body' => "Bonjour :first_name,\n\nNous vous remercions pour l'intérêt porté à Néré Mining et pour le temps consacré à votre candidature au poste de :job_title. Après étude attentive de votre dossier, nous ne sommes malheureusement pas en mesure de donner une suite favorable à votre candidature.\n\nNous vous souhaitons pleine réussite dans vos projets.\n\nCordialement,\nL'équipe Néré Mining",
+                        ],
+                    ];
+                @endphp
+                <div class="form-group" style="margin-bottom:14px;">
+                    <label for="application-template">Réponse pré-enregistrée</label>
+                    <select id="application-template" style="width:100%;margin-top:6px;">
+                        @foreach($applicationTemplates as $key => $template)
+                            <option value="{{ $key }}" {{ $applicationTemplateKey === $key ? 'selected' : '' }}>{{ $template['label'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <textarea id="application-reply" style="width:100%;min-height:170px;margin-bottom:14px;border:1px solid var(--line);border-radius:6px;padding:12px;font:14px/1.6 Inter,sans-serif;resize:vertical;"></textarea>
+                <a id="application-mail-link" href="#" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
+                    ✉️ Préparer l’e-mail à {{ $application->first_name }}
                 </a>
             </div>
         </div>
@@ -151,3 +189,32 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    (() => {
+        const templates = @json($applicationTemplates);
+        const firstName = @json($application->first_name);
+        const jobTitle = @json($application->jobOffer?->title ?? 'l’offre sélectionnée');
+        const recipient = @json($application->email);
+        const selector = document.getElementById('application-template');
+        const reply = document.getElementById('application-reply');
+        const link = document.getElementById('application-mail-link');
+
+        const refreshMailto = () => {
+            const template = templates[selector.value];
+            const body = reply.value.replaceAll(':first_name', firstName).replaceAll(':job_title', jobTitle);
+            link.href = `mailto:${recipient}?subject=${encodeURIComponent(template.subject)}&body=${encodeURIComponent(body)}`;
+        };
+
+        const selectTemplate = () => {
+            reply.value = templates[selector.value].body;
+            refreshMailto();
+        };
+
+        selector.addEventListener('change', selectTemplate);
+        reply.addEventListener('input', refreshMailto);
+        selectTemplate();
+    })();
+</script>
+@endpush

@@ -3,6 +3,10 @@ set -e
 
 echo "=== Nere Mining — Demarrage ==="
 
+# Railway fournit le port public via PORT ; conserver 80 en local/Docker.
+PORT=${PORT:-80}
+sed -i "s/listen 80;/listen ${PORT};/" /etc/nginx/nginx.conf
+
 # ── 1. APP_KEY ────────────────────────────────────────────────
 if [ -z "$APP_KEY" ]; then
     echo "[INFO] Generation APP_KEY..."

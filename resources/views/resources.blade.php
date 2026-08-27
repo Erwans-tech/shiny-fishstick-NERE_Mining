@@ -18,7 +18,12 @@
             --sand:#fff4dc; --muted:#70645c; --line:#eadcc5; --light:#fbfaf7;
         }
         * { box-sizing:border-box; margin:0; padding:0; }
-        body { color:var(--ink); background:var(--light); font-family:'Inter',Arial,Helvetica,sans-serif; line-height:1.6; }
+        body { color:var(--ink); background-color:var(--light); background-image:linear-gradient(115deg,rgba(255,194,71,.045),transparent 38%,rgba(75,23,22,.03)),repeating-linear-gradient(135deg,rgba(75,23,22,.025) 0,rgba(75,23,22,.025) 1px,transparent 1px,transparent 46px); background-size:180% 180%,46px 46px; animation:siteAtmosphere 42s ease-in-out infinite alternate; font-family:'Inter',Arial,Helvetica,sans-serif; line-height:1.6; }
+        @keyframes siteAtmosphere { from { background-position:0% 0%,0 0; } to { background-position:100% 100%,23px 23px; } }
+        .masthead { animation:contentRise .8s ease-out both; }
+        main > section { animation:contentRise .7s ease-out both; }
+        @keyframes contentRise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+        @media (prefers-reduced-motion: reduce) { body, .masthead, main > section { animation:none; } }
         a { color:inherit; text-decoration:none; }
 
         /* ── Topbar ── */
@@ -78,9 +83,16 @@
         .btn-dark:hover { background:#3a100f; }
 
         /* ── Gallery grid ── */
-        .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-        .gallery-item { border-radius:6px; overflow:hidden; background:var(--sand); border:1px solid var(--line); }
-        .gallery-item img { width:100%; height:220px; object-fit:cover; display:block; }
+        .gallery-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:16px; }
+        .gallery-item { grid-column:span 4; border-radius:6px; overflow:hidden; background:var(--sand); border:1px solid var(--line); }
+        .gallery-item:nth-child(1) { grid-column:span 7; grid-row:span 2; }
+        .gallery-item:nth-child(2) { grid-column:span 5; }
+        .gallery-item:nth-child(3) { grid-column:span 5; }
+        .gallery-media { position:relative; display:block; height:220px; overflow:hidden; background:#17110f; cursor:zoom-in; }
+        .gallery-item:nth-child(1) .gallery-media { height:456px; }
+        .gallery-media img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .35s ease; }
+        .gallery-media:hover img { transform:scale(1.04); }
+        .gallery-play { position:absolute; left:50%; top:50%; width:56px; height:56px; transform:translate(-50%,-50%); display:grid; place-items:center; border-radius:50%; background:rgba(255,194,71,.95); color:var(--ink); font-size:22px; padding-left:3px; box-shadow:0 4px 16px rgba(0,0,0,.25); }
         .gallery-caption { padding:14px 16px; }
         .gallery-caption h3 { font:600 15px Inter,sans-serif; color:var(--green); margin-bottom:4px; }
         .gallery-caption p { font:13px Inter,sans-serif; color:var(--muted); margin:0; }
@@ -97,6 +109,10 @@
         footer { padding:32px 5vw; background:#351312; color:#eadcca; display:flex; justify-content:space-between; align-items:center; font:12px Inter,sans-serif; }
         .footer-links { display:flex; gap:20px; }
         .footer-links a:hover { color:var(--gold); }
+        .lightbox { position:fixed; inset:0; z-index:300; display:grid; place-items:center; padding:30px; background:rgba(20,12,10,.92); opacity:0; pointer-events:none; transition:opacity .2s ease; }
+        .lightbox.is-open { opacity:1; pointer-events:auto; }
+        .lightbox img { max-width:min(1200px, 92vw); max-height:84vh; object-fit:contain; box-shadow:0 10px 40px rgba(0,0,0,.4); }
+        .lightbox-close { position:absolute; top:20px; right:24px; border:0; background:none; color:#fff; font-size:36px; line-height:1; cursor:pointer; }
 
         /* ── Responsive ── */
         @media(max-width:900px) {
@@ -107,6 +123,8 @@
             nav.open { display:flex; flex-direction:column; align-items:flex-start; width:100%; gap:4px; }
             .nav-dropdown .dropdown-menu { position:static; box-shadow:none; border:0; padding:0 0 0 16px; }
             .grid-3, .gallery-grid { grid-template-columns:1fr; }
+            .gallery-item, .gallery-item:nth-child(1), .gallery-item:nth-child(2), .gallery-item:nth-child(3) { grid-column:span 1; grid-row:auto; }
+            .gallery-media, .gallery-item:nth-child(1) .gallery-media { height:240px; }
             footer { flex-direction:column; gap:12px; text-align:center; }
         }
     </style>
@@ -171,7 +189,13 @@
                 <div class="gallery-grid">
                     @foreach($media as $item)
                     <figure class="gallery-item">
-                        <img src="{{ asset($item->file_path) }}" alt="{{ $item->title }}">
+                        @if($item->type === 'youtube')
+                            <a class="gallery-media" href="{{ $item->external_url }}" target="_blank" rel="noopener" aria-label="Voir {{ $item->title }}"><img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}"><span class="gallery-play" aria-hidden="true">▶</span></a>
+                        @elseif($item->type === 'google_drive')
+                            <a class="gallery-media" href="{{ $item->external_url }}" target="_blank" rel="noopener" aria-label="Ouvrir {{ $item->title }}"><div style="height:100%;display:grid;place-items:center;color:#fff;font:600 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;">Google Drive ↗</div></a>
+                        @elseif($item->url)
+                            <a class="gallery-media" href="{{ $item->url }}" data-lightbox-src="{{ $item->url }}" data-lightbox-alt="{{ $item->title }}" aria-label="Agrandir {{ $item->title }}"><img src="{{ $item->url }}" alt="{{ $item->title }}"></a>
+                        @endif
                         <figcaption class="gallery-caption">
                             <h3>{{ $item->title }}</h3>
                             @if($item->caption)<p>{{ $item->caption }}</p>@endif
@@ -227,9 +251,38 @@
         <span>{{ __('site.footer_tagline') }}</span>
     </footer>
 
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie">
+        <button class="lightbox-close" type="button" aria-label="Fermer">&times;</button>
+        <img src="" alt="">
+    </div>
+
     <script>
         document.querySelector('.menu-btn')?.addEventListener('click', function() {
             this.closest('header').querySelector('nav').classList.toggle('open');
+        });
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = lightbox?.querySelector('img');
+        const closeLightbox = () => {
+            lightbox?.classList.remove('is-open');
+            if (lightboxImage) lightboxImage.src = '';
+        };
+
+        document.querySelectorAll('[data-lightbox-src]').forEach(function (trigger) {
+            trigger.addEventListener('click', function (event) {
+                event.preventDefault();
+                if (!lightbox || !lightboxImage) return;
+                lightboxImage.src = this.dataset.lightboxSrc;
+                lightboxImage.alt = this.dataset.lightboxAlt || '';
+                lightbox.classList.add('is-open');
+            });
+        });
+        lightbox?.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
+        lightbox?.addEventListener('click', function (event) {
+            if (event.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') closeLightbox();
         });
     </script>
 </body>

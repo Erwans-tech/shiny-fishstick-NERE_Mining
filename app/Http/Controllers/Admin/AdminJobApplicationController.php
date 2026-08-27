@@ -12,7 +12,16 @@ class AdminJobApplicationController extends Controller
 {
     public function index(Request $request)
     {
-        $query = JobApplication::with('jobOffer')->latest();
+        $query = JobApplication::with('jobOffer');
+
+        if ($search = trim((string) $request->input('q'))) {
+            $query->where(function ($query) use ($search) {
+                $query->where('first_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
+            });
+        }
 
         if ($jobId = $request->get('job')) {
             $query->where('job_offer_id', $jobId);
@@ -21,7 +30,15 @@ class AdminJobApplicationController extends Controller
             $query->where('status', $status);
         }
 
-        $applications = $query->paginate(20);
+        if ($request->input('read') === 'unread') {
+            $query->whereNull('read_at');
+        } elseif ($request->input('read') === 'read') {
+            $query->whereNotNull('read_at');
+        }
+
+        $query->orderBy('created_at', $request->input('sort') === 'oldest' ? 'asc' : 'desc');
+        $applications = $query->paginate(20)->withQueryString();
+
         $jobs         = JobOffer::orderBy('title')->get();
         $statuses     = JobApplication::statusLabels();
 

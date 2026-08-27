@@ -3,6 +3,25 @@
 @section('page-title','Messages de contact')
 
 @section('content')
+<form method="GET" action="{{ route('admin.messages.index') }}"
+      style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:center;">
+    <input type="search" name="q" value="{{ request('q') }}" placeholder="Rechercher un message..." aria-label="Rechercher un message"
+           style="padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;min-width:240px;">
+    <select name="read" style="padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;" onchange="this.form.submit()">
+        <option value="">Tous les messages</option>
+        <option value="unread" {{ request('read') === 'unread' ? 'selected' : '' }}>Non lus</option>
+        <option value="read" {{ request('read') === 'read' ? 'selected' : '' }}>Lus</option>
+    </select>
+    <select name="sort" style="padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;" onchange="this.form.submit()">
+        <option value="recent" {{ request('sort', 'recent') === 'recent' ? 'selected' : '' }}>Plus récents</option>
+        <option value="oldest" {{ request('sort') === 'oldest' ? 'selected' : '' }}>Plus anciens</option>
+    </select>
+    <button type="submit" class="btn btn-primary btn-sm">Rechercher</button>
+    @if(request()->hasAny(['q', 'read', 'sort']))
+    <a href="{{ route('admin.messages.index') }}" style="font:500 12px Inter,sans-serif;color:var(--red);">✕ Réinitialiser</a>
+    @endif
+    <span style="margin-left:auto;font:600 13px Inter,sans-serif;color:var(--muted);">{{ $messages->total() }} message(s)</span>
+</form>
 <div class="card">
     <div class="card-header">
         <h2>Messages ({{ $messages->total() }})</h2>

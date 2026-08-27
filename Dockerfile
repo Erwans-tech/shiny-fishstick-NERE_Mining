@@ -90,6 +90,12 @@ RUN { \
         echo "opcache.validate_timestamps=0"; \
         } > /usr/local/etc/php/conf.d/opcache.ini
 
+# Limites cohérentes avec les formulaires d'administration
+RUN { \
+        echo "upload_max_filesize=8M"; \
+        echo "post_max_size=10M"; \
+        } > /usr/local/etc/php/conf.d/uploads.ini
+
 EXPOSE 80
 
 CMD ["/start.sh"]

@@ -3,6 +3,12 @@
 @section('page-title','Médiathèque')
 
 @section('content')
+<form method="GET" action="{{ route('admin.media.index') }}" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:center;">
+    <input type="search" name="q" value="{{ request('q') }}" placeholder="Rechercher un média..." aria-label="Rechercher un média"
+           style="padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;min-width:280px;">
+    <button type="submit" class="btn btn-primary btn-sm">Rechercher</button>
+    @if(request('q'))<a href="{{ route('admin.media.index') }}" style="font:500 12px Inter,sans-serif;color:var(--red);">✕ Réinitialiser</a>@endif
+</form>
 <div class="card">
     <div class="card-header">
         <h2>Médias ({{ $assets->total() }})</h2>
@@ -15,8 +21,10 @@
             @forelse($assets as $a)
             <tr>
                 <td>
-                    @if($a->type === 'image' && $a->file_path)
-                        <img src="{{ asset('uploads/'.$a->file_path) }}" style="height:48px;width:72px;object-fit:cover;border-radius:4px;">
+                    @if($a->type === 'image' && $a->url)
+                        <img src="{{ $a->url }}" style="height:48px;width:72px;object-fit:cover;border-radius:4px;">
+                    @elseif($a->external_url)
+                        <a href="{{ $a->external_url }}" target="_blank" rel="noopener" class="badge badge-green">Lien ↗</a>
                     @else
                         <span class="badge badge-gray">{{ strtoupper($a->type) }}</span>
                     @endif
