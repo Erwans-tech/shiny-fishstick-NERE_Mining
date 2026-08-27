@@ -1,7 +1,7 @@
 # 🪨 Néré Mining — Guide de présentation du site
 
 > Site web institutionnel bilingue (français / anglais) de la société minière **Néré Mining**, opérant la mine d'or de **Karma** au Burkina Faso.
-> Développé avec **Laravel 11** + MySQL + Vite.
+> Développé avec **Laravel 13** + PostgreSQL + Vite.
 
 ---
 
@@ -97,7 +97,7 @@ Vue synthétique avec :
 
 ## 🗄️ Base de données
 
-Le site utilise **MySQL** (ou SQLite en local) avec les tables suivantes :
+Le site utilise **PostgreSQL** (ou SQLite en local) avec les tables suivantes :
 
 ### `news` — Actualités
 | Champ | Description |

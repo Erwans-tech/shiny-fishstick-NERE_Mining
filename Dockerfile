@@ -16,7 +16,8 @@ RUN apk add --no-cache \
         freetype-dev \
         oniguruma-dev \
         libxml2-dev \
-        icu-dev
+        icu-dev \
+        postgresql-dev
 
 # ── Extensions PHP ───────────────────────────────────────────
 RUN docker-php-ext-configure gd \
@@ -26,6 +27,7 @@ RUN docker-php-ext-configure gd \
         && docker-php-ext-install \
         pdo \
         pdo_mysql \
+        pdo_pgsql \
         mbstring \
         exif \
         pcntl \

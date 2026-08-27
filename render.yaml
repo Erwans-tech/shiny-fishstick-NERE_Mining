@@ -28,19 +28,13 @@ services:
       - key: APP_FALLBACK_LOCALE
         value: fr
 
-      # MySQL externe — renseigner ces valeurs dans Render
+      # PostgreSQL Render
       - key: DB_CONNECTION
-        value: mysql
-      - key: DB_HOST
-        sync: false
-      - key: DB_PORT
-        value: "3306"
-      - key: DB_DATABASE
-        sync: false
-      - key: DB_USERNAME
-        sync: false
-      - key: DB_PASSWORD
-        sync: false
+        value: pgsql
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nere-mining-db
+          property: connectionString
 
       # Session & cache fichier (pas de Redis en free)
       - key: SESSION_DRIVER
@@ -67,3 +61,9 @@ services:
         value: stderr
       - key: LOG_LEVEL
         value: error
+
+databases:
+  - name: nere-mining-db
+    databaseName: nere_mining
+    user: nere_user
+    plan: free
