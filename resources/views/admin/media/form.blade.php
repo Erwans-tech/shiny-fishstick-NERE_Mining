@@ -28,6 +28,13 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label>Emplacement *</label>
+                    <select name="placement">
+                        <option value="gallery" {{ old('placement', $asset->placement ?? 'gallery') === 'gallery' ? 'selected' : '' }}>Médiathèque</option>
+                        <option value="homepage_slideshow" {{ old('placement', $asset->placement ?? 'gallery') === 'homepage_slideshow' ? 'selected' : '' }}>Diaporama de l’accueil</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>Ordre d'affichage</label>
                     <input type="number" name="sort_order" value="{{ old('sort_order', $asset->sort_order ?? 0) }}" min="0">
                 </div>

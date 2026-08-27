@@ -1,6 +1,12 @@
 @php
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
+    $slides = $slides ?? collect();
+    $heroImages = $slides->isNotEmpty()
+        ? $slides->map(fn($slide) => $slide->url)->filter()->values()->all()
+        : collect(range(1, 5))->map(fn($i) => asset('images/mining/karma-0'.$i.'.jpg'))->all();
+    $heroDuration = count($heroImages) * 5;
+    $heroSlot = 100 / max(count($heroImages), 1);
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $loc }}">
@@ -99,18 +105,16 @@
             position:absolute; inset:0;
             background-size:cover; background-position:center;
             opacity:0; transform:scale(1.07);
-            animation:hSlide 25s infinite; will-change:opacity,transform;
+            will-change:opacity,transform;
         }
-        .hero-slide:nth-child(1){ background-image:url('{{ asset('images/mining/karma-01.jpg') }}'); animation-delay:0s; }
-        .hero-slide:nth-child(2){ background-image:url('{{ asset('images/mining/karma-02.jpg') }}'); animation-delay:5s; }
-        .hero-slide:nth-child(3){ background-image:url('{{ asset('images/mining/karma-03.jpg') }}'); animation-delay:10s; }
-        .hero-slide:nth-child(4){ background-image:url('{{ asset('images/mining/karma-04.jpg') }}'); animation-delay:15s; }
-        .hero-slide:nth-child(5){ background-image:url('{{ asset('images/mining/karma-05.jpg') }}'); animation-delay:20s; }
-        @keyframes hSlide {
-            0%,4%    { opacity:0; transform:scale(1.07); }
-            8%,18%   { opacity:1; transform:scale(1.01); }
-            22%,100% { opacity:0; transform:scale(1); }
+        @foreach($heroImages as $index => $heroImage)
+        .hero-slide:nth-child({{ $index + 1 }}){ background-image:url('{{ $heroImage }}'); animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
+        @keyframes heroSlide{{ $index }} {
+            0%,{{ max(0, $index * $heroSlot - 2) }}% { opacity:0; transform:scale(1.07); }
+            {{ min(100, $index * $heroSlot + 2) }}%,{{ min(100, ($index + 1) * $heroSlot - 2) }}% { opacity:1; transform:scale(1.01); }
+            {{ min(100, ($index + 1) * $heroSlot) }}%,100% { opacity:0; transform:scale(1); }
         }
+        @endforeach
         /* Overlays */
         .hero-ov {
             position:absolute; inset:0; z-index:1;

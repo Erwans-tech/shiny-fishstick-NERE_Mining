@@ -83,6 +83,7 @@ class AdminMediaController extends Controller
         return [
             'title'      => ['required', 'string', 'max:255'],
             'type'       => ['required', 'in:image,video,document,youtube,google_drive'],
+            'placement'  => ['required', 'in:gallery,homepage_slideshow'],
             'caption'    => ['nullable', 'string'],
             'external_url' => [
                 'nullable', 'required_if:type,youtube,google_drive', 'url', 'max:2048',

@@ -42,6 +42,13 @@ $homeHandler = function (string $locale) {
 
     $partners = Partner::where('is_published', true)->orderBy('sort_order')->get();
 
+    $slides = MediaAsset::where('type', 'image')
+        ->where('placement', 'homepage_slideshow')
+        ->where('is_published', true)
+        ->orderBy('sort_order')
+        ->take(5)
+        ->get();
+
     $statsLabels = $locale === 'en'
         ? ['Annual gold production', 'Direct and indirect jobs', 'National workforce', 'Fiscal & social contributions']
         : ["Production annuelle d'or", 'Emplois directs et indirects', "Main-d'œuvre nationale", 'Retombées fiscales & contributions'];
@@ -56,6 +63,7 @@ $homeHandler = function (string $locale) {
         ],
         'news'     => $news,
         'partners' => $partners,
+        'slides'   => $slides,
     ]);
 };
 

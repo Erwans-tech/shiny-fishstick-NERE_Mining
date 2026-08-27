@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MediaAsset extends Model
 {
-    protected $fillable = ['title', 'type', 'file_path', 'external_url', 'caption', 'is_published', 'sort_order'];
+    protected $fillable = ['title', 'type', 'placement', 'file_path', 'external_url', 'caption', 'is_published', 'sort_order'];
 
     protected function casts(): array
     {
