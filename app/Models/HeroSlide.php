@@ -73,12 +73,13 @@ class HeroSlide extends Model
         if (! $this->image_path) {
             return '';
         }
-
         if (str_starts_with($this->image_path, 'images/')) {
             return asset($this->image_path);
         }
-
-        return asset('uploads/' . $this->image_path);
+        // En local : public/uploads/...  En prod R2 : URL Cloudflare
+        return \Illuminate\Support\Facades\Storage::disk(
+            config('filesystems.default', 'public')
+        )->url($this->image_path);
     }
 
     /** Scope : slides actives triées par ordre d'affichage. */

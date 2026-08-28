@@ -6,13 +6,21 @@
 <form method="GET" action="{{ route('admin.media.index') }}" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:center;">
     <input type="search" name="q" value="{{ request('q') }}" placeholder="Rechercher un média..." aria-label="Rechercher un média"
            style="padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;min-width:280px;">
+    <select name="placement" aria-label="Filtrer par emplacement" style="padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;">
+        <option value="">Tous les emplacements</option>
+        <option value="gallery" {{ request('placement') === 'gallery' ? 'selected' : '' }}>Médiathèque</option>
+        <option value="homepage_slideshow" {{ request('placement') === 'homepage_slideshow' ? 'selected' : '' }}>Diaporama d’accueil</option>
+    </select>
     <button type="submit" class="btn btn-primary btn-sm">Rechercher</button>
-    @if(request('q'))<a href="{{ route('admin.media.index') }}" style="font:500 12px Inter,sans-serif;color:var(--red);">✕ Réinitialiser</a>@endif
+    @if(request('q') || request('placement'))<a href="{{ route('admin.media.index') }}" style="font:500 12px Inter,sans-serif;color:var(--red);">✕ Réinitialiser</a>@endif
 </form>
 <div class="card">
     <div class="card-header">
         <h2>Médias ({{ $assets->total() }})</h2>
-        <a href="{{ route('admin.media.create') }}" class="btn btn-primary">+ Ajouter un média</a>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="{{ route('admin.media.create', ['placement' => 'homepage_slideshow']) }}" class="btn btn-ghost">+ Image du diaporama</a>
+            <a href="{{ route('admin.media.create') }}" class="btn btn-primary">+ Ajouter un média</a>
+        </div>
     </div>
     <div class="table-wrap">
         <table>

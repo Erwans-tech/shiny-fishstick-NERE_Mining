@@ -99,7 +99,7 @@
                     @foreach($news as $item)
                     <article class="news-card">
                         @if($item->image_path)
-                            <img class="news-img" src="{{ asset('uploads/' . $item->image_path) }}" alt="{{ $item->title }}">
+                            <img class="news-img" src="{{ \App\Helpers\StorageHelper::uploadUrl($item->image_path) }}" alt="{{ $item->title }}">
                         @else
                             <div class="news-img-placeholder">{{ __('site.news_img_placeholder') }}</div>
                         @endif

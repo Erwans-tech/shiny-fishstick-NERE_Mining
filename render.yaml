@@ -57,38 +57,37 @@ services:
           name: nere-mining-db
           property: password
 
-      # Session & cache fichier (pas de Redis en free)
+      # Filesystem : Cloudflare R2 en production (gratuit 10GB, compatible S3)
+      - key: FILESYSTEM_DISK
+        value: r2
+      - key: R2_ACCESS_KEY_ID
+        sync: false          # À renseigner manuellement dans Render > Environment
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false          # À renseigner manuellement dans Render > Environment
+      - key: R2_BUCKET
+        sync: false          # Nom du bucket créé dans Cloudflare R2
+      - key: R2_ACCOUNT_ID
+        sync: false          # Votre Cloudflare Account ID (32 caractères)
+      - key: R2_PUBLIC_URL
+        sync: false          # URL publique du bucket (ex: https://pub-xxx.r2.dev ou domaine custom)
+
+      # HTTPS (Render gère le TLS)
+      - key: FORCE_HTTPS
+        value: "true"
+
+      # Session & cache fichier
       - key: SESSION_DRIVER
         value: file
       - key: CACHE_STORE
         value: file
       - key: QUEUE_CONNECTION
         value: sync
-      - key: FILESYSTEM_DISK
-        value: public
-
-      # HTTPS (Render gère le TLS)
-      - key: FORCE_HTTPS
-        value: "true"
-
-      # Identifiants admin — à renseigner dans Render, jamais dans Git
-      - key: ADMIN_EMAIL
-        sync: false
-      - key: ADMIN_PASSWORD
-        sync: false
 
       # Logs vers stderr (visible dans Render logs)
       - key: LOG_CHANNEL
         value: stderr
       - key: LOG_LEVEL
         value: error
-
-    # ── Disque persistant pour les fichiers uploadés ───────────
-    # OBLIGATOIRE : sans ça, tous les uploads sont perdus à chaque redéploiement
-    disk:
-      name: uploads
-      mountPath: /var/www/html/public/uploads
-      sizeGB: 1
 
 databases:
   - name: nere-mining-db

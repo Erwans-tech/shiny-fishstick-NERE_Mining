@@ -42,7 +42,7 @@
                 <div class="form-group full">
                     <label>Logo (image)</label>
                     @if($partner->logo_path)
-                    @php $logoUrl = str_starts_with($partner->logo_path,'images/') ? asset($partner->logo_path) : asset('uploads/'.$partner->logo_path); @endphp
+                    @php $logoUrl = str_starts_with($partner->logo_path,'images/') ? asset($partner->logo_path) : \App\Helpers\StorageHelper::uploadUrl($partner->logo_path); @endphp
                     <div style="margin-bottom:10px;">
                         <img src="{{ $logoUrl }}" style="height:60px;object-fit:contain;">
                     </div>

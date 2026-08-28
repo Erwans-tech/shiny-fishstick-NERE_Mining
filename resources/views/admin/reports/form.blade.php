@@ -34,12 +34,12 @@
                 </div>
                 <div class="form-group">
                     <label>Fichier PDF</label>
-                    @if($report->file_path)<div style="margin-bottom:8px;"><a href="{{ asset('uploads/'.$report->file_path) }}" target="_blank" class="badge badge-green">Fichier actuel ↗</a></div>@endif
+                    @if($report->file_path)<div style="margin-bottom:8px;"><a href="{{ \App\Helpers\StorageHelper::uploadUrl($report->file_path) }}" target="_blank" class="badge badge-green">Fichier actuel ↗</a></div>@endif
                     <input type="file" name="file" accept=".pdf">
                 </div>
                 <div class="form-group">
                     <label>Image de couverture</label>
-                    @if($report->cover_image)<div style="margin-bottom:8px;"><img src="{{ asset('uploads/'.$report->cover_image) }}" style="height:80px;border-radius:4px;object-fit:cover;"></div>@endif
+                    @if($report->cover_image)<div style="margin-bottom:8px;"><img src="{{ \App\Helpers\StorageHelper::uploadUrl($report->cover_image) }}" style="height:80px;border-radius:4px;object-fit:cover;"></div>@endif
                     <input type="file" name="cover" accept="image/*">
                 </div>
                 <div class="form-actions full">

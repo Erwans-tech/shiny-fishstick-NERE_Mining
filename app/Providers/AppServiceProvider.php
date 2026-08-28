@@ -20,10 +20,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // ── 1. Forcer HTTPS en production ───────────────────────────
-        // Render et tout reverse proxy terminent TLS en amont.
-        // Sans ce code, asset() et route() génèrent des URL http://
         if (app()->environment('production') || env('FORCE_HTTPS')) {
             URL::forceScheme('https');
+        }
+
+        // ── 2. URL publiques R2 ──────────────────────────────────────
+        // Storage::url('path/file.jpg') doit retourner l'URL publique
+        // du bucket R2, pas une URL S3 signée.
+        // On configure l'URL de base du disk r2 avec R2_PUBLIC_URL.
+        if (config('filesystems.default') === 'r2' && env('R2_PUBLIC_URL')) {
+            config(['filesystems.disks.r2.url' => rtrim(env('R2_PUBLIC_URL'), '/')]);
         }
 
         // ── 2. Rate limiting : protection brute-force login ─────────
@@ -46,7 +52,12 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perHour(3)->by($request->ip());
         });
 
-        // ── 3. Validation uploads — extensions et tailles max ───────
+        // ── 3. Directive Blade @uploadUrl ───────────────────────────
+        // Usage dans les vues : @uploadUrl($model->image_path)
+        // ou en PHP inline   : \App\Helpers\StorageHelper::uploadUrl($path)
+        \Illuminate\Support\Facades\Blade::directive('uploadUrl', function ($path) {
+            return "<?php echo e(\\App\\Helpers\\StorageHelper::uploadUrl({$path})); ?>";
+        });
         Validator::extend('safe_file', function ($attribute, $value, $parameters) {
             $allowedMimes = ['image/jpeg','image/png','image/gif','image/webp',
                              'application/pdf','application/msword',

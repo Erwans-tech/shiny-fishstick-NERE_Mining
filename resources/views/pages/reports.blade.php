@@ -14,7 +14,7 @@
             <p>{{ $report->description }}</p>
             <a class="btn {{ $report->file_path ? 'btn-gold' : 'disabled' }}"
                style="margin-top:16px; display:inline-block;"
-               href="{{ $report->file_path ? asset('uploads/'.$report->file_path) : '#' }}">
+               href="{{ $report->file_path ? \App\Helpers\StorageHelper::uploadUrl($report->file_path) : '#' }}">
                 {{ $report->file_path
                     ? __('site.download_pdf', [], $loc)
                     : __('site.coming_soon', [], $loc) }}

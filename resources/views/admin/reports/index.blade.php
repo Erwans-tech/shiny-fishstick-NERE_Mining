@@ -24,7 +24,7 @@
                 <td class="td-muted">{{ $r->category }}</td>
                 <td>
                     @if($r->file_path)
-                        <a href="{{ asset('uploads/'.$r->file_path) }}" target="_blank" class="badge badge-green">PDF ↗</a>
+                        <a href="{{ \App\Helpers\StorageHelper::uploadUrl($r->file_path) }}" target="_blank" class="badge badge-green">PDF ↗</a>
                     @else
                         <span class="badge badge-gray">—</span>
                     @endif

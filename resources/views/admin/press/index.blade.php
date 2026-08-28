@@ -24,7 +24,7 @@
                 <td class="td-muted">{{ $d->document_type }}</td>
                 <td>
                     @if($d->file_path)
-                        <a href="{{ asset('uploads/'.$d->file_path) }}" target="_blank" class="badge badge-green">Fichier ↗</a>
+                        <a href="{{ \App\Helpers\StorageHelper::uploadUrl($d->file_path) }}" target="_blank" class="badge badge-green">Fichier ↗</a>
                     @else
                         <span class="badge badge-gray">—</span>
                     @endif

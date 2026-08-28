@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group full">
                     <label>Fichier (PDF, DOC)</label>
-                    @if($document->file_path)<div style="margin-bottom:8px;"><a href="{{ asset('uploads/'.$document->file_path) }}" target="_blank" class="badge badge-green">Fichier actuel ↗</a></div>@endif
+                    @if($document->file_path)<div style="margin-bottom:8px;"><a href="{{ \App\Helpers\StorageHelper::uploadUrl($document->file_path) }}" target="_blank" class="badge badge-green">Fichier actuel ↗</a></div>@endif
                     <input type="file" name="file" accept=".pdf,.doc,.docx">
                 </div>
                 <div class="form-actions full">

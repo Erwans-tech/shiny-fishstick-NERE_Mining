@@ -33,6 +33,7 @@
                         <option value="gallery" {{ old('placement', $asset->placement ?? 'gallery') === 'gallery' ? 'selected' : '' }}>Médiathèque</option>
                         <option value="homepage_slideshow" {{ old('placement', $asset->placement ?? 'gallery') === 'homepage_slideshow' ? 'selected' : '' }}>Diaporama de l’accueil</option>
                     </select>
+                    <small style="display:block;margin-top:6px;color:var(--muted);">« Diaporama de l’accueil » affiche l’image en fond de la page d’accueil. Utilisez l’ordre pour définir la séquence (jusqu’à 12 images).</small>
                 </div>
                 <div class="form-group">
                     <label>Ordre d'affichage</label>
@@ -59,14 +60,15 @@
                         <div style="margin-bottom:10px;"><a href="{{ $asset->url }}" target="_blank" class="badge badge-green">Fichier actuel ↗</a></div>
                     @endif
                     @endif
-                    <input type="file" name="file">
+                    <input type="file" name="file" accept="image/jpeg,image/png,image/webp,image/svg+xml,video/mp4,video/webm,video/quicktime,application/pdf,.doc,.docx">
+                    <small style="display:block;margin-top:6px;color:var(--muted);">Obligatoire pour le diaporama d’accueil (JPG, PNG ou WebP).</small>
                 </div>
                 <div class="form-group">
                     <div class="toggle-wrap">
                         <input type="hidden" name="is_published" value="0">
                         <input type="checkbox" id="is_published" name="is_published" value="1"
                                {{ old('is_published', $asset->is_published ?? true) ? 'checked' : '' }}>
-                        <label for="is_published" style="text-transform:none;font-size:14px;font-weight:500;color:var(--ink);">Visible dans la médiathèque</label>
+                        <label for="is_published" style="text-transform:none;font-size:14px;font-weight:500;color:var(--ink);">Visible sur le site</label>
                     </div>
                 </div>
                 <div class="form-actions full">
@@ -77,4 +79,16 @@
         </div>
     </div>
 </form>
+<script>
+    (function () {
+        var placement = document.querySelector('select[name="placement"]');
+        var type = document.querySelector('select[name="type"]');
+        if (!placement || !type) return;
+        function syncType() {
+            if (placement.value === 'homepage_slideshow') type.value = 'image';
+        }
+        placement.addEventListener('change', syncType);
+        syncType();
+    })();
+</script>
 @endsection

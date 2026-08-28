@@ -8,9 +8,35 @@ class MediaAsset extends Model
 {
     protected $fillable = ['title', 'type', 'placement', 'file_path', 'external_url', 'caption', 'is_published', 'sort_order'];
 
+    protected $attributes = [
+        'type'         => 'image',
+        'placement'    => 'gallery',
+        'file_path'    => '',
+        'is_published' => true,
+        'sort_order'   => 0,
+    ];
+
     protected function casts(): array
     {
         return ['is_published' => 'boolean'];
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
+    }
+
+    public function scopeGallery($query)
+    {
+        return $query->published()->where('placement', 'gallery')->orderBy('sort_order');
+    }
+
+    public function scopeHomepageSlideshow($query)
+    {
+        return $query->published()
+            ->where('type', 'image')
+            ->where('placement', 'homepage_slideshow')
+            ->orderBy('sort_order');
     }
 
     /**
@@ -30,7 +56,9 @@ class MediaAsset extends Model
             return asset($this->file_path);
         }
 
-        return asset('uploads/' . $this->file_path);
+        return \Illuminate\Support\Facades\Storage::disk(
+            config('filesystems.default', 'public')
+        )->url($this->file_path);
     }
 
     public function getEmbedUrlAttribute(): ?string

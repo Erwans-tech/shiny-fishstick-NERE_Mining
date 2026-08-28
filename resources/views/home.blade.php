@@ -667,7 +667,7 @@
                         // Logos uploadés via admin → dans public/uploads/
                         $logoUrl = str_starts_with($p->logo_path, 'images/')
                             ? asset($p->logo_path)
-                            : asset('uploads/' . $p->logo_path);
+                            : \App\Helpers\StorageHelper::uploadUrl($p->logo_path);
                     @endphp
                     <img class="partner-logo-img"
                          src="{{ $logoUrl }}"

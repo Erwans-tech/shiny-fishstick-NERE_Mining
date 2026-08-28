@@ -28,7 +28,7 @@
         .dropdown-menu a:hover{background:var(--sand);}
         .nav-lang{margin-left:12px;border:1px solid rgba(255,255,255,.3);border-radius:4px;}
         .menu-btn{display:none;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;padding:8px 14px;font:600 11px Inter,sans-serif;letter-spacing:.08em;cursor:pointer;border-radius:4px;}
-        .masthead{padding:100px 5vw 80px;color:white;background:linear-gradient(100deg,rgba(75,23,22,.96) 45%,rgba(75,23,22,.55)),url('{{ $news->image_path ? asset('uploads/' . $news->image_path) : asset('images/mining/karma-01.jpg') }}') center/cover;}
+        .masthead{padding:100px 5vw 80px;color:white;background:linear-gradient(100deg,rgba(75,23,22,.96) 45%,rgba(75,23,22,.55)),url('{{ $news->image_path ? \App\Helpers\StorageHelper::uploadUrl($news->image_path) : asset('images/mining/karma-01.jpg') }}') center/cover;}
         .eyebrow{color:var(--gold);font:600 11px Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;}
         h1{max-width:860px;font-size:clamp(32px,5vw,64px);line-height:1.05;font-weight:400;color:#fff;}
         .breadcrumb{margin-top:20px;font:12px Inter,sans-serif;color:rgba(255,255,255,.6);}
@@ -78,7 +78,7 @@
         </div>
 
         @if($news->image_path)
-            <img class="article-cover" src="{{ asset('uploads/' . $news->image_path) }}" alt="{{ $news->title }}">
+            <img class="article-cover" src="{{ \App\Helpers\StorageHelper::uploadUrl($news->image_path) }}" alt="{{ $news->title }}">
         @endif
 
         <div class="article-body">

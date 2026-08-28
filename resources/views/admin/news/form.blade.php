@@ -44,7 +44,7 @@
                     <label for="image">Image principale</label>
                     @if($news->image_path)
                     <div style="margin-bottom:10px;">
-                        <img src="{{ asset('uploads/'.$news->image_path) }}" style="height:100px;border-radius:6px;object-fit:cover;">
+                        <img src="{{ \App\Helpers\StorageHelper::uploadUrl($news->image_path) }}" style="height:100px;border-radius:6px;object-fit:cover;">
                     </div>
                     @endif
                     <input id="image" type="file" name="image" accept="image/*">
