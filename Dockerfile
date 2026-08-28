@@ -102,6 +102,7 @@ RUN { \
         echo "post_max_size=10M"; \
         } > /usr/local/etc/php/conf.d/uploads.ini
 
-EXPOSE 80
+# Render impose le port 10000 par défaut
+EXPOSE 10000
 
 CMD ["/start.sh"]

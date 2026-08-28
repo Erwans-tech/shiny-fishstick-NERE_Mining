@@ -8,8 +8,9 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /up
     plan: free
-
     envVars:
+      - key: PORT
+        value: "10000"
       - key: APP_NAME
         value: "Nere Mining"
       - key: APP_ENV

@@ -1,39 +1,59 @@
 #!/bin/sh
-set -e
+# Pas de set -e global : on gère nous-mêmes les erreurs critiques
+# pour éviter qu'une commande échoue silencieusement et tue le démarrage.
 
 echo "=== Nere Mining — Demarrage ==="
 
-# Render fournit le port public via PORT ; 10000 est le port HTTP par defaut.
+# ── Render injecte le port via $PORT (défaut 10000) ──────────
 PORT=${PORT:-10000}
-sed -i "s#listen 0.0.0.0:80;#listen 0.0.0.0:${PORT};#" /etc/nginx/nginx.conf
+echo "[INFO] Port nginx : $PORT"
+sed -i "s/__PORT__/${PORT}/" /etc/nginx/nginx.conf
 
 # ── 1. APP_KEY ────────────────────────────────────────────────
 if [ -z "$APP_KEY" ]; then
     echo "[INFO] Generation APP_KEY..."
-    php artisan key:generate --force
+    php artisan key:generate --force || true
 fi
 
-# ── 2. Vider les caches ──────────────────────────────────────
-php artisan config:clear  2>/dev/null || true
-php artisan cache:clear   2>/dev/null || true
-php artisan view:clear    2>/dev/null || true
-php artisan route:clear   2>/dev/null || true
+# ── 2. Vider les caches Laravel ──────────────────────────────
+echo "[INFO] Nettoyage des caches..."
+php artisan config:clear  || true
+php artisan cache:clear   || true
+php artisan view:clear    || true
+php artisan route:clear   || true
 
-# ── 3. Attendre PostgreSQL ──────────────────────────────────
+# ── 3. Attendre PostgreSQL (60 tentatives × 3s = 3 min max) ──
 echo "[INFO] Attente de la base de donnees PostgreSQL..."
-MAX=40
+MAX=60
 i=0
-until php artisan db:show --no-interaction; do
-    if [ $i -ge $MAX ]; then
+DB_READY=0
+
+until [ $i -ge $MAX ]; do
+    # Test de connexion simple via PHP PDO sans passer par Artisan
+    if php -r "
+        \$url = getenv('DATABASE_URL');
+        if (\$url) {
+            // Extraire les composants de DATABASE_URL
+            \$p = parse_url(\$url);
+            \$dsn = 'pgsql:host='.\$p['host'].';port='.(\$p['port'] ?? 5432).';dbname='.ltrim(\$p['path'],'/');
+            \$pdo = new PDO(\$dsn, \$p['user'], \$p['pass'], [PDO::ATTR_TIMEOUT => 5]);
+            echo 'ok';
+        } else {
+            \$dsn = 'pgsql:host='.getenv('DB_HOST').';port='.(getenv('DB_PORT') ?: 5432).';dbname='.getenv('DB_DATABASE');
+            \$pdo = new PDO(\$dsn, getenv('DB_USERNAME'), getenv('DB_PASSWORD'), [PDO::ATTR_TIMEOUT => 5]);
+            echo 'ok';
+        }
+    " 2>/dev/null | grep -q "ok"; then
+        DB_READY=1
         break
     fi
-    echo "  Tentative $((i+1))/$MAX..."
-    sleep 3
     i=$((i+1))
+    echo "  Tentative $i/$MAX — attente 3s..."
+    sleep 3
 done
 
-if [ $i -ge $MAX ]; then
-    echo "[ERREUR] Impossible de joindre PostgreSQL apres $MAX tentatives."
+if [ $DB_READY -eq 0 ]; then
+    echo "[ERREUR] Impossible de joindre PostgreSQL apres $MAX tentatives. Abandon."
     exit 1
 fi
 echo "[INFO] Base de donnees disponible."
@@ -41,25 +61,30 @@ echo "[INFO] Base de donnees disponible."
 # ── 4. Migrations ────────────────────────────────────────────
 echo "[INFO] Migrations..."
 php artisan migrate --force --no-interaction
-
-# ── 5. Seed (une seule fois) ─────────────────────────────────
-SEEDED_FLAG=/var/www/html/storage/.seeded
-if [ ! -f "$SEEDED_FLAG" ]; then
-    echo "[INFO] Premier demarrage — seed..."
-    php artisan db:seed --force --no-interaction
-    touch "$SEEDED_FLAG"
+if [ $? -ne 0 ]; then
+    echo "[ERREUR] Migrations echouees."
+    exit 1
 fi
 
-# ── 6. Cache prod ────────────────────────────────────────────
-echo "[INFO] Mise en cache production..."
-php artisan config:cache
-php artisan view:cache
+# ── 5. Seed (une seule fois) — flag persistant dans storage ──
+SEEDED_FLAG=/var/www/html/storage/.seeded
+if [ ! -f "$SEEDED_FLAG" ]; then
+    echo "[INFO] Premier demarrage — seed des donnees initiales..."
+    php artisan db:seed --force --no-interaction && touch "$SEEDED_FLAG"
+else
+    echo "[INFO] Donnees deja seedees, skip."
+fi
 
-# ── 7. Permissions ───────────────────────────────────────────
+# ── 6. Mise en cache production ──────────────────────────────
+echo "[INFO] Mise en cache production..."
+php artisan config:cache  || true
+php artisan route:cache   || true
+php artisan view:cache    || true
+
+# ── 7. Permissions storage ───────────────────────────────────
 chown -R www-data:www-data storage bootstrap/cache public/uploads 2>/dev/null || true
 
-# ── 8. Supervisord (php-fpm + nginx) ────────────────────────
-echo "[INFO] Demarrage services..."
-php-fpm -tt 2>&1 | grep -E "listen =|configuration file" || true
+# ── 8. Lancer supervisord (php-fpm + nginx) ──────────────────
+echo "[INFO] Demarrage services (port $PORT)..."
 mkdir -p /var/log/supervisor
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
