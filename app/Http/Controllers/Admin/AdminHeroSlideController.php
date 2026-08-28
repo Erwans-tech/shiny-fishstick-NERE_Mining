@@ -9,69 +9,120 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminHeroSlideController extends Controller
 {
-    /** Liste des slides avec aperçu. */
     public function index()
     {
         $slides = HeroSlide::orderBy('sort_order')->orderBy('id')->get();
         return view('admin.hero.index', compact('slides'));
     }
 
-    /** Formulaire de création. */
     public function create()
     {
         return view('admin.hero.form', ['slide' => new HeroSlide()]);
     }
 
-    /** Sauvegarder une nouvelle slide. */
     public function store(Request $request)
     {
+        $type = $request->input('type', 'image');
+
         $data = $request->validate([
+            'type'       => ['required', 'in:image,video'],
             'title'      => ['nullable', 'string', 'max:160'],
             'caption'    => ['nullable', 'string', 'max:255'],
-            'image'      => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:8192'],
-            'is_active'  => ['boolean'],
             'sort_order' => ['integer', 'min:0', 'max:99'],
+            'is_active'  => ['boolean'],
+
+            // Image : requise si type = image
+            'image'     => $type === 'image'
+                ? ['required', 'file', 'mimes:jpg,jpeg,png,webp,gif', 'max:10240']
+                : ['prohibited'],
+
+            // Vidéo : URL requise si type = video
+            'video_url' => $type === 'video'
+                ? ['required', 'string', 'max:500']
+                : ['nullable', 'string', 'max:500'],
+
+            // Image de couverture optionnelle pour les vidéos
+            'cover_image' => $type === 'video'
+                ? ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:8192']
+                : ['prohibited'],
         ]);
 
+        $data['type']       = $type;
         $data['is_active']  = $request->boolean('is_active', true);
         $data['sort_order'] = (int) $request->input('sort_order', $this->nextOrder());
-        $data['image_path'] = $request->file('image')->store('hero', 'public');
-        unset($data['image']);
+
+        if ($type === 'image' && $request->hasFile('image')) {
+            $data['image_path'] = $request->file('image')->store('hero', 'public');
+        }
+
+        if ($type === 'video') {
+            $data['image_path'] = null;
+            // Image de couverture optionnelle (affiché si la vidéo ne charge pas)
+            if ($request->hasFile('cover_image')) {
+                $data['image_path'] = $request->file('cover_image')->store('hero', 'public');
+            }
+        }
+
+        unset($data['image'], $data['cover_image']);
 
         HeroSlide::create($data);
 
         return redirect()->route('admin.hero.index')
-            ->with('success', 'Slide ajoutée au carrousel.');
+            ->with('success', $type === 'video' ? 'Vidéo ajoutée au carrousel.' : 'Image ajoutée au carrousel.');
     }
 
-    /** Formulaire d'édition. */
     public function edit(HeroSlide $heroSlide)
     {
         return view('admin.hero.form', ['slide' => $heroSlide]);
     }
 
-    /** Mettre à jour une slide. */
     public function update(Request $request, HeroSlide $heroSlide)
     {
+        $type = $request->input('type', $heroSlide->type ?? 'image');
+
         $data = $request->validate([
+            'type'       => ['required', 'in:image,video'],
             'title'      => ['nullable', 'string', 'max:160'],
             'caption'    => ['nullable', 'string', 'max:255'],
-            'image'      => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:8192'],
-            'is_active'  => ['boolean'],
             'sort_order' => ['integer', 'min:0', 'max:99'],
+            'is_active'  => ['boolean'],
+
+            'image' => $type === 'image'
+                ? ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif', 'max:10240']
+                : ['prohibited'],
+
+            'video_url' => $type === 'video'
+                ? ['required', 'string', 'max:500']
+                : ['nullable', 'string', 'max:500'],
+
+            'cover_image' => $type === 'video'
+                ? ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:8192']
+                : ['prohibited'],
         ]);
 
+        $data['type']       = $type;
         $data['is_active']  = $request->boolean('is_active', true);
         $data['sort_order'] = (int) $request->input('sort_order', $heroSlide->sort_order);
 
-        if ($request->hasFile('image')) {
-            // Supprimer l'ancienne image si c'est un upload (pas un asset statique)
-            if ($heroSlide->image_path && ! str_starts_with($heroSlide->image_path, 'images/')) {
-                Storage::disk('public')->delete($heroSlide->image_path);
-            }
+        if ($type === 'image' && $request->hasFile('image')) {
+            $this->deleteFile($heroSlide->image_path);
             $data['image_path'] = $request->file('image')->store('hero', 'public');
         }
-        unset($data['image']);
+
+        if ($type === 'video') {
+            if ($request->hasFile('cover_image')) {
+                $this->deleteFile($heroSlide->image_path);
+                $data['image_path'] = $request->file('cover_image')->store('hero', 'public');
+            }
+            // Si on passe de image → video sans cover, on garde l'ancienne image comme cover
+        }
+
+        // Si on change de vidéo → image, supprimer l'ancienne image
+        if ($heroSlide->type === 'video' && $type === 'image' && $request->hasFile('image')) {
+            $this->deleteFile($heroSlide->image_path);
+        }
+
+        unset($data['image'], $data['cover_image']);
 
         $heroSlide->update($data);
 
@@ -79,7 +130,6 @@ class AdminHeroSlideController extends Controller
             ->with('success', 'Slide mise à jour.');
     }
 
-    /** Activer / désactiver en un clic (toggle AJAX-friendly). */
     public function toggle(HeroSlide $heroSlide)
     {
         $heroSlide->update(['is_active' => ! $heroSlide->is_active]);
@@ -88,7 +138,6 @@ class AdminHeroSlideController extends Controller
             ->with('success', $heroSlide->is_active ? 'Slide activée.' : 'Slide masquée.');
     }
 
-    /** Réordonner via drag-and-drop (POST JSON : [{id, order}, …]). */
     public function reorder(Request $request)
     {
         $request->validate([
@@ -104,22 +153,24 @@ class AdminHeroSlideController extends Controller
         return response()->json(['success' => true]);
     }
 
-    /** Supprimer une slide et son fichier. */
     public function destroy(HeroSlide $heroSlide)
     {
-        if ($heroSlide->image_path && ! str_starts_with($heroSlide->image_path, 'images/')) {
-            Storage::disk('public')->delete($heroSlide->image_path);
-        }
-
+        $this->deleteFile($heroSlide->image_path);
         $heroSlide->delete();
 
         return redirect()->route('admin.hero.index')
             ->with('success', 'Slide supprimée du carrousel.');
     }
 
-    /** Prochain sort_order disponible. */
     private function nextOrder(): int
     {
         return (HeroSlide::max('sort_order') ?? -1) + 1;
+    }
+
+    private function deleteFile(?string $path): void
+    {
+        if ($path && ! str_starts_with($path, 'images/')) {
+            Storage::disk('public')->delete($path);
+        }
     }
 }

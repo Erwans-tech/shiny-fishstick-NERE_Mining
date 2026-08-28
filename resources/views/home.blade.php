@@ -3,8 +3,20 @@
     $loc = $locale ?? 'fr';
     $slides = $slides ?? collect();
     $heroImages = $slides->isNotEmpty()
-        ? $slides->map(fn($slide) => $slide->url)->filter()->values()->all()
-        : collect(range(1, 5))->map(fn($i) => asset('images/mining/karma-0'.$i.'.jpg'))->all();
+        ? $slides->map(fn($slide) => [
+            'type'      => $slide->type ?? 'image',
+            'url'       => $slide->url ?? '',
+            'embed_url' => $slide->embed_url ?? null,
+            'title'     => $slide->title ?? '',
+            'caption'   => $slide->caption ?? null,
+        ])->filter()->values()->all()
+        : collect(range(1, 5))->map(fn($i) => [
+            'type'      => 'image',
+            'url'       => asset('images/mining/karma-0'.$i.'.jpg'),
+            'embed_url' => null,
+            'title'     => "Karma 0{$i}",
+            'caption'   => null,
+        ])->all();
     $heroDuration = count($heroImages) * 5;
     $heroSlot = 100 / max(count($heroImages), 1);
 @endphp
@@ -107,8 +119,28 @@
             opacity:0; transform:scale(1.07);
             will-change:opacity,transform;
         }
+        /* Slide vidéo — iframe en fond plein écran */
+        .hero-slide-video {
+            position:absolute; inset:0;
+            opacity:0;
+            pointer-events:none;
+            will-change:opacity;
+        }
+        .hero-slide-video iframe {
+            position:absolute;
+            top:50%; left:50%;
+            width:177.78vh; /* 16:9 ratio */
+            height:100vh;
+            min-width:100%;
+            min-height:56.25vw;
+            transform:translate(-50%,-50%);
+            border:0;
+            pointer-events:none;
+        }
         @foreach($heroImages as $index => $heroImage)
-        .hero-slide:nth-child({{ $index + 1 }}){ background-image:url('{{ $heroImage }}'); animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
+        @php $bgUrl = is_array($heroImage) ? ($heroImage['url'] ?? '') : $heroImage; @endphp
+        .hero-slide:nth-child({{ $index + 1 }}){ background-image:url('{{ $bgUrl }}'); animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
+        .hero-slide-video:nth-child({{ $index + 1 }}) { animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
         @keyframes heroSlide{{ $index }} {
             0%,{{ max(0, $index * $heroSlot - 2) }}% { opacity:0; transform:scale(1.07); }
             {{ min(100, $index * $heroSlot + 2) }}%,{{ min(100, ($index + 1) * $heroSlot - 2) }}% { opacity:1; transform:scale(1.01); }
@@ -447,13 +479,30 @@
     ════════════════════════════════════════ --}}
     <section class="hero" aria-label="{{ $en ? 'Homepage hero' : 'Bannière principale' }}">
 
-        {{-- Slideshow --}}
+        {{-- Slideshow — images ET vidéos --}}
         <div class="hero-bg" aria-hidden="true">
-            <div class="hero-slide"></div>
-            <div class="hero-slide"></div>
-            <div class="hero-slide"></div>
-            <div class="hero-slide"></div>
-            <div class="hero-slide"></div>
+            @foreach($heroImages as $index => $heroImage)
+                @if(is_array($heroImage) && ($heroImage['type'] ?? 'image') === 'video')
+                    {{-- Slide vidéo (YouTube / Vimeo) --}}
+                    <div class="hero-slide-video">
+                        @if($heroImage['embed_url'])
+                        <iframe
+                            src="{{ $heroImage['embed_url'] }}"
+                            allow="autoplay; encrypted-media"
+                            title="{{ $heroImage['title'] ?? 'Hero video' }}"
+                            loading="lazy">
+                        </iframe>
+                        @endif
+                        {{-- Fallback image de couverture si présente --}}
+                        @if($heroImage['url'])
+                        <div style="position:absolute; inset:0; background:url('{{ $heroImage['url'] }}') center/cover; z-index:-1;"></div>
+                        @endif
+                    </div>
+                @else
+                    {{-- Slide image classique --}}
+                    <div class="hero-slide"></div>
+                @endif
+            @endforeach
         </div>
         <div class="hero-ov" aria-hidden="true"></div>
         <div class="hero-accent" aria-hidden="true"></div>

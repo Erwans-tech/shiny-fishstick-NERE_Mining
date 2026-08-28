@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class HeroSlide extends Model
 {
     protected $fillable = [
+        'type',
         'title',
         'caption',
         'image_path',
+        'video_url',
         'is_active',
         'sort_order',
     ];
@@ -22,24 +24,67 @@ class HeroSlide extends Model
         ];
     }
 
-    /** Scope : slides actives triées par ordre d'affichage. */
-    public function scopeActive($query)
+    /** Slide de type image ? */
+    public function isImage(): bool
     {
-        return $query->where('is_active', true)->orderBy('sort_order')->orderBy('id');
+        return ($this->type ?? 'image') === 'image';
+    }
+
+    /** Slide de type vidéo ? */
+    public function isVideo(): bool
+    {
+        return $this->type === 'video';
     }
 
     /**
-     * URL publique de l'image.
-     * - Chemins commençant par "images/" → assets statiques dans public/
-     * - Autres → uploads gérés via Storage::disk('public')
+     * URL d'embed pour les vidéos YouTube/Vimeo.
+     * Retourne null si ce n'est pas une vidéo hébergée.
+     */
+    public function getEmbedUrlAttribute(): ?string
+    {
+        if (! $this->isVideo() || ! $this->video_url) {
+            return null;
+        }
+
+        $url = $this->video_url;
+
+        // YouTube : youtu.be/ID ou youtube.com/watch?v=ID ou /embed/ID
+        if (preg_match('/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_\-]{11})/', $url, $m)) {
+            return 'https://www.youtube.com/embed/' . $m[1]
+                . '?autoplay=1&mute=1&loop=1&playlist=' . $m[1]
+                . '&controls=0&showinfo=0&rel=0';
+        }
+
+        // Vimeo : vimeo.com/ID
+        if (preg_match('/vimeo\.com\/(\d+)/', $url, $m)) {
+            return 'https://player.vimeo.com/video/' . $m[1]
+                . '?autoplay=1&muted=1&loop=1&background=1';
+        }
+
+        // URL directe (fichier local uploadé)
+        return null;
+    }
+
+    /**
+     * URL publique du média (image ou vidéo locale).
      */
     public function getUrlAttribute(): string
     {
+        if (! $this->image_path) {
+            return '';
+        }
+
         if (str_starts_with($this->image_path, 'images/')) {
             return asset($this->image_path);
         }
 
         return asset('uploads/' . $this->image_path);
+    }
+
+    /** Scope : slides actives triées par ordre d'affichage. */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true)->orderBy('sort_order')->orderBy('id');
     }
 
     /**
@@ -50,12 +95,15 @@ class HeroSlide extends Model
     {
         return collect(range(1, 5))->map(fn ($i) => (object) [
             'id'         => null,
+            'type'       => 'image',
             'title'      => "Karma 0{$i}",
             'caption'    => null,
             'image_path' => "images/mining/karma-0{$i}.jpg",
+            'video_url'  => null,
             'is_active'  => true,
             'sort_order' => $i,
             'url'        => asset("images/mining/karma-0{$i}.jpg"),
+            'embed_url'  => null,
         ]);
     }
 }
