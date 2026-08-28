@@ -37,9 +37,21 @@ RUN docker-php-ext-configure gd \
         xml \
         opcache
 
-RUN sed -E -i 's#^[;[:space:]]*listen[[:space:]]*=.*#listen = /var/run/php-fpm.sock#' \
-        /usr/local/etc/php-fpm.d/*.conf /usr/local/etc/php-fpm.d/*.default \
-        && rm -f /usr/local/etc/php-fpm.d/*.default
+RUN sed -E -i \
+        's#^[;[:space:]]*listen[[:space:]]*=.*#listen = 127.0.0.1:9000#' \
+        /usr/local/etc/php-fpm.d/www.conf 2>/dev/null || true && \
+    # Recréer www.conf minimal si absent
+    echo '[www]'                              >  /usr/local/etc/php-fpm.d/www.conf && \
+    echo 'user = www-data'                   >> /usr/local/etc/php-fpm.d/www.conf && \
+    echo 'group = www-data'                  >> /usr/local/etc/php-fpm.d/www.conf && \
+    echo 'listen = 127.0.0.1:9000'           >> /usr/local/etc/php-fpm.d/www.conf && \
+    echo 'listen.owner = www-data'           >> /usr/local/etc/php-fpm.d/www.conf && \
+    echo 'listen.group = www-data'           >> /usr/local/etc/php-fpm.d/www.conf && \
+    echo 'pm = dynamic'                      >> /usr/local/etc/php-fpm.d/www.conf && \
+    echo 'pm.max_children = 5'               >> /usr/local/etc/php-fpm.d/www.conf && \
+    echo 'pm.start_servers = 2'              >> /usr/local/etc/php-fpm.d/www.conf && \
+    echo 'pm.min_spare_servers = 1'          >> /usr/local/etc/php-fpm.d/www.conf && \
+    echo 'pm.max_spare_servers = 3'          >> /usr/local/etc/php-fpm.d/www.conf
 
 # ── Composer ─────────────────────────────────────────────────
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
