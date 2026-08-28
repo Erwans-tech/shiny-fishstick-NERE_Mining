@@ -43,7 +43,7 @@ $homeHandler = function (string $locale) {
     $partners = Partner::where('is_published', true)->orderBy('sort_order')->get();
 
     // Slides du carrousel hero — fallback sur les images statiques si table vide
-    $slides = HeroSlide::active()->get();
+    $slides = \App\Models\HeroSlide::active()->get();
 
     $statsLabels = $locale === 'en'
         ? ['Annual gold production', 'Direct and indirect jobs', 'National workforce', 'Fiscal & social contributions']
@@ -287,7 +287,6 @@ use App\Http\Controllers\Admin\AdminPartnerController;
 use App\Http\Controllers\Admin\AdminPressController;
 use App\Http\Controllers\Admin\AdminMediaController;
 use App\Http\Controllers\Admin\AdminMessageController;
-use App\Models\HeroSlide;
 
 // Login / logout (public, pas de middleware)
 Route::prefix('gestion-nm')->name('admin.')->group(function () {
