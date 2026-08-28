@@ -81,8 +81,37 @@ php artisan config:cache  || true
 php artisan route:cache   || true
 php artisan view:cache    || true
 
-# ── 7. Permissions storage ───────────────────────────────────
-chown -R www-data:www-data storage bootstrap/cache public/uploads 2>/dev/null || true
+# ── 7. Permissions et dossiers d'upload ─────────────────────
+echo "[INFO] Creation des dossiers d'upload..."
+mkdir -p \
+    /var/www/html/public/uploads/news \
+    /var/www/html/public/uploads/media \
+    /var/www/html/public/uploads/applications/cv \
+    /var/www/html/public/uploads/applications/cover \
+    /var/www/html/public/uploads/partners \
+    /var/www/html/public/uploads/press \
+    /var/www/html/public/uploads/reports/covers \
+    /var/www/html/public/uploads/hero
+
+echo "[INFO] Application des permissions..."
+chown -R www-data:www-data \
+    /var/www/html/storage \
+    /var/www/html/bootstrap/cache \
+    /var/www/html/public/uploads
+
+chmod -R 775 \
+    /var/www/html/storage \
+    /var/www/html/bootstrap/cache \
+    /var/www/html/public/uploads
+
+# Vérification que l'écriture fonctionne
+if ! su-exec www-data touch /var/www/html/public/uploads/.write_test 2>/dev/null; then
+    echo "[WARN] Le dossier public/uploads n'est pas inscriptible par www-data"
+    echo "[WARN] Les uploads pourraient echouer. Verifiez les permissions."
+else
+    rm -f /var/www/html/public/uploads/.write_test
+    echo "[INFO] Permissions uploads OK."
+fi
 
 # ── 8. Lancer supervisord (php-fpm + nginx) ──────────────────
 echo "[INFO] Demarrage services (port $PORT)..."

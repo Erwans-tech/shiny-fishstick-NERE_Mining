@@ -43,7 +43,7 @@ return [
             'root' => public_path('uploads'),
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/uploads',
             'visibility' => 'public',
-            'throw' => false,
+            'throw' => env('FILESYSTEM_THROW', true),  // true en prod pour voir les vraies erreurs
             'report' => false,
         ],
 

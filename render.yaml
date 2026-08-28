@@ -83,6 +83,13 @@ services:
       - key: LOG_LEVEL
         value: error
 
+    # ── Disque persistant pour les fichiers uploadés ───────────
+    # OBLIGATOIRE : sans ça, tous les uploads sont perdus à chaque redéploiement
+    disk:
+      name: uploads
+      mountPath: /var/www/html/public/uploads
+      sizeGB: 1
+
 databases:
   - name: nere-mining-db
     databaseName: nere_mining

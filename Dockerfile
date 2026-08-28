@@ -17,7 +17,8 @@ RUN apk add --no-cache \
         oniguruma-dev \
         libxml2-dev \
         icu-dev \
-        postgresql-dev
+        postgresql-dev \
+        su-exec
 
 # ── Extensions PHP ───────────────────────────────────────────
 RUN docker-php-ext-configure gd \
@@ -80,12 +81,19 @@ RUN mkdir -p \
         storage/framework/views \
         storage/logs \
         bootstrap/cache \
-        public/uploads \
-        && chown -R www-data:www-data \
+        public/uploads/news \
+        public/uploads/media \
+        public/uploads/applications/cv \
+        public/uploads/applications/cover \
+        public/uploads/partners \
+        public/uploads/press \
+        public/uploads/reports/covers \
+        public/uploads/hero \
+    && chown -R www-data:www-data \
         storage \
         bootstrap/cache \
         public/uploads \
-        && chmod -R 775 \
+    && chmod -R 775 \
         storage \
         bootstrap/cache \
         public/uploads
