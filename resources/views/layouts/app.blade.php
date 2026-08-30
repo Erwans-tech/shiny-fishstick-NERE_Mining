@@ -58,8 +58,8 @@
 
         /* ── Header / Nav ── */
         header { padding:22px 5vw; background:var(--green); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(0,0,0,.25); }
-        .logo { width:340px; }
-        .logo img { width:100%; display:block; height:auto; }
+        .logo { width:260px; }
+        .logo img { width:100%; display:block; }
         nav { display:flex; gap:6px; align-items:center; }
         .nav-link { color:rgba(255,255,255,.88); font:500 13px Inter,sans-serif; text-transform:uppercase; letter-spacing:.07em; padding:9px 14px; border-radius:4px; transition:background .18s,color .18s; white-space:nowrap; }
         .nav-link:hover, .nav-link.active { background:rgba(255,255,255,.12); color:#fff; }
@@ -153,20 +153,16 @@
             height:100%;
             display:flex;
             flex-direction:column;
-            gap:10px;
             padding:18px 18px 18px;
             background:#f7f3ee;
             border:1px solid rgba(75,23,22,.12);
             box-shadow:none;
         }
-        .card-tag {
-            margin-bottom:0;
-        }
         .values-card h3 {
             font-size:clamp(20px,1.5vw,30px);
             line-height:1;
             letter-spacing:-.04em;
-            margin:0;
+            margin:0 0 10px;
             color:var(--green);
             max-width:100%;
             word-wrap:break-word;

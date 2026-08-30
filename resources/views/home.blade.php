@@ -45,8 +45,8 @@
             --light: #fbfaf7;
         }
         *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-        html { scroll-behavior:smooth; }
-        body { color:var(--ink); background-color:var(--light); background-image:linear-gradient(115deg,rgba(255,194,71,.045),transparent 38%,rgba(75,23,22,.03)),repeating-linear-gradient(135deg,rgba(75,23,22,.025) 0,rgba(75,23,22,.025) 1px,transparent 1px,transparent 46px); background-size:180% 180%,46px 46px; animation:siteAtmosphere 42s ease-in-out infinite alternate; font-family:'Inter',Arial,sans-serif; line-height:1.6; }
+        html { scroll-behavior:smooth; font-size: 17px; }
+        body { color:var(--ink); background-color:var(--light); background-image:linear-gradient(115deg,rgba(255,194,71,.045),transparent 38%,rgba(75,23,22,.03)),repeating-linear-gradient(135deg,rgba(75,23,22,.025) 0,rgba(75,23,22,.025) 1px,transparent 1px,transparent 46px); background-size:180% 180%,46px 46px; animation:siteAtmosphere 42s ease-in-out infinite alternate; font-family:'Inter',Arial,sans-serif; line-height:1.6; font-size:1rem; }
         @keyframes siteAtmosphere { from { background-position:0% 0%,0 0; } to { background-position:100% 100%,23px 23px; } }
         .sec:not(.hero) { animation:contentRise .8s ease-out both; }
         @keyframes contentRise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
@@ -75,7 +75,7 @@
             padding:28px 5vw;
             box-shadow:0 2px 14px rgba(0,0,0,.28);
         }
-        .logo { display:block; width:700px; }
+        .logo { display:block; width:450px; max-width:45vw; }
         .logo img { width:100%; height:auto; display:block; }
         nav { display:flex; gap:8px; align-items:center; }
         .nav-link {
@@ -102,7 +102,7 @@
         .menu-btn {
             display:none; background:none; border:1px solid rgba(255,255,255,.4); color:#fff;
             padding:8px 14px; font:600 11px Inter,sans-serif; letter-spacing:.08em;
-            border-radius:4px; cursor:pointer;
+            border-radius:4px; cursor:pointer; position:relative; z-index:260;
         }
 
         /* ── HERO ────────────────────────────────── */
@@ -140,7 +140,7 @@
         }
         @foreach($heroImages as $index => $heroImage)
         @php $bgUrl = is_array($heroImage) ? ($heroImage['url'] ?? '') : $heroImage; @endphp
-        .hero-slide:nth-child({{ $index + 1 }}){ background-image:url('{{ $bgUrl }}'); animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
+        .hero-slide:nth-child({{ $index + 1 }}) { background-image:url('{{ $bgUrl }}'); animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
         .hero-slide-video:nth-child({{ $index + 1 }}) { animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
         @keyframes heroSlide{{ $index }} {
             0%,{{ max(0, $index * $heroSlot - 2) }}% { opacity:0; transform:scale(1.07); }
@@ -218,7 +218,8 @@
 
         /* ── Buttons ─────────────────────────────── */
         .btn {
-            display:inline-block; padding:14px 26px;
+            display:inline-flex; align-items:center; justify-content:center;
+            min-height:44px; min-width:44px; padding:14px 26px;
             font:600 11px Inter,sans-serif; text-transform:uppercase; letter-spacing:.12em;
             border-radius:4px; transition:all .2s; cursor:pointer; white-space:nowrap;
         }
@@ -234,16 +235,70 @@
         /* ── Section shared ──────────────────────── */
         .sec { padding:96px 5vw; }
         .sec-tag {
-            display:inline-flex; align-items:center; gap:10px;
-            color:var(--gold2); font:700 11px Inter,sans-serif;
-            letter-spacing:.22em; text-transform:uppercase; margin-bottom:14px;
+            display:inline-flex; align-items:center; gap:12px;
+            color:var(--gold2); font:700 12px Inter,sans-serif;
+            letter-spacing:.22em; text-transform:uppercase; margin-bottom:16px;
+            font-size:0.78rem;
+            line-height:1.2;
         }
-        .sec-tag::before { content:''; display:block; width:22px; height:2px; background:var(--gold2); }
+        .sec-tag::before { content:''; display:block; width:28px; height:2px; background:var(--gold2); box-shadow:0 0 0 1px rgba(229,167,47,.15); }
         .sec-h2 {
             color:var(--green); font-size:clamp(30px,3.6vw,52px);
             font-weight:400; line-height:1.04; margin-bottom:18px;
         }
-        .sec-lead { color:var(--muted); font-size:17px; line-height:1.7; max-width:660px; }
+        .sec-lead {
+            color:var(--muted); font-size:1.2rem; line-height:1.75;
+            max-width:660px; margin:0 auto; text-align:center;
+        }
+
+        /* ── INTRO COMPANY ──────────────────────── */
+        .intro-sec {
+            background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(250,244,234,0.9));
+            border-top:1px solid var(--line);
+            border-bottom:1px solid var(--line);
+        }
+        .intro-inner {
+            max-width:1180px; margin:0 auto; display:grid;
+            grid-template-columns:1.2fr .8fr; gap:34px; align-items:center;
+        }
+        .intro-copy {
+            background:#fff; border:1px solid var(--line); border-radius:16px;
+            padding:30px 28px; box-shadow:0 10px 28px rgba(40,29,24,.04);
+            text-align:center;
+        }
+        .intro-brand {
+            display:flex; justify-content:center; align-items:center;
+            margin-bottom:18px;
+        }
+        .intro-brand img {
+            display:block;
+            width:min(240px, 62%);
+            height:auto;
+            filter: drop-shadow(0 8px 18px rgba(75,23,22,.08));
+        }
+        .intro-copy .sec-h2 {
+            margin-bottom:14px;
+            font-size:clamp(2.8rem,4vw,4.7rem);
+            line-height:1.02;
+            letter-spacing:-0.05em;
+            text-align:center;
+        }
+        .intro-points {
+            display:grid; gap:14px;
+        }
+        .intro-point {
+            background:rgba(255,255,255,.72); border:1px solid var(--line);
+            border-radius:12px; padding:18px 20px; display:flex; align-items:flex-start; gap:12px;
+            box-shadow:0 8px 18px rgba(40,29,24,.03);
+        }
+        .intro-point::before {
+            content:'•'; font-size:24px; line-height:1; color:var(--gold2);
+            margin-top:2px;
+        }
+        .intro-point span {
+            color:var(--muted); font-size:1.02rem; line-height:1.7;
+            text-align:left;
+        }
 
         /* ── STATS SECTION ───────────────────────── */
         .stats-sec { background:var(--green); position:relative; overflow:hidden; }
@@ -302,8 +357,8 @@
         .ql-card:hover { border-color:var(--gold); box-shadow:0 12px 36px rgba(75,23,22,.08); transform:translateY(-4px); }
         .ql-card:hover::after { transform:scaleX(1); }
         .ql-num { font:700 11px Inter,sans-serif; letter-spacing:.18em; color:var(--gold2); margin-bottom:16px; }
-        .ql-card h3 { font-size:18px; font-weight:600; color:var(--green); margin-bottom:10px; }
-        .ql-card p  { font-size:14px; color:var(--muted); line-height:1.65; flex:1; margin-bottom:24px; }
+        .ql-card h3 { font-size:1.2rem; font-weight:600; color:var(--green); margin-bottom:10px; }
+        .ql-card p  { font-size:1rem; color:var(--muted); line-height:1.65; flex:1; margin-bottom:24px; }
         .ql-arrow {
             display:inline-flex; align-items:center; gap:7px;
             font:600 11px Inter,sans-serif; letter-spacing:.1em; text-transform:uppercase;
@@ -315,10 +370,39 @@
         /* ── NEWS ────────────────────────────────── */
         .news-sec { background:#fff; border-top:1px solid var(--line); }
         .news-head {
-            display:flex; justify-content:space-between; align-items:flex-end;
+            display:flex; justify-content:center; align-items:flex-end;
             margin-bottom:44px; gap:24px; flex-wrap:wrap;
+            text-align:center;
+            position:relative;
+        }
+        .news-head > div {
+            display:flex; flex-direction:column; align-items:center;
+            text-align:center;
+        }
+        .news-head .sec-tag {
+            margin-bottom:10px;
+        }
+        .news-head .sec-h2 {
+            margin:0;
+            font-weight:500;
+            letter-spacing:-.04em;
+            position:relative;
+            display:inline-block;
+            padding-bottom:8px;
+        }
+        .news-head .sec-h2::after {
+            content:'';
+            position:absolute;
+            left:50%; transform:translateX(-50%);
+            bottom:0;
+            width:90px; height:3px; border-radius:999px;
+            background:linear-gradient(90deg, transparent, var(--gold2), transparent);
         }
         .news-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+        .news-sec .btn-dark {
+            margin-top:18px;
+            align-self:flex-end;
+        }
         /* Featured first card */
         .news-grid .news-card:first-child { grid-column:span 2; }
         .news-card {
@@ -441,17 +525,32 @@
         }
         @media(max-width:900px) {
             .topbar { display:none; }
-            header  { position:fixed; background:var(--green); padding:14px 5vw; box-shadow:0 2px 10px rgba(0,0,0,.25); }
+            header  {
+                position:fixed; background:var(--green); padding:14px 5vw; box-shadow:0 2px 10px rgba(0,0,0,.25);
+                z-index:260; overflow:visible;
+            }
+            .logo   { width:min(44vw, 260px); }
             nav     { display:none; }
-            .menu-btn { display:block; }
+            .menu-btn {
+                display:block; min-height:44px; min-width:44px; z-index:300; position:relative;
+                pointer-events:auto;
+            }
             nav.open {
                 display:flex; flex-direction:column; align-items:flex-start;
                 position:absolute; top:100%; left:0; right:0;
-                background:var(--green); padding:12px 5vw 24px; gap:4px;
+                background:var(--green); padding:12px 5vw 24px; gap:6px;
                 border-top:1px solid rgba(255,255,255,.1);
+                max-height:70vh; overflow-y:auto; z-index:290;
+            }
+            nav.open .nav-link,
+            nav.open .nav-lang {
+                width:100%; justify-content:flex-start; padding:14px 16px;
             }
             .nav-dropdown .dropdown-menu { position:static; box-shadow:none; border:0; padding:0 0 0 16px; background:none; }
-            .nav-dropdown .dropdown-menu a { color:rgba(255,255,255,.8); }
+            .nav-dropdown .dropdown-menu a {
+                color:rgba(255,255,255,.8);
+                min-height:42px; display:flex; align-items:center;
+            }
             .hero { min-height:100svh; }
             .hero-body { padding-bottom:64px; }
             .hero-stats { grid-template-columns:repeat(2,1fr); }
@@ -463,9 +562,12 @@
             footer      { flex-direction:column; text-align:center; }
         }
         @media(max-width:600px) {
-            .ql-grid         { grid-template-columns:1fr; }
-            .partners-grid   { grid-template-columns:1fr 1fr; }
-            .hero-stats      { grid-template-columns:1fr 1fr; }
+            .logo           { width:min(45vw, 210px); }
+            .ql-grid        { grid-template-columns:1fr; }
+            .partners-grid  { grid-template-columns:1fr 1fr; }
+            .hero-stats     { grid-template-columns:1fr 1fr; }
+            .btn            { width:100%; }
+            .hero-ctas      { flex-direction:column; }
         }
     </style>
 </head>
@@ -485,7 +587,7 @@
             @foreach($heroImages as $index => $heroImage)
                 @if(is_array($heroImage) && ($heroImage['type'] ?? 'image') === 'video')
                     {{-- Slide vidéo (YouTube / Vimeo) --}}
-                    <div class="hero-slide-video">
+                    <div class="hero-slide-video" style="background-image:url('{{ $heroImage['url'] ?? '' }}'); background-size:cover; background-position:center;">
                         @if($heroImage['embed_url'])
                         <iframe
                             src="{{ $heroImage['embed_url'] }}"
@@ -494,14 +596,13 @@
                             loading="lazy">
                         </iframe>
                         @endif
-                        {{-- Fallback image de couverture si présente --}}
                         @if($heroImage['url'])
                         <div style="position:absolute; inset:0; background:url('{{ $heroImage['url'] }}') center/cover; z-index:-1;"></div>
                         @endif
                     </div>
                 @else
                     {{-- Slide image classique --}}
-                    <div class="hero-slide"></div>
+                    <div class="hero-slide" style="background-image:url('{{ $heroImage['url'] ?? ($heroImage['image'] ?? '') }}'); background-size:cover; background-position:center;"></div>
                 @endif
             @endforeach
         </div>
@@ -543,77 +644,36 @@
     </section>
 
     {{-- ════════════════════════════════════════
-         2 · CHIFFRES CLÉS ANIMÉS
+         2 · NÉRÉ MINING
     ════════════════════════════════════════ --}}
-    <section class="sec stats-sec" id="chiffres" aria-labelledby="stats-h">
-        <div class="stats-inner">
-            <div class="stats-left">
-                <span class="sec-tag">{{ __('site.home_stats_label', [], $loc) }}</span>
-                <h2 class="sec-h2" id="stats-h">{{ __('site.home_stats_h2', [], $loc) }}</h2>
-                <p class="sec-lead">{{ __('site.home_intro', [], $loc) }}</p>
-            </div>
-            <div class="stats-grid">
-                @foreach($stats as $stat)
-                <div class="stat-card">
-                    <span class="stat-num"
-                          data-target="{{ preg_replace('/[^0-9]/', '', $stat['value']) }}"
-                          data-suffix="{{ $stat['suffix'] ?? '' }}">0</span>
-                    <span class="stat-lbl">{{ $stat['label'] }}</span>
+    <section class="sec intro-sec" aria-labelledby="intro-nere-h">
+        <div class="intro-inner">
+            <div class="intro-copy">
+                <div class="intro-brand">
+                    <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining" loading="eager">
                 </div>
-                @endforeach
+                <h2 class="sec-h2" id="intro-nere-h">Une filière aurifère durable, ancrée dans le développement local.</h2>
+                <p class="sec-lead">
+                    Néré Mining conçoit l’extraction de l’or comme une activité créatrice de valeur durable : performance industrielle, respect de l’environnement, sécurité des opérations et inclusion des communautés autour de nos sites.
+                </p>
+            </div>
+            <div class="intro-points">
+                <div class="intro-point"><span>Nous développons une mine responsable, avec des standards de sécurité et de qualité élevés.</span></div>
+                <div class="intro-point"><span>Nous créons de la valeur pour les populations locales en favorisant l’emploi, les partenariats et la transparence.</span></div>
+                <div class="intro-point"><span>Nous accompagnons une croissance minière tournée vers le long terme, la sobriété environnementale et la confiance.</span></div>
             </div>
         </div>
     </section>
 
     {{-- ════════════════════════════════════════
-         3 · LIENS RAPIDES
-    ════════════════════════════════════════ --}}
-    <section class="sec ql-sec" id="rubriques" aria-labelledby="ql-h">
-        <div class="ql-head">
-            <div>
-                <span class="sec-tag">{{ __('site.home_ql_label', [], $loc) }}</span>
-                <h2 class="sec-h2" id="ql-h" style="margin-bottom:0">{{ __('site.home_ql_h2', [], $loc) }}</h2>
-            </div>
-            <p class="sec-lead" style="max-width:380px; text-align:right">{{ __('site.home_ql_intro', [], $loc) }}</p>
-        </div>
-        @php
-            $qlCards = [
-                ['n'=>'01','k'=>'company',  'url'=> $en ? route('english.company')       : route('company')],
-                ['n'=>'02','k'=>'karma',    'url'=> $en ? route('english.karma')         : route('karma')],
-                ['n'=>'03','k'=>'projects', 'url'=> $en ? route('english.projects')      : route('projects')],
-                ['n'=>'04','k'=>'sustain',  'url'=> $en ? route('english.sustainability'): route('sustainability')],
-                ['n'=>'05','k'=>'news',     'url'=> $en ? route('english.news')          : route('news.index')],
-                ['n'=>'06','k'=>'careers',  'url'=> $en ? route('english.careers')       : route('careers')],
-            ];
-        @endphp
-        <div class="ql-grid">
-            @foreach($qlCards as $c)
-            <a href="{{ $c['url'] }}" class="ql-card">
-                <div class="ql-num">{{ $c['n'] }}</div>
-                <h3>{{ __('site.ql_'.$c['k'].'_h3', [], $loc) }}</h3>
-                <p>{{ __('site.ql_'.$c['k'].'_p', [], $loc) }}</p>
-                <span class="ql-arrow">
-                    {{ __('site.discover', [], $loc) }}
-                    <span class="ql-arr">→</span>
-                </span>
-            </a>
-            @endforeach
-        </div>
-    </section>
-
-    {{-- ════════════════════════════════════════
-         4 · DERNIÈRES ACTUALITÉS
+         3 · DERNIÈRES ACTUALITÉS
     ════════════════════════════════════════ --}}
     <section class="sec news-sec" id="actualites" aria-labelledby="news-h">
         <div class="news-head">
             <div>
-                <span class="sec-tag">{{ __('site.home_news_label', [], $loc) }}</span>
-                <h2 class="sec-h2" id="news-h" style="margin-bottom:0">{{ __('site.home_news_h2', [], $loc) }}</h2>
+                <span class="sec-tag">Actualités</span>
+                <h2 class="sec-h2" id="news-h">Actualités</h2>
             </div>
-            <a class="btn btn-dark"
-               href="{{ $en ? route('english.news') : route('news.index') }}">
-                {{ __('site.all_news', [], $loc) }}
-            </a>
         </div>
         <div class="news-grid">
             @forelse($news as $i => $item)
@@ -638,6 +698,12 @@
             @empty
             <div class="news-empty">{{ __('site.news_empty', [], $loc) }}</div>
             @endforelse
+        </div>
+        <div style="display:flex; justify-content:center; margin-top:32px;">
+            <a class="btn btn-dark"
+               href="{{ $en ? route('english.news') : route('news.index') }}">
+                {{ __('site.all_news', [], $loc) }}
+            </a>
         </div>
     </section>
 

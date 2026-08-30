@@ -6,6 +6,10 @@
     $isCompany = in_array($sec, ['company','company-ceo','company-identity','company-history','company-values','company-governance']);
 @endphp
 <style>
+/* ── Logo — taille unifiée sur toutes les pages ── */
+a.logo { display:block; width:450px; max-width:42vw; flex-shrink:0; }
+a.logo img { width:100%; height:auto; display:block; }
+
 /* ── Dropdown nav — robuste sans gap ── */
 .nav-dropdown { position: relative; }
 
@@ -72,9 +76,9 @@
 }
 </style>
 
-<header style="padding-top:36px; padding-bottom:36px;">
-    <a class="logo" href="{{ $en ? route('english') : url('/') }}" style="width:700px;">
-        <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining" style="width:100%; height:auto; display:block;">
+<header>
+    <a class="logo" href="{{ $en ? route('english') : url('/') }}">
+        <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining">
     </a>
     <button class="menu-btn"
             aria-label="Menu"
