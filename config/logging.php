@@ -66,11 +66,12 @@ return [
         ],
 
         'daily' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
-            'level' => env('LOG_LEVEL', 'warning'),
-            'max_files' => env('LOG_DAILY_DAYS', 30),
-            'replace_placeholders' => true,
+            'driver'              => 'daily',
+            'path'                => storage_path('logs/laravel.log'),
+            'level'               => env('LOG_LEVEL', 'warning'),
+            'max_files'           => env('LOG_DAILY_DAYS', 30),
+            'replace_placeholders'=> true,
+            'permission'          => 0640,  // owner:group lisible — pas world-readable
         ],
 
         'monthly' => [

@@ -60,15 +60,17 @@ class AdminJobApplicationController extends Controller
     public function downloadCv(JobApplication $application)
     {
         abort_unless($application->cv_path, 404);
-
-        return response()->download(Storage::disk('private')->path($application->cv_path));
+        $path = Storage::disk('local')->path($application->cv_path);
+        abort_unless(file_exists($path), 404);
+        return response()->download($path, 'CV_' . $application->full_name . '.pdf');
     }
 
     public function downloadCoverLetter(JobApplication $application)
     {
         abort_unless($application->cover_letter_path, 404);
-
-        return response()->download(Storage::disk('private')->path($application->cover_letter_path));
+        $path = Storage::disk('local')->path($application->cover_letter_path);
+        abort_unless(file_exists($path), 404);
+        return response()->download($path, 'Lettre_' . $application->full_name . '.pdf');
     }
 
     public function updateStatus(Request $request, JobApplication $application)
@@ -90,10 +92,10 @@ class AdminJobApplicationController extends Controller
     {
         // Supprimer les fichiers liés
         if ($application->cv_path) {
-            Storage::disk('private')->delete($application->cv_path);
+            Storage::disk('local')->delete($application->cv_path);
         }
         if ($application->cover_letter_path) {
-            Storage::disk('private')->delete($application->cover_letter_path);
+            Storage::disk('local')->delete($application->cover_letter_path);
         }
 
         $application->delete();

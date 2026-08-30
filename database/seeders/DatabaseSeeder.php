@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
             ['title' => 'Les installations minières', 'file_path' => 'images/mining/karma-03.jpg'],
             ['title' => 'Une équipe au travail',      'file_path' => 'images/mining/karma-04.jpg'],
         ] as $i => $media) {
-            MediaAsset::create($media + ['type' => 'image', 'is_published' => true, 'sort_order' => $i]);
+            MediaAsset::create($media + ['type' => 'image', 'placement' => 'gallery', 'is_published' => true, 'sort_order' => $i]);
         }
 
         // Document presse exemple

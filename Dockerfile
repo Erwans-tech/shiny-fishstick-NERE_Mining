@@ -17,7 +17,7 @@ RUN apk add --no-cache \
         oniguruma-dev \
         libxml2-dev \
         icu-dev \
-        postgresql-dev \
+        mysql-client \
         su-exec
 
 # ── Extensions PHP ───────────────────────────────────────────
@@ -25,10 +25,9 @@ RUN docker-php-ext-configure gd \
         --with-freetype \
         --with-jpeg \
         --with-webp \
-        && docker-php-ext-install \
+    && docker-php-ext-install \
         pdo \
         pdo_mysql \
-        pdo_pgsql \
         mbstring \
         exif \
         pcntl \
@@ -38,21 +37,20 @@ RUN docker-php-ext-configure gd \
         xml \
         opcache
 
-RUN sed -E -i \
-        's#^[;[:space:]]*listen[[:space:]]*=.*#listen = 127.0.0.1:9000#' \
-        /usr/local/etc/php-fpm.d/www.conf 2>/dev/null || true && \
-    # Recréer www.conf minimal si absent
-    echo '[www]'                              >  /usr/local/etc/php-fpm.d/www.conf && \
-    echo 'user = www-data'                   >> /usr/local/etc/php-fpm.d/www.conf && \
-    echo 'group = www-data'                  >> /usr/local/etc/php-fpm.d/www.conf && \
-    echo 'listen = 127.0.0.1:9000'           >> /usr/local/etc/php-fpm.d/www.conf && \
-    echo 'listen.owner = www-data'           >> /usr/local/etc/php-fpm.d/www.conf && \
-    echo 'listen.group = www-data'           >> /usr/local/etc/php-fpm.d/www.conf && \
-    echo 'pm = dynamic'                      >> /usr/local/etc/php-fpm.d/www.conf && \
-    echo 'pm.max_children = 5'               >> /usr/local/etc/php-fpm.d/www.conf && \
-    echo 'pm.start_servers = 2'              >> /usr/local/etc/php-fpm.d/www.conf && \
-    echo 'pm.min_spare_servers = 1'          >> /usr/local/etc/php-fpm.d/www.conf && \
-    echo 'pm.max_spare_servers = 3'          >> /usr/local/etc/php-fpm.d/www.conf
+# ── PHP-FPM : écouter sur TCP 127.0.0.1:9000 ────────────────
+# Évite les problèmes de permissions sur les sockets Unix
+RUN echo '[www]'                              >  /usr/local/etc/php-fpm.d/www.conf \
+ && echo 'user = www-data'                   >> /usr/local/etc/php-fpm.d/www.conf \
+ && echo 'group = www-data'                  >> /usr/local/etc/php-fpm.d/www.conf \
+ && echo 'listen = 127.0.0.1:9000'           >> /usr/local/etc/php-fpm.d/www.conf \
+ && echo 'listen.owner = www-data'           >> /usr/local/etc/php-fpm.d/www.conf \
+ && echo 'listen.group = www-data'           >> /usr/local/etc/php-fpm.d/www.conf \
+ && echo 'pm = dynamic'                      >> /usr/local/etc/php-fpm.d/www.conf \
+ && echo 'pm.max_children = 10'              >> /usr/local/etc/php-fpm.d/www.conf \
+ && echo 'pm.start_servers = 2'              >> /usr/local/etc/php-fpm.d/www.conf \
+ && echo 'pm.min_spare_servers = 1'          >> /usr/local/etc/php-fpm.d/www.conf \
+ && echo 'pm.max_spare_servers = 4'          >> /usr/local/etc/php-fpm.d/www.conf \
+ && echo 'pm.process_idle_timeout = 10s'     >> /usr/local/etc/php-fpm.d/www.conf
 
 # ── Composer ─────────────────────────────────────────────────
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
@@ -114,15 +112,18 @@ RUN { \
         echo "opcache.memory_consumption=128"; \
         echo "opcache.max_accelerated_files=10000"; \
         echo "opcache.validate_timestamps=0"; \
-        } > /usr/local/etc/php/conf.d/opcache.ini
+        echo "opcache.revalidate_freq=0"; \
+    } > /usr/local/etc/php/conf.d/opcache.ini
 
-# Limites cohérentes avec les formulaires d'administration
+# Limites upload
 RUN { \
-        echo "upload_max_filesize=8M"; \
-        echo "post_max_size=10M"; \
-        } > /usr/local/etc/php/conf.d/uploads.ini
+        echo "upload_max_filesize=10M"; \
+        echo "post_max_size=12M"; \
+        echo "max_execution_time=120"; \
+        echo "memory_limit=256M"; \
+    } > /usr/local/etc/php/conf.d/prod.ini
 
-# Render impose le port 10000 par défaut
-EXPOSE 10000
+# Port d'écoute par défaut (80 en production locale, surchargé par $PORT)
+EXPOSE 80
 
 CMD ["/start.sh"]

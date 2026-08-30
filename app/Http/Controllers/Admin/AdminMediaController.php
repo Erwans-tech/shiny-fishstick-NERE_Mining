@@ -19,13 +19,21 @@ class AdminMediaController extends Controller
                     ->orWhere('caption', 'like', "%{$search}%");
             });
         }
+        if (in_array($request->input('placement'), ['gallery', 'homepage_slideshow'], true)) {
+            $query->where('placement', $request->input('placement'));
+        }
         $assets = $query->orderBy('sort_order')->paginate(20)->withQueryString();
         return view('admin.media.index', compact('assets'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.media.form', ['asset' => new MediaAsset()]);
+        $asset = new MediaAsset();
+        if ($request->input('placement') === 'homepage_slideshow') {
+            $asset->placement = 'homepage_slideshow';
+        }
+
+        return view('admin.media.form', ['asset' => $asset]);
     }
 
     public function store(Request $request)
@@ -39,6 +47,10 @@ class AdminMediaController extends Controller
             $data['external_url'] = null;
         }
         unset($data['file']);
+        if (($data['placement'] ?? '') === 'homepage_slideshow') {
+            $data['type'] = 'image';
+            $data['external_url'] = null;
+        }
 
         MediaAsset::create($data);
 
@@ -57,11 +69,17 @@ class AdminMediaController extends Controller
         $data['is_published'] = $request->boolean('is_published');
 
         if ($request->hasFile('file')) {
-            if ($media->file_path) Storage::disk('public')->delete($media->file_path);
+            if ($media->file_path && ! str_starts_with($media->file_path, 'images/')) {
+                Storage::disk('public')->delete($media->file_path);
+            }
             $data['file_path'] = $request->file('file')->store('media', 'public');
             $data['external_url'] = null;
         }
         unset($data['file']);
+        if (($data['placement'] ?? '') === 'homepage_slideshow') {
+            $data['type'] = 'image';
+            $data['external_url'] = null;
+        }
 
         $media->update($data);
 
@@ -71,7 +89,9 @@ class AdminMediaController extends Controller
 
     public function destroy(MediaAsset $media)
     {
-        if ($media->file_path) Storage::disk('public')->delete($media->file_path);
+        if ($media->file_path && ! str_starts_with($media->file_path, 'images/')) {
+            Storage::disk('public')->delete($media->file_path);
+        }
         $media->delete();
 
         return redirect()->route('admin.media.index')
@@ -80,14 +100,25 @@ class AdminMediaController extends Controller
 
     private function mediaRules(Request $request): array
     {
+        $existing = $request->route('media');
+        $isSlideshow = $request->input('placement') === 'homepage_slideshow';
+        $needsFile = $isSlideshow && ! ($existing instanceof MediaAsset && $existing->file_path);
+
         return [
             'title'      => ['required', 'string', 'max:255'],
-            'type'       => ['required', 'in:image,video,document,youtube,google_drive'],
+            'type'       => $isSlideshow
+                ? ['required', 'in:image']
+                : ['required', 'in:image,video,document,youtube,google_drive'],
             'placement'  => ['required', 'in:gallery,homepage_slideshow'],
             'caption'    => ['nullable', 'string'],
             'external_url' => [
-                'nullable', 'required_if:type,youtube,google_drive', 'url', 'max:2048',
-                function ($attribute, $value, $fail) use ($request) {
+                $isSlideshow ? 'prohibited' : 'nullable',
+                'required_if:type,youtube,google_drive',
+                'url',
+                'max:2048',
+                function ($attribute, $value, $fail) use ($request, $isSlideshow) {
+                    if ($isSlideshow || !$value) return;
+
                     $host = strtolower(parse_url($value, PHP_URL_HOST) ?: '');
                     $allowed = $request->input('type') === 'youtube'
                         ? ['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be', 'www.youtu.be']
@@ -100,7 +131,14 @@ class AdminMediaController extends Controller
                     }
                 },
             ],
-            'file'       => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,svg,mp4,mov,webm,pdf,doc,docx', 'max:20480'],
+            'file'       => [
+                $needsFile ? 'required' : 'nullable',
+                'file',
+                $isSlideshow
+                    ? 'mimes:jpg,jpeg,png,webp'
+                    : 'mimes:jpg,jpeg,png,webp,svg,mp4,mov,webm,pdf,doc,docx',
+                'max:20480',
+            ],
             'is_published' => ['boolean'],
             'sort_order' => ['integer', 'min:0'],
         ];

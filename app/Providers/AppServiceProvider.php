@@ -32,24 +32,34 @@ class AppServiceProvider extends ServiceProvider
             config(['filesystems.disks.r2.url' => rtrim(env('R2_PUBLIC_URL'), '/')]);
         }
 
-        // ── 2. Rate limiting : protection brute-force login ─────────
+        // ── 2. Rate limiting ─────────────────────────────────────────
+
+        // Login admin : 5 tentatives/min par IP + 10/heure par email
         RateLimiter::for('login-admin', function (Request $request) {
             return [
-                // Max 5 tentatives par IP sur 1 minute
-                Limit::perMinute(5)->by($request->ip()),
-                // Max 10 par heure sur l'email (si fourni)
+                Limit::perMinute(5)->by($request->ip())->response(function () {
+                    return back()->withErrors(['email' => 'Trop de tentatives. Attendez 1 minute.']);
+                }),
                 Limit::perHour(10)->by($request->input('email', $request->ip())),
             ];
         });
 
-        // Rate limiting contact form : max 5 soumissions / minute par IP
+        // Formulaire contact public : 3/min + 15/heure par IP
         RateLimiter::for('contact-form', function (Request $request) {
-            return Limit::perMinute(5)->by($request->ip());
+            return [
+                Limit::perMinute(3)->by($request->ip()),
+                Limit::perHour(15)->by($request->ip()),
+            ];
         });
 
-        // Rate limiting candidatures : max 3 / heure par IP
+        // Newsletter : 2 inscriptions/min par IP
+        RateLimiter::for('newsletter', function (Request $request) {
+            return Limit::perMinute(2)->by($request->ip());
+        });
+
+        // Candidatures emploi : 2/heure par IP (anti-spam CV)
         RateLimiter::for('job-apply', function (Request $request) {
-            return Limit::perHour(3)->by($request->ip());
+            return Limit::perHour(2)->by($request->ip());
         });
 
         // ── 3. Directive Blade @uploadUrl ───────────────────────────

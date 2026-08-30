@@ -143,9 +143,9 @@ Route::get('/partenaires', function () {
 Route::get('/carrieres',                  [JobOfferController::class, 'index'])->name('careers');
 Route::get('/offres-emploi',              [JobOfferController::class, 'index'])->name('jobs.index');
 Route::get('/offres-emploi/{job:slug}',   [JobOfferController::class, 'show'])->name('jobs.show');
-Route::post('/offres-emploi/{job:slug}/postuler', [JobOfferController::class, 'apply'])->name('jobs.apply');
+Route::post('/offres-emploi/{job:slug}/postuler', [JobOfferController::class, 'apply'])->name('jobs.apply')->middleware('throttle:job-apply');
 Route::get('/candidature-spontanee',     [JobOfferController::class, 'spontaneous'])->name('spontaneous');
-Route::post('/candidature-spontanee',    [JobOfferController::class, 'applySpontaneous'])->name('spontaneous.apply');
+Route::post('/candidature-spontanee',    [JobOfferController::class, 'applySpontaneous'])->name('spontaneous.apply')->middleware('throttle:job-apply');
 Route::get('/contact',       fn() => $page('fr', 'contact'))->name('contact');
 
 /* Legacy FR redirects */
@@ -208,9 +208,9 @@ Route::get('/en/publications',  [ReportController::class, 'indexEn'])->name('eng
 
 Route::get('/en/careers',                 [JobOfferController::class, 'indexEn'])->name('english.careers');
 Route::get('/en/jobs/{job:slug}',         [JobOfferController::class, 'showEn'])->name('english.jobs.show');
-Route::post('/en/jobs/{job:slug}/apply',  [JobOfferController::class, 'apply'])->name('english.jobs.apply');
+Route::post('/en/jobs/{job:slug}/apply',  [JobOfferController::class, 'apply'])->name('english.jobs.apply')->middleware('throttle:job-apply');
 Route::get('/en/spontaneous-application',  [JobOfferController::class, 'spontaneousEn'])->name('english.spontaneous');
-Route::post('/en/spontaneous-application', [JobOfferController::class, 'applySpontaneous'])->name('english.spontaneous.apply');
+Route::post('/en/spontaneous-application', [JobOfferController::class, 'applySpontaneous'])->name('english.spontaneous.apply')->middleware('throttle:job-apply');
 Route::get('/en/contact',    fn() => $page('en', 'contact'))->name('english.contact');
 
 /* Legacy EN redirects */
@@ -232,7 +232,7 @@ Route::post('/newsletter', function (Request $request) {
         ? 'Thank you. Your newsletter subscription is confirmed.'
         : 'Merci. Votre inscription à la newsletter est confirmée.';
     return back()->with('success', $msg);
-})->name('newsletter.store');
+})->name('newsletter.store')->middleware('throttle:newsletter');
 
 Route::post('/en/newsletter', function (Request $request) {
     App::setLocale('en');
@@ -242,7 +242,7 @@ Route::post('/en/newsletter', function (Request $request) {
         ['subscribed_at' => now()],
     );
     return back()->with('success', 'Thank you. Your newsletter subscription is confirmed.');
-})->name('english.newsletter.store');
+})->name('english.newsletter.store')->middleware('throttle:newsletter');
 
 Route::post('/contact', function (Request $request) {
     $data = $request->validate([
@@ -257,7 +257,7 @@ Route::post('/contact', function (Request $request) {
         ? 'Your message has been received. Our team will reply shortly.'
         : 'Votre message a bien été enregistré. Notre équipe vous répondra prochainement.';
     return redirect()->back()->with('success', $msg);
-})->name('contact.store');
+})->name('contact.store')->middleware('throttle:contact-form');
 
 Route::post('/en/contact', function (Request $request) {
     App::setLocale('en');
@@ -270,7 +270,7 @@ Route::post('/en/contact', function (Request $request) {
     ]);
     ContactMessage::create($data);
     return redirect()->route('english.contact')->with('success', 'Your message has been received. Our team will reply shortly.');
-})->name('english.contact.store');
+})->name('english.contact.store')->middleware('throttle:contact-form');
 
 /*
 |--------------------------------------------------------------------------

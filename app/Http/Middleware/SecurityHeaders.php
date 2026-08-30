@@ -7,14 +7,8 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Ajoute les en-têtes de sécurité HTTP à chaque réponse.
- *
- * Ces en-têtes protègent contre :
- *  - XSS (Content-Security-Policy, X-Content-Type-Options)
- *  - Clickjacking (X-Frame-Options)
- *  - Sniffing MIME (X-Content-Type-Options)
- *  - Downgrade HTTP→HTTPS (HSTS)
- *  - Fuite d'informations serveur (X-Powered-By retiré)
+ * En-têtes de sécurité HTTP ajoutés à chaque réponse.
+ * Protège contre XSS, clickjacking, sniffing MIME, downgrade HTTPS.
  */
 class SecurityHeaders
 {
@@ -23,7 +17,7 @@ class SecurityHeaders
         /** @var Response $response */
         $response = $next($request);
 
-        // ── HSTS : forcer HTTPS pendant 1 an, sous-domaines inclus ──
+        // ── HSTS : forcer HTTPS pendant 1 an ─────────────────────
         if ($request->isSecure()) {
             $response->headers->set(
                 'Strict-Transport-Security',
@@ -31,42 +25,50 @@ class SecurityHeaders
             );
         }
 
-        // ── Empêcher le clickjacking (iframes non autorisées) ──────
+        // ── Bloquer les iframes (anti-clickjacking) ───────────────
         $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
 
-        // ── Empêcher le MIME-sniffing du navigateur ─────────────────
+        // ── Empêcher MIME sniffing ────────────────────────────────
         $response->headers->set('X-Content-Type-Options', 'nosniff');
 
-        // ── Limiter les infos dans le Referer ───────────────────────
+        // ── Contrôle du Referer ───────────────────────────────────
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
-        // ── Désactiver les fonctionnalités navigateur non utilisées ─
+        // ── Désactiver fonctionnalités navigateur non utilisées ───
         $response->headers->set(
             'Permissions-Policy',
-            'camera=(), microphone=(), geolocation=(), payment=()'
+            'camera=(), microphone=(), geolocation=(), payment=(), usb=()'
         );
 
-        // ── Content Security Policy ─────────────────────────────────
-        // Adapté pour le projet : Google Fonts + Google Maps + self
-        $csp = implode('; ', [
+        // ── Content Security Policy ───────────────────────────────
+        // Adapté au projet : Google Fonts + Google Maps + éventuellement R2
+        $r2Domain = '';
+        if (env('R2_PUBLIC_URL')) {
+            $host     = parse_url(env('R2_PUBLIC_URL'), PHP_URL_HOST);
+            $r2Domain = $host ? ' https://' . $host : '';
+        }
+
+        $csp = implode('; ', array_filter([
             "default-src 'self'",
-            "script-src 'self' 'unsafe-inline'",  // unsafe-inline nécessaire pour JS inline existant
+            "script-src 'self' 'unsafe-inline'",           // unsafe-inline nécessaire pour JS inline existant
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src 'self' https://fonts.gstatic.com",
-            "img-src 'self' data: https:",
-            "frame-src https://www.google.com",   // Google Maps embeds
+            "img-src 'self' data: https:" . $r2Domain,     // https: pour R2 et Google Maps
+            "frame-src https://www.google.com https://www.youtube.com https://player.vimeo.com",
             "connect-src 'self'",
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self'",
-        ]);
+            "upgrade-insecure-requests",
+        ]));
+
         $response->headers->set('Content-Security-Policy', $csp);
 
-        // ── Retirer les en-têtes qui révèlent le serveur ────────────
+        // ── Retirer les en-têtes révélant le serveur ─────────────
         $response->headers->remove('X-Powered-By');
         $response->headers->remove('Server');
 
-        // ── XSS Protection (legacy, IE 11) ──────────────────────────
+        // ── XSS Protection legacy (IE 11) ─────────────────────────
         $response->headers->set('X-XSS-Protection', '1; mode=block');
 
         return $response;

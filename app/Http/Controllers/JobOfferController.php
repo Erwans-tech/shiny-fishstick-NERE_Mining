@@ -97,24 +97,27 @@ class JobOfferController extends Controller
         $data = $request->validate([
             'first_name'        => ['required', 'string', 'max:80'],
             'last_name'         => ['required', 'string', 'max:80'],
-            'email'             => ['required', 'email', 'max:180'],
-            'phone'             => ['nullable', 'string', 'max:40'],
+            'email'             => ['required', 'email:rfc,dns', 'max:180'],
+            'phone'             => ['nullable', 'string', 'max:40', 'regex:/^[0-9\s\+\-\(\)]+$/'],
             'nationality'       => ['nullable', 'string', 'max:80'],
             'current_position'  => ['nullable', 'string', 'max:160'],
             'experience_years'  => ['nullable', 'string', 'max:40'],
-            'motivation'        => ['required', 'string', 'max:5000'],
-            'cv'                => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:5120'],
-            'cover_letter_file' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:5120'],
+            'motivation'        => ['required', 'string', 'min:50', 'max:5000'],
+            // CV : PDF ou Word uniquement, max 5 Mo, vérification MIME réelle
+            'cv'                => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:5120',
+                                    'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+            'cover_letter_file' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:5120',
+                                    'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
         ]);
 
         $data['job_offer_id'] = $job->id;
 
         if ($request->hasFile('cv')) {
-            $data['cv_path'] = $request->file('cv')->store('applications/cv', 'private');
+            $data['cv_path'] = $request->file('cv')->store('applications/cv', 'local');
         }
         if ($request->hasFile('cover_letter_file')) {
             $data['cover_letter_path'] = $request->file('cover_letter_file')
-                ->store('applications/cover', 'private');
+                ->store('applications/cover', 'local');
         }
 
         unset($data['cv'], $data['cover_letter_file'], $data['locale']);
