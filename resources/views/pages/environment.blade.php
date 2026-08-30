@@ -13,7 +13,6 @@
         <a href="{{ $en ? route('english.local-content') : route('sustainability.local-content') }}">{{ __('site.subnav_local_content', [], $loc) }}</a>
     </div>
 
-    <h2>{{ __('site.env_policy_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.env_policy_lead', [], $loc) }}</p>
 
     <div class="grid-3">
@@ -29,7 +28,6 @@
 
 {{-- ── 2. Mesures de mitigation et de réhabilitation ───── --}}
 <section class="sand">
-    <h2>{{ __('site.env_mitigation_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.env_mitigation_lead', [], $loc) }}</p>
 
     <div class="grid-3">
@@ -45,7 +43,6 @@
 
 {{-- ── 3. Gestion de l'eau, déchets et émissions ──────── --}}
 <section>
-    <h2>{{ __('site.env_water_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.env_water_lead', [], $loc) }}</p>
 
     <div class="grid-3">

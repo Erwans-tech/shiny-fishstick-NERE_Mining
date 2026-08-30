@@ -13,7 +13,6 @@
         <a href="{{ $en ? route('english.local-content') : route('sustainability.local-content') }}">{{ __('site.subnav_local_content', [], $loc) }}</a>
     </div>
 
-    <h2>{{ __('site.hse_policy_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.hse_policy_lead', [], $loc) }}</p>
 
     <div class="grid-3">
@@ -29,7 +28,6 @@
 
 {{-- ── 2. Chiffres clés sécurité ───────────────────────── --}}
 <section class="sand">
-    <h2>{{ __('site.hse_lead', [], $loc) }}</h2>
 
     <div class="stat-band">
         @foreach(range(1, 4) as $i)
@@ -53,7 +51,6 @@
 
 {{-- ── 3. Certifications et audits ─────────────────────── --}}
 <section>
-    <h2>{{ __('site.hse_cert_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.hse_cert_lead', [], $loc) }}</p>
 
     <div class="grid-3">

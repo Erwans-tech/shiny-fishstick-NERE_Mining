@@ -14,7 +14,6 @@
         <a href="{{ $en ? route('english.company.governance') : route('company.governance') }}" class="active">{{ __('site.subnav_company_governance', [], $loc) }}</a>
     </div>
 
-    <h2>{{ __('site.company_gov_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.company_gov_lead', [], $loc) }}</p>
 
     {{-- Callout + principes --}}

@@ -73,7 +73,6 @@
     @include('partials._nav', ['locale' => $locale ?? 'fr', 'section' => 'news'])
 
     <div class="masthead">
-        <div class="eyebrow">{{ __('site.news_eyebrow') }}</div>
         <h1>{{ __('site.news_h1') }}</h1>
         <div class="breadcrumb">
             <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link') }}</a> ›

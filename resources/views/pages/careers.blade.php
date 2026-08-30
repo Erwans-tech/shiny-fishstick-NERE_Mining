@@ -5,7 +5,6 @@
 @section('content')
 
 <section>
-    <h2>{{ __('site.careers_why_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.careers_why_lead', [], $loc) }}</p>
 
     <div class="grid-3" style="margin-bottom:60px;">
@@ -18,7 +17,6 @@
         @endforeach
     </div>
 
-    <h2>{{ __('site.careers_jobs_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.careers_jobs_lead', [], $loc) }}</p>
 
     <div class="grid-3">

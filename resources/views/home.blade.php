@@ -65,23 +65,23 @@
         header {
             position:absolute; z-index:200;
             left:0; right:0; top:0;
-            padding:22px 5vw;
+            padding:40px 5vw 38px;
             display:flex; align-items:center; justify-content:space-between;
             transition:background .28s, padding .28s, box-shadow .28s;
         }
         header.stuck {
             position:fixed;
             background:var(--green);
-            padding:14px 5vw;
+            padding:28px 5vw;
             box-shadow:0 2px 14px rgba(0,0,0,.28);
         }
-        .logo { display:block; width:210px; }
-        .logo img { width:100%; }
-        nav { display:flex; gap:4px; align-items:center; }
+        .logo { display:block; width:700px; }
+        .logo img { width:100%; height:auto; display:block; }
+        nav { display:flex; gap:8px; align-items:center; }
         .nav-link {
             color:rgba(255,255,255,.88);
-            font:500 11px Inter,sans-serif; text-transform:uppercase; letter-spacing:.09em;
-            padding:7px 12px; border-radius:4px;
+            font:500 13px Inter,sans-serif; text-transform:uppercase; letter-spacing:.07em;
+            padding:12px 16px; border-radius:4px;
             transition:background .18s, color .18s; white-space:nowrap;
         }
         .nav-link:hover { background:rgba(255,255,255,.14); color:#fff; }
@@ -107,8 +107,9 @@
 
         /* ── HERO ────────────────────────────────── */
         .hero {
-            position:relative; min-height:100vh;
+            position:relative; min-height:62vh;
             display:flex; align-items:flex-end;
+            padding-top:120px;
             overflow:hidden; color:#fff;
         }
         /* Slideshow */
@@ -175,14 +176,14 @@
             background:var(--gold); flex-shrink:0;
         }
         .hero-h1 {
-            font-size:clamp(44px,5.8vw,86px); font-weight:300;
-            line-height:.97; letter-spacing:-.02em;
-            color:#fff; margin-bottom:26px;
+            font-size:clamp(42px,5vw,76px); font-weight:300;
+            line-height:.96; letter-spacing:-.03em;
+            color:#fff; margin-bottom:20px;
         }
         .hero-h1 strong { font-weight:600; }
         .hero-intro {
-            color:rgba(255,255,255,.75); font-size:17px; line-height:1.66;
-            max-width:510px; margin-bottom:40px;
+            color:rgba(255,255,255,.82); font-size:19px; line-height:1.7;
+            max-width:560px; margin-bottom:40px;
         }
         .hero-ctas { display:flex; gap:14px; flex-wrap:wrap; }
         /* Right — stat tiles */
@@ -511,7 +512,6 @@
 
             {{-- Slogan + CTA --}}
             <div>
-                <div class="hero-eyebrow">{{ __('site.home_eyebrow', [], $loc) }}</div>
                 <h1 class="hero-h1">{!! nl2br(e(__('site.home_h1', [], $loc))) !!}</h1>
                 <p class="hero-intro">{{ __('site.home_intro', [], $loc) }}</p>
                 <div class="hero-ctas">
@@ -540,10 +540,6 @@
 
         </div>
 
-        <div class="hero-scroll" aria-hidden="true">
-            <div class="hero-scroll-line"></div>
-            <span>scroll</span>
-        </div>
     </section>
 
     {{-- ════════════════════════════════════════
@@ -763,17 +759,63 @@
 
     </main>
 
-    <footer>
-        <span>{{ str_replace(':year', date('Y'), __('site.footer_copy', [], $loc)) }}</span>
-        <nav class="footer-links" aria-label="Footer">
-            <a href="{{ $en ? route('english.company')       : route('company') }}">{{ __('site.nav_company', [], $loc) }}</a>
-            <a href="{{ $en ? route('english.karma')         : route('karma') }}">{{ __('site.nav_karma', [], $loc) }}</a>
-            <a href="{{ $en ? route('english.sustainability') : route('sustainability') }}">{{ $en ? 'ESG' : 'RSE' }}</a>
-            <a href="{{ $en ? route('english.careers')        : route('careers') }}">{{ __('site.nav_careers', [], $loc) }}</a>
-            <a href="{{ $en ? route('english.contact')        : route('contact') }}">{{ __('site.nav_contact', [], $loc) }}</a>
-            <a href="{{ $en ? url('/') : route('english') }}">{{ __('site.lang_switch', [], $loc) }}</a>
-        </nav>
-        <span>{{ __('site.footer_tagline', [], $loc) }}</span>
+    <footer style="padding:0; background:#1e0909;">
+
+        {{-- Bande supérieure : valeurs IPRE --}}
+        <div style="padding:32px 5vw 28px; border-bottom:1px solid rgba(255,255,255,.08); display:flex; justify-content:center; gap:48px; flex-wrap:wrap;">
+            @foreach([
+                ['I', $en ? 'Integrity'   : 'Intégrité',      $en ? 'Honesty & transparency in all our operations.'     : "Honnêteté et transparence dans toutes nos opérations."],
+                ['P', $en ? 'Professionalism' : 'Professionnalisme', $en ? 'Continuous improvement & excellence.'       : 'Amélioration continue vers l\'excellence.'],
+                ['R', $en ? 'Respect'     : 'Respect',         $en ? 'For colleagues, communities & regulations.'       : 'Des collaborateurs, communautés et réglementations.'],
+                ['E', $en ? 'Teamwork'    : 'Esprit d\'équipe', $en ? 'Collective results through individual commitment.' : 'Des résultats collectifs par l\'implication de chacun.'],
+            ] as [$letter, $value, $desc])
+            <div style="text-align:center; max-width:200px;">
+                <div style="width:44px; height:44px; border-radius:50%; background:rgba(255,194,71,.15); border:2px solid var(--gold); color:var(--gold); font:700 18px Inter,sans-serif; display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">{{ $letter }}</div>
+                <div style="font:700 13px Inter,sans-serif; color:#fff; margin-bottom:5px; letter-spacing:.06em; text-transform:uppercase;">{{ $value }}</div>
+                <div style="font:12px/1.5 Inter,sans-serif; color:rgba(255,255,255,.45);">{{ $desc }}</div>
+            </div>
+            @endforeach
+        </div>
+
+        {{-- Bande principale --}}
+        <div style="padding:28px 5vw; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
+
+            {{-- Logo + copyright --}}
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining" style="height:36px; width:auto; object-fit:contain; filter:brightness(0) invert(.8);">
+                <span style="font:12px Inter,sans-serif; color:rgba(255,255,255,.4);">
+                    {{ str_replace(':year', date('Y'), __('site.footer_copy', [], $loc)) }}
+                </span>
+            </div>
+
+            {{-- Liens navigation --}}
+            <nav aria-label="Footer" style="display:flex; gap:22px; flex-wrap:wrap; justify-content:center;">
+                <a href="{{ $en ? route('english.company')        : route('company') }}"       style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ __('site.nav_company', [], $loc) }}</a>
+                <a href="{{ $en ? route('english.karma')          : route('karma') }}"          style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ __('site.nav_karma', [], $loc) }}</a>
+                <a href="{{ $en ? route('english.sustainability')  : route('sustainability') }}" style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ $en ? 'ESG' : 'RSE' }}</a>
+                <a href="{{ $en ? route('english.news')            : route('news.index') }}"    style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ __('site.nav_news', [], $loc) }}</a>
+                <a href="{{ $en ? route('english.careers')         : route('careers') }}"       style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ __('site.nav_careers', [], $loc) }}</a>
+                <a href="{{ $en ? route('english.contact')         : route('contact') }}"       style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ __('site.nav_contact', [], $loc) }}</a>
+            </nav>
+
+            {{-- Tagline + langue --}}
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+                <span style="font:500 12px Inter,sans-serif; color:rgba(255,255,255,.35); letter-spacing:.1em; text-transform:uppercase;">{{ __('site.footer_tagline', [], $loc) }}</span>
+                <a href="{{ $en ? url('/') : route('english') }}" style="font:600 11px Inter,sans-serif; color:var(--gold); letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(255,194,71,.3); padding:5px 12px; border-radius:4px; transition:background .15s;" onmouseover="this.style.background='rgba(255,194,71,.1)'" onmouseout="this.style.background=''">
+                    {{ __('site.lang_switch', [], $loc) }}
+                </a>
+            </div>
+        </div>
+
+        {{-- Bande inférieure : mentions légales --}}
+        <div style="padding:14px 5vw; border-top:1px solid rgba(255,255,255,.05); display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+            <span style="font:11px Inter,sans-serif; color:rgba(255,255,255,.25);">
+                Néré Mining S.A. · Ouagadougou, Burkina Faso · +226 25 33 35 69 · contact@nere-mining.bf
+            </span>
+            <span style="font:11px Inter,sans-serif; color:rgba(255,255,255,.25);">
+                ISO 9001:2008 · {{ $en ? 'EITI Member' : 'Membre ITIE' }}
+            </span>
+        </div>
     </footer>
 
     <script>
@@ -821,13 +863,50 @@
             });
         }
 
-        /* Populate hero stat values immediately */
-        document.querySelectorAll('.hero-stat-val').forEach(function(el){
+        /* Animate hero stat values when the hero enters view */
+        function animateHeroValue(el){
             var raw = el.getAttribute('data-target');
             var suffix = el.getAttribute('data-suffix') || '';
             var limit = parseInt(raw, 10);
-            el.textContent = (isNaN(limit) ? raw : limit.toLocaleString('fr-FR')) + suffix;
-        });
+            if(isNaN(limit)){
+                el.textContent = raw + suffix;
+                return;
+            }
+
+            var start = null;
+            var duration = 1600;
+            function step(ts){
+                if(!start) start = ts;
+                var p = Math.min((ts - start) / duration, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                var current = Math.round(limit * eased);
+                el.textContent = current.toLocaleString('fr-FR') + suffix;
+                if(p < 1) requestAnimationFrame(step);
+                else el.textContent = limit.toLocaleString('fr-FR') + suffix;
+            }
+            requestAnimationFrame(step);
+        }
+
+        var heroValues = document.querySelectorAll('.hero-stat-val');
+        var heroSection = document.querySelector('.hero');
+        if(heroValues.length && heroSection && 'IntersectionObserver' in window){
+            var heroAnimated = false;
+            var heroObserver = new IntersectionObserver(function(entries){
+                if(entries[0].isIntersecting && !heroAnimated){
+                    heroAnimated = true;
+                    heroValues.forEach(animateHeroValue);
+                    heroObserver.disconnect();
+                }
+            }, { threshold: 0.35 });
+            heroObserver.observe(heroSection);
+        } else {
+            heroValues.forEach(function(el){
+                var raw = el.getAttribute('data-target');
+                var suffix = el.getAttribute('data-suffix') || '';
+                var limit = parseInt(raw, 10);
+                el.textContent = (isNaN(limit) ? raw : limit.toLocaleString('fr-FR')) + suffix;
+            });
+        }
 
         /* ── Sticky header ── */
         var hdr = document.querySelector('header');

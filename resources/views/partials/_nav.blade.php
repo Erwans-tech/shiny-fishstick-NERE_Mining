@@ -72,9 +72,9 @@
 }
 </style>
 
-<header>
-    <a class="logo" href="{{ $en ? route('english') : url('/') }}">
-        <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining">
+<header style="padding-top:36px; padding-bottom:36px;">
+    <a class="logo" href="{{ $en ? route('english') : url('/') }}" style="width:700px;">
+        <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining" style="width:100%; height:auto; display:block;">
     </a>
     <button class="menu-btn"
             aria-label="Menu"

@@ -131,7 +131,6 @@
 {{-- Masthead --}}
 <div class="masthead">
     <a href="{{ $listRoute }}" class="back-link">← {{ __('site.careers_back', [], $loc) }}</a>
-    <div class="eyebrow">{{ __('site.careers_eyebrow', [], $loc) }}</div>
     <h1>{{ $job->title }}</h1>
     <div class="meta-badges">
         <span class="badge b-white">{{ $job->contract_type }}</span>

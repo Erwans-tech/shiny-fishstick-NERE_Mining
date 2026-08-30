@@ -40,7 +40,6 @@
 
 {{-- ── 2. FMD — projets réalisés ───────────────────────── --}}
 <section class="sand">
-    <h2>{{ __('site.communities_fmd_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.communities_fmd_lead', [], $loc) }}</p>
     <h3 style="margin-bottom:20px;">{{ __('site.communities_fmd_projects_h3', [], $loc) }}</h3>
     <div class="grid-3" style="grid-template-columns:repeat(2,1fr);">
@@ -56,7 +55,6 @@
 
 {{-- ── 3. Mécanisme de gestion des plaintes ────────────── --}}
 <section>
-    <h2>{{ __('site.communities_complaint_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.communities_complaint_lead', [], $loc) }}</p>
     <div class="grid-3">
         @foreach(range(1, 3) as $i)
@@ -71,7 +69,6 @@
 
 {{-- ── 4. Carte des villages impactés ─────────────────── --}}
 <section class="sand">
-    <h2>{{ __('site.communities_map_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.communities_map_lead', [], $loc) }}</p>
 
     <div class="grid-2">
@@ -97,7 +94,6 @@
 
 {{-- ── 5. Partenaires communautaires ───────────────────── --}}
 <section>
-    <h2>{{ __('site.communities_partners_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.communities_partners_p', [], $loc) }}</p>
     <h3 style="margin-bottom:20px;">{{ __('site.communities_partners_types_h3', [], $loc) }}</h3>
     <div class="grid-3" style="grid-template-columns:repeat(2,1fr);">

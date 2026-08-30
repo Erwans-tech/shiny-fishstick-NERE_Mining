@@ -140,7 +140,6 @@
 @include('partials._nav', ['locale' => $loc, 'section' => 'careers'])
 
 <div class="masthead">
-    <div class="eyebrow">{{ __('site.careers_eyebrow', [], $loc) }}</div>
     <h1>{{ __('site.careers_h1', [], $loc) }}</h1>
     <div class="breadcrumb">
         <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link', [], $loc) }}</a>

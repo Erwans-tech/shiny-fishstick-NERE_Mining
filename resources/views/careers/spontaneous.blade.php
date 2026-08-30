@@ -122,7 +122,6 @@
 {{-- Masthead --}}
 <div class="masthead">
     <a href="{{ $listRoute }}" class="back-link">← {{ __('site.careers_back', [], $loc) }}</a>
-    <div class="eyebrow">{{ __('site.nav_careers', [], $loc) }}</div>
     <h1>{{ __('site.careers_spontaneous_title', [], $loc) }}</h1>
     <p class="masthead-lead">{{ __('site.careers_spontaneous_lead', [], $loc) }}</p>
     <div class="breadcrumb">

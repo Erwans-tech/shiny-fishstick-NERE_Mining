@@ -57,11 +57,11 @@
         .topbar { background:var(--red); color:#fff7e8; padding:9px 5vw; display:flex; justify-content:space-between; font:11px Inter,sans-serif; letter-spacing:.06em; text-transform:uppercase; }
 
         /* ── Header / Nav ── */
-        header { padding:18px 5vw; background:var(--green); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(0,0,0,.25); }
-        .logo { width:200px; }
-        .logo img { width:100%; display:block; }
+        header { padding:22px 5vw; background:var(--green); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(0,0,0,.25); }
+        .logo { width:340px; }
+        .logo img { width:100%; display:block; height:auto; }
         nav { display:flex; gap:6px; align-items:center; }
-        .nav-link { color:rgba(255,255,255,.82); font:500 11px Inter,sans-serif; text-transform:uppercase; letter-spacing:.09em; padding:7px 12px; border-radius:4px; transition:background .18s,color .18s; white-space:nowrap; }
+        .nav-link { color:rgba(255,255,255,.88); font:500 13px Inter,sans-serif; text-transform:uppercase; letter-spacing:.07em; padding:9px 14px; border-radius:4px; transition:background .18s,color .18s; white-space:nowrap; }
         .nav-link:hover, .nav-link.active { background:rgba(255,255,255,.12); color:#fff; }
         .nav-dropdown { position:relative; }
         .nav-dropdown > .nav-link::after { content:'▾'; margin-left:5px; font-size:10px; }
@@ -75,7 +75,30 @@
         /* ── Masthead ── */
         .masthead { padding:100px 5vw 80px; color:white; background:linear-gradient(100deg,rgba(75,23,22,.96) 45%,rgba(75,23,22,.55)),url('{{ asset('images/mining/karma-03.jpg') }}') center/cover; }
         .eyebrow { color:var(--gold); font:600 11px Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; margin-bottom:14px; }
-        h1 { max-width:800px; font-size:clamp(40px,6vw,76px); line-height:.97; font-weight:400; color:#fff; }
+        .masthead {
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+        }
+        .masthead h1 {
+            display:inline-block;
+            max-width:1000px;
+            width:fit-content;
+            padding:0.18em 0.38em 0.22em;
+            background:rgba(34,11,11,.7);
+            border:2px solid rgba(255,194,71,.9);
+            border-left:10px solid rgba(255,194,71,.9);
+            border-right:10px solid rgba(255,194,71,.9);
+            box-shadow:0 0 0 2px rgba(255,255,255,.08), 0 22px 44px rgba(0,0,0,.22);
+            font-size:clamp(40px,6vw,76px);
+            line-height:.94;
+            font-weight:400;
+            color:#fff;
+            letter-spacing:-.05em;
+            text-align:center;
+        }
         .breadcrumb { margin-top:20px; font:12px Inter,sans-serif; color:rgba(255,255,255,.6); }
         .breadcrumb a { color:var(--gold); }
         .breadcrumb a:hover { text-decoration:underline; }
@@ -84,11 +107,18 @@
         main { max-width:1240px; margin:auto; }
         section { padding:80px 5vw; }
         section + section { padding-top:0; }
-        .lead { max-width:820px; color:var(--muted); font:18px/1.75 Inter,sans-serif; margin-bottom:48px; }
-        h2 { color:var(--green); font-size:clamp(28px,3.5vw,48px); font-weight:400; line-height:1.05; margin-bottom:24px; }
-        h3 { color:var(--green); font-size:22px; font-weight:500; margin-bottom:12px; }
+        .lead { max-width:820px; color:var(--muted); font:19px/1.8 Inter,sans-serif; margin-bottom:48px; }
+        h2 {
+            color:var(--ink);
+            font-size:clamp(26px,2.6vw,40px);
+            font-weight:600;
+            line-height:1.2;
+            margin:0 0 18px;
+            letter-spacing:-.02em;
+        }
+        h3 { color:var(--green); font-size:23px; font-weight:500; margin-bottom:12px; }
         h4 { color:var(--green); font-size:16px; font-weight:600; margin-bottom:8px; letter-spacing:.04em; text-transform:uppercase; }
-        p { color:var(--muted); font:15px/1.72 Inter,sans-serif; margin-bottom:12px; }
+        p { color:var(--muted); font:16px/1.8 Inter,sans-serif; margin-bottom:12px; text-align:justify; }
 
         /* ── Grilles & Cards ── */
         .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
@@ -96,7 +126,62 @@
         .card { padding:28px; border:1px solid var(--line); background:#fff; border-radius:6px; transition:box-shadow .2s; }
         .card:hover { box-shadow:0 4px 18px rgba(0,0,0,.08); }
         .card-img { width:calc(100%+56px); height:190px; object-fit:cover; margin:-28px -28px 22px; display:block; border-radius:6px 6px 0 0; }
-        .card-tag { display:inline-block; font:600 10px Inter,sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+        .card-tag { display:block; font:600 13px Inter,sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+
+        .company-values-section { padding-top:20px; }
+        .values-hero {
+            margin:0 0 28px;
+            border:1px solid rgba(255,255,255,.12);
+            box-shadow:0 14px 30px rgba(75,23,22,.16);
+            overflow:hidden;
+            background:#f7f3ee;
+        }
+        .values-hero-image {
+            display:block;
+            width:100%;
+            height:auto;
+            object-fit:cover;
+        }
+        .values-grid {
+            display:grid;
+            grid-template-columns:repeat(4,minmax(0,1fr));
+            gap:16px;
+            margin-top:8px;
+        }
+        .values-card {
+            min-height:500px;
+            height:100%;
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+            padding:18px 18px 18px;
+            background:#f7f3ee;
+            border:1px solid rgba(75,23,22,.12);
+            box-shadow:none;
+        }
+        .card-tag {
+            margin-bottom:0;
+        }
+        .values-card h3 {
+            font-size:clamp(20px,1.5vw,30px);
+            line-height:1;
+            letter-spacing:-.04em;
+            margin:0;
+            color:var(--green);
+            max-width:100%;
+            word-wrap:break-word;
+            overflow-wrap:break-word;
+        }
+        .values-card p {
+            margin-top:0;
+            font-size:15.2px;
+            line-height:1.46;
+            color:#3a2d28;
+            max-width:100%;
+            word-wrap:break-word;
+            overflow-wrap:break-word;
+            text-align:justify;
+        }
 
         /* ── Stat band ── */
         .stat-band { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:40px 0; }
@@ -222,7 +307,7 @@
         .company-overview-grid .card .btn { margin-top:auto !important; align-self:flex-start; }
 
         /* ── Footer ── */
-        footer { padding:32px 5vw; background:#351312; color:#eadcca; display:flex; justify-content:space-between; align-items:center; font:12px Inter,sans-serif; }
+        footer { padding:28px 5vw 14px; background:#1e0909; color:rgba(234,220,202,.65); font:13px Inter,sans-serif; }
         .footer-links { display:flex; gap:20px; }
         .footer-links a:hover { color:var(--gold); }
 
@@ -262,17 +347,20 @@
 <body>
     @include('partials._nav', ['locale' => $loc, 'section' => $section])
 
-    {{-- ── Masthead (peut être surchargé via @section('masthead')) ── --}}
+    {{-- ── Masthead — h1 centré, sans répétition ── --}}
     @hasSection('masthead')
         @yield('masthead')
     @else
     <div class="masthead">
-        <div class="eyebrow">{{ __('site.'.$mastheadSection.'_eyebrow', [], $loc) }}</div>
         <h1>{{ __('site.'.$mastheadSection.'_h1', [], $loc) }}</h1>
+        {{-- Fil d'Ariane compact sous le titre --}}
         <div class="breadcrumb">
             <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link', [], $loc) }}</a>
             @if($isCompany && $section !== 'company')
                 › <a href="{{ $en ? route('english.company') : route('company') }}">{{ __('site.nav_company', [], $loc) }}</a>
+            @endif
+            @if($isSustain && !in_array($section, ['sustainability']))
+                › <a href="{{ $en ? route('english.sustainability') : route('sustainability') }}">{{ __('site.nav_sustainability', [], $loc) }}</a>
             @endif
             › {{ __('site.'.$mastheadSection.'_breadcrumb', [], $loc) }}
         </div>
@@ -287,16 +375,42 @@
         @yield('content')
     </main>
 
-    <footer>
-        <span>{{ str_replace(':year', date('Y'), __('site.footer_copy', [], $loc)) }}</span>
-        <div class="footer-links">
-            <a href="{{ $en ? route('english.company')       : route('company') }}">{{ __('site.nav_company', [], $loc) }}</a>
-            <a href="{{ $en ? route('english.karma')         : route('karma') }}">{{ __('site.nav_karma', [], $loc) }}</a>
-            <a href="{{ $en ? route('english.sustainability') : route('sustainability') }}">{{ $en ? 'ESG' : 'RSE' }}</a>
-            <a href="{{ $en ? route('english.contact')        : route('contact') }}">{{ __('site.nav_contact', [], $loc) }}</a>
-            <a href="{{ $en ? url('/') : route('english') }}">{{ __('site.lang_switch', [], $loc) }}</a>
+    <footer style="padding:0; background:#1e0909;">
+        {{-- Bande principale --}}
+        <div style="padding:28px 5vw; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; border-bottom:1px solid rgba(255,255,255,.06);">
+            <div>
+                <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining" style="height:32px; width:auto; filter:brightness(0) invert(.8); display:block; margin-bottom:6px;">
+                <span style="font:12px Inter,sans-serif; color:rgba(255,255,255,.35);">{{ str_replace(':year', date('Y'), __('site.footer_copy', [], $loc)) }}</span>
+            </div>
+            <nav style="display:flex; gap:20px; flex-wrap:wrap; justify-content:center;">
+                @foreach([
+                    [$en ? route('english.company') : route('company'), __('site.nav_company', [], $loc)],
+                    [$en ? route('english.karma')   : route('karma'),   __('site.nav_karma',   [], $loc)],
+                    [$en ? route('english.sustainability') : route('sustainability'), $en ? 'ESG' : 'RSE'],
+                    [$en ? route('english.careers')  : route('careers'),  __('site.nav_careers', [], $loc)],
+                    [$en ? route('english.contact')  : route('contact'),  __('site.nav_contact', [], $loc)],
+                ] as [$href, $label])
+                <a href="{{ $href }}" style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.6);" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.6)'">{{ $label }}</a>
+                @endforeach
+            </nav>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+                <span style="font:500 11px Inter,sans-serif; color:rgba(255,255,255,.3); letter-spacing:.1em; text-transform:uppercase;">{{ __('site.footer_tagline', [], $loc) }}</span>
+                <a href="{{ $en ? url('/') : route('english') }}" style="font:600 11px Inter,sans-serif; color:var(--gold); border:1px solid rgba(255,194,71,.3); padding:5px 12px; border-radius:4px;">{{ __('site.lang_switch', [], $loc) }}</a>
+            </div>
         </div>
-        <span>{{ __('site.footer_tagline', [], $loc) }}</span>
+        {{-- Valeurs IPRE --}}
+        <div style="padding:20px 5vw; display:flex; justify-content:center; gap:40px; flex-wrap:wrap;">
+            @foreach([['I',$en?'Integrity':'Intégrité'],['P',$en?'Professionalism':'Professionnalisme'],['R',$en?'Respect':'Respect'],['E',$en?'Teamwork':'Esprit d\'équipe']] as [$l,$v])
+            <div style="display:flex; align-items:center; gap:8px;">
+                <span style="width:26px; height:26px; border-radius:50%; background:rgba(255,194,71,.12); border:1px solid rgba(255,194,71,.4); color:var(--gold); font:700 12px Inter,sans-serif; display:inline-flex; align-items:center; justify-content:center;">{{ $l }}</span>
+                <span style="font:500 12px Inter,sans-serif; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.06em;">{{ $v }}</span>
+            </div>
+            @endforeach
+        </div>
+        {{-- Infos légales --}}
+        <div style="padding:10px 5vw 14px; border-top:1px solid rgba(255,255,255,.04); text-align:center;">
+            <span style="font:11px Inter,sans-serif; color:rgba(255,255,255,.2);">Néré Mining S.A. · Ouagadougou, Burkina Faso · +226 25 33 35 69 · contact@nere-mining.bf · ISO 9001:2008</span>
+        </div>
     </footer>
 </body>
 </html>

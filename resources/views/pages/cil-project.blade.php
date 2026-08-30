@@ -22,7 +22,6 @@
         <a href="{{ $en ? route('english.projects.cil') : route('projects.cil') }}" class="active">{{ __('site.nav_projects_cil', [], $loc) }}</a>
     </div>
 
-    <h2>{{ __('site.cil_project_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.cil_project_lead', [], $loc) }}</p>
 
     <div class="grid-2" style="margin-top:36px;">
@@ -40,7 +39,6 @@
 </section>
 
 <section class="sand">
-    <h2>{{ __('site.cil_project_gallery_h2', [], $loc) }}</h2>
     <div class="grid-3">
         @foreach([
             ['cil-01.png', 'cil_project_image_1_alt', 'cil_project_image_1_caption'],
@@ -65,7 +63,6 @@
 </section>
 
 <section class="sand">
-    <h2>{{ __('site.cil_project_value_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.cil_project_value_p', [], $loc) }}</p>
 </section>
 
