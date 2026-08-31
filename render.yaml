@@ -4,14 +4,10 @@ services:
     runtime: php
     region: fra
     plan: free
-    buildCommand: composer install --no-dev --prefer-dist && php artisan migrate --force
+    buildCommand: composer install --no-dev --prefer-dist
     startCommand: vendor/bin/heroku-php-apache2 public/
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
         value: "false"
-      - key: DATABASE_URL
-        fromDatabase:
-          name: nere-mining-db
-          property: connectionString
