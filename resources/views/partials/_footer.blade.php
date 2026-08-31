@@ -2,6 +2,13 @@
     $loc = $loc ?? app()->getLocale();
     $en  = $en  ?? ($loc === 'en');
     $contactUrl = $en ? route('english.contact') : route('contact');
+    
+    // Récupérer les settings depuis la BD
+    use App\Models\SiteSetting;
+    $companyPhone = SiteSetting::get('company_phone', '+226 25 33 35 69');
+    $companyEmail = SiteSetting::get('company_email', 'contact@nere-mining.bf');
+    $copyright = SiteSetting::get('footer_copyright', '© '.date('Y').' Néré Mining. Tous droits réservés.');
+    $footerDescription = SiteSetting::get('footer_description', 'Groupe aurifère burkinabè exploitant la mine de Karma dans le nord du Burkina Faso.');
 @endphp
 
 @once
@@ -24,13 +31,9 @@
 
         <div class="site-footer__grid">
             <div>
-                <p class="site-footer__lead">
-                    {{ $en
-                        ? 'Burkinabe gold mining group operating the Karma mine in northern Burkina Faso.'
-                        : "Groupe aurifère burkinabè exploitant la mine de Karma dans le nord du Burkina Faso." }}
-                </p>
-                <a class="site-footer__meta" href="tel:+22625333569">+226 25 33 35 69</a>
-                <a class="site-footer__meta" href="mailto:contact@nere-mining.bf">contact@nere-mining.bf</a>
+                <p class="site-footer__lead">{{ $footerDescription }}</p>
+                <a class="site-footer__meta" href="tel:{{ preg_replace('/[^0-9+]/', '', $companyPhone) }}">{{ $companyPhone }}</a>
+                <a class="site-footer__meta" href="mailto:{{ $companyEmail }}">{{ $companyEmail }}</a>
             </div>
             <div>
                 <div class="site-footer__label">{{ $en ? 'Company' : 'Entreprise' }}</div>
@@ -56,7 +59,7 @@
         </div>
 
         <div class="site-footer__bottom">
-            <span>{{ str_replace(':year', date('Y'), __('site.footer_copy', [], $loc)) }}</span>
+            <span>{{ $copyright }}</span>
             <span>Ouagadougou, Burkina Faso</span>
         </div>
     </div>
