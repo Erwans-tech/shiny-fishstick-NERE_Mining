@@ -4,63 +4,7 @@
 @section('content')
 
 {{-- ════════════════════════════════════════════════════════
-     HERO : Accroche & CTA
-════════════════════════════════════════════════════════ --}}
-<section style="background:linear-gradient(135deg, var(--green) 0%, #7a2a29 100%); color:#fff; padding:80px 5vw; position:relative; overflow:hidden;">
-    <div style="position:absolute; inset:0; opacity:.03; background-image:radial-gradient(circle at 20% 50%, #fff 1px, transparent 1px); background-size:50px 50px; z-index:0;"></div>
-    <div style="max-width:800px; margin:0 auto; text-align:center; position:relative; z-index:1;">
-        <span style="display:inline-block; color:var(--gold); font:700 12px Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; margin-bottom:16px;">{{ $en ? 'Get In Touch' : 'Nous Contacter' }}</span>
-        <h1 style="font-size:clamp(2.4rem,5vw,3.6rem); font-weight:300; line-height:1.1; margin-bottom:20px; letter-spacing:-.02em;">
-            {{ $en ? 'Let\'s Connect' : 'Soyons en Contact' }}
-        </h1>
-        <p style="font-size:1.1rem; color:rgba(255,255,255,.8); line-height:1.8; max-width:600px; margin:0 auto;">
-            {{ $en ? 'Whether you\'re interested in partnerships, career opportunities, or just want to learn more about our operations — we\'re here to help.' : 'Que ce soit pour une collaboration, une opportunité de carrière ou en savoir plus sur nos opérations — nous sommes à votre disposition.' }}
-        </p>
-    </div>
-</section>
-
-{{-- ════════════════════════════════════════════════════════
-     Section : Catégories de contact rapide
-════════════════════════════════════════════════════════ --}}
-<section style="padding:60px 5vw; background:var(--sand); border-bottom:1px solid var(--line);">
-    <div style="max-width:1180px; margin:0 auto;">
-        <h2 style="text-align:center; font-size:clamp(1.8rem,3.5vw,2.8rem); color:var(--green); margin-bottom:12px; font-weight:400; letter-spacing:-.01em;">{{ $en ? 'Quick Access' : 'Accès Rapide' }}</h2>
-        <p style="text-align:center; color:var(--muted); font-size:1.05rem; margin-bottom:48px;">{{ $en ? 'Choose your contact channel' : 'Choisissez votre canal de contact' }}</p>
-        
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px;">
-            {{-- Careers --}}
-            <a href="{{ $en ? route('english.careers') : route('careers') }}" style="display:flex; flex-direction:column; align-items:center; gap:16px; padding:32px 24px; background:#fff; border:1px solid var(--line); border-radius:12px; text-decoration:none; color:inherit; transition:all .3s cubic-bezier(.22,1,.36,1); cursor:pointer;">
-                <div style="font-size:42px; line-height:1;">👔</div>
-                <h3 style="font-size:16px; font-weight:600; color:var(--green); margin:0;">{{ $en ? 'Careers' : 'Carrières' }}</h3>
-                <p style="font-size:13px; color:var(--muted); margin:0; text-align:center;">{{ $en ? 'Explore opportunities' : 'Explorez les offres d\'emploi' }}</p>
-            </a>
-            
-            {{-- Partnerships --}}
-            <div style="display:flex; flex-direction:column; align-items:center; gap:16px; padding:32px 24px; background:#fff; border:1px solid var(--line); border-radius:12px; text-decoration:none; color:inherit; transition:all .3s cubic-bezier(.22,1,.36,1); cursor:pointer;" onclick="document.querySelector('#contact-form-type').value='partenariat'; document.querySelector('#contact-form-type').dispatchEvent(new Event('change')); document.querySelector('#contact-message').focus();">
-                <div style="font-size:42px; line-height:1;">🤝</div>
-                <h3 style="font-size:16px; font-weight:600; color:var(--green); margin:0;">{{ $en ? 'Partnerships' : 'Partenariats' }}</h3>
-                <p style="font-size:13px; color:var(--muted); margin:0; text-align:center;">{{ $en ? 'Business opportunities' : 'Opportunités commerciales' }}</p>
-            </div>
-
-            {{-- Press --}}
-            <a href="{{ $en ? route('english.press.contact') : route('press.contact') }}" style="display:flex; flex-direction:column; align-items:center; gap:16px; padding:32px 24px; background:#fff; border:1px solid var(--line); border-radius:12px; text-decoration:none; color:inherit; transition:all .3s cubic-bezier(.22,1,.36,1); cursor:pointer;">
-                <div style="font-size:42px; line-height:1;">📰</div>
-                <h3 style="font-size:16px; font-weight:600; color:var(--green); margin:0;">{{ $en ? 'Press' : 'Presse' }}</h3>
-                <p style="font-size:13px; color:var(--muted); margin:0; text-align:center;">{{ $en ? 'Media inquiries' : 'Demandes médias' }}</p>
-            </a>
-
-            {{-- Community --}}
-            <div style="display:flex; flex-direction:column; align-items:center; gap:16px; padding:32px 24px; background:#fff; border:1px solid var(--line); border-radius:12px; text-decoration:none; color:inherit; transition:all .3s cubic-bezier(.22,1,.36,1); cursor:pointer;" onclick="document.querySelector('#contact-form-type').value='communaute'; document.querySelector('#contact-form-type').dispatchEvent(new Event('change')); document.querySelector('#contact-message').focus();">
-                <div style="font-size:42px; line-height:1;">🌍</div>
-                <h3 style="font-size:16px; font-weight:600; color:var(--green); margin:0;">{{ $en ? 'Community' : 'Communauté' }}</h3>
-                <p style="font-size:13px; color:var(--muted); margin:0; text-align:center;">{{ $en ? 'Local engagement' : 'Engagement local' }}</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- ════════════════════════════════════════════════════════
-     Section 1-2-3 : Les trois points de contact — Design amélioré
+     Section 1-2-3 : Les trois points de contact
 ════════════════════════════════════════════════════════ --}}
 <section style="padding:60px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
