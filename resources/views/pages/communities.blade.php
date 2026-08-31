@@ -38,6 +38,32 @@
     </div>
 </section>
 
+{{-- ── 1b. Community Impact Metrics ───────────────────── --}}
+<section class="sand" style="padding:60px 5vw;">
+    <div style="max-width:1180px; margin:0 auto;">
+        <h2 style="text-align:center; color:var(--green); margin-bottom:12px; font-size:36px; font-weight:600;">{{ $en ? 'Community Impact 2024' : 'Impact Communautaire 2024' }}</h2>
+        
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:24px;">
+            <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
+                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">850</div>
+                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">{{ $en ? 'Students in Programs' : 'Étudiants en Programmes' }}</div>
+            </div>
+            <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
+                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">12</div>
+                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">{{ $en ? 'Healthcare Clinics' : 'Cliniques Santé' }}</div>
+            </div>
+            <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
+                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">85%</div>
+                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">{{ $en ? 'of Grievances Resolved' : 'Griefs Résolus' }}</div>
+            </div>
+            <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
+                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">42km</div>
+                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">{{ $en ? 'Roads Built/Maintained' : 'Routes Construites/Entretenues' }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
 {{-- ── 2. FMD — projets réalisés ───────────────────────── --}}
 <section class="sand">
     <p class="lead">{{ __('site.communities_fmd_lead', [], $loc) }}</p>
@@ -53,8 +79,45 @@
     </div>
 </section>
 
+{{-- ── 2b. Detailed Initiatives ───────────────────────── --}}
+<section style="padding:60px 5vw;">
+    <div style="max-width:1180px; margin:0 auto;">
+        <h2 style="text-align:center; color:var(--green); margin-bottom:40px; font-size:36px; font-weight:600;">{{ $en ? 'Our Programs' : 'Nos Programmes' }}</h2>
+        
+        <div class="grid-3">
+            <div class="card">
+                <h3 style="color:var(--green); margin-bottom:12px; font-size:18px;">🎓 {{ $en ? 'Education Initiative' : 'Initiative Éducation' }}</h3>
+                <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
+                    <li style="margin-bottom:10px;">• {{ $en ? '850+ students in scholarship programs' : '850+ étudiants en bourses' }}</li>
+                    <li style="margin-bottom:10px;">• {{ $en ? 'Technical vocational training' : 'Formation technique professionnelle' }}</li>
+                    <li style="margin-bottom:10px;">• {{ $en ? 'Teacher development programs' : 'Programmes développement enseignants' }}</li>
+                    <li>• {{ $en ? 'School infrastructure improvements' : 'Améliorations infrastructures scolaires' }}</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3 style="color:var(--green); margin-bottom:12px; font-size:18px;">🏥 {{ $en ? 'Healthcare Program' : 'Programme Santé' }}</h3>
+                <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
+                    <li style="margin-bottom:10px;">• {{ $en ? '12 community health clinics' : '12 cliniques santé communautaire' }}</li>
+                    <li style="margin-bottom:10px;">• {{ $en ? 'Free medical consultations' : 'Consultations médicales gratuites' }}</li>
+                    <li style="margin-bottom:10px;">• {{ $en ? 'Maternal & child health focus' : 'Focus santé maternelle & infantile' }}</li>
+                    <li>• {{ $en ? 'Nutritional support programs' : 'Programmes soutien nutritionnel' }}</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3 style="color:var(--green); margin-bottom:12px; font-size:18px;">🛣️ {{ $en ? 'Infrastructure Development' : 'Développement Infrastructures' }}</h3>
+                <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
+                    <li style="margin-bottom:10px;">• {{ $en ? '42km of roads built/maintained' : '42km routes construites/entretenues' }}</li>
+                    <li style="margin-bottom:10px;">• {{ $en ? 'Water supply systems' : 'Systèmes approvisionnement eau' }}</li>
+                    <li style="margin-bottom:10px;">• {{ $en ? 'Electricity access expansion' : 'Expansion accès électricité' }}</li>
+                    <li>• {{ $en ? 'Market and community centers' : 'Marchés et centres communautaires' }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
 {{-- ── 3. Mécanisme de gestion des plaintes ────────────── --}}
-<section>
+<section class="sand">
     <p class="lead">{{ __('site.communities_complaint_lead', [], $loc) }}</p>
     <div class="grid-3">
         @foreach(range(1, 3) as $i)

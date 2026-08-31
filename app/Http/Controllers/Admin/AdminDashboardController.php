@@ -54,7 +54,7 @@ class AdminDashboardController extends Controller
             ->where('deadline', '<=', now()->addDays(7))
             ->orderBy('deadline')
             ->take(3)
-            ->get(['id', 'title', 'deadline']);
+            ->get(['id', 'title', 'deadline', 'slug']);
 
         return view('admin.dashboard', compact(
             'counts',

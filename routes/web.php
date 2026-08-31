@@ -49,15 +49,15 @@ $homeHandler = function (string $locale) {
 
     $statsLabels = $locale === 'en'
         ? ['Annual gold production', 'Direct and indirect jobs', 'National workforce', 'Fiscal & social contributions']
-        : ["Production annuelle d'or", 'Emplois directs et indirects', "Main-d'œuvre nationale", 'Retombées fiscales & contributions'];
+        : ["Production annuelle d'or", 'Emplois directs et indirects', "Main-d'oeuvre nationale", 'Retombees fiscales & contributions'];
 
     return view('home', [
         'locale'   => $locale,
         'stats'    => [
-            ['value' => '80000', 'suffix' => ' oz',      'label' => $statsLabels[0]],
-            ['value' => '1200',  'suffix' => '+',         'label' => $statsLabels[1]],
-            ['value' => '80',    'suffix' => '%',         'label' => $statsLabels[2]],
-            ['value' => '18',    'suffix' => ' Mrd CFA',  'label' => $statsLabels[3]],
+            ['value' => '97000', 'suffix' => ' oz',      'label' => $statsLabels[0], 'icon' => '⚒️'],
+            ['value' => '1200',  'suffix' => '+',         'label' => $statsLabels[1], 'icon' => '👥'],
+            ['value' => '80',    'suffix' => '%',         'label' => $statsLabels[2], 'icon' => '🇧🇫'],
+            ['value' => '18',    'suffix' => ' Mrd CFA',  'label' => $statsLabels[3], 'icon' => '💰'],
         ],
         'news'     => $news,
         'partners' => $partners,

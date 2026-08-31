@@ -133,7 +133,7 @@
                             JPG · PNG · WebP · GIF — max 10 Mo — recommandé : 1920×1080 px
                         </div>
                     </div>
-                    <input type="file" id="image-input" name="image"
+                    <input type="file" id="image-input" name="image" data-conditional-field="image"
                            accept="image/jpeg,image/png,image/webp,image/gif"
                            style="display:none;"
                            onchange="previewFile(this,'image-preview-wrap','image-drop-text','image-drop-zone')">
@@ -160,7 +160,7 @@
                         {{-- URL YouTube / Vimeo --}}
                         <div class="form-group full">
                             <label for="video_url">URL de la vidéo *</label>
-                            <input id="video_url" type="text" name="video_url"
+                            <input id="video_url" type="text" name="video_url" data-conditional-field="video_url"
                                    value="{{ old('video_url', $slide->video_url) }}"
                                    placeholder="https://www.youtube.com/watch?v=…  ou  https://vimeo.com/…">
                             <span class="form-hint">
@@ -208,7 +208,7 @@
                                     Cliquez ou glissez une image de couverture (optionnel)
                                 </div>
                             </div>
-                            <input type="file" id="cover-input" name="cover_image"
+                            <input type="file" id="cover-input" name="cover_image" data-conditional-field="cover_image"
                                    accept="image/jpeg,image/png,image/webp"
                                    style="display:none;"
                                    onchange="previewFile(this,'cover-preview-wrap','cover-drop-text','cover-drop-zone')">
@@ -416,6 +416,59 @@ function getEmbedUrl(url) {
     }
     return null;
 }
+
+// ✅ NETTOYAGE AVANT SOUMISSION - Ne pas envoyer les champs conditionnels non pertinents
+document.getElementById('hero-form').addEventListener('submit', function(e) {
+    console.log('[Form Submit] Starting cleanup...');
+    
+    var selectedType = document.querySelector('input[name="type"]:checked')?.value;
+    console.log('[Form Submit] Selected type:', selectedType);
+    
+    if (!selectedType) {
+        console.error('[Form Submit] No type selected!');
+        e.preventDefault();
+        alert('Sélectionnez un type (Image ou Vidéo)');
+        return false;
+    }
+    
+    // Reset ALL conditional fields first
+    console.log('[Form Submit] Resetting all conditional fields...');
+    document.querySelectorAll('[data-conditional-field]').forEach(function(field) {
+        field.removeAttribute('name');
+        if (field.type === 'file') {
+            field.value = '';
+        } else {
+            field.value = '';
+        }
+    });
+    
+    // Then re-enable ONLY the relevant ones for the selected type
+    console.log('[Form Submit] Re-enabling relevant fields for type: ' + selectedType);
+    
+    if (selectedType === 'image') {
+        // For image: enable only the image file input
+        var imageField = document.getElementById('image-input');
+        if (imageField) {
+            imageField.setAttribute('name', 'image');
+            console.log('[Form Submit] Enabled: image');
+        }
+    } else if (selectedType === 'video') {
+        // For video: enable video_url and cover_image (if present)
+        var videoUrlField = document.getElementById('video_url');
+        var coverImageField = document.getElementById('cover-input');
+        
+        if (videoUrlField) {
+            videoUrlField.setAttribute('name', 'video_url');
+            console.log('[Form Submit] Enabled: video_url');
+        }
+        if (coverImageField) {
+            coverImageField.setAttribute('name', 'cover_image');
+            console.log('[Form Submit] Enabled: cover_image');
+        }
+    }
+    
+    console.log('[Form Submit] Cleanup complete. Submitting...');
+});
 </script>
 
 @endsection
