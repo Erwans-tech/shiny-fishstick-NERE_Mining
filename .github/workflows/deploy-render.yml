@@ -3,7 +3,6 @@ name: Deploy to Render
 on:
   push:
     branches:
-      - main
       - production
   workflow_dispatch:
 
