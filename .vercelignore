@@ -1,0 +1,52 @@
+# Vercel build ignore
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Dependencies
+node_modules
+composer.lock
+
+# Environment
+.env
+.env.backup
+.env.*.local
+.env.local
+
+# Laravel
+/bootstrap/cache/*
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+storage/
+vendor/
+
+# IDE
+.vscode
+.idea
+.nova
+.phpactor.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+.phpunit.cache
+phpunit.xml
+
+# Build artifacts
+/public/build
+/public/hot
+/dist
+
+# Documentation
+README.md
+docs/
+ANALYSIS_IMPROVEMENTS.md
+
+# Source maps
+*.map
