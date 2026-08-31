@@ -27,6 +27,11 @@ class AdminMessageController extends Controller
             $query->whereNotNull('read_at');
         }
 
+        // Filtrage par statut
+        if ($status = $request->input('status')) {
+            $query->where('status', $status);
+        }
+
         $query->orderBy('created_at', $request->input('sort') === 'oldest' ? 'asc' : 'desc');
         $messages = $query->paginate(20)->withQueryString();
         return view('admin.messages.index', compact('messages'));
@@ -40,6 +45,22 @@ class AdminMessageController extends Controller
         }
 
         return view('admin.messages.show', compact('message'));
+    }
+
+    /**
+     * Mettre à jour le statut et les notes d'un message
+     */
+    public function updateStatus(ContactMessage $message, Request $request)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:new,reviewing,replied,archived',
+            'admin_notes' => 'nullable|string|max:1000',
+        ]);
+
+        $message->update($validated);
+
+        return redirect()->route('admin.messages.show', $message)
+            ->with('success', 'Statut et notes mis à jour.');
     }
 
     public function destroy(ContactMessage $message)

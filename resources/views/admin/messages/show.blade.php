@@ -9,6 +9,28 @@
         <a href="{{ route('admin.messages.index') }}" class="btn btn-ghost btn-sm">← Retour</a>
     </div>
     <div class="card-body">
+        {{-- Statut et Notes --}}
+        <form method="POST" action="{{ route('admin.messages.updateStatus', $message) }}" style="margin-bottom:24px; padding:16px; background:#f9f7f4; border-radius:6px;">
+            @csrf @method('PATCH')
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:12px;">
+                <div class="form-group">
+                    <label for="status">Statut du message</label>
+                    <select name="status" id="status" style="width:100%; padding:8px 12px; border:1px solid var(--line); border-radius:4px; font:13px Inter,sans-serif;">
+                        <option value="new" {{ $message->status === 'new' ? 'selected' : '' }}>Nouveau</option>
+                        <option value="reviewing" {{ $message->status === 'reviewing' ? 'selected' : '' }}>En examen</option>
+                        <option value="replied" {{ $message->status === 'replied' ? 'selected' : '' }}>Répondu</option>
+                        <option value="archived" {{ $message->status === 'archived' ? 'selected' : '' }}>Archivé</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="align-self:flex-end;">Mettre à jour statut</button>
+            </div>
+            <div class="form-group">
+                <label for="admin_notes">Notes internes (non visible par le client)</label>
+                <textarea name="admin_notes" id="admin_notes" placeholder="Ajouter des notes..." 
+                          style="width:100%; min-height:80px; padding:10px 12px; border:1px solid var(--line); border-radius:4px; font:13px Inter,sans-serif; resize:vertical;">{{ $message->admin_notes }}</textarea>
+            </div>
+        </form>
+
         <div class="form-grid">
             <div class="form-group">
                 <label>Expéditeur</label>
@@ -82,7 +104,7 @@
             </div>
             <textarea id="message-reply" style="width:100%;min-height:170px;margin-bottom:14px;border:1px solid var(--line);border-radius:6px;padding:12px;font:14px/1.6 Inter,sans-serif;resize:vertical;"></textarea>
             <a id="message-mail-link" href="#" class="btn btn-primary">
-                Préparer l’e-mail
+                Préparer l'e-mail
             </a>
             <form method="POST" action="{{ route('admin.messages.destroy', $message) }}" style="display:inline;" onsubmit="return confirm('Supprimer ce message ?')">
                 @csrf @method('DELETE')
