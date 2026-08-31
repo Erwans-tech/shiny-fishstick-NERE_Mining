@@ -72,7 +72,7 @@
         .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
         .card { padding:28px; border:1px solid var(--line); background:#fff; border-radius:6px; transition:box-shadow .2s; }
         .card:hover { box-shadow:0 4px 18px rgba(0,0,0,.08); }
-        .card-img { width:calc(100%+56px); height:190px; object-fit:cover; margin:-28px -28px 22px; display:block; border-radius:6px 6px 0 0; }
+        .card-img { width:calc(100%+56px); height:240px; object-fit:cover; margin:-28px -28px 22px; display:block; border-radius:6px 6px 0 0; }
         .card-tag { display:inline-block; font:600 10px Inter,sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
 
         /* ── Download button ── */
@@ -88,8 +88,8 @@
         .gallery-item:nth-child(1) { grid-column:span 7; grid-row:span 2; }
         .gallery-item:nth-child(2) { grid-column:span 5; }
         .gallery-item:nth-child(3) { grid-column:span 5; }
-        .gallery-media { position:relative; display:block; height:220px; overflow:hidden; background:#17110f; cursor:zoom-in; }
-        .gallery-item:nth-child(1) .gallery-media { height:456px; }
+        .gallery-media { position:relative; display:block; height:280px; overflow:hidden; background:#17110f; cursor:zoom-in; }
+        .gallery-item:nth-child(1) .gallery-media { height:520px; }
         .gallery-media img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .35s ease; }
         .gallery-media:hover img { transform:scale(1.04); }
         .gallery-play { position:absolute; left:50%; top:50%; width:56px; height:56px; transform:translate(-50%,-50%); display:grid; place-items:center; border-radius:50%; background:rgba(255,194,71,.95); color:var(--ink); font-size:22px; padding-left:3px; box-shadow:0 4px 16px rgba(0,0,0,.25); }
@@ -124,7 +124,7 @@
             .nav-dropdown .dropdown-menu { position:static; box-shadow:none; border:0; padding:0 0 0 16px; }
             .grid-3, .gallery-grid { grid-template-columns:1fr; }
             .gallery-item, .gallery-item:nth-child(1), .gallery-item:nth-child(2), .gallery-item:nth-child(3) { grid-column:span 1; grid-row:auto; }
-            .gallery-media, .gallery-item:nth-child(1) .gallery-media { height:240px; }
+            .gallery-media, .gallery-item:nth-child(1) .gallery-media { height:280px; }
             footer { flex-direction:column; gap:12px; text-align:center; }
         }
     </style>
