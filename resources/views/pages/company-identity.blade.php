@@ -80,4 +80,39 @@
         @endforeach
     </div>
 </section>
+
+{{-- Certifications & conformité --}}
+<section class="sand">
+    <h2>{{ $en ? 'Certifications & Compliance' : 'Certifications et conformité' }}</h2>
+    <p class="lead">{{ $en
+        ? 'Néré Mining maintains international standards and certifications to ensure operational excellence and environmental responsibility.'
+        : 'Néré Mining respecte les normes internationales et certifications pour assurer l\'excellence opérationnelle et la responsabilité environnementale.'
+    }}</p>
+
+    <div class="grid-3" style="margin-top:32px;">
+        {{-- ISO 9001:2008 --}}
+        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center;">
+            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px;">✓</div>
+            <div class="card-tag" style="margin-bottom:12px;">{{ $en ? 'Quality Management' : 'Gestion de la qualité' }}</div>
+            <h3 style="margin:0;">ISO 9001:2008</h3>
+            <p style="font-size:13px; margin-top:8px;">{{ $en ? 'International standard for quality management systems' : 'Norme internationale de systèmes de gestion de la qualité' }}</p>
+        </div>
+
+        {{-- EITI / ITIE --}}
+        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center;">
+            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px;">✓</div>
+            <div class="card-tag" style="margin-bottom:12px;">{{ $en ? 'Transparency' : 'Transparence' }}</div>
+            <h3 style="margin:0;">{{ $en ? 'EITI' : 'ITIE' }}</h3>
+            <p style="font-size:13px; margin-top:8px;">{{ $en ? 'Extractive Industries Transparency Initiative member' : 'Membre de l\'Initiative pour la transparence de l\'industrie extractive' }}</p>
+        </div>
+
+        {{-- Environmental Commitment --}}
+        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center;">
+            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px;">✓</div>
+            <div class="card-tag" style="margin-bottom:12px;">{{ $en ? 'Environmental' : 'Environnement' }}</div>
+            <h3 style="margin:0;">{{ $en ? 'ESG Standards' : 'Normes RSE' }}</h3>
+            <p style="font-size:13px; margin-top:8px;">{{ $en ? 'Environmental, Social & Governance standards compliance' : 'Conformité aux normes environnementales, sociales et de gouvernance' }}</p>
+        </div>
+    </div>
+</section>
 @endsection
