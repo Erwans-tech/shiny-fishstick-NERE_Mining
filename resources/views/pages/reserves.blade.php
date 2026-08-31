@@ -26,14 +26,16 @@
     
     /* ══ Figure with Caption ════════════════════════════════════ */
     .reserves-figure { margin:0; }
-    .reserves-figure img { width:100%; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,.12); display:block; }
+    .reserves-figure button { display:block; width:100%; padding:0; border:0; background:none; cursor:zoom-in; }
+    .reserves-figure img { width:100%; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,.12); display:block; transition:transform .25s, opacity .25s; }
+    .reserves-figure button:hover img, .reserves-figure button:focus-visible img { transform:scale(1.02); opacity:.9; }
     .reserves-figure figcaption { font-size:12px; color:var(--muted); margin-top:12px; text-align:center; line-height:1.6; }
     
     /* ══ Content Grid ════════════════════════════════════════════ */
     .reserves-content-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; }
     .reserves-content-card { background:#fff; padding:20px; border-radius:8px; border:1px solid var(--line); }
     .reserves-content-card h3 { color:var(--green); margin-bottom:12px; font-size:16px; font-weight:600; }
-    .reserves-content-card p { color:var(--muted); font-size:14px; line-height:1.7; }
+    .reserves-content-card p { color:var(--muted); font-size:14px; line-height:1.7; margin:0; }
     .reserves-highlight { background:var(--light); padding:16px; border-radius:6px; border-left:4px solid var(--green); margin-top:12px; }
     .reserves-highlight ul { list-style:none; padding:0; margin:0; font-size:13px; line-height:1.8; }
     .reserves-highlight li { color:var(--muted); }
@@ -50,8 +52,16 @@
     /* ══ Classification Grid ════════════════════════════════════ */
     .reserves-definitions { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px; }
     .reserves-definition { padding:16px; background:#fff; border-radius:6px; border:1px solid var(--line); }
-    .reserves-definition h4 { color:var(--green); margin-bottom:8px; font-size:14px; font-weight:600; }
+    .reserves-definition h4 { color:var(--green); margin:0 0 8px 0; font-size:14px; font-weight:600; }
     .reserves-definition p { color:var(--muted); font-size:13px; line-height:1.7; margin:0; }
+    
+    /* ══ Lightbox ════════════════════════════════════════════════ */
+    .reserves-lightbox { position:fixed; inset:0; z-index:500; display:none; align-items:center; justify-content:center; padding:28px; background:rgba(20,8,6,.88); }
+    .reserves-lightbox.is-open { display:flex; }
+    .reserves-lightbox-dialog { position:relative; max-width:min(1400px,96vw); max-height:92vh; margin:0; }
+    .reserves-lightbox img { display:block; max-width:100%; max-height:82vh; object-fit:contain; background:#fff; border-radius:8px; }
+    .reserves-lightbox figcaption { margin-top:12px; color:#fff; text-align:center; font:500 14px/1.5 Inter,sans-serif; }
+    .reserves-lightbox-close { position:absolute; top:-42px; right:0; border:1px solid rgba(255,255,255,.55); background:var(--green); color:#fff; padding:8px 14px; border-radius:4px; cursor:pointer; font:600 11px Inter,sans-serif; text-transform:uppercase; }
     
     /* ══ Responsive ═════════════════════════════════════════════ */
     @media (max-width:960px) {
@@ -92,14 +102,13 @@
     </div>
 </section>
 
-
 <section class="sand">
     {{-- ══ Probable Reserves Section ═════════════════════════════ --}}
     <div class="reserves-header">
         <h2>{{ $en ? 'Probable Reserves' : 'Réserves Probables' }}</h2>
         <p>{{ $en ? 'Economically extractable mineral reserves with proven mining viability' : 'Réserves minérales économiquement exploitables avec viabilité minière prouvée' }}</p>
     </div>
-    
+
     <div class="reserves-table-wrapper">
         {{-- Table HTML --}}
         <div class="reserves-table-container">
@@ -167,12 +176,14 @@
 
         {{-- Image --}}
         <figure class="reserves-figure">
-            <img src="{{ asset('images/mining/reserves-table.jpg') }}"
-                 alt="{{ $en ? 'Probable Reserves Table' : 'Tableau des Réserves Probables' }}"
-                 loading="lazy" decoding="async">
-            <figcaption>
-                {{ $en ? 'Probable mineral reserves by deposit (Kt = thousand tonnes, g/t = grams per tonne, Koz = thousand ounces)' : 'Réserves minérales probables par gisement (Kt = milliers de tonnes, g/t = grammes par tonne, Koz = milliers d\'onces)' }}
-            </figcaption>
+            <button type="button" data-reserves-image="{{ asset('images/mining/reserves-table.jpg') }}"
+                    data-reserves-alt="{{ $en ? 'Probable Reserves Table' : 'Tableau des Réserves Probables' }}"
+                    data-reserves-caption="{{ $en ? 'Probable mineral reserves by deposit (Kt = thousand tonnes, g/t = grams per tonne, Koz = thousand ounces)' : 'Réserves minérales probables par gisement (Kt = milliers de tonnes, g/t = grammes par tonne, Koz = milliers d\'onces)' }}">
+                <img src="{{ asset('images/mining/reserves-table.jpg') }}"
+                     alt="{{ $en ? 'Probable Reserves Table' : 'Tableau des Réserves Probables' }}"
+                     loading="lazy" decoding="async">
+            </button>
+            <figcaption>{{ $en ? 'Probable mineral reserves by deposit (Kt = thousand tonnes, g/t = grams per tonne, Koz = thousand ounces)' : 'Réserves minérales probables par gisement (Kt = milliers de tonnes, g/t = grammes par tonne, Koz = milliers d\'onces)' }}</figcaption>
         </figure>
     </div>
 </section>
@@ -183,33 +194,29 @@
         <h2>{{ $en ? 'Indicated & Measured Mineral Resources' : 'Ressources Minérales Mesurées et Indiquées' }}</h2>
         <p>{{ $en ? 'Mineral resources with established geological confidence and drilling data' : 'Ressources minérales avec confiance géologique établie et données de forage' }}</p>
     </div>
-    
+
     <div class="reserves-table-wrapper">
         {{-- Image --}}
         <figure class="reserves-figure">
-            <img src="{{ asset('images/mining/reserves-chart.jpg') }}"
-                 alt="{{ $en ? 'Indicated & Measured Resources' : 'Ressources Indiquées et Mesurées' }}"
-                 loading="lazy" decoding="async">
-            <figcaption>
-                {{ $en ? 'Measured and Indicated Mineral Resources across major deposits' : 'Ressources Minérales Mesurées et Indiquées sur les gisements majeurs' }}
-            </figcaption>
+            <button type="button" data-reserves-image="{{ asset('images/mining/reserves-chart.jpg') }}"
+                    data-reserves-alt="{{ $en ? 'Indicated & Measured Resources' : 'Ressources Indiquées et Mesurées' }}"
+                    data-reserves-caption="{{ $en ? 'Measured and Indicated Mineral Resources across major deposits' : 'Ressources Minérales Mesurées et Indiquées sur les gisements majeurs' }}">
+                <img src="{{ asset('images/mining/reserves-chart.jpg') }}"
+                     alt="{{ $en ? 'Indicated & Measured Resources' : 'Ressources Indiquées et Mesurées' }}"
+                     loading="lazy" decoding="async">
+            </button>
+            <figcaption>{{ $en ? 'Measured and Indicated Mineral Resources across major deposits' : 'Ressources Minérales Mesurées et Indiquées sur les gisements majeurs' }}</figcaption>
         </figure>
 
         {{-- Descriptive Content --}}
         <div>
             <div class="reserves-content-card">
                 <h3>{{ $en ? 'Key Resources' : 'Ressources Clés' }}</h3>
-                <p>
-                    {{ $en 
-                        ? 'The Karma mining complex hosts significant measured and indicated mineral resources across multiple deposits. These resources have been classified based on geological confidence and drilling data.'
-                        : 'Le complexe minier de Karma dispose de ressources minérales mesurées et indiquées importantes dans plusieurs gisements. Ces ressources ont été classées selon la confiance géologique et les données de forage.' }}
-                </p>
+                <p>{{ $en ? 'The Karma mining complex hosts significant measured and indicated mineral resources across multiple deposits. These resources have been classified based on geological confidence and drilling data.' : 'Le complexe minier de Karma dispose de ressources minérales mesurées et indiquées importantes dans plusieurs gisements. Ces ressources ont été classées selon la confiance géologique et les données de forage.' }}</p>
             </div>
 
             <div class="reserves-highlight">
-                <h4 style="color:var(--green); margin:0 0 12px 0; font-size:14px; font-weight:600;">
-                    {{ $en ? 'Major Deposits' : 'Gisements Majeurs' }}
-                </h4>
+                <h4 style="color:var(--green); margin:0 0 12px 0; font-size:14px; font-weight:600;">{{ $en ? 'Major Deposits' : 'Gisements Majeurs' }}</h4>
                 <ul>
                     <li>• <strong>Kao Main:</strong> {{ $en ? '26,901 Kt at 0.84 g/t' : '26 901 Kt à 0,84 g/t' }}</li>
                     <li>• <strong>GG2:</strong> {{ $en ? '14,316 Kt at 1.31 g/t' : '14 316 Kt à 1,31 g/t' }}</li>
@@ -227,13 +234,9 @@
         <h2>{{ $en ? 'Inferred Mineral Resources' : 'Ressources Minérales Inférées' }}</h2>
         <p>{{ $en ? 'Mineral resources estimated with limited geological evidence' : 'Ressources minérales estimées avec preuves géologiques limitées' }}</p>
     </div>
-    
-    <p style="color:var(--muted); font-size:14px; line-height:1.8; margin-bottom:24px; text-align:center;">
-        {{ $en 
-            ? 'Inferred mineral resources are estimated based on limited geological evidence and sampling. They represent mineralization that is beyond the limits of reasonable assumption but may become included in reserves as exploration and development activities continue.'
-            : 'Les ressources minérales inférées sont estimées sur la base de données géologiques et d\'échantillonnage limités. Elles représentent une minéralisation au-delà des limites d\'une hypothèse raisonnable mais peuvent devenir incluses dans les réserves à mesure que les activités d\'exploration et de développement se poursuivent.' }}
-    </p>
-    
+
+    <p style="color:var(--muted); font-size:14px; line-height:1.8; margin-bottom:24px; text-align:center;">{{ $en ? 'Inferred mineral resources are estimated based on limited geological evidence and sampling. They represent mineralization that is beyond the limits of reasonable assumption but may become included in reserves as exploration and development activities continue.' : 'Les ressources minérales inférées sont estimées sur la base de données géologiques et d\'échantillonnage limités. Elles représentent une minéralisation au-delà des limites d\'une hypothèse raisonnable mais peuvent devenir incluses dans les réserves à mesure que les activités d\'exploration et de développement se poursuivent.' }}</p>
+
     <div class="reserves-kpi-band">
         <div class="reserves-kpi-item">
             <div class="reserves-kpi-value">18,103</div>
@@ -256,46 +259,60 @@
         <h2>{{ $en ? 'Classification Definitions' : 'Définitions de Classification' }}</h2>
         <p>{{ $en ? 'JORC (Australasian Code for Reporting of Exploration Results, Mineral Resources and Ore Reserves) standard definitions' : 'Définitions selon le code JORC (Australian Code for Reporting of Exploration Results, Mineral Resources and Ore Reserves)' }}</p>
     </div>
-    
+
     <div class="reserves-definitions">
         <div class="reserves-definition">
             <h4>{{ $en ? 'Ore Reserves' : 'Réserves de Minerai' }}</h4>
-            <p>
-                {{ $en 
-                    ? 'Mineralization that is economically extractable, based on reasonable mining assumptions and detailed resource/reserve estimates.'
-                    : 'Minéralisation économiquement exploitable, basée sur des hypothèses minières raisonnables et des estimations détaillées des ressources/réserves.' }}
-            </p>
+            <p>{{ $en ? 'Mineralization that is economically extractable, based on reasonable mining assumptions and detailed resource/reserve estimates.' : 'Minéralisation économiquement exploitable, basée sur des hypothèses minières raisonnables et des estimations détaillées des ressources/réserves.' }}</p>
         </div>
-        
+
         <div class="reserves-definition">
             <h4>{{ $en ? 'Measured Resources' : 'Ressources Mesurées' }}</h4>
-            <p>
-                {{ $en 
-                    ? 'Estimates where confidence in geological and grade continuity is high, based on detailed sampling and geological mapping.'
-                    : 'Estimations avec confiance élevée en la continuité géologique et de la teneur, basées sur l\'échantillonnage et le levé géologique détaillés.' }}
-            </p>
+            <p>{{ $en ? 'Estimates where confidence in geological and grade continuity is high, based on detailed sampling and geological mapping.' : 'Estimations avec confiance élevée en la continuité géologique et de la teneur, basées sur l\'échantillonnage et le levé géologique détaillés.' }}</p>
         </div>
-        
+
         <div class="reserves-definition">
             <h4>{{ $en ? 'Indicated Resources' : 'Ressources Indiquées' }}</h4>
-            <p>
-                {{ $en 
-                    ? 'Estimates of reasonable geological and grade confidence, based on exploration and sampling at appropriate locations.'
-                    : 'Estimations avec confiance géologique et de teneur raisonnable, basées sur l\'exploration et l\'échantillonnage aux emplacements appropriés.' }}
-            </p>
+            <p>{{ $en ? 'Estimates of reasonable geological and grade confidence, based on exploration and sampling at appropriate locations.' : 'Estimations avec confiance géologique et de teneur raisonnable, basées sur l\'exploration et l\'échantillonnage aux emplacements appropriés.' }}</p>
         </div>
-        
+
         <div class="reserves-definition">
             <h4>{{ $en ? 'Inferred Resources' : 'Ressources Inférées' }}</h4>
-            <p>
-                {{ $en 
-                    ? 'Estimates based on limited geological evidence, where confidence in continuity is reasonable but not sufficient for conversion to reserves.'
-                    : 'Estimations basées sur des preuves géologiques limitées, où la confiance en la continuité est raisonnable mais insuffisante pour la conversion en réserves.' }}
-            </p>
+            <p>{{ $en ? 'Estimates based on limited geological evidence, where confidence in continuity is reasonable but not sufficient for conversion to reserves.' : 'Estimations basées sur des preuves géologiques limitées, où la confiance en la continuité est raisonnable mais insuffisante pour la conversion en réserves.' }}</p>
         </div>
     </div>
 </section>
-        </div>
-    </div>
-</section>
+
+{{-- ══ Lightbox Modal ═════════════════════════════════════════════ --}}
+<div class="reserves-lightbox" data-reserves-lightbox aria-hidden="true">
+    <figure class="reserves-lightbox-dialog">
+        <button type="button" class="reserves-lightbox-close" data-reserves-close>{{ $en ? 'Close' : 'Fermer' }}</button>
+        <img data-reserves-preview src="" alt="">
+        <figcaption data-reserves-caption></figcaption>
+    </figure>
+</div>
+
+<script>
+(() => {
+    const box = document.querySelector('[data-reserves-lightbox]');
+    const preview = box?.querySelector('[data-reserves-preview]');
+    const caption = box?.querySelector('[data-reserves-caption]');
+    const close = () => {
+        box?.classList.remove('is-open');
+        box?.setAttribute('aria-hidden', 'true');
+        if (preview) preview.removeAttribute('src');
+    };
+    document.querySelectorAll('[data-reserves-image]').forEach((button) => button.addEventListener('click', () => {
+        preview.src = button.dataset.reservesImage;
+        preview.alt = button.dataset.reservesAlt;
+        caption.textContent = button.dataset.reservesCaption;
+        box.classList.add('is-open');
+        box.setAttribute('aria-hidden', 'false');
+        box.querySelector('[data-reserves-close]').focus();
+    }));
+    box?.querySelector('[data-reserves-close]')?.addEventListener('click', close);
+    box?.addEventListener('click', (event) => { if (event.target === box) close(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') close(); });
+})();
+</script>
 @endsection
