@@ -2,10 +2,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": "public",
   "framework": "laravel",
-  "nodejs": "20.x",
-  "env": {
-    "APP_ENV": "production"
-  },
   "rewrites": [
     {
       "source": "/(.*)",
