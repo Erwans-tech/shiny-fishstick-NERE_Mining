@@ -433,9 +433,15 @@ document.getElementById('hero-form').addEventListener('submit', function(e) {
             isRelevant = true;
         }
         
-        // Si non pertinent, supprimer l'attribut name pour ne pas l'envoyer
+        // Si non pertinent, supprimer l'attribut name ET vider la valeur
         if (!isRelevant) {
             field.removeAttribute('name');
+            // Vider le champ pour s'assurer que rien n'est envoyé
+            if (field.type === 'file') {
+                field.value = '';
+            } else if (field.type === 'text' || field.type === 'hidden') {
+                field.value = '';
+            }
         } else {
             // S'assurer que le name est présent si pertinent
             field.setAttribute('name', fieldName);

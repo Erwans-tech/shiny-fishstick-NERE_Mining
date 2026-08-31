@@ -24,28 +24,27 @@ class AdminHeroSlideController extends Controller
     {
         $type = $request->input('type', 'image');
 
-        $data = $request->validate([
+        // Construire les règles de validation dynamiquement
+        $rules = [
             'type'       => ['required', 'in:image,video'],
             'title'      => ['nullable', 'string', 'max:160'],
             'caption'    => ['nullable', 'string', 'max:255'],
             'sort_order' => ['integer', 'min:0', 'max:99'],
             'is_active'  => ['boolean'],
+        ];
 
-            // Image : requise si type = image
-            'image'     => $type === 'image'
-                ? ['required', 'file', 'mimes:jpg,jpeg,png,webp,gif', 'max:10240']
-                : [],
+        // Image : requise si type = image
+        if ($type === 'image') {
+            $rules['image'] = ['required', 'file', 'mimes:jpg,jpeg,png,webp,gif', 'max:10240'];
+        }
 
-            // Vidéo : URL requise si type = video
-            'video_url' => $type === 'video'
-                ? ['required', 'string', 'max:500', 'regex:/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i']
-                : [],
+        // Vidéo : URL requise si type = video
+        if ($type === 'video') {
+            $rules['video_url'] = ['required', 'string', 'max:500', 'regex:/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i'];
+            $rules['cover_image'] = ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:8192'];
+        }
 
-            // Image de couverture optionnelle pour les vidéos
-            'cover_image' => $type === 'video'
-                ? ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:8192']
-                : [],
-        ]);
+        $data = $request->validate($rules);
 
         $data['type']       = $type;
         $data['is_active']  = $request->boolean('is_active', true);
@@ -80,25 +79,27 @@ class AdminHeroSlideController extends Controller
     {
         $type = $request->input('type', $heroSlide->type ?? 'image');
 
-        $data = $request->validate([
+        // Construire les règles de validation dynamiquement
+        $rules = [
             'type'       => ['required', 'in:image,video'],
             'title'      => ['nullable', 'string', 'max:160'],
             'caption'    => ['nullable', 'string', 'max:255'],
             'sort_order' => ['integer', 'min:0', 'max:99'],
             'is_active'  => ['boolean'],
+        ];
 
-            'image' => $type === 'image'
-                ? ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif', 'max:10240']
-                : [],
+        // Image : optionnelle si type = image (can update without changing image)
+        if ($type === 'image') {
+            $rules['image'] = ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif', 'max:10240'];
+        }
 
-            'video_url' => $type === 'video'
-                ? ['required', 'string', 'max:500', 'regex:/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i']
-                : [],
+        // Vidéo : URL requise si type = video
+        if ($type === 'video') {
+            $rules['video_url'] = ['required', 'string', 'max:500', 'regex:/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i'];
+            $rules['cover_image'] = ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:8192'];
+        }
 
-            'cover_image' => $type === 'video'
-                ? ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:8192']
-                : [],
-        ]);
+        $data = $request->validate($rules);
 
         $data['type']       = $type;
         $data['is_active']  = $request->boolean('is_active', true);
