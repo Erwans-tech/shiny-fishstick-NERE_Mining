@@ -1,0 +1,128 @@
+# Amélioration du design des pages Néré Mining
+
+Refonte visuelle de toutes les pages intérieures et de la page d'accueil pour un rendu premium, moderne et dynamique — **sans modifier le header (`_nav.blade.php`, `chrome.css` header) ni le footer (`_footer.blade.php`, `chrome.css` footer)**.
+
+## Périmètre
+
+Les styles existants du header (`.site-header`, `.site-nav`, `.site-menu-btn`, etc.) et du footer (`.site-footer`, `.site-footer__*`) dans `chrome.css` et les partials Blade **ne seront pas touchés**.
+
+## Changements proposés
+
+Les améliorations portent sur **3 axes** : les styles globaux dans le layout, les pages Blade individuelles, et l'ajout de micro-animations / interactions.
+
+---
+
+### 1. Layout global — `app.blade.php` (styles `<style>` inline)
+
+#### [MODIFY] [app.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/layouts/app.blade.php)
+
+Améliorations dans le `<style>` du layout (lignes 42–337) :
+
+- **Masthead** : fond avec overlay gradient + blur glass effect, ajout d'un accent doré en bas, animation d'apparition du titre plus fluide (slide-up + fade)
+- **Cards** : refonte avec `border-radius: 14px`, fond glassmorphism semi-transparent, barre dorée en haut au hover (scaleX transition), ombres portées plus subtiles avec élévation au hover
+- **Stat band** : fond dégradé dark (var(--green)) au lieu de blanc, chiffres en doré, animation de comptage CSS, border-radius augmenté
+- **Sub-nav (pills)** : style amélioré avec fond translucide, effet de soulignement doré actif, transition plus douce
+- **Grilles** : espacement augmenté (gap 28px), reveal progressif des cards avec `animation-delay` décalé
+- **Sections alternées** : les sections `.sand` reçoivent un fond dégradé plus riche avec motif géométrique discret
+- **Accordéons** : style plus moderne avec icône rotative, fond blanc avec ombre douce
+- **Formulaires** : inputs avec bord arrondi, focus ring doré, bouton submit avec gradient et hover élévation
+- **PDG block** : glassmorphism sur fond dark, photo avec bord doré subtil
+- **Boutons** : micro-animation au hover (translateY + box-shadow élargie), transition 0.25s ease-out
+- **Breadcrumb** : style plus lisible avec séparateurs en chevron SVG
+
+---
+
+### 2. Page d'accueil — `home.blade.php`
+
+#### [MODIFY] [home.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/home.blade.php)
+
+- **Section intro** : ajout d'un effet de parallaxe léger, icônes décoratives sur les `intro-point`, animation staggered au scroll
+- **Section stats** : compteurs avec animation plus premium (spring easing), cartes avec shine effect au hover (gradient diagonal animé)
+- **Section news** : hover avec élévation plus prononcée + bord doré lumineux, espacement amélioré, image avec zoom subtil au hover
+- **Section partenaires** : logos avec filtres de niveau de gris plus élégants, espacement vertical réduit
+
+---
+
+### 3. Pages intérieures — Blade views sous `pages/`
+
+#### [MODIFY] [karma.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/karma.blade.php)
+
+- Cards de production avec icônes SVG inline et bord gauche doré
+- Steps du process avec connecteurs animés (flèche dorée pulsante)
+- Section impact avec cards bicolores (gauche emploi / droite économie)
+
+#### [MODIFY] [company.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/company.blade.php)
+
+- Cards de la grille overview avec numérotation en grand format décoratif, hover élévation + bord doré
+- Ajout d'un effet de fond subtil sur chaque card (gradient radial)
+
+#### [MODIFY] [sustainability.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/sustainability.blade.php)
+
+- 4 piliers en grille 2×2 avec cards à fond dégradé et icône thématique, hover élévation
+
+#### [MODIFY] [contact.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/contact.blade.php)
+
+- Cards de contact avec en-tête coloré et icônes agrandies
+- Formulaire avec labels flottants (animation label up on focus), ombre douce autour du formulaire, bouton submit avec gradient doré→rouge
+
+#### [MODIFY] [communities.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/communities.blade.php)
+
+- Cards FMD avec numérotation visuelle et barre colorée latérale
+- Section plaintes avec étapes numérotées en timeline verticale
+
+#### [MODIFY] [environment.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/environment.blade.php)
+
+- Cards avec icônes thématiques (eau, déchets, émissions) et bord supérieur vert-nature
+
+#### [MODIFY] [hse.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/hse.blade.php)
+
+- Stat band HSE en style dark premium (fond var(--green) avec chiffres dorés)
+- Cards certifications avec badge "vérifié" visuel
+
+#### [MODIFY] [projects.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/projects.blade.php)
+
+- Section CIL avec mise en page hero-like (image plus grande, texte overlay)
+- Cards d'exploration avec bord supérieur gradué or→rouge
+
+#### [MODIFY] [company-ceo.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/company-ceo.blade.php)
+
+- Bloc PDG avec guillemets décoratifs plus grands, photo avec cadre doré, fond dégradé plus profond
+
+#### [MODIFY] [company-identity.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/company-identity.blade.php)
+
+- Cards identité avec hover plus riche (zoom image + luminosité, texte plus contrasté)
+
+#### [MODIFY] [cil-project.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/cil-project.blade.php)
+
+- Galerie avec effet masonry-like, lightbox avec transition fade-in
+
+#### [MODIFY] [careers/index.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/careers/index.blade.php)
+
+- Masthead avec parallaxe, stat band en dark mode
+- Job cards avec bord gauche dynamique (couleur par département), badges plus arrondis
+- CTA spontanée avec gradient animé en fond
+
+---
+
+### 4. Ajout d'un script d'animations au scroll
+
+#### [NEW] Scroll reveal script (inline dans `app.blade.php`)
+
+Un petit script JS (IntersectionObserver) pour révéler les sections/cards avec animation quand elles entrent dans le viewport. Cela apporte un effet "wow" à chaque défilement, sans bibliothèque externe.
+
+---
+
+## Open Questions
+
+> [!IMPORTANT]
+> **Niveau d'intervention** : Le plan ci-dessus est assez étendu (14+ fichiers). Souhaitez-vous que j'applique toutes les améliorations d'un coup, ou préférez-vous procéder par groupe de pages (ex: d'abord layout + home, puis pages company, puis sustainability, etc.) ?
+
+> [!NOTE]
+> **Performances** : Toutes les animations utilisent `transform` et `opacity` uniquement (GPU-accelerated). Pas de bibliothèque externe ajoutée. Le script de scroll-reveal fait ~30 lignes.
+
+## Plan de vérification
+
+### Vérification manuelle
+- Vérifier visuellement chaque page dans le navigateur
+- Tester le responsive (mobile / tablette / desktop)
+- Confirmer que le header et le footer sont identiques avant/après

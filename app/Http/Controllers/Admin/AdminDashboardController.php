@@ -8,6 +8,7 @@ use App\Models\JobApplication;
 use App\Models\JobOffer;
 use App\Models\MediaAsset;
 use App\Models\News;
+use App\Models\NewsletterSubscriber;
 use App\Models\Partner;
 use App\Models\PressDocument;
 use App\Models\Report;
@@ -32,6 +33,7 @@ class AdminDashboardController extends Controller
             'press'            => PressDocument::count(),
             'messages'         => ContactMessage::whereNull('read_at')->count(),
             'messages_total'   => ContactMessage::count(),
+            'newsletter'       => NewsletterSubscriber::count(),
         ];
 
         // Activité récente — 5 dernières actualités

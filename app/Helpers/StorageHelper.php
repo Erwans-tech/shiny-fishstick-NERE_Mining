@@ -28,8 +28,8 @@ class StorageHelper
             return asset($path);
         }
 
-        // En production (R2) : Storage::url() retourne l'URL R2
-        // En local (public disk) : Storage::url() retourne http://localhost/uploads/path
-        return Storage::disk(config('filesystems.default', 'public'))->url($path);
+        // Les uploads du site doivent toujours être servis depuis le disque public
+        // pour qu'ils pointent vers /uploads/... en local et vers le bucket public en prod.
+        return Storage::disk('public')->url($path);
     }
 }

@@ -111,6 +111,14 @@
         </div>
         <span class="stat-tile-arrow">→</span>
     </a>
+    <a href="{{ route('admin.newsletter.index') }}" class="stat-tile" style="text-decoration:none;">
+        <div class="stat-tile-icon">📧</div>
+        <div class="stat-tile-body">
+            <div class="stat-tile-num" style="font-size:22px;">{{ $counts['newsletter'] ?? 0 }}</div>
+            <div class="stat-tile-lbl">Abonnés Newsletter</div>
+        </div>
+        <span class="stat-tile-arrow">→</span>
+    </a>
     <a href="{{ route('admin.partners.index') }}" class="stat-tile" style="text-decoration:none;">
         <div class="stat-tile-icon">🤝</div>
         <div class="stat-tile-body">

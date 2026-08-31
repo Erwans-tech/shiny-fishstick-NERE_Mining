@@ -1,6 +1,9 @@
-@php $en = ($locale ?? 'fr') === 'en'; @endphp
+@php
+    $loc = $locale ?? 'fr';
+    $en = $loc === 'en';
+@endphp
 <!DOCTYPE html>
-<html lang="{{ $locale ?? 'fr' }}">
+<html lang="{{ $loc }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

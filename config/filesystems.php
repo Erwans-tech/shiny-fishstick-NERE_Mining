@@ -11,7 +11,7 @@ return [
     | En production Render   : "r2"    (Cloudflare R2, compatible S3)
     |
     */
-    'default' => env('FILESYSTEM_DISK', 'public'),
+    'default' => 'public',
 
     'disks' => [
 

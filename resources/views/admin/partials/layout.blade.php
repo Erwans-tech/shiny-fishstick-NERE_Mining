@@ -516,6 +516,10 @@
                 <span class="nav-badge">{{ $unread }}</span>
             @endif
         </a>
+        <a href="{{ route('admin.newsletter.index') }}"
+           class="nav-item {{ request()->routeIs('admin.newsletter.*') ? 'active' : '' }}">
+            <span class="nav-icon">📧</span> Newsletter
+        </a>
 
         <div class="nav-section">Karma</div>
         <a href="{{ route('admin.karma-departments.index') }}"

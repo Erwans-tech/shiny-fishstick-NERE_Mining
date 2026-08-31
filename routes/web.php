@@ -33,12 +33,13 @@ $homeHandler = function (string $locale) {
         ->take(3)
         ->get()
         ->map(fn(News $item) => [
+            'id'       => $item->id,
             'date'     => $item->published_at->translatedFormat('d M Y'),
             'category' => $item->category,
             'title'    => $item->title,
             'image'    => $item->image_path
-                            ? asset('uploads/' . $item->image_path)
-                            : null,
+                ? asset('uploads/' . $item->image_path)
+                : null,
         ]);
 
     $partners = Partner::where('is_published', true)->orderBy('sort_order')->get();
@@ -101,7 +102,7 @@ Route::get('/projets/projet-cil',           fn() => $page('fr', 'cil-project'))-
 Route::get('/developpement-durable',        fn() => $page('fr', 'sustainability'))->name('sustainability');
 Route::get('/developpement-durable/communautes',   fn() => $page('fr', 'communities'))->name('sustainability.communities');
 Route::get('/developpement-durable/environnement', fn() => $page('fr', 'environment'))->name('sustainability.environment');
-Route::get('/developpement-durable/sante-securite',fn() => $page('fr', 'hse'))->name('sustainability.hse');
+Route::get('/developpement-durable/sante-securite', fn() => $page('fr', 'hse'))->name('sustainability.hse');
 Route::get('/developpement-durable/contenu-local', fn() => $page('fr', 'local-content'))->name('sustainability.local-content');
 
 Route::get('/actualites',         [NewsController::class, 'index'])->name('news.index');
@@ -282,6 +283,7 @@ Route::post('/en/contact', function (Request $request) {
 | Accès : /gestion-nm
 |--------------------------------------------------------------------------
 */
+
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminNewsController;
@@ -308,7 +310,7 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::get('/actualites',               [AdminNewsController::class, 'index'])->name('news.index');
         Route::get('/actualites/creer',         [AdminNewsController::class, 'create'])->name('news.create');
         Route::post('/actualites',              [AdminNewsController::class, 'store'])->name('news.store');
-        Route::get('/actualites/{news}/modifier',[AdminNewsController::class, 'edit'])->name('news.edit');
+        Route::get('/actualites/{news}/modifier', [AdminNewsController::class, 'edit'])->name('news.edit');
         Route::put('/actualites/{news}',        [AdminNewsController::class, 'update'])->name('news.update');
         Route::delete('/actualites/{news}',     [AdminNewsController::class, 'destroy'])->name('news.destroy');
 
@@ -357,6 +359,11 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::get('/messages/{message}',         [AdminMessageController::class, 'show'])->name('messages.show');
         Route::delete('/messages/{message}',      [AdminMessageController::class, 'destroy'])->name('messages.destroy');
 
+        // Newsletter abonnés
+        Route::get('/newsletter', [\App\Http\Controllers\Admin\AdminNewsletterSubscriberController::class, 'index'])->name('newsletter.index');
+        Route::get('/newsletter/export', [\App\Http\Controllers\Admin\AdminNewsletterSubscriberController::class, 'export'])->name('newsletter.export');
+        Route::delete('/newsletter/{subscriber}', [\App\Http\Controllers\Admin\AdminNewsletterSubscriberController::class, 'destroy'])->name('newsletter.destroy');
+
         // Candidatures
         Route::get('/candidatures',                              [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'index'])->name('applications.index');
         Route::get('/candidatures/{application}',                [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'show'])->name('applications.show');
@@ -377,11 +384,10 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::get('/hero-slideshow',                     [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'index'])->name('hero.index');
         Route::get('/hero-slideshow/ajouter',             [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'create'])->name('hero.create');
         Route::post('/hero-slideshow',                    [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'store'])->name('hero.store');
-        Route::get('/hero-slideshow/{heroSlide}/modifier',[\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'edit'])->name('hero.edit');
+        Route::get('/hero-slideshow/{heroSlide}/modifier', [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'edit'])->name('hero.edit');
         Route::put('/hero-slideshow/{heroSlide}',         [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'update'])->name('hero.update');
-        Route::patch('/hero-slideshow/{heroSlide}/toggle',[\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'toggle'])->name('hero.toggle');
+        Route::patch('/hero-slideshow/{heroSlide}/toggle', [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'toggle'])->name('hero.toggle');
         Route::post('/hero-slideshow/reorder',            [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'reorder'])->name('hero.reorder');
         Route::delete('/hero-slideshow/{heroSlide}',      [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'destroy'])->name('hero.destroy');
-
     });
 });

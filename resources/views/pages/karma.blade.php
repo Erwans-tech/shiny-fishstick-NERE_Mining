@@ -9,6 +9,11 @@
     .karma-page h4 { text-align: center; }
     .karma-page > section > .lead,
     .karma-page .card p { text-align: justify; }
+
+    /* Premium touches */
+    .karma-production-card { border-left: 4px solid var(--gold); }
+    .karma-impact-card { background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(247,243,238,1) 100%); }
+    .karma-step-connector { display: flex; align-items: center; justify-content: center; }
 </style>
 
 <div class="karma-page">
@@ -53,17 +58,17 @@
         <div class="stat-item"><span class="stat-value">{{ $en ? 'EITI' : 'ITIE' }}</span><span class="stat-label">{{ $en ? 'Transparency member' : 'Membre transparence' }}</span></div>
     </div>
     <div class="grid-3">
-        <div class="card">
+        <div class="card karma-production-card">
             <img class="card-img" src="{{ asset('images/mining/karma-01.jpg') }}" alt="{{ $en ? 'Mining operation' : 'Opération minière' }}">
             <h3>{{ __('site.karma_card1_h3', [], $loc) }}</h3>
             <p>{{ __('site.karma_card1_p', [], $loc) }}</p>
         </div>
-        <div class="card">
+        <div class="card karma-production-card">
             <img class="card-img" src="{{ asset('images/mining/karma-03.jpg') }}" alt="{{ $en ? 'Processing' : 'Traitement' }}">
             <h3>{{ __('site.karma_card2_h3', [], $loc) }}</h3>
             <p>{{ __('site.karma_card2_p', [], $loc) }}</p>
         </div>
-        <div class="card">
+        <div class="card karma-production-card">
             <img class="card-img" src="{{ asset('images/mining/karma-04.jpg') }}" alt="{{ $en ? 'Teams' : 'Équipes' }}">
             <h3>{{ __('site.karma_card3_h3', [], $loc) }}</h3>
             <p>{{ __('site.karma_card3_p', [], $loc) }}</p>
@@ -117,7 +122,7 @@
         <div>
             <h3>{{ __('site.karma_imp_jobs_h3', [], $loc) }}</h3>
             @foreach(range(1, 3) as $i)
-            <div class="card" style="margin-bottom:14px;">
+            <div class="card karma-impact-card" style="margin-bottom:18px;">
                 <div class="card-tag">{{ __('site.karma_imp_job'.$i.'_tag', [], $loc) }}</div>
                 <p>{{ __('site.karma_imp_job'.$i.'_p', [], $loc) }}</p>
             </div>
@@ -126,7 +131,7 @@
         <div>
             <h3>{{ __('site.karma_imp_eco_h3', [], $loc) }}</h3>
             @foreach(range(1, 3) as $i)
-            <div class="card" style="margin-bottom:14px;">
+            <div class="card karma-impact-card" style="margin-bottom:18px;">
                 <div class="card-tag">{{ __('site.karma_imp_eco'.$i.'_tag', [], $loc) }}</div>
                 <p>{{ __('site.karma_imp_eco'.$i.'_p', [], $loc) }}</p>
             </div>

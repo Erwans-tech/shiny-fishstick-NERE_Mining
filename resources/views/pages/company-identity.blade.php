@@ -32,11 +32,18 @@
             position: relative;
             color: #fff;
             border: none;
+            border-radius: 18px;
             overflow: hidden;
-            min-height: 280px;
+            min-height: 320px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            transition: transform 0.4s cubic-bezier(0.2, 1, 0.36, 1), box-shadow 0.4s;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+        }
+        .identity-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px rgba(0,0,0,0.15);
         }
         .identity-card::before {
             content: '';
@@ -91,24 +98,24 @@
 
     <div class="grid-3" style="margin-top:32px;">
         {{-- ISO 9001:2008 --}}
-        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center;">
-            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px;">✓</div>
+        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center; background:rgba(255,255,255,.9); border:1px solid rgba(255,194,71,.3);">
+            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px; line-height:1;">✓</div>
             <div class="card-tag" style="margin-bottom:12px;">{{ $en ? 'Quality Management' : 'Gestion de la qualité' }}</div>
             <h3 style="margin:0;">ISO 9001:2008</h3>
             <p style="font-size:13px; margin-top:8px;">{{ $en ? 'International standard for quality management systems' : 'Norme internationale de systèmes de gestion de la qualité' }}</p>
         </div>
 
         {{-- EITI / ITIE --}}
-        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center;">
-            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px;">✓</div>
+        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center; background:rgba(255,255,255,.9); border:1px solid rgba(255,194,71,.3);">
+            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px; line-height:1;">✓</div>
             <div class="card-tag" style="margin-bottom:12px;">{{ $en ? 'Transparency' : 'Transparence' }}</div>
             <h3 style="margin:0;">{{ $en ? 'EITI' : 'ITIE' }}</h3>
             <p style="font-size:13px; margin-top:8px;">{{ $en ? 'Extractive Industries Transparency Initiative member' : 'Membre de l\'Initiative pour la transparence de l\'industrie extractive' }}</p>
         </div>
 
         {{-- Environmental Commitment --}}
-        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center;">
-            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px;">✓</div>
+        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center; background:rgba(255,255,255,.9); border:1px solid rgba(255,194,71,.3);">
+            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px; line-height:1;">✓</div>
             <div class="card-tag" style="margin-bottom:12px;">{{ $en ? 'Environmental' : 'Environnement' }}</div>
             <h3 style="margin:0;">{{ $en ? 'ESG Standards' : 'Normes RSE' }}</h3>
             <p style="font-size:13px; margin-top:8px;">{{ $en ? 'Environmental, Social & Governance standards compliance' : 'Conformité aux normes environnementales, sociales et de gouvernance' }}</p>

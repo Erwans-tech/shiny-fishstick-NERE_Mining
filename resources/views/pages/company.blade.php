@@ -4,6 +4,12 @@
 @section('content')
 @php $companyBase = $en ? route('english.company') : route('company'); @endphp
 
+<style>
+    .company-overview-grid .card {
+        background-image: radial-gradient(circle at top right, rgba(255,194,71,0.05), transparent 60%);
+    }
+</style>
+
 <section>
     <div class="sub-nav">
         <a href="{{ $companyBase }}" class="active">{{ __('site.subnav_overview', [], $loc) }}</a>

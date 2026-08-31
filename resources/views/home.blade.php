@@ -227,57 +227,65 @@
             background:linear-gradient(180deg, #f6f1ea 0%, #f0ebdf 100%);
             border-top:1px solid var(--line);
             border-bottom:1px solid var(--line);
-            padding-top:48px;
-            padding-bottom:48px;
+            padding-top:60px;
+            padding-bottom:60px;
+            position:relative;
+            background-attachment:fixed;
         }
         .intro-inner {
             max-width:1180px; margin:0 auto; display:grid;
-            grid-template-columns:1.2fr .8fr; gap:34px; align-items:center;
+            grid-template-columns:1.2fr .8fr; gap:40px; align-items:center;
+            position:relative; z-index:2;
         }
         .intro-copy {
-            background:#fff; border:1px solid var(--line); border-radius:16px;
-            padding:30px 28px; box-shadow:0 10px 28px rgba(40,29,24,.04);
+            background:rgba(255,255,255,.9); border:1px solid var(--line); border-radius:18px;
+            padding:40px 32px; box-shadow:0 12px 32px rgba(40,29,24,.06);
             text-align:center;
+            backdrop-filter:blur(8px);
         }
         .intro-brand {
             display:flex; justify-content:center; align-items:center;
-            margin-bottom:18px;
-            padding:16px 24px;
+            margin-bottom:20px;
+            padding:18px 24px;
             background:linear-gradient(135deg, #4b1716 0%, #2d0d10 100%);
-            border:1px solid rgba(255,255,255,.18);
-            border-radius:14px;
-            box-shadow:0 8px 18px rgba(75,23,22,.18);
+            border:1px solid rgba(255,194,71,.25);
+            border-radius:16px;
+            box-shadow:0 10px 24px rgba(75,23,22,.25);
         }
         .intro-brand img {
             display:block;
             width:min(260px, 70%);
             height:auto;
-            filter: drop-shadow(0 8px 14px rgba(75,23,22,.08));
+            filter: drop-shadow(0 8px 14px rgba(0,0,0,.15));
             opacity:1;
-            background:transparent;
         }
         .intro-copy .sec-h2 {
-            margin-bottom:14px;
-            font-size:clamp(2.8rem,4vw,4.7rem);
-            line-height:1.02;
-            letter-spacing:-0.05em;
+            margin-bottom:16px;
+            font-size:clamp(2.6rem,3.8vw,4.4rem);
+            line-height:1.05;
+            letter-spacing:-0.04em;
             text-align:center;
         }
         .intro-points {
-            display:grid; gap:14px;
+            display:grid; gap:16px;
         }
         .intro-point {
-            background:rgba(255,255,255,.72); border:1px solid var(--line);
-            border-radius:12px; padding:18px 20px; display:flex; align-items:flex-start; gap:12px;
-            box-shadow:0 8px 18px rgba(40,29,24,.03);
+            background:rgba(255,255,255,.85); border:1px solid rgba(234,220,197,.7);
+            border-radius:14px; padding:20px 24px; display:flex; align-items:flex-start; gap:16px;
+            box-shadow:0 8px 20px rgba(40,29,24,.04);
+            transition:transform .3s, box-shadow .3s;
         }
+        .intro-point:hover { transform:translateY(-3px); box-shadow:0 12px 28px rgba(40,29,24,.08); }
         .intro-point::before {
-            content:'•'; font-size:24px; line-height:1; color:var(--gold2);
+            content:''; display:block; width:24px; height:24px; flex-shrink:0;
+            background-color:var(--gold);
+            mask:url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>') no-repeat center/contain;
+            -webkit-mask:url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>') no-repeat center/contain;
             margin-top:2px;
         }
         .intro-point span {
-            color:var(--muted); font-size:1.02rem; line-height:1.7;
-            text-align:left;
+            color:var(--ink); font-size:1.05rem; line-height:1.65;
+            text-align:left; font-weight:500;
         }
 
         /* ── STATS SECTION ───────────────────────── */
@@ -299,21 +307,23 @@
         .stats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
         .stat-card {
             background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
-            border-radius:10px; padding:36px 28px;
+            border-radius:12px; padding:36px 28px;
             position:relative; overflow:hidden;
-            transition:background .25s, transform .25s;
+            transition:background .3s cubic-bezier(.22,1,.36,1), transform .3s cubic-bezier(.22,1,.36,1), border-color .3s;
         }
         .stat-card::before {
-            content:''; position:absolute; inset:0 auto 0 0;
-            width:3px; background:var(--gold); opacity:0; transition:opacity .25s;
+            content:''; position:absolute; top:0; left:-100%; width:50%; height:100%;
+            background:linear-gradient(to right, transparent, rgba(255,255,255,.1), transparent);
+            transform:skewX(-25deg); transition:left .7s;
         }
-        .stat-card:hover { background:rgba(255,255,255,.09); transform:translateY(-4px); }
-        .stat-card:hover::before { opacity:1; }
+        .stat-card:hover { background:rgba(255,255,255,.12); transform:translateY(-5px); border-color:rgba(255,194,71,.4); box-shadow:0 12px 32px rgba(0,0,0,.15); }
+        .stat-card:hover::before { left:150%; }
         .stat-num {
-            display:block; font-size:clamp(38px,4vw,56px); font-weight:300;
+            display:block; font-size:clamp(42px,4.5vw,60px); font-weight:300;
             color:var(--gold); line-height:1; margin-bottom:12px;
+            text-shadow:0 4px 12px rgba(255,194,71,.2);
         }
-        .stat-lbl { font:500 13px Inter,sans-serif; color:rgba(255,255,255,.62); line-height:1.45; }
+        .stat-lbl { font:500 13px Inter,sans-serif; color:rgba(255,255,255,.75); line-height:1.45; }
 
         /* ── NEWS ────────────────────────────────── */
         .news-sec { background:#fff; border-top:1px solid var(--line); }
@@ -360,11 +370,10 @@
         .news-grid .news-card:first-child { grid-column:span 2; }
         .news-card {
             display:flex; flex-direction:column;
-            background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(246,241,236,.92));
-            border:1px solid rgba(75,23,22,.12);
-            border-radius:14px; overflow:hidden; transition:transform .25s, box-shadow .25s, border-color .25s;
-            height:100%; box-shadow:0 10px 18px rgba(39,20,18,.05), 0 2px 6px rgba(39,20,18,.02);
-            transform:translateX(4px);
+            background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(248,244,240,1));
+            border:1px solid rgba(75,23,22,.1);
+            border-radius:16px; overflow:hidden; transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s, border-color .3s;
+            height:100%; box-shadow:0 8px 24px rgba(40,29,24,.06);
             position:relative;
         }
         .news-card::before {
@@ -373,37 +382,43 @@
             inset:0 auto auto 0;
             width:100%; height:4px;
             background:linear-gradient(90deg, var(--gold), var(--gold2));
-            opacity:.8;
+            transform:scaleX(0); transform-origin:left; transition:transform .3s ease;
+            z-index:10;
         }
         .news-card-link:hover .news-card {
-            transform:translate(10px, -6px);
-            box-shadow:0 18px 28px rgba(39,20,18,.09), 0 6px 18px rgba(39,20,18,.04);
-            border-color:rgba(255,194,71,.42);
+            transform:translateY(-6px);
+            box-shadow:0 18px 36px rgba(40,29,24,.12);
+            border-color:rgba(255,194,71,.4);
         }
-        .news-img { width:100%; height:210px; object-fit:cover; }
-        .news-grid .news-card:first-child .news-img { height:285px; }
+        .news-card-link:hover .news-card::before { transform:scaleX(1); }
+        .news-img-wrap { overflow:hidden; border-radius:16px 16px 0 0; }
+        .news-img { width:100%; height:220px; object-fit:cover; transition:transform .5s ease; display:block; }
+        .news-grid .news-card:first-child .news-img { height:300px; }
+        .news-card-link:hover .news-img { transform:scale(1.04); }
         .news-img-ph {
-            width:100%; height:210px;
+            width:100%; height:220px;
             background:linear-gradient(135deg, var(--green) 0%, #7a2a29 100%);
             display:flex; align-items:center; justify-content:center;
             font:700 38px Inter,sans-serif; color:rgba(255,255,255,.2); letter-spacing:.1em;
         }
-        .news-grid .news-card:first-child .news-img-ph { height:285px; }
-        .news-body { padding:22px 24px 24px; display:flex; flex-direction:column; flex:1; }
+        .news-grid .news-card:first-child .news-img-ph { height:300px; }
+        .news-body { padding:28px 32px; display:flex; flex-direction:column; flex:1; position:relative; z-index:2; background:#fff; }
         .news-meta {
-            font:700 10px Inter,sans-serif; letter-spacing:.12em; text-transform:uppercase;
-            color:var(--gold2); margin-bottom:12px;
+            font:700 11px Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase;
+            color:var(--gold2); margin-bottom:14px; display:inline-block;
+            background:rgba(255,194,71,.1); padding:4px 10px; border-radius:4px;
         }
         .news-card h3 {
-            font-size:20px; font-weight:600; color:var(--green); line-height:1.28;
-            margin-bottom:18px; letter-spacing:-.02em;
+            font-size:22px; font-weight:600; color:var(--ink); line-height:1.3;
+            margin-bottom:20px; letter-spacing:-.01em; transition:color .2s;
         }
-        .news-grid .news-card:first-child h3 { font-size:28px; }
+        .news-grid .news-card:first-child h3 { font-size:32px; }
+        .news-card-link:hover h3 { color:var(--green); }
         .news-read {
             margin-top:auto; font:700 11px Inter,sans-serif; letter-spacing:.14em;
             text-transform:uppercase; color:var(--red);
             display:inline-flex; align-items:center; gap:8px;
-            padding-top:6px;
+            padding-top:10px;
         }
         .news-read-arr {
             display:inline-block; transition:transform .2s;
@@ -594,16 +609,18 @@
         </div>
         <div class="news-grid">
             @forelse($news as $i => $item)
-            <a class="news-card-link" href="{{ $en ? route('english.news.show', ['news' => $item['slug'] ?? $item['id'] ?? $i]) : route('news.show', ['news' => $item['slug'] ?? $item['id'] ?? $i]) }}" aria-label="{{ __('site.read_more', [], $loc) }} : {{ e($item['title']) }}">
-                <article class="news-card">
-                    @if(!empty($item['image']) && !str_contains((string)$item['image'], 'null'))
-                        <img class="news-img"
-                             src="{{ $item['image'] }}"
-                             alt="{{ e($item['title']) }}"
-                             loading="{{ $i === 0 ? 'eager' : 'lazy' }}">
-                    @else
-                        <div class="news-img-ph" aria-hidden="true">NM</div>
-                    @endif
+            <a class="news-card-link" href="{{ $en ? route('english.news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) : route('news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) }}" aria-label="{{ __('site.read_more', [], $loc) }} : {{ e($item['title']) }}">
+                <article class="news-card sr">
+                    <div class="news-img-wrap">
+                        @if(!empty($item['image']) && !str_contains((string)$item['image'], 'null'))
+                            <img class="news-img"
+                                 src="{{ $item['image'] }}"
+                                 alt="{{ e($item['title']) }}"
+                                 loading="{{ $i === 0 ? 'eager' : 'lazy' }}">
+                        @else
+                            <div class="news-img-ph" aria-hidden="true">NM</div>
+                        @endif
+                    </div>
                     <div class="news-body">
                         <div class="news-meta">{{ $item['category'] }} · {{ $item['date'] }}</div>
                         <h3>{{ $item['title'] }}</h3>

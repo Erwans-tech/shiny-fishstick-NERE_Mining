@@ -10,7 +10,7 @@
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:64px;">
 
         {{-- ── 1. Siège social — Ouagadougou ── --}}
-        <div class="contact-card">
+        <div class="contact-card sr">
             <div class="contact-card-header">
                 <span class="contact-card-icon">🏢</span>
                 <div>
@@ -43,7 +43,7 @@
         </div>
 
         {{-- ── 2. Site de la mine de Karma ── --}}
-        <div class="contact-card contact-card--mine">
+        <div class="contact-card contact-card--mine sr">
             <div class="contact-card-header">
                 <span class="contact-card-icon">⛏️</span>
                 <div>
@@ -85,7 +85,7 @@
         </div>
 
         {{-- ── 3. Bureau de liaison — Ouahigouya ── --}}
-        <div class="contact-card">
+        <div class="contact-card sr">
             <div class="contact-card-header">
                 <span class="contact-card-icon">📍</span>
                 <div>
@@ -119,7 +119,7 @@
     </div>
 
     {{-- Carte Google Maps — les 3 sites --}}
-    <div class="map-wrap">
+    <div class="map-wrap sr">
         <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d935649.2!2d-1.5!3d13.2!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xe2e9eb9d1aba949%3A0x7f46e8f12f1c0a55!2sOuagadougou!5e0!3m2!1s{{ $loc }}!2sbf!4v1"
             loading="lazy"
@@ -146,7 +146,7 @@
     </div>
     @endif
 
-    <form method="POST" action="{{ $en ? route('english.contact.store') : route('contact.store') }}">
+    <form class="sr" method="POST" action="{{ $en ? route('english.contact.store') : route('contact.store') }}">
         @csrf
 
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">

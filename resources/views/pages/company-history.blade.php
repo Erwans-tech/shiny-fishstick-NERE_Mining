@@ -28,8 +28,8 @@
         </div>
 
         {{-- Chiffres clés --}}
-        <div class="card" style="background:var(--sand); border:0;">
-            <h3>{{ __('site.company_kpi_h3', [], $loc) }}</h3>
+        <div class="card" style="background: linear-gradient(135deg, rgba(255,194,71,0.1) 0%, rgba(255,255,255,1) 100%); border: 1px solid rgba(255,194,71,0.3); border-radius: 16px;">
+            <h3 style="color:var(--ink);">{{ __('site.company_kpi_h3', [], $loc) }}</h3>
             <div class="stat-band" style="grid-template-columns:1fr 1fr; margin:0;">
                 <div class="stat-item">
                     <span class="stat-value">100%</span>

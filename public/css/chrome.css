@@ -15,26 +15,28 @@
 }
 
 .site-header__bar {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 4vw;
-    min-height: 76px;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    min-height: 100px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 12px;
 }
 
 .site-logo {
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    height: 52px;
+    height: 90px;
+    margin: 0 0 0 18px;
+    padding-left: 0;
 }
 
 .site-logo img {
-    height: 52px;
+    height: 90px;
     width: auto;
-    max-width: 220px;
+    max-width: 340px;
     object-fit: contain;
     display: block;
 }

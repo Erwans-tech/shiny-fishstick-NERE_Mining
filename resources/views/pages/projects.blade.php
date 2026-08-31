@@ -4,7 +4,20 @@
 @section('content')
 
 {{-- Projet CIL en tête de rubrique --}}
-<section class="sand" id="cil-project">
+<style>
+    .project-card {
+        background: linear-gradient(180deg, #ffffff 0%, #f4eee6 100%);
+        border: 1px solid rgba(75,23,22,0.1);
+        border-radius: 16px;
+        transition: transform 0.3s cubic-bezier(0.2, 1, 0.36, 1), box-shadow 0.3s, border-color 0.3s;
+    }
+    .project-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(40,29,24,0.08);
+        border-color: rgba(255,194,71,0.5);
+    }
+</style>
+<section class="sand sr" id="cil-project">
     <div class="grid-2" style="align-items:center;">
         <div>
             <div class="card-tag">{{ __('site.nav_projects_cil', [], $loc) }}</div>
@@ -27,7 +40,7 @@
 
     <div class="projects-grid">
         @foreach(range(1, 3) as $i)
-        <article class="card project-card">
+        <article class="card project-card sr">
             <div class="card-tag">{{ __('site.projects_card'.$i.'_tag', [], $loc) }}</div>
             <h3>{{ __('site.projects_card'.$i.'_h3', [], $loc) }}</h3>
             <p>{!! __('site.projects_card'.$i.'_p', [], $loc) !!}</p>
