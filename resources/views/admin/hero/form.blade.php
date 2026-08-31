@@ -431,35 +431,41 @@ document.getElementById('hero-form').addEventListener('submit', function(e) {
         return false;
     }
     
-    var conditionalFields = document.querySelectorAll('[data-conditional-field]');
-    console.log('[Form Submit] Found', conditionalFields.length, 'conditional fields');
-    
-    conditionalFields.forEach(function(field, index) {
-        var fieldName = field.getAttribute('data-conditional-field');
-        var isRelevant = false;
-        
-        // Déterminer si ce champ doit être envoyé
-        if (selectedType === 'image' && fieldName === 'image') {
-            isRelevant = true;
-        } else if (selectedType === 'video' && (fieldName === 'video_url' || fieldName === 'cover_image')) {
-            isRelevant = true;
-        }
-        
-        console.log(`[Field ${index}] ${fieldName}: isRelevant=${isRelevant}, hasName=${field.hasAttribute('name')}`);
-        
-        // Si non pertinent, supprimer l'attribut name ET vider la valeur
-        if (!isRelevant) {
-            field.removeAttribute('name');
+    // Reset ALL conditional fields first
+    console.log('[Form Submit] Resetting all conditional fields...');
+    document.querySelectorAll('[data-conditional-field]').forEach(function(field) {
+        field.removeAttribute('name');
+        if (field.type === 'file') {
             field.value = '';
-            console.log(`[Field ${index}] Removed name and cleared value`);
         } else {
-            // S'assurer que le name est présent si pertinent
-            if (!field.hasAttribute('name')) {
-                field.setAttribute('name', fieldName);
-            }
-            console.log(`[Field ${index}] Ensured name is present`);
+            field.value = '';
         }
     });
+    
+    // Then re-enable ONLY the relevant ones for the selected type
+    console.log('[Form Submit] Re-enabling relevant fields for type: ' + selectedType);
+    
+    if (selectedType === 'image') {
+        // For image: enable only the image file input
+        var imageField = document.getElementById('image-input');
+        if (imageField) {
+            imageField.setAttribute('name', 'image');
+            console.log('[Form Submit] Enabled: image');
+        }
+    } else if (selectedType === 'video') {
+        // For video: enable video_url and cover_image (if present)
+        var videoUrlField = document.getElementById('video_url');
+        var coverImageField = document.getElementById('cover-input');
+        
+        if (videoUrlField) {
+            videoUrlField.setAttribute('name', 'video_url');
+            console.log('[Form Submit] Enabled: video_url');
+        }
+        if (coverImageField) {
+            coverImageField.setAttribute('name', 'cover_image');
+            console.log('[Form Submit] Enabled: cover_image');
+        }
+    }
     
     console.log('[Form Submit] Cleanup complete. Submitting...');
 });
