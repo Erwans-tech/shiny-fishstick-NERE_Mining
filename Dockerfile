@@ -18,6 +18,7 @@ RUN apk add --no-cache \
         libxml2-dev \
         icu-dev \
         postgresql-client \
+        libpq-dev \
         su-exec
 
 # ── Extensions PHP ───────────────────────────────────────────
