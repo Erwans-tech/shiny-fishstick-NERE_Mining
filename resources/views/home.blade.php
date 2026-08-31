@@ -165,12 +165,50 @@
             background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14);
             border-radius:9px; padding:24px 20px;
             backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+            transition:all .35s cubic-bezier(.22,1,.36,1);
+            cursor:pointer;
+            position:relative;
+            overflow:hidden;
+        }
+        .hero-stat::before {
+            content:'';
+            position:absolute;
+            inset:0;
+            background:linear-gradient(135deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.05) 100%);
+            opacity:0;
+            transition:opacity .35s cubic-bezier(.22,1,.36,1);
+        }
+        .hero-stat:hover {
+            background:rgba(255,255,255,.14);
+            border-color:rgba(255,194,71,.5);
+            transform:translateY(-8px);
+            box-shadow:0 16px 40px rgba(255,194,71,.25), inset 0 1px 0 rgba(255,255,255,.2);
+        }
+        .hero-stat:hover::before {
+            opacity:1;
         }
         .hero-stat-val {
             display:block; font-size:34px; font-weight:300;
             color:var(--gold); line-height:1; margin-bottom:8px;
+            transition:transform .35s cubic-bezier(.22,1,.36,1), color .35s;
+            position:relative;
+            z-index:1;
         }
-        .hero-stat-lbl { font:500 12px Inter,sans-serif; color:rgba(255,255,255,.65); line-height:1.4; }
+        .hero-stat:hover .hero-stat-val {
+            transform:scale(1.05);
+            color:#ffd88f;
+        }
+        .hero-stat-lbl { 
+            font:500 12px Inter,sans-serif; 
+            color:rgba(255,255,255,.65); 
+            line-height:1.4;
+            transition:color .35s cubic-bezier(.22,1,.36,1);
+            position:relative;
+            z-index:1;
+        }
+        .hero-stat:hover .hero-stat-lbl {
+            color:rgba(255,255,255,.85);
+        }
         /* Scroll hint */
         .hero-scroll {
             position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:3;
