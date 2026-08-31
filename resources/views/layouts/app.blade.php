@@ -46,8 +46,30 @@
             --sand:#fff4dc; --muted:#70645c; --line:#eadcc5; --light:#fbfaf7;
         }
         *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-        body { color:var(--ink); background-color:var(--light); background-image:linear-gradient(115deg,rgba(255,194,71,.045),transparent 38%,rgba(75,23,22,.03)),repeating-linear-gradient(135deg,rgba(75,23,22,.025) 0,rgba(75,23,22,.025) 1px,transparent 1px,transparent 46px); background-size:180% 180%,46px 46px; animation:siteAtmosphere 42s ease-in-out infinite alternate; font-family:'Inter',Arial,Helvetica,sans-serif; font-size:17px; }
-        @keyframes siteAtmosphere { from { background-position:0% 0%,0 0; } to { background-position:100% 100%,23px 23px; } }
+        body {
+            color:var(--ink);
+            background-color:#efe9e1;
+            background-image:
+                radial-gradient(circle at top left, rgba(255,194,71,.14), transparent 20%),
+                radial-gradient(circle at bottom right, rgba(75,23,22,.12), transparent 24%),
+                linear-gradient(135deg, rgba(30,22,19,.04) 0, rgba(30,22,19,.04) 1px, transparent 1px, transparent 36px),
+                linear-gradient(45deg, rgba(255,194,71,.05) 0, rgba(255,194,71,.05) 1px, transparent 1px, transparent 36px),
+                linear-gradient(180deg, #f8f3ee 0%, #ece5dc 100%);
+            background-size:100% 100%,100% 100%,36px 36px,36px 36px,100% 100%;
+            animation:siteAtmosphere 42s ease-in-out infinite alternate;
+            font-family:'Inter',Arial,Helvetica,sans-serif; font-size:18px;
+        }
+        body::before {
+            content:"";
+            position:fixed;
+            inset:0;
+            pointer-events:none;
+            background:
+                linear-gradient(90deg, rgba(18,14,12,.06), rgba(18,14,12,0) 34%, rgba(18,14,12,.04) 100%),
+                repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(17,14,12,.03) 2px, rgba(17,14,12,.03) 3px);
+            opacity:.9;
+        }
+        @keyframes siteAtmosphere { from { background-position:0% 0%,0 0,0 0,0 0,0 0; } to { background-position:0% 0%,0 0,18px 18px,18px 18px,0 0; } }
         .masthead { animation:contentRise .8s ease-out both; }
         main > section { animation:contentRise .7s ease-out both; }
         @keyframes contentRise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
@@ -312,6 +334,14 @@
             .org-hbar { display:none; }
             .org-connector-branch { height:16px; }
         }
+
+        /* ══ Augmentations taille header et textes (taches #16-17) ══ */
+        header { padding:28px 5vw !important; }
+        .logo { width:480px !important; max-width:45vw !important; }
+        h2 { font-size:clamp(28px,3.2vw,44px) !important; }
+        h3 { font-size:20px !important; }
+        p { font-size:16px !important; line-height:1.8 !important; }
+        .lead { font-size:19px !important; line-height:1.8 !important; }
     </style>
     @yield('head')
     @stack('styles')
