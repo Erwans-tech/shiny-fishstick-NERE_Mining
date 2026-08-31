@@ -288,42 +288,8 @@
             text-align:left; font-weight:500;
         }
 
-        /* ── STATS SECTION ───────────────────────── */
-        .stats-sec { background:var(--green); position:relative; overflow:hidden; }
-        .stats-sec::before {
-            content:''; position:absolute; inset:0; pointer-events:none;
-            background:
-                radial-gradient(circle at 18% 55%, rgba(255,194,71,.07) 0%, transparent 48%),
-                radial-gradient(circle at 82% 15%, rgba(255,194,71,.04) 0%, transparent 38%);
-        }
-        .stats-inner {
-            position:relative; z-index:1;
-            display:grid; grid-template-columns:1fr 2fr; gap:80px; align-items:center;
-        }
-        .stats-left .sec-tag  { color:var(--gold); }
-        .stats-left .sec-tag::before { background:var(--gold); }
-        .stats-left .sec-h2   { color:#fff; }
-        .stats-left .sec-lead { color:rgba(255,255,255,.6); max-width:380px; }
-        .stats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
-        .stat-card {
-            background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
-            border-radius:12px; padding:36px 28px;
-            position:relative; overflow:hidden;
-            transition:background .3s cubic-bezier(.22,1,.36,1), transform .3s cubic-bezier(.22,1,.36,1), border-color .3s;
-        }
-        .stat-card::before {
-            content:''; position:absolute; top:0; left:-100%; width:50%; height:100%;
-            background:linear-gradient(to right, transparent, rgba(255,255,255,.1), transparent);
-            transform:skewX(-25deg); transition:left .7s;
-        }
-        .stat-card:hover { background:rgba(255,255,255,.12); transform:translateY(-5px); border-color:rgba(255,194,71,.4); box-shadow:0 12px 32px rgba(0,0,0,.15); }
-        .stat-card:hover::before { left:150%; }
-        .stat-num {
-            display:block; font-size:clamp(42px,4.5vw,60px); font-weight:300;
-            color:var(--gold); line-height:1; margin-bottom:12px;
-            text-shadow:0 4px 12px rgba(255,194,71,.2);
-        }
-        .stat-lbl { font:500 13px Inter,sans-serif; color:rgba(255,255,255,.75); line-height:1.45; }
+
+
 
         /* ── NEWS ────────────────────────────────── */
         .news-sec { background:#fff; border-top:1px solid var(--line); }
@@ -483,15 +449,12 @@
         @media(max-width:1100px) {
             .hero-body    { grid-template-columns:1fr; }
             .hero-stats   { grid-template-columns:repeat(4,1fr); align-self:auto; }
-            .stats-inner  { grid-template-columns:1fr; gap:50px; }
-            .stats-grid   { grid-template-columns:repeat(4,1fr); }
         }
         @media(max-width:900px) {
             .topbar { display:none; }
             .hero { min-height:100svh; }
             .hero-body { padding-bottom:64px; }
             .hero-stats { grid-template-columns:repeat(2,1fr); }
-            .stats-grid { grid-template-columns:repeat(2,1fr); }
             .news-grid  { grid-template-columns:1fr; }
             .news-grid .news-card:first-child { grid-column:span 1; }
         }
@@ -601,51 +564,6 @@
     {{-- ════════════════════════════════════════
          3 · CHIFFRES DÉTAILLÉS (ENRICHISSEMENT)
     ════════════════════════════════════════ --}}
-    <section class="sec stats-sec" id="chiffres">
-        <div style="max-width:1180px; margin:0 auto;">
-            <div class="stats-inner">
-                <div class="stats-left">
-                    <span class="sec-tag">{{ $en ? 'Our Impact' : 'Notre Impact' }}</span>
-                    <h2 class="sec-h2">{{ $en ? 'Creating Value Across Burkina Faso' : 'Créer de la Valeur au Burkina Faso' }}</h2>
-                    <p class="sec-lead">{{ $en ? 'Néré Mining\'s operations deliver measurable impact across economic, social and environmental dimensions.' : 'Les opérations de Néré Mining génèrent de l\'impact mesurable across dimensions économique, social et environnemental.' }}</p>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-num" data-target="80000" data-suffix=" oz">—</span>
-                        <span class="stat-lbl">{{ $en ? 'Annual Gold Production (2024)' : 'Production Or Annuelle (2024)' }}</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-num" data-target="1200" data-suffix="">—</span>
-                        <span class="stat-lbl">{{ $en ? 'Direct & Indirect Jobs' : 'Emplois Directs & Indirects' }}</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-num" data-target="80" data-suffix="%">—</span>
-                        <span class="stat-lbl">{{ $en ? 'National Workforce' : 'Personnel Burkinabè' }}</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-num" data-target="18" data-suffix=" Mrd">—</span>
-                        <span class="stat-lbl">{{ $en ? 'Fiscal & Social Contributions (CFA)' : 'Retombées Fiscales & Sociales (CFA)' }}</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-num" data-target="850" data-suffix="">—</span>
-                        <span class="stat-lbl">{{ $en ? 'Students in Programs' : 'Étudiants en Programmes' }}</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-num" data-target="42" data-suffix=" km">—</span>
-                        <span class="stat-lbl">{{ $en ? 'Roads Built/Maintained' : 'Routes Construites/Entretenues' }}</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-num" data-target="32" data-suffix="%">—</span>
-                        <span class="stat-lbl">{{ $en ? 'CO₂ Reduction (2020-2024)' : 'Réduction CO₂ (2020-2024)' }}</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-num" data-target="14" data-suffix=" M hrs">—</span>
-                        <span class="stat-lbl">{{ $en ? 'Safety-Free Hours (2024)' : 'Heures sans Incident (2024)' }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     {{-- ════════════════════════════════════════
          4 · DERNIÈRES ACTUALITÉS
