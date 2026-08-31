@@ -3,6 +3,15 @@
 
 @section('content')
 
+<style>
+    .karma-page h2,
+    .karma-page h3,
+    .karma-page h4 { text-align: center; }
+    .karma-page > section > .lead,
+    .karma-page .card p { text-align: justify; }
+</style>
+
+<div class="karma-page">
 {{-- Présentation & localisation --}}
 <section id="presentation">
     <h2>{{ __('site.karma_pres_h2', [], $loc) }}</h2>
@@ -10,17 +19,17 @@
 
     <div class="grid-2" style="margin-bottom:40px;">
         <div>
-            <div class="card" style="background:var(--sand); border:0; margin-bottom:20px;">
+            <div class="card" style="margin-bottom:20px;">
+                <h4>{{ __('site.karma_history_h4', [], $loc) }}</h4>
+                <p>{{ __('site.karma_history_p', [], $loc) }}</p>
+            </div>
+            <div class="card" style="margin-bottom:20px;">
                 <h4>{{ __('site.karma_loc_h4', [], $loc) }}</h4>
                 <p>{!! nl2br(e(__('site.karma_loc_p', [], $loc))) !!}</p>
             </div>
-            <div class="card" style="background:var(--sand); border:0; margin-bottom:20px;">
+            <div class="card">
                 <h4>{{ __('site.karma_area_h4', [], $loc) }}</h4>
                 <p>{{ __('site.karma_area_p', [], $loc) }}</p>
-            </div>
-            <div class="card" style="background:var(--sand); border:0;">
-                <h4>{{ __('site.karma_history_h4', [], $loc) }}</h4>
-                <p>{{ __('site.karma_history_p', [], $loc) }}</p>
             </div>
         </div>
         <div class="map-wrap">
@@ -67,6 +76,13 @@
     <h2>{{ __('site.karma_org_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.karma_org_lead', [], $loc) }}</p>
     <div class="grid-3">
+        @forelse($karmaDepartments ?? collect() as $dept)
+        <div class="card">
+            <div class="card-tag">{{ $dept->localizedTag($loc) }}</div>
+            <h3>{{ $dept->localizedTitle($loc) }}</h3>
+            <p>{{ $dept->localizedBody($loc) }}</p>
+        </div>
+        @empty
         @foreach(range(1, 9) as $i)
         <div class="card">
             <div class="card-tag">{{ __('site.karma_dept'.$i.'_tag', [], $loc) }}</div>
@@ -74,6 +90,7 @@
             <p>{{ __('site.karma_dept'.$i.'_p', [], $loc) }}</p>
         </div>
         @endforeach
+        @endforelse
     </div>
 </section>
 
@@ -118,4 +135,5 @@
     </div>
 </section>
 
+</div>
 @endsection

@@ -64,7 +64,7 @@ return [
     'home_ql_h2'        => 'Quick links to key sections',
     'home_ql_intro'     => "Access key information about our governance, Karma operations, career opportunities and our commitments.",
     'home_news_label'   => 'The Karma journal',
-    'home_news_h2'      => 'Latest news',
+    'home_news_h2'      => 'News',
     'home_partners_label' => 'Trust & Regulatory Framework',
     'home_partners_h2'  => 'Institutional partners',
     'home_partners_intro' => "Néré Mining works closely with national institutions and frameworks to ensure transparent and responsible governance.",

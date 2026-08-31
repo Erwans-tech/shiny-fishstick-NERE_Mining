@@ -4,12 +4,12 @@
 @section('content')
 <style>
     .resources-hero { display:grid; grid-template-columns:1.1fr .9fr; gap:30px; align-items:center; }
-    .resources-hero img { width:100%; height:320px; object-fit:cover; border-radius:6px; }
+    .resources-hero img { width:100%; height:450px; object-fit:cover; border-radius:6px; }
     .resources-note { color:var(--muted); font:13px/1.6 Inter,sans-serif; margin-top:20px; }
     .resources-gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
     .resources-gallery figure { margin:0; padding:0; overflow:hidden; }
     .resources-gallery button { display:block; width:100%; padding:0; border:0; background:none; cursor:zoom-in; }
-    .resources-gallery img { display:block; width:100%; height:240px; object-fit:cover; transition:transform .25s, opacity .25s; }
+    .resources-gallery img { display:block; width:100%; height:320px; object-fit:cover; transition:transform .25s, opacity .25s; }
     .resources-gallery button:hover img, .resources-gallery button:focus-visible img { transform:scale(1.03); opacity:.88; }
     .resources-gallery figcaption { padding:14px 18px 18px; color:var(--muted); font:500 13px/1.5 Inter,sans-serif; }
     .resources-lightbox { position:fixed; inset:0; z-index:500; display:none; align-items:center; justify-content:center; padding:28px; background:rgba(20,8,6,.88); }
@@ -30,7 +30,6 @@
 
     <div class="resources-hero">
         <div>
-            <h2>{{ __('site.karma_resources_h2', [], $loc) }}</h2>
             <p class="lead">{{ __('site.karma_resources_lead', [], $loc) }}</p>
             <p>{{ __('site.karma_resources_detail', [], $loc) }}</p>
             <p class="resources-note">{{ __('site.resources_reference_note', [], $loc) }}</p>

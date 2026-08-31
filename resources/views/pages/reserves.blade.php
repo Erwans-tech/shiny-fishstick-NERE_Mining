@@ -9,7 +9,6 @@
         <a href="{{ $en ? route('english.reserves') : route('reserves') }}" class="active">{{ __('site.nav_karma_reserves', [], $loc) }}</a>
     </div>
 
-    <h2>{{ __('site.karma_reserves_h2', [], $loc) }}</h2>
     <div class="grid-2" style="align-items:center;">
         <img class="card-img" src="{{ asset('images/mining/karma-05.jpg') }}"
              alt="{{ __('site.karma_reserves_image_alt', [], $loc) }}">

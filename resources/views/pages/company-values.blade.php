@@ -21,7 +21,7 @@
         <img src="{{ asset('images/ipre-banner.jpg') }}" alt="IPRE" class="values-hero-image">
     </div>
 
-    <div class="grid-4 values-grid">
+    <div class="grid-2 values-grid">
         @foreach($values as $i)
         <div class="card values-card">
             <div class="card-tag">{{ __('site.company_v'.$i.'_tag', [], $loc) }}</div>

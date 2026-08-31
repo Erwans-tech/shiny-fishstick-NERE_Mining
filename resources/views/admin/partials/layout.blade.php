@@ -517,6 +517,12 @@
             @endif
         </a>
 
+        <div class="nav-section">Karma</div>
+        <a href="{{ route('admin.karma-departments.index') }}"
+           class="nav-item {{ request()->routeIs('admin.karma-departments.*') ? 'active' : '' }}">
+            <span class="nav-icon">🗂️</span> Organigramme
+        </a>
+
         <div class="nav-section">Site public</div>
         <a href="{{ route('admin.hero.index') }}"
            class="nav-item {{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">

@@ -14,9 +14,26 @@
     .cil-lightbox-image { display:block; max-width:100%; max-height:82vh; object-fit:contain; border:1px solid rgba(255,255,255,.25); background:#fff; }
     .cil-lightbox-caption { margin-top:12px; color:#fff; text-align:center; font:500 14px/1.5 Inter,sans-serif; }
     .cil-lightbox-close { position:absolute; top:-42px; right:0; border:1px solid rgba(255,255,255,.55); background:var(--green); color:#fff; padding:8px 14px; border-radius:4px; cursor:pointer; font:600 11px Inter,sans-serif; text-transform:uppercase; letter-spacing:.08em; }
+    .cil-page p,
+    .cil-page .lead { font-size: 1.15rem; text-align: justify; }
+    .cil-page h2,
+    .cil-page h3,
+    .cil-gallery-title,
+    .cil-value-title {
+        text-align: center;
+    }
+    .cil-page .lead,
+    .cil-page p,
+    .cil-page .card p {
+        text-align: justify;
+    }
+    .cil-page .lead {
+        max-width: 100%;
+        width: 100%;
+    }
 </style>
 
-<section>
+<section class="cil-page">
     <div class="sub-nav">
         <a href="{{ $en ? route('english.projects') : route('projects') }}">{{ __('site.nav_projects', [], $loc) }}</a>
         <a href="{{ $en ? route('english.projects.cil') : route('projects.cil') }}" class="active">{{ __('site.nav_projects_cil', [], $loc) }}</a>
@@ -39,6 +56,7 @@
 </section>
 
 <section class="sand">
+    <h2 class="cil-gallery-title">{{ __('site.cil_project_gallery_h2', [], $loc) }}</h2>
     <div class="grid-3">
         @foreach([
             ['cil-01.png', 'cil_project_image_1_alt', 'cil_project_image_1_caption'],
@@ -63,7 +81,8 @@
 </section>
 
 <section class="sand">
-    <p class="lead">{{ __('site.cil_project_value_p', [], $loc) }}</p>
+    <h2 class="cil-value-title">{{ __('site.cil_project_value_h2', [], $loc) }}</h2>
+    <p class="lead" style="max-width:100%; width:100%;">{{ __('site.cil_project_value_p', [], $loc) }}</p>
 </section>
 
 <div class="cil-lightbox" data-lightbox aria-hidden="true">

@@ -4,241 +4,192 @@
     $isNews    = in_array($sec, ['news','press','gallery','reports','press-contact']);
     $isSustain = in_array($sec, ['sustainability','communities','environment','hse','local-content']);
     $isCompany = in_array($sec, ['company','company-ceo','company-identity','company-history','company-values','company-governance']);
+    $contactUrl = $en ? route('english.contact') : route('contact');
 @endphp
-<style>
-/* ── Logo — taille unifiée sur toutes les pages ── */
-a.logo { display:block; width:450px; max-width:42vw; flex-shrink:0; }
-a.logo img { width:100%; height:auto; display:block; }
 
-/* ── Dropdown nav — robuste sans gap ── */
-.nav-dropdown { position: relative; }
+@once
+<link rel="stylesheet" href="{{ asset('css/chrome.css') }}">
+@endonce
 
-/* Le lien parent + le menu forment un seul bloc continu grâce au padding-bottom */
-.nav-dropdown > .nav-link {
-    padding-bottom: 18px !important; /* étend la zone de hover vers le bas */
-}
-
-/* Positionnement sans gap */
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;          /* collé sous le lien, pas de gap */
-    left: 0;
-    background: #fff;
-    border: 1px solid var(--line, #eadcc5);
-    border-radius: 0 0 8px 8px;
-    min-width: 240px;
-    box-shadow: 0 8px 28px rgba(0,0,0,.14);
-    z-index: 300;
-    padding: 8px 0;
-    /* Animation */
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity .15s ease, transform .15s ease;
-    pointer-events: none;
-}
-
-/* Pont invisible : le menu lui-même prolonge la zone de survol vers le haut */
-.dropdown-menu::before {
-    content: '';
-    position: absolute;
-    top: -12px;
-    left: 0;
-    right: 0;
-    height: 12px;
-}
-
-.nav-dropdown.is-open .dropdown-menu {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
-.dropdown-menu a {
-    display: block;
-    padding: 10px 18px;
-    font: 500 12px 'Inter', sans-serif;
-    color: var(--green, #4b1716);
-    white-space: nowrap;
-    transition: background .12s, padding-left .12s;
-    border-left: 2px solid transparent;
-}
-.dropdown-menu a:hover {
-    background: var(--sand, #fff4dc);
-    border-left-color: var(--gold, #ffc247);
-    padding-left: 22px;
-}
-.dropdown-menu a.current {
-    background: var(--sand, #fff4dc);
-    border-left-color: var(--gold, #ffc247);
-    font-weight: 600;
-}
-</style>
-
-<header>
-    <a class="logo" href="{{ $en ? route('english') : url('/') }}">
-        <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining">
-    </a>
-    <button class="menu-btn"
-            aria-label="Menu"
-            aria-expanded="false"
-            onclick="this.setAttribute('aria-expanded', this.closest('header').querySelector('nav').classList.toggle('open')); return false;">
-        MENU
-    </button>
-    <nav>
-        {{-- Qui sommes-nous --}}
-        <span class="nav-dropdown" data-dropdown>
-            <a class="nav-link {{ $isCompany ? 'active' : '' }}"
-               href="{{ $en ? route('english.company') : route('company') }}">
-                {{ __('site.nav_company') }}
-            </a>
-            <div class="dropdown-menu" role="menu">
-                <a href="{{ $en ? route('english.company.ceo')        : route('company.ceo') }}"
-                   class="{{ $sec === 'company-ceo' ? 'current' : '' }}">{{ __('site.nav_company_ceo') }}</a>
-                <a href="{{ $en ? route('english.company.identity')   : route('company.identity') }}"
-                   class="{{ $sec === 'company-identity' ? 'current' : '' }}">{{ __('site.nav_company_identity') }}</a>
-                <a href="{{ $en ? route('english.company.history')    : route('company.history') }}"
-                   class="{{ $sec === 'company-history' ? 'current' : '' }}">{{ __('site.nav_company_history') }}</a>
-                <a href="{{ $en ? route('english.company.values')     : route('company.values') }}"
-                   class="{{ $sec === 'company-values' ? 'current' : '' }}">{{ __('site.nav_company_values') }}</a>
-                <a href="{{ $en ? route('english.company.governance') : route('company.governance') }}"
-                   class="{{ $sec === 'company-governance' ? 'current' : '' }}">{{ __('site.nav_company_governance') }}</a>
-            </div>
-        </span>
-
-        <span class="nav-dropdown" data-dropdown>
-            <a class="nav-link {{ $sec === 'karma' ? 'active' : '' }}"
-               href="{{ $en ? route('english.karma') : route('karma') }}">
-                {{ __('site.nav_karma') }}
-            </a>
-            <div class="dropdown-menu" role="menu">
-                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#presentation' }}">{{ __('site.nav_karma_presentation') }}</a>
-                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#exploitation' }}">{{ __('site.nav_karma_operations') }}</a>
-                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#organisation' }}">{{ __('site.nav_karma_organisation') }}</a>
-                     <a href="{{ $en ? route('english.resources') : route('resources') }}"
-                         class="{{ $sec === 'resources' ? 'current' : '' }}">{{ __('site.nav_karma_resources') }}</a>
-                     <a href="{{ $en ? route('english.reserves') : route('reserves') }}"
-                         class="{{ $sec === 'reserves' ? 'current' : '' }}">{{ __('site.nav_karma_reserves') }}</a>
-                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#modele-operationnel' }}">{{ __('site.nav_karma_model') }}</a>
-                <a href="{{ ($en ? route('english.karma') : route('karma')) . '#impact' }}">{{ __('site.nav_karma_impact') }}</a>
-            </div>
-        </span>
-
-        <span class="nav-dropdown" data-dropdown>
-            <a class="nav-link {{ $sec === 'projects' ? 'active' : '' }}"
-               href="{{ $en ? route('english.projects') : route('projects') }}">
-                {{ __('site.nav_projects') }}
-            </a>
-            <div class="dropdown-menu" role="menu">
-                <a href="{{ $en ? route('english.projects.cil') : route('projects.cil') }}"
-                   class="{{ $sec === 'cil-project' ? 'current' : '' }}">{{ __('site.nav_projects_cil') }}</a>
-                <a href="{{ ($en ? route('english.projects') : route('projects')) . '#exploration' }}">{{ __('site.nav_projects_exploration') }}</a>
-                <a href="{{ ($en ? route('english.projects') : route('projects')) . '#partnerships' }}">{{ __('site.nav_projects_join') }}</a>
-            </div>
-        </span>
-
-        {{-- Développement durable --}}
-        <span class="nav-dropdown" data-dropdown>
-            <a class="nav-link {{ $isSustain ? 'active' : '' }}"
-               href="{{ $en ? route('english.sustainability') : route('sustainability') }}">
-                {{ __('site.nav_sustainability') }}
-            </a>
-            <div class="dropdown-menu" role="menu">
-                <a href="{{ $en ? route('english.communities')   : route('sustainability.communities') }}"
-                   class="{{ $sec === 'communities' ? 'current' : '' }}">{{ __('site.nav_communities') }}</a>
-                <a href="{{ $en ? route('english.environment')   : route('sustainability.environment') }}"
-                   class="{{ $sec === 'environment' ? 'current' : '' }}">{{ __('site.nav_environment') }}</a>
-                <a href="{{ $en ? route('english.hse')           : route('sustainability.hse') }}"
-                   class="{{ $sec === 'hse' ? 'current' : '' }}">{{ __('site.nav_hse') }}</a>
-                <a href="{{ $en ? route('english.local-content') : route('sustainability.local-content') }}"
-                   class="{{ $sec === 'local-content' ? 'current' : '' }}">{{ __('site.nav_local_content') }}</a>
-            </div>
-        </span>
-
-        {{-- Actualités & Médias --}}
-        <span class="nav-dropdown" data-dropdown>
-            <a class="nav-link {{ $isNews ? 'active' : '' }}"
-               href="{{ $en ? route('english.news') : route('news.index') }}">
-                {{ __('site.nav_news') }}
-            </a>
-            <div class="dropdown-menu" role="menu">
-                <a href="{{ $en ? route('english.news')          : route('news.index') }}"
-                   class="{{ $sec === 'news' ? 'current' : '' }}">{{ __('site.nav_news_list') }}</a>
-                <a href="{{ $en ? route('english.press')         : route('press') }}"
-                   class="{{ $sec === 'press' ? 'current' : '' }}">{{ __('site.nav_press') }}</a>
-                <a href="{{ $en ? route('english.gallery')       : route('gallery') }}"
-                   class="{{ $sec === 'gallery' ? 'current' : '' }}">{{ __('site.nav_gallery') }}</a>
-                <a href="{{ $en ? route('english.reports')       : route('reports') }}"
-                   class="{{ $sec === 'reports' ? 'current' : '' }}">{{ __('site.nav_reports') }}</a>
-                <a href="{{ $en ? route('english.press.contact') : route('press.contact') }}"
-                   class="{{ $sec === 'press-contact' ? 'current' : '' }}">{{ __('site.nav_press_contact') }}</a>
-            </div>
-        </span>
-
-        <a class="nav-link {{ $sec === 'careers' ? 'active' : '' }}"
-           href="{{ $en ? route('english.careers') : route('careers') }}">
-            {{ __('site.nav_careers') }}
+<header class="site-header">
+    <div class="site-header__bar">
+        <a class="site-logo" href="{{ $en ? route('english') : url('/') }}">
+            <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining">
         </a>
 
-        <a class="nav-link {{ $sec === 'contact' ? 'active' : '' }}"
-           href="{{ $en ? route('english.contact') : route('contact') }}">
-            {{ __('site.nav_contact') }}
-        </a>
+        <button class="site-menu-btn" type="button" aria-label="{{ $en ? 'Open menu' : 'Ouvrir le menu' }}" aria-expanded="false" data-site-menu>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
+            </svg>
+            Menu
+        </button>
 
-        <a class="nav-link nav-lang"
-           href="{{ $en ? url('/') : route('english') }}">
-            {{ __('site.lang_switch') }}
-        </a>
-    </nav>
+        <nav class="site-nav" data-site-nav>
+            <span class="site-nav__item" data-dropdown>
+                <a class="site-nav__link {{ $isCompany ? 'is-active' : '' }}"
+                   href="{{ $en ? route('english.company') : route('company') }}">
+                    {{ __('site.nav_company') }}
+                    <span class="site-nav__caret" aria-hidden="true"></span>
+                </a>
+                <div class="site-nav__menu" role="menu">
+                    <a href="{{ $en ? route('english.company.ceo') : route('company.ceo') }}"
+                       class="{{ $sec === 'company-ceo' ? 'is-current' : '' }}">{{ __('site.nav_company_ceo') }}</a>
+                    <a href="{{ $en ? route('english.company.identity') : route('company.identity') }}"
+                       class="{{ $sec === 'company-identity' ? 'is-current' : '' }}">{{ __('site.nav_company_identity') }}</a>
+                    <a href="{{ $en ? route('english.company.history') : route('company.history') }}"
+                       class="{{ $sec === 'company-history' ? 'is-current' : '' }}">{{ __('site.nav_company_history') }}</a>
+                    <a href="{{ $en ? route('english.company.values') : route('company.values') }}"
+                       class="{{ $sec === 'company-values' ? 'is-current' : '' }}">{{ __('site.nav_company_values') }}</a>
+                    <a href="{{ $en ? route('english.company.governance') : route('company.governance') }}"
+                       class="{{ $sec === 'company-governance' ? 'is-current' : '' }}">{{ __('site.nav_company_governance') }}</a>
+                </div>
+            </span>
+
+            <span class="site-nav__item" data-dropdown>
+                <a class="site-nav__link {{ in_array($sec, ['karma','resources','reserves']) ? 'is-active' : '' }}"
+                   href="{{ $en ? route('english.karma') : route('karma') }}">
+                    {{ __('site.nav_karma') }}
+                    <span class="site-nav__caret" aria-hidden="true"></span>
+                </a>
+                <div class="site-nav__menu" role="menu">
+                    <a href="{{ ($en ? route('english.karma') : route('karma')) . '#presentation' }}">{{ __('site.nav_karma_presentation') }}</a>
+                    <a href="{{ ($en ? route('english.karma') : route('karma')) . '#exploitation' }}">{{ __('site.nav_karma_operations') }}</a>
+                    <a href="{{ ($en ? route('english.karma') : route('karma')) . '#organisation' }}">{{ __('site.nav_karma_organisation') }}</a>
+                    <a href="{{ $en ? route('english.resources') : route('resources') }}"
+                       class="{{ $sec === 'resources' ? 'is-current' : '' }}">{{ __('site.nav_karma_resources') }}</a>
+                    <a href="{{ $en ? route('english.reserves') : route('reserves') }}"
+                       class="{{ $sec === 'reserves' ? 'is-current' : '' }}">{{ __('site.nav_karma_reserves') }}</a>
+                    <a href="{{ ($en ? route('english.karma') : route('karma')) . '#modele-operationnel' }}">{{ __('site.nav_karma_model') }}</a>
+                    <a href="{{ ($en ? route('english.karma') : route('karma')) . '#impact' }}">{{ __('site.nav_karma_impact') }}</a>
+                </div>
+            </span>
+
+            <span class="site-nav__item" data-dropdown>
+                <a class="site-nav__link {{ in_array($sec, ['projects','cil-project']) ? 'is-active' : '' }}"
+                   href="{{ $en ? route('english.projects') : route('projects') }}">
+                    {{ __('site.nav_projects') }}
+                    <span class="site-nav__caret" aria-hidden="true"></span>
+                </a>
+                <div class="site-nav__menu" role="menu">
+                    <a href="{{ $en ? route('english.projects.cil') : route('projects.cil') }}"
+                       class="{{ $sec === 'cil-project' ? 'is-current' : '' }}">{{ __('site.nav_projects_cil') }}</a>
+                    <a href="{{ ($en ? route('english.projects') : route('projects')) . '#exploration' }}">{{ __('site.nav_projects_exploration') }}</a>
+                </div>
+            </span>
+
+            <span class="site-nav__item" data-dropdown>
+                <a class="site-nav__link {{ $isSustain ? 'is-active' : '' }}"
+                   href="{{ $en ? route('english.sustainability') : route('sustainability') }}">
+                    {{ __('site.nav_sustainability') }}
+                    <span class="site-nav__caret" aria-hidden="true"></span>
+                </a>
+                <div class="site-nav__menu" role="menu">
+                    <a href="{{ $en ? route('english.communities') : route('sustainability.communities') }}"
+                       class="{{ $sec === 'communities' ? 'is-current' : '' }}">{{ __('site.nav_communities') }}</a>
+                    <a href="{{ $en ? route('english.environment') : route('sustainability.environment') }}"
+                       class="{{ $sec === 'environment' ? 'is-current' : '' }}">{{ __('site.nav_environment') }}</a>
+                    <a href="{{ $en ? route('english.hse') : route('sustainability.hse') }}"
+                       class="{{ $sec === 'hse' ? 'is-current' : '' }}">{{ __('site.nav_hse') }}</a>
+                    <a href="{{ $en ? route('english.local-content') : route('sustainability.local-content') }}"
+                       class="{{ $sec === 'local-content' ? 'is-current' : '' }}">{{ __('site.nav_local_content') }}</a>
+                </div>
+            </span>
+
+            <span class="site-nav__item" data-dropdown>
+                <a class="site-nav__link {{ $isNews ? 'is-active' : '' }}"
+                   href="{{ $en ? route('english.news') : route('news.index') }}">
+                    {{ __('site.nav_news') }}
+                    <span class="site-nav__caret" aria-hidden="true"></span>
+                </a>
+                <div class="site-nav__menu" role="menu">
+                    <a href="{{ $en ? route('english.news') : route('news.index') }}"
+                       class="{{ $sec === 'news' ? 'is-current' : '' }}">{{ __('site.nav_news_list') }}</a>
+                    <a href="{{ $en ? route('english.press') : route('press') }}"
+                       class="{{ $sec === 'press' ? 'is-current' : '' }}">{{ __('site.nav_press') }}</a>
+                    <a href="{{ $en ? route('english.gallery') : route('gallery') }}"
+                       class="{{ $sec === 'gallery' ? 'is-current' : '' }}">{{ __('site.nav_gallery') }}</a>
+                    <a href="{{ $en ? route('english.reports') : route('reports') }}"
+                       class="{{ $sec === 'reports' ? 'is-current' : '' }}">{{ __('site.nav_reports') }}</a>
+                    <a href="{{ $en ? route('english.press.contact') : route('press.contact') }}"
+                       class="{{ $sec === 'press-contact' ? 'is-current' : '' }}">{{ __('site.nav_press_contact') }}</a>
+                </div>
+            </span>
+
+            <a class="site-nav__link {{ $sec === 'careers' ? 'is-active' : '' }}"
+               href="{{ $en ? route('english.careers') : route('careers') }}">
+                {{ __('site.nav_careers') }}
+            </a>
+
+            <div class="site-nav__actions">
+                <a class="site-nav__lang" href="{{ $en ? url('/') : route('english') }}">
+                    {{ __('site.lang_switch') }}
+                </a>
+                <a class="site-btn" href="{{ $contactUrl }}">
+                    {{ $en ? 'Contact us' : 'Nous contacter' }}
+                </a>
+            </div>
+        </nav>
+    </div>
 </header>
 
 <script>
 (function () {
-    'use strict';
+    var header = document.querySelector('.site-header');
+    if (!header || header.dataset.bound === '1') return;
+    header.dataset.bound = '1';
 
-    var CLOSE_DELAY = 180; // ms avant fermeture après mouseout
-    var dropdowns   = document.querySelectorAll('[data-dropdown]');
+    var nav = header.querySelector('[data-site-nav]');
+    var btn = header.querySelector('[data-site-menu]');
+    var dropdowns = header.querySelectorAll('[data-dropdown]');
+    var CLOSE_DELAY = 160;
 
     dropdowns.forEach(function (dd) {
         var timer = null;
-
         function open() {
             clearTimeout(timer);
-            // Fermer tous les autres d'abord
             dropdowns.forEach(function (other) {
                 if (other !== dd) other.classList.remove('is-open');
             });
             dd.classList.add('is-open');
         }
-
         function scheduleClose() {
             clearTimeout(timer);
-            timer = setTimeout(function () {
-                dd.classList.remove('is-open');
-            }, CLOSE_DELAY);
+            timer = setTimeout(function () { dd.classList.remove('is-open'); }, CLOSE_DELAY);
         }
-
-        // Ouverture au survol
         dd.addEventListener('mouseenter', open);
         dd.addEventListener('mouseleave', scheduleClose);
-
-        // Focus keyboard : ouvrir au focus d'un enfant
         dd.addEventListener('focusin', open);
         dd.addEventListener('focusout', scheduleClose);
-    });
-
-    // Fermer au clic hors dropdown
-    document.addEventListener('click', function (e) {
-        if (!e.target.closest('[data-dropdown]')) {
-            dropdowns.forEach(function (dd) { dd.classList.remove('is-open'); });
+        var parentLink = dd.querySelector('.site-nav__link');
+        if (parentLink) {
+            parentLink.addEventListener('click', function (e) {
+                if (window.matchMedia('(max-width: 1080px)').matches) {
+                    e.preventDefault();
+                    dd.classList.toggle('is-open');
+                }
+            });
         }
     });
 
-    // Fermer avec Escape
+    if (btn && nav) {
+        btn.addEventListener('click', function () {
+            var open = nav.classList.toggle('is-open');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+    }
+
+    document.addEventListener('click', function (e) {
+        if (!header.contains(e.target)) {
+            dropdowns.forEach(function (dd) { dd.classList.remove('is-open'); });
+            if (nav) nav.classList.remove('is-open');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+    });
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             dropdowns.forEach(function (dd) { dd.classList.remove('is-open'); });
+            if (nav) nav.classList.remove('is-open');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
         }
     });
 })();

@@ -16,28 +16,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/chrome.css') }}">
     <style>
         :root{--ink:#281d18;--green:#4b1716;--red:#d72f2f;--gold:#ffc247;--gold2:#e5a72f;--sand:#fff4dc;--muted:#70645c;--line:#eadcc5;--light:#fbfaf7;}
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         body{color:var(--ink);background:var(--light);font-family:'Inter',Arial,sans-serif;line-height:1.6;}
         a{color:inherit;text-decoration:none;}
         img{display:block;max-width:100%;}
-
-        /* ── Nav (inline minimal) ── */
-        .topbar{background:var(--red);color:#fff7e8;padding:9px 5vw;display:flex;justify-content:space-between;font:500 11px Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;}
-        header{padding:18px 5vw;background:var(--green);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.25);}
-        .logo{width:200px;}.logo img{width:100%;display:block;}
-        nav{display:flex;gap:6px;align-items:center;}
-        .nav-link{color:rgba(255,255,255,.82);font:500 11px Inter,sans-serif;text-transform:uppercase;letter-spacing:.09em;padding:7px 12px;border-radius:4px;transition:background .18s,color .18s;white-space:nowrap;}
-        .nav-link:hover,.nav-link.active{background:rgba(255,255,255,.12);color:#fff;}
-        .nav-dropdown{position:relative;}
-        .nav-dropdown>.nav-link::after{content:'▾';margin-left:5px;font-size:10px;}
-        .dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--line);border-radius:6px;min-width:240px;box-shadow:0 8px 28px rgba(0,0,0,.12);z-index:200;padding:6px 0;}
-        .nav-dropdown.is-open .dropdown-menu { display:block; opacity:1; transform:translateY(0); pointer-events:auto; }
-        .dropdown-menu a{display:block;padding:10px 18px;font:500 12px Inter,sans-serif;color:var(--green);border-radius:4px;transition:background .15s;}
-        .dropdown-menu a:hover{background:var(--sand);}
-        .nav-lang{margin-left:12px;border:1px solid rgba(255,255,255,.3);border-radius:4px;}
-        .menu-btn{display:none;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;padding:8px 14px;font:600 11px Inter,sans-serif;letter-spacing:.08em;cursor:pointer;border-radius:4px;}
 
         /* ── Masthead ── */
         .masthead{padding:100px 5vw 80px;color:#fff;background:linear-gradient(100deg,rgba(75,23,22,.96) 45%,rgba(75,23,22,.55)),url('{{ asset('images/mining/karma-04.jpg') }}') center/cover;}
@@ -63,7 +48,7 @@
         .why-card p{font:14px/1.65 Inter,sans-serif;color:var(--muted);}
 
         /* ── Filter bar ── */
-        .filter-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:20px 5vw;background:#fff;border-bottom:1px solid var(--line);border-top:1px solid var(--line);position:sticky;top:62px;z-index:50;}
+        .filter-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:20px 5vw;background:#fff;border-bottom:1px solid var(--line);border-top:1px solid var(--line);position:sticky;top:76px;z-index:50;}
         .filter-bar form{display:contents;}
         .filter-select{padding:9px 14px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;color:var(--ink);background:#fff;cursor:pointer;transition:border-color .15s;}
         .filter-select:focus{outline:none;border-color:var(--gold);}
@@ -116,23 +101,14 @@
         /* ── Alert ── */
         .alert-success{padding:14px 18px;background:#dcfce7;color:#166534;border:1px solid #bbf7d0;border-radius:6px;font:500 14px Inter,sans-serif;margin-bottom:24px;}
 
-        /* ── Footer ── */
-        footer{padding:32px 5vw;background:#351312;color:#eadcca;display:flex;justify-content:space-between;align-items:center;font:12px Inter,sans-serif;}
-        .footer-links{display:flex;gap:20px;}.footer-links a:hover{color:var(--gold);}
-
         /* ── Responsive ── */
         @media(max-width:900px){
-            .topbar{display:none;}
-            header{flex-wrap:wrap;gap:12px;}nav{display:none;}.menu-btn{display:block;}
-            nav.open{display:flex;flex-direction:column;align-items:flex-start;width:100%;gap:4px;}
-            .nav-dropdown .dropdown-menu{position:static;box-shadow:none;border:0;padding:0 0 0 16px;}
             .why-grid{grid-template-columns:1fr;}
             .job-card{grid-template-columns:1fr;gap:16px;}
             .job-right{align-items:flex-start;flex-direction:row;}
             .spontaneous-band{flex-direction:column;padding:28px 24px;gap:20px;}
             .filter-bar{position:static;flex-direction:column;align-items:flex-start;}
             .filter-count{margin-left:0;}
-            footer{flex-direction:column;gap:12px;text-align:center;}
         }
     </style>
 </head>
@@ -311,17 +287,7 @@
     </div>
 </main>
 
-<footer>
-    <span>{{ str_replace(':year', date('Y'), __('site.footer_copy', [], $loc)) }}</span>
-    <div class="footer-links">
-        <a href="{{ $en ? route('english.company') : route('company') }}">{{ __('site.nav_company', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.karma')   : route('karma') }}">{{ __('site.nav_karma', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.sustainability') : route('sustainability') }}">{{ $en ? 'ESG' : 'RSE' }}</a>
-        <a href="{{ $en ? route('english.careers') : route('careers') }}">{{ __('site.nav_careers', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.contact') : route('contact') }}">{{ __('site.nav_contact', [], $loc) }}</a>
-    </div>
-    <span>{{ __('site.footer_tagline', [], $loc) }}</span>
-</footer>
+@include('partials._footer', ['loc' => $loc, 'en' => $en])
 <script>
 (function(){
     var btn = document.querySelector('.menu-btn');

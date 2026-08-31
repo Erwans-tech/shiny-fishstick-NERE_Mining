@@ -32,6 +32,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/chrome.css') }}">
     <style>
         :root {
             --ink:   #281d18;
@@ -61,55 +62,12 @@
             font:500 11px Inter,sans-serif; letter-spacing:.06em; text-transform:uppercase;
         }
 
-        /* ── Header / nav ────────────────────────── */
-        header {
-            position:absolute; z-index:200;
-            left:0; right:0; top:0;
-            padding:40px 5vw 38px;
-            display:flex; align-items:center; justify-content:space-between;
-            transition:background .28s, padding .28s, box-shadow .28s;
-        }
-        header.stuck {
-            position:fixed;
-            background:var(--green);
-            padding:28px 5vw;
-            box-shadow:0 2px 14px rgba(0,0,0,.28);
-        }
-        .logo { display:block; width:450px; max-width:45vw; }
-        .logo img { width:100%; height:auto; display:block; }
-        nav { display:flex; gap:8px; align-items:center; }
-        .nav-link {
-            color:rgba(255,255,255,.88);
-            font:500 13px Inter,sans-serif; text-transform:uppercase; letter-spacing:.07em;
-            padding:12px 16px; border-radius:4px;
-            transition:background .18s, color .18s; white-space:nowrap;
-        }
-        .nav-link:hover { background:rgba(255,255,255,.14); color:#fff; }
-        .nav-dropdown { position:relative; }
-        .nav-dropdown > .nav-link::after { content:' ▾'; font-size:10px; }
-        .dropdown-menu {
-            display:none; position:absolute; top:100%; left:0;
-            background:#fff; border:1px solid var(--line); border-radius:6px;
-            min-width:240px; box-shadow:0 8px 28px rgba(0,0,0,.14); z-index:300; padding:6px 0;
-        }
-        .nav-dropdown.is-open .dropdown-menu { display:block; opacity:1; transform:translateY(0); pointer-events:auto; }
-        .dropdown-menu a {
-            display:block; padding:10px 18px;
-            font:500 12px Inter,sans-serif; color:var(--green); transition:background .15s;
-        }
-        .dropdown-menu a:hover { background:var(--sand); }
-        .nav-lang { margin-left:10px; border:1px solid rgba(255,255,255,.3); border-radius:4px; }
-        .menu-btn {
-            display:none; background:none; border:1px solid rgba(255,255,255,.4); color:#fff;
-            padding:8px 14px; font:600 11px Inter,sans-serif; letter-spacing:.08em;
-            border-radius:4px; cursor:pointer; position:relative; z-index:260;
-        }
+        /* Header / footer : partials._nav et partials._footer */
 
         /* ── HERO ────────────────────────────────── */
         .hero {
-            position:relative; min-height:62vh;
+            position:relative; min-height:52vh;
             display:flex; align-items:flex-end;
-            padding-top:120px;
             overflow:hidden; color:#fff;
         }
         /* Slideshow */
@@ -162,7 +120,7 @@
         /* Content grid */
         .hero-body {
             position:relative; z-index:2; width:100%;
-            padding:0 5vw 96px;
+            padding:0 5vw 62px;
             display:grid; grid-template-columns:1fr 1fr; gap:7vw; align-items:end;
         }
         /* Left */
@@ -233,7 +191,7 @@
         .btn-outline:hover { background:var(--gold2); color:#fff; }
 
         /* ── Section shared ──────────────────────── */
-        .sec { padding:96px 5vw; }
+        .sec { padding:56px 5vw; }
         .sec-tag {
             display:inline-flex; align-items:center; gap:12px;
             color:var(--gold2); font:700 12px Inter,sans-serif;
@@ -253,9 +211,11 @@
 
         /* ── INTRO COMPANY ──────────────────────── */
         .intro-sec {
-            background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(250,244,234,0.9));
+            background:linear-gradient(180deg, #f6f1ea 0%, #f0ebdf 100%);
             border-top:1px solid var(--line);
             border-bottom:1px solid var(--line);
+            padding-top:48px;
+            padding-bottom:48px;
         }
         .intro-inner {
             max-width:1180px; margin:0 auto; display:grid;
@@ -269,12 +229,19 @@
         .intro-brand {
             display:flex; justify-content:center; align-items:center;
             margin-bottom:18px;
+            padding:16px 24px;
+            background:linear-gradient(135deg, #4b1716 0%, #2d0d10 100%);
+            border:1px solid rgba(255,255,255,.18);
+            border-radius:14px;
+            box-shadow:0 8px 18px rgba(75,23,22,.18);
         }
         .intro-brand img {
             display:block;
-            width:min(240px, 62%);
+            width:min(260px, 70%);
             height:auto;
-            filter: drop-shadow(0 8px 18px rgba(75,23,22,.08));
+            filter: drop-shadow(0 8px 14px rgba(75,23,22,.08));
+            opacity:1;
+            background:transparent;
         }
         .intro-copy .sec-h2 {
             margin-bottom:14px;
@@ -334,38 +301,6 @@
             color:var(--gold); line-height:1; margin-bottom:12px;
         }
         .stat-lbl { font:500 13px Inter,sans-serif; color:rgba(255,255,255,.62); line-height:1.45; }
-
-        /* ── QUICK LINKS ─────────────────────────── */
-        .ql-sec { background:var(--light); }
-        .ql-head {
-            display:flex; justify-content:space-between; align-items:flex-end;
-            margin-bottom:48px; gap:24px; flex-wrap:wrap;
-        }
-        .ql-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-        .ql-card {
-            display:flex; flex-direction:column;
-            background:#fff; border:1px solid var(--line); border-radius:10px;
-            padding:30px 26px;
-            position:relative; overflow:hidden;
-            transition:border-color .2s, box-shadow .2s, transform .2s;
-        }
-        .ql-card::after {
-            content:''; position:absolute; inset:0 0 auto 0; height:3px;
-            background:linear-gradient(to right, var(--gold), var(--gold2));
-            transform:scaleX(0); transform-origin:left; transition:transform .3s;
-        }
-        .ql-card:hover { border-color:var(--gold); box-shadow:0 12px 36px rgba(75,23,22,.08); transform:translateY(-4px); }
-        .ql-card:hover::after { transform:scaleX(1); }
-        .ql-num { font:700 11px Inter,sans-serif; letter-spacing:.18em; color:var(--gold2); margin-bottom:16px; }
-        .ql-card h3 { font-size:1.2rem; font-weight:600; color:var(--green); margin-bottom:10px; }
-        .ql-card p  { font-size:1rem; color:var(--muted); line-height:1.65; flex:1; margin-bottom:24px; }
-        .ql-arrow {
-            display:inline-flex; align-items:center; gap:7px;
-            font:600 11px Inter,sans-serif; letter-spacing:.1em; text-transform:uppercase;
-            color:var(--red); margin-top:auto;
-        }
-        .ql-arr { display:inline-block; transition:transform .2s; }
-        .ql-card:hover .ql-arr { transform:translateX(5px); }
 
         /* ── NEWS ────────────────────────────────── */
         .news-sec { background:#fff; border-top:1px solid var(--line); }
@@ -440,11 +375,11 @@
         .news-empty { grid-column:span 3; text-align:center; padding:60px 0; color:var(--muted); font-size:15px; }
 
         /* ── PARTNERS ────────────────────────────── */
-        .partners-sec { background:var(--sand); border-top:1px solid var(--line); }
-        .partners-head { text-align:center; margin-bottom:54px; }
+        .partners-sec { background:var(--sand); border-top:1px solid var(--line); padding:22px 5vw 24px; }
+        .partners-head { text-align:center; margin-bottom:16px; }
         .partners-head .sec-tag { justify-content:center; }
         .partners-head .sec-h2 { text-align:center; }
-        .partners-head .sec-lead { margin:14px auto 0; text-align:center; }
+        .partners-head .sec-lead { margin:10px auto 0; text-align:center; }
         /* Logo strip — scrolls horizontally on mobile */
         .partners-strip {
             display:flex; align-items:center; justify-content:center;
@@ -455,7 +390,7 @@
         .partner-logo-item {
             flex:1 1 160px; max-width:220px;
             display:flex; flex-direction:column; align-items:center; justify-content:center;
-            gap:10px; padding:28px 20px;
+            gap:8px; padding:16px 14px;
             border-right:1px solid var(--line);
             text-align:center;
             transition:background .2s;
@@ -478,43 +413,18 @@
         }
         /* DB-driven grid (when partners exist in database) */
         .partners-grid {
-            display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px;
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px;
         }
         .partner-card {
             background:#fff; border:1px solid var(--line); border-radius:10px;
-            padding:24px 18px;
-            display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center;
+            padding:18px 14px;
+            display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;
             transition:border-color .2s, box-shadow .2s, transform .2s;
         }
         .partner-card:hover { border-color:var(--gold); box-shadow:0 8px 24px rgba(75,23,22,.07); transform:translateY(-3px); }
         .partner-card img { width:auto; max-width:100px; height:48px; object-fit:contain; }
         .partner-name { font:600 12px Inter,sans-serif; color:var(--green); line-height:1.35; }
         .partner-cat  { font:500 10px Inter,sans-serif; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); }
-
-        /* ── CTA BAND ────────────────────────────── */
-        .cta-sec {
-            background:var(--green); position:relative; overflow:hidden;
-            display:grid; grid-template-columns:1fr auto; gap:60px; align-items:center;
-        }
-        .cta-sec::after {
-            content:''; position:absolute; right:-60px; top:-80px;
-            width:350px; height:350px; border-radius:50%;
-            background:rgba(255,194,71,.05); pointer-events:none;
-        }
-        .cta-sec .sec-tag  { color:var(--gold); }
-        .cta-sec .sec-tag::before { background:var(--gold); }
-        .cta-sec .sec-h2   { color:#fff; margin-bottom:12px; }
-        .cta-sec .sec-lead { color:rgba(255,255,255,.62); }
-
-        /* ── Footer ──────────────────────────────── */
-        footer {
-            padding:32px 5vw; background:#1e0909;
-            color:rgba(234,220,202,.6);
-            display:flex; justify-content:space-between; align-items:center; gap:16px;
-            font:12px Inter,sans-serif;
-        }
-        .footer-links { display:flex; gap:20px; flex-wrap:wrap; }
-        .footer-links a:hover { color:var(--gold); }
 
         /* ── Responsive ──────────────────────────── */
         @media(max-width:1100px) {
@@ -525,44 +435,14 @@
         }
         @media(max-width:900px) {
             .topbar { display:none; }
-            header  {
-                position:fixed; background:var(--green); padding:14px 5vw; box-shadow:0 2px 10px rgba(0,0,0,.25);
-                z-index:260; overflow:visible;
-            }
-            .logo   { width:min(44vw, 260px); }
-            nav     { display:none; }
-            .menu-btn {
-                display:block; min-height:44px; min-width:44px; z-index:300; position:relative;
-                pointer-events:auto;
-            }
-            nav.open {
-                display:flex; flex-direction:column; align-items:flex-start;
-                position:absolute; top:100%; left:0; right:0;
-                background:var(--green); padding:12px 5vw 24px; gap:6px;
-                border-top:1px solid rgba(255,255,255,.1);
-                max-height:70vh; overflow-y:auto; z-index:290;
-            }
-            nav.open .nav-link,
-            nav.open .nav-lang {
-                width:100%; justify-content:flex-start; padding:14px 16px;
-            }
-            .nav-dropdown .dropdown-menu { position:static; box-shadow:none; border:0; padding:0 0 0 16px; background:none; }
-            .nav-dropdown .dropdown-menu a {
-                color:rgba(255,255,255,.8);
-                min-height:42px; display:flex; align-items:center;
-            }
             .hero { min-height:100svh; }
             .hero-body { padding-bottom:64px; }
             .hero-stats { grid-template-columns:repeat(2,1fr); }
             .stats-grid { grid-template-columns:repeat(2,1fr); }
-            .ql-grid    { grid-template-columns:1fr 1fr; }
             .news-grid  { grid-template-columns:1fr; }
             .news-grid .news-card:first-child { grid-column:span 1; }
-            .cta-sec    { grid-template-columns:1fr; gap:32px; }
-            footer      { flex-direction:column; text-align:center; }
         }
         @media(max-width:600px) {
-            .logo           { width:min(45vw, 210px); }
             .ql-grid        { grid-template-columns:1fr; }
             .partners-grid  { grid-template-columns:1fr 1fr; }
             .hero-stats     { grid-template-columns:1fr 1fr; }
@@ -671,8 +551,7 @@
     <section class="sec news-sec" id="actualites" aria-labelledby="news-h">
         <div class="news-head">
             <div>
-                <span class="sec-tag">Actualités</span>
-                <h2 class="sec-h2" id="news-h">Actualités</h2>
+                <h2 class="sec-h2" id="news-h">{{ __('site.home_news_h2', [], $loc) }}</h2>
             </div>
         </div>
         <div class="news-grid">
@@ -806,83 +685,9 @@
         @endif
     </section>
 
-    {{-- ════════════════════════════════════════
-         CONTACT CTA
-    ════════════════════════════════════════ --}}
-    <section class="sec cta-sec">
-        <div>
-            <span class="sec-tag">{{ $en ? 'Get in touch' : 'Échangeons' }}</span>
-            <h2 class="sec-h2">{{ __('site.home_cta_h2', [], $loc) }}</h2>
-            <p class="sec-lead">{{ __('site.home_cta_p', [], $loc) }}</p>
-        </div>
-        <div>
-            <a class="btn btn-gold"
-               href="{{ $en ? route('english.contact') : route('contact') }}">
-                {{ __('site.contact_us', [], $loc) }}
-            </a>
-        </div>
-    </section>
-
     </main>
 
-    <footer style="padding:0; background:#1e0909;">
-
-        {{-- Bande supérieure : valeurs IPRE --}}
-        <div style="padding:32px 5vw 28px; border-bottom:1px solid rgba(255,255,255,.08); display:flex; justify-content:center; gap:48px; flex-wrap:wrap;">
-            @foreach([
-                ['I', $en ? 'Integrity'   : 'Intégrité',      $en ? 'Honesty & transparency in all our operations.'     : "Honnêteté et transparence dans toutes nos opérations."],
-                ['P', $en ? 'Professionalism' : 'Professionnalisme', $en ? 'Continuous improvement & excellence.'       : 'Amélioration continue vers l\'excellence.'],
-                ['R', $en ? 'Respect'     : 'Respect',         $en ? 'For colleagues, communities & regulations.'       : 'Des collaborateurs, communautés et réglementations.'],
-                ['E', $en ? 'Teamwork'    : 'Esprit d\'équipe', $en ? 'Collective results through individual commitment.' : 'Des résultats collectifs par l\'implication de chacun.'],
-            ] as [$letter, $value, $desc])
-            <div style="text-align:center; max-width:200px;">
-                <div style="width:44px; height:44px; border-radius:50%; background:rgba(255,194,71,.15); border:2px solid var(--gold); color:var(--gold); font:700 18px Inter,sans-serif; display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">{{ $letter }}</div>
-                <div style="font:700 13px Inter,sans-serif; color:#fff; margin-bottom:5px; letter-spacing:.06em; text-transform:uppercase;">{{ $value }}</div>
-                <div style="font:12px/1.5 Inter,sans-serif; color:rgba(255,255,255,.45);">{{ $desc }}</div>
-            </div>
-            @endforeach
-        </div>
-
-        {{-- Bande principale --}}
-        <div style="padding:28px 5vw; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
-
-            {{-- Logo + copyright --}}
-            <div style="display:flex; flex-direction:column; gap:8px;">
-                <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining" style="height:36px; width:auto; object-fit:contain; filter:brightness(0) invert(.8);">
-                <span style="font:12px Inter,sans-serif; color:rgba(255,255,255,.4);">
-                    {{ str_replace(':year', date('Y'), __('site.footer_copy', [], $loc)) }}
-                </span>
-            </div>
-
-            {{-- Liens navigation --}}
-            <nav aria-label="Footer" style="display:flex; gap:22px; flex-wrap:wrap; justify-content:center;">
-                <a href="{{ $en ? route('english.company')        : route('company') }}"       style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ __('site.nav_company', [], $loc) }}</a>
-                <a href="{{ $en ? route('english.karma')          : route('karma') }}"          style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ __('site.nav_karma', [], $loc) }}</a>
-                <a href="{{ $en ? route('english.sustainability')  : route('sustainability') }}" style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ $en ? 'ESG' : 'RSE' }}</a>
-                <a href="{{ $en ? route('english.news')            : route('news.index') }}"    style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ __('site.nav_news', [], $loc) }}</a>
-                <a href="{{ $en ? route('english.careers')         : route('careers') }}"       style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ __('site.nav_careers', [], $loc) }}</a>
-                <a href="{{ $en ? route('english.contact')         : route('contact') }}"       style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.65); transition:color .15s;" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.65)'">{{ __('site.nav_contact', [], $loc) }}</a>
-            </nav>
-
-            {{-- Tagline + langue --}}
-            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-                <span style="font:500 12px Inter,sans-serif; color:rgba(255,255,255,.35); letter-spacing:.1em; text-transform:uppercase;">{{ __('site.footer_tagline', [], $loc) }}</span>
-                <a href="{{ $en ? url('/') : route('english') }}" style="font:600 11px Inter,sans-serif; color:var(--gold); letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(255,194,71,.3); padding:5px 12px; border-radius:4px; transition:background .15s;" onmouseover="this.style.background='rgba(255,194,71,.1)'" onmouseout="this.style.background=''">
-                    {{ __('site.lang_switch', [], $loc) }}
-                </a>
-            </div>
-        </div>
-
-        {{-- Bande inférieure : mentions légales --}}
-        <div style="padding:14px 5vw; border-top:1px solid rgba(255,255,255,.05); display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
-            <span style="font:11px Inter,sans-serif; color:rgba(255,255,255,.25);">
-                Néré Mining S.A. · Ouagadougou, Burkina Faso · +226 25 33 35 69 · contact@nere-mining.bf
-            </span>
-            <span style="font:11px Inter,sans-serif; color:rgba(255,255,255,.25);">
-                ISO 9001:2008 · {{ $en ? 'EITI Member' : 'Membre ITIE' }}
-            </span>
-        </div>
-    </footer>
+    @include('partials._footer', ['loc' => $loc, 'en' => $en])
 
     <script>
     (function(){

@@ -238,17 +238,7 @@
         </section>
     </main>
 
-    <footer>
-        <span>{{ str_replace(':year', date('Y'), __('site.footer_copy')) }}</span>
-        <div class="footer-links">
-            <a href="{{ $en ? route('english.company') : route('company') }}">{{ __('site.nav_company') }}</a>
-            <a href="{{ $en ? route('english.karma') : route('karma') }}">{{ __('site.nav_karma') }}</a>
-            <a href="{{ $en ? route('english.sustainability') : route('sustainability') }}">{{ $en ? 'ESG' : 'RSE' }}</a>
-            <a href="{{ $en ? route('english.careers') : route('careers') }}">{{ __('site.nav_careers') }}</a>
-            <a href="{{ $en ? route('english.contact') : route('contact') }}">{{ __('site.nav_contact') }}</a>
-        </div>
-        <span>{{ __('site.footer_tagline') }}</span>
-    </footer>
+@include('partials._footer', ['loc' => $loc, 'en' => $en])
 
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie">
         <button class="lightbox-close" type="button" aria-label="Fermer">&times;</button>

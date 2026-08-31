@@ -67,20 +67,6 @@
         @endforeach
     </div>
 
-    <div style="margin-top:36px; padding:32px; background:var(--green); border-radius:8px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
-        <div>
-            <h3 style="color:#fff; margin-bottom:8px;">{{ $en ? 'Ready to work with us?' : 'Prêt à travailler avec nous ?' }}</h3>
-            <p style="color:rgba(255,255,255,.7); margin:0;">
-                {{ $en
-                    ? 'Submit your supplier application and our procurement team will contact you.'
-                    : "Déposez votre dossier fournisseur et notre équipe achats vous contactera." }}
-            </p>
-        </div>
-        <a class="btn btn-gold"
-           href="{{ ($en ? route('english.contact') : route('contact')) }}?type=fournisseur">
-            {{ __('site.local_supp_cta', [], $loc) }}
-        </a>
-    </div>
 </section>
 
 @endsection

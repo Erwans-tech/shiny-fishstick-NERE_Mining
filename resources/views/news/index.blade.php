@@ -1,6 +1,9 @@
-@php $en = ($locale ?? 'fr') === 'en'; @endphp
+@php
+    $en  = ($locale ?? 'fr') === 'en';
+    $loc = $locale ?? 'fr';
+@endphp
 <!DOCTYPE html>
-<html lang="{{ $locale ?? 'fr' }}">
+<html lang="{{ $loc }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -119,16 +122,6 @@
         </section>
     </main>
 
-    <footer>
-        <span>{{ str_replace(':year', date('Y'), __('site.footer_copy')) }}</span>
-        <div class="footer-links">
-            <a href="{{ $en ? route('english.company') : route('company') }}">{{ __('site.nav_company') }}</a>
-            <a href="{{ $en ? route('english.karma') : route('karma') }}">{{ __('site.nav_karma') }}</a>
-            <a href="{{ $en ? route('english.sustainability') : route('sustainability') }}">{{ $en ? 'ESG' : 'RSE' }}</a>
-            <a href="{{ $en ? route('english.careers') : route('careers') }}">{{ __('site.nav_careers') }}</a>
-            <a href="{{ $en ? route('english.contact') : route('contact') }}">{{ __('site.nav_contact') }}</a>
-        </div>
-        <span>{{ __('site.footer_tagline') }}</span>
-    </footer>
+@include('partials._footer', ['loc' => $loc, 'en' => $en])
 </body>
 </html>

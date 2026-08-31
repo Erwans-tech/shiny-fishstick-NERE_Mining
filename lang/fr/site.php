@@ -64,7 +64,7 @@ return [
     'home_ql_h2'        => 'Liens rapides vers les rubriques principales',
     'home_ql_intro'     => "Accédez directement aux informations clés concernant notre gouvernance, nos opérations de Karma, nos opportunités de carrière et nos engagements.",
     'home_news_label'   => 'Le journal de Karma',
-    'home_news_h2'      => 'Dernières actualités',
+    'home_news_h2'      => 'Actualités',
     'home_partners_label' => 'Confiance & Cadre de Régulation',
     'home_partners_h2'  => 'Partenaires institutionnels',
     'home_partners_intro' => "Néré Mining collabore étroitement avec les institutions et cadres nationaux pour assurer une gouvernance transparente et responsable.",

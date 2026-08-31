@@ -38,6 +38,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/chrome.css') }}">
     <style>
         /* ══ Variables ══════════════════════════════════════════ */
         :root {
@@ -45,7 +46,7 @@
             --sand:#fff4dc; --muted:#70645c; --line:#eadcc5; --light:#fbfaf7;
         }
         *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-        body { color:var(--ink); background-color:var(--light); background-image:linear-gradient(115deg,rgba(255,194,71,.045),transparent 38%,rgba(75,23,22,.03)),repeating-linear-gradient(135deg,rgba(75,23,22,.025) 0,rgba(75,23,22,.025) 1px,transparent 1px,transparent 46px); background-size:180% 180%,46px 46px; animation:siteAtmosphere 42s ease-in-out infinite alternate; font-family:'Inter',Arial,Helvetica,sans-serif; }
+        body { color:var(--ink); background-color:var(--light); background-image:linear-gradient(115deg,rgba(255,194,71,.045),transparent 38%,rgba(75,23,22,.03)),repeating-linear-gradient(135deg,rgba(75,23,22,.025) 0,rgba(75,23,22,.025) 1px,transparent 1px,transparent 46px); background-size:180% 180%,46px 46px; animation:siteAtmosphere 42s ease-in-out infinite alternate; font-family:'Inter',Arial,Helvetica,sans-serif; font-size:17px; }
         @keyframes siteAtmosphere { from { background-position:0% 0%,0 0; } to { background-position:100% 100%,23px 23px; } }
         .masthead { animation:contentRise .8s ease-out both; }
         main > section { animation:contentRise .7s ease-out both; }
@@ -56,25 +57,11 @@
         /* ── Topbar ── */
         .topbar { background:var(--red); color:#fff7e8; padding:9px 5vw; display:flex; justify-content:space-between; font:11px Inter,sans-serif; letter-spacing:.06em; text-transform:uppercase; }
 
-        /* ── Header / Nav ── */
-        header { padding:22px 5vw; background:var(--green); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(0,0,0,.25); }
-        .logo { width:260px; }
-        .logo img { width:100%; display:block; }
-        nav { display:flex; gap:6px; align-items:center; }
-        .nav-link { color:rgba(255,255,255,.88); font:500 13px Inter,sans-serif; text-transform:uppercase; letter-spacing:.07em; padding:9px 14px; border-radius:4px; transition:background .18s,color .18s; white-space:nowrap; }
-        .nav-link:hover, .nav-link.active { background:rgba(255,255,255,.12); color:#fff; }
-        .nav-dropdown { position:relative; }
-        .nav-dropdown > .nav-link::after { content:'▾'; margin-left:5px; font-size:10px; }
-        .dropdown-menu { display:none; position:absolute; top:100%; left:0; background:#fff; border:1px solid var(--line); border-radius:6px; min-width:240px; box-shadow:0 8px 28px rgba(0,0,0,.12); z-index:200; padding:6px 0; }
-        .nav-dropdown.is-open .dropdown-menu { display:block; opacity:1; transform:translateY(0); pointer-events:auto; }
-        .dropdown-menu a { display:block; padding:10px 18px; font:500 12px Inter,sans-serif; color:var(--green); border-radius:4px; transition:background .15s; }
-        .dropdown-menu a:hover { background:var(--sand); }
-        .nav-lang { margin-left:12px; border:1px solid rgba(255,255,255,.3); border-radius:4px; }
-        .menu-btn { display:none; border:1px solid rgba(255,255,255,.4); background:none; color:#fff; padding:8px 14px; font:600 11px Inter,sans-serif; letter-spacing:.08em; cursor:pointer; border-radius:4px; }
+        /* Header / footer : styles dans partials._nav et partials._footer */
 
         /* ── Masthead ── */
         .masthead { padding:100px 5vw 80px; color:white; background:linear-gradient(100deg,rgba(75,23,22,.96) 45%,rgba(75,23,22,.55)),url('{{ asset('images/mining/karma-03.jpg') }}') center/cover; }
-        .eyebrow { color:var(--gold); font:600 11px Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; margin-bottom:14px; }
+        .eyebrow { display:none; }
         .masthead {
             display:flex;
             flex-direction:column;
@@ -118,7 +105,7 @@
         }
         h3 { color:var(--green); font-size:23px; font-weight:500; margin-bottom:12px; }
         h4 { color:var(--green); font-size:16px; font-weight:600; margin-bottom:8px; letter-spacing:.04em; text-transform:uppercase; }
-        p { color:var(--muted); font:16px/1.8 Inter,sans-serif; margin-bottom:12px; text-align:justify; }
+        p { color:var(--muted); font:19px/1.8 Inter,sans-serif; margin-bottom:12px; text-align:justify; }
 
         /* ── Grilles & Cards ── */
         .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
@@ -302,19 +289,9 @@
         .company-overview-grid .card { height:100%; display:flex !important; flex-direction:column; }
         .company-overview-grid .card .btn { margin-top:auto !important; align-self:flex-start; }
 
-        /* ── Footer ── */
-        footer { padding:28px 5vw 14px; background:#1e0909; color:rgba(234,220,202,.65); font:13px Inter,sans-serif; }
-        .footer-links { display:flex; gap:20px; }
-        .footer-links a:hover { color:var(--gold); }
-
         /* ── Responsive ── */
         @media(max-width:900px) {
             .topbar { display:none; }
-            header { flex-wrap:wrap; gap:12px; }
-            nav { display:none; }
-            .menu-btn { display:block; }
-            nav.open { display:flex; flex-direction:column; align-items:flex-start; width:100%; gap:4px; }
-            .nav-dropdown .dropdown-menu { position:static; box-shadow:none; border:0; padding:0 0 0 16px; }
             .grid-3, .grid-2, .stat-band, .steps, .team-grid, .contact-grid { grid-template-columns:1fr; }
             .stat-band { gap:0; background:none; }
             .stat-item { border:1px solid var(--line); border-radius:6px; margin-bottom:8px; }
@@ -329,7 +306,6 @@
             .projects-grid, .project-map { grid-template-columns:1fr; }
             .org-level--dga { grid-template-columns:1fr 1fr; }
             .org-hbar { width:calc(50% + 8px); }
-            footer { flex-direction:column; gap:12px; text-align:center; }
         }
         @media(max-width:540px) {
             .org-level--dga { grid-template-columns:1fr; }
@@ -371,42 +347,6 @@
         @yield('content')
     </main>
 
-    <footer style="padding:0; background:#1e0909;">
-        {{-- Bande principale --}}
-        <div style="padding:28px 5vw; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; border-bottom:1px solid rgba(255,255,255,.06);">
-            <div>
-                <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining" style="height:32px; width:auto; filter:brightness(0) invert(.8); display:block; margin-bottom:6px;">
-                <span style="font:12px Inter,sans-serif; color:rgba(255,255,255,.35);">{{ str_replace(':year', date('Y'), __('site.footer_copy', [], $loc)) }}</span>
-            </div>
-            <nav style="display:flex; gap:20px; flex-wrap:wrap; justify-content:center;">
-                @foreach([
-                    [$en ? route('english.company') : route('company'), __('site.nav_company', [], $loc)],
-                    [$en ? route('english.karma')   : route('karma'),   __('site.nav_karma',   [], $loc)],
-                    [$en ? route('english.sustainability') : route('sustainability'), $en ? 'ESG' : 'RSE'],
-                    [$en ? route('english.careers')  : route('careers'),  __('site.nav_careers', [], $loc)],
-                    [$en ? route('english.contact')  : route('contact'),  __('site.nav_contact', [], $loc)],
-                ] as [$href, $label])
-                <a href="{{ $href }}" style="font:500 13px Inter,sans-serif; color:rgba(255,255,255,.6);" onmouseover="this.style.color='#ffc247'" onmouseout="this.style.color='rgba(255,255,255,.6)'">{{ $label }}</a>
-                @endforeach
-            </nav>
-            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-                <span style="font:500 11px Inter,sans-serif; color:rgba(255,255,255,.3); letter-spacing:.1em; text-transform:uppercase;">{{ __('site.footer_tagline', [], $loc) }}</span>
-                <a href="{{ $en ? url('/') : route('english') }}" style="font:600 11px Inter,sans-serif; color:var(--gold); border:1px solid rgba(255,194,71,.3); padding:5px 12px; border-radius:4px;">{{ __('site.lang_switch', [], $loc) }}</a>
-            </div>
-        </div>
-        {{-- Valeurs IPRE --}}
-        <div style="padding:20px 5vw; display:flex; justify-content:center; gap:40px; flex-wrap:wrap;">
-            @foreach([['I',$en?'Integrity':'Intégrité'],['P',$en?'Professionalism':'Professionnalisme'],['R',$en?'Respect':'Respect'],['E',$en?'Teamwork':'Esprit d\'équipe']] as [$l,$v])
-            <div style="display:flex; align-items:center; gap:8px;">
-                <span style="width:26px; height:26px; border-radius:50%; background:rgba(255,194,71,.12); border:1px solid rgba(255,194,71,.4); color:var(--gold); font:700 12px Inter,sans-serif; display:inline-flex; align-items:center; justify-content:center;">{{ $l }}</span>
-                <span style="font:500 12px Inter,sans-serif; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.06em;">{{ $v }}</span>
-            </div>
-            @endforeach
-        </div>
-        {{-- Infos légales --}}
-        <div style="padding:10px 5vw 14px; border-top:1px solid rgba(255,255,255,.04); text-align:center;">
-            <span style="font:11px Inter,sans-serif; color:rgba(255,255,255,.2);">Néré Mining S.A. · Ouagadougou, Burkina Faso · +226 25 33 35 69 · contact@nere-mining.bf · ISO 9001:2008</span>
-        </div>
-    </footer>
+    @include('partials._footer', ['loc' => $loc, 'en' => $en])
 </body>
 </html>

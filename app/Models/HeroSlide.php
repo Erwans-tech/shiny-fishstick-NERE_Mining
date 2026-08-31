@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class HeroSlide extends Model
 {
@@ -73,13 +74,20 @@ class HeroSlide extends Model
         if (! $this->image_path) {
             return '';
         }
+
         if (str_starts_with($this->image_path, 'images/')) {
             return asset($this->image_path);
         }
-        // En local : public/uploads/...  En prod R2 : URL Cloudflare
-        return \Illuminate\Support\Facades\Storage::disk(
-            config('filesystems.default', 'public')
-        )->url($this->image_path);
+
+        $disk = Storage::disk(config('filesystems.default', 'public'));
+        $path = $this->image_path;
+
+        if ($disk->exists($path)) {
+            return $disk->url($path);
+        }
+
+        $defaultIndex = ((int) ($this->sort_order ?? 0) % 5) + 1;
+        return asset("images/mining/karma-0{$defaultIndex}.jpg");
     }
 
     /** Scope : slides actives triées par ordre d'affichage. */
@@ -94,7 +102,7 @@ class HeroSlide extends Model
      */
     public static function defaults(): \Illuminate\Support\Collection
     {
-        return collect(range(1, 5))->map(fn ($i) => (object) [
+        return collect(range(1, 5))->map(fn($i) => (object) [
             'id'         => null,
             'type'       => 'image',
             'title'      => "Karma 0{$i}",

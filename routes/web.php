@@ -3,6 +3,7 @@
 use App\Models\News;
 use App\Models\ContactMessage;
 use App\Models\JobOffer;
+use App\Models\KarmaDepartment;
 use App\Models\MediaAsset;
 use App\Models\NewsletterSubscriber;
 use App\Models\Partner;
@@ -73,6 +74,9 @@ $page = function (string $locale, string $section, array $extra = []) {
         'section' => $section,
         'reports' => $section === 'reports' ? Report::published()->latest('published_at')->get() : collect(),
         'jobs'    => $section === 'careers'  ? JobOffer::open()->latest()->get()                : collect(),
+        'karmaDepartments' => $section === 'karma'
+            ? KarmaDepartment::published()->get()
+            : collect(),
     ], $extra));
 };
 
@@ -360,6 +364,14 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::get('/candidatures/{application}/lettre',         [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'downloadCoverLetter'])->name('applications.cover-letter');
         Route::patch('/candidatures/{application}/statut',       [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'updateStatus'])->name('applications.status');
         Route::delete('/candidatures/{application}',             [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'destroy'])->name('applications.destroy');
+
+        // Karma → Organigramme
+        Route::get('/karma/organigramme',                              [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'index'])->name('karma-departments.index');
+        Route::get('/karma/organigramme/creer',                        [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'create'])->name('karma-departments.create');
+        Route::post('/karma/organigramme',                             [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'store'])->name('karma-departments.store');
+        Route::get('/karma/organigramme/{karmaDepartment}/modifier',   [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'edit'])->name('karma-departments.edit');
+        Route::put('/karma/organigramme/{karmaDepartment}',            [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'update'])->name('karma-departments.update');
+        Route::delete('/karma/organigramme/{karmaDepartment}',         [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'destroy'])->name('karma-departments.destroy');
 
         // Hero Slideshow (carrousel page d'accueil)
         Route::get('/hero-slideshow',                     [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'index'])->name('hero.index');
