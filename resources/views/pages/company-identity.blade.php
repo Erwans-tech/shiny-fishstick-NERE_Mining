@@ -34,7 +34,7 @@
             border: none;
             border-radius: 18px;
             overflow: hidden;
-            min-height: 320px;
+            min-height: 360px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -49,31 +49,55 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(20, 35, 25, 0.4) 0%, rgba(13, 29, 19, 0.95) 100%);
+            background: linear-gradient(180deg, rgba(10, 14, 12, 0.18) 0%, rgba(10, 14, 12, 0.58) 42%, rgba(10, 14, 12, 0.82) 100%);
             z-index: 1;
             transition: opacity 0.3s ease;
         }
         .identity-card:hover::before {
-            background: linear-gradient(180deg, rgba(20, 35, 25, 0.5) 0%, rgba(13, 29, 19, 1) 100%);
+            background: linear-gradient(180deg, rgba(10, 14, 12, 0.22) 0%, rgba(10, 14, 12, 0.62) 42%, rgba(10, 14, 12, 0.9) 100%);
+        }
+        .identity-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 160px;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+            z-index: 1;
         }
         .identity-card > * {
             position: relative;
             z-index: 2;
+            padding: 0 24px;
         }
         .identity-card .card-tag {
-            background: rgba(255, 194, 71, 0.2);
+            background: rgba(255, 194, 71, 0.25);
             color: var(--gold);
-            border: 1px solid rgba(255, 194, 71, 0.3);
+            border: 1px solid rgba(255, 194, 71, 0.4);
             align-self: flex-start;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         .identity-card h3 {
             color: #fff;
             margin-top: auto;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 12px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.3;
         }
         .identity-card p {
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 24px;
         }
     </style>
 
