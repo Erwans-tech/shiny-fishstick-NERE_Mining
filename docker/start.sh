@@ -1,6 +1,6 @@
 #!/bin/sh
 # Script de démarrage — Production serveurs Néré Mining
-# Base de données : MySQL (local au serveur)
+# Base de données : PostgreSQL (Render)
 
 echo "=== Nere Mining — Demarrage production ==="
 
@@ -22,8 +22,8 @@ php artisan cache:clear   || true
 php artisan view:clear    || true
 php artisan route:clear   || true
 
-# ── 3. Attendre MySQL ────────────────────────────────────────
-echo "[INFO] Attente de MySQL..."
+# ── 3. Attendre PostgreSQL ──────────────────────────────────
+echo "[INFO] Attente de PostgreSQL..."
 MAX=40
 i=0
 DB_READY=0
@@ -31,12 +31,12 @@ DB_READY=0
 until [ $i -ge $MAX ]; do
     if php -r "
         try {
-            \$host = getenv('DB_HOST') ?: '127.0.0.1';
-            \$port = getenv('DB_PORT') ?: '3306';
+            \$host = getenv('DB_HOST') ?: 'localhost';
+            \$port = getenv('DB_PORT') ?: '5432';
             \$db   = getenv('DB_DATABASE') ?: 'nere_mining';
             \$user = getenv('DB_USERNAME') ?: 'nere_user';
             \$pass = getenv('DB_PASSWORD') ?: '';
-            \$pdo  = new PDO(\"mysql:host={\$host};port={\$port};dbname={\$db};charset=utf8mb4\",
+            \$pdo  = new PDO(\"pgsql:host={\$host};port={\$port};dbname={\$db}\",
                             \$user, \$pass,
                             [PDO::ATTR_TIMEOUT => 5, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
             echo 'ok';
@@ -51,13 +51,13 @@ until [ $i -ge $MAX ]; do
 done
 
 if [ $DB_READY -eq 0 ]; then
-    echo "[ERREUR] MySQL injoignable apres $MAX tentatives."
+    echo "[ERREUR] PostgreSQL injoignable apres $MAX tentatives."
     exit 1
 fi
-echo "[INFO] MySQL disponible."
+echo "[INFO] PostgreSQL disponible."
 
 # ── 4. Migrations ────────────────────────────────────────────
-echo "[INFO] Migrations MySQL..."
+echo "[INFO] Migrations PostgreSQL..."
 php artisan migrate --force --no-interaction
 if [ $? -ne 0 ]; then
     echo "[ERREUR] Migrations echouees."

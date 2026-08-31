@@ -17,7 +17,7 @@ RUN apk add --no-cache \
         oniguruma-dev \
         libxml2-dev \
         icu-dev \
-        mysql-client \
+        postgresql-client \
         su-exec
 
 # ── Extensions PHP ───────────────────────────────────────────
@@ -27,7 +27,7 @@ RUN docker-php-ext-configure gd \
         --with-webp \
     && docker-php-ext-install \
         pdo \
-        pdo_mysql \
+        pdo_pgsql \
         mbstring \
         exif \
         pcntl \
