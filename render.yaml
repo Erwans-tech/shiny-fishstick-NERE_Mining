@@ -11,3 +11,5 @@ services:
         value: production
       - key: APP_DEBUG
         value: "false"
+      - key: LARAVEL_LOG_CHANNEL
+        value: stdout
