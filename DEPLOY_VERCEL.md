@@ -39,28 +39,17 @@ https://vercel.com
 Vercel devrait détecter automatiquement `vercel.json`:
 
 ```
-Build Command:    php scripts/export-static.php && npm run build
-Output Directory: dist
+Build Command:    npm run build
+Output Directory: public
 ```
 
 Si pas détecté, le configurer manuellement dans:
 **Project Settings** → **Build & Development Settings**
 
-### 4️⃣ Variables d'environnement
+### 4️⃣ Pas besoin de variables d'environnement
 
-Ajouter dans Vercel:
-- **APP_KEY**: Générer une clé (ou copier du .env local)
-  ```bash
-  php artisan key:generate
-  # Copier la valeur de APP_KEY du .env
-  ```
-
-**Dans Vercel Dashboard:**
-1. Settings → Environment Variables
-2. Ajouter `APP_KEY` avec la valeur
-3. Sélectionner "Production"
-
-### 5️⃣ Déployer
+Cette configuration statique ne nécessite pas de variables spéciales.
+Le site fonctionne avec les fichiers compilés dans `public/`.
 
 - Cliquer le bouton "Deploy"
 - Attendre 2-3 minutes
@@ -99,55 +88,50 @@ git push origin production
 
 ## 🆘 Troubleshooting
 
-### ❌ Build échoue
+### ❌ Build échoue - "No Output Directory named public"
+
+**Solution:**
+```
+Vercel Dashboard → Project Settings
+→ Build & Development Settings
+→ Output Directory: public
+→ Build Command: npm run build
+→ Redeploy
+```
+
+### ❌ Build échoue - Autre erreur
 
 **Vérifier les logs:**
 1. Vercel Dashboard → Deployments
 2. Cliquer sur le build échoué
-3. Voir le message d'erreur
+3. Voir le message d'erreur complet
 
 **Solutions courantes:**
 
 ```bash
 # 1. Tester localement
 npm run build
-php scripts/export-static.php
 
-# 2. Vérifier PHP version
-php -v
+# 2. Vérifier que public/ existe
+ls -la public/
 
-# 3. Vérifier les routes dans export-static.php
-# Ajouter plus de routes si nécessaire
+# 3. Vérifier package.json scripts
+cat package.json
 ```
 
 ### ❌ Site affiche 404
 
-- Vérifier que `dist/index.html` existe
+- Vérifier que `public/index.html` existe
 - Vérifier les rewrites dans `vercel.json`
 - Forcer un rebuild: Dashboard → "Redeploy"
 
 ### ❌ Styles/images ne chargent pas
 
 - Vérifier les chemins dans les fichiers CSS
-- Vérifier que les assets sont dans `public/`
-- Npm run build génère les assets avec hash
+- Vérifier que npm run build crée les assets
+- Vérifier que public/build/ existe
 
-## 📋 Fichiers de config
-
-### `vercel.json`
-- Build commands
-- Output directory
-- Environment variables
-- Rewrites et headers
-- Caching rules
-
-### `.env.example`
-- Utilisé pour les env vars par défaut
-- Ne pas committer les secrets
-
-### `scripts/export-static.php`
-- Exporte les pages HTML
-- À modifier si nouvelles routes
+## 📊 Structure de déploiement
 
 ## 💡 Avantages Vercel
 

@@ -1,12 +1,10 @@
 {
-  "buildCommand": "php scripts/export-static.php && npm run build",
-  "outputDirectory": "dist",
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
   "framework": "laravel",
   "nodejs": "20.x",
   "env": {
-    "APP_KEY": "@APP_KEY",
-    "APP_ENV": "production",
-    "DB_CONNECTION": "sqlite"
+    "APP_ENV": "production"
   },
   "rewrites": [
     {
@@ -16,7 +14,7 @@
   ],
   "headers": [
     {
-      "source": "/assets/(.*)",
+      "source": "/build/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
