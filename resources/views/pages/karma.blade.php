@@ -52,10 +52,10 @@
 <section id="exploitation" class="sand">
     <h2>{{ __('site.karma_prod_h2', [], $loc) }}</h2>
     <div class="stat-band">
-        <div class="stat-item"><span class="stat-value">80 koz</span><span class="stat-label">{{ $en ? 'Annual gold production' : "Production annuelle d'or" }}</span></div>
-        <div class="stat-item"><span class="stat-value">1 200+</span><span class="stat-label">{{ $en ? 'Direct & indirect jobs' : 'Emplois directs et indirects' }}</span></div>
-        <div class="stat-item"><span class="stat-value">80%</span><span class="stat-label">{{ $en ? 'Burkinabe staff' : 'Personnel burkinabè' }}</span></div>
-        <div class="stat-item"><span class="stat-value">{{ $en ? 'EITI' : 'ITIE' }}</span><span class="stat-label">{{ $en ? 'Transparency member' : 'Membre transparence' }}</span></div>
+        <div class="stat-item"><span class="stat-value">97 koz</span><span class="stat-label">{{ $en ? 'Annual average (2019-2021)' : "Production annuelle moyenne (2019-2021)" }}</span></div>
+        <div class="stat-item"><span class="stat-value">949 koz</span><span class="stat-label">{{ $en ? 'Total gold reserves' : 'Réserves or totales' }}</span></div>
+        <div class="stat-item"><span class="stat-value">33.2 Mt</span><span class="stat-label">{{ $en ? 'Ore reserves' : 'Réserves minerai' }}</span></div>
+        <div class="stat-item"><span class="stat-value">11 yrs</span><span class="stat-label">{{ $en ? 'Extended mine life' : 'Durée mine étendue' }}</span></div>
     </div>
     <div class="grid-3">
         <div class="card karma-production-card">
