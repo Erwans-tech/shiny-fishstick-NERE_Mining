@@ -34,17 +34,17 @@ class AdminHeroSlideController extends Controller
             // Image : requise si type = image
             'image'     => $type === 'image'
                 ? ['required', 'file', 'mimes:jpg,jpeg,png,webp,gif', 'max:10240']
-                : ['prohibited'],
+                : [],
 
             // Vidéo : URL requise si type = video
             'video_url' => $type === 'video'
-                ? ['required', 'string', 'max:500']
-                : ['nullable', 'string', 'max:500'],
+                ? ['required', 'string', 'max:500', 'regex:/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i']
+                : [],
 
             // Image de couverture optionnelle pour les vidéos
             'cover_image' => $type === 'video'
                 ? ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:8192']
-                : ['prohibited'],
+                : [],
         ]);
 
         $data['type']       = $type;
@@ -89,15 +89,15 @@ class AdminHeroSlideController extends Controller
 
             'image' => $type === 'image'
                 ? ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif', 'max:10240']
-                : ['prohibited'],
+                : [],
 
             'video_url' => $type === 'video'
-                ? ['required', 'string', 'max:500']
-                : ['nullable', 'string', 'max:500'],
+                ? ['required', 'string', 'max:500', 'regex:/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i']
+                : [],
 
             'cover_image' => $type === 'video'
                 ? ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:8192']
-                : ['prohibited'],
+                : [],
         ]);
 
         $data['type']       = $type;

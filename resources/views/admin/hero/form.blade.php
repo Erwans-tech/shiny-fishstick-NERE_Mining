@@ -133,7 +133,7 @@
                             JPG · PNG · WebP · GIF — max 10 Mo — recommandé : 1920×1080 px
                         </div>
                     </div>
-                    <input type="file" id="image-input" name="image"
+                    <input type="file" id="image-input" name="image" data-conditional-field="image"
                            accept="image/jpeg,image/png,image/webp,image/gif"
                            style="display:none;"
                            onchange="previewFile(this,'image-preview-wrap','image-drop-text','image-drop-zone')">
@@ -160,7 +160,7 @@
                         {{-- URL YouTube / Vimeo --}}
                         <div class="form-group full">
                             <label for="video_url">URL de la vidéo *</label>
-                            <input id="video_url" type="text" name="video_url"
+                            <input id="video_url" type="text" name="video_url" data-conditional-field="video_url"
                                    value="{{ old('video_url', $slide->video_url) }}"
                                    placeholder="https://www.youtube.com/watch?v=…  ou  https://vimeo.com/…">
                             <span class="form-hint">
@@ -208,7 +208,7 @@
                                     Cliquez ou glissez une image de couverture (optionnel)
                                 </div>
                             </div>
-                            <input type="file" id="cover-input" name="cover_image"
+                            <input type="file" id="cover-input" name="cover_image" data-conditional-field="cover_image"
                                    accept="image/jpeg,image/png,image/webp"
                                    style="display:none;"
                                    onchange="previewFile(this,'cover-preview-wrap','cover-drop-text','cover-drop-zone')">
@@ -416,6 +416,32 @@ function getEmbedUrl(url) {
     }
     return null;
 }
+
+// ✅ NETTOYAGE AVANT SOUMISSION - Ne pas envoyer les champs conditionnels non pertinents
+document.getElementById('hero-form').addEventListener('submit', function(e) {
+    var selectedType = document.querySelector('input[name="type"]:checked').value;
+    var conditionalFields = document.querySelectorAll('[data-conditional-field]');
+    
+    conditionalFields.forEach(function(field) {
+        var fieldName = field.getAttribute('data-conditional-field');
+        var isRelevant = false;
+        
+        // Déterminer si ce champ doit être envoyé
+        if (selectedType === 'image' && fieldName === 'image') {
+            isRelevant = true;
+        } else if (selectedType === 'video' && (fieldName === 'video_url' || fieldName === 'cover_image')) {
+            isRelevant = true;
+        }
+        
+        // Si non pertinent, supprimer l'attribut name pour ne pas l'envoyer
+        if (!isRelevant) {
+            field.removeAttribute('name');
+        } else {
+            // S'assurer que le name est présent si pertinent
+            field.setAttribute('name', fieldName);
+        }
+    });
+});
 </script>
 
 @endsection
