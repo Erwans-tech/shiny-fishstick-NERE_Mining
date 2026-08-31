@@ -419,10 +419,22 @@ function getEmbedUrl(url) {
 
 // ✅ NETTOYAGE AVANT SOUMISSION - Ne pas envoyer les champs conditionnels non pertinents
 document.getElementById('hero-form').addEventListener('submit', function(e) {
-    var selectedType = document.querySelector('input[name="type"]:checked').value;
-    var conditionalFields = document.querySelectorAll('[data-conditional-field]');
+    console.log('[Form Submit] Starting cleanup...');
     
-    conditionalFields.forEach(function(field) {
+    var selectedType = document.querySelector('input[name="type"]:checked')?.value;
+    console.log('[Form Submit] Selected type:', selectedType);
+    
+    if (!selectedType) {
+        console.error('[Form Submit] No type selected!');
+        e.preventDefault();
+        alert('Sélectionnez un type (Image ou Vidéo)');
+        return false;
+    }
+    
+    var conditionalFields = document.querySelectorAll('[data-conditional-field]');
+    console.log('[Form Submit] Found', conditionalFields.length, 'conditional fields');
+    
+    conditionalFields.forEach(function(field, index) {
         var fieldName = field.getAttribute('data-conditional-field');
         var isRelevant = false;
         
@@ -433,20 +445,23 @@ document.getElementById('hero-form').addEventListener('submit', function(e) {
             isRelevant = true;
         }
         
+        console.log(`[Field ${index}] ${fieldName}: isRelevant=${isRelevant}, hasName=${field.hasAttribute('name')}`);
+        
         // Si non pertinent, supprimer l'attribut name ET vider la valeur
         if (!isRelevant) {
             field.removeAttribute('name');
-            // Vider le champ pour s'assurer que rien n'est envoyé
-            if (field.type === 'file') {
-                field.value = '';
-            } else if (field.type === 'text' || field.type === 'hidden') {
-                field.value = '';
-            }
+            field.value = '';
+            console.log(`[Field ${index}] Removed name and cleared value`);
         } else {
             // S'assurer que le name est présent si pertinent
-            field.setAttribute('name', fieldName);
+            if (!field.hasAttribute('name')) {
+                field.setAttribute('name', fieldName);
+            }
+            console.log(`[Field ${index}] Ensured name is present`);
         }
     });
+    
+    console.log('[Form Submit] Cleanup complete. Submitting...');
 });
 </script>
 

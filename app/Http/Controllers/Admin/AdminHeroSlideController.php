@@ -29,8 +29,8 @@ class AdminHeroSlideController extends Controller
             'type'       => ['required', 'in:image,video'],
             'title'      => ['nullable', 'string', 'max:160'],
             'caption'    => ['nullable', 'string', 'max:255'],
-            'sort_order' => ['integer', 'min:0', 'max:99'],
-            'is_active'  => ['boolean'],
+            'sort_order' => ['nullable', 'integer', 'min:0', 'max:99'],
+            'is_active'  => ['nullable', 'boolean'],
         ];
 
         // Image : requise si type = image
@@ -47,8 +47,8 @@ class AdminHeroSlideController extends Controller
         $data = $request->validate($rules);
 
         $data['type']       = $type;
-        $data['is_active']  = $request->boolean('is_active', true);
-        $data['sort_order'] = (int) $request->input('sort_order', $this->nextOrder());
+        $data['is_active']  = $request->boolean('is_active') ?? true;
+        $data['sort_order'] = $data['sort_order'] ?? $this->nextOrder();
 
         if ($type === 'image' && $request->hasFile('image')) {
             $data['image_path'] = $request->file('image')->store('hero', 'public');
@@ -84,8 +84,8 @@ class AdminHeroSlideController extends Controller
             'type'       => ['required', 'in:image,video'],
             'title'      => ['nullable', 'string', 'max:160'],
             'caption'    => ['nullable', 'string', 'max:255'],
-            'sort_order' => ['integer', 'min:0', 'max:99'],
-            'is_active'  => ['boolean'],
+            'sort_order' => ['nullable', 'integer', 'min:0', 'max:99'],
+            'is_active'  => ['nullable', 'boolean'],
         ];
 
         // Image : optionnelle si type = image (can update without changing image)
@@ -102,8 +102,8 @@ class AdminHeroSlideController extends Controller
         $data = $request->validate($rules);
 
         $data['type']       = $type;
-        $data['is_active']  = $request->boolean('is_active', true);
-        $data['sort_order'] = (int) $request->input('sort_order', $heroSlide->sort_order);
+        $data['is_active']  = $request->boolean('is_active') ?? $heroSlide->is_active;
+        $data['sort_order'] = $data['sort_order'] ?? $heroSlide->sort_order;
 
         if ($type === 'image' && $request->hasFile('image')) {
             $this->deleteFile($heroSlide->image_path);
