@@ -15,7 +15,7 @@
                 {{ __('site.cil_project_cta', [], $loc) }}
             </a>
         </div>
-        <img style="width: 100%; max-width: 800px; height: auto; border-radius: 6px; box-shadow: 0 4px 18px rgba(0,0,0,.08);" src="{{ asset('images/cil/cil-01.png') }}"
+        <img style="width: 100%; max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 18px rgba(0,0,0,.08);" src="{{ asset('images/cil/cil-01.png') }}"
              alt="{{ __('site.cil_project_image_alt', [], $loc) }}">
     </div>
 </section>

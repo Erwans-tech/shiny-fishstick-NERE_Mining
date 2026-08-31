@@ -47,8 +47,20 @@
         }
         *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
         html { scroll-behavior:smooth; font-size: 17px; }
-        body { color:var(--ink); background-color:var(--light); background-image:linear-gradient(115deg,rgba(255,194,71,.045),transparent 38%,rgba(75,23,22,.03)),repeating-linear-gradient(135deg,rgba(75,23,22,.025) 0,rgba(75,23,22,.025) 1px,transparent 1px,transparent 46px); background-size:180% 180%,46px 46px; animation:siteAtmosphere 42s ease-in-out infinite alternate; font-family:'Inter',Arial,sans-serif; line-height:1.6; font-size:1rem; }
-        @keyframes siteAtmosphere { from { background-position:0% 0%,0 0; } to { background-position:100% 100%,23px 23px; } }
+        body {
+            color:var(--ink);
+            background-color:#efe9e1;
+            background-image:
+                radial-gradient(circle at top left, rgba(255,194,71,.14), transparent 20%),
+                radial-gradient(circle at bottom right, rgba(75,23,22,.12), transparent 24%),
+                linear-gradient(135deg, rgba(30,22,19,.04) 0, rgba(30,22,19,.04) 1px, transparent 1px, transparent 36px),
+                linear-gradient(45deg, rgba(255,194,71,.05) 0, rgba(255,194,71,.05) 1px, transparent 1px, transparent 36px),
+                linear-gradient(180deg, #f8f3ee 0%, #ece5dc 100%);
+            background-size:100% 100%,100% 100%,36px 36px,36px 36px,100% 100%;
+            animation:siteAtmosphere 42s ease-in-out infinite alternate;
+            font-family:'Inter',Arial,sans-serif; line-height:1.6; font-size:1rem;
+        }
+        @keyframes siteAtmosphere { from { background-position:0% 0%,0 0,0 0,0 0,0 0; } to { background-position:0% 0%,0 0,18px 18px,18px 18px,0 0; } }
         .sec:not(.hero) { animation:contentRise .8s ease-out both; }
         @keyframes contentRise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
         @media (prefers-reduced-motion: reduce) { body, .sec:not(.hero) { animation:none; } }
@@ -120,7 +132,8 @@
         /* Content grid */
         .hero-body {
             position:relative; z-index:2; width:100%;
-            padding:0 5vw 62px;
+            min-height: 560px;
+            padding:0 5vw 72px;
             display:grid; grid-template-columns:1fr 1fr; gap:7vw; align-items:end;
         }
         /* Left */
@@ -333,49 +346,74 @@
             width:90px; height:3px; border-radius:999px;
             background:linear-gradient(90deg, transparent, var(--gold2), transparent);
         }
-        .news-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+        .news-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
         .news-sec .btn-dark {
             margin-top:18px;
             align-self:flex-end;
+        }
+        .news-card-link {
+            display:block;
+            color:inherit;
+            text-decoration:none;
         }
         /* Featured first card */
         .news-grid .news-card:first-child { grid-column:span 2; }
         .news-card {
             display:flex; flex-direction:column;
-            background:var(--light); border:1px solid var(--line); border-radius:10px;
-            overflow:hidden; transition:transform .25s, box-shadow .25s;
+            background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(246,241,236,.92));
+            border:1px solid rgba(75,23,22,.12);
+            border-radius:14px; overflow:hidden; transition:transform .25s, box-shadow .25s, border-color .25s;
+            height:100%; box-shadow:0 10px 18px rgba(39,20,18,.05), 0 2px 6px rgba(39,20,18,.02);
+            transform:translateX(4px);
+            position:relative;
         }
-        .news-card:hover { transform:translateY(-5px); box-shadow:0 14px 32px rgba(0,0,0,.07); }
+        .news-card::before {
+            content:'';
+            position:absolute;
+            inset:0 auto auto 0;
+            width:100%; height:4px;
+            background:linear-gradient(90deg, var(--gold), var(--gold2));
+            opacity:.8;
+        }
+        .news-card-link:hover .news-card {
+            transform:translate(10px, -6px);
+            box-shadow:0 18px 28px rgba(39,20,18,.09), 0 6px 18px rgba(39,20,18,.04);
+            border-color:rgba(255,194,71,.42);
+        }
         .news-img { width:100%; height:210px; object-fit:cover; }
-        .news-grid .news-card:first-child .news-img { height:275px; }
+        .news-grid .news-card:first-child .news-img { height:285px; }
         .news-img-ph {
             width:100%; height:210px;
             background:linear-gradient(135deg, var(--green) 0%, #7a2a29 100%);
             display:flex; align-items:center; justify-content:center;
             font:700 38px Inter,sans-serif; color:rgba(255,255,255,.2); letter-spacing:.1em;
         }
-        .news-grid .news-card:first-child .news-img-ph { height:275px; }
-        .news-body { padding:22px 24px 26px; display:flex; flex-direction:column; flex:1; }
+        .news-grid .news-card:first-child .news-img-ph { height:285px; }
+        .news-body { padding:22px 24px 24px; display:flex; flex-direction:column; flex:1; }
         .news-meta {
-            font:600 11px Inter,sans-serif; letter-spacing:.1em; text-transform:uppercase;
-            color:var(--gold2); margin-bottom:9px;
+            font:700 10px Inter,sans-serif; letter-spacing:.12em; text-transform:uppercase;
+            color:var(--gold2); margin-bottom:12px;
         }
         .news-card h3 {
-            font-size:18px; font-weight:500; color:var(--green); line-height:1.35;
-            margin-bottom:14px;
+            font-size:20px; font-weight:600; color:var(--green); line-height:1.28;
+            margin-bottom:18px; letter-spacing:-.02em;
         }
-        .news-grid .news-card:first-child h3 { font-size:21px; }
+        .news-grid .news-card:first-child h3 { font-size:28px; }
         .news-read {
-            margin-top:auto; font:600 11px Inter,sans-serif; letter-spacing:.1em;
+            margin-top:auto; font:700 11px Inter,sans-serif; letter-spacing:.14em;
             text-transform:uppercase; color:var(--red);
-            display:inline-flex; align-items:center; gap:6px;
+            display:inline-flex; align-items:center; gap:8px;
+            padding-top:6px;
         }
-        .news-read-arr { display:inline-block; transition:transform .2s; }
-        .news-card:hover .news-read-arr { transform:translateX(4px); }
+        .news-read-arr {
+            display:inline-block; transition:transform .2s;
+            font-size:17px; line-height:1;
+        }
+        .news-card-link:hover .news-read-arr { transform:translateX(5px); }
         .news-empty { grid-column:span 3; text-align:center; padding:60px 0; color:var(--muted); font-size:15px; }
 
         /* ── PARTNERS ────────────────────────────── */
-        .partners-sec { background:var(--sand); border-top:1px solid var(--line); padding:22px 5vw 24px; }
+        .partners-sec { background:var(--sand); border-top:1px solid var(--line); padding:12px 5vw 10px; }
         .partners-head { text-align:center; margin-bottom:16px; }
         .partners-head .sec-tag { justify-content:center; }
         .partners-head .sec-h2 { text-align:center; }
@@ -556,24 +594,26 @@
         </div>
         <div class="news-grid">
             @forelse($news as $i => $item)
-            <article class="news-card">
-                @if(!empty($item['image']) && !str_contains((string)$item['image'], 'null'))
-                    <img class="news-img"
-                         src="{{ $item['image'] }}"
-                         alt="{{ e($item['title']) }}"
-                         loading="{{ $i === 0 ? 'eager' : 'lazy' }}">
-                @else
-                    <div class="news-img-ph" aria-hidden="true">NM</div>
-                @endif
-                <div class="news-body">
-                    <div class="news-meta">{{ $item['category'] }} · {{ $item['date'] }}</div>
-                    <h3>{{ $item['title'] }}</h3>
-                    <span class="news-read">
-                        {{ __('site.read_more', [], $loc) }}
-                        <span class="news-read-arr">→</span>
-                    </span>
-                </div>
-            </article>
+            <a class="news-card-link" href="{{ $en ? route('english.news.show', ['news' => $item['slug'] ?? $item['id'] ?? $i]) : route('news.show', ['news' => $item['slug'] ?? $item['id'] ?? $i]) }}" aria-label="{{ __('site.read_more', [], $loc) }} : {{ e($item['title']) }}">
+                <article class="news-card">
+                    @if(!empty($item['image']) && !str_contains((string)$item['image'], 'null'))
+                        <img class="news-img"
+                             src="{{ $item['image'] }}"
+                             alt="{{ e($item['title']) }}"
+                             loading="{{ $i === 0 ? 'eager' : 'lazy' }}">
+                    @else
+                        <div class="news-img-ph" aria-hidden="true">NM</div>
+                    @endif
+                    <div class="news-body">
+                        <div class="news-meta">{{ $item['category'] }} · {{ $item['date'] }}</div>
+                        <h3>{{ $item['title'] }}</h3>
+                        <span class="news-read">
+                            {{ __('site.read_more', [], $loc) }}
+                            <span class="news-read-arr">→</span>
+                        </span>
+                    </div>
+                </article>
+            </a>
             @empty
             <div class="news-empty">{{ __('site.news_empty', [], $loc) }}</div>
             @endforelse

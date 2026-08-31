@@ -15,12 +15,13 @@
     .cil-lightbox-caption { margin-top:12px; color:#fff; text-align:center; font:500 14px/1.5 Inter,sans-serif; }
     .cil-lightbox-close { position:absolute; top:-42px; right:0; border:1px solid rgba(255,255,255,.55); background:var(--green); color:#fff; padding:8px 14px; border-radius:4px; cursor:pointer; font:600 11px Inter,sans-serif; text-transform:uppercase; letter-spacing:.08em; }
     .cil-page p,
-    .cil-page .lead { font-size: 1.15rem; text-align: justify; }
+    .cil-page .lead { font-size: 1.25rem; text-align: justify; line-height: 1.8; }
     .cil-page h2,
     .cil-page h3,
     .cil-gallery-title,
     .cil-value-title {
         text-align: center;
+        font-size: 1.5rem;
     }
     .cil-page .lead,
     .cil-page p,
