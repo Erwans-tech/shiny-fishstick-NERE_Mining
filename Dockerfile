@@ -37,13 +37,10 @@ RUN php artisan key:generate || true
 # Production stage
 FROM php:8.3-fpm-alpine
 
-# Install runtime dependencies
+# Install build dependencies for extensions
 RUN apk add --no-cache \
-    libzip \
-    oniguruma \
-    nginx \
-    supervisor \
-    curl
+    libonig-dev \
+    icu-dev
 
 # Install PHP extensions
 RUN docker-php-ext-install \
@@ -52,6 +49,14 @@ RUN docker-php-ext-install \
     pdo \
     pdo_mysql \
     opcache
+
+# Install runtime dependencies
+RUN apk add --no-cache \
+    libzip \
+    libonig \
+    nginx \
+    supervisor \
+    curl
 
 # Copy PHP configuration
 COPY docker/php.ini /usr/local/etc/php/conf.d/app.ini
