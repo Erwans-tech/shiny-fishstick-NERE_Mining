@@ -1,0 +1,127 @@
+name: Deploy to Production (Simple)
+
+on:
+  push:
+    branches:
+      - production
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Production Server
+    runs-on: ubuntu-latest
+    
+    environment:
+      name: production
+      url: https://your-production-url.com
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script_stop_on_error: true
+          script: |
+            set -e
+            
+            # Variables
+            PROJECT_PATH="${{ secrets.PROJECT_PATH }}"
+            
+            echo "📦 Starting deployment..."
+            
+            # Navigate to project directory
+            cd "$PROJECT_PATH"
+            
+            # Create backup
+            echo "🔄 Creating backup..."
+            BACKUP_DIR="./backups/$(date +%Y%m%d_%H%M%S)"
+            mkdir -p "$BACKUP_DIR"
+            cp -r public/hero "$BACKUP_DIR/" || true
+            cp .env "$BACKUP_DIR/.env.backup" || true
+            
+            # Pull latest code
+            echo "📥 Pulling latest code..."
+            git fetch origin
+            git reset --hard origin/production
+            
+            # Install/update dependencies
+            echo "📦 Installing composer dependencies..."
+            composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
+            
+            # Clear caches
+            echo "🧹 Clearing caches..."
+            php artisan config:clear
+            php artisan route:clear
+            php artisan view:clear
+            php artisan cache:clear
+            
+            # Run migrations
+            echo "🗄️ Running migrations..."
+            php artisan migrate --force --no-interaction
+            
+            # Rebuild caches
+            echo "⚙️ Rebuilding caches..."
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            
+            # Set permissions
+            echo "🔐 Setting permissions..."
+            chmod -R 775 storage bootstrap/cache
+            chown -R www-data:www-data storage bootstrap/cache public || true
+            
+            # Restart services (if needed)
+            echo "🔄 Restarting services..."
+            sudo systemctl restart php-fpm || true
+            sudo systemctl restart nginx || true
+            
+            echo "✅ Deployment completed successfully!"
+
+      - name: Notify Slack (Success)
+        if: success()
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "✅ Deployment to production successful!",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Deployment Successful* ✅\n*Repository:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Author:* ${{ github.actor }}\n*Changes:* Hero Slide Form Fix"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        continue-on-error: true
+
+      - name: Notify Slack (Failure)
+        if: failure()
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "❌ Deployment to production failed!",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Deployment Failed* ❌\n*Repository:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Author:* ${{ github.actor }}\n*View Details:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        continue-on-error: true
