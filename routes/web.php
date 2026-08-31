@@ -354,6 +354,15 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::put('/media/{media}',          [AdminMediaController::class, 'update'])->name('media.update');
         Route::delete('/media/{media}',       [AdminMediaController::class, 'destroy'])->name('media.destroy');
 
+        // Certifications (ISO, EITI, ESG)
+        Route::get('/certifications', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'index'])->name('certifications.index');
+        Route::get('/certifications/creer', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'create'])->name('certifications.create');
+        Route::post('/certifications', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'store'])->name('certifications.store');
+        Route::get('/certifications/{certification}/modifier', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'edit'])->name('certifications.edit');
+        Route::put('/certifications/{certification}', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'update'])->name('certifications.update');
+        Route::delete('/certifications/{certification}', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'destroy'])->name('certifications.destroy');
+        Route::post('/certifications/reorder', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'reorder'])->name('certifications.reorder');
+
         // Paramètres du site
         Route::get('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'index'])->name('settings.index');
         Route::post('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'update'])->name('settings.update');
