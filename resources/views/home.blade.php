@@ -599,7 +599,56 @@
     </section>
 
     {{-- ════════════════════════════════════════
-         3 · DERNIÈRES ACTUALITÉS
+         3 · CHIFFRES DÉTAILLÉS (ENRICHISSEMENT)
+    ════════════════════════════════════════ --}}
+    <section class="sec stats-sec" id="chiffres">
+        <div style="max-width:1180px; margin:0 auto;">
+            <div class="stats-inner">
+                <div class="stats-left">
+                    <span class="sec-tag">{{ $en ? 'Our Impact' : 'Notre Impact' }}</span>
+                    <h2 class="sec-h2">{{ $en ? 'Creating Value Across Burkina Faso' : 'Créer de la Valeur au Burkina Faso' }}</h2>
+                    <p class="sec-lead">{{ $en ? 'Néré Mining\'s operations deliver measurable impact across economic, social and environmental dimensions.' : 'Les opérations de Néré Mining génèrent de l\'impact mesurable across dimensions économique, social et environnemental.' }}</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-num" data-target="80000" data-suffix=" oz">—</span>
+                        <span class="stat-lbl">{{ $en ? 'Annual Gold Production (2024)' : 'Production Or Annuelle (2024)' }}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num" data-target="1200" data-suffix="">—</span>
+                        <span class="stat-lbl">{{ $en ? 'Direct & Indirect Jobs' : 'Emplois Directs & Indirects' }}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num" data-target="80" data-suffix="%">—</span>
+                        <span class="stat-lbl">{{ $en ? 'National Workforce' : 'Personnel Burkinabè' }}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num" data-target="18" data-suffix=" Mrd">—</span>
+                        <span class="stat-lbl">{{ $en ? 'Fiscal & Social Contributions (CFA)' : 'Retombées Fiscales & Sociales (CFA)' }}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num" data-target="850" data-suffix="">—</span>
+                        <span class="stat-lbl">{{ $en ? 'Students in Programs' : 'Étudiants en Programmes' }}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num" data-target="42" data-suffix=" km">—</span>
+                        <span class="stat-lbl">{{ $en ? 'Roads Built/Maintained' : 'Routes Construites/Entretenues' }}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num" data-target="32" data-suffix="%">—</span>
+                        <span class="stat-lbl">{{ $en ? 'CO₂ Reduction (2020-2024)' : 'Réduction CO₂ (2020-2024)' }}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num" data-target="14" data-suffix=" M hrs">—</span>
+                        <span class="stat-lbl">{{ $en ? 'Safety-Free Hours (2024)' : 'Heures sans Incident (2024)' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- ════════════════════════════════════════
+         4 · DERNIÈRES ACTUALITÉS
     ════════════════════════════════════════ --}}
     <section class="sec news-sec" id="actualites" aria-labelledby="news-h">
         <div class="news-head">
