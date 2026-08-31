@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Certification;
 use App\Models\ContactMessage;
 use App\Models\JobApplication;
 use App\Models\JobOffer;
@@ -34,6 +35,7 @@ class AdminDashboardController extends Controller
             'messages'         => ContactMessage::whereNull('read_at')->count(),
             'messages_total'   => ContactMessage::count(),
             'newsletter'       => NewsletterSubscriber::count(),
+            'certifications'   => Certification::active()->count(),
         ];
 
         // Activité récente — 5 dernières actualités
