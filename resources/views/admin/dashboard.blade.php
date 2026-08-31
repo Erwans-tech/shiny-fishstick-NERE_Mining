@@ -119,6 +119,14 @@
         </div>
         <span class="stat-tile-arrow">→</span>
     </a>
+    <a href="{{ route('admin.settings.index') }}" class="stat-tile" style="text-decoration:none;">
+        <div class="stat-tile-icon">⚙️</div>
+        <div class="stat-tile-body">
+            <div class="stat-tile-num" style="font-size:22px;">∞</div>
+            <div class="stat-tile-lbl">Paramètres du site</div>
+        </div>
+        <span class="stat-tile-arrow">→</span>
+    </a>
     <a href="{{ route('admin.partners.index') }}" class="stat-tile" style="text-decoration:none;">
         <div class="stat-tile-icon">🤝</div>
         <div class="stat-tile-body">

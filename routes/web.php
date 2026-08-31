@@ -354,6 +354,10 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::put('/media/{media}',          [AdminMediaController::class, 'update'])->name('media.update');
         Route::delete('/media/{media}',       [AdminMediaController::class, 'destroy'])->name('media.destroy');
 
+        // Paramètres du site
+        Route::get('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'index'])->name('settings.index');
+        Route::post('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'update'])->name('settings.update');
+
         // Messages de contact
         Route::get('/messages',                   [AdminMessageController::class, 'index'])->name('messages.index');
         Route::get('/messages/{message}',         [AdminMessageController::class, 'show'])->name('messages.show');
