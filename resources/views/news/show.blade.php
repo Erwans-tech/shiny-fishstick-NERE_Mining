@@ -40,9 +40,9 @@
         .article-meta{color:var(--gold);font:600 11px Inter,sans-serif;text-transform:uppercase;letter-spacing:.1em;margin-bottom:28px;display:flex;gap:16px;flex-wrap:wrap;}
         .article-meta span{color:var(--muted);font-weight:400;}
         .article-body{font:17px/1.85 Inter,sans-serif;color:var(--ink);}
-        .article-body p{margin-bottom:20px;}
-        .article-body h2{color:var(--green);font-size:26px;font-weight:500;margin:36px 0 14px;}
-        .article-body h3{color:var(--green);font-size:20px;font-weight:500;margin:28px 0 10px;}
+        .article-body p{margin:0 0 1.15em; text-align:justify; text-wrap:pretty; hyphens:auto;}
+        .article-body h2{color:var(--green);font-size:26px;font-weight:700;margin:36px 0 14px;}
+        .article-body h3{color:var(--green);font-size:20px;font-weight:700;margin:28px 0 10px;}
         .article-body img{max-width:100%;border-radius:6px;margin:24px 0;}
         .article-cover{width:100%;max-height:480px;object-fit:cover;border-radius:8px;margin-bottom:40px;}
         .back-link{display:inline-flex;align-items:center;gap:8px;color:var(--red);font:600 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;margin-bottom:32px;}
@@ -92,6 +92,22 @@
                 <p>{{ $en ? 'Article content coming soon.' : 'Contenu de l\'article à venir.' }}</p>
             @endif
         </div>
+
+        @if($news->images->count() > 0)
+        <div style="margin-top:60px;">
+            <h2 style="color:var(--green);font-size:26px;font-weight:700;margin:0 0 28px;">{{ $en ? 'Gallery' : 'Galerie' }}</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+                @foreach($news->images as $image)
+                <figure style="margin:0;border-radius:8px;overflow:hidden;">
+                    <img src="{{ $image->getUrlAttribute() }}" alt="{{ $image->alt_text ?? $news->title }}" style="width:100%;height:280px;object-fit:cover;display:block;">
+                    @if($image->caption)
+                    <figcaption style="padding:12px;background:var(--sand);font:14px Inter,sans-serif;color:var(--ink);">{{ $image->caption }}</figcaption>
+                    @endif
+                </figure>
+                @endforeach
+            </div>
+        </div>
+        @endif
     </div>
 
 @include('partials._footer', ['loc' => $loc, 'en' => $en])

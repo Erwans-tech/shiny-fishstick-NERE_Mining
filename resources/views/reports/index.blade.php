@@ -36,9 +36,9 @@
         main{max-width:1240px;margin:auto;}
         section{padding:80px 5vw;}
         .lead{max-width:820px;color:var(--muted);font:18px/1.75 Inter,sans-serif;margin-bottom:48px;}
-        h2{color:var(--green);font-size:clamp(28px,3.5vw,48px);font-weight:400;line-height:1.05;margin-bottom:24px;}
-        h3{color:var(--green);font-size:20px;font-weight:500;margin-bottom:10px;}
-        p{color:var(--muted);font:15px/1.72 Inter,sans-serif;margin-bottom:12px;}
+        h2{color:var(--green);font-size:clamp(28px,3.5vw,48px);font-weight:700;line-height:1.05;margin-bottom:24px;}
+        h3{color:var(--green);font-size:20px;font-weight:700;margin-bottom:10px;}
+        p{color:var(--muted);font:15px/1.72 Inter,sans-serif;margin:0 0 0.85em;text-align:justify;text-wrap:pretty;hyphens:auto;}
         .sub-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--line);}
         .sub-nav a{padding:9px 18px;border:1px solid var(--line);border-radius:20px;font:500 12px Inter,sans-serif;color:var(--muted);transition:all .18s;}
         .sub-nav a:hover,.sub-nav a.active{background:var(--green);color:#fff;border-color:var(--green);}

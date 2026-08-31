@@ -24,7 +24,7 @@
         <article class="card">
             <div class="card-tag">{{ $job->department }}</div>
             <h3>{{ $job->title }}</h3>
-            <p>{{ $job->location }} · {{ $job->contract_type }}</p>
+            <p>{{ $job->location }} - {{ $job->contract_type }}</p>
             <p>{{ $job->description }}</p>
             @if($job->deadline)
             <p style="font:500 12px Inter,sans-serif; color:var(--muted);">

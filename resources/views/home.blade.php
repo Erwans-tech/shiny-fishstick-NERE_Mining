@@ -67,7 +67,7 @@
         a { color:inherit; text-decoration:none; }
         img { display:block; max-width:100%; }
 
-        /* ── Topbar ─────────────────────────────── */
+        /* ── Topbar ── */
         .topbar {
             background:var(--red); color:#fff7e8;
             padding:9px 5vw; display:flex; justify-content:space-between;
@@ -76,7 +76,7 @@
 
         /* Header / footer : partials._nav et partials._footer */
 
-        /* ── HERO ────────────────────────────────── */
+        /* ── HERO ── */
         .hero {
             position:relative; min-height:52vh;
             display:flex; align-items:flex-end;
@@ -162,10 +162,27 @@
             display:grid; grid-template-columns:1fr 1fr; gap:14px; align-self:end;
         }
         .hero-stat {
+            position:relative; overflow:hidden;
             background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14);
             border-radius:9px; padding:24px 20px;
             backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
         }
+        .hero-stat::before {
+            content:'';
+            position:absolute; inset:-1px;
+            background:radial-gradient(circle at top, rgba(255,194,71,.30), rgba(255,194,71,.08) 28%, transparent 62%);
+            opacity:0;
+            transition:opacity .25s ease;
+            pointer-events:none;
+        }
+        .hero-stat > * { position:relative; z-index:1; }
+        .hero-stat:hover {
+            transform:translateY(-4px);
+            border-color:rgba(255,194,71,.55);
+            box-shadow:0 0 0 1px rgba(255,194,71,.12), 0 18px 34px rgba(255,194,71,.12), 0 0 26px rgba(255,194,71,.18);
+        }
+        .hero-stat:hover::before { opacity:1; }
         .hero-stat-val {
             display:block; font-size:34px; font-weight:300;
             color:var(--gold); line-height:1; margin-bottom:8px;
@@ -510,12 +527,10 @@
 
     <main>
 
-    {{-- ════════════════════════════════════════
-         1 · SLOGAN — HERO
-    ════════════════════════════════════════ --}}
+    {{-- 1 - SLOGAN - HERO --}}
     <section class="hero" aria-label="{{ $en ? 'Homepage hero' : 'Bannière principale' }}">
 
-        {{-- Slideshow — images ET vidéos --}}
+        {{-- Slideshow - images et vidéos --}}
         <div class="hero-bg" aria-hidden="true">
             @foreach($heroImages as $index => $heroImage)
                 @if(is_array($heroImage) && ($heroImage['type'] ?? 'image') === 'video')
@@ -576,9 +591,7 @@
 
     </section>
 
-    {{-- ════════════════════════════════════════
-         2 · NÉRÉ MINING
-    ════════════════════════════════════════ --}}
+    {{-- 2 - NÉRÉ MINING --}}
     <section class="sec intro-sec" aria-labelledby="intro-nere-h">
         <div class="intro-inner">
             <div class="intro-copy">
@@ -598,9 +611,7 @@
         </div>
     </section>
 
-    {{-- ════════════════════════════════════════
-         3 · DERNIÈRES ACTUALITÉS
-    ════════════════════════════════════════ --}}
+    {{-- 3 - DERNIÈRES ACTUALITÉS --}}
     <section class="sec news-sec" id="actualites" aria-labelledby="news-h">
         <div class="news-head">
             <div>
@@ -622,7 +633,7 @@
                         @endif
                     </div>
                     <div class="news-body">
-                        <div class="news-meta">{{ $item['category'] }} · {{ $item['date'] }}</div>
+                        <div class="news-meta">{{ $item['category'] }} - {{ $item['date'] }}</div>
                         <h3>{{ $item['title'] }}</h3>
                         <span class="news-read">
                             {{ __('site.read_more', [], $loc) }}
@@ -643,9 +654,7 @@
         </div>
     </section>
 
-    {{-- ════════════════════════════════════════
-         5 · PARTENAIRES INSTITUTIONNELS
-    ════════════════════════════════════════ --}}
+    {{-- 5 - PARTENAIRES INSTITUTIONNELS --}}
     <section class="sec partners-sec" id="partenaires" aria-labelledby="partners-h">
         <div class="partners-head">
             <span class="sec-tag">{{ __('site.home_partners_label', [], $loc) }}</span>
@@ -673,7 +682,7 @@
                          loading="lazy"
                          width="120" height="56">
                 @else
-                    <div style="width:80px;height:40px;background:var(--sand);border-radius:4px;display:flex;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">
+                    <div style="width:80px;height:40px;background:var( - sand);border-radius:4px;display:flex;align-items:center;justify-content:center;font:700 13px Inter;color:var( - green);">
                         {{ strtoupper(substr($p->name,0,3)) }}
                     </div>
                 @endif
@@ -684,13 +693,13 @@
         </div>
 
         @else
-        {{-- ── Partenaires institutionnels par défaut — bande logo ── --}}
+        {{-- Partenaires institutionnels par défaut - bande logo --}}
         @php
             $defaultPartners = [
                 [
                     'img'  => asset('images/partners/burkina-armoiries.svg'),
                     'name' => $en ? 'Government of Burkina Faso' : 'État burkinabè',
-                    'cat'  => $en ? 'State · Mining Ministry' : 'Ministère des Mines',
+                    'cat'  => $en ? 'State - Mining Ministry' : 'Ministère des Mines',
                     'url'  => null,
                 ],
                 [

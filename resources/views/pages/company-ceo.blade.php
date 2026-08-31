@@ -26,6 +26,24 @@
             padding: 40px;
             box-shadow: 0 12px 32px rgba(40,29,24,0.06);
             margin-top: 40px;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: pdgReveal .8s cubic-bezier(.22,1,.36,1) forwards, float 6s ease-in-out infinite;
+            animation-delay: 0s, 0.8s;
+        }
+        @keyframes pdgReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
         }
         .pdg-photo {
             height: 380px;
@@ -37,18 +55,46 @@
             box-shadow: 0 12px 24px rgba(75,23,22,0.2);
             position: relative;
             overflow: hidden;
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
+        .pdg-photo:hover {
+            transform: scale(1.02);
+            box-shadow: 0 18px 30px rgba(75,23,22,0.18);
+        }
+        .pdg-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(0.95) contrast(1.04);
+            transition: transform .45s ease, filter .45s ease;
+        }
+        .pdg-photo:hover img {
+            transform: scale(1.04);
+            filter: saturate(1.08) contrast(1.08);
         }
         .pdg-photo::after {
             content: ''; position: absolute; inset: 0;
             background: radial-gradient(circle at top right, rgba(255,194,71,0.1), transparent 60%);
         }
         .pdg-quote {
-            font-size: clamp(24px, 3vw, 32px);
-            line-height: 1.4;
+            font-size: clamp(18px, 2.1vw, 25px);
+            line-height: 1.7;
             color: var(--ink);
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 32px;
             position: relative;
+            text-align: justify;
+            text-wrap: pretty;
+            opacity: 0;
+            transform: translateY(12px);
+            animation: quoteReveal .8s ease .15s forwards;
+        }
+        @keyframes quoteReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .pdg-quote::before {
             content: '«';
@@ -72,15 +118,13 @@
     <div class="pdg-block sr">
         <div>
             <div class="pdg-photo">
-                <span style="color:rgba(255,255,255,.35); font-size:13px; text-align:center; position:relative; z-index:2;">
-                    {{ __('site.company_photo_placeholder', [], $loc) }}
-                </span>
+                <img src="{{ asset('images/ceo/pdg.jpg') }}" alt="{{ __('site.company_pdg_name', [], $loc) }}">
             </div>
         </div>
         <div>
-            <p class="pdg-quote">
+            <div class="pdg-quote">
                 {{ __('site.company_pdg_quote', [], $loc) }}
-            </p>
+            </div>
             <div class="pdg-name">{{ __('site.company_pdg_name', [], $loc) }}</div>
             <div class="pdg-title">{{ __('site.company_pdg_company', [], $loc) }}</div>
         </div>

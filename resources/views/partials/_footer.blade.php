@@ -2,8 +2,7 @@
     $loc = $loc ?? app()->getLocale();
     $en  = $en  ?? ($loc === 'en');
     $contactUrl = $en ? route('english.contact') : route('contact');
-    
-    // Récupérer les settings depuis la BD
+
     use App\Models\SiteSetting;
     $companyPhone = SiteSetting::get('company_phone', '+226 25 33 35 69');
     $companyEmail = SiteSetting::get('company_email', 'contact@nere-mining.bf');

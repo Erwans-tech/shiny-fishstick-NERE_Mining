@@ -7,13 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ __('site.news_h1') }} | Néré Mining</title>
+    <title>{{ __('site.news_h1') }} - Néré Mining</title>
     <meta name="description" content="{{ $en ? 'Latest news from Néré Mining and the Karma mine.' : 'Toute l\'actualité de Néré Mining et de la mine de Karma.' }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root{--ink:#281d18;--green:#4b1716;--red:#d72f2f;--gold:#ffc247;--sand:#fff4dc;--muted:#70645c;--line:#eadcc5;--light:#fbfaf7;}
+        :root{ --ink:#281d18; --green:#4b1716; --red:#d72f2f; --gold:#ffc247; --sand:#fff4dc; --muted:#70645c; --line:#eadcc5; --light:#fbfaf7;}
         *{box-sizing:border-box;margin:0;padding:0;}
         body{color:var(--ink);background-color:var(--light);background-image:linear-gradient(115deg,rgba(255,194,71,.045),transparent 38%,rgba(75,23,22,.03)),repeating-linear-gradient(135deg,rgba(75,23,22,.025) 0,rgba(75,23,22,.025) 1px,transparent 1px,transparent 46px);background-size:180% 180%,46px 46px;animation:siteAtmosphere 42s ease-in-out infinite alternate;font-family:'Inter',Arial,Helvetica,sans-serif;line-height:1.6;}
         @keyframes siteAtmosphere{from{background-position:0% 0%,0 0;}to{background-position:100% 100%,23px 23px;}}
@@ -62,7 +62,7 @@
         .pagination .active span{background:var(--green);color:#fff;border-color:var(--green);}
         footer{padding:32px 5vw;background:#351312;color:#eadcca;display:flex;justify-content:space-between;align-items:center;font:12px Inter,sans-serif;}
         .footer-links{display:flex;gap:20px;}
-        .footer-links a:hover{color:var(--gold);}
+        .footer-links a:hover{color:var( - gold);}
         @media(max-width:900px){
             .topbar{display:none;}header{flex-wrap:wrap;gap:12px;}nav{display:none;}.menu-btn{display:block;}
             nav.open{display:flex;flex-direction:column;align-items:flex-start;width:100%;gap:4px;}
@@ -106,7 +106,7 @@
                             <div class="news-img-placeholder">{{ __('site.news_img_placeholder') }}</div>
                         @endif
                         <div class="news-body">
-                            <div class="news-meta">{{ $item->category }} · {{ $item->published_at?->translatedFormat('d M Y') }}</div>
+                            <div class="news-meta">{{ $item->category }} - {{ $item->published_at?->translatedFormat('d M Y') }}</div>
                             <h2>{{ $item->title }}</h2>
                             @if($item->excerpt)<p>{{ $item->excerpt }}</p>@endif
                             <a class="news-link" href="{{ $en ? route('english.news.show', $item) : route('news.show', $item) }}">{{ __('site.read_more') }}</a>

@@ -12,7 +12,7 @@ class AdminSiteSettingController extends Controller
     {
         // Récupérer tous les settings
         $settings = SiteSetting::orderBy('key')->get();
-        
+
         // Grouper par catégorie (avant le _ dans la clé)
         $grouped = $settings->groupBy(function($s) {
             return explode('_', $s->key)[0];

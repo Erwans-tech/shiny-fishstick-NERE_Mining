@@ -98,6 +98,12 @@ class AdminNewsController extends Controller
         if ($news->image_path) {
             Storage::disk('public')->delete($news->image_path);
         }
+        
+        // Supprimer toutes les images associées
+        foreach ($news->images as $image) {
+            $image->deleteFile();
+        }
+        
         $news->delete();
 
         return redirect()->route('admin.news.index')

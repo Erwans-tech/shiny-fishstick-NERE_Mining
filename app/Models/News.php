@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class News extends Model
 {
@@ -24,5 +25,13 @@ class News extends Model
     public function scopePublished(Builder $query): Builder
     {
         return $query->whereNotNull('published_at')->where('published_at', '<=', now());
+    }
+
+    /**
+     * Relation : une actualité a plusieurs images internes
+     */
+    public function images(): HasMany
+    {
+        return $this->hasMany(NewsImage::class)->orderBy('position');
     }
 }

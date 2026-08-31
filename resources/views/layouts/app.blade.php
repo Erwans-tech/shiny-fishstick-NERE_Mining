@@ -148,15 +148,15 @@
         h2 {
             color:var(--ink);
             font-size:clamp(26px,2.6vw,40px);
-            font-weight:600;
+            font-weight:700;
             line-height:1.15;
             margin:0 0 18px;
             letter-spacing:-.03em;
             position:relative;
         }
-        h3 { color:var(--green); font-size:23px; font-weight:500; margin-bottom:12px; }
-        h4 { color:var(--green); font-size:16px; font-weight:600; margin-bottom:8px; letter-spacing:.04em; text-transform:uppercase; }
-        p { color:var(--muted); font:19px/1.8 Inter,sans-serif; margin-bottom:12px; text-align:justify; }
+        h3 { color:var(--green); font-size:23px; font-weight:700; margin-bottom:12px; }
+        h4 { color:var(--green); font-size:16px; font-weight:700; margin-bottom:8px; letter-spacing:.04em; text-transform:uppercase; }
+        p { color:var(--muted); font:19px/1.8 Inter,sans-serif; margin:0 0 0.9em; text-align:justify; text-wrap:pretty; hyphens:auto; }
 
         /* ── Grilles & Cards ── */
         .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }

@@ -28,3 +28,5 @@ Thumbs.db
 
 public/uploads/*
 !public/uploads/.gitkeep
+/dist
+check_spaces.php

@@ -4,7 +4,7 @@
     $total = $jobs->count();
     $countLabel = $total === 1
         ? str_replace(':n', $total, __('site.careers_count_singular', [], $loc))
-        : str_replace(':n', $total, __('site.careers_count_plural',   [], $loc));
+        : str_replace(':n', $total, __('site.careers_count_plural', [], $loc));
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $loc }}">

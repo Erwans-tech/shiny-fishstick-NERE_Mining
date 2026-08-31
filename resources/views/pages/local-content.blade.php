@@ -1,9 +1,6 @@
 {{-- Page : Contenu Local --}}
 @extends('layouts.app')
-
 @section('content')
-
-{{-- ── 1. Politique de contenu local ──────────────────── --}}
 <section>
     <div class="sub-nav">
         <a href="{{ $en ? route('english.sustainability') : route('sustainability') }}">{{ __('site.subnav_overview', [], $loc) }}</a>
@@ -52,7 +49,7 @@
     </div>
 </section>
 
-{{-- ── 2. Programme de développement des fournisseurs ─── --}}
+{{-- Programme de développement des fournisseurs --}}
 <section class="sand">
     <h2>{{ __('site.local_supplier_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.local_supplier_lead', [], $loc) }}</p>

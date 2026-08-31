@@ -1,15 +1,9 @@
 {{-- Page : Contact --}}
 @extends('layouts.app')
-
 @section('content')
-
-{{-- ════════════════════════════════════════════════════════
-     Section 1-2-3 : Les trois points de contact
-════════════════════════════════════════════════════════ --}}
 <section>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:64px;">
-
-        {{-- ── 1. Siège social — Ouagadougou ── --}}
+        {{-- 1. Siège social — Ouagadougou --}}
         <div class="contact-card sr">
             <div class="contact-card-header">
                 <span class="contact-card-icon">🏢</span>
@@ -42,7 +36,7 @@
             </ul>
         </div>
 
-        {{-- ── 2. Site de la mine de Karma ── --}}
+        {{-- 2. Site de la mine de Karma --}}
         <div class="contact-card contact-card--mine sr">
             <div class="contact-card-header">
                 <span class="contact-card-icon">⛏️</span>
@@ -84,7 +78,7 @@
             </ul>
         </div>
 
-        {{-- ── 3. Bureau de liaison — Ouahigouya ── --}}
+        {{-- 3. Bureau de liaison — Ouahigouya --}}
         <div class="contact-card sr">
             <div class="contact-card-header">
                 <span class="contact-card-icon">📍</span>
@@ -118,7 +112,7 @@
         </div>
     </div>
 
-    {{-- Carte Google Maps — les 3 sites --}}
+    {{-- Carte Google Maps --}}
     <div class="map-wrap sr">
         <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d935649.2!2d-1.5!3d13.2!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xe2e9eb9d1aba949%3A0x7f46e8f12f1c0a55!2sOuagadougou!5e0!3m2!1s{{ $loc }}!2sbf!4v1"
@@ -129,9 +123,7 @@
     </div>
 </section>
 
-{{-- ════════════════════════════════════════════════════════
-     Section 4 : Formulaire de contact général
-════════════════════════════════════════════════════════ --}}
+{{-- Formulaire de contact général --}}
 <section class="sand">
     <h2>{{ __('site.contact_form_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.contact_form_lead', [], $loc) }}</p>
@@ -211,7 +203,7 @@
 {{-- Styles spécifiques à cette page --}}
 @push('styles')
 <style>
-    /* ── Fiches de contact enrichies ── */
+    /* Fiches de contact enrichies */
     .contact-card {
         padding:0;
         border:1px solid var(--line);

@@ -1,9 +1,6 @@
 [build]
-  command = "npm run build"
-  publish = "public"
-
-[build.environment]
-  PHP_VERSION = "8.2"
+  command = "php artisan migrate --force && php scripts/export-static.php && npm run build"
+  publish = "dist"
 
 [[redirects]]
   from = "/*"
@@ -16,3 +13,10 @@
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     X-XSS-Protection = "1; mode=block"
+    Cache-Control = "max-age=3600"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "max-age=31536000, immutable"
+

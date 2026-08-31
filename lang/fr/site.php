@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 return [
 
@@ -19,9 +19,9 @@ return [
     'see_site'          => 'Voir le site',
     'spontaneous'       => 'Candidature spontanée',
     'all_news'          => 'Toutes les actualités',
-    'topbar_left'       => 'Ouagadougou · Burkina Faso',
-    'topbar_right'      => 'ISO 9001:2008 · Groupe Aurifère Burkinabè',
-    'footer_tagline'    => 'Transparence · Respect · Excellence',
+    'topbar_left'       => 'Ouagadougou, Burkina Faso',
+    'topbar_right'      => 'ISO 9001:2008 - Groupe Aurifère Burkinabè',
+    'footer_tagline'    => 'Transparence, respect, excellence',
     'footer_copy'       => '© :year Néré Mining S.A.',
 
     /* ── Nav ── */
@@ -86,7 +86,7 @@ return [
     'ql_careers_p'   => "Pourquoi choisir Néré Mining ? Consultez nos opportunités de recrutement, nos offres d'emploi et de stage.",
 
     /* ── Qui sommes-nous ── */
-    'company_eyebrow'     => 'Néré Mining · Qui sommes-nous ?',
+    'company_eyebrow'     => 'Néré Mining - Qui sommes-nous ?',
     'company_h1'          => 'Une ambition burkinabè, une valeur durable.',
     'company_breadcrumb'  => 'Qui sommes-nous ?',
     'company_pdg_h2'      => 'Mot du Président Directeur Général',
@@ -100,47 +100,47 @@ return [
     'company_id1_h3'   => 'Un groupe 100 % burkinabè',
     'company_id1_p'    => "Néré Mining est détenu majoritairement par des actionnaires nationaux. Nous créons de la valeur au Burkina Faso, pour le Burkina Faso.",
     'company_id2_tag'  => 'Notre symbole',
-    'company_id2_h3'   => 'Le Néré — arbre des savanes',
+    'company_id2_h3'   => 'Le Néré, arbre des savanes',
     'company_id2_p'    => "Cet arbre à croissance lente mais profondément enraciné symbolise notre engagement sur le long terme et notre respect du territoire.",
     'company_id3_tag'  => 'Notre philosophie',
     'company_id3_h3'   => 'Extraire mieux. Construire plus.',
     'company_id3_p'    => "Chaque once d'or produite doit générer une retombée positive : emploi, formation, investissement communautaire ou préservation environnementale.",
     'company_history_h2'   => 'Notre histoire',
     'company_history_lead' => "De la création à aujourd'hui, Néré Mining a bâti son projet industriel étape par étape, en restant fidèle à ses valeurs fondatrices.",
-    'company_hist1_title'  => '2003–2013 · Genèse du projet',
+    'company_hist1_title'  => '2003-2013 - Genèse du projet',
     'company_hist1_p'      => "Riverstone Resources opère au Burkina Faso depuis 2003. En 2007, True Gold Mining, anciennement Riverstone Resources Inc., acquiert les propriétés de Goulagou et Rounga auprès de Golden Star Resources Ltd, ajoutant 487 km² à ses avoirs. En 2012, Riverstone Resources fusionne avec Blue Gold Inc. et la nouvelle entité devient True Gold Mining en février 2013.",
-    'company_hist2_title'  => '2016 · Endeavour Mining',
+    'company_hist2_title'  => '2016 - Endeavour Mining',
     'company_hist2_p'      => "En avril 2016, le groupe minier Endeavour Mining prend le contrôle de True Gold Mining et poursuit le développement du projet aurifère de Karma.",
-    'company_hist3_title'  => 'Mars 2022 · Reprise de Karma',
+    'company_hist3_title'  => 'Mars 2022 - Reprise de Karma',
     'company_hist3_p'      => "En mars 2022, Néré Mining rachète la mine d'or de Karma à Endeavour Mining. Cette reprise par un consortium burkinabè marque une nouvelle étape pour l'ancrage local du projet.",
-    'company_hist4_title'  => "Aujourd'hui · Un ancrage territorial renforcé",
+    'company_hist4_title'  => "Aujourd'hui - Un ancrage territorial renforcé",
     'company_hist4_p'      => "Depuis sa reprise, Néré Mining poursuit ses activités à Karma avec une attention particulière portée au développement social, économique et culturel de la province du Yatenga et de la région du Nord.",
     'company_kpi_h3'       => 'Chiffres clés',
     'company_vision_h2'    => 'Notre vision et nos valeurs',
-    'company_vision_lead'  => "Faire de l'exploitation minière un levier de progrès partagé pour le Burkina Faso — aujourd'hui et pour les générations futures.",
-    'company_v1_tag' => '01 / Intégrité',
+    'company_vision_lead'  => "Faire de l'exploitation minière un levier de progrès partagé pour le Burkina Faso, aujourd'hui et pour les générations futures.",
+    'company_v1_tag' => '01 - Intégrité',
     'company_v1_h3' => 'Intégrité',
     'company_v1_p'   => "Nous encourageons l'honnêteté, la droiture, la détermination et la transparence dans toutes nos opérations et avec l'ensemble de nos collaborateurs et prestataires.",
-    'company_v2_tag' => '02 / Professionnalisme',
+    'company_v2_tag' => '02 - Professionnalisme',
     'company_v2_h3' => 'Professionnalisme',
     'company_v2_p'   => "Nous visons l'amélioration continue vers l'excellence à travers la formation, l'échange d'expériences, le respect des procédures de travail et la promotion de la créativité et du mérite.",
-    'company_v3_tag' => '03 / Respect',
+    'company_v3_tag' => '03 - Respect',
     'company_v3_h3' => 'Respect',
     'company_v3_p'   => "Respect des collaborateurs et des communautés, des lois et règlements nationaux et internationaux, des règles HSE, et promotion de la courtoisie et du vivre ensemble.",
-    'company_v4_tag' => '04 / Esprit d\'équipe',
+    'company_v4_tag' => '04 - Esprit d\'équipe',
     'company_v4_h3' => "Esprit d'équipe",
     'company_v4_p'   => "Nous reconnaissons le rôle de chacun, quels que soient son poste, ses origines et sa religion, dans l'atteinte des objectifs. Chez Néré Mining, le résultat est collectif.",
-    'company_v5_tag' => '05 / Sécurité',
+    'company_v5_tag' => '05 - Sécurité',
     'company_v5_h3' => 'Sécurité',
     'company_v5_p'   => "La sécurité de chaque employé, sous-traitant et visiteur est une priorité absolue. Tolérance zéro pour les comportements dangereux sur l'ensemble du site de Karma.",
-    'company_v6_tag' => '06 / Communauté',
+    'company_v6_tag' => '06 - Communauté',
     'company_v6_h3' => 'Respect de la communauté',
     'company_v6_p'   => "Nous collaborons étroitement avec les communautés locales pour promouvoir le développement économique et social à long terme à travers des programmes éducatifs, de santé et d'infrastructure.",
     'company_gov_h2'   => 'Notre gouvernance et notre Direction',
     'company_gov_lead' => "Une équipe de direction expérimentée, au service d'une vision partagée.",
 
     /* ── Karma ── */
-    'karma_eyebrow'    => 'Néré Mining · KARMA',
+    'karma_eyebrow'    => 'Néré Mining - KARMA',
     'karma_h1'         => 'Le cœur minier de Néré Mining.',
     'karma_breadcrumb' => 'KARMA',
     'karma_pres_h2'    => 'Présentation de la mine de Karma',
@@ -151,7 +151,7 @@ return [
     'karma_area_p'     => "Les propriétés de Goulagou et Rounga, acquises en 2007, ont ajouté 487 km² aux avoirs de True Gold Mining et forment avec les permis Rambo et Kao l'ensemble du projet Karma. La mine a été reprise par le consortium burkinabè Néré Mining en mars 2022.",
     'karma_history_h4' => 'Historique',
     'karma_history_p'  => "En 2007, True Gold Mining acquiert les propriétés de Goulagou et Rounga auprès de Golden Star Resources Ltd. Après la prise de contrôle de True Gold Mining par Endeavour Mining en avril 2016, Néré Mining rachète la mine d'or de Karma en mars 2022 et renforce son action en faveur du développement local de la province du Yatenga.",
-    'karma_prod_h2'    => 'Exploitation minière — Chiffres clés de production',
+    'karma_prod_h2'    => 'Exploitation minière - Chiffres clés de production',
     'karma_card1_h3'   => "Extraction à ciel ouvert",
     'karma_card1_p'    => "La mine de Karma utilise des méthodes d'extraction à ciel ouvert modernes, alliant efficacité productive et maîtrise des impacts environnementaux.",
     'karma_card2_h3'   => "Traitement de l'or",
@@ -166,7 +166,7 @@ return [
     'karma_impact_lead' => "L'activité de Néré Mining génère des retombées directes et mesurables pour l'économie locale, régionale et nationale.",
     'karma_resources_h2' => 'Ressources minérales',
     'resources_h1' => 'Les ressources de Karma.',
-    'resources_eyebrow' => 'Néré Mining · Ressources',
+    'resources_eyebrow' => 'Néré Mining - Ressources',
     'resources_breadcrumb' => 'Ressources',
     'karma_resources_lead' => "La mine de Karma dispose de ressources minérales importantes, identifiées grâce à des campagnes d'exploration géologiques rigoureuses.",
     'karma_resources_detail' => "Ces ressources comprennent des quantités significatives d'or, réparties dans plusieurs zones exploitables, avec un potentiel d'extension encore en cours d'évaluation.",
@@ -174,9 +174,9 @@ return [
     'resources_reference_note' => 'Les cartes et chiffres présentés correspondent aux informations disponibles dans les documents du projet fournis, avec une référence au 25 avril 2025 pour l’état des ressources et réserves.',
     'resources_figures_h2' => 'Ressources et réserves de Karma',
     'resources_figures_lead' => 'Les ressources sont réparties entre plusieurs gisements et zones d’exploration du projet Karma.',
-    'resources_pp_label' => 'P&P · onces à 0,97 g/t Au',
-    'resources_mi_label' => 'M&I · onces à 0,93 g/t Au',
-    'resources_inferred_label' => 'Inférées · onces à 1,25 g/t Au',
+    'resources_pp_label' => 'P&P - onces à 0,97 g/t Au',
+    'resources_mi_label' => 'M&I - onces à 0,93 g/t Au',
+    'resources_inferred_label' => 'Inférées - onces à 1,25 g/t Au',
     'resources_date_label' => 'Date de référence',
     'resources_grade_note' => 'Total Karma indiqué sur le document : P&P 6 638, M&I 87 528 et ressources inférées 18 103. Les valeurs sont présentées comme dans le document source et doivent être actualisées selon les rapports techniques officiels.',
     'resources_maps_h2' => 'Cartes des ressources et des licences',
@@ -192,9 +192,29 @@ return [
     'karma_reserves_lead' => "Les réserves minérales représentent les parties économiquement exploitables des ressources identifiées.",
     'karma_reserves_detail' => "Elles sont régulièrement mises à jour selon les normes internationales, en tenant compte des facteurs techniques, économiques et environnementaux, afin d'assurer une exploitation durable de la mine.",
     'karma_reserves_image_alt' => 'Opérations de la mine de Karma',
+    'karma_reserves_table_alt' => 'Tableau des réserves minérales de la mine de Karma',
+    'karma_reserves_chart_alt' => 'Graphique des réserves minérales de la mine de Karma',
+    'karma_reserves_table_caption' => 'Estimation des réserves minérales - Mine de Karma',
+    'karma_reserves_chart_caption' => 'Répartition des réserves par catégorie',
+    'karma_reserves_note' => 'Les estimations de réserves sont conformes aux normes internationales de reporting (NI 43-101 / JORC). Elles sont régulièrement révisées pour refléter les résultats d\'exploration et les conditions de marché.',
+    'karma_reserves_probable_h3' => 'Réserves probables',
+    'karma_reserves_probable_desc' => 'Réserves probables estimées sur 4 dépôts principaux (GG1, Kao Nord, Yabonsgo, Nami), couvrant les zones oxyde et transition.',
+    'karma_reserves_indicated_h3' => 'Ressources mesurées & indiquées',
+    'karma_reserves_indicated_desc' => 'Ressources mesurées et indiquées réparties sur 13 dépôts, incluant les zones oxyde, transition et sulfure.',
+    'karma_reserves_inferred_h3' => 'Ressources inférées',
+    'karma_reserves_inferred_desc' => 'Ressources inférées identifiées sur 12 dépôts, représentant un potentiel d\'exploration significatif.',
+    'karma_reserves_stat_probable' => 'Réserves probables',
+    'karma_reserves_stat_indicated' => 'Ressources M&I',
+    'karma_reserves_stat_inferred' => 'Ressources inférées',
+    'karma_reserves_stat_deposits' => 'Dépôts identifiés',
+    'karma_reserves_deposits_h3' => 'Dépôts par catégorie',
+    'karma_reserves_col_deposit' => 'Dépôt',
+    'karma_reserves_col_tonnage' => 'Tonnage (Kt)',
+    'karma_reserves_col_grade' => 'Teneur (g/t)',
+    'karma_reserves_col_gold' => 'Or (koz)',
 
     /* ── Projets ── */
-    'projects_eyebrow'    => 'Néré Mining · Nos Projets',
+    'projects_eyebrow'    => 'Néré Mining - Nos Projets',
     'projects_h1'         => "Des horizons d'exploration prometteurs.",
     'projects_breadcrumb' => 'Nos projets en développement',
     'projects_expl_h2'    => "Nos projets d'exploration",
@@ -205,7 +225,7 @@ return [
     'projects_join_lead'  => "Néré Mining est ouvert aux opportunités de partenariat technique, financier et opérationnel avec des acteurs partageant notre vision d'une mine responsable et burkinabè.",
     'nav_projects_cil'    => 'Projet CIL',
     'cil_project_h2'      => 'Projet CIL',
-    'cil_project_eyebrow' => 'Néré Mining · Projet CIL',
+    'cil_project_eyebrow' => 'Néré Mining - Projet CIL',
     'cil_project_h1'      => 'Une usine CIL intégrée à Karma.',
     'cil_project_breadcrumb' => 'Projet CIL',
     'cil_project_cta'     => 'Découvrir le projet CIL',
@@ -232,13 +252,13 @@ return [
     'cil_project_value_p'  => "Le projet CIL s'appuie sur les installations existantes pour contribuer à un processus de traitement plus intégré et économiquement efficient à Karma.",
 
     /* ── Développement durable ── */
-    'sustain_eyebrow'    => 'Néré Mining · Développement Durable',
+    'sustain_eyebrow'    => 'Néré Mining - Développement Durable',
     'sustain_h1'         => 'La performance se mesure autrement.',
     'sustain_breadcrumb' => 'Développement durable',
     'sustain_lead'       => "Notre performance se mesure aussi par notre capacité à protéger les ressources, améliorer la sécurité et soutenir durablement les communautés. Nos engagements sont structurés autour de quatre piliers.",
 
     /* Communities */
-    'communities_eyebrow'    => 'Développement Durable · Nos Communautés',
+    'communities_eyebrow'    => 'Développement Durable - Nos Communautés',
     'communities_h1'         => 'Des relations fondées sur le dialogue et la confiance.',
     'communities_breadcrumb' => 'Nos Communautés',
     'communities_lead'       => "La relation de Néré Mining avec les communautés riveraines de la mine de Karma repose sur le respect, l'écoute et un engagement concret pour le développement local.",
@@ -246,16 +266,16 @@ return [
     'communities_policy_p'   => "Néré Mining applique une politique de relations communautaires fondée sur le consentement, le dialogue et la participation active des populations aux décisions qui les concernent.",
     'communities_dialogue_h3' => 'Dialogue communautaire',
     'communities_dialogue_p' => "Le Comité de Suivi et de Liaison (CSL) constitue un cadre de dialogue avec les populations. Néré Mining participe aux événements régionaux et soutient les autorités locales, coutumières et religieuses.",
-    'communities_invest_h3'  => 'Investissements sociaux — Fonds de Développement Local',
+    'communities_invest_h3'  => 'Investissements sociaux - Fonds de Développement Local',
     'communities_invest_p'   => "Néré Mining prévoit de renforcer son soutien aux populations par des projets concrets, notamment la construction d'infrastructures hydrauliques et la réorientation du Fonds Minier de Développement Local (FMDL) vers les besoins réels des communautés.",
     'communities_achiev_h4'  => 'Réalisations récentes',
-    'communities_achiev_p'   => "Construction de salles de classe · Réhabilitation de forages · Appui aux groupements féminins · Formation professionnelle des jeunes",
+    'communities_achiev_p'   => "Construction de salles de classe, réhabilitation de forages, appui aux groupements féminins, formation professionnelle des jeunes",
     'communities_complaint_h2'   => 'Mécanisme de gestion des plaintes',
     'communities_complaint_lead' => "Toute personne affectée par les activités de la mine peut déposer une plainte ou une préoccupation. Notre mécanisme garantit une réponse rapide, équitable et confidentielle.",
     'communities_partners_h2'    => 'Nos partenaires communautaires',
     'communities_partners_p'     => "Néré Mining travaille en étroite collaboration avec des associations locales, des groupements de femmes, des coopératives agricoles et des organisations de jeunesse pour maximiser l'impact de ses investissements sociaux.",
 
-    /* ── Communautés — nouvelles sections ── */
+    /* ── Communautés - nouvelles sections ── */
     'communities_fmd_h2'         => 'Fonds de Micro-Développement (FMD)',
     'communities_fmd_lead'       => "Le FMD est l'instrument principal d'investissement social de Néré Mining. Il finance des projets prioritaires identifiés conjointement avec les communautés riveraines de la mine de Karma.",
     'communities_fmd_projects_h3' => 'Projets réalisés',
@@ -288,19 +308,19 @@ return [
     'communities_partner4_p'     => "Associations de jeunes impliquées dans les programmes de formation, de sensibilisation et d'insertion professionnelle.",
 
     /* Environment */
-    'environment_eyebrow'    => 'Développement Durable · Environnement',
+    'environment_eyebrow'    => 'Développement Durable - Environnement',
     'environment_h1'         => 'Protéger les ressources naturelles du territoire.',
     'environment_breadcrumb' => 'Environnement',
     'environment_lead'       => "Néré Mining s'engage à minimiser son empreinte environnementale et à réhabiliter progressivement les zones impactées par ses activités minières.",
 
     /* HSE */
-    'hse_eyebrow'    => 'Développement Durable · Santé et Sécurité',
+    'hse_eyebrow'    => 'Développement Durable - Santé et Sécurité',
     'hse_h1'         => 'Zéro accident, une exigence quotidienne.',
     'hse_breadcrumb' => 'Santé et Sécurité',
     'hse_lead'       => "Le département HSE de Karma s'engage à assurer la sécurité des travailleurs et à minimiser l'impact environnemental grâce à des pratiques rigoureuses et responsables. Son objectif est zéro incident.",
 
     /* Local content */
-    'local_eyebrow'    => 'Développement Durable · Contenu Local',
+    'local_eyebrow'    => 'Développement Durable - Contenu Local',
     'local_h1'         => 'Créer de la valeur là où nous opérons.',
     'local_breadcrumb' => 'Contenu Local',
     'local_lead'       => "Néré Mining s'engage à maximiser les retombées économiques de ses activités au profit des communautés locales, de la région du Nord et du Burkina Faso dans son ensemble.",
@@ -313,7 +333,7 @@ return [
     'subnav_local_content' => 'Contenu Local',
 
     /* ── Actualités ── */
-    'news_eyebrow'      => 'Néré Mining · Actualités & Médias',
+    'news_eyebrow'      => 'Néré Mining - Actualités & Médias',
     'news_h1'           => 'Actualités',
     'news_breadcrumb'   => 'Actualités',
     'news_empty'        => 'Aucune actualité publiée pour le moment.',
@@ -354,21 +374,21 @@ return [
     'press_contact_lead'       => "Journalistes, agences de presse, blogueurs et professionnels des médias : retrouvez ci-dessous les coordonnées de notre interlocuteur dédié pour toute demande d'interview, de visite de site, d'accréditation ou de ressource documentaire.",
     'press_contact_role_label' => 'Interlocuteur dédié aux médias',
     'press_contact_name'       => '[Nom du Responsable Communication]',
-    'press_contact_job'        => 'Responsable Communication & Relations Presse — Néré Mining S.A.',
+    'press_contact_job'        => 'Responsable Communication & Relations Presse - Néré Mining S.A.',
     'press_contact_phone_label' => 'Téléphone',
     'press_contact_email_label' => 'E-mail presse',
     'press_contact_hours_label' => 'Disponibilité',
-    'press_contact_hours'      => 'Lundi – Vendredi, 8h – 17h (GMT+0)',
+    'press_contact_hours'      => 'Lundi - Vendredi, 8h - 17h (GMT+0)',
     'press_contact_services_h2' => 'Types de demandes traitées',
     'press_contact_services_lead' => "Notre service presse répond à toutes les sollicitations médias dans les meilleurs délais.",
     'press_contact_form_h2'    => 'Formulaire de demande presse',
     'press_contact_form_lead'  => "Utilisez ce formulaire pour toute demande médias. Vous recevrez une réponse de notre responsable communication dans les meilleurs délais.",
-    'press_contact_field_media' => 'Média / Agence de presse',
+    'press_contact_field_media' => 'Média - Agence de presse',
     'press_contact_media_placeholder' => 'Ex : RFI, Sidwaya, L\'Observateur Paalga…',
     'press_contact_request_placeholder' => 'Décrivez votre demande (interview, visite, kit presse, accréditation…)',
 
     /* ── Carrières ── */
-    'careers_eyebrow'    => 'Néré Mining · Carrières',
+    'careers_eyebrow'    => 'Néré Mining - Carrières',
     'careers_h1'         => 'Construisons la suite ensemble.',
     'careers_breadcrumb' => 'Carrières',
     'careers_why_h2'     => 'Pourquoi choisir Néré Mining ?',
@@ -380,10 +400,10 @@ return [
     'careers_deadline'   => 'Date limite :',
 
     /* ── Contact ── */
-    'contact_eyebrow'    => 'Néré Mining · Contact',
+    'contact_eyebrow'    => 'Néré Mining - Contact',
     'contact_h1'         => 'Échangeons avec Néré Mining.',
     'contact_breadcrumb' => 'Contact',
-    'contact_hq_h3'           => 'Siège social — Ouagadougou',
+    'contact_hq_h3'           => 'Siège social - Ouagadougou',
     'contact_hq_address'      => 'Adresse',
     'contact_hq_address_v'    => '11 BP 141 CMS Ouagadougou 11, Koulouba, Ouagadougou, Burkina Faso',
     'contact_hq_phone'        => 'Tél.',
@@ -391,11 +411,11 @@ return [
     'contact_hq_email'        => 'Email',
     'contact_hq_email_v'      => 'contact@nere-mining.bf',
     'contact_hq_hours'        => 'Horaires',
-    'contact_hq_hours_v'      => 'Lun–Ven, 8h–15h30',
+    'contact_hq_hours_v'      => 'Lun-Ven, 8h-15h30',
 
     'contact_mine_h3'             => 'Site minier de Karma',
     'contact_mine_location'       => 'Localisation',
-    'contact_mine_location_v'     => 'Commune de Namissiguima, province du Yatenga, région du Nord — 195 km de Ouagadougou',
+    'contact_mine_location_v'     => 'Commune de Namissiguima, province du Yatenga, région du Nord - 195 km de Ouagadougou',
     'contact_mine_access'         => 'Accès',
     'contact_mine_access_v'       => '180 km route bitumée via Ouahigouya + 15 km piste en latérite',
     'contact_mine_field'          => 'Contacts terrain',
@@ -406,9 +426,9 @@ return [
     'contact_mine_community'      => 'Relations communautaires',
     'contact_mine_community_v'    => 'contact@nere-mining.bf',
 
-    'contact_office_h3'           => 'Bureau de liaison — Ouahigouya',
+    'contact_office_h3'           => 'Bureau de liaison - Ouahigouya',
     'contact_office_role'         => 'Rôle',
-    'contact_office_role_v'       => 'Représentation régionale — Région du Nord',
+    'contact_office_role_v'       => 'Représentation régionale - Région du Nord',
     'contact_office_address'      => 'Adresse',
     'contact_office_address_v'    => 'Ouahigouya, Région du Nord, Burkina Faso',
     'contact_office_phone'        => 'Tél.',
@@ -426,10 +446,10 @@ return [
     'contact_type_general'   => 'Demande générale',
     'contact_type_partner'   => 'Partenariat',
     'contact_type_invest'    => 'Investissement',
-    'contact_type_job'       => 'Emploi / Candidature',
+    'contact_type_job'       => 'Emploi - Candidature',
     'contact_type_supplier'  => 'Devenir fournisseur',
     'contact_type_press'     => 'Demande presse',
-    'contact_type_community' => 'Communautés / Plainte',
+    'contact_type_community' => 'Communautés - Plainte',
     'contact_type_spontaneous' => 'Candidature spontanée',
 
     /* ── Newsletter ── */
@@ -437,7 +457,7 @@ return [
     'newsletter_lead'  => "Inscrivez-vous pour suivre nos actualités, communiqués et publications en temps réel.",
     'newsletter_email' => 'Votre adresse e-mail',
 
-    /* ══ CLÉS MANQUANTES — Karma (départements, étapes, impact) ══ */
+    /* ══ CLÉS MANQUANTES - Karma (départements, étapes, impact) ══ */
     'karma_dept1_tag' => 'Administration',
     'karma_dept1_h3' => 'Administration de la mine',
     'karma_dept1_p'   => "Planification stratégique, gestion des opérations, supervision financière et conformité réglementaire. L'administration coordonne les départements et les services techniques, HSE et ressources humaines.",
@@ -490,15 +510,15 @@ return [
     'karma_imp_eco3_tag'  => 'Contributions fiscales & Investissements',
     'karma_imp_eco3_p'    => "Paiement régulier des droits miniers, impôts et taxes. Contribution au budget de l'État burkinabè, aux fonds de développement locaux et aux investissements structurants du territoire.",
 
-    /* ══ Projets — cartes exploration ══ */
-    'projects_card1_tag' => 'Permis — Région du Nord',
+    /* ══ Projets - cartes exploration ══ */
+    'projects_card1_tag' => 'Permis - Région du Nord',
     'projects_card1_h3'  => 'Projet Karma Extension',
     'projects_card1_p'   => "<strong>Localisation :</strong> Province du Zondoma<br><strong>Potentiel :</strong> Extension du gisement actuel<br><strong>Statut :</strong> Exploration avancée<br><strong>Surface :</strong> À préciser",
-    'projects_card2_tag' => 'Permis — Région Centre-Nord',
-    'projects_card2_h3'  => 'Permis d’exploration — Centre-Nord',
+    'projects_card2_tag' => 'Permis - Région Centre-Nord',
+    'projects_card2_h3'  => 'Permis d’exploration - Centre-Nord',
     'projects_card2_p'   => "<strong>Localisation :</strong> Province du Bam<br><strong>Potentiel :</strong> Gisement aurifère en évaluation<br><strong>Statut :</strong> Exploration préliminaire<br><strong>Surface :</strong> À préciser",
-    'projects_card3_tag' => "Permis — Région de l'Est",
-    'projects_card3_h3'  => 'Permis d’exploration — Est',
+    'projects_card3_tag' => "Permis - Région de l'Est",
+    'projects_card3_h3'  => 'Permis d’exploration - Est',
     'projects_card3_p'   => "<strong>Localisation :</strong> Province du Gourma<br><strong>Potentiel :</strong> Cibles aurifères identifiées<br><strong>Statut :</strong> Travaux de terrain<br><strong>Surface :</strong> À préciser",
     'projects_map_icon_label' => "Carte des permis d'exploration et d'exploitation",
     'projects_map_context_h3' => 'Un portefeuille en développement',
@@ -512,7 +532,7 @@ return [
     'projects_part2_p'   => "Néré Mining offre des opportunités d'investissement dans un groupe minier burkinabè en croissance, ancré dans le territoire et engagé dans une démarche de responsabilité sociale.",
     'projects_part2_btn' => 'En savoir plus',
 
-    /* ══ Développement durable — hub ══ */
+    /* ══ Développement durable - hub ══ */
     'sustain_pillar1_num' => '01',
     'sustain_pillar1_h3' => 'Nos Communautés',
     'sustain_pillar1_p'   => "Dialogue communautaire, investissements sociaux, mécanisme de gestion des plaintes et partenariats avec les associations locales.",
@@ -527,7 +547,7 @@ return [
     'sustain_pillar4_p'   => "Politique de recrutement local et régional, politique d'achat local et programme de développement des fournisseurs burkinabè.",
     'sustain_discover'    => 'Découvrir →',
 
-    /* ══ Communautés — étapes plaintes ══ */
+    /* ══ Communautés - étapes plaintes ══ */
     'communities_step1_tag' => 'Étape 1',
     'communities_step1_h3' => 'Dépôt',
     'communities_step1_p'   => "La plainte peut être déposée en personne au bureau des relations communautaires, par téléphone ou via le formulaire de contact.",
@@ -538,7 +558,7 @@ return [
     'communities_step3_h3' => 'Résolution',
     'communities_step3_p'   => "Un suivi est assuré pour vérifier la satisfaction du plaignant et identifier les mesures correctives nécessaires.",
 
-    /* ══ Environnement — cartes ══ */
+    /* ══ Environnement - cartes ══ */
     'env_card1_tag' => 'Politique',
     'env_card1_h3' => 'Politique environnementale',
     'env_card1_p'   => "Respect de la réglementation burkinabè et des standards internationaux. Évaluation des impacts environnementaux avant tout nouveau développement.",
@@ -549,7 +569,7 @@ return [
     'env_card3_h3' => "Gestion de l'eau et des déchets",
     'env_card3_p'   => "Suivi de la consommation d'eau, recyclage des eaux de traitement, gestion sécurisée des résidus miniers et des déchets dangereux.",
 
-    /* ── Environnement — nouvelles sections ── */
+    /* ── Environnement - nouvelles sections ── */
     'env_policy_h2'      => 'Politique environnementale',
     'env_policy_lead'    => "Néré Mining s'engage à respecter les réglementations environnementales burkinabè et les standards internationaux. Une évaluation d'impact environnemental et social est réalisée avant tout nouveau développement.",
     'env_policy1_tag'    => 'Cadre légal',
@@ -586,7 +606,7 @@ return [
     'env_water3_h3'      => 'Maîtrise des émissions',
     'env_water3_p'       => "Arrosage des pistes pour limiter les poussières, contrôle des émissions des engins, plan de réduction des émissions de gaz à effet de serre et bilan carbone annuel.",
 
-    /* ══ HSE — chiffres + cartes ══ */
+    /* ══ HSE - chiffres + cartes ══ */
     'hse_stat1_val'  => '0',
     'hse_stat1_label' => 'Objectif accident mortel',
     'hse_stat2_val'  => '100%',
@@ -605,7 +625,7 @@ return [
     'hse_card3_h3' => 'Audits et certifications',
     'hse_card3_p'    => "Audits internes et externes réguliers, suivi des indicateurs TRIR (Taux de fréquence des accidents) et mise en œuvre des plans d'action.",
 
-    /* ── HSE — nouvelles sections ── */
+    /* ── HSE - nouvelles sections ── */
     'hse_policy_h2'      => 'Politique HSE',
     'hse_policy_lead'    => "La politique HSE de Néré Mining repose sur le principe de tolérance zéro. Chaque employé, sous-traitant et visiteur a l'obligation de respecter les règles de sécurité et le droit d'arrêter toute opération jugée dangereuse.",
     'hse_policy1_tag'    => 'Engagement',
@@ -624,13 +644,13 @@ return [
     'hse_cert1_h3'       => 'ISO 9001:2008',
     'hse_cert1_p'        => "Certification obtenue pour le système de management de la qualité des opérations minières. Elle atteste de la rigueur des procédures appliquées sur le site de Karma.",
     'hse_cert2_tag'      => 'Transparence',
-    'hse_cert2_h3'       => 'ITIE — Membre',
+    'hse_cert2_h3'       => 'ITIE - Membre',
     'hse_cert2_p'        => "Néré Mining est membre de l'Initiative pour la Transparence des Industries Extractives. Les paiements fiscaux et les données de production sont publiés annuellement.",
     'hse_cert3_tag'      => 'Audit',
     'hse_cert3_h3'       => 'Audits indépendants',
     'hse_cert3_p'        => "Audits HSE externes annuels conduits par des cabinets spécialisés. Les rapports d'audit et les plans d'action correctifs sont soumis à la direction générale.",
 
-    /* ══ Contenu local — cartes ══ */
+    /* ══ Contenu local - cartes ══ */
     'local_card1_tag' => 'Recrutement',
     'local_card1_h3' => 'Politique de recrutement local et régional',
     'local_card1_p'   => "Priorité aux candidats originaires des villages riverains, puis de la région du Nord, avant tout recrutement national ou international. Les offres d'emploi sont diffusées en priorité dans les communautés locales.",
@@ -642,7 +662,7 @@ return [
     'local_card3_p'   => "Néré Mining accompagne les PME et entrepreneurs burkinabè souhaitant fournir des biens et services à la mine : mise à niveau technique, formation aux standards miniers, appui administratif et accès aux marchés.",
     'local_card3_btn' => 'Devenir fournisseur',
 
-    /* ── Contenu local — nouvelles sections ── */
+    /* ── Contenu local - nouvelles sections ── */
     'local_policy_h2'    => 'Politique de contenu local',
     'local_policy_lead'  => "Néré Mining a formalisé une politique de contenu local qui s'applique à toutes ses activités : recrutement, approvisionnements, sous-traitance et investissements communautaires.",
     'local_recruit_h3'   => 'Politique de recrutement local et régional',
@@ -662,7 +682,7 @@ return [
     'local_supp3_p'      => "Mise en relation avec les équipes achats de Néré Mining, participation aux appels d'offres réservés aux fournisseurs locaux et suivi des performances.",
     'local_supp_cta'     => 'Devenir fournisseur partenaire',
 
-    /* ══ Carrières — pourquoi Néré Mining ══ */
+    /* ══ Carrières - pourquoi Néré Mining ══ */
     'careers_why1_tag' => 'Carrière',
     'careers_why1_h3' => 'Un projet ambitieux',
     'careers_why1_p'   => "Des opportunités de progression réelles dans un groupe en développement, avec des responsabilités à la hauteur de vos compétences.",
@@ -674,7 +694,7 @@ return [
     'careers_why3_p'   => "Votre travail chez Néré Mining contribue directement à l'économie burkinabè et au développement des communautés locales.",
     'careers_apply'    => 'Postuler',
 
-    /* ══ Contact Presse — services cartes ══ */
+    /* ══ Contact Presse - services cartes ══ */
     'pc_svc1_tag' => 'Interviews',
     'pc_svc1_h3' => "Demandes d'interview",
     'pc_svc1_p'   => "Entretiens avec la Direction Générale, les responsables techniques ou les équipes RSE. Merci de préciser le média, le format et le délai de publication souhaité.",
@@ -695,7 +715,7 @@ return [
     'pc_svc6_p'   => "Pour toute vérification de fait ou demande de commentaire officiel dans le cadre d'un article en cours de rédaction, notre service presse s'engage à répondre dans les 24 heures ouvrées.",
     'pc_email_professional' => 'E-mail professionnel',
 
-    /* ══ Qui sommes-nous — sous-pages ══ */
+    /* ══ Qui sommes-nous - sous-pages ══ */
     'nav_company_ceo'        => 'Mot du PDG',
     'nav_company_identity'   => 'Notre identité',
     'nav_company_history'    => 'Notre histoire',
@@ -709,30 +729,30 @@ return [
     'subnav_company_governance' => 'Gouvernance',
 
     /* company-ceo */
-    'company_ceo_eyebrow'    => 'Qui sommes-nous ? · Mot du PDG',
+    'company_ceo_eyebrow'    => 'Qui sommes-nous ? - Mot du PDG',
     'company_ceo_h1'         => 'Mot du Président Directeur Général.',
     'company_ceo_breadcrumb' => 'Mot du PDG',
 
     /* company-identity */
-    'company_identity_eyebrow'    => 'Qui sommes-nous ? · Notre identité',
+    'company_identity_eyebrow'    => 'Qui sommes-nous ? - Notre identité',
     'company_identity_eyebrow_short' => 'Notre identité',
     'company_identity_h1'         => 'Notre identité et notre symbole.',
     'company_identity_breadcrumb' => 'Notre identité',
 
     /* company-history */
-    'company_history_eyebrow'    => 'Qui sommes-nous ? · Notre histoire',
+    'company_history_eyebrow'    => 'Qui sommes-nous ? - Notre histoire',
     'company_history_eyebrow_short' => 'Notre histoire',
     'company_history_h1'         => 'Notre histoire.',
     'company_history_breadcrumb' => 'Notre histoire',
 
     /* company-values */
-    'company_values_eyebrow'    => 'Qui sommes-nous ? · Vision & Valeurs',
+    'company_values_eyebrow'    => 'Qui sommes-nous ? - Vision & Valeurs',
     'company_values_eyebrow_short' => 'Vision & Valeurs',
     'company_values_h1'         => 'Notre vision et nos valeurs.',
     'company_values_breadcrumb' => 'Vision & Valeurs',
 
     /* company-governance */
-    'company_governance_eyebrow'    => 'Qui sommes-nous ? · Gouvernance',
+    'company_governance_eyebrow'    => 'Qui sommes-nous ? - Gouvernance',
     'company_governance_eyebrow_short' => 'Gouvernance',
     'company_governance_h1'         => 'Notre gouvernance et notre Direction.',
     'company_governance_breadcrumb' => 'Gouvernance',
@@ -749,7 +769,7 @@ return [
     'company_gov_legend_pdg'        => 'Présidence et direction générale',
     'company_gov_legend_dga'        => 'Directions générales adjointes',
 
-    /* ══ Carrières — nouvelles clés ══ */
+    /* ══ Carrières - nouvelles clés ══ */
     'careers_filter_all'         => 'Tous les postes',
     'careers_filter_dept'        => 'Département',
     'careers_filter_type'        => 'Type de contrat',
@@ -782,14 +802,14 @@ return [
     'careers_file_hint'          => 'PDF ou Word, max 5 Mo',
     'careers_submit_application' => 'Soumettre ma candidature',
     'careers_spontaneous_title'  => 'Candidature spontanée',
-    'careers_spontaneous_lead'   => "Vous ne trouvez pas de poste correspondant à votre profil ? Déposez une candidature spontanée — nous l'étudierons dès qu'une opportunité se présentera.",
+    'careers_spontaneous_lead'   => "Vous ne trouvez pas de poste correspondant à votre profil ? Déposez une candidature spontanée - nous l'étudierons dès qu'une opportunité se présentera.",
     'careers_spontaneous_btn'    => 'Candidature spontanée →',
     'careers_alert_deadline'     => 'Clôture dans :n jour(s)',
-    'careers_alert_urgent'       => 'Urgent — clôture demain',
+    'careers_alert_urgent'       => 'Urgent - clôture demain',
     /* Niveaux d'expérience */
-    'careers_level_junior'      => 'Junior (0–2 ans)',
-    'careers_level_mid'         => 'Intermédiaire (2–5 ans)',
-    'careers_level_senior'      => 'Senior (5–10 ans)',
+    'careers_level_junior'      => 'Junior (0-2 ans)',
+    'careers_level_mid'         => 'Intermédiaire (2-5 ans)',
+    'careers_level_senior'      => 'Senior (5-10 ans)',
     'careers_level_expert'      => 'Expert (10 ans +)',
     'careers_level_internship'  => 'Stage',
 ];

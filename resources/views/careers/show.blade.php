@@ -11,14 +11,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $job->title }} | {{ __('site.nav_careers', [], $loc) }} | Néré Mining</title>
+    <title>{{ $job->title }} - {{ __('site.nav_careers', [], $loc) }} - Néré Mining</title>
     <meta name="description" content="{{ Str::limit($job->description, 160) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/chrome.css') }}">
     <style>
-        :root{--ink:#281d18;--green:#4b1716;--red:#d72f2f;--gold:#ffc247;--gold2:#e5a72f;--sand:#fff4dc;--muted:#70645c;--line:#eadcc5;--light:#fbfaf7;}
+        :root{ --ink:#281d18; --green:#4b1716; --red:#d72f2f; --gold:#ffc247; --gold2:#e5a72f; --sand:#fff4dc; --muted:#70645c; --line:#eadcc5; --light:#fbfaf7;}
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         body{color:var(--ink);background:var(--light);font-family:'Inter',Arial,sans-serif;line-height:1.6;}
         a{color:inherit;text-decoration:none;}
@@ -136,7 +136,7 @@
 {{-- Body --}}
 <div class="page-body">
 
-    {{-- LEFT — Détail --}}
+    {{-- LEFT - Détail --}}
     <div>
 
         @if(session('apply_success'))
@@ -262,12 +262,12 @@
         </div>
     </div>
 
-    {{-- RIGHT — Sidebar sticky --}}
+    {{-- RIGHT - Sidebar sticky --}}
     <aside class="sidebar">
         <div class="sidebar-card">
             <div class="sidebar-head">
                 <h3>{{ $job->title }}</h3>
-                <p>{{ $job->department }} · Néré Mining S.A.</p>
+                <p>{{ $job->department }} - Néré Mining S.A.</p>
             </div>
             <div class="sidebar-meta">
                 <div class="meta-row">
@@ -342,7 +342,7 @@
             @endphp
             <a href="{{ $oRoute }}" style="display:block;padding:14px 20px;border-bottom:1px solid var(--line);transition:background .15s;">
                 <div style="font:600 13px Inter,sans-serif;color:var(--green);margin-bottom:3px;">{{ $other->title }}</div>
-                <div style="font:12px Inter,sans-serif;color:var(--muted);">{{ $other->department }} · {{ $other->contract_type }}</div>
+                <div style="font:12px Inter,sans-serif;color:var(--muted);">{{ $other->department }} - {{ $other->contract_type }}</div>
             </a>
             @endforeach
         </div>

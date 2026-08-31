@@ -1,9 +1,6 @@
 {{-- Page : Nos projets en développement --}}
 @extends('layouts.app')
-
 @section('content')
-
-{{-- Projet CIL en tête de rubrique --}}
 <style>
     .project-card {
         background: linear-gradient(180deg, #ffffff 0%, #f4eee6 100%);
@@ -48,7 +45,5 @@
         @endforeach
     </div>
 </section>
-
-
 
 @endsection

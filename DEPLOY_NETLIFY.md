@@ -1,94 +1,130 @@
-# 🚀 Déploiement sur Netlify
+# 🚀 Déploiement Netlify - Site Statique
 
-Ce guide explique comment déployer le site web Néré Mining sur Netlify pour les présentations.
+Cette branche contient la configuration pour déployer le site en tant que contenu **100% statique** sur Netlify.
 
-## ✅ Prérequis
+## 🎯 Objectif
 
-- Compte GitHub avec ce repository
-- Compte Netlify (gratuit): https://netlify.com
-- Node.js et npm installés localement
+Générer des fichiers HTML statiques à partir de l'app Laravel et les héberger gratuitement sur Netlify pour les présentations.
 
-## 📋 Étapes de configuration
+## ✅ Comment ça marche
+
+1. **Export statique** : Le script PHP génère des fichiers HTML pré-rendus
+2. **Build assets** : Vite compile CSS/JS
+3. **Deploy** : Netlify héberge les fichiers statiques
+4. **Cache** : CDN global pour performances optimales
+
+## 🚀 Déployer en 5 minutes
 
 ### 1. Créer un compte Netlify
-- Aller sur https://netlify.com
-- Sign up avec GitHub
-- Autoriser Netlify à accéder à tes repos
-
-### 2. Connecter ce repository
-- Dans Netlify: "New site from Git"
-- Sélectionner GitHub et ce repository
-- Netlify détecte automatiquement la config (netlify.toml)
-- Cliquer "Deploy"
-
-### 3. Configuration du build (automatique)
-- **Build command**: `npm run build`
-- **Publish directory**: `public`
-
-### 4. Variables d'environnement (optionnel)
-Si tu as besoin de variables d'environnement:
-- Dans Netlify: "Settings" → "Build & Deploy" → "Environment"
-- Ajouter les variables nécessaires
-
-## 🔄 Déploiement automatique
-
-Chaque push sur la branche `main` déclenche automatiquement un déploiement sur Netlify.
-
-```bash
-git add .
-git commit -m "Update content"
-git push origin main
+```
+https://netlify.com → Sign up with GitHub
 ```
 
-Le site sera en ligne en ~30 secondes.
+### 2. Connecter ce repo à Netlify
+- **Dashboard Netlify** → "New site from Git"
+- Sélectionner **GitHub**
+- Chercher et sélectionner ce repo
+- Branche: `deploy-netlify`
+- Netlify détecte automatiquement `netlify.toml`
+- Cliquer **"Deploy site"**
 
-## 📊 Vérifier le déploiement
+### 3. Attendre le build (~2-3 minutes)
+- Les logs montreront:
+  ```
+  ✅ Generated: index.html
+  ✅ Generated: en/index.html
+  ✅ Generated: actualites/index.html
+  ... etc
+  ```
 
-1. Aller dans Netlify Dashboard
-2. Vérifier le "Deploys" tab
-3. Voir le status du build
-4. Accéder au lien public généré
+### 4. Récupérer l'URL publique
+```
+https://your-site-name.netlify.app
+```
 
-## 🎨 Personnaliser le domaine
+## 📝 Mettre à jour après modification
 
-### Netlify subdomain (par défaut)
-- Format: `your-site-name.netlify.app`
-- Automatique et gratuit
+```bash
+# Après modifier le contenu localement:
+git add .
+git commit -m "Update content"
+git push origin deploy-netlify
 
-### Domaine personnalisé
-- Dans Netlify: "Settings" → "Domain management"
-- Ajouter ton domaine
-- Suivre les étapes pour configurer les DNS
+# Netlify redéploie automatiquement en ~30 sec
+```
+
+## 🛠️ Tester localement
+
+```bash
+# Build les assets
+npm run build
+
+# Exporter les pages HTML
+npm run export
+
+# Les fichiers sont dans /dist
+# Ouvrir dist/index.html dans le navigateur
+```
+
+## 📋 Routes exportées
+
+- `/` → `index.html`
+- `/en` → `en/index.html`
+- `/actualites` → `actualites/index.html`
+- `/emploi` → `emploi/index.html`
+- ... et plus (voir scripts/export-static.php)
 
 ## ⚠️ Limitations
 
-- **Pas de backend** : Les formulaires de contact et uploads nécessitent un backend
-- **Données statiques** : Seules les pages publiques sont générées
-- **Performance** : Optimal pour ~100MB de contenu statique
+**Ce qui fonctionne:**
+- ✅ Affichage des pages
+- ✅ Navigation
+- ✅ Styling CSS
+- ✅ Images
 
-## 💡 Optimisations pour présentations
+**Ce qui ne fonctionne PAS:**
+- ❌ Formulaires de contact (pas de backend)
+- ❌ Upload d'images (pas de backend)
+- ❌ Pages dynamiques (actualités temps réel)
+- ❌ API
 
-- Images optimisées et compressées
-- CSS/JS minifiés automatiquement
-- Caching des assets
-- CDN global de Netlify
+## 💡 Ajouter plus de routes
+
+Modifier `scripts/export-static.php` pour ajouter des routes:
+
+```php
+$routes = [
+    '/ma-nouvelle-page' => 'ma-nouvelle-page/index.html',
+    // ...
+];
+```
+
+Puis commit et push.
+
+## 🎨 Domaine personnalisé
+
+**Ajouter ton domaine:**
+1. Netlify Dashboard → Site Settings → Domain management
+2. Add custom domain
+3. Suivre les étapes DNS
 
 ## 🆘 Troubleshooting
 
+### 404 sur Netlify mais fonctionne localement
+- Vérifier que la route est dans `scripts/export-static.php`
+- Redéployer
+
 ### Build échoue
-- Vérifier les logs dans Netlify
+- Vérifier les logs Netlify
 - Vérifier que `npm run build` fonctionne localement
-- Vérifier les variables d'environnement
+- Vérifier la connexion DB (si nécessaire)
 
-### Site blanc/404
-- Vérifier que `publish = "public"` est correct
-- Vérifier les redirects dans netlify.toml
-
-### Domaine ne résout pas
-- Attendre 24-48h pour la propagation DNS
-- Vérifier les records DNS
+### Pages ne se mettent pas à jour
+- Netlify cache les pages
+- Forcer un rebuild: Dashboard → Deploys → Trigger deploy
 
 ## 📞 Support
 
-- Netlify Docs: https://docs.netlify.com
-- GitHub Actions Docs: https://docs.github.com/en/actions
+- [Netlify Docs](https://docs.netlify.com)
+- [GitHub Pages vs Netlify](https://www.netlify.com/blog/2019/09/09/why-netlify-instead-of-github-pages/)
+

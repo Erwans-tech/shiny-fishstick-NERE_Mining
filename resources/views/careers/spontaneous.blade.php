@@ -9,14 +9,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ __('site.careers_spontaneous_title', [], $loc) }} | Néré Mining</title>
+    <title>{{ __('site.careers_spontaneous_title', [], $loc) }} - Néré Mining</title>
     <meta name="description" content="{{ __('site.careers_spontaneous_lead', [], $loc) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/chrome.css') }}">
     <style>
-        :root{--ink:#281d18;--green:#4b1716;--red:#d72f2f;--gold:#ffc247;--gold2:#e5a72f;--sand:#fff4dc;--muted:#70645c;--line:#eadcc5;--light:#fbfaf7;}
+        :root{ --ink:#281d18; --green:#4b1716; --red:#d72f2f; --gold:#ffc247; --gold2:#e5a72f; --sand:#fff4dc; --muted:#70645c; --line:#eadcc5; --light:#fbfaf7;}
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         body{color:var(--ink);background:var(--light);font-family:'Inter',Arial,sans-serif;line-height:1.6;}
         a{color:inherit;text-decoration:none;}
@@ -270,7 +270,7 @@
         <div class="offer-pill">
             <div class="offer-pill-info">
                 <div class="title">{{ $oj->title }}</div>
-                <div class="meta">{{ $oj->department }} · {{ $oj->contract_type }} · {{ $oj->location }}</div>
+                <div class="meta">{{ $oj->department }} - {{ $oj->contract_type }} - {{ $oj->location }}</div>
             </div>
             <a href="{{ $ojRoute }}">{{ __('site.careers_see_offer', [], $loc) }}</a>
         </div>

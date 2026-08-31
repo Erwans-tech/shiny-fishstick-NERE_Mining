@@ -1,6 +1,5 @@
 {{-- Page : Notre identité --}}
 @extends('layouts.app')
-
 @section('content')
 @php $companyBase = $en ? route('english.company') : route('company'); @endphp
 
@@ -38,23 +37,24 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            transition: transform 0.4s cubic-bezier(0.2, 1, 0.36, 1), box-shadow 0.4s;
+            transition: transform 0.4s cubic-bezier(0.2, 1, 0.36, 1), box-shadow 0.4s, filter 0.4s;
             box-shadow: 0 10px 24px rgba(0,0,0,0.1);
         }
         .identity-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 16px 36px rgba(0,0,0,0.15);
+            box-shadow: 0 0 30px rgba(255, 194, 71, 0.5), 0 16px 36px rgba(0,0,0,0.2);
+            filter: brightness(1.08);
         }
         .identity-card::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(10, 14, 12, 0.18) 0%, rgba(10, 14, 12, 0.58) 42%, rgba(10, 14, 12, 0.82) 100%);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.70) 45%, rgba(0, 0, 0, 0.88) 100%);
             z-index: 1;
-            transition: opacity 0.3s ease;
+            transition: background 0.3s ease;
         }
         .identity-card:hover::before {
-            background: linear-gradient(180deg, rgba(10, 14, 12, 0.22) 0%, rgba(10, 14, 12, 0.62) 42%, rgba(10, 14, 12, 0.9) 100%);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.65) 45%, rgba(0, 0, 0, 0.85) 100%);
         }
         .identity-card::after {
             content: '';
@@ -62,8 +62,8 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 160px;
-            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+            height: 180px;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.75) 100%);
             z-index: 1;
         }
         .identity-card > * {
@@ -72,32 +72,36 @@
             padding: 0 24px;
         }
         .identity-card .card-tag {
-            background: rgba(255, 194, 71, 0.25);
-            color: var(--gold);
-            border: 1px solid rgba(255, 194, 71, 0.4);
+            background: rgba(255, 194, 71, 0.35);
+            color: #fff;
+            border: 1px solid rgba(255, 194, 71, 0.7);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
             align-self: flex-start;
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
         }
         .identity-card h3 {
             color: #fff;
             margin-top: auto;
             margin-bottom: 12px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-            font-size: 22px;
-            font-weight: 600;
-            line-height: 1.3;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.9);
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
         }
         .identity-card p {
-            color: rgba(255, 255, 255, 0.95);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-            font-size: 15px;
-            line-height: 1.5;
+            color: rgba(255, 255, 255, 1);
+            text-shadow: 0 3px 8px rgba(0,0,0,0.95);
+            font-size: 16px;
+            line-height: 1.6;
             margin-bottom: 24px;
+            font-weight: 600;
         }
     </style>
 

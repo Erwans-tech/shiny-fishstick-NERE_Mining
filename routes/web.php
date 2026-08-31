@@ -287,6 +287,7 @@ Route::post('/en/contact', function (Request $request) {
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminNewsController;
+use App\Http\Controllers\Admin\AdminNewsImageController;
 use App\Http\Controllers\Admin\AdminReportController;
 use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\Admin\AdminPartnerController;
@@ -313,6 +314,13 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::get('/actualites/{news}/modifier', [AdminNewsController::class, 'edit'])->name('news.edit');
         Route::put('/actualites/{news}',        [AdminNewsController::class, 'update'])->name('news.update');
         Route::delete('/actualites/{news}',     [AdminNewsController::class, 'destroy'])->name('news.destroy');
+
+        // Images des actualités
+        Route::post('/actualites/{news}/images',           [AdminNewsImageController::class, 'upload'])->name('news-images.upload');
+        Route::get('/news-images/{newsImage}',             [AdminNewsImageController::class, 'show'])->name('news-images.show');
+        Route::put('/news-images/{newsImage}',             [AdminNewsImageController::class, 'update'])->name('news-images.update');
+        Route::post('/actualites/{news}/images/reorder',   [AdminNewsImageController::class, 'reorder'])->name('news-images.reorder');
+        Route::delete('/news-images/{newsImage}',          [AdminNewsImageController::class, 'destroy'])->name('news-images.destroy');
 
         // Publications
         Route::get('/publications',                    [AdminReportController::class, 'index'])->name('reports.index');

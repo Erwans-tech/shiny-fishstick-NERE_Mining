@@ -4,7 +4,9 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "export": "php scripts/export-static.php",
+        "deploy": "npm run build && npm run export"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
