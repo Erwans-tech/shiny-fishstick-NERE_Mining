@@ -49,7 +49,7 @@ $homeHandler = function (string $locale) {
 
     $statsLabels = $locale === 'en'
         ? ['Annual gold production', 'Direct and indirect jobs', 'National workforce', 'Fiscal & social contributions']
-        : ["Production annuelle d'or", 'Emplois directs et indirects', "Main-d'œuvre nationale", 'Retombées fiscales & contributions'];
+        : ["Production annuelle d'or", 'Emplois directs et indirects', "Main-d'oeuvre nationale", 'Retombees fiscales & contributions'];
 
     return view('home', [
         'locale'   => $locale,
