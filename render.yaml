@@ -4,8 +4,7 @@
 services:
   - type: web
     name: nere-mining
-    plan: starter # ou standard/pro selon tes besoins
-    env: php
+    plan: starter
     buildCommand: |
       composer install --no-dev --optimize-autoloader
       php artisan config:cache
