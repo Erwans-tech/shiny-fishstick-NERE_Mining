@@ -1,0 +1,42 @@
+🔑 Variables d'environnement pour Render Dashboard
+========================================================
+
+Copie-colle ces variables exactement dans ton dashboard Render :
+
+# Application
+APP_NAME=Néré Mining
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://nere-mining.onrender.com
+FORCE_HTTPS=true
+
+# Base de données Supabase (PostgreSQL)
+DB_CONNECTION=pgsql
+DB_HOST=db.plibklblcykfhnoboqum.supabase.co
+DB_PORT=5432
+DB_DATABASE=postgres
+DB_USERNAME=postgres
+DB_PASSWORD=4kuAbwAFxDb1nD03
+
+# Session & Sécurité
+SESSION_DRIVER=file
+SESSION_SECURE_COOKIE=true
+SESSION_SAME_SITE=strict
+BCRYPT_ROUNDS=12
+
+# Logs & Performance
+LOG_CHANNEL=daily
+LOG_LEVEL=warning
+CACHE_DRIVER=file
+QUEUE_CONNECTION=sync
+FILESYSTEM_DISK=public
+
+# Mail (optionnel)
+MAIL_MAILER=log
+MAIL_FROM_ADDRESS=contact@nere-mining.com
+MAIL_FROM_NAME=Néré Mining
+
+========================================================
+⚠️  IMPORTANT : N'oublie pas de générer APP_KEY dans Render !
+🔗 Render génèrera automatiquement une clé sécurisée.
+========================================================

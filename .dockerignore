@@ -1,0 +1,48 @@
+# 📦 Docker ignore pour Néré Mining Laravel
+
+# Git
+.git
+.gitignore
+
+# Environment files
+.env*
+!.env.example
+
+# Dependencies
+node_modules
+vendor
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Laravel
+storage/app/*
+!storage/app/public/.gitignore
+storage/framework/cache/*
+!storage/framework/cache/.gitignore
+storage/framework/sessions/*
+!storage/framework/sessions/.gitignore
+storage/framework/views/*
+!storage/framework/views/.gitignore
+storage/logs/*
+!storage/logs/.gitignore
+bootstrap/cache/*
+!bootstrap/cache/.gitignore
+
+# Testing
+tests
+phpunit.xml
+.phpunit.result.cache
+
+# Documentation
+*.md
+!README.md
+
+# Temporary
+*.tmp
+*.log

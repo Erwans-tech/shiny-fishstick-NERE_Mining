@@ -1,5 +1,5 @@
-# 🚀 Blueprint Render pour Néré Mining Laravel
-# Documentation : https://render.com/docs/blueprint-spec
+# 🐳 Blueprint Render Docker pour Néré Mining Laravel
+# Documentation : https://render.com/docs/deploy-php-laravel-docker
 
 services:
   - type: web
@@ -8,15 +8,7 @@ services:
     region: oregon
     repo: https://github.com/Erwans-tech/shiny-fishstick-NERE_Mining
     branch: production
-    buildCommand: |
-      composer install --no-dev --optimize-autoloader
-      php artisan config:cache
-      php artisan route:cache
-      php artisan view:cache
-    startCommand: |
-      php artisan migrate --force
-      php artisan storage:link
-      php artisan serve --host=0.0.0.0 --port=$PORT
+    runtime: docker
     healthCheckPath: /
     envVars:
       - key: APP_NAME
