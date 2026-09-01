@@ -317,6 +317,7 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
     Route::middleware('admin.auth')->group(function () {
 
         Route::get('/tableau-de-bord', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/tableau-de-bord-alt', [AdminDashboardController::class, 'dashboardAlt'])->name('dashboard.alt');
 
         // Statistiques et analytics
         Route::get('/statistiques', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'index'])->name('analytics.index');

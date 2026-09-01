@@ -137,4 +137,23 @@ class AdminDashboardController extends Controller
             'direction' => $percent > 0 ? 'up' : ($percent < 0 ? 'down' : 'stable'),
         ];
     }
+
+    /**
+     * Dashboard alternatif sans CSRF (pour diagnostic)
+     */
+    public function dashboardAlt()
+    {
+        $stats = [
+            'users_count' => \App\Models\User::count(),
+            'admin_count' => \App\Models\User::where('is_admin', true)->count(),
+            'news_count' => News::count(),
+            'jobs_count' => JobOffer::count(),
+            'messages_count' => ContactMessage::count(),
+            'app_env' => config('app.env'),
+            'session_driver' => config('session.driver'),
+            'admin_user' => session('admin_name', 'Inconnu'),
+        ];
+        
+        return view('admin.dashboard-alt', compact('stats'));
+    }
 }

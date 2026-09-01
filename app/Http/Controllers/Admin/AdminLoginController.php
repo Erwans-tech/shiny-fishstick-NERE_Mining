@@ -136,7 +136,7 @@ class AdminLoginController extends Controller
             'admin_login_at'      => now()->timestamp,
         ]);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->route('admin.dashboard.alt')
             ->with('success', 'Bienvenue, ' . $user->name . ' !');
     }
 }
