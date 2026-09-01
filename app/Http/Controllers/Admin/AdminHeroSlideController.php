@@ -40,12 +40,36 @@ class AdminHeroSlideController extends Controller
 
         // Vidéo : URL OU fichier MP4 requis si type = video
         if ($type === 'video') {
-            $rules['video_url'] = ['nullable', 'string', 'max:500', 'regex:/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i'];
+            $rules['video_url'] = ['nullable', 'string', 'max:500'];
             $rules['video_file'] = ['nullable', 'file', 'mimes:mp4,webm,mov', 'max:51200']; // Max 50 Mo
             $rules['cover_image'] = ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:8192'];
+            
+            // Validation : soit video_url (YouTube/Vimeo) soit video_file doit être présent
+            $rules['video_source'] = ['required', 'in:url,file'];
         }
 
         $data = $request->validate($rules);
+
+        // Validation supplémentaire pour vidéo : vérifier que video_url OU video_file est présent
+        if ($type === 'video') {
+            $videoSource = $request->input('video_source');
+            
+            if ($videoSource === 'url') {
+                $videoUrl = $request->input('video_url', '');
+                if (empty($videoUrl)) {
+                    return back()->withErrors(['video_url' => 'Veuillez entrer une URL YouTube ou Vimeo'])->withInput();
+                }
+                // Vérifier que c'est une URL valide YouTube ou Vimeo
+                if (!preg_match('/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i', $videoUrl)) {
+                    return back()->withErrors(['video_url' => 'Format d\'URL invalide. Utilisez YouTube ou Vimeo.'])->withInput();
+                }
+                $data['video_url'] = $videoUrl;
+            } elseif ($videoSource === 'file') {
+                if (!$request->hasFile('video_file')) {
+                    return back()->withErrors(['video_file' => 'Veuillez sélectionner un fichier vidéo'])->withInput();
+                }
+            }
+        }
 
         $data['type']       = $type;
         $data['is_active']  = $request->boolean('is_active') ?? true;
@@ -110,13 +134,35 @@ class AdminHeroSlideController extends Controller
             $rules['image'] = ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif', 'max:10240'];
         }
 
-        // Vidéo : URL requise si type = video
+        // Vidéo : URL OU fichier optionnel si type = video (peuvent être modifiés séparément)
         if ($type === 'video') {
-            $rules['video_url'] = ['required', 'string', 'max:500', 'regex:/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i'];
+            $rules['video_url'] = ['nullable', 'string', 'max:500'];
+            $rules['video_file'] = ['nullable', 'file', 'mimes:mp4,webm,mov', 'max:51200'];
             $rules['cover_image'] = ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:8192'];
+            $rules['video_source'] = ['nullable', 'in:url,file'];
         }
 
         $data = $request->validate($rules);
+
+        // Validation supplémentaire pour vidéo
+        if ($type === 'video') {
+            $videoSource = $request->input('video_source');
+            
+            if ($videoSource === 'url') {
+                $videoUrl = $request->input('video_url', '');
+                if (empty($videoUrl)) {
+                    return back()->withErrors(['video_url' => 'Veuillez entrer une URL YouTube ou Vimeo'])->withInput();
+                }
+                if (!preg_match('/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i', $videoUrl)) {
+                    return back()->withErrors(['video_url' => 'Format d\'URL invalide. Utilisez YouTube ou Vimeo.'])->withInput();
+                }
+                $data['video_url'] = $videoUrl;
+            } elseif ($videoSource === 'file') {
+                if (!$request->hasFile('video_file')) {
+                    return back()->withErrors(['video_file' => 'Veuillez sélectionner un fichier vidéo'])->withInput();
+                }
+            }
+        }
 
         $data['type']       = $type;
         $data['is_active']  = $request->boolean('is_active') ?? $heroSlide->is_active;
