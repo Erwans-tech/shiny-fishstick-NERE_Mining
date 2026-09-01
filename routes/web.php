@@ -293,7 +293,11 @@ use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\Admin\AdminPartnerController;
 use App\Http\Controllers\Admin\AdminPressController;
 use App\Http\Controllers\Admin\AdminMediaController;
+use App\Http\Controllers\Admin\AdminSystemController;
 use App\Http\Controllers\Admin\AdminMessageController;
+
+// Diagnostic système (public pour debugging)
+Route::get('/gestion-nm/diagnostic', [AdminSystemController::class, 'diagnose'])->name('admin.diagnostic');
 
 // Login / logout (public, pas de middleware)
 Route::prefix('gestion-nm')->name('admin.')->group(function () {

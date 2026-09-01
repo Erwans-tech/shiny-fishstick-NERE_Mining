@@ -1,1 +1,1 @@
-web: php artisan migrate --force; php artisan storage:link; php-fpm -y /etc/php/8.3/fpm/php-fpm.conf & nginx -g 'daemon off;'
+web: chmod +x deploy.sh && ./deploy.sh && php-fpm -y /etc/php/8.3/fpm/php-fpm.conf & nginx -g 'daemon off;'
