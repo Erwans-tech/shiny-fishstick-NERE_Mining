@@ -1,0 +1,78 @@
+# 🎯 Configuration Render pour Néré Mining
+# Documentation : https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: nere-mining
+    plan: starter # ou standard/pro selon tes besoins
+    env: php
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      php artisan config:cache
+      php artisan route:cache
+      php artisan view:cache
+    startCommand: |
+      php artisan migrate --force
+      php artisan storage:link
+      php artisan serve --host=0.0.0.0 --port=$PORT
+    healthCheckPath: /
+    envVars:
+      - key: APP_NAME
+        value: "Néré Mining"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true # Render générera automatiquement
+      - key: APP_URL
+        fromService:
+          type: web
+          name: nere-mining
+          property: host
+      - key: FORCE_HTTPS
+        value: true
+      
+      # Base de données Supabase (PostgreSQL)
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        sync: false # À définir dans le dashboard Render
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        sync: false # À définir dans le dashboard Render
+      - key: DB_USERNAME
+        sync: false # À définir dans le dashboard Render
+      - key: DB_PASSWORD
+        sync: false # À définir dans le dashboard Render
+      
+      # Session & Cache
+      - key: SESSION_DRIVER
+        value: file
+      - key: SESSION_SECURE_COOKIE
+        value: true
+      - key: SESSION_SAME_SITE
+        value: strict
+      - key: CACHE_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      
+      # Filesystem
+      - key: FILESYSTEM_DISK
+        value: public
+      
+      # Logs
+      - key: LOG_CHANNEL
+        value: daily
+      - key: LOG_LEVEL
+        value: warning
+      
+      # Mail (optionnel)
+      - key: MAIL_MAILER
+        value: log
+      
+      # Sécurité
+      - key: BCRYPT_ROUNDS
+        value: 12

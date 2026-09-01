@@ -8,6 +8,29 @@ use Illuminate\Support\Facades\DB;
 
 class AdminAnalyticsController extends Controller
 {
+    /**
+     * Helper pour les requêtes SQL compatibles multi-DB
+     */
+    private function getDbFunction(string $function, string $column): string
+    {
+        $dbDriver = config('database.default');
+        
+        switch ($function) {
+            case 'DATE':
+                return $dbDriver === 'sqlite' 
+                    ? "date({$column})" 
+                    : "DATE({$column})";
+                    
+            case 'HOUR':
+                return $dbDriver === 'sqlite' 
+                    ? "CAST(strftime('%H', {$column}) AS INTEGER)" 
+                    : "HOUR({$column})";
+                    
+            default:
+                return $function . "({$column})";
+        }
+    }
+
     public function index()
     {
         // Période sélectionnée (par défaut : 30 derniers jours)
@@ -41,7 +64,7 @@ class AdminAnalyticsController extends Controller
         // ═══ GRAPHIQUE DES VISITES (30 derniers jours) ══════════════
         
         $dailyVisits = SiteAnalytics::select(
-                DB::raw('DATE(visited_at) as date'),
+                DB::raw($this->getDbFunction('DATE', 'visited_at') . ' as date'),
                 DB::raw('COUNT(*) as count')
             )
             ->where('visited_at', '>=', now()->subDays(30))
@@ -132,7 +155,7 @@ class AdminAnalyticsController extends Controller
         // ═══ HEURES DE POINTE ════════════════════════════════════════
         
         $hourlyVisits = SiteAnalytics::select(
-                DB::raw('HOUR(visited_at) as hour'),
+                DB::raw($this->getDbFunction('HOUR', 'visited_at') . ' as hour'),
                 DB::raw('COUNT(*) as count')
             )
             ->where('visited_at', '>=', $startDate)
