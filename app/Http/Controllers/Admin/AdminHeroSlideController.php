@@ -103,7 +103,7 @@ class AdminHeroSlideController extends Controller
             }
         }
 
-        unset($data['image'], $data['cover_image'], $data['video_file']);
+        unset($data['image'], $data['cover_image'], $data['video_file'], $data['video_source']);
 
         HeroSlide::create($data);
 
@@ -186,7 +186,7 @@ class AdminHeroSlideController extends Controller
             $this->deleteFile($heroSlide->image_path);
         }
 
-        unset($data['image'], $data['cover_image']);
+        unset($data['image'], $data['cover_image'], $data['video_file'], $data['video_source']);
 
         $heroSlide->update($data);
 
