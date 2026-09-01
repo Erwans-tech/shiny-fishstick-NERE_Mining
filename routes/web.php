@@ -299,6 +299,7 @@ use App\Http\Controllers\Admin\AdminMessageController;
 // Diagnostic système (public pour debugging)
 Route::get('/gestion-nm/diagnostic', [AdminSystemController::class, 'diagnose'])->name('admin.diagnostic');
 Route::post('/gestion-nm/create-admin', [AdminSystemController::class, 'createAdmin'])->name('admin.create-admin');
+Route::get('/gestion-nm/force-create-admin', [AdminSystemController::class, 'forceCreateAdmin'])->name('admin.force-create-admin');
 
 // Route de login alternative sans CSRF (pour diagnostic uniquement)
 Route::get('/gestion-nm/login-alt', [AdminLoginController::class, 'showLoginAlt'])->name('admin.login.alt');
