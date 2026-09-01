@@ -48,11 +48,6 @@ COPY docker-nginx.conf /etc/nginx/nginx.conf
 # Configure PHP-FPM
 RUN echo "listen = 127.0.0.1:9000" >> /usr/local/etc/php-fpm.d/www.conf
 
-# Laravel optimizations
-RUN php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
-
 # Create startup script
 COPY docker-start.sh /docker-start.sh
 RUN chmod +x /docker-start.sh
