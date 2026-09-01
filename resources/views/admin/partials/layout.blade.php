@@ -6,6 +6,7 @@
     <title>@yield('title', 'Administration') — Néré Mining</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/admin-animations.css') }}">
     <style>
         /* ══ Variables ════════════════════════════════════════════ */
         :root {
@@ -617,6 +618,7 @@
 
 @stack('scripts')
 
+<script src="{{ asset('js/admin-animations.js') }}"></script>
 <script>
 // Mobile sidebar toggle
 (function(){
@@ -625,6 +627,31 @@
         if(e.key === 'Escape') sidebar.classList.remove('open');
     });
 })();
+
+// Initialisation des animations admin
+document.addEventListener('DOMContentLoaded', function() {
+    // Ajouter les classes d'animation aux éléments existants
+    document.querySelectorAll('.metric-card, .stat-tile').forEach(function(tile) {
+        tile.classList.add('admin-stat-tile');
+    });
+    
+    // Animation des alertes de succès/erreur
+    document.querySelectorAll('.alert').forEach(function(alert) {
+        alert.classList.add('admin-alert');
+    });
+    
+    // Auto-fermeture des alertes après 5 secondes
+    document.querySelectorAll('.admin-alert').forEach(function(alert) {
+        if (alert.classList.contains('success')) {
+            setTimeout(function() {
+                alert.classList.add('fade-out');
+                setTimeout(function() {
+                    alert.remove();
+                }, 300);
+            }, 5000);
+        }
+    });
+});
 </script>
 </body>
 </html>
