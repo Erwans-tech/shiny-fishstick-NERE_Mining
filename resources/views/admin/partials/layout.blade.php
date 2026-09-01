@@ -547,6 +547,12 @@
             <span class="nav-icon">⚙️</span> Paramètres
         </a>
 
+        <div class="nav-section">Administration</div>
+        <a href="{{ route('admin.users.index') }}"
+           class="nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+            <span class="nav-icon">👥</span> Utilisateurs Admin
+        </a>
+
         <div class="nav-section">Accès rapide</div>
         <a href="{{ url('/') }}" target="_blank" class="nav-item">
             <span class="nav-icon">🌐</span> Voir le site public

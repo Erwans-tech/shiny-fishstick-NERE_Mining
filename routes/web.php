@@ -12,6 +12,7 @@ use App\Models\Report;
 use App\Http\Controllers\JobOfferController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -297,7 +298,8 @@ use App\Http\Controllers\Admin\AdminMessageController;
 // Login / logout (public, pas de middleware)
 Route::prefix('gestion-nm')->name('admin.')->group(function () {
 
-    Route::get('/',         [AdminLoginController::class, 'showLogin'])->name('login');
+    Route::get('/',           [AdminLoginController::class, 'showLogin'])->name('login');
+    Route::get('/connexion',  [AdminLoginController::class, 'showLogin'])->name('login.form');
     Route::post('/connexion', [AdminLoginController::class, 'login'])->name('login.post');
     Route::post('/deconnexion', [AdminLoginController::class, 'logout'])->name('logout');
 
@@ -406,5 +408,15 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::patch('/hero-slideshow/{heroSlide}/toggle', [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'toggle'])->name('hero.toggle');
         Route::post('/hero-slideshow/reorder',            [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'reorder'])->name('hero.reorder');
         Route::delete('/hero-slideshow/{heroSlide}',      [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'destroy'])->name('hero.destroy');
+
+        // Gestion des utilisateurs administrateurs
+        Route::get('/utilisateurs',                        [\App\Http\Controllers\Admin\AdminUserController::class, 'index'])->name('users.index');
+        Route::get('/utilisateurs/creer',                  [\App\Http\Controllers\Admin\AdminUserController::class, 'create'])->name('users.create');
+        Route::post('/utilisateurs',                       [\App\Http\Controllers\Admin\AdminUserController::class, 'store'])->name('users.store');
+        Route::get('/utilisateurs/{user}',                 [\App\Http\Controllers\Admin\AdminUserController::class, 'show'])->name('users.show');
+        Route::get('/utilisateurs/{user}/modifier',        [\App\Http\Controllers\Admin\AdminUserController::class, 'edit'])->name('users.edit');
+        Route::put('/utilisateurs/{user}',                 [\App\Http\Controllers\Admin\AdminUserController::class, 'update'])->name('users.update');
+        Route::patch('/utilisateurs/{user}/toggle',        [\App\Http\Controllers\Admin\AdminUserController::class, 'toggleStatus'])->name('users.toggle');
+        Route::delete('/utilisateurs/{user}',              [\App\Http\Controllers\Admin\AdminUserController::class, 'destroy'])->name('users.destroy');
     });
 });
