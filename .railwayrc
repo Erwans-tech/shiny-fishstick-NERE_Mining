@@ -1,0 +1,12 @@
+{
+  "railwayIgnoreFiles": ".env, .git, node_modules, storage/logs, vendor",
+  "buildCommand": "composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan view:cache",
+  "startCommand": "php artisan migrate --force && php artisan storage:link && php-fpm -y /etc/php/8.5/fpm/php-fpm.conf & nginx -g 'daemon off;'",
+  "envVariables": {
+    "APP_ENV": "production",
+    "APP_DEBUG": "false",
+    "DB_CONNECTION": "mysql",
+    "FORCE_HTTPS": "true",
+    "SESSION_SECURE_COOKIE": "true"
+  }
+}

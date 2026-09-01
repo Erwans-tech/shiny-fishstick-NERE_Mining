@@ -1,6 +1,6 @@
 [phases.setup]
-nixPkgs = ["php85", "php85Packages.composer", "nginx"]
-aptPkgs = ["mysql-client"]
+nixPkgs = ["php85", "php85Packages.composer", "nginx", "ffmpeg"]
+aptPkgs = ["mysql-client", "libfreetype6-dev", "libjpeg62-turbo-dev"]
 
 [phases.install]
 cmds = [
@@ -15,4 +15,5 @@ cmds = [
 ]
 
 [start]
-cmd = "php artisan migrate --force && php artisan storage:link && php-fpm -y /etc/php/8.5/fpm/php-fpm.conf & nginx -g 'daemon off;'"
+cmd = "php artisan migrate --force 2>&1; php artisan storage:link 2>&1; php-fpm -y /etc/php/8.5/fpm/php-fpm.conf & nginx -g 'daemon off;'"
+

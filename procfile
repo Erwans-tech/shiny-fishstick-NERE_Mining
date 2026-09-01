@@ -1,0 +1,1 @@
+web: php artisan migrate --force; php artisan storage:link; php-fpm -y /etc/php/8.5/fpm/php-fpm.conf & nginx -g 'daemon off;'
