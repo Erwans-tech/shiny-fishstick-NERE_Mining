@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // ── En-têtes de sécurité sur toutes les réponses web ────────
         $middleware->web(append: [
             \App\Http\Middleware\SecurityHeaders::class,
+            \App\Http\Middleware\TrackVisitor::class, // Tracker les visites
         ]);
 
         // ── Faire confiance aux proxies (load balancer, Nginx, CDN) ─

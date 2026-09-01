@@ -158,9 +158,34 @@
                 <div class="card-body">
                     <div class="form-grid">
 
-                        {{-- URL YouTube / Vimeo --}}
+                        {{-- Choix : URL ou Fichier --}}
                         <div class="form-group full">
-                            <label for="video_url">URL de la vidéo *</label>
+                            <label>Source vidéo</label>
+                            <div style="display:flex; gap:12px; margin-top:8px;">
+                                <label style="display:flex; align-items:center; gap:8px; padding:10px 16px; border:2px solid var(--line); border-radius:8px; cursor:pointer; flex:1;"
+                                       onclick="toggleVideoSource('url')">
+                                    <input type="radio" name="video_source" value="url" checked id="video-source-url"
+                                           style="width:18px; height:18px;">
+                                    <div>
+                                        <div style="font:600 13px Inter,sans-serif; color:var(--ink);">URL (YouTube/Vimeo)</div>
+                                        <div style="font:11px Inter,sans-serif; color:var(--muted);">Intégration externe</div>
+                                    </div>
+                                </label>
+                                <label style="display:flex; align-items:center; gap:8px; padding:10px 16px; border:2px solid var(--line); border-radius:8px; cursor:pointer; flex:1;"
+                                       onclick="toggleVideoSource('file')">
+                                    <input type="radio" name="video_source" value="file" id="video-source-file"
+                                           style="width:18px; height:18px;">
+                                    <div>
+                                        <div style="font:600 13px Inter,sans-serif; color:var(--ink);">Fichier MP4</div>
+                                        <div style="font:11px Inter,sans-serif; color:var(--muted);">Upload depuis PC (max 50 Mo)</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        {{-- URL YouTube / Vimeo --}}
+                        <div class="form-group full" id="video-url-field">
+                            <label for="video_url">URL de la vidéo</label>
                             <input id="video_url" type="text" name="video_url" data-conditional-field="video_url"
                                    value="{{ old('video_url', $slide->video_url) }}"
                                    placeholder="https://www.youtube.com/watch?v=…  ou  https://vimeo.com/…">
@@ -172,7 +197,45 @@
                             @error('video_url')<div class="form-error">{{ $message }}</div>@enderror
                         </div>
 
-                        {{-- Aperçu vidéo --}}
+                        {{-- Upload fichier MP4 --}}
+                        <div class="form-group full" id="video-file-field" style="display:none;">
+                            <label for="video_file">Fichier vidéo (MP4, WebM, MOV)</label>
+                            
+                            <div id="video-drop-zone"
+                                 style="border:2px dashed var(--line); border-radius:10px; padding:28px 20px; text-align:center; cursor:pointer; transition:border-color .2s, background .2s;"
+                                 onclick="document.getElementById('video_file').click()"
+                                 ondragover="event.preventDefault(); this.style.borderColor='var(--gold)'; this.style.background='var(--sand)';"
+                                 ondragleave="this.style.borderColor='var(--line)'; this.style.background='';"
+                                 ondrop="handleDrop(event,'video_file','video-file-preview-wrap','video-drop-text')">
+                                <div style="font-size:28px; margin-bottom:8px;">🎥</div>
+                                <div id="video-drop-text" style="font:500 14px Inter,sans-serif; color:var(--muted);">
+                                    Cliquez ou glissez votre vidéo ici
+                                </div>
+                                <div style="font:12px Inter,sans-serif; color:var(--muted); margin-top:5px;">
+                                    MP4 · WebM · MOV — max 50 Mo — recommandé : 1920×1080 px
+                                </div>
+                            </div>
+                            <input type="file" id="video_file" name="video_file"
+                                   accept="video/mp4,video/webm,video/quicktime"
+                                   style="display:none;"
+                                   onchange="previewVideoFile(this)">
+
+                            <div id="video-file-preview-wrap" style="display:none; margin-top:12px;">
+                                <video id="video-file-preview" controls
+                                       style="width:100%; max-height:300px; border-radius:8px; object-fit:cover; border:2px solid var(--gold);">
+                                </video>
+                                <div style="font:600 11px Inter,sans-serif; color:var(--gold2); margin-top:5px; text-transform:uppercase; letter-spacing:.08em;">
+                                    ✓ Vidéo sélectionnée
+                                </div>
+                                <div style="font:12px Inter,sans-serif; color:var(--muted); margin-top:4px;">
+                                    ⚡ Une image de couverture sera générée automatiquement
+                                </div>
+                            </div>
+                            
+                            @error('video_file')<div class="form-error" style="margin-top:8px;">{{ $message }}</div>@enderror
+                        </div>
+
+                        {{-- Aperçu vidéo URL --}}
                         <div class="form-group full" id="video-preview-container"
                              style="{{ old('video_url', $slide->video_url) ? '' : 'display:none;' }}">
                             <label>Aperçu</label>
@@ -186,9 +249,9 @@
                             </div>
                         </div>
 
-                        {{-- Image de couverture pour les vidéos --}}
+                        {{-- Image de couverture manuelle (optionnelle) --}}
                         <div class="form-group full">
-                            <label>Image de couverture <span style="font-weight:400; text-transform:none; letter-spacing:0;">(optionnelle — affichée si la vidéo ne charge pas)</span></label>
+                            <label>Image de couverture <span style="font-weight:400; text-transform:none; letter-spacing:0;">(optionnelle — générée auto pour MP4)</span></label>
 
                             @if($slide->exists && $slide->image_path && $slide->isVideo())
                             <div style="margin-bottom:10px;">
@@ -206,7 +269,7 @@
                                  ondrop="handleDrop(event,'cover-input','cover-preview-wrap','cover-drop-text')">
                                 <div style="font-size:20px; margin-bottom:6px;">🎞️</div>
                                 <div id="cover-drop-text" style="font:500 13px Inter,sans-serif; color:var(--muted);">
-                                    Cliquez ou glissez une image de couverture (optionnel)
+                                    Cliquez pour uploader une image de couverture personnalisée
                                 </div>
                             </div>
                             <input type="file" id="cover-input" name="cover_image" data-conditional-field="cover_image"
@@ -271,23 +334,24 @@
                     <div id="tips-video" style="{{ $currentType !== 'video' ? 'display:none;' : '' }}">
                         <div style="display:flex; gap:10px; margin-bottom:12px;">
                             <span style="font-size:16px;">▶️</span>
-                            <div><strong style="color:var(--green); display:block; margin-bottom:3px;">YouTube / Vimeo</strong>
-                            Collez l'URL normale de partage. La vidéo sera lue automatiquement, muette et en boucle.</div>
+                            <div><strong style="color:var(--green); display:block; margin-bottom:3px;">Deux options</strong>
+                            <strong>URL:</strong> YouTube/Vimeo (intégration externe, lecture auto, muette, en boucle)<br>
+                            <strong>Fichier:</strong> MP4/WebM depuis votre PC (max 50 Mo, couverture auto-générée)</div>
+                        </div>
+                        <div style="display:flex; gap:10px; margin-bottom:12px;">
+                            <span style="font-size:16px;">🎬</span>
+                            <div><strong style="color:var(--green); display:block; margin-bottom:3px;">Génération automatique</strong>
+                            Si vous uploadez un MP4, une image de couverture sera générée automatiquement depuis la 1ère frame.</div>
                         </div>
                         <div style="display:flex; gap:10px; margin-bottom:12px;">
                             <span style="font-size:16px;">🔇</span>
                             <div><strong style="color:var(--green); display:block; margin-bottom:3px;">Lecture muette</strong>
                             Les navigateurs exigent que les vidéos en lecture automatique soient muettes. C'est géré automatiquement.</div>
                         </div>
-                        <div style="display:flex; gap:10px; margin-bottom:12px;">
-                            <span style="font-size:16px;">🖼️</span>
-                            <div><strong style="color:var(--green); display:block; margin-bottom:3px;">Image de couverture</strong>
-                            Recommandée : elle s'affiche pendant le chargement de la vidéo et comme fallback.</div>
-                        </div>
                         <div style="display:flex; gap:10px;">
-                            <span style="font-size:16px;">🔢</span>
-                            <div><strong style="color:var(--green); display:block; margin-bottom:3px;">Durée</strong>
-                            Une vidéo occupe une "slide". La durée d'affichage est celle de la vidéo (en boucle).</div>
+                            <span style="font-size:16px;">📐</span>
+                            <div><strong style="color:var(--green); display:block; margin-bottom:3px;">Format recommandé</strong>
+                            1920×1080 px (16:9) pour une qualité optimale. Compressez pour réduire le poids.</div>
                         </div>
                     </div>
 
@@ -427,6 +491,53 @@ function getEmbedUrl(url) {
     return null;
 }
 
+// Toggle video source (URL vs File)
+function toggleVideoSource(source) {
+    var urlField = document.getElementById('video-url-field');
+    var fileField = document.getElementById('video-file-field');
+    var urlPreview = document.getElementById('video-preview-container');
+    
+    if (source === 'url') {
+        urlField.style.display = '';
+        fileField.style.display = 'none';
+        document.getElementById('video-source-url').checked = true;
+    } else {
+        urlField.style.display = 'none';
+        fileField.style.display = '';
+        urlPreview.style.display = 'none';
+        document.getElementById('video-source-file').checked = true;
+    }
+}
+
+// Preview video file
+function previewVideoFile(input) {
+    if (!input.files || !input.files[0]) return;
+    
+    var file = input.files[0];
+    var wrap = document.getElementById('video-file-preview-wrap');
+    var video = document.getElementById('video-file-preview');
+    var textEl = document.getElementById('video-drop-text');
+    
+    if (video && file.type.startsWith('video/')) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            video.src = e.target.result;
+            wrap.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    if (textEl) {
+        textEl.textContent = '✓ ' + file.name + ' (' + (file.size / 1024 / 1024).toFixed(1) + ' Mo)';
+    }
+    
+    var zone = document.getElementById('video-drop-zone');
+    if (zone) { 
+        zone.style.borderColor = 'var(--gold)'; 
+        zone.style.background = 'var(--sand)'; 
+    }
+}
+
 // Form submission - simple and clean
 document.getElementById('hero-form').addEventListener('submit', function(e) {
     var selectedType = document.querySelector('input[name="type"]:checked')?.value;
@@ -449,13 +560,24 @@ document.getElementById('hero-form').addEventListener('submit', function(e) {
         }
     }
     
-    // If VIDEO type but no URL, show error
+    // If VIDEO type, check URL or File
     if (selectedType === 'video') {
-        var videoUrl = document.getElementById('video_url').value.trim();
-        if (!videoUrl) {
-            e.preventDefault();
-            alert('Veuillez entrer une URL vidéo (YouTube ou Vimeo)');
-            return false;
+        var videoSource = document.querySelector('input[name="video_source"]:checked')?.value;
+        
+        if (videoSource === 'url') {
+            var videoUrl = document.getElementById('video_url').value.trim();
+            if (!videoUrl) {
+                e.preventDefault();
+                alert('Veuillez entrer une URL vidéo (YouTube ou Vimeo)');
+                return false;
+            }
+        } else if (videoSource === 'file') {
+            var videoFile = document.getElementById('video_file');
+            if (!videoFile.files.length) {
+                e.preventDefault();
+                alert('Veuillez sélectionner un fichier vidéo (MP4, WebM, MOV)');
+                return false;
+            }
         }
     }
 });

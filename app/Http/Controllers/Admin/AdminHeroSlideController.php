@@ -38,9 +38,10 @@ class AdminHeroSlideController extends Controller
             $rules['image'] = ['required', 'file', 'mimes:jpg,jpeg,png,webp,gif', 'max:10240'];
         }
 
-        // Vidéo : URL requise si type = video
+        // Vidéo : URL OU fichier MP4 requis si type = video
         if ($type === 'video') {
-            $rules['video_url'] = ['required', 'string', 'max:500', 'regex:/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i'];
+            $rules['video_url'] = ['nullable', 'string', 'max:500', 'regex:/^https?:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)/i'];
+            $rules['video_file'] = ['nullable', 'file', 'mimes:mp4,webm,mov', 'max:51200']; // Max 50 Mo
             $rules['cover_image'] = ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:8192'];
         }
 
@@ -56,13 +57,29 @@ class AdminHeroSlideController extends Controller
 
         if ($type === 'video') {
             $data['image_path'] = null;
-            // Image de couverture optionnelle (affiché si la vidéo ne charge pas)
+            
+            // Option 1 : Vidéo uploadée (MP4)
+            if ($request->hasFile('video_file')) {
+                $videoPath = $request->file('video_file')->store('hero/videos', 'public');
+                $data['video_url'] = asset('storage/' . $videoPath);
+                
+                // Générer automatiquement une image de couverture depuis la vidéo
+                $coverPath = $this->generateVideoCover($videoPath);
+                if ($coverPath) {
+                    $data['image_path'] = $coverPath;
+                }
+            }
+            
+            // Option 2 : URL YouTube/Vimeo
+            // Si pas de fichier mais URL fournie, utiliser l'URL
+            
+            // Image de couverture manuelle (optionnelle, override l'auto-générée)
             if ($request->hasFile('cover_image')) {
                 $data['image_path'] = $request->file('cover_image')->store('hero', 'public');
             }
         }
 
-        unset($data['image'], $data['cover_image']);
+        unset($data['image'], $data['cover_image'], $data['video_file']);
 
         HeroSlide::create($data);
 
@@ -172,6 +189,99 @@ class AdminHeroSlideController extends Controller
     {
         if ($path && ! str_starts_with($path, 'images/')) {
             Storage::disk('public')->delete($path);
+        }
+    }
+
+    /**
+     * Génère une image de couverture à partir de la première frame d'une vidéo
+     * Nécessite FFmpeg installé sur le serveur
+     * 
+     * @param string $videoPath Chemin relatif de la vidéo dans storage/public
+     * @return string|null Chemin de l'image générée, ou null si échec
+     */
+    private function generateVideoCover(string $videoPath): ?string
+    {
+        try {
+            $fullVideoPath = Storage::disk('public')->path($videoPath);
+            
+            // Générer un nom unique pour la couverture
+            $coverFileName = 'cover_' . pathinfo($videoPath, PATHINFO_FILENAME) . '.jpg';
+            $coverPath = 'hero/' . $coverFileName;
+            $fullCoverPath = Storage::disk('public')->path($coverPath);
+            
+            // Créer le dossier si nécessaire
+            $coverDir = dirname($fullCoverPath);
+            if (!file_exists($coverDir)) {
+                mkdir($coverDir, 0755, true);
+            }
+            
+            // Commande FFmpeg pour extraire la première frame (à 0.5 seconde)
+            // -ss 0.5 : position à 0.5 seconde
+            // -i : fichier d'entrée
+            // -vframes 1 : extraire 1 frame seulement
+            // -q:v 2 : qualité (2 = haute qualité)
+            $command = sprintf(
+                'ffmpeg -ss 0.5 -i %s -vframes 1 -q:v 2 %s 2>&1',
+                escapeshellarg($fullVideoPath),
+                escapeshellarg($fullCoverPath)
+            );
+            
+            exec($command, $output, $returnCode);
+            
+            // Vérifier si l'image a été créée
+            if ($returnCode === 0 && file_exists($fullCoverPath)) {
+                return $coverPath;
+            }
+            
+            // Si FFmpeg échoue, utiliser GD pour créer une image placeholder
+            return $this->createPlaceholderCover($coverPath);
+            
+        } catch (\Exception $e) {
+            \Log::error('Erreur génération couverture vidéo: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Crée une image placeholder si FFmpeg n'est pas disponible
+     */
+    private function createPlaceholderCover(string $coverPath): ?string
+    {
+        try {
+            $width = 1920;
+            $height = 1080;
+            $image = imagecreatetruecolor($width, $height);
+            
+            // Fond dégradé or/vert
+            $gold = imagecolorallocate($image, 197, 153, 70);
+            $green = imagecolorallocate($image, 28, 66, 44);
+            
+            imagefilledrectangle($image, 0, 0, $width, $height, $green);
+            
+            // Icône play au centre
+            $white = imagecolorallocate($image, 255, 255, 255);
+            $centerX = $width / 2;
+            $centerY = $height / 2;
+            $playSize = 100;
+            
+            // Triangle play
+            $points = [
+                $centerX - $playSize, $centerY - $playSize,
+                $centerX + $playSize, $centerY,
+                $centerX - $playSize, $centerY + $playSize,
+            ];
+            imagefilledpolygon($image, $points, $white);
+            
+            // Sauvegarder
+            $fullPath = Storage::disk('public')->path($coverPath);
+            imagejpeg($image, $fullPath, 90);
+            imagedestroy($image);
+            
+            return $coverPath;
+            
+        } catch (\Exception $e) {
+            \Log::error('Erreur création placeholder: ' . $e->getMessage());
+            return null;
         }
     }
 }

@@ -468,10 +468,15 @@
         <div class="nav-section">Tableau de bord</div>
         <a href="{{ route('admin.dashboard') }}"
            class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-            <span class="nav-icon">⬛</span> Tableau de bord
+            <span class="nav-icon">📊</span> Vue d'ensemble
+        </a>
+        <a href="{{ route('admin.analytics.index') }}"
+           class="nav-item {{ request()->routeIs('admin.analytics.*') ? 'active' : '' }}">
+            <span class="nav-icon">📈</span> Statistiques
+            <span class="nav-badge nav-badge-gold">NEW</span>
         </a>
 
-        <div class="nav-section">Contenu éditorial</div>
+        <div class="nav-section">Contenu</div>
         <a href="{{ route('admin.news.index') }}"
            class="nav-item {{ request()->routeIs('admin.news.*') ? 'active' : '' }}">
             <span class="nav-icon">📰</span> Actualités
@@ -532,11 +537,18 @@
            class="nav-item {{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">
             <span class="nav-icon">🎠</span> Carrousel Hero
         </a>
-        <a href="{{ url('/') }}" target="_blank" class="nav-item">
-            <span class="nav-icon">🌐</span> Voir le site ↗
+        <a href="{{ route('admin.certifications.index') }}"
+           class="nav-item {{ request()->routeIs('admin.certifications.*') ? 'active' : '' }}">
+            <span class="nav-icon">🏆</span> Certifications
         </a>
-        <a href="{{ url('/gestion-nm') }}" class="nav-item" style="opacity:.5; font-size:11px;">
-            <span class="nav-icon">🔒</span> {{ url('/gestion-nm') }}
+        <a href="{{ route('admin.settings.index') }}"
+           class="nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+            <span class="nav-icon">⚙️</span> Paramètres
+        </a>
+
+        <div class="nav-section">Accès rapide</div>
+        <a href="{{ url('/') }}" target="_blank" class="nav-item">
+            <span class="nav-icon">🌐</span> Voir le site public
         </a>
 
     </nav>

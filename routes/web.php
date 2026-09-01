@@ -306,6 +306,9 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
 
         Route::get('/tableau-de-bord', [AdminDashboardController::class, 'index'])->name('dashboard');
 
+        // Statistiques et analytics
+        Route::get('/statistiques', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'index'])->name('analytics.index');
+
         // Actualités
         Route::get('/actualites',               [AdminNewsController::class, 'index'])->name('news.index');
         Route::get('/actualites/creer',         [AdminNewsController::class, 'create'])->name('news.create');
