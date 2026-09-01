@@ -36,11 +36,11 @@
                     <span class="stat-label">{{ $en ? 'Burkinabe ownership' : 'Actionnariat burkinabè' }}</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-value">1 200+</span>
+                    <span class="stat-value">1 909+</span>
                     <span class="stat-label">{{ $en ? 'Direct & indirect jobs' : 'Emplois directs et indirects' }}</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-value">80%</span>
+                    <span class="stat-value">99%</span>
                     <span class="stat-label">{{ $en ? 'National workforce' : "Main-d'œuvre nationale" }}</span>
                 </div>
                 <div class="stat-item">

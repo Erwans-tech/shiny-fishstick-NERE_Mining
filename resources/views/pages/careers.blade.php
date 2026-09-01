@@ -25,7 +25,7 @@
                 <div class="career-stat-label">{{ $en ? 'Employees' : 'Employés' }}</div>
             </div>
             <div class="career-stat">
-                <div class="career-stat-num">80%</div>
+                <div class="career-stat-num">99%</div>
                 <div class="career-stat-label">{{ $en ? 'Burkinabè Staff' : 'Personnel Burkinabè' }}</div>
             </div>
             <div class="career-stat">

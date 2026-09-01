@@ -55,9 +55,9 @@ $homeHandler = function (string $locale) {
         'locale'   => $locale,
         'stats'    => [
             ['value' => '97000', 'suffix' => ' oz',      'label' => $statsLabels[0], 'icon' => '⚒️'],
-            ['value' => '1200',  'suffix' => '+',         'label' => $statsLabels[1], 'icon' => '👥'],
-            ['value' => '80',    'suffix' => '%',         'label' => $statsLabels[2], 'icon' => '🇧🇫'],
-            ['value' => '18',    'suffix' => ' Mrd CFA',  'label' => $statsLabels[3], 'icon' => '💰'],
+            ['value' => '1909',  'suffix' => '+',         'label' => $statsLabels[1], 'icon' => '👥'],
+            ['value' => '99',    'suffix' => '%',         'label' => $statsLabels[2], 'icon' => '🇧🇫'],
+            ['value' => '822',   'suffix' => ' Mrd CFA',  'label' => $statsLabels[3], 'icon' => '💰'],
         ],
         'news'     => $news,
         'partners' => $partners,

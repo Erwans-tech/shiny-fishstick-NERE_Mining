@@ -34,16 +34,16 @@
     {{-- Résultats chiffrés --}}
     <div class="stat-band" style="margin-top:32px;">
         <div class="stat-item">
-            <span class="stat-value">80%</span>
+            <span class="stat-value">99%</span>
             <span class="stat-label">{{ $en ? 'Burkinabe workforce' : "Main-d'œuvre burkinabè" }}</span>
         </div>
         <div class="stat-item">
-            <span class="stat-value">1 200+</span>
+            <span class="stat-value">1 909+</span>
             <span class="stat-label">{{ $en ? 'Direct & indirect jobs' : 'Emplois directs et indirects' }}</span>
         </div>
         <div class="stat-item">
-            <span class="stat-value">{{ $en ? 'Local' : 'Local' }}</span>
-            <span class="stat-label">{{ $en ? 'Recruitment priority' : 'Recrutement prioritaire' }}</span>
+            <span class="stat-value">60%</span>
+            <span class="stat-label">{{ $en ? 'Local & regional employment' : 'Emploi local et régional' }}</span>
         </div>
         <div class="stat-item">
             <span class="stat-value">0</span>
@@ -69,9 +69,14 @@
                 <div style="font-size:12px; color:var(--muted); margin-top:8px;">{{ $en ? 'active partnerships' : 'partenariats actifs' }}</div>
             </div>
             <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
-                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">18 Mrd</div>
-                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">{{ $en ? 'Annual Spending' : 'Dépenses Annuelles' }}</div>
-                <div style="font-size:12px; color:var(--muted); margin-top:8px;">{{ $en ? 'CFA direct impact' : 'impact direct CFA' }}</div>
+                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">77.8 Mrd</div>
+                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">{{ $en ? 'Local Purchases' : 'Achats Locaux' }}</div>
+                <div style="font-size:12px; color:var(--muted); margin-top:8px;">{{ $en ? 'CFA annual spending' : 'dépenses annuelles CFA' }}</div>
+            </div>
+            <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
+                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">744 M</div>
+                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">{{ $en ? 'State Payments' : 'Paiements État' }}</div>
+                <div style="font-size:12px; color:var(--muted); margin-top:8px;">{{ $en ? 'CFA fiscal contributions' : 'contributions fiscales CFA' }}</div>
             </div>
             <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
                 <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">15</div>
