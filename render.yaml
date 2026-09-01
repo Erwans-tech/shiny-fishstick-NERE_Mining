@@ -32,19 +32,11 @@ services:
       - key: FORCE_HTTPS
         value: true
       
-      # Base de données Supabase (PostgreSQL)
+      # Base de données SQLite (fichier local)
       - key: DB_CONNECTION
-        value: pgsql
-      - key: DB_HOST
-        value: db.plibklblcykfhnoboqum.supabase.co
-      - key: DB_PORT
-        value: 5432
+        value: sqlite
       - key: DB_DATABASE
-        value: postgres
-      - key: DB_USERNAME
-        value: postgres
-      - key: DB_PASSWORD
-        sync: false # À définir dans le dashboard Render avec ton vrai mot de passe
+        value: /var/www/html/database/database.sqlite
       
       # Session & Cache
       - key: SESSION_DRIVER

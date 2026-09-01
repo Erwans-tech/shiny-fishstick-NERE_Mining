@@ -35,12 +35,18 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-di
 # Copy application
 COPY . .
 
+# Create SQLite database file
+RUN touch /var/www/html/database/database.sqlite \
+    && chmod 664 /var/www/html/database/database.sqlite
+
 # Run composer scripts now that artisan exists
 RUN composer run-script post-autoload-dump
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+    && chmod -R 755 /var/www/html \
+    && chmod -R 775 /var/www/html/storage \
+    && chmod -R 775 /var/www/html/database
 
 # Configure Nginx
 COPY docker-nginx.conf /etc/nginx/nginx.conf

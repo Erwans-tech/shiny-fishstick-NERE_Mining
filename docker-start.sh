@@ -14,7 +14,7 @@ php artisan config:cache
 # NOTE: route:cache disabled because routes use closures (not serializable)
 php artisan view:cache
 
-# Exécuter les migrations (toujours, car DB est maintenant configurée)
+# Exécuter les migrations (SQLite local)
 echo "📊 Exécution des migrations..."
 php artisan migrate --force
 

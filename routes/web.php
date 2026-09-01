@@ -15,20 +15,6 @@ use App\Http\Controllers\ReportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
-
-/*
-|--------------------------------------------------------------------------
-| MIGRATION HELPER (TEMPORARY - DELETE AFTER FIRST RUN)
-|--------------------------------------------------------------------------
-*/
-Route::get('/run-migrations-now', function() {
-    if (app()->environment('production')) {
-        Artisan::call('migrate', ['--force' => true]);
-        return '<pre>' . Artisan::output() . '</pre><br><strong>Migrations executed! Now delete this route from routes/web.php</strong>';
-    }
-    return 'Not in production';
-});
 
 /*
 |--------------------------------------------------------------------------
