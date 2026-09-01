@@ -11,7 +11,7 @@ php artisan view:clear || true
 # Cache config with runtime environment variables
 echo "💾 Mise en cache de la configuration..."
 php artisan config:cache
-php artisan route:cache
+# NOTE: route:cache disabled because routes use closures (not serializable)
 php artisan view:cache
 
 # Exécuter les migrations seulement si DB est configurée
