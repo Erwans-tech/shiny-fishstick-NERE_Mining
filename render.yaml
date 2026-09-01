@@ -37,15 +37,15 @@ services:
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        sync: false # À définir dans le dashboard Render
+        value: db.plibklblcykfhnoboqum.supabase.co
       - key: DB_PORT
         value: 5432
       - key: DB_DATABASE
-        sync: false # À définir dans le dashboard Render
+        value: postgres
       - key: DB_USERNAME
-        sync: false # À définir dans le dashboard Render
+        value: postgres
       - key: DB_PASSWORD
-        sync: false # À définir dans le dashboard Render
+        sync: false # À définir dans le dashboard Render avec ton vrai mot de passe
       
       # Session & Cache
       - key: SESSION_DRIVER
