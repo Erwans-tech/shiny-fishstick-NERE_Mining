@@ -4,7 +4,8 @@ services:
     runtime: php
     region: fra
     plan: free
-    buildCommand: composer install --no-dev --prefer-dist
+    branch: production
+    buildCommand: composer install --no-dev --prefer-dist && php artisan key:generate && php artisan migrate --force || true
     startCommand: vendor/bin/heroku-php-apache2 public/
     envVars:
       - key: APP_ENV
@@ -13,3 +14,5 @@ services:
         value: "false"
       - key: LARAVEL_LOG_CHANNEL
         value: stdout
+      - key: APP_KEY
+        fromBuild: APP_KEY

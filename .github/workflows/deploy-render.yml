@@ -8,15 +8,21 @@ on:
 
 jobs:
   deploy:
+    name: Deploy production to Render
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: production
+          fetch-depth: 0
 
-      - name: Deploy to Render
+      - name: Trigger Render deployment
         run: |
-          curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }} -X POST
+          echo "🚀 Deploying production branch to Render..."
+          curl -X POST https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
+          echo "✅ Deployment triggered!"
 
       - name: Notify Slack (Success)
         if: success()
@@ -24,13 +30,13 @@ jobs:
         with:
           payload: |
             {
-              "text": "✅ Deployed to Render successfully!",
+              "text": "✅ Deployed production to Render successfully!",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Render Deployment Successful* ✅\n*Service:* nere-mining\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Author:* ${{ github.actor }}"
+                    "text": "*Render Deployment Successful* ✅\n*Service:* nere-mining\n*Branch:* production\n*Commit:* ${{ github.sha }}\n*Author:* ${{ github.actor }}\n*URL:* Check your Render dashboard"
                   }
                 }
               ]
@@ -51,7 +57,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Render Deployment Failed* ❌\n*Service:* nere-mining\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Author:* ${{ github.actor }}"
+                    "text": "*Render Deployment Failed* ❌\n*Service:* nere-mining\n*Branch:* production\n*Commit:* ${{ github.sha }}\n*Author:* ${{ github.actor }}\n*Check:* GitHub Actions logs"
                   }
                 }
               ]
