@@ -13,6 +13,11 @@ node_modules
 vendor
 composer.lock
 
+# Docker files (keep in build)
+# docker-nginx.conf
+# docker-start.sh
+# Dockerfile
+
 # IDE
 .vscode
 .idea
