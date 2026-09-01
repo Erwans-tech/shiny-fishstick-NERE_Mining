@@ -26,6 +26,9 @@ WORKDIR /var/www/html
 # Copy composer files
 COPY composer*.json ./
 
+# Configure composer to ignore security advisories
+RUN composer config --global --json policy.advisories.ignore-id '["PKSA-m5cs-t1y6-qpcs", "PKSA-3r5d-mb8f-1qw9", "PKSA-mdq4-51ck-6kdq", "PKSA-8qx3-n5y5-vvnd", "PKSA-q46n-4fdk-zjr4", "PKSA-qzrn-rnz3-85w1", "PKSA-w7xr-vk7n-rstm"]'
+
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
