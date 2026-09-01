@@ -1,0 +1,18 @@
+[phases.setup]
+nixPkgs = ["php85", "php85Packages.composer", "nginx"]
+aptPkgs = ["mysql-client"]
+
+[phases.install]
+cmds = [
+    "composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist"
+]
+
+[phases.build]
+cmds = [
+    "php artisan config:cache",
+    "php artisan route:cache",
+    "php artisan view:cache"
+]
+
+[start]
+cmd = "php artisan migrate --force && php artisan storage:link && php-fpm -y /etc/php/8.5/fpm/php-fpm.conf & nginx -g 'daemon off;'"

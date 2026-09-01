@@ -244,38 +244,45 @@ class AdminHeroSlideController extends Controller
 
     /**
      * Crée une image placeholder si FFmpeg n'est pas disponible
+     * Utilise Intervention Image pour la compatibilité cross-platform
      */
     private function createPlaceholderCover(string $coverPath): ?string
     {
         try {
             $width = 1920;
             $height = 1080;
-            $image = imagecreatetruecolor($width, $height);
             
-            // Fond dégradé or/vert
-            $gold = imagecolorallocate($image, 197, 153, 70);
-            $green = imagecolorallocate($image, 28, 66, 44);
+            // Créer l'image avec Intervention Image
+            $image = \Intervention\Image\ImageManager::gd()
+                ->create($width, $height)
+                ->fill('#1c422c'); // Vert branding
             
-            imagefilledrectangle($image, 0, 0, $width, $height, $green);
+            // Ajouter un dégradé en traçant des rectangles
+            for ($i = 0; $i < $height / 2; $i += 10) {
+                $opacity = 1 - ($i / ($height / 2)) * 0.3;
+                $color = sprintf('rgba(197, 153, 70, %.1f)', $opacity * 0.8);
+                $image->drawRectangle(0, $i, $width, $i + 10, function($draw) use ($color) {
+                    $draw->fill($color)->border(0);
+                });
+            }
             
-            // Icône play au centre
-            $white = imagecolorallocate($image, 255, 255, 255);
+            // Dessiner un triangle play au centre
             $centerX = $width / 2;
             $centerY = $height / 2;
-            $playSize = 100;
+            $playSize = 120;
             
-            // Triangle play
-            $points = [
-                $centerX - $playSize, $centerY - $playSize,
-                $centerX + $playSize, $centerY,
-                $centerX - $playSize, $centerY + $playSize,
-            ];
-            imagefilledpolygon($image, $points, $white);
+            // Triangle play en blanc
+            $image->drawPolygon([
+                [$centerX - $playSize, $centerY - $playSize],
+                [$centerX + $playSize, $centerY],
+                [$centerX - $playSize, $centerY + $playSize],
+            ], function($draw) {
+                $draw->fill('#ffffff')->border(0);
+            });
             
             // Sauvegarder
             $fullPath = Storage::disk('public')->path($coverPath);
-            imagejpeg($image, $fullPath, 90);
-            imagedestroy($image);
+            $image->toJpeg(90)->save($fullPath);
             
             return $coverPath;
             
