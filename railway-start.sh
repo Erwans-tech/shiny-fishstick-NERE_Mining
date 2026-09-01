@@ -23,7 +23,7 @@ php artisan view:cache
 
 # Démarrer PHP-FPM en arrière-plan
 echo "🔧 Starting PHP-FPM..."
-php-fpm -y /etc/php/8.5/fpm/php-fpm.conf &
+php-fpm -y /etc/php/8.3/fpm/php-fpm.conf &
 
 # Démarrer Nginx au premier plan
 echo "🌐 Starting Nginx..."

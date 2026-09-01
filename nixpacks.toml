@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["php85", "php85Packages.composer", "nginx", "ffmpeg", "mysql80"]
+nixPkgs = ["php83", "php83Packages.composer", "nginx", "ffmpeg", "mysql80"]
 
 [phases.install]
 cmds = [
@@ -14,4 +14,4 @@ cmds = [
 ]
 
 [start]
-cmd = "php artisan migrate --force 2>&1; php artisan storage:link 2>&1; php-fpm -y /etc/php/8.5/fpm/php-fpm.conf & nginx -g 'daemon off;'"
+cmd = "php artisan migrate --force 2>&1; php artisan storage:link 2>&1; php-fpm -y /etc/php/8.3/fpm/php-fpm.conf & nginx -g 'daemon off;'"
