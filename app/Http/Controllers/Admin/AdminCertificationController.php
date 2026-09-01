@@ -36,6 +36,9 @@ class AdminCertificationController extends Controller
             $logoPath = $request->file('logo')->store('certifications', 'public');
         }
 
+        // Retirer 'logo' du tableau validated car c'est un fichier, pas un champ DB
+        unset($validated['logo']);
+
         $certification = Certification::create([
             ...$validated,
             'logo_path' => $logoPath,
@@ -67,6 +70,9 @@ class AdminCertificationController extends Controller
             $logoPath = $request->file('logo')->store('certifications', 'public');
             $validated['logo_path'] = $logoPath;
         }
+
+        // Retirer 'logo' du tableau validated car c'est un fichier, pas un champ DB
+        unset($validated['logo']);
 
         $certification->update($validated);
 

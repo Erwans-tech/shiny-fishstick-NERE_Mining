@@ -9,7 +9,8 @@
 <form method="POST"
       action="{{ $slide->exists ? route('admin.hero.update', $slide) : route('admin.hero.store') }}"
       enctype="multipart/form-data"
-      id="hero-form">
+      id="hero-form"
+      novalidate>
     @csrf
     @if($slide->exists) @method('PUT') @endif
 
@@ -226,18 +227,16 @@
             {{-- Boutons --}}
             <div class="card" style="margin-top:16px;">
                 <div class="card-body">
-                    <div class="form-actions" style="border:0; padding:0; margin:0;">
+                    <div class="form-actions" style="border:0; padding:0; margin:0; display:flex; gap:8px; align-items:center;">
                         <button type="submit" class="btn btn-primary">
                             {{ $slide->exists ? '✓ Enregistrer' : '+ Ajouter au carrousel' }}
                         </button>
                         <a href="{{ route('admin.hero.index') }}" class="btn btn-ghost">Annuler</a>
                         @if($slide->exists)
-                        <form method="POST" action="{{ route('admin.hero.destroy', $slide) }}"
-                              style="margin-left:auto;"
-                              onsubmit="return confirm('Supprimer cette slide ?')">
-                            @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
-                        </form>
+                        <button type="button" class="btn btn-danger" style="margin-left:auto;"
+                                onclick="deleteSlide()">
+                            Supprimer
+                        </button>
                         @endif
                     </div>
                 </div>
@@ -331,22 +330,30 @@
 
 <script>
 function setType(type) {
-    // Radio
+    // Update radio
     document.getElementById('type-' + type).checked = true;
-
-    // Onglets visuels
+    
+    // Update tab styling
     var imgTab   = document.getElementById('tab-image');
     var vidTab   = document.getElementById('tab-video');
-    var active   = 'border:2px solid var(--gold); background:var(--sand);';
-    var inactive = 'border:2px solid var(--line); background:#fff;';
-    imgTab.style.cssText = imgTab.style.cssText.replace(/border:[^;]+;background:[^;]+;/, type === 'image' ? active : inactive);
-    vidTab.style.cssText = vidTab.style.cssText.replace(/border:[^;]+;background:[^;]+;/, type === 'video' ? active : inactive);
-
-    // Blocs
+    
+    if (type === 'image') {
+        imgTab.style.borderColor = 'var(--gold)';
+        imgTab.style.background = 'var(--sand)';
+        vidTab.style.borderColor = 'var(--line)';
+        vidTab.style.background = '#fff';
+    } else {
+        imgTab.style.borderColor = 'var(--line)';
+        imgTab.style.background = '#fff';
+        vidTab.style.borderColor = 'var(--gold)';
+        vidTab.style.background = 'var(--sand)';
+    }
+    
+    // Show/hide blocks
     document.getElementById('block-image').style.display = type === 'image' ? '' : 'none';
     document.getElementById('block-video').style.display = type === 'video' ? '' : 'none';
-
-    // Conseils
+    
+    // Show/hide tips
     document.getElementById('tips-image').style.display = type === 'image' ? '' : 'none';
     document.getElementById('tips-video').style.display = type === 'video' ? '' : 'none';
 }
@@ -370,7 +377,10 @@ function previewFile(input, wrapId, textId, zoneId) {
     if (textEl) textEl.textContent = '✓ ' + file.name + ' (' + (file.size / 1024).toFixed(0) + ' Ko)';
 
     var zone = document.getElementById(zoneId);
-    if (zone) { zone.style.borderColor = 'var(--gold)'; zone.style.background = 'var(--sand)'; }
+    if (zone) { 
+        zone.style.borderColor = 'var(--gold)'; 
+        zone.style.background = 'var(--sand)'; 
+    }
 }
 
 function handleDrop(event, inputId, wrapId, textId) {
@@ -386,7 +396,7 @@ function handleDrop(event, inputId, wrapId, textId) {
     event.currentTarget.style.background = '';
 }
 
-// Prévisualisation YouTube/Vimeo en temps réel
+// YouTube/Vimeo preview
 var videoInput = document.getElementById('video_url');
 if (videoInput) {
     videoInput.addEventListener('input', function() {
@@ -417,58 +427,66 @@ function getEmbedUrl(url) {
     return null;
 }
 
-// ✅ NETTOYAGE AVANT SOUMISSION - Ne pas envoyer les champs conditionnels non pertinents
+// Form submission - simple and clean
 document.getElementById('hero-form').addEventListener('submit', function(e) {
-    console.log('[Form Submit] Starting cleanup...');
-    
     var selectedType = document.querySelector('input[name="type"]:checked')?.value;
-    console.log('[Form Submit] Selected type:', selectedType);
     
     if (!selectedType) {
-        console.error('[Form Submit] No type selected!');
         e.preventDefault();
         alert('Sélectionnez un type (Image ou Vidéo)');
         return false;
     }
     
-    // Reset ALL conditional fields first
-    console.log('[Form Submit] Resetting all conditional fields...');
-    document.querySelectorAll('[data-conditional-field]').forEach(function(field) {
-        field.removeAttribute('name');
-        if (field.type === 'file') {
-            field.value = '';
-        } else {
-            field.value = '';
-        }
-    });
-    
-    // Then re-enable ONLY the relevant ones for the selected type
-    console.log('[Form Submit] Re-enabling relevant fields for type: ' + selectedType);
-    
+    // If IMAGE type but no file selected, show error
     if (selectedType === 'image') {
-        // For image: enable only the image file input
-        var imageField = document.getElementById('image-input');
-        if (imageField) {
-            imageField.setAttribute('name', 'image');
-            console.log('[Form Submit] Enabled: image');
-        }
-    } else if (selectedType === 'video') {
-        // For video: enable video_url and cover_image (if present)
-        var videoUrlField = document.getElementById('video_url');
-        var coverImageField = document.getElementById('cover-input');
+        var imageFile = document.getElementById('image-input');
+        var hasExistingImage = '{{ $slide->image_path && $slide->isImage() ? "yes" : "no" }}' === 'yes';
         
-        if (videoUrlField) {
-            videoUrlField.setAttribute('name', 'video_url');
-            console.log('[Form Submit] Enabled: video_url');
-        }
-        if (coverImageField) {
-            coverImageField.setAttribute('name', 'cover_image');
-            console.log('[Form Submit] Enabled: cover_image');
+        if (!imageFile.files.length && !hasExistingImage) {
+            e.preventDefault();
+            alert('Veuillez sélectionner une image');
+            return false;
         }
     }
     
-    console.log('[Form Submit] Cleanup complete. Submitting...');
+    // If VIDEO type but no URL, show error
+    if (selectedType === 'video') {
+        var videoUrl = document.getElementById('video_url').value.trim();
+        if (!videoUrl) {
+            e.preventDefault();
+            alert('Veuillez entrer une URL vidéo (YouTube ou Vimeo)');
+            return false;
+        }
+    }
 });
+
+// Delete button handler
+function deleteSlide() {
+    if (!confirm('Êtes-vous sûr ? Cette action ne peut pas être annulée.')) {
+        return;
+    }
+    
+    @if($slide->exists)
+    fetch('{{ route("admin.hero.destroy", $slide->id) }}', {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = '{{ route("admin.hero.index") }}';
+        } else {
+            alert('Erreur lors de la suppression');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+        alert('Erreur lors de la suppression');
+    });
+    @endif
+}
 </script>
 
 @endsection
