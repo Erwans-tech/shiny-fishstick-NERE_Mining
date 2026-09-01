@@ -58,7 +58,7 @@ COPY docker-start.sh /docker-start.sh
 RUN chmod +x /docker-start.sh
 
 # Expose port
-EXPOSE 80
+EXPOSE 10000
 
 # Start services
 CMD ["/docker-start.sh"]
