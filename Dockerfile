@@ -20,10 +20,16 @@ ENV LOG_CHANNEL stderr
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-# Copy composer.lock and composer.json
+# Copy composer files
 COPY composer*.json ./
 
-# Install dependencies
+# Update composer to latest version
+RUN composer self-update
+
+# Remove lock file to force fresh resolve
+RUN rm -f composer.lock
+
+# Install dependencies with fresh resolve
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
 # Copy codebase

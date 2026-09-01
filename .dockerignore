@@ -11,6 +11,7 @@
 # Dependencies
 node_modules
 vendor
+composer.lock
 
 # IDE
 .vscode
