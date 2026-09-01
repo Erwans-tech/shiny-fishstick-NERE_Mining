@@ -18,12 +18,17 @@ services:
       - key: APP_DEBUG
         value: false
       - key: APP_KEY
-        generateValue: true # Render générera automatiquement
+        value: base64:qcylKTaFwKDy5DrKZ75qSxfUZ0LO3jqNwd6JRsSJwpA=
       - key: APP_URL
         fromService:
           type: web
           name: nere-mining
-          property: host
+          property: hostport
+      - key: ASSET_URL
+        fromService:
+          type: web
+          name: nere-mining
+          property: hostport
       - key: FORCE_HTTPS
         value: true
       
