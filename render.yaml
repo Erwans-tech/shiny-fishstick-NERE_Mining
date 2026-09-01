@@ -5,6 +5,9 @@ services:
   - type: web
     name: nere-mining
     plan: starter
+    region: oregon
+    repo: https://github.com/Erwans-tech/shiny-fishstick-NERE_Mining
+    branch: production
     buildCommand: |
       composer install --no-dev --optimize-autoloader
       php artisan config:cache
