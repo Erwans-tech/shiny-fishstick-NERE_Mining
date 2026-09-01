@@ -3,7 +3,7 @@ nixPkgs = ["php83", "php83Packages.composer", "nginx", "ffmpeg", "mysql80"]
 
 [phases.install]
 cmds = [
-    "composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist"
+    "COMPOSER_ALLOW_SUPERUSER=1 composer update --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-req=ext-*"
 ]
 
 [phases.build]
