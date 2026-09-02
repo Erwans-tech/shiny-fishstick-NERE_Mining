@@ -62,6 +62,32 @@
             font-size: 15px;
             line-height: 1.5;
         }
+
+    </style>
+
+    <div class="grid-3 identity-gallery" aria-label="Images de l’identité de Néré Mining">
+        @foreach($identityImages as $image)
+            <figure>
+                <img src="{{ $image }}" alt="{{ $en ? 'Néré Mining identity image' : 'Image illustrant l’identité de Néré Mining' }}" loading="lazy">
+            </figure>
+        @endforeach
+    </div>
+
+    <div class="identity-description">
+        <h2>Le sens des symboles : Racines, présent et avenir au Burkina Faso</h2>
+        <p>Le nom « Néré » porte en lui plusieurs résonances, à la fois culturelle, écologique et humaine, profondément ancrées dans l’identité du Burkina Faso.</p>
+        <p>En premier lieu, le Néré (<em>Parkia biglobosa</em>) est un arbre providentiel et polyvalent. Dans les traditions sahéliennes, chaque composante de cet arbre est valorisée pour l’alimentation humaine, animale ou l’artisanat. Au-delà de ses vertus nutritives, le Néré est un pilier écologique : il enrichit durablement les sols grâce à la fixation de l’azote et déploie un système racinaire puissant qui combat efficacement l’érosion. Véritable moteur des économies rurales, il incarne la durabilité et l’inclusion au cœur des systèmes agroforestiers.</p>
+        <p>C’est cette richesse et cette résilience qui ont inspiré l’identité visuelle de notre société. Le logo de Néré Mining puise sa force dans la fleur stylisée du Néré. Son cercle central d’un jaune éclatant symbolise la mine d’or, protégée et nourrie par son environnement.</p>
+        <p>Enfin, par une heureuse harmonie linguistique, « Néré » signifie également « belle » en mooré, la principale langue parlée au Burkina Faso.</p>
+        <p>À travers ce nom et ce symbole, Néré Mining réaffirme sa vision : celle d’une entreprise minière souveraine, aux racines profondes, génératrice de valeur partagée pour les communautés et bâtisseuse d’un avenir radieux pour le Burkina Faso.</p>
+    </div>
+
+    <div class="grid-3">
+        @foreach(range(1, 3) as $i)
+        <div class="card identity-card">
+            <div class="card-tag">{{ __('site.company_id'.$i.'_tag', [], $loc) }}</div>
+            <h3>{{ __('site.company_id'.$i.'_h3', [], $loc) }}</h3>
+            <p>{{ __('site.company_id'.$i.'_p', [], $loc) }}</p>
         </div>
         @endforeach
     </div>
