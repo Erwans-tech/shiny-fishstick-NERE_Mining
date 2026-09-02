@@ -90,31 +90,6 @@
     </div>
 </section>
 
-
-<section class="sand">
-    <h2><?php echo e($en ? 'Certifications & Compliance' : 'Certifications et conformité'); ?></h2>
-    <p class="lead"><?php echo e($en
-        ? 'Néré Mining maintains international standards and certifications to ensure operational excellence and environmental responsibility.'
-        : 'Néré Mining respecte les normes internationales et certifications pour assurer l\'excellence opérationnelle et la responsabilité environnementale.'); ?></p>
-
-    <div class="grid-3" style="margin-top:32px;">
-        <?php $__empty_1 = true; $__currentLoopData = $certifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $certification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center; background:rgba(255,255,255,.9); border:1px solid rgba(255,194,71,.3);">
-            <?php if($certification->logo_path): ?>
-                <img src="<?php echo e(asset('storage/'.$certification->logo_path)); ?>" alt="<?php echo e($certification->name); ?>" style="max-width:100px; max-height:64px; object-fit:contain; margin-bottom:12px;">
-            <?php else: ?>
-                <div style="font-size:3rem; color:var(--gold); margin-bottom:12px; line-height:1;">✓</div>
-            <?php endif; ?>
-            <h3 style="margin:0;"><?php echo e($certification->name); ?></h3>
-            <?php if($certification->description): ?>
-                <p style="font-size:13px; margin-top:8px;"><?php echo e($certification->description); ?></p>
-            <?php endif; ?>
-        </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-        <p class="lead" style="grid-column:1 / -1; text-align:center;"><?php echo e($en ? 'Certifications coming soon.' : 'Les certifications seront bientôt publiées.'); ?></p>
-        <?php endif; ?>
-    </div>
-</section>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views\pages\company-identity.blade.php ENDPATH**/ ?>

@@ -31,20 +31,20 @@
     
     <div class="stat-band" style="margin-top:32px;">
         <div class="stat-item">
-            <span class="stat-value">99%</span>
-            <span class="stat-label"><?php echo e($en ? 'Burkinabe workforce' : "Main-d'œuvre burkinabè"); ?></span>
+            <span class="stat-value">409</span>
+            <span class="stat-label"><?php echo e($en ? 'Direct employees' : 'Emplois directs'); ?></span>
         </div>
         <div class="stat-item">
-            <span class="stat-value">1 909+</span>
-            <span class="stat-label"><?php echo e($en ? 'Direct & indirect jobs' : 'Emplois directs et indirects'); ?></span>
+            <span class="stat-value">1 500</span>
+            <span class="stat-label"><?php echo e($en ? 'Subcontracted workers' : 'Travailleurs sous-traitants'); ?></span>
         </div>
         <div class="stat-item">
             <span class="stat-value">60%</span>
             <span class="stat-label"><?php echo e($en ? 'Local & regional employment' : 'Emploi local et régional'); ?></span>
         </div>
         <div class="stat-item">
-            <span class="stat-value">0</span>
-            <span class="stat-label"><?php echo e($en ? 'Application fee' : 'Coût de candidature'); ?></span>
+            <span class="stat-value">99%</span>
+            <span class="stat-label"><?php echo e($en ? 'Burkinabe workers' : 'Travailleurs burkinabè'); ?></span>
         </div>
     </div>
 </section>
@@ -56,29 +56,29 @@
         
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:24px; margin-bottom:40px;">
             <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
-                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">65%</div>
-                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'Local Procurement' : 'Approvisionnement Local'); ?></div>
-                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'of total spending' : 'du total dépenses'); ?></div>
+                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">60%</div>
+                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'Local & regional employment' : 'Emploi local et régional'); ?></div>
+                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'of the workforce' : 'de la main-d’œuvre'); ?></div>
             </div>
             <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
-                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">320+</div>
-                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'Local Suppliers' : 'Fournisseurs Locaux'); ?></div>
-                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'active partnerships' : 'partenariats actifs'); ?></div>
+                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">77 809 850 000</div>
+                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'Local purchases' : 'Achats locaux'); ?></div>
+                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'CFA' : 'FCFA'); ?></div>
             </div>
             <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
-                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">77.8 Mrd</div>
-                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'Local Purchases' : 'Achats Locaux'); ?></div>
-                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'CFA annual spending' : 'dépenses annuelles CFA'); ?></div>
+                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">744 280 000</div>
+                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'State-owned company payments' : "Paiements aux Entreprises d'État"); ?></div>
+                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'CFA' : 'FCFA'); ?></div>
             </div>
             <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
-                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">744 M</div>
-                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'State Payments' : 'Paiements État'); ?></div>
-                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'CFA fiscal contributions' : 'contributions fiscales CFA'); ?></div>
+                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">99%</div>
+                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'Burkinabe workers' : 'Travailleurs burkinabè'); ?></div>
+                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'of the workforce' : 'de la main-d’œuvre'); ?></div>
             </div>
             <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
-                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">15</div>
-                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'Years of Ops' : 'Ans d\'Opérations'); ?></div>
-                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'economic anchoring' : 'ancrage économique'); ?></div>
+                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">1 500</div>
+                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'Subcontracted workers' : 'Travailleurs sous-traitants'); ?></div>
+                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'supporting operations' : 'en appui aux opérations'); ?></div>
             </div>
         </div>
     </div>

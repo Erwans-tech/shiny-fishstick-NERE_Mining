@@ -194,18 +194,57 @@
 
         .company-values-section { padding-top:20px; }
         .values-hero {
+            position:relative;
             margin:0 0 28px;
             border:1px solid rgba(255,255,255,.12);
             box-shadow:0 14px 30px rgba(75,23,22,.16);
             overflow:hidden;
             background:#f7f3ee;
-            border-radius:14px;
+            border-radius:18px;
         }
         .values-hero-image {
             display:block;
             width:100%;
-            height:auto;
+            height:360px;
             object-fit:cover;
+            filter:saturate(1.05) contrast(1.02);
+        }
+        .values-hero-overlay {
+            position:absolute;
+            inset:auto 32px 26px 32px;
+            max-width:560px;
+            padding:22px 24px 18px;
+            background:rgba(18,32,26,.58);
+            border:1px solid rgba(255,255,255,.14);
+            backdrop-filter:blur(4px);
+            border-radius:14px;
+            color:#fff;
+        }
+        .values-hero-kicker {
+            display:inline-block;
+            margin-bottom:10px;
+            padding:5px 12px;
+            border-radius:999px;
+            background:rgba(255,194,71,.18);
+            border:1px solid rgba(255,194,71,.32);
+            font-size:11px;
+            letter-spacing:.18em;
+            text-transform:uppercase;
+            color:#f7dca0;
+            font-weight:700;
+        }
+        .values-hero-overlay h2 {
+            margin:0 0 8px;
+            font-size:clamp(26px,2vw,38px);
+            line-height:1.1;
+            letter-spacing:-.04em;
+            color:#fff;
+        }
+        .values-hero-overlay p {
+            margin:0;
+            font-size:15px;
+            line-height:1.6;
+            color:rgba(255,255,255,.88);
         }
         .values-grid {
             display:grid;
@@ -214,41 +253,96 @@
             margin-top:8px;
         }
         .values-card {
-            min-height:500px;
-            height:100%;
+            min-height:440px;
+            height:auto;
             display:flex;
             flex-direction:column;
-            padding:22px 20px;
+            padding:22px 20px 18px;
             background:rgba(247,243,238,.9);
             backdrop-filter:blur(4px);
             border:1px solid rgba(75,23,22,.1);
-            border-radius:14px;
+            border-radius:16px;
             box-shadow:none;
-            transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+            transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s, border-color .3s;
+            position:relative;
+            overflow:hidden;
+        }
+        .values-card::before {
+            content:"";
+            position:absolute;
+            inset:0 auto auto 0;
+            width:100%;
+            height:4px;
+            background:linear-gradient(90deg, var(--gold), rgba(255,194,71,.2));
         }
         .values-card:hover {
             transform:translateY(-4px);
             box-shadow:0 12px 28px rgba(75,23,22,.1);
+            border-color:rgba(255,194,71,.35);
+        }
+        .values-card-top {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            margin-bottom:12px;
+        }
+        .values-card-icon {
+            width:52px;
+            height:52px;
+            border-radius:14px;
+            display:grid;
+            place-items:center;
+            font-size:26px;
+            font-weight:800;
+            line-height:1;
+            color:#fff;
+            background:linear-gradient(135deg, rgba(46,87,59,.95), rgba(107,160,96,.8));
+            box-shadow:0 10px 18px rgba(46,87,59,.22);
+        }
+        .values-card--2 .values-card-icon { background:linear-gradient(135deg, rgba(86,79,69,.95), rgba(134,117,93,.85)); }
+        .values-card--3 .values-card-icon { background:linear-gradient(135deg, rgba(94,84,44,.95), rgba(170,138,74,.85)); }
+        .values-card--4 .values-card-icon { background:linear-gradient(135deg, rgba(74,63,44,.95), rgba(121,102,75,.8)); }
+        .values-card .card-tag {
+            margin-bottom:0;
+            padding:4px 8px;
+            background:rgba(255,194,71,.12);
         }
         .values-card h3 {
             font-size:clamp(20px,1.5vw,30px);
-            line-height:1;
+            line-height:1.1;
             letter-spacing:-.04em;
-            margin:0 0 10px;
+            margin:0 0 12px;
             color:var(--green);
             max-width:100%;
             word-wrap:break-word;
             overflow-wrap:break-word;
         }
         .values-card p {
-            margin-top:0;
+            margin:0;
             font-size:15.2px;
-            line-height:1.46;
+            line-height:1.6;
             color:#3a2d28;
             max-width:100%;
             word-wrap:break-word;
             overflow-wrap:break-word;
             text-align:justify;
+        }
+        .values-card-footer {
+            margin-top:auto;
+            padding-top:18px;
+        }
+        .values-card-footer span {
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            width:34px;
+            height:34px;
+            border-radius:50%;
+            background:rgba(46,87,59,.08);
+            color:var(--green);
+            font-weight:800;
+            border:1px solid rgba(46,87,59,.12);
         }
 
         /* ── Stat band ── */
@@ -698,7 +792,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Ajouter des classes d'animation aux éléments existants
             document.querySelectorAll('.card').forEach((card, index) => {
-                card.classList.add('card-3d', 'sr-fade-up');
+                card.classList.add('card-3d', 'sr-fade-up', 'is-visible');
                 card.style.animationDelay = (index * 0.1) + 's';
             });
 

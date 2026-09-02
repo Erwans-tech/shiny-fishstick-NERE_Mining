@@ -18,6 +18,15 @@
         <a href="{{ $en ? route('english.company.governance') : route('company.governance') }}">{{ __('site.subnav_company_governance', [], $loc) }}</a>
     </div>
 
+    <div class="values-hero" aria-label="IPRE">
+        <img src="{{ asset('images/ipre-banner.jpg') }}" alt="IPRE" class="values-hero-image">
+        <div class="values-hero-overlay">
+            <span class="values-hero-kicker">IPRE</span>
+            <h2>{{ $en ? 'Integrity, Professionalism, Respect, Team Spirit' : 'Intégrité, Professionnalisme, Respect, Esprit d’équipe' }}</h2>
+            <p>{{ $en ? 'These principles guide every decision, every action and every relationship we build.' : 'Ces principes guident chaque décision, chaque action et chaque relation que nous bâtissons.' }}</p>
+        </div>
+    </div>
+
     <div class="grid-2 values-grid">
         @foreach($values as $i)
         <div class="card values-card values-card--{{ $i }}">

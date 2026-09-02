@@ -104,7 +104,6 @@
                         <p class="pdg-signature">Le Président-Directeur Général</p>
                     </div>
                 @endif
-                <div class="pdg-name">{{ __('site.company_pdg_name', [], $loc) }}</div>
                 <div class="pdg-title">{{ __('site.company_pdg_company', [], $loc) }}</div>
         </div>
     </div>

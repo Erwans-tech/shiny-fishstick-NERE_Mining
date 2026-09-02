@@ -102,56 +102,14 @@
 
 
 <section class="sand" style="padding:60px 5vw;">
-    <div style="max-width:1180px; margin:0 auto;">
-        <h2 style="text-align:center; color:var(--green); margin-bottom:12px; font-size:36px; font-weight:600;"><?php echo e($en ? 'Certifications & Standards' : 'Certifications & Standards'); ?></h2>
-        
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:24px;">
-            <div class="card">
-                <div style="font-size:28px; margin-bottom:12px;">🏅</div>
-                <h4 style="color:var(--green); margin-bottom:8px; font-weight:600;">ISO 45001:2018</h4>
-                <p style="color:var(--muted); font-size:13px; margin:0; line-height:1.6;"><?php echo e($en ? 'Occupational Health & Safety Management System' : 'Système Management Santé & Sécurité'); ?></p>
-            </div>
-            <div class="card">
-                <div style="font-size:28px; margin-bottom:12px;">🏅</div>
-                <h4 style="color:var(--green); margin-bottom:8px; font-weight:600;">ISO 14001:2015</h4>
-                <p style="color:var(--muted); font-size:13px; margin:0; line-height:1.6;"><?php echo e($en ? 'Environmental Management System' : 'Système Management Environnemental'); ?></p>
-            </div>
-            <div class="card">
-                <div style="font-size:28px; margin-bottom:12px;">🏅</div>
-                <h4 style="color:var(--green); margin-bottom:8px; font-weight:600;">ICMM</h4>
-                <p style="color:var(--muted); font-size:13px; margin:0; line-height:1.6;"><?php echo e($en ? 'International Council on Mining & Metals' : 'Conseil International Mines & Métaux'); ?></p>
-            </div>
-            <div class="card">
-                <div style="font-size:28px; margin-bottom:12px;">🏅</div>
-                <h4 style="color:var(--green); margin-bottom:8px; font-weight:600;">JORC Code</h4>
-                <p style="color:var(--muted); font-size:13px; margin:0; line-height:1.6;"><?php echo e($en ? 'Reporting of Exploration Results, Mineral Resources' : 'Rapportage Résultats Exploration & Ressources'); ?></p>
-            </div>
-            <div class="card">
-                <div style="font-size:28px; margin-bottom:12px;">🏅</div>
-                <h4 style="color:var(--green); margin-bottom:8px; font-weight:600;">RMI</h4>
-                <p style="color:var(--muted); font-size:13px; margin:0; line-height:1.6;"><?php echo e($en ? 'Responsible Mining Index recognition' : 'Reconnaissance Index Mining Responsable'); ?></p>
-            </div>
-            <div class="card">
-                <div style="font-size:28px; margin-bottom:12px;">🏅</div>
-                <h4 style="color:var(--green); margin-bottom:8px; font-weight:600;">Annual Audits</h4>
-                <p style="color:var(--muted); font-size:13px; margin:0; line-height:1.6;"><?php echo e($en ? 'Third-party compliance & safety audits' : 'Audits conformité & sécurité tiers'); ?></p>
-            </div>
-        </div>
-    </div>
-</section>
+    <div style="max-width:1180px; margin:0 auto; text-align:center;">
+        <h2 style="text-align:center; color:var(--green); margin-bottom:12px; font-size:36px; font-weight:600;"><?php echo e($en ? 'Compliance & Continuous Improvement' : 'Conformité & amélioration continue'); ?></h2>
+        <p style="max-width:760px; margin:0 auto; color:var(--muted); font-size:15px; line-height:1.8;">
+            <?php echo e($en
+                ? 'Néré Mining relies on internal controls, inspections and independent reviews to strengthen operational discipline and accountability.'
+                : 'Néré Mining s’appuie sur des contrôles internes, des inspections et des revues indépendantes pour renforcer la discipline opérationnelle et la responsabilité.'); ?>
 
-
-<section>
-    <p class="lead"><?php echo e(__('site.hse_cert_lead', [], $loc)); ?></p>
-
-    <div class="grid-3">
-        <?php $__currentLoopData = range(1, 3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="card">
-            <div class="card-tag"><?php echo e(__('site.hse_cert'.$i.'_tag', [], $loc)); ?></div>
-            <h3><?php echo e(__('site.hse_cert'.$i.'_h3', [], $loc)); ?></h3>
-            <p><?php echo e(__('site.hse_cert'.$i.'_p', [], $loc)); ?></p>
-        </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </p>
     </div>
 </section>
 

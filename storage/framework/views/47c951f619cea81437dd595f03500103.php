@@ -47,6 +47,19 @@
     </div>
 </section>
 
+<section class="sand sr" style="margin-top: 24px;">
+    <div class="card" style="padding: 28px;">
+        <div class="card-tag"><?php echo e($en ? 'Priority' : 'Priorité'); ?></div>
+        <h3><?php echo e($en ? 'A disciplined exploration strategy' : 'Une stratégie d’exploration disciplinée'); ?></h3>
+        <p style="margin:0; text-align:justify;">
+            <?php echo e($en
+                ? 'Each project is evaluated through geological analysis, resource potential and a realistic development timeline. The objective is to identify deposits that can create value while staying aligned with responsible mining standards and local expectations.'
+                : 'Chaque projet est évalué selon son potentiel géologique, sa valeur économique et un calendrier de développement réaliste. L’objectif est d’identifier des gisements capables de créer de la valeur tout en restant alignés avec les normes minières responsables et les attentes locales.'); ?>
+
+        </p>
+    </div>
+</section>
+
 
 
 <?php $__env->stopSection(); ?>

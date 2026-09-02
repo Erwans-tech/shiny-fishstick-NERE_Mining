@@ -101,7 +101,6 @@
                         <p class="pdg-signature">Le Président-Directeur Général</p>
                     </div>
                 <?php endif; ?>
-                <div class="pdg-name"><?php echo e(__('site.company_pdg_name', [], $loc)); ?></div>
                 <div class="pdg-title"><?php echo e(__('site.company_pdg_company', [], $loc)); ?></div>
         </div>
     </div>

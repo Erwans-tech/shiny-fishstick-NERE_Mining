@@ -9,6 +9,10 @@
 
     /* Premium touches */
     .karma-production-card { border-left: 4px solid var(--gold); }
+    .karma-production-card .card-img { object-position: center; }
+    .karma-production-card--open-pit .card-img { object-position: 52% center; }
+    .karma-production-card--processing .card-img { object-position: center 58%; }
+    .karma-production-card--team .card-img { object-position: center 32%; }
     .karma-impact-card { background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(247,243,238,1) 100%); }
     .karma-step-connector { display: flex; align-items: center; justify-content: center; }
 </style>
@@ -55,18 +59,18 @@
         <div class="stat-item"><span class="stat-value">11 yrs</span><span class="stat-label"><?php echo e($en ? 'Extended mine life' : 'Durée mine étendue'); ?></span></div>
     </div>
     <div class="grid-3">
-        <div class="card karma-production-card">
-            <img class="card-img" src="<?php echo e(asset('images/mining/karma-01.jpg')); ?>" alt="<?php echo e($en ? 'Mining operation' : 'Opération minière'); ?>">
+        <div class="card karma-production-card karma-production-card--open-pit">
+            <img class="card-img" src="<?php echo e(asset('images/mining/karma-05.jpg')); ?>" alt="<?php echo e($en ? 'Open-pit mining' : 'Extraction à ciel ouvert'); ?>">
             <h3><?php echo e(__('site.karma_card1_h3', [], $loc)); ?></h3>
             <p><?php echo e(__('site.karma_card1_p', [], $loc)); ?></p>
         </div>
-        <div class="card karma-production-card">
-            <img class="card-img" src="<?php echo e(asset('images/mining/karma-03.jpg')); ?>" alt="<?php echo e($en ? 'Processing' : 'Traitement'); ?>">
+        <div class="card karma-production-card karma-production-card--processing">
+            <img class="card-img" src="<?php echo e(asset('images/mining/karma-04.jpg')); ?>" alt="<?php echo e($en ? 'Gold processing plant' : "Usine de traitement de l'or"); ?>">
             <h3><?php echo e(__('site.karma_card2_h3', [], $loc)); ?></h3>
             <p><?php echo e(__('site.karma_card2_p', [], $loc)); ?></p>
         </div>
-        <div class="card karma-production-card">
-            <img class="card-img" src="<?php echo e(asset('images/mining/karma-04.jpg')); ?>" alt="<?php echo e($en ? 'Teams' : 'Équipes'); ?>">
+        <div class="card karma-production-card karma-production-card--team">
+            <img class="card-img" src="<?php echo e(asset('images/mining/karma-01.jpg')); ?>" alt="<?php echo e($en ? 'Burkinabe mining team' : 'Équipe minière burkinabè'); ?>">
             <h3><?php echo e(__('site.karma_card3_h3', [], $loc)); ?></h3>
             <p><?php echo e(__('site.karma_card3_p', [], $loc)); ?></p>
         </div>
@@ -199,10 +203,15 @@
     <p class="lead"><?php echo e(__('site.karma_org_lead', [], $loc)); ?></p>
     <div class="grid-3">
         <?php $__empty_1 = true; $__currentLoopData = $karmaDepartments ?? collect(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+        <?php
+            $deptTag = trim((string) $dept->localizedTag($loc));
+            $deptTitle = trim((string) $dept->localizedTitle($loc));
+            $deptBody = trim((string) $dept->localizedBody($loc));
+        ?>
         <div class="card">
-            <div class="card-tag"><?php echo e($dept->localizedTag($loc)); ?></div>
-            <h3><?php echo e($dept->localizedTitle($loc)); ?></h3>
-            <p><?php echo e($dept->localizedBody($loc)); ?></p>
+            <div class="card-tag"><?php echo e($deptTag !== '' ? $deptTag : __('site.karma_dept'.$loop->iteration.'_tag', [], $loc)); ?></div>
+            <h3><?php echo e($deptTitle !== '' ? $deptTitle : __('site.karma_dept'.$loop->iteration.'_h3', [], $loc)); ?></h3>
+            <p><?php echo e($deptBody !== '' ? $deptBody : __('site.karma_dept'.$loop->iteration.'_p', [], $loc)); ?></p>
         </div>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
         <?php $__currentLoopData = range(1, 9); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

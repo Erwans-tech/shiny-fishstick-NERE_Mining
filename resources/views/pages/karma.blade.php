@@ -12,6 +12,10 @@
 
     /* Premium touches */
     .karma-production-card { border-left: 4px solid var(--gold); }
+    .karma-production-card .card-img { object-position: center; }
+    .karma-production-card--open-pit .card-img { object-position: 52% center; }
+    .karma-production-card--processing .card-img { object-position: center 58%; }
+    .karma-production-card--team .card-img { object-position: center 32%; }
     .karma-impact-card { background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(247,243,238,1) 100%); }
     .karma-step-connector { display: flex; align-items: center; justify-content: center; }
 </style>
@@ -58,18 +62,18 @@
         <div class="stat-item"><span class="stat-value">11 yrs</span><span class="stat-label">{{ $en ? 'Extended mine life' : 'Durée mine étendue' }}</span></div>
     </div>
     <div class="grid-3">
-        <div class="card karma-production-card">
-            <img class="card-img" src="{{ asset('images/mining/karma-01.jpg') }}" alt="{{ $en ? 'Mining operation' : 'Opération minière' }}">
+        <div class="card karma-production-card karma-production-card--open-pit">
+            <img class="card-img" src="{{ asset('images/mining/karma-05.jpg') }}" alt="{{ $en ? 'Open-pit mining' : 'Extraction à ciel ouvert' }}">
             <h3>{{ __('site.karma_card1_h3', [], $loc) }}</h3>
             <p>{{ __('site.karma_card1_p', [], $loc) }}</p>
         </div>
-        <div class="card karma-production-card">
-            <img class="card-img" src="{{ asset('images/mining/karma-03.jpg') }}" alt="{{ $en ? 'Processing' : 'Traitement' }}">
+        <div class="card karma-production-card karma-production-card--processing">
+            <img class="card-img" src="{{ asset('images/mining/karma-04.jpg') }}" alt="{{ $en ? 'Gold processing plant' : "Usine de traitement de l'or" }}">
             <h3>{{ __('site.karma_card2_h3', [], $loc) }}</h3>
             <p>{{ __('site.karma_card2_p', [], $loc) }}</p>
         </div>
-        <div class="card karma-production-card">
-            <img class="card-img" src="{{ asset('images/mining/karma-04.jpg') }}" alt="{{ $en ? 'Teams' : 'Équipes' }}">
+        <div class="card karma-production-card karma-production-card--team">
+            <img class="card-img" src="{{ asset('images/mining/karma-01.jpg') }}" alt="{{ $en ? 'Burkinabe mining team' : 'Équipe minière burkinabè' }}">
             <h3>{{ __('site.karma_card3_h3', [], $loc) }}</h3>
             <p>{{ __('site.karma_card3_p', [], $loc) }}</p>
         </div>

@@ -11,7 +11,7 @@
     $footerDescription = SiteSetting::get('footer_description', 'Groupe aurifère burkinabè exploitant la mine de Karma dans le nord du Burkina Faso.');
 ?>
 
-<?php if (! $__env->hasRenderedOnce('500f176a-57d8-49a6-85ee-07ea3919e417')): $__env->markAsRenderedOnce('500f176a-57d8-49a6-85ee-07ea3919e417'); ?>
+<?php if (! $__env->hasRenderedOnce('2b3c8e76-0d73-4aef-a9ee-e515ae11d9ed')): $__env->markAsRenderedOnce('2b3c8e76-0d73-4aef-a9ee-e515ae11d9ed'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>">
 <?php endif; ?>
 

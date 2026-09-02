@@ -266,7 +266,7 @@
         }
         .values-card {
             min-height:440px;
-            height:100%;
+            height:auto;
             display:flex;
             flex-direction:column;
             padding:22px 20px 18px;
@@ -803,7 +803,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Ajouter des classes d'animation aux éléments existants
             document.querySelectorAll('.card').forEach((card, index) => {
-                card.classList.add('card-3d', 'sr-fade-up');
+                card.classList.add('card-3d', 'sr-fade-up', 'is-visible');
                 card.style.animationDelay = (index * 0.1) + 's';
             });
 

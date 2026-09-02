@@ -17,16 +17,16 @@
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
             <div class="career-stat">
-                <div class="career-stat-num">1,200+</div>
-                <div class="career-stat-label"><?php echo e($en ? 'Employees' : 'Employés'); ?></div>
+                <div class="career-stat-num">409</div>
+                <div class="career-stat-label"><?php echo e($en ? 'Direct employees' : 'Emplois directs'); ?></div>
             </div>
             <div class="career-stat">
                 <div class="career-stat-num">99%</div>
                 <div class="career-stat-label"><?php echo e($en ? 'Burkinabè Staff' : 'Personnel Burkinabè'); ?></div>
             </div>
             <div class="career-stat">
-                <div class="career-stat-num">50+</div>
-                <div class="career-stat-label"><?php echo e($en ? 'Job Categories' : 'Catégories Emplois'); ?></div>
+                <div class="career-stat-num">1 500</div>
+                <div class="career-stat-label"><?php echo e($en ? 'Subcontracted workers' : 'Travailleurs sous-traitants'); ?></div>
             </div>
             <div class="career-stat">
                 <div class="career-stat-num">∞</div>
