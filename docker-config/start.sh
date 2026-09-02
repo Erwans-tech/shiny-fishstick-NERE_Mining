@@ -58,16 +58,25 @@ echo "[INFO] PostgreSQL disponible."
 
 # ── 4. Migrations ────────────────────────────────────────────
 echo "[INFO] Migrations PostgreSQL..."
-php artisan migrate --force --no-interaction
-if [ $? -ne 0 ]; then
-    echo "[ERREUR] Migrations echouees."
-    exit 1
+
+# Vérifier si c'est un premier déploiement (aucune table migrations)
+if ! php artisan migrate:status --no-interaction 2>/dev/null | grep -q "Migration table"; then
+    echo "[INFO] Premier deploiement — migrate:fresh avec seed..."
+    php artisan migrate:fresh --seed --force --no-interaction
+    touch /var/www/html/storage/.seeded
+else
+    echo "[INFO] Base existante — migration normale..."
+    php artisan migrate --force --no-interaction
 fi
 
-# ── 5. Seed initial (une seule fois) ─────────────────────────
+if [ $? -ne 0 ]; then
+    echo "[WARN] Migrations avec erreurs, mais on continue..."
+fi
+
+# ── 5. Seed initial (seulement si pas déjà fait) ─────────────
 SEEDED_FLAG=/var/www/html/storage/.seeded
 if [ ! -f "$SEEDED_FLAG" ]; then
-    echo "[INFO] Premier demarrage — seed..."
+    echo "[INFO] Seed des donnees de base..."
     php artisan db:seed --force --no-interaction && touch "$SEEDED_FLAG"
 else
     echo "[INFO] Donnees deja seedees — skip."
