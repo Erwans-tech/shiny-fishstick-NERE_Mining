@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\News;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class HomeNewsLinksTest extends TestCase
@@ -49,5 +50,28 @@ class HomeNewsLinksTest extends TestCase
         $this->get('/actualites/' . $article->id)
             ->assertOk()
             ->assertSee('Article de test');
+    }
+
+    public function test_legacy_news_without_slug_still_renders_and_generates_routes(): void
+    {
+        $id = DB::table('news')->insertGetId([
+            'title' => 'Article legacy sans slug',
+            'slug' => null,
+            'category' => 'Institutionnel',
+            'excerpt' => 'Résumé legacy',
+            'content' => 'Contenu legacy.',
+            'published_at' => now()->subHour()->format('Y-m-d H:i:s'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $article = News::findOrFail($id);
+
+        $this->assertSame((string) $article->id, (string) $article->getRouteKey());
+        $this->assertSame('/actualites/' . $article->id, route('news.show', $article, false));
+
+        $this->get('/actualites/' . $article->id)
+            ->assertOk()
+            ->assertSee('Article legacy sans slug');
     }
 }
