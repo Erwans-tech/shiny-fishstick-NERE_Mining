@@ -477,18 +477,18 @@ return [
 
     'karma_imp_jobs_h3'   => 'Employment',
     'karma_imp_job1_tag'  => 'Direct jobs',
-    'karma_imp_job1_p'    => "Over 1,200 direct and indirect jobs created, with a priority recruitment policy for residents of surrounding communities.",
+    'karma_imp_job1_p'    => "1,909 direct and indirect jobs created (409 direct jobs + 1,500 contractors), with a priority recruitment policy for residents of surrounding communities.",
     'karma_imp_job2_tag'  => 'Local & regional employment',
-    'karma_imp_job2_p'    => "Priority given to candidates from Zondoma Province and the neighbouring Northern and Centre-Nord regions.",
+    'karma_imp_job2_p'    => "60% local and regional employment. Priority given to candidates from Zondoma Province and the neighbouring Northern and Centre-Nord regions.",
     'karma_imp_job3_tag'  => "Women's employment",
     'karma_imp_job3_p'    => "Néré Mining is committed to progressively increasing the share of women in its workforce, including in technical and management roles.",
     'karma_imp_eco_h3'    => 'Economy & Contributions',
     'karma_imp_eco1_tag'  => 'Local purchasing',
-    'karma_imp_eco1_p'    => "A growing share of our supplies is sourced from Burkinabe suppliers and contractors, strengthening the local economy.",
+    'karma_imp_eco1_p'    => "CFA 77.8 billion in annual local purchases. A growing share of our supplies is sourced from Burkinabe suppliers and contractors, strengthening the local economy.",
     'karma_imp_eco2_tag'  => 'Burkinabe suppliers',
     'karma_imp_eco2_p'    => "Local supplier development programme: capacity building, training, support to meet mining standards.",
     'karma_imp_eco3_tag'  => 'Fiscal contributions & Investment',
-    'karma_imp_eco3_p'    => 'Regular payment of mining royalties, taxes and duties. Contribution to the Burkinabe state budget, local development funds and strategic investment in the territory.',
+    'karma_imp_eco3_p'    => 'CFA 744.28 million in annual payments to State Enterprises. Regular payment of mining royalties, taxes and duties. Contribution to the Burkinabe state budget, local development funds and strategic investment in the territory.',
 
     /* ══ Projects — exploration cards ══ */
     'projects_card1_tag' => 'Permit — Northern Region',

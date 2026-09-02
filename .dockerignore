@@ -1,40 +1,54 @@
+# 📦 Docker ignore pour Néré Mining Laravel
+
 # Git
 .git
 .gitignore
-.gitattributes
 
-# Environnement local
-.env
-.env.*
+# Environment files
+.env*
 !.env.example
 
-# Dépendances (installées dans le build)
+# Dependencies
 node_modules
 vendor
+composer.lock
 
-# Fichiers de dev
-*.log
-*.cache
-.phpunit.cache
+# Docker files (keep in build)
+# docker-nginx.conf
+# docker-start.sh
+# Dockerfile
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Laravel
+storage/app/*
+!storage/app/public/.gitignore
+storage/framework/cache/*
+!storage/framework/cache/.gitignore
+storage/framework/sessions/*
+!storage/framework/sessions/.gitignore
+storage/framework/views/*
+!storage/framework/views/.gitignore
+storage/logs/*
+!storage/logs/.gitignore
+bootstrap/cache/*
+!bootstrap/cache/.gitignore
+
+# Testing
+tests
+phpunit.xml
 .phpunit.result.cache
 
-# Storage (volumes)
-storage/app/public/*
-storage/framework/cache/*
-storage/framework/sessions/*
-storage/framework/views/*
-storage/logs/*
-public/uploads/*
-
-# Docs & outils
+# Documentation
 *.md
-arborescence.md
-plan.md
-phpunit.xml
+!README.md
 
-# Fichier Docker principal seulement (pas le dossier docker/)
-Dockerfile
-
-# Build
-public/build
-public/hot
+# Temporary
+*.tmp
+*.log

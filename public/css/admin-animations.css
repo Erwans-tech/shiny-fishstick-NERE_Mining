@@ -1,0 +1,604 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   🎛️ ANIMATIONS ADMIN NÉRÉ MINING
+   Interface d'administration moderne et fluide
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Variables spécifiques admin ── */
+:root {
+  --admin-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --admin-ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --admin-transition: 0.25s var(--admin-ease);
+  --admin-transition-slow: 0.4s var(--admin-ease);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   📊 ANIMATIONS DASHBOARD
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation d'entrée des tuiles de stats */
+.admin-stat-tile {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  animation: adminStatSlideIn 0.6s var(--admin-ease) forwards;
+}
+
+.admin-stat-tile:nth-child(1) { animation-delay: 0.1s; }
+.admin-stat-tile:nth-child(2) { animation-delay: 0.2s; }
+.admin-stat-tile:nth-child(3) { animation-delay: 0.3s; }
+.admin-stat-tile:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes adminStatSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Animation hover des tuiles */
+.admin-stat-tile {
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--admin-transition), box-shadow var(--admin-transition);
+}
+
+.admin-stat-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.1) 50%,
+    transparent 100%
+  );
+  transition: left 0.6s ease;
+}
+
+.admin-stat-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(75,23,22,0.15);
+}
+
+.admin-stat-tile:hover::before {
+  left: 100%;
+}
+
+/* Animation des valeurs numériques */
+.admin-stat-value {
+  font-variant-numeric: tabular-nums;
+  animation: counterGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes counterGlow {
+  from {
+    text-shadow: 0 0 5px rgba(255,194,71,0.3);
+  }
+  to {
+    text-shadow: 0 0 15px rgba(255,194,71,0.6);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🗂️ ANIMATIONS SIDEBAR
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation du menu sidebar */
+.sidebar {
+  animation: sidebarSlideIn 0.4s var(--admin-ease);
+}
+
+@keyframes sidebarSlideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Animation des éléments du menu */
+.sidebar-nav ul {
+  opacity: 0;
+  animation: sidebarNavFadeIn 0.6s var(--admin-ease) 0.2s forwards;
+}
+
+@keyframes sidebarNavFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.sidebar-nav li {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: sidebarItemSlideIn 0.4s var(--admin-ease) forwards;
+}
+
+.sidebar-nav li:nth-child(1) { animation-delay: 0.3s; }
+.sidebar-nav li:nth-child(2) { animation-delay: 0.4s; }
+.sidebar-nav li:nth-child(3) { animation-delay: 0.5s; }
+.sidebar-nav li:nth-child(4) { animation-delay: 0.6s; }
+.sidebar-nav li:nth-child(5) { animation-delay: 0.7s; }
+.sidebar-nav li:nth-child(6) { animation-delay: 0.8s; }
+.sidebar-nav li:nth-child(7) { animation-delay: 0.9s; }
+.sidebar-nav li:nth-child(8) { animation-delay: 1s; }
+
+@keyframes sidebarItemSlideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animation hover des liens sidebar */
+.sidebar-nav a {
+  position: relative;
+  transition: all var(--admin-transition);
+  overflow: hidden;
+}
+
+.sidebar-nav a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,194,71,0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.sidebar-nav a:hover::before {
+  left: 100%;
+}
+
+.sidebar-nav a:hover {
+  transform: translateX(4px);
+  background-color: rgba(255,255,255,0.05);
+}
+
+/* Animation de l'indicateur actif */
+.sidebar-nav a.active::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gold);
+  animation: activeIndicatorSlide 0.3s var(--admin-ease);
+}
+
+@keyframes activeIndicatorSlide {
+  from {
+    height: 0;
+    top: 50%;
+  }
+  to {
+    height: 100%;
+    top: 0;
+  }
+}
+
+/* Notification badges animées */
+.sidebar-badge {
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(220,38,38,0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 5px rgba(220,38,38,0);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🏠 ANIMATIONS TOPBAR
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.admin-topbar {
+  animation: topbarSlideDown 0.4s var(--admin-ease) 0.1s backwards;
+}
+
+@keyframes topbarSlideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Animation du breadcrumb */
+.admin-breadcrumb {
+  opacity: 0;
+  animation: breadcrumbFadeIn 0.5s var(--admin-ease) 0.3s forwards;
+}
+
+@keyframes breadcrumbFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animation du dropdown user */
+.admin-user-dropdown {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+  animation: dropdownSlideIn 0.2s var(--admin-ease-back) forwards;
+}
+
+@keyframes dropdownSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   📋 ANIMATIONS FORMULAIRES
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation des champs de formulaire */
+.admin-form-group {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: formFieldSlideIn 0.4s var(--admin-ease) forwards;
+}
+
+.admin-form-group:nth-child(1) { animation-delay: 0.1s; }
+.admin-form-group:nth-child(2) { animation-delay: 0.2s; }
+.admin-form-group:nth-child(3) { animation-delay: 0.3s; }
+.admin-form-group:nth-child(4) { animation-delay: 0.4s; }
+.admin-form-group:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes formFieldSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation focus des inputs */
+.admin-form input,
+.admin-form textarea,
+.admin-form select {
+  transition: all var(--admin-transition);
+  position: relative;
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-form select:focus {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(75,23,22,0.1),
+    0 0 0 3px rgba(255,194,71,0.1);
+}
+
+/* Animation des boutons */
+.admin-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all var(--admin-transition);
+}
+
+.admin-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.admin-btn:hover::before {
+  width: 200px;
+  height: 200px;
+}
+
+.admin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(75,23,22,0.2);
+}
+
+/* Animation des boutons de suppression */
+.admin-btn-danger:hover {
+  animation: dangerShake 0.5s ease-in-out;
+}
+
+@keyframes dangerShake {
+  0%, 20%, 40%, 60%, 80%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-2px);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   📊 ANIMATIONS TABLEAUX
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation d'entrée des lignes de tableau */
+.admin-table {
+  opacity: 0;
+  animation: tableSlideIn 0.5s var(--admin-ease) 0.2s forwards;
+}
+
+@keyframes tableSlideIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.admin-table tbody tr {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: tableRowSlideIn 0.4s var(--admin-ease) forwards;
+}
+
+.admin-table tbody tr:nth-child(1) { animation-delay: 0.3s; }
+.admin-table tbody tr:nth-child(2) { animation-delay: 0.4s; }
+.admin-table tbody tr:nth-child(3) { animation-delay: 0.5s; }
+.admin-table tbody tr:nth-child(4) { animation-delay: 0.6s; }
+.admin-table tbody tr:nth-child(5) { animation-delay: 0.7s; }
+
+@keyframes tableRowSlideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animation hover des lignes */
+.admin-table tbody tr {
+  transition: all var(--admin-transition);
+  position: relative;
+}
+
+.admin-table tbody tr:hover {
+  background-color: rgba(255,194,71,0.05);
+  transform: translateX(2px);
+}
+
+.admin-table tbody tr:hover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gold);
+  animation: rowIndicatorSlide 0.2s ease;
+}
+
+@keyframes rowIndicatorSlide {
+  from {
+    height: 0;
+    top: 50%;
+  }
+  to {
+    height: 100%;
+    top: 0;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   💬 ANIMATIONS NOTIFICATIONS
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation des alertes */
+.admin-alert {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.95);
+  animation: alertSlideIn 0.4s var(--admin-ease-back) forwards;
+}
+
+@keyframes alertSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.admin-alert.success {
+  animation-delay: 0.1s;
+}
+
+.admin-alert.error {
+  animation-delay: 0.1s;
+}
+
+/* Animation de fermeture des alertes */
+.admin-alert.fade-out {
+  animation: alertFadeOut 0.3s ease forwards;
+}
+
+@keyframes alertFadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🎨 ANIMATIONS MÉDIAS
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation des previews d'images */
+.admin-image-preview {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: imagePreviewZoom 0.4s var(--admin-ease-back) forwards;
+}
+
+@keyframes imagePreviewZoom {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.admin-image-preview:hover {
+  animation: imagePreviewHover 0.3s ease;
+}
+
+@keyframes imagePreviewHover {
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Animation de l'upload de fichiers */
+.admin-upload-zone {
+  transition: all var(--admin-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-upload-zone::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255,194,71,0.1) 50%,
+      transparent 70%
+    );
+  transform: rotate(45deg);
+  transition: transform 0.6s ease;
+  opacity: 0;
+}
+
+.admin-upload-zone.dragover::before {
+  opacity: 1;
+  animation: uploadSpinner 1s linear infinite;
+}
+
+@keyframes uploadSpinner {
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+.admin-upload-zone.dragover {
+  background-color: rgba(255,194,71,0.1);
+  border-color: var(--gold);
+  transform: scale(1.02);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🎯 ANIMATIONS UTILITAIRES
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation de chargement */
+.admin-loading {
+  position: relative;
+}
+
+.admin-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--line);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: adminSpinner 0.8s linear infinite;
+}
+
+@keyframes adminSpinner {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Animation de succès */
+.admin-success-checkmark {
+  animation: successCheckmark 0.6s ease-in-out;
+}
+
+@keyframes successCheckmark {
+  0% {
+    transform: scale(0) rotate(45deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(45deg);
+  }
+  100% {
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   📱 RESPONSIVE ADMIN
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  /* Désactiver certaines animations sur tablette */
+  .admin-stat-tile:hover {
+    transform: none;
+  }
+  
+  .sidebar {
+    animation-duration: 0.2s;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Animations simplifiées sur mobile */
+  .admin-stat-tile,
+  .admin-form-group,
+  .admin-table tbody tr {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  /* Sidebar mobile */
+  .sidebar.mobile-open {
+    animation: sidebarMobileSlide 0.3s ease;
+  }
+  
+  @keyframes sidebarMobileSlide {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+}
+
+/* Désactiver toutes les animations si préféré */
+@media (prefers-reduced-motion: reduce) {
+  .admin-stat-tile,
+  .admin-form-group,
+  .admin-table tbody tr,
+  .sidebar,
+  .admin-topbar,
+  .admin-alert {
+    animation: none !important;
+    transition: none !important;
+  }
+}

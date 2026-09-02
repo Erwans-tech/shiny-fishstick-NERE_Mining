@@ -1,0 +1,1 @@
+web: chmod +x deploy.sh && ./deploy.sh && php-fpm -y /etc/php/8.3/fpm/php-fpm.conf & nginx -g 'daemon off;'

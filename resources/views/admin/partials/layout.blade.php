@@ -6,6 +6,7 @@
     <title>@yield('title', 'Administration') — Néré Mining</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/admin-animations.css') }}">
     <style>
         /* ══ Variables ════════════════════════════════════════════ */
         :root {
@@ -468,10 +469,15 @@
         <div class="nav-section">Tableau de bord</div>
         <a href="{{ route('admin.dashboard') }}"
            class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-            <span class="nav-icon">⬛</span> Tableau de bord
+            <span class="nav-icon">📊</span> Vue d'ensemble
+        </a>
+        <a href="{{ route('admin.analytics.index') }}"
+           class="nav-item {{ request()->routeIs('admin.analytics.*') ? 'active' : '' }}">
+            <span class="nav-icon">📈</span> Statistiques
+            <span class="nav-badge nav-badge-gold">NEW</span>
         </a>
 
-        <div class="nav-section">Contenu éditorial</div>
+        <div class="nav-section">Contenu</div>
         <a href="{{ route('admin.news.index') }}"
            class="nav-item {{ request()->routeIs('admin.news.*') ? 'active' : '' }}">
             <span class="nav-icon">📰</span> Actualités
@@ -532,11 +538,24 @@
            class="nav-item {{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">
             <span class="nav-icon">🎠</span> Carrousel Hero
         </a>
-        <a href="{{ url('/') }}" target="_blank" class="nav-item">
-            <span class="nav-icon">🌐</span> Voir le site ↗
+        <a href="{{ route('admin.certifications.index') }}"
+           class="nav-item {{ request()->routeIs('admin.certifications.*') ? 'active' : '' }}">
+            <span class="nav-icon">🏆</span> Certifications
         </a>
-        <a href="{{ url('/gestion-nm') }}" class="nav-item" style="opacity:.5; font-size:11px;">
-            <span class="nav-icon">🔒</span> {{ url('/gestion-nm') }}
+        <a href="{{ route('admin.settings.index') }}"
+           class="nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+            <span class="nav-icon">⚙️</span> Paramètres
+        </a>
+
+        <div class="nav-section">Administration</div>
+        <a href="{{ route('admin.users.index') }}"
+           class="nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+            <span class="nav-icon">👥</span> Utilisateurs Admin
+        </a>
+
+        <div class="nav-section">Accès rapide</div>
+        <a href="{{ url('/') }}" target="_blank" class="nav-item">
+            <span class="nav-icon">🌐</span> Voir le site public
         </a>
 
     </nav>
@@ -605,6 +624,7 @@
 
 @stack('scripts')
 
+<script src="{{ asset('js/admin-animations.js') }}"></script>
 <script>
 // Mobile sidebar toggle
 (function(){
@@ -613,6 +633,31 @@
         if(e.key === 'Escape') sidebar.classList.remove('open');
     });
 })();
+
+// Initialisation des animations admin
+document.addEventListener('DOMContentLoaded', function() {
+    // Ajouter les classes d'animation aux éléments existants
+    document.querySelectorAll('.metric-card, .stat-tile').forEach(function(tile) {
+        tile.classList.add('admin-stat-tile');
+    });
+    
+    // Animation des alertes de succès/erreur
+    document.querySelectorAll('.alert').forEach(function(alert) {
+        alert.classList.add('admin-alert');
+    });
+    
+    // Auto-fermeture des alertes après 5 secondes
+    document.querySelectorAll('.admin-alert').forEach(function(alert) {
+        if (alert.classList.contains('success')) {
+            setTimeout(function() {
+                alert.classList.add('fade-out');
+                setTimeout(function() {
+                    alert.remove();
+                }, 300);
+            }, 5000);
+        }
+    });
+});
 </script>
 </body>
 </html>

@@ -20,7 +20,7 @@ return [
     'spontaneous'       => 'Candidature spontanée',
     'all_news'          => 'Toutes les actualités',
     'topbar_left'       => 'Ouagadougou · Burkina Faso',
-    'topbar_right'      => 'ISO 9001:2008 · Groupe Aurifère Burkinabè',
+    'topbar_right'      => '470+ Employés · 89 000 oz/an · 11 ans de durée de vie',
     'footer_tagline'    => 'Transparence · Respect · Excellence',
     'footer_copy'       => '© :year Néré Mining S.A.',
 
@@ -477,18 +477,18 @@ return [
 
     'karma_imp_jobs_h3'   => 'Emploi',
     'karma_imp_job1_tag'  => 'Emplois directs',
-    'karma_imp_job1_p'    => "Plus de 1 200 emplois directs et indirects créés, avec une politique de recrutement prioritaire pour les ressortissants des communautés riveraines.",
+    'karma_imp_job1_p'    => "1 909 emplois directs et indirects créés (409 emplois directs + 1 500 sous-traitants), avec une politique de recrutement prioritaire pour les ressortissants des communautés riveraines.",
     'karma_imp_job2_tag'  => 'Emploi local et régional',
-    'karma_imp_job2_p'    => "Priorité donnée aux candidats originaires des provinces du Zondoma et des régions voisines du Nord et du Centre-Nord.",
+    'karma_imp_job2_p'    => "60% d'emploi local et régional. Priorité donnée aux candidats originaires des provinces du Zondoma et des régions voisines du Nord et du Centre-Nord.",
     'karma_imp_job3_tag'  => 'Emploi des femmes',
     'karma_imp_job3_p'    => "Néré Mining s'engage à augmenter progressivement la proportion de femmes dans ses effectifs, y compris aux postes techniques et de direction.",
     'karma_imp_eco_h3'    => 'Économie & Contributions',
     'karma_imp_eco1_tag'  => 'Achats locaux',
-    'karma_imp_eco1_p'    => "Une part croissante de nos approvisionnements est réalisée auprès de fournisseurs et prestataires burkinabè, renforçant le tissu économique local.",
+    'karma_imp_eco1_p'    => "77,8 milliards de CFA d'achats locaux annuels. Une part croissante de nos approvisionnements est réalisée auprès de fournisseurs et prestataires burkinabè, renforçant le tissu économique local.",
     'karma_imp_eco2_tag'  => 'Fournisseurs burkinabè',
     'karma_imp_eco2_p'    => "Programme de développement des fournisseurs locaux : mise à niveau, formation, accompagnement pour répondre aux standards miniers.",
     'karma_imp_eco3_tag'  => 'Contributions fiscales & Investissements',
-    'karma_imp_eco3_p'    => "Paiement régulier des droits miniers, impôts et taxes. Contribution au budget de l'État burkinabè, aux fonds de développement locaux et aux investissements structurants du territoire.",
+    'karma_imp_eco3_p'    => "744,28 millions de CFA de paiements annuels aux Entreprises d'État. Paiement régulier des droits miniers, impôts et taxes. Contribution au budget de l'État burkinabè, aux fonds de développement locaux et aux investissements structurants du territoire.",
 
     /* ══ Projets — cartes exploration ══ */
     'projects_card1_tag' => 'Permis — Région du Nord',

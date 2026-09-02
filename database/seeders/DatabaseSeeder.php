@@ -22,46 +22,77 @@ class DatabaseSeeder extends Seeder
         // Compte admin
         $this->call(AdminSeeder::class);
 
-        // Actualités
-        $this->call(NewsSeeder::class);
+        // Actualités enrichies avec vraies données
+        $this->call(EnrichedNewsSeeder::class);
 
-        // Rapports exemple
+        // Rapports exemple avec vraies données
         Report::query()->delete();
         Report::create([
-            'title'        => 'Rapport de développement durable',
-            'category'     => 'RSE',
-            'description'  => 'Document de référence sur nos engagements environnementaux et sociaux.',
+            'title'        => 'Rapport Annuel de Production 2023',
+            'category'     => 'Production',
+            'description'  => 'Analyse détaillée de la production aurifère de la mine Karma : 89 000 onces d\'or produites, extension de la durée de vie de la mine à 11 ans.',
             'file_path'    => '',
-            'published_at' => now(),
+            'published_at' => now()->subMonths(3),
+        ]);
+        
+        Report::create([
+            'title'        => 'Étude d\'Impact Environnemental - Karma',
+            'category'     => 'Environnement',
+            'description'  => 'Évaluation complète de l\'impact environnemental des opérations d\'extraction à ciel ouvert et mesures de mitigation mises en place.',
+            'file_path'    => '',
+            'published_at' => now()->subMonths(6),
         ]);
 
-        // Offres d'emploi
+        Report::create([
+            'title'        => 'Rapport de Développement Communautaire',
+            'category'     => 'RSE',
+            'description'  => 'Bilan des initiatives sociales : construction d\'écoles, réhabilitation de forages, soutien aux groupes de femmes et formation professionnelle des jeunes.',
+            'file_path'    => '',
+            'published_at' => now()->subMonth(),
+        ]);
+
+        // Offres d'emploi avec vraies données
         JobOffer::query()->delete();
 
         // 1. Offre de candidature spontanée — logique séparée, jamais affichée dans la liste
         JobOffer::create([
             'title'          => 'Candidature spontanée',
             'slug'           => 'candidature-spontanee',
-            'department'     => 'Talents',
+            'department'     => 'Ressources Humaines',
             'location'       => 'Burkina Faso',
             'contract_type'  => 'Selon profil',
-            'description'    => "Néré Mining conserve les candidatures spontanées pendant 12 mois et les étudie dès qu'une opportunité correspondante se présente.",
-            'requirements'   => "Être ressortissant(e) burkinabè\nDisposer d'un diplôme ou d'une expérience dans les métiers miniers ou connexes\nAvoir la motivation de contribuer au développement burkinabè",
+            'description'    => "Néré Mining conserve les candidatures spontanées pendant 12 mois et les étudie dès qu'une opportunité correspondante se présente. Rejoignez une équipe de plus de 470 professionnels engagés dans l'excellence minière.",
+            'requirements'   => "Être ressortissant(e) burkinabè\nDisposer d'un diplôme ou d'une expérience dans les métiers miniers ou connexes\nAvoir la motivation de contribuer au développement durable du Burkina Faso",
             'is_published'   => true,
             'is_spontaneous' => true,
         ]);
 
-        // 2. Exemples d'offres réelles (visibles dans la liste)
+        // 2. Exemples d'offres réelles basées sur les besoins de Karma
         JobOffer::create([
-            'title'            => 'Ingénieur Minier Senior',
-            'slug'             => 'ingenieur-minier-senior',
-            'department'       => 'Mining',
-            'location'         => 'Karma, Burkina Faso',
+            'title'            => 'Ingénieur Géologue Senior',
+            'slug'             => 'ingenieur-geologue-senior',
+            'department'       => 'Exploration',
+            'location'         => 'Karma, Yatenga',
             'contract_type'    => 'CDI',
             'experience_level' => 'senior',
-            'salary_range'     => 'Selon profil',
-            'description'      => "Superviser les opérations d'extraction à ciel ouvert sur le site de Karma. Coordonner les équipes de forage, tir à l'explosif et transport du minerai. Garantir l'atteinte des objectifs de production dans le respect des normes HSE.",
-            'requirements'     => "Diplôme d'ingénieur en génie minier ou équivalent\nMinimum 5 ans d'expérience en exploitation minière à ciel ouvert\nMaîtrise des logiciels de planification minière\nNationalité burkinabè souhaitée",
+            'salary_range'     => 'Selon expérience',
+            'description'      => "Rejoignez l'équipe d'exploration de Néré Mining pour développer nos gisements aurifères. Superviser l'évaluation des ressources sur les permis Karma, Kao et Nami (2.6 Moz de ressources M&I). Contribuer à l'extension de la durée de vie de la mine.",
+            'requirements'     => "Master en Géologie ou Géologie minière\nMinimum 7 ans d'expérience en exploration aurifère\nMaîtrise des logiciels : Leapfrog, Vulcan, Surpac\nExpérience en classification JORC obligatoire\nNationalité burkinabè souhaitée",
+            'deadline'         => now()->addDays(45),
+            'is_published'     => true,
+            'is_spontaneous'   => false,
+        ]);
+        
+        JobOffer::create([
+            'title'            => 'Responsable Sécurité HSE',
+            'slug'             => 'responsable-securite-hse',
+            'department'       => 'HSE',
+            'location'         => 'Karma, Yatenga',
+            'contract_type'    => 'CDI',
+            'experience_level' => 'senior',
+            'salary_range'     => 'Compétitif',
+            'description'      => "Assurer la sécurité de nos équipes sur le site de Karma (production de 89 000 oz/an). Objectif zéro accident pour nos 470+ employés. Superviser les protocoles HSE et les formations sécurité.",
+            'requirements'     => "Formation supérieure en HSE, Sécurité industrielle\nMinimum 5 ans d'expérience en milieu minier\nCertifications HSE internationales (NEBOSH, IOSH)\nMaîtrise des normes ISO 14001, ISO 45001\nNationalité burkinabè exigée",
             'deadline'         => now()->addDays(30),
             'is_published'     => true,
             'is_spontaneous'   => false,
