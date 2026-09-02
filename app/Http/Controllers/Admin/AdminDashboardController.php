@@ -69,7 +69,7 @@ class AdminDashboardController extends Controller
             ->get(['id', 'title', 'category', 'published_at', 'slug']);
 
         // Activité récente — 5 dernières actualités
-        $recentNews = News::latest()->take(5)->get(['id', 'title', 'category', 'published_at', 'created_at']);
+        $recentNews = News::latest()->take(5)->get(['id', 'title', 'category', 'published_at', 'created_at', 'slug']);
 
         // 5 derniers messages
         $recentMessages = ContactMessage::latest()->take(5)->get(['id', 'name', 'email', 'type', 'read_at', 'created_at']);
