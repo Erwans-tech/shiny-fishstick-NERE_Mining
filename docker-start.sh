@@ -18,6 +18,14 @@ php artisan view:cache
 echo "📊 Exécution des migrations..."
 php artisan migrate --force
 
+# Créer ou mettre à jour l'administrateur depuis les secrets Render
+if [ -n "$ADMIN_EMAIL" ] && [ -n "$ADMIN_PASSWORD" ]; then
+	echo "👤 Initialisation du compte administrateur..."
+	php artisan db:seed --class=AdminSeeder --force
+else
+	echo "⚠️ ADMIN_EMAIL/ADMIN_PASSWORD absents : aucun compte administrateur initialisé."
+fi
+
 # Créer le lien symbolique storage
 echo "🔗 Création du lien storage..."
 php artisan storage:link || true

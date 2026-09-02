@@ -28,6 +28,10 @@ services:
         value: fr
       - key: APP_FALLBACK_LOCALE
         value: fr
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
 
       # PostgreSQL (Render managed database)
       - key: DB_CONNECTION
@@ -55,15 +59,15 @@ services:
       - key: FILESYSTEM_DISK
         value: r2
       - key: R2_ACCESS_KEY_ID
-        sync: false          # À renseigner manuellement dans Render > Environment
+        sync: false # À renseigner manuellement dans Render > Environment
       - key: R2_SECRET_ACCESS_KEY
-        sync: false          # À renseigner manuellement dans Render > Environment
+        sync: false # À renseigner manuellement dans Render > Environment
       - key: R2_BUCKET
-        sync: false          # Nom du bucket créé dans Cloudflare R2
+        sync: false # Nom du bucket créé dans Cloudflare R2
       - key: R2_ACCOUNT_ID
-        sync: false          # Votre Cloudflare Account ID (32 caractères)
+        sync: false # Votre Cloudflare Account ID (32 caractères)
       - key: R2_PUBLIC_URL
-        sync: false          # URL publique du bucket (ex: https://pub-xxx.r2.dev ou domaine custom)
+        sync: false # URL publique du bucket (ex: https://pub-xxx.r2.dev ou domaine custom)
 
       # HTTPS (Render gère le TLS)
       - key: FORCE_HTTPS
