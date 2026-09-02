@@ -13,6 +13,7 @@ use App\Models\Report;
 use App\Http\Controllers\JobOfferController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -298,6 +299,13 @@ Route::post('/en/contact', function (Request $request) {
     ContactMessage::create($data);
     return redirect()->route('english.contact')->with('success', 'Your message has been received. Our team will reply shortly.');
 })->name('english.contact.store')->middleware('throttle:contact-form');
+
+/*
+|--------------------------------------------------------------------------
+| SEO
+|--------------------------------------------------------------------------
+*/
+Route::get('/sitemap.xml', [SitemapController::class, 'sitemap'])->name('sitemap');
 
 /*
 |--------------------------------------------------------------------------

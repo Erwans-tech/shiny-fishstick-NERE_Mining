@@ -1,2 +1,50 @@
+# Néré Mining - robots.txt for SEO
+# https://www.robotstxt.org/
+
+# Allow all search engines
 User-agent: *
-Disallow:
+Allow: /
+
+# Disallow sensitive areas
+Disallow: /gestion-nm/
+Disallow: /admin/
+Disallow: /storage/
+Disallow: /vendor/
+Disallow: /config/
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /mail/
+
+# Allow sitemap
+Sitemap: https://nere-mining.bf/sitemap.xml
+
+# Crawl delay - respect server resources (in seconds)
+Crawl-delay: 1
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Disallow: /gestion-nm/
+Disallow: /admin/
+Disallow: /storage/
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Disallow: /gestion-nm/
+Disallow: /admin/
+Disallow: /storage/
+Crawl-delay: 1
+
+# Ban bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
