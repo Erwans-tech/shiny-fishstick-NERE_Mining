@@ -6,7 +6,15 @@ echo "🚀 Déploiement Néré Mining..."
 # Vérification de la base de données
 echo "🔍 Vérification de la connexion DB..."
 if [ "$DB_CONNECTION" != "pgsql" ]; then
-    echo "⚠️  ATTENTION: DB_CONNECTION devrait être 'pgsql', pas '$DB_CONNECTION'"
+    echo "⚠️  Using DB_CONNECTION: $DB_CONNECTION"
+fi
+
+# Assurer que SQLite est writable si utilisé
+if [ "$DB_CONNECTION" = "sqlite" ] || [ -z "$DB_CONNECTION" ]; then
+    echo "🗄️  Configuration SQLite pour écriture..."
+    mkdir -p /opt/render/project/src/database
+    touch /opt/render/project/src/database/database.sqlite
+    chmod 666 /opt/render/project/src/database/database.sqlite
 fi
 
 # Configuration Laravel
@@ -21,7 +29,15 @@ php artisan migrate --force
 
 # Création de l'admin via commande artisan
 echo "👤 Création de l'utilisateur admin..."
-php artisan admin:create --email="$ADMIN_EMAIL" --password="$ADMIN_PASSWORD" || echo "❌ Erreur création admin"
+# Essayer avec PostgreSQL d'abord, puis SQLite en fallback
+php artisan admin:create --email="$ADMIN_EMAIL" --password="$ADMIN_PASSWORD" || {
+    echo "⚠️ PostgreSQL failed, trying with SQLite..."
+    export DB_CONNECTION=sqlite
+    export DB_DATABASE=/opt/render/project/src/database/database.sqlite
+    php artisan config:clear
+    php artisan migrate --force
+    php artisan admin:create --email="$ADMIN_EMAIL" --password="$ADMIN_PASSWORD"
+}
 
 # Seeders (seulement si pas déjà fait)
 echo "🌱 Initialisation des données..."
