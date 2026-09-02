@@ -48,9 +48,14 @@ $homeHandler = function (string $locale) {
 
     // Slides du carrousel hero — fallback sur les images statiques si table vide
     $slides = \App\Models\HeroSlide::active()->get();
+    
+    // Récupère la description SEO pour la page d'accueil
+    $descriptions = config('seo.descriptions')[$locale] ?? [];
+    $description = $descriptions['home'] ?? '';
 
     return view('home', [
         'locale'   => $locale,
+        'description' => $description,
         'stats'    => [
             ['value' => '409',  'suffix' => '',  'label' => $locale === 'en' ? 'Direct employees' : 'Emplois directs', 'icon' => '👥'],
             ['value' => '1500', 'suffix' => '',  'label' => $locale === 'en' ? 'Subcontracted workers' : 'Travailleurs sous-traitants', 'icon' => '🧰'],
@@ -68,9 +73,15 @@ $homeHandler = function (string $locale) {
  */
 $page = function (string $locale, string $section, array $extra = []) {
     App::setLocale($locale);
+    
+    // Récupère la description SEO
+    $descriptions = config('seo.descriptions')[$locale] ?? [];
+    $description = $descriptions[$section] ?? '';
+    
     return view('page', array_merge([
         'locale'  => $locale,
         'section' => $section,
+        'description' => $description,
         'reports' => $section === 'reports' ? Report::published()->latest('published_at')->get() : collect(),
         'jobs'    => $section === 'careers'  ? JobOffer::open()->latest()->get()                : collect(),
         'karmaDepartments' => $section === 'karma'
@@ -111,9 +122,11 @@ Route::get('/actualites/{news}',  [NewsController::class, 'show'])->name('news.s
 
 Route::get('/mediatheque', function () {
     App::setLocale('fr');
+    $descriptions = config('seo.descriptions')['fr'] ?? [];
     return view('resources', [
         'locale'    => 'fr',
         'section'   => 'gallery',
+        'description' => $descriptions['gallery'] ?? '',
         'partners'  => collect(),
         'media'     => MediaAsset::gallery()->get(),
         'documents' => collect(),
@@ -122,9 +135,11 @@ Route::get('/mediatheque', function () {
 
 Route::get('/communiques', function () {
     App::setLocale('fr');
+    $descriptions = config('seo.descriptions')['fr'] ?? [];
     return view('resources', [
         'locale'    => 'fr',
         'section'   => 'press',
+        'description' => $descriptions['press'] ?? '',
         'partners'  => collect(),
         'media'     => collect(),
         'documents' => PressDocument::whereNotNull('published_at')->latest('published_at')->get(),
@@ -137,9 +152,11 @@ Route::get('/rapports',       fn() => $page('fr', 'reports'))->name('reports');
 
 Route::get('/partenaires', function () {
     App::setLocale('fr');
+    $descriptions = config('seo.descriptions')['fr'] ?? [];
     return view('resources', [
         'locale'    => 'fr',
         'section'   => 'partners',
+        'description' => $descriptions['partners'] ?? '',
         'partners'  => Partner::where('is_published', true)->orderBy('sort_order')->get(),
         'media'     => collect(),
         'documents' => collect(),
@@ -189,9 +206,11 @@ Route::get('/en/news/{news}', [NewsController::class, 'showEn'])->name('english.
 
 Route::get('/en/media', function () {
     App::setLocale('en');
+    $descriptions = config('seo.descriptions')['en'] ?? [];
     return view('resources', [
         'locale'    => 'en',
         'section'   => 'gallery',
+        'description' => $descriptions['gallery'] ?? '',
         'partners'  => collect(),
         'media'     => MediaAsset::gallery()->get(),
         'documents' => collect(),
@@ -200,9 +219,11 @@ Route::get('/en/media', function () {
 
 Route::get('/en/press-releases', function () {
     App::setLocale('en');
+    $descriptions = config('seo.descriptions')['en'] ?? [];
     return view('resources', [
         'locale'    => 'en',
         'section'   => 'press',
+        'description' => $descriptions['press'] ?? '',
         'partners'  => collect(),
         'media'     => collect(),
         'documents' => PressDocument::whereNotNull('published_at')->latest('published_at')->get(),
