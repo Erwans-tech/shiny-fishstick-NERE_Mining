@@ -29,33 +29,19 @@ services:
       - key: APP_FALLBACK_LOCALE
         value: fr
 
-      # PostgreSQL Render
+      # PostgreSQL Render (credentials manuels)
       - key: DB_CONNECTION
         value: pgsql
-      - key: DATABASE_URL
-        fromDatabase:
-          name: nere-mining-db
-          property: connectionString
       - key: DB_HOST
-        fromDatabase:
-          name: nere-mining-db
-          property: host
+        value: dpg-da83n4ou01pc73chbd8g-a
       - key: DB_PORT
-        fromDatabase:
-          name: nere-mining-db
-          property: port
+        value: "5432"
       - key: DB_DATABASE
-        fromDatabase:
-          name: nere-mining-db
-          property: database
+        value: nere_mining_q6h0
       - key: DB_USERNAME
-        fromDatabase:
-          name: nere-mining-db
-          property: user
+        value: nere_user
       - key: DB_PASSWORD
-        fromDatabase:
-          name: nere-mining-db
-          property: password
+        sync: false  # À renseigner manuellement dans Render > Environment
 
       # Filesystem : Cloudflare R2 en production (gratuit 10GB, compatible S3)
       - key: FILESYSTEM_DISK
@@ -88,9 +74,3 @@ services:
         value: stderr
       - key: LOG_LEVEL
         value: error
-
-databases:
-  - name: nere-mining-db
-    databaseName: nere_mining
-    user: nere_user
-    plan: free
