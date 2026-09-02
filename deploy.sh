@@ -5,9 +5,24 @@ echo "🚀 Déploiement Néré Mining..."
 
 # Vérification de la base de données
 echo "🔍 Vérification de la connexion DB..."
-if [ "$DB_CONNECTION" != "pgsql" ]; then
-    echo "⚠️  Using DB_CONNECTION: $DB_CONNECTION"
+if [ -n "$DATABASE_URL" ]; then
+    echo "✅ DATABASE_URL detected: Using PostgreSQL via URL"
+    export DB_CONNECTION=pgsql
+elif [ -n "$POSTGRES_HOST" ]; then
+    echo "✅ POSTGRES variables detected: Using PostgreSQL"
+    export DB_CONNECTION=pgsql
+    export DB_HOST=$POSTGRES_HOST
+    export DB_PORT=${POSTGRES_PORT:-5432}
+    export DB_DATABASE=$POSTGRES_DB
+    export DB_USERNAME=$POSTGRES_USER
+    export DB_PASSWORD=$POSTGRES_PASSWORD
+else
+    echo "⚠️ No PostgreSQL detected, using SQLite fallback"
+    export DB_CONNECTION=sqlite
+    export DB_DATABASE=/opt/render/project/src/database/database.sqlite
 fi
+
+echo "🔧 Database config: $DB_CONNECTION"
 
 # Assurer que SQLite est writable si utilisé
 if [ "$DB_CONNECTION" = "sqlite" ] || [ -z "$DB_CONNECTION" ]; then
