@@ -93,30 +93,4 @@
     </div>
 </section>
 
-{{-- Certifications & conformité --}}
-<section class="sand">
-    <h2>{{ $en ? 'Certifications & Compliance' : 'Certifications et conformité' }}</h2>
-    <p class="lead">{{ $en
-        ? 'Néré Mining maintains international standards and certifications to ensure operational excellence and environmental responsibility.'
-        : 'Néré Mining respecte les normes internationales et certifications pour assurer l\'excellence opérationnelle et la responsabilité environnementale.'
-    }}</p>
-
-    <div class="grid-3" style="margin-top:32px;">
-        @forelse($certifications as $certification)
-        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center; background:rgba(255,255,255,.9); border:1px solid rgba(255,194,71,.3);">
-            @if($certification->logo_path)
-                <img src="{{ asset('storage/'.$certification->logo_path) }}" alt="{{ $certification->name }}" style="max-width:100px; max-height:64px; object-fit:contain; margin-bottom:12px;">
-            @else
-                <div style="font-size:3rem; color:var(--gold); margin-bottom:12px; line-height:1;">✓</div>
-            @endif
-            <h3 style="margin:0;">{{ $certification->name }}</h3>
-            @if($certification->description)
-                <p style="font-size:13px; margin-top:8px;">{{ $certification->description }}</p>
-            @endif
-        </div>
-        @empty
-        <p class="lead" style="grid-column:1 / -1; text-align:center;">{{ $en ? 'Certifications coming soon.' : 'Les certifications seront bientôt publiées.' }}</p>
-        @endforelse
-    </div>
-</section>
 @endsection

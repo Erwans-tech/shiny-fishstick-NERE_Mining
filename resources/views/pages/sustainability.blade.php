@@ -76,8 +76,8 @@
                 <div class="esg-label">{{ $en ? 'Local Hiring Rate' : 'Taux Recrutement Local' }}</div>
             </div>
             <div class="esg-metric">
-                <div class="esg-value">ISO 45001</div>
-                <div class="esg-label">{{ $en ? 'Health & Safety Certified' : 'Certifiée Santé & Sécurité' }}</div>
+                <div class="esg-value">100%</div>
+                <div class="esg-label">{{ $en ? 'Safety Culture' : 'Culture sécurité' }}</div>
             </div>
             <div class="esg-metric">
                 <div class="esg-value">100%</div>
