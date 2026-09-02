@@ -22,21 +22,34 @@ php artisan cache:clear   || true
 php artisan view:clear    || true
 php artisan route:clear   || true
 
-# ── 3. Base de données SQLite ────────────────────────────────
-echo "[INFO] Configuration SQLite..."
-DB_FILE=/var/www/html/database/database.sqlite
-mkdir -p /var/www/html/database
-if [ ! -f "$DB_FILE" ]; then
-    echo "[INFO] Creation fichier SQLite..."
-    touch "$DB_FILE"
-    chmod 664 "$DB_FILE"
+# ── 3. Attendre PostgreSQL ──────────────────────────────────
+echo "[INFO] Attente de PostgreSQL..."
+DB_HOST=${DB_HOST:-localhost}
+DB_PORT=${DB_PORT:-5432}
+RETRY_COUNT=0
+MAX_RETRIES=40
+
+while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+    RETRY_COUNT=$((RETRY_COUNT + 1))
+    echo "   Tentative $RETRY_COUNT/$MAX_RETRIES — attente 3s..."
+    
+    if nc -z "$DB_HOST" "$DB_PORT" 2>/dev/null; then
+        echo "[INFO] PostgreSQL connecté !"
+        break
+    fi
+    
+    if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+        sleep 3
+    fi
+done
+
+if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+    echo "[ERREUR] PostgreSQL injoignable apres $MAX_RETRIES tentatives."
+    exit 1
 fi
-chown -R www-data:www-data /var/www/html/database
-chmod -R 775 /var/www/html/database
-echo "[INFO] SQLite pret."
 
 # ── 4. Migrations ────────────────────────────────────────────
-echo "[INFO] Migrations SQLite..."
+echo "[INFO] Migrations PostgreSQL..."
 php artisan migrate --force --no-interaction
 if [ $? -ne 0 ]; then
     echo "[ERREUR] Migrations echouees."
