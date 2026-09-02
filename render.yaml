@@ -29,19 +29,11 @@ services:
       - key: APP_FALLBACK_LOCALE
         value: fr
 
-      # PostgreSQL Render (credentials manuels)
+      # SQLite temporaire (fallback)
       - key: DB_CONNECTION
-        value: pgsql
-      - key: DB_HOST
-        value: dpg-da83n4ou01pc73chbd8g-a
-      - key: DB_PORT
-        value: "5432"
+        value: sqlite
       - key: DB_DATABASE
-        value: nere_mining_q6h0
-      - key: DB_USERNAME
-        value: nere_user
-      - key: DB_PASSWORD
-        sync: false  # À renseigner manuellement dans Render > Environment
+        value: /var/www/html/database/database.sqlite
 
       # Filesystem : Cloudflare R2 en production (gratuit 10GB, compatible S3)
       - key: FILESYSTEM_DISK
