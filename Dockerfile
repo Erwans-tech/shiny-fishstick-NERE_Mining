@@ -98,13 +98,13 @@ RUN mkdir -p \
         public/uploads
 
 # ── Config nginx ──────────────────────────────────────────────
-COPY docker/nginx.conf /etc/nginx/nginx.conf
+COPY docker-nginx.conf /etc/nginx/nginx.conf
 
 # ── Supervisord ──────────────────────────────────────────────
-COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker-config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # ── Script de démarrage ──────────────────────────────────────
-COPY docker/start.sh /start.sh
+COPY docker-start.sh /start.sh
 RUN chmod +x /start.sh
 
 # ── OPcache prod ─────────────────────────────────────────────
