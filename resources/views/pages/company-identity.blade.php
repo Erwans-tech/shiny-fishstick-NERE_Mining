@@ -17,7 +17,7 @@
     <p class="lead">{{ __('site.company_identity_lead', [], $loc) }}</p>
 
     @php
-        $bgImages = [
+        $identityImages = [
             asset('images/identite/Image1-qwt443rdtdnnrn7bp8ramn12pvfx6i3sw3tfmpqolc.jpg'),
             asset('images/identite/Image2-qwt43i53g6u0aycarvjmokwh0mk24viuvs9he1z8qo.jpg'),
             asset('images/identite/Image3-qwt444p807oy395yjr5x74sjb9bae77j88gx3zpaf4.png')
@@ -25,56 +25,22 @@
     @endphp
 
     <style>
-        .identity-card {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-            color: #fff;
-            border: none;
-            border-radius: 18px;
-            overflow: hidden;
-            min-height: 360px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            transition: transform 0.4s cubic-bezier(0.2, 1, 0.36, 1), box-shadow 0.4s;
-            box-shadow: 0 10px 24px rgba(0,0,0,0.1);
-        }
+        .identity-gallery { margin: 36px 0 56px; }
+        .identity-gallery figure { margin: 0; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 18px; background: var(--ink); box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+        .identity-gallery img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2,1,.36,1); }
+        .identity-gallery figure:hover img { transform: scale(1.04); }
+        .identity-description { max-width: 920px; margin: 0 auto 56px; padding: 34px clamp(22px, 4vw, 48px); border-left: 4px solid var(--gold); background: rgba(255,244,220,.7); }
+        .identity-description h2 { margin-bottom: 22px; color: var(--green); }
+        .identity-description p + p { margin-top: 16px; }
+        .identity-card { min-height: 0; display: flex; flex-direction: column; justify-content: flex-start; border-top: 3px solid var(--gold); transition: transform .3s cubic-bezier(.2,1,.36,1), box-shadow .3s; }
         .identity-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 16px 36px rgba(0,0,0,0.15);
         }
-        .identity-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(10, 14, 12, 0.18) 0%, rgba(10, 14, 12, 0.58) 42%, rgba(10, 14, 12, 0.82) 100%);
-            z-index: 1;
-            transition: opacity 0.3s ease;
-        }
-        .identity-card:hover::before {
-            background: linear-gradient(180deg, rgba(10, 14, 12, 0.22) 0%, rgba(10, 14, 12, 0.62) 42%, rgba(10, 14, 12, 0.9) 100%);
-        }
-        .identity-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 160px;
-            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
-            z-index: 1;
-        }
-        .identity-card > * {
-            position: relative;
-            z-index: 2;
-            padding: 0 24px;
-        }
         .identity-card .card-tag {
-            background: rgba(255, 194, 71, 0.25);
-            color: var(--gold);
-            border: 1px solid rgba(255, 194, 71, 0.4);
+            background: rgba(255, 194, 71, 0.18);
+            color: var(--green);
+            border: 1px solid rgba(75, 23, 22, 0.15);
             align-self: flex-start;
             padding: 8px 16px;
             border-radius: 20px;
@@ -84,26 +50,40 @@
             letter-spacing: 0.05em;
         }
         .identity-card h3 {
-            color: #fff;
-            margin-top: auto;
+            color: var(--green);
+            margin-top: 22px;
             margin-bottom: 12px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
             font-size: 22px;
             font-weight: 600;
             line-height: 1.3;
         }
         .identity-card p {
-            color: rgba(255, 255, 255, 0.95);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+            color: var(--muted);
             font-size: 15px;
             line-height: 1.5;
-            margin-bottom: 24px;
         }
     </style>
 
+    <div class="grid-3 identity-gallery" aria-label="Images de l’identité de Néré Mining">
+        @foreach($identityImages as $image)
+            <figure>
+                <img src="{{ $image }}" alt="{{ $en ? 'Néré Mining identity image' : 'Image illustrant l’identité de Néré Mining' }}" loading="lazy">
+            </figure>
+        @endforeach
+    </div>
+
+    <div class="identity-description">
+        <h2>Le sens des symboles : Racines, présent et avenir au Burkina Faso</h2>
+        <p>Le nom « Néré » porte en lui plusieurs résonances, à la fois culturelle, écologique et humaine, profondément ancrées dans l’identité du Burkina Faso.</p>
+        <p>En premier lieu, le Néré (<em>Parkia biglobosa</em>) est un arbre providentiel et polyvalent. Dans les traditions sahéliennes, chaque composante de cet arbre (de ses feuilles à ses gousses, en passant par ses graines, son écorce et son bois) est valorisée pour l’alimentation humaine, animale ou l’artisanat. Au-delà de ses vertus nutritives, le Néré est un pilier écologique : il enrichit durablement les sols grâce à la fixation de l’azote et déploie un système racinaire puissant qui combat efficacement l’érosion. Véritable moteur des économies rurales, il incarne la durabilité et s’impose comme un modèle d’inclusion au cœur des systèmes agroforestiers.</p>
+        <p>C’est cette richesse et cette résilience qui ont inspiré l’identité visuelle de notre société. Le logo de Néré Mining puise sa force dans la fleur stylisée du Néré. Représentant une coupe transversale de cette fleur, son cercle central d’un jaune éclatant symbolise la mine d’or, protégée et nourrie par son environnement.</p>
+        <p>Enfin, par une heureuse harmonie linguistique, « Néré » signifie également « belle » en mooré, la principale langue parlée au Burkina Faso.</p>
+        <p>À travers ce nom et ce symbole, Néré Mining réaffirme sa vision : celle d’une entreprise minière souveraine, aux racines profondes, génératrice de valeur partagée pour les communautés et bâtisseuse d’un avenir radieux pour le Burkina Faso.</p>
+    </div>
+
     <div class="grid-3">
         @foreach(range(1, 3) as $i)
-        <div class="card identity-card" style="background-image: url('{{ $bgImages[$i-1] }}');">
+        <div class="card identity-card">
             <div class="card-tag">{{ __('site.company_id'.$i.'_tag', [], $loc) }}</div>
             <h3>{{ __('site.company_id'.$i.'_h3', [], $loc) }}</h3>
             <p>{{ __('site.company_id'.$i.'_p', [], $loc) }}</p>
