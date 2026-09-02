@@ -20,7 +20,7 @@ return [
     'spontaneous'       => 'Candidature spontanée',
     'all_news'          => 'Toutes les actualités',
     'topbar_left'       => 'Ouagadougou · Burkina Faso',
-    'topbar_right'      => 'ISO 9001:2008 · Groupe Aurifère Burkinabè',
+    'topbar_right'      => '470+ Employés · 89 000 oz/an · 11 ans de durée de vie',
     'footer_tagline'    => 'Transparence · Respect · Excellence',
     'footer_copy'       => '© :year Néré Mining S.A.',
 

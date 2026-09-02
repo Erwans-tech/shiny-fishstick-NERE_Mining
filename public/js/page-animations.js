@@ -331,8 +331,10 @@ class PageAnimationController {
   }
 
   setupCursorFollower() {
+    // Curseur personnalisé désactivé pour améliorer l'UX
     if (window.innerWidth < 1024) return; // Désactiver sur mobile
-
+    return; // DÉSACTIVÉ: effet de curseur personnalisé retiré pour une meilleure UX
+    
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
     cursor.style.cssText = `

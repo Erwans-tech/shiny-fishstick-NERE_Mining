@@ -117,6 +117,9 @@ class AnimationManager {
    * 🧲 BOUTONS MAGNÉTIQUES
    */
   setupMagneticButtons() {
+    // Effet magnétique désactivé pour une meilleure UX
+    return; // DÉSACTIVÉ: effets magnétiques retirés
+    
     document.querySelectorAll('.magnetic').forEach(button => {
       button.addEventListener('mousemove', (e) => {
         const rect = button.getBoundingClientRect();

@@ -214,14 +214,15 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Hover avec effet magnétique */
+/* Hover avec effet magnétique - DÉSACTIVÉ pour UX */
 .magnetic {
-  transition: transform var(--duration-fast) var(--ease-elastic);
+  /* Effets magnétiques désactivés */
+  /* transition: transform var(--duration-fast) var(--ease-elastic); */
   cursor: pointer;
 }
 
 .magnetic:hover {
-  transform: scale(1.05);
+  /* transform: scale(1.05); */
 }
 
 /* Hover avec onde (ripple effect) */
