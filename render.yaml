@@ -29,11 +29,11 @@ services:
       - key: APP_FALLBACK_LOCALE
         value: fr
 
-      # PostgreSQL Render (nouvelles credentials)
+      # PostgreSQL Render (nouvelles credentials corrigées)
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        value: dpg-dabuedbtqb8s73dja9dg-a
+        value: dpg-dabuedbtqb8s73djs9dg-a
       - key: DB_PORT
         value: "5432"
       - key: DB_DATABASE
