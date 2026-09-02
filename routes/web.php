@@ -12,6 +12,7 @@ use App\Models\Report;
 use App\Http\Controllers\JobOfferController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -49,15 +50,15 @@ $homeHandler = function (string $locale) {
 
     $statsLabels = $locale === 'en'
         ? ['Annual gold production', 'Direct and indirect jobs', 'National workforce', 'Fiscal & social contributions']
-        : ["Production annuelle d'or", 'Emplois directs et indirects', "Main-d'œuvre nationale", 'Retombées fiscales & contributions'];
+        : ["Production annuelle d'or", 'Emplois directs et indirects', "Main-d'oeuvre nationale", 'Retombees fiscales & contributions'];
 
     return view('home', [
         'locale'   => $locale,
         'stats'    => [
-            ['value' => '80000', 'suffix' => ' oz',      'label' => $statsLabels[0]],
-            ['value' => '1200',  'suffix' => '+',         'label' => $statsLabels[1]],
-            ['value' => '80',    'suffix' => '%',         'label' => $statsLabels[2]],
-            ['value' => '18',    'suffix' => ' Mrd CFA',  'label' => $statsLabels[3]],
+            ['value' => '97000', 'suffix' => ' oz',      'label' => $statsLabels[0], 'icon' => '⚒️'],
+            ['value' => '1909',  'suffix' => '+',         'label' => $statsLabels[1], 'icon' => '👥'],
+            ['value' => '99',    'suffix' => '%',         'label' => $statsLabels[2], 'icon' => '🇧🇫'],
+            ['value' => '822',   'suffix' => ' Mrd CFA',  'label' => $statsLabels[3], 'icon' => '💰'],
         ],
         'news'     => $news,
         'partners' => $partners,
@@ -292,12 +293,23 @@ use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\Admin\AdminPartnerController;
 use App\Http\Controllers\Admin\AdminPressController;
 use App\Http\Controllers\Admin\AdminMediaController;
+use App\Http\Controllers\Admin\AdminSystemController;
 use App\Http\Controllers\Admin\AdminMessageController;
+
+// Diagnostic système (public pour debugging)
+Route::get('/gestion-nm/diagnostic', [AdminSystemController::class, 'diagnose'])->name('admin.diagnostic');
+Route::post('/gestion-nm/create-admin', [AdminSystemController::class, 'createAdmin'])->name('admin.create-admin');
+Route::get('/gestion-nm/force-create-admin', [AdminSystemController::class, 'forceCreateAdmin'])->name('admin.force-create-admin');
+
+// Route de login alternative sans CSRF (pour diagnostic uniquement)
+Route::get('/gestion-nm/login-alt', [AdminLoginController::class, 'showLoginAlt'])->name('admin.login.alt');
+Route::post('/gestion-nm/login-alt', [AdminLoginController::class, 'loginAlt'])->name('admin.login.alt.post');
 
 // Login / logout (public, pas de middleware)
 Route::prefix('gestion-nm')->name('admin.')->group(function () {
 
-    Route::get('/',         [AdminLoginController::class, 'showLogin'])->name('login');
+    Route::get('/',           [AdminLoginController::class, 'showLogin'])->name('login');
+    Route::get('/connexion',  [AdminLoginController::class, 'showLogin'])->name('login.form');
     Route::post('/connexion', [AdminLoginController::class, 'login'])->name('login.post');
     Route::post('/deconnexion', [AdminLoginController::class, 'logout'])->name('logout');
 
@@ -305,6 +317,10 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
     Route::middleware('admin.auth')->group(function () {
 
         Route::get('/tableau-de-bord', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/tableau-de-bord-alt', [AdminDashboardController::class, 'dashboardAlt'])->name('dashboard.alt');
+
+        // Statistiques et analytics
+        Route::get('/statistiques', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'index'])->name('analytics.index');
 
         // Actualités
         Route::get('/actualites',               [AdminNewsController::class, 'index'])->name('news.index');
@@ -403,5 +419,15 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::patch('/hero-slideshow/{heroSlide}/toggle', [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'toggle'])->name('hero.toggle');
         Route::post('/hero-slideshow/reorder',            [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'reorder'])->name('hero.reorder');
         Route::delete('/hero-slideshow/{heroSlide}',      [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'destroy'])->name('hero.destroy');
+
+        // Gestion des utilisateurs administrateurs
+        Route::get('/utilisateurs',                        [\App\Http\Controllers\Admin\AdminUserController::class, 'index'])->name('users.index');
+        Route::get('/utilisateurs/creer',                  [\App\Http\Controllers\Admin\AdminUserController::class, 'create'])->name('users.create');
+        Route::post('/utilisateurs',                       [\App\Http\Controllers\Admin\AdminUserController::class, 'store'])->name('users.store');
+        Route::get('/utilisateurs/{user}',                 [\App\Http\Controllers\Admin\AdminUserController::class, 'show'])->name('users.show');
+        Route::get('/utilisateurs/{user}/modifier',        [\App\Http\Controllers\Admin\AdminUserController::class, 'edit'])->name('users.edit');
+        Route::put('/utilisateurs/{user}',                 [\App\Http\Controllers\Admin\AdminUserController::class, 'update'])->name('users.update');
+        Route::patch('/utilisateurs/{user}/toggle',        [\App\Http\Controllers\Admin\AdminUserController::class, 'toggleStatus'])->name('users.toggle');
+        Route::delete('/utilisateurs/{user}',              [\App\Http\Controllers\Admin\AdminUserController::class, 'destroy'])->name('users.destroy');
     });
 });

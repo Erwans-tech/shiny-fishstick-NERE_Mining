@@ -51,6 +51,57 @@
     <p class="resources-note">{{ __('site.resources_grade_note', [], $loc) }}</p>
 </section>
 
+{{-- Resource Breakdown by Deposit --}}
+<section style="padding:60px 5vw;">
+    <div style="max-width:1180px; margin:0 auto;">
+        <h2 style="color:var(--green); margin-bottom:12px; font-size:36px; font-weight:600;">{{ $en ? 'Resource Classification (JORC)' : 'Classification Ressource (JORC)' }}</h2>
+        <p style="color:var(--muted); font-size:15px; line-height:1.8; margin-bottom:32px;">{{ $en ? 'Mineral resources classified according to international JORC Code standards.' : 'Ressources minérales classifiées selon standards JORC internationaux.' }}</p>
+
+        <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:14px;">
+                <thead>
+                    <tr style="background:var(--green); color:#fff;">
+                        <th style="padding:16px; text-align:left; font-weight:600;">{{ $en ? 'Deposit' : 'Gisement' }}</th>
+                        <th style="padding:16px; text-align:center; font-weight:600;">{{ $en ? 'Type' : 'Type' }}</th>
+                        <th style="padding:16px; text-align:right; font-weight:600;">{{ $en ? 'Tonnage (Kt)' : 'Tonnage (Kt)' }}</th>
+                        <th style="padding:16px; text-align:right; font-weight:600;">{{ $en ? 'Grade (g/t)' : 'Teneur (g/t)' }}</th>
+                        <th style="padding:16px; text-align:right; font-weight:600;">{{ $en ? 'Gold (Koz)' : 'Or (Koz)' }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                    $deposits = [
+                        ['name' => 'Nami', 'type' => $en ? 'Oxide' : 'Oxydé', 'tonnage' => '1,633', 'grade' => '0.82', 'gold' => '15.2'],
+                        ['name' => 'GG1', 'type' => $en ? 'Mixed' : 'Mixte', 'tonnage' => '5,888', 'grade' => '1.00', 'gold' => '36.3'],
+                        ['name' => 'GG2', 'type' => $en ? 'Sulfide' : 'Sulfuré', 'tonnage' => '5,320', 'grade' => '1.65', 'gold' => '59.8'],
+                        ['name' => 'Kao', 'type' => $en ? 'Mixed' : 'Mixte', 'tonnage' => '3,156', 'grade' => '0.95', 'gold' => '27.1'],
+                        ['name' => 'Goulagou', 'type' => $en ? 'Oxide' : 'Oxydé', 'tonnage' => '1,641', 'grade' => '0.78', 'gold' => '11.2'],
+                    ];
+                    @endphp
+                    @foreach($deposits as $dep)
+                    <tr style="border-bottom:1px solid var(--line);">
+                        <td style="padding:16px; text-align:left; font-weight:600; color:var(--green);">{{ $dep['name'] }}</td>
+                        <td style="padding:16px; text-align:center;">{{ $dep['type'] }}</td>
+                        <td style="padding:16px; text-align:right;">{{ $dep['tonnage'] }}</td>
+                        <td style="padding:16px; text-align:right;">{{ $dep['grade'] }}</td>
+                        <td style="padding:16px; text-align:right; font-weight:600; color:var(--gold2);">{{ $dep['gold'] }}</td>
+                    </tr>
+                    @endforeach
+                    <tr style="background:var(--sand); font-weight:600;">
+                        <td colspan="2" style="padding:16px; text-align:left;">{{ $en ? 'TOTAL' : 'TOTAL' }}</td>
+                        <td style="padding:16px; text-align:right;">17,638</td>
+                        <td style="padding:16px; text-align:right;">1.16</td>
+                        <td style="padding:16px; text-align:right; color:var(--green);">149.6</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="color:var(--muted); font-size:13px; margin-top:16px; line-height:1.6;">
+            {{ $en ? '* Resources are reported at a 0.4 g/t Au cut-off grade. JORC Code Compliant reporting; data as of 25 April 2025.' : '* Ressources rapportées à une teneur de coupure 0,4 g/t Au. Rapport conforme à la Norme JORC ; données du 25 avril 2025.' }}
+        </p>
+    </div>
+</section>
+
 <section>
     <h2>{{ __('site.resources_maps_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.resources_maps_lead', [], $loc) }}</p>

@@ -72,8 +72,55 @@
     </div>
 </section>
 
+{{-- Press Kit & Media Resources --}}
+<section class="sand" style="padding:60px 5vw;">
+    <div style="max-width:1180px; margin:0 auto;">
+        <h2 style="text-align:center; color:var(--green); margin-bottom:12px; font-size:36px; font-weight:600;">{{ $en ? 'Press Kit & Resources' : 'Kit Presse & Ressources' }}</h2>
+        <p style="text-align:center; color:var(--muted); font-size:15px; margin-bottom:40px;">{{ $en ? 'Download company information, logos, and media assets.' : 'Télécharger informations entreprise, logos et ressources média.' }}</p>
+        
+        <div class="grid-3">
+            <a href="#" class="card" style="display:block; cursor:pointer; transition:all .3s;">
+                <div style="font-size:36px; margin-bottom:12px;">📋</div>
+                <h3>{{ $en ? 'Company Fact Sheet' : 'Fiche d\'Entreprise' }}</h3>
+                <p style="font-size:13px;">{{ $en ? 'Key company information, history, operations' : 'Infos clés, histoire, opérations' }}</p>
+                <div style="margin-top:12px; font-size:12px; color:var(--gold2); font-weight:600;">{{ $en ? 'PDF • 2.1 MB' : 'PDF • 2.1 MB' }}</div>
+            </a>
+            <a href="#" class="card" style="display:block; cursor:pointer; transition:all .3s;">
+                <div style="font-size:36px; margin-bottom:12px;">🎨</div>
+                <h3>{{ $en ? 'Logo & Branding' : 'Logo & Marque' }}</h3>
+                <p style="font-size:13px;">{{ $en ? 'High-res logos, color palettes, guidelines' : 'Logos haute résolution, palettes, guides' }}</p>
+                <div style="margin-top:12px; font-size:12px; color:var(--gold2); font-weight:600;">{{ $en ? 'ZIP • 8.7 MB' : 'ZIP • 8.7 MB' }}</div>
+            </a>
+            <a href="#" class="card" style="display:block; cursor:pointer; transition:all .3s;">
+                <div style="font-size:36px; margin-bottom:12px;">📸</div>
+                <h3>{{ $en ? 'Photo Gallery' : 'Galerie Photos' }}</h3>
+                <p style="font-size:13px;">{{ $en ? 'High-quality site, team, and operations photos' : 'Photos site, équipe, opérations haute qualité' }}</p>
+                <div style="margin-top:12px; font-size:12px; color:var(--gold2); font-weight:600;">{{ $en ? 'ZIP • 145 MB' : 'ZIP • 145 MB' }}</div>
+            </a>
+            <a href="{{ $en ? route('english.reports') : route('reports') }}" class="card" style="display:block; cursor:pointer; transition:all .3s;">
+                <div style="font-size:36px; margin-bottom:12px;">📊</div>
+                <h3>{{ $en ? 'Sustainability Reports' : 'Rapports Durabilité' }}</h3>
+                <p style="font-size:13px;">{{ $en ? 'Annual ESG and sustainability performance' : 'Performance ESG et durabilité annuelle' }}</p>
+                <div style="margin-top:12px; font-size:12px; color:var(--gold2); font-weight:600;">→ {{ $en ? 'View Reports' : 'Voir Rapports' }}</div>
+            </a>
+            <a href="#" class="card" style="display:block; cursor:pointer; transition:all .3s;">
+                <div style="font-size:36px; margin-bottom:12px;">📹</div>
+                <h3>{{ $en ? 'Video Library' : 'Vidéothèque' }}</h3>
+                <p style="font-size:13px;">{{ $en ? 'Site tours, operations, interviews, documentaries' : 'Visites site, opérations, interviews, docs' }}</p>
+                <div style="margin-top:12px; font-size:12px; color:var(--gold2); font-weight:600;">{{ $en ? 'Vimeo Playlist' : 'Playlist Vimeo' }}</div>
+            </a>
+            <a href="#" class="card" style="display:block; cursor:pointer; transition:all .3s;">
+                <div style="font-size:36px; margin-bottom:12px;">📰</div>
+                <h3>{{ $en ? 'Latest Press Releases' : 'Derniers Communiqués' }}</h3>
+                <p style="font-size:13px;">{{ $en ? 'Official news, announcements, statements' : 'Actualités, annonces, déclarations officielles' }}</p>
+                <div style="margin-top:12px; font-size:12px; color:var(--gold2); font-weight:600;">{{ $en ? 'Archive & RSS' : 'Archive & RSS' }}</div>
+            </a>
+        </div>
+    </div>
+</section>
+
 {{-- Services presse --}}
-<section class="sand">
+<section>
     <h2>{{ __('site.press_contact_services_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.press_contact_services_lead', [], $loc) }}</p>
     <div class="grid-3">
@@ -88,7 +135,7 @@
 </section>
 
 {{-- Formulaire presse --}}
-<section>
+<section class="sand">
     <h2>{{ __('site.press_contact_form_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.press_contact_form_lead', [], $loc) }}</p>
 

@@ -39,6 +39,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/chrome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animations.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/text-fixes.css') }}">
     <style>
         /* ══ Variables ══════════════════════════════════════════ */
         :root {
@@ -700,23 +702,54 @@
 
     @include('partials._footer', ['loc' => $loc, 'en' => $en])
 
+    <script src="{{ asset('js/animations.js') }}"></script>
+    <script src="{{ asset('js/page-animations.js') }}"></script>
     <script>
+        // Initialisation supplémentaire si nécessaire
         document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if(entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        obs.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+            // Ajouter des classes d'animation aux éléments existants
+            document.querySelectorAll('.card').forEach((card, index) => {
+                card.classList.add('card-3d', 'sr-fade-up');
+                card.style.animationDelay = (index * 0.1) + 's';
+            });
 
-            document.querySelectorAll('.sr, section, .card').forEach(el => {
-                if(!el.classList.contains('sr')) el.classList.add('sr');
-                observer.observe(el);
+            // Ajouter l'animation shimmer aux cartes importantes
+            document.querySelectorAll('.stat-item').forEach(item => {
+                item.classList.add('card-shimmer', 'stat-item-animated');
+            });
+
+            // Ajouter l'effet magnétique aux boutons
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.classList.add('magnetic', 'btn-animated');
+            });
+
+            // Ajouter l'animation de background aux sections importantes
+            document.querySelectorAll('section').forEach(section => {
+                if (section.querySelector('h2')) {
+                    section.classList.add('animated-bg');
+                }
+            });
+
+            // Ajouter des particules aux sections hero
+            const masthead = document.querySelector('.masthead');
+            if (masthead) {
+                const particles = document.createElement('div');
+                particles.className = 'particles';
+                masthead.appendChild(particles);
+                masthead.classList.add('logo-glow');
+            }
+
+            // Animation en cascade pour les grilles
+            document.querySelectorAll('.grid-3, .grid-2, .projects-grid, .values-grid').forEach(grid => {
+                grid.classList.add('cascade-animation');
+            });
+
+            // Ajouter l'effet ripple aux liens et boutons
+            document.querySelectorAll('a, button, .btn').forEach(element => {
+                element.classList.add('ripple');
             });
         });
     </script>
+    @stack('scripts')
 </body>
 </html>

@@ -28,3 +28,8 @@ Thumbs.db
 
 public/uploads/*
 !public/uploads/.gitkeep
+/bootstrap/cache
+
+# Render specific
+.env.render
+render.yaml.local

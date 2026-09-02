@@ -1,0 +1,988 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   🎬 ANIMATIONS NÉRÉ MINING — UI/UX Moderne
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Variables d'animation ── */
+:root {
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --duration-fast: 0.15s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.6s;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🌊 ANIMATIONS D'ARRIÈRE-PLAN 
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Background animé pour les sections importantes */
+.animated-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255,194,71,0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(75,23,22,0.02) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(255,194,71,0.01) 0%, transparent 25%, rgba(75,23,22,0.01) 100%);
+  animation: floatingBg 25s ease-in-out infinite alternate;
+}
+
+@keyframes floatingBg {
+  0% { 
+    background-position: 0% 0%, 100% 100%, 0% 0%; 
+    opacity: 0.8;
+  }
+  50% { 
+    background-position: 30% 20%, 70% 80%, 15% 85%; 
+    opacity: 1;
+  }
+  100% { 
+    background-position: 60% 40%, 40% 60%, 30% 70%; 
+    opacity: 0.9;
+  }
+}
+
+/* Particules flottantes décoratives */
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0.2;
+  animation: floatParticle 20s ease-in-out infinite;
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 18s; }
+.particle:nth-child(2) { left: 30%; animation-delay: -5s; animation-duration: 22s; }
+.particle:nth-child(3) { left: 70%; animation-delay: -10s; animation-duration: 25s; }
+.particle:nth-child(4) { left: 90%; animation-delay: -15s; animation-duration: 20s; }
+
+@keyframes floatParticle {
+  0%, 100% { 
+    transform: translateY(100vh) translateX(0px) scale(0.5); 
+    opacity: 0;
+  }
+  10% { opacity: 0.3; }
+  50% { 
+    transform: translateY(50vh) translateX(20px) scale(1); 
+    opacity: 0.6;
+  }
+  90% { opacity: 0.2; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🃏 ANIMATIONS DE CARTES (CARDS)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Carte avec effet de profondeur et inclinaison */
+.card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform var(--duration-normal) var(--ease-smooth);
+}
+
+.card-3d:hover {
+  transform: translateY(-8px) rotateX(5deg) rotateY(2deg);
+}
+
+/* Effet shimmer sur les cartes */
+.card-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(255,255,255,0.4) 30%, 
+    rgba(255,194,71,0.2) 50%, 
+    rgba(255,255,255,0.4) 70%, 
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  transition: left 0.8s ease;
+}
+
+.card-shimmer:hover::before {
+  left: 100%;
+}
+
+/* Animation de flip pour les cartes */
+.card-flip {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s var(--ease-smooth);
+  cursor: pointer;
+}
+
+.card-flip:hover {
+  transform: rotateY(180deg);
+}
+
+.card-flip .card-front,
+.card-flip .card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: inherit;
+  padding: inherit;
+}
+
+.card-flip .card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, var(--green) 0%, var(--red) 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Effet de pulsation pour les cartes importantes */
+.card-pulse {
+  animation: cardPulse 3s ease-in-out infinite;
+}
+
+@keyframes cardPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    box-shadow: 0 8px 24px rgba(75,23,22,0.08);
+  }
+  50% { 
+    transform: scale(1.02); 
+    box-shadow: 0 16px 40px rgba(75,23,22,0.15);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🖱️ ANIMATIONS HOVER AVANCÉES
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Hover avec bordure animée */
+.border-glow {
+  position: relative;
+  border: 2px solid transparent;
+  background: 
+    linear-gradient(white, white) padding-box,
+    linear-gradient(45deg, var(--gold), var(--red)) border-box;
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.border-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(45deg, var(--gold), var(--red), var(--gold));
+  background-size: 200% 200%;
+  z-index: -1;
+  opacity: 0;
+  animation: borderRotate 3s linear infinite;
+  transition: opacity var(--duration-normal);
+}
+
+.border-glow:hover::before {
+  opacity: 1;
+}
+
+@keyframes borderRotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Hover avec effet magnétique - DÉSACTIVÉ pour UX */
+.magnetic {
+  /* Effets magnétiques désactivés */
+  /* transition: transform var(--duration-fast) var(--ease-elastic); */
+  cursor: pointer;
+}
+
+.magnetic:hover {
+  /* transform: scale(1.05); */
+}
+
+/* Hover avec onde (ripple effect) */
+.ripple {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,194,71,0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple:hover::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   📱 ANIMATIONS D'INTERFACE
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Boutons avec animation complexe */
+.btn-animated {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-animated::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.btn-animated:hover::before {
+  transform: translateX(100%);
+}
+
+.btn-animated::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  opacity: 0;
+  transition: opacity var(--duration-normal);
+  z-index: -1;
+}
+
+.btn-animated:hover::after {
+  opacity: 0.1;
+}
+
+/* Loading spinner pour les boutons */
+.btn-loading {
+  position: relative;
+}
+
+.btn-loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 1s linear infinite;
+  opacity: 0;
+  transition: opacity var(--duration-normal);
+}
+
+.btn-loading.loading::before {
+  opacity: 1;
+}
+
+.btn-loading.loading {
+  color: transparent;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   📊 ANIMATIONS DE DONNÉES (STATS, CHARTS)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation des valeurs numériques (compteur) */
+.counter {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Barres de progression animées */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(234,220,197,0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--red));
+  border-radius: inherit;
+  transform: translateX(-100%);
+  transition: transform 1.5s var(--ease-smooth);
+}
+
+.progress-bar.animate .progress-fill {
+  transform: translateX(0);
+}
+
+/* Animation des statistiques */
+.stat-item-animated {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.6s var(--ease-smooth);
+}
+
+.stat-item-animated.in-view {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.stat-value-animated {
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-value-animated::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,194,71,0.2) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: statGlow 2s ease-in-out infinite;
+}
+
+@keyframes statGlow {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🎭 ANIMATIONS D'ENTRÉE ET SORTIE
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Amélioration du scroll reveal existant */
+.sr-fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s var(--ease-smooth);
+}
+
+.sr-fade-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.8s var(--ease-smooth);
+}
+
+.sr-fade-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.8s var(--ease-smooth);
+}
+
+.sr-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.8s var(--ease-smooth);
+}
+
+.sr-rotate {
+  opacity: 0;
+  transform: rotate(10deg);
+  transition: all 0.8s var(--ease-smooth);
+}
+
+.sr-fade-up.is-visible,
+.sr-fade-left.is-visible,
+.sr-fade-right.is-visible,
+.sr-scale.is-visible,
+.sr-rotate.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Animation en cascade pour les grilles */
+.cascade-animation > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: cascadeIn 0.6s var(--ease-smooth) forwards;
+}
+
+.cascade-animation > *:nth-child(1) { animation-delay: 0.1s; }
+.cascade-animation > *:nth-child(2) { animation-delay: 0.2s; }
+.cascade-animation > *:nth-child(3) { animation-delay: 0.3s; }
+.cascade-animation > *:nth-child(4) { animation-delay: 0.4s; }
+.cascade-animation > *:nth-child(5) { animation-delay: 0.5s; }
+.cascade-animation > *:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes cascadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🎪 ANIMATIONS SPÉCIALES BUSINESS
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation pour la section minier */
+.mining-pulse {
+  position: relative;
+}
+
+.mining-pulse::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255,194,71,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: miningPulse 3s ease-in-out infinite;
+}
+
+@keyframes miningPulse {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1); 
+    opacity: 0.4;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.5); 
+    opacity: 0.1;
+  }
+}
+
+/* Animation du logo/titre principal */
+.logo-glow {
+  position: relative;
+  animation: logoBreathing 4s ease-in-out infinite;
+}
+
+@keyframes logoBreathing {
+  0%, 100% { 
+    text-shadow: 
+      0 0 10px rgba(255,194,71,0.3),
+      0 0 20px rgba(255,194,71,0.2),
+      0 0 30px rgba(255,194,71,0.1);
+  }
+  50% { 
+    text-shadow: 
+      0 0 15px rgba(255,194,71,0.5),
+      0 0 25px rgba(255,194,71,0.3),
+      0 0 35px rgba(255,194,71,0.2);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   📱 RESPONSIVE & PERFORMANCE
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Désactiver les animations sur les appareils lents */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimisations pour mobile */
+@media (max-width: 768px) {
+  .card-3d:hover {
+    transform: translateY(-4px) rotateX(2deg) rotateY(1deg);
+  }
+  
+  .particles {
+    display: none; /* Économise la batterie sur mobile */
+  }
+  
+  .animated-bg::before {
+    animation-duration: 40s; /* Plus lent pour économiser */
+  }
+}
+
+/* GPU Acceleration pour les animations importantes */
+.gpu-accelerated {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🎯 CLASSES UTILITAIRES D'ANIMATION
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.animate-on-hover:hover { animation: gentleBounce 0.6s var(--ease-bounce); }
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.animate-on-focus:focus { animation: focusPulse 0.3s var(--ease-smooth); }
+@keyframes focusPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.slide-in-from-left {
+  animation: slideInLeft 0.6s var(--ease-smooth);
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.slide-in-from-right {
+  animation: slideInRight 0.6s var(--ease-smooth);
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Délais d'animation staggerés */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🏠 ANIMATIONS SPÉCIFIQUES - PAGE D'ACCUEIL
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation du hero avec parallaxe */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-parallax {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Animation d'entrée du héro */
+.hero-slide {
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hero-slide:nth-child(1) { animation-delay: 0s; }
+.hero-slide:nth-child(2) { animation-delay: 5s; }
+.hero-slide:nth-child(3) { animation-delay: 10s; }
+.hero-slide:nth-child(4) { animation-delay: 15s; }
+.hero-slide:nth-child(5) { animation-delay: 20s; }
+
+/* Animation du contenu héro */
+.hero-body {
+  animation: heroContentSlideUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+@keyframes heroContentSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation staggerée des éléments héro */
+.hero-eyebrow {
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+}
+
+.hero-h1 {
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+}
+
+.hero-intro {
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1s both;
+}
+
+.hero-ctas {
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.2s both;
+}
+
+.hero-stats {
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.4s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation des stats tiles */
+.hero-stat {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-stat::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(255,255,255,0.1) 50%, 
+    transparent 100%
+  );
+  transition: left 0.8s ease;
+}
+
+.hero-stat:hover::before {
+  left: 100%;
+}
+
+.hero-stat:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,194,71,0.4);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.2),
+    0 0 0 1px rgba(255,194,71,0.1);
+}
+
+/* Animation des statistiques numériques */
+.stat-value {
+  animation: countUp 2s ease-out 1.8s both;
+}
+
+@keyframes countUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   📄 ANIMATIONS PAGES INTÉRIEURES
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation des mastheads */
+.masthead {
+  position: relative;
+  overflow: hidden;
+}
+
+.masthead::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  animation: mastheadParallax 20s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes mastheadParallax {
+  0%, 100% { transform: scale(1) translateX(0); }
+  50% { transform: scale(1.02) translateX(-1%); }
+}
+
+.masthead h1 {
+  animation: mastheadTitleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes mastheadTitleGlow {
+  from {
+    text-shadow: 
+      0 0 20px rgba(255,194,71,0.3),
+      0 0 40px rgba(255,194,71,0.1);
+  }
+  to {
+    text-shadow: 
+      0 0 30px rgba(255,194,71,0.5),
+      0 0 50px rgba(255,194,71,0.2);
+  }
+}
+
+/* Animation du breadcrumb */
+.breadcrumb {
+  animation: breadcrumbSlide 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+
+@keyframes breadcrumbSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🎯 ANIMATIONS CARTES MÉTIER
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation spéciale pour les cartes de projets */
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--red));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* Animation pour les cartes de valeurs */
+.values-card {
+  animation: valueCardFloat 4s ease-in-out infinite;
+}
+
+.values-card:nth-child(1) { animation-delay: 0s; }
+.values-card:nth-child(2) { animation-delay: 1s; }
+.values-card:nth-child(3) { animation-delay: 2s; }
+.values-card:nth-child(4) { animation-delay: 3s; }
+
+@keyframes valueCardFloat {
+  0%, 100% { 
+    transform: translateY(0px);
+    box-shadow: 0 4px 16px rgba(75,23,22,0.08);
+  }
+  50% { 
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(75,23,22,0.12);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🎨 ANIMATIONS FORMULAIRES
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation des champs de formulaire */
+.form-field {
+  position: relative;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  transform: translateY(-1px);
+}
+
+.form-field label {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Animation des boutons de soumission */
+button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+}
+
+button[type="submit"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.2) 50%,
+    transparent 100%
+  );
+  transition: left 0.5s ease;
+}
+
+button[type="submit"]:hover::before {
+  left: 100%;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   📊 ANIMATIONS GOUVERNANCE & ORGANIGRAMME
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation de l'organigramme */
+.org-box {
+  animation: orgBoxSlideIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.org-box--pdg { animation-delay: 0.2s; }
+.org-box--dga:nth-child(1) { animation-delay: 0.4s; }
+.org-box--dga:nth-child(2) { animation-delay: 0.6s; }
+.org-box--dga:nth-child(3) { animation-delay: 0.8s; }
+.org-box--dga:nth-child(4) { animation-delay: 1s; }
+
+@keyframes orgBoxSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Animation des connecteurs */
+.org-connector-v,
+.org-connector-branch,
+.org-hbar {
+  animation: connectorDraw 0.8s ease-out both;
+}
+
+.org-connector-v { animation-delay: 0.3s; }
+.org-hbar { animation-delay: 0.5s; }
+.org-connector-branch { animation-delay: 0.7s; }
+
+@keyframes connectorDraw {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🌐 ANIMATIONS NAVIGATION
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animation du menu mobile */
+.mobile-menu {
+  animation: mobileMenuSlide 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes mobileMenuSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation des éléments de navigation */
+.nav-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gold);
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-item:hover::after {
+  transform: translateX(0);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🏁 OPTIMISATIONS FINALES
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Animations pour les appareils haut de gamme uniquement */
+@media (min-width: 1024px) and (min-resolution: 120dpi) {
+  .enhanced-animation {
+    animation-duration: 1.2s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* Désactiver les animations sur batterie faible */
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide,
+  .hero-stat,
+  .values-card,
+  .org-box,
+  .nav-item {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Accélération GPU pour les éléments critiques */
+.hero-slide,
+.card-3d,
+.magnetic,
+.ripple {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

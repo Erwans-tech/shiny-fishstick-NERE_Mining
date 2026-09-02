@@ -59,7 +59,7 @@ COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # ── Dépendances Composer (layer mis en cache) ────────────────
-COPY composer.json composer.lock ./
+COPY composer.json ./
 RUN composer install \
         --no-dev \
         --optimize-autoloader \
@@ -80,6 +80,7 @@ RUN mkdir -p \
         storage/framework/views \
         storage/logs \
         bootstrap/cache \
+        database \
         public/uploads/news \
         public/uploads/media \
         public/uploads/applications/cv \
@@ -88,23 +89,26 @@ RUN mkdir -p \
         public/uploads/press \
         public/uploads/reports/covers \
         public/uploads/hero \
+    && touch database/database.sqlite \
     && chown -R www-data:www-data \
         storage \
         bootstrap/cache \
+        database \
         public/uploads \
     && chmod -R 775 \
         storage \
         bootstrap/cache \
+        database \
         public/uploads
 
 # ── Config nginx ──────────────────────────────────────────────
-COPY docker/nginx.conf /etc/nginx/nginx.conf
+COPY docker-nginx.conf /etc/nginx/nginx.conf
 
 # ── Supervisord ──────────────────────────────────────────────
-COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker-config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # ── Script de démarrage ──────────────────────────────────────
-COPY docker/start.sh /start.sh
+COPY docker-start.sh /start.sh
 RUN chmod +x /start.sh
 
 # ── OPcache prod ─────────────────────────────────────────────
