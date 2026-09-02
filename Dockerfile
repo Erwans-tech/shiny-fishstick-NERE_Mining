@@ -80,6 +80,7 @@ RUN mkdir -p \
         storage/framework/views \
         storage/logs \
         bootstrap/cache \
+        database \
         public/uploads/news \
         public/uploads/media \
         public/uploads/applications/cv \
@@ -88,13 +89,16 @@ RUN mkdir -p \
         public/uploads/press \
         public/uploads/reports/covers \
         public/uploads/hero \
+    && touch database/database.sqlite \
     && chown -R www-data:www-data \
         storage \
         bootstrap/cache \
+        database \
         public/uploads \
     && chmod -R 775 \
         storage \
         bootstrap/cache \
+        database \
         public/uploads
 
 # ── Config nginx ──────────────────────────────────────────────

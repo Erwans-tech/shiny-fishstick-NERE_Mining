@@ -29,19 +29,11 @@ services:
       - key: APP_FALLBACK_LOCALE
         value: fr
 
-      # PostgreSQL Render (nouvelles credentials corrigées)
+      # SQLite temporaire (contournement conflit PostgreSQL)
       - key: DB_CONNECTION
-        value: pgsql
-      - key: DB_HOST
-        value: dpg-dabuedbtqb8s73djs9dg-a
-      - key: DB_PORT
-        value: "5432"
+        value: sqlite
       - key: DB_DATABASE
-        value: nere_mining_dbe
-      - key: DB_USERNAME
-        value: nere_mining_dbe_user
-      - key: DB_PASSWORD
-        sync: false  # À renseigner manuellement dans Render > Environment
+        value: /var/www/html/database/database.sqlite
 
       # Filesystem : Cloudflare R2 en production (gratuit 10GB, compatible S3)
       - key: FILESYSTEM_DISK
@@ -61,7 +53,7 @@ services:
       - key: FORCE_HTTPS
         value: "true"
 
-      # Session & cache fichier
+      # Session & cache fichier (évite conflits PostgreSQL)
       - key: SESSION_DRIVER
         value: file
       - key: CACHE_STORE
