@@ -69,9 +69,9 @@ services:
       - key: FORCE_HTTPS
         value: "true"
 
-      # Session & cache fichier
+      # Sessions persistantes dans PostgreSQL; le filesystem Render est éphémère
       - key: SESSION_DRIVER
-        value: file
+        value: database
       - key: CACHE_STORE
         value: file
       - key: QUEUE_CONNECTION
