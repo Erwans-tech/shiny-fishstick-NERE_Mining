@@ -65,6 +65,12 @@
                     : 'Parallèlement à cette structure formalisée, il existe d\'autres cadres qui permettent à la mine d\'entretenir des échanges périodiques avec certaines composantes sociales spécifiques tels que les autorités coutumières et religieuses, les artisans miniers et les autorités administratives.' 
                 }}
             </p>
+            <p style="margin-top:16px; color:var(--muted);">
+                {{ $en
+                    ? 'These regular exchanges strengthen trust, support peaceful coexistence and ensure that community concerns are considered in the mine\'s actions.'
+                    : 'Ces échanges réguliers renforcent la confiance, favorisent une cohabitation pacifique et permettent de prendre en compte les préoccupations des communautés dans les actions de la mine.'
+                }}
+            </p>
 
             {{-- Domaines d'intervention --}}
             <div class="card" style="background:#fff; border:1px solid var(--line); margin-top:24px;">
@@ -108,7 +114,7 @@
             <div style="background:#fff; padding:32px; border-radius:12px; border:1px solid var(--line);">
                 <div style="font-size:24px; margin-bottom:12px;">🎓</div>
                 <h3 style="color:var(--green); font-size:20px; margin-bottom:16px;">{{ $en ? 'Education' : 'Éducation' }}</h3>
-                <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">150M FCFA</div>
+                <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">{{ $en ? 'Nearly 150M FCFA' : 'Près de 150M FCFA' }}</div>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
                     <li style="margin-bottom:8px;">• {{ $en ? 'Construction and rehabilitation of schools' : 'Construction et réhabilitation d\'écoles' }}</li>
                     <li style="margin-bottom:8px;">• {{ $en ? 'Solar electrification' : 'Électrification solaire' }}</li>
@@ -122,7 +128,7 @@
             <div style="background:#fff; padding:32px; border-radius:12px; border:1px solid var(--line);">
                 <div style="font-size:24px; margin-bottom:12px;">🏥</div>
                 <h3 style="color:var(--green); font-size:20px; margin-bottom:16px;">{{ $en ? 'Health' : 'Santé' }}</h3>
-                <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">160M FCFA</div>
+                <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">{{ $en ? 'More than 160M FCFA' : 'Plus de 160M FCFA' }}</div>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
                     <li style="margin-bottom:8px;">• {{ $en ? 'Construction and equipment of Namissiguima CSPS' : 'Construction et équipement du CSPS de Namissiguima' }}</li>
                     <li style="margin-bottom:8px;">• {{ $en ? 'Provision of ambulances' : 'Mise à disposition d\'ambulances' }}</li>
@@ -134,7 +140,7 @@
             <div style="background:#fff; padding:32px; border-radius:12px; border:1px solid var(--line);">
                 <div style="font-size:24px; margin-bottom:12px;">💧</div>
                 <h3 style="color:var(--green); font-size:20px; margin-bottom:16px;">{{ $en ? 'Access to Water' : 'Accès à l\'Eau' }}</h3>
-                <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">240M FCFA</div>
+                <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">{{ $en ? 'More than 240M FCFA' : 'Plus de 240M FCFA' }}</div>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
                     <li style="margin-bottom:8px;">• {{ $en ? 'Construction of wells and boreholes' : 'Réalisation de puits et forages' }}</li>
                     <li style="margin-bottom:8px;">• {{ $en ? 'Pastoral boreholes' : 'Forages pastoraux' }}</li>
@@ -147,7 +153,7 @@
             <div style="background:#fff; padding:32px; border-radius:12px; border:1px solid var(--line);">
                 <div style="font-size:24px; margin-bottom:12px;">🌾</div>
                 <h3 style="color:var(--green); font-size:20px; margin-bottom:16px;">{{ $en ? 'Livelihoods & Economic Development' : 'Moyens de Subsistance & Développement Économique' }}</h3>
-                <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">350M FCFA</div>
+                <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">{{ $en ? 'More than 350M FCFA' : 'Plus de 350M FCFA' }}</div>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
                     <li style="margin-bottom:8px;">• {{ $en ? 'Support to Project Affected Persons (PAP)' : 'Appui aux Personnes Affectées par le Projet (PAP)' }}</li>
                     <li style="margin-bottom:8px;">• {{ $en ? 'Agricultural inputs' : 'Intrants agricoles' }}</li>
@@ -161,7 +167,7 @@
             <div style="background:#fff; padding:32px; border-radius:12px; border:1px solid var(--line);">
                 <div style="font-size:24px; margin-bottom:12px;">🛣️</div>
                 <h3 style="color:var(--green); font-size:20px; margin-bottom:16px;">{{ $en ? 'Infrastructure & Accessibility' : 'Infrastructures & Désenclavement' }}</h3>
-                <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">519M FCFA</div>
+                <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">{{ $en ? 'More than 519M FCFA' : 'Plus de 519M FCFA' }}</div>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
                     <li style="margin-bottom:8px;">• {{ $en ? 'Flagship project: paving of 7.5 km of RD149 road' : 'Réalisation phare : bitumage de 7,5 km de la RD149' }}</li>
                     <li style="margin-bottom:8px;">• {{ $en ? 'Associated sanitation works' : 'Travaux d\'assainissement associés' }}</li>

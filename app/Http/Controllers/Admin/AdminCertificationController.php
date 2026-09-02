@@ -38,6 +38,7 @@ class AdminCertificationController extends Controller
 
         // Retirer 'logo' du tableau validated car c'est un fichier, pas un champ DB
         unset($validated['logo']);
+        $validated['is_active'] = $request->boolean('is_active');
 
         $certification = Certification::create([
             ...$validated,
@@ -73,6 +74,7 @@ class AdminCertificationController extends Controller
 
         // Retirer 'logo' du tableau validated car c'est un fichier, pas un champ DB
         unset($validated['logo']);
+        $validated['is_active'] = $request->boolean('is_active');
 
         $certification->update($validated);
 

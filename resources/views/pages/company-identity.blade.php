@@ -62,31 +62,6 @@
             font-size: 15px;
             line-height: 1.5;
         }
-    </style>
-
-    <div class="grid-3 identity-gallery" aria-label="Images de l’identité de Néré Mining">
-        @foreach($identityImages as $image)
-            <figure>
-                <img src="{{ $image }}" alt="{{ $en ? 'Néré Mining identity image' : 'Image illustrant l’identité de Néré Mining' }}" loading="lazy">
-            </figure>
-        @endforeach
-    </div>
-
-    <div class="identity-description">
-        <h2>Le sens des symboles : Racines, présent et avenir au Burkina Faso</h2>
-        <p>Le nom « Néré » porte en lui plusieurs résonances, à la fois culturelle, écologique et humaine, profondément ancrées dans l’identité du Burkina Faso.</p>
-        <p>En premier lieu, le Néré (<em>Parkia biglobosa</em>) est un arbre providentiel et polyvalent. Dans les traditions sahéliennes, chaque composante de cet arbre (de ses feuilles à ses gousses, en passant par ses graines, son écorce et son bois) est valorisée pour l’alimentation humaine, animale ou l’artisanat. Au-delà de ses vertus nutritives, le Néré est un pilier écologique : il enrichit durablement les sols grâce à la fixation de l’azote et déploie un système racinaire puissant qui combat efficacement l’érosion. Véritable moteur des économies rurales, il incarne la durabilité et s’impose comme un modèle d’inclusion au cœur des systèmes agroforestiers.</p>
-        <p>C’est cette richesse et cette résilience qui ont inspiré l’identité visuelle de notre société. Le logo de Néré Mining puise sa force dans la fleur stylisée du Néré. Représentant une coupe transversale de cette fleur, son cercle central d’un jaune éclatant symbolise la mine d’or, protégée et nourrie par son environnement.</p>
-        <p>Enfin, par une heureuse harmonie linguistique, « Néré » signifie également « belle » en mooré, la principale langue parlée au Burkina Faso.</p>
-        <p>À travers ce nom et ce symbole, Néré Mining réaffirme sa vision : celle d’une entreprise minière souveraine, aux racines profondes, génératrice de valeur partagée pour les communautés et bâtisseuse d’un avenir radieux pour le Burkina Faso.</p>
-    </div>
-
-    <div class="grid-3">
-        @foreach(range(1, 3) as $i)
-        <div class="card identity-card">
-            <div class="card-tag">{{ __('site.company_id'.$i.'_tag', [], $loc) }}</div>
-            <h3>{{ __('site.company_id'.$i.'_h3', [], $loc) }}</h3>
-            <p>{{ __('site.company_id'.$i.'_p', [], $loc) }}</p>
         </div>
         @endforeach
     </div>
@@ -101,29 +76,21 @@
     }}</p>
 
     <div class="grid-3" style="margin-top:32px;">
-        {{-- ISO 9001:2008 --}}
+        @forelse($certifications as $certification)
         <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center; background:rgba(255,255,255,.9); border:1px solid rgba(255,194,71,.3);">
-            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px; line-height:1;">✓</div>
-            <div class="card-tag" style="margin-bottom:12px;">{{ $en ? 'Quality Management' : 'Gestion de la qualité' }}</div>
-            <h3 style="margin:0;">ISO 9001:2008</h3>
-            <p style="font-size:13px; margin-top:8px;">{{ $en ? 'International standard for quality management systems' : 'Norme internationale de systèmes de gestion de la qualité' }}</p>
+            @if($certification->logo_path)
+                <img src="{{ asset('storage/'.$certification->logo_path) }}" alt="{{ $certification->name }}" style="max-width:100px; max-height:64px; object-fit:contain; margin-bottom:12px;">
+            @else
+                <div style="font-size:3rem; color:var(--gold); margin-bottom:12px; line-height:1;">✓</div>
+            @endif
+            <h3 style="margin:0;">{{ $certification->name }}</h3>
+            @if($certification->description)
+                <p style="font-size:13px; margin-top:8px;">{{ $certification->description }}</p>
+            @endif
         </div>
-
-        {{-- EITI / ITIE --}}
-        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center; background:rgba(255,255,255,.9); border:1px solid rgba(255,194,71,.3);">
-            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px; line-height:1;">✓</div>
-            <div class="card-tag" style="margin-bottom:12px;">{{ $en ? 'Transparency' : 'Transparence' }}</div>
-            <h3 style="margin:0;">{{ $en ? 'EITI' : 'ITIE' }}</h3>
-            <p style="font-size:13px; margin-top:8px;">{{ $en ? 'Extractive Industries Transparency Initiative member' : 'Membre de l\'Initiative pour la transparence de l\'industrie extractive' }}</p>
-        </div>
-
-        {{-- Environmental Commitment --}}
-        <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; text-align:center; background:rgba(255,255,255,.9); border:1px solid rgba(255,194,71,.3);">
-            <div style="font-size:3rem; color:var(--gold); margin-bottom:12px; line-height:1;">✓</div>
-            <div class="card-tag" style="margin-bottom:12px;">{{ $en ? 'Environmental' : 'Environnement' }}</div>
-            <h3 style="margin:0;">{{ $en ? 'ESG Standards' : 'Normes RSE' }}</h3>
-            <p style="font-size:13px; margin-top:8px;">{{ $en ? 'Environmental, Social & Governance standards compliance' : 'Conformité aux normes environnementales, sociales et de gouvernance' }}</p>
-        </div>
+        @empty
+        <p class="lead" style="grid-column:1 / -1; text-align:center;">{{ $en ? 'Certifications coming soon.' : 'Les certifications seront bientôt publiées.' }}</p>
+        @endforelse
     </div>
 </section>
 @endsection

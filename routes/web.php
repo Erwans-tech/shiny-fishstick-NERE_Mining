@@ -2,6 +2,7 @@
 
 use App\Models\News;
 use App\Models\ContactMessage;
+use App\Models\Certification;
 use App\Models\JobOffer;
 use App\Models\KarmaDepartment;
 use App\Models\MediaAsset;
@@ -78,6 +79,9 @@ $page = function (string $locale, string $section, array $extra = []) {
         'jobs'    => $section === 'careers'  ? JobOffer::open()->latest()->get()                : collect(),
         'karmaDepartments' => $section === 'karma'
             ? KarmaDepartment::published()->get()
+            : collect(),
+        'certifications' => $section === 'company-identity'
+            ? Certification::active()->ordered()->get()
             : collect(),
     ], $extra));
 };
