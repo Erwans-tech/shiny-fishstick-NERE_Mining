@@ -32,20 +32,20 @@
             <h3 style="color:var(--ink);">{{ __('site.company_kpi_h3', [], $loc) }}</h3>
             <div class="stat-band" style="grid-template-columns:1fr 1fr; margin:0;">
                 <div class="stat-item">
-                    <span class="stat-value">100%</span>
-                    <span class="stat-label">{{ $en ? 'Burkinabe ownership' : 'Actionnariat burkinabè' }}</span>
+                    <span class="stat-value">409</span>
+                    <span class="stat-label">{{ $en ? 'Direct employees' : 'Emplois directs' }}</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-value">1 909+</span>
-                    <span class="stat-label">{{ $en ? 'Direct & indirect jobs' : 'Emplois directs et indirects' }}</span>
+                    <span class="stat-value">1 500</span>
+                    <span class="stat-label">{{ $en ? 'Subcontracted workers' : 'Travailleurs sous-traitants' }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">60%</span>
+                    <span class="stat-label">{{ $en ? 'Local & regional employment' : 'Emploi local et régional' }}</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-value">99%</span>
-                    <span class="stat-label">{{ $en ? 'National workforce' : "Main-d'œuvre nationale" }}</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value">ITIE</span>
-                    <span class="stat-label">{{ $en ? 'Transparency member' : 'Membre de la transparence' }}</span>
+                    <span class="stat-label">{{ $en ? 'Burkinabe workers' : 'Travailleurs burkinabè' }}</span>
                 </div>
             </div>
         </div>

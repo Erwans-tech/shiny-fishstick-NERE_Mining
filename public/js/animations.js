@@ -31,6 +31,31 @@ class AnimationManager {
   }
 
   /**
+   * 🔢 ANIMATION DES COMPTEURS
+   * Sécurise les valeurs non numériques pour éviter les NaN.
+   */
+  setupCounterAnimations() {
+    document.querySelectorAll('.stat-value').forEach((element) => {
+      const rawValue = element.getAttribute('data-count') || element.textContent || '';
+      const numericValue = rawValue.toString().replace(/[^\d]/g, '');
+
+      if (!numericValue) {
+        return;
+      }
+
+      const target = Number.parseInt(numericValue, 10);
+      if (Number.isNaN(target)) {
+        return;
+      }
+
+      element.setAttribute('data-count', String(target));
+      if (!element.dataset.initialized) {
+        element.dataset.initialized = 'true';
+      }
+    });
+  }
+
+  /**
    * 📜 SCROLL REVEAL AMÉLIORÉ
    */
   setupScrollReveal() {
@@ -78,8 +103,19 @@ class AnimationManager {
   animateCounter(element) {
     if (this.counters.has(element)) return; // Déjà animé
 
-    const target = parseInt(element.getAttribute('data-count') || element.textContent.replace(/[^\d]/g, ''));
-    const duration = parseInt(element.getAttribute('data-duration') || '2000');
+    const rawValue = element.getAttribute('data-count') || element.textContent || '';
+    const numericValue = rawValue.toString().replace(/[^\d]/g, '');
+
+    if (!numericValue) {
+      return;
+    }
+
+    const target = parseInt(numericValue, 10);
+    if (Number.isNaN(target)) {
+      return;
+    }
+
+    const duration = parseInt(element.getAttribute('data-duration') || '2000', 10);
     const suffix = element.getAttribute('data-suffix') || '';
     const prefix = element.getAttribute('data-prefix') || '';
 

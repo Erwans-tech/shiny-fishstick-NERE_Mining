@@ -202,10 +202,15 @@
     <p class="lead">{{ __('site.karma_org_lead', [], $loc) }}</p>
     <div class="grid-3">
         @forelse($karmaDepartments ?? collect() as $dept)
+        @php
+            $deptTag = trim((string) $dept->localizedTag($loc));
+            $deptTitle = trim((string) $dept->localizedTitle($loc));
+            $deptBody = trim((string) $dept->localizedBody($loc));
+        @endphp
         <div class="card">
-            <div class="card-tag">{{ $dept->localizedTag($loc) }}</div>
-            <h3>{{ $dept->localizedTitle($loc) }}</h3>
-            <p>{{ $dept->localizedBody($loc) }}</p>
+            <div class="card-tag">{{ $deptTag !== '' ? $deptTag : __('site.karma_dept'.$loop->iteration.'_tag', [], $loc) }}</div>
+            <h3>{{ $deptTitle !== '' ? $deptTitle : __('site.karma_dept'.$loop->iteration.'_h3', [], $loc) }}</h3>
+            <p>{{ $deptBody !== '' ? $deptBody : __('site.karma_dept'.$loop->iteration.'_p', [], $loc) }}</p>
         </div>
         @empty
         @foreach(range(1, 9) as $i)

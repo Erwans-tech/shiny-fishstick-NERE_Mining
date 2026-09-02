@@ -73,6 +73,18 @@ class PageAnimationController {
 
   setupStatCounters() {
     const statValues = document.querySelectorAll('.hero-stat .stat-value, .stat-band .stat-value');
+
+    const resolveNumericValue = (element) => {
+      const rawValue = element.dataset.count || element.textContent || '';
+      const digits = rawValue.toString().replace(/[^\d]/g, '');
+
+      if (!digits) {
+        return null;
+      }
+
+      const parsed = parseInt(digits, 10);
+      return Number.isNaN(parsed) ? null : parsed;
+    };
     
     const animateValue = (element, start, end, duration) => {
       const startTime = performance.now();
@@ -101,8 +113,14 @@ class PageAnimationController {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const element = entry.target;
-          const endValue = parseInt(element.dataset.count || element.textContent.replace(/[^\d]/g, ''));
-          const duration = parseInt(element.dataset.duration || '2000');
+          const endValue = resolveNumericValue(element);
+
+          if (endValue === null) {
+            observer.unobserve(element);
+            return;
+          }
+
+          const duration = parseInt(element.dataset.duration || '2000', 10);
           
           setTimeout(() => {
             animateValue(element, 0, endValue, duration);
@@ -328,6 +346,16 @@ class PageAnimationController {
     
     // Animation des images au scroll
     this.setupImageReveal();
+  }
+
+  setupElasticLinks() {
+    // Effet elastic désactivé volontairement pour rester lisible et stable.
+    return;
+  }
+
+  setupImageReveal() {
+    // Révélation des images désactivée pour éviter l'effet visuel perturbant.
+    return;
   }
 
   setupCursorFollower() {

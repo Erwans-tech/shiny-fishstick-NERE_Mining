@@ -49,17 +49,13 @@ $homeHandler = function (string $locale) {
     // Slides du carrousel hero — fallback sur les images statiques si table vide
     $slides = \App\Models\HeroSlide::active()->get();
 
-    $statsLabels = $locale === 'en'
-        ? ['Annual gold production', 'Direct and indirect jobs', 'National workforce', 'Fiscal & social contributions']
-        : ["Production annuelle d'or", 'Emplois directs et indirects', "Main-d'oeuvre nationale", 'Retombees fiscales & contributions'];
-
     return view('home', [
         'locale'   => $locale,
         'stats'    => [
-            ['value' => '97000', 'suffix' => ' oz',      'label' => $statsLabels[0], 'icon' => '⚒️'],
-            ['value' => '1909',  'suffix' => '+',         'label' => $statsLabels[1], 'icon' => '👥'],
-            ['value' => '99',    'suffix' => '%',         'label' => $statsLabels[2], 'icon' => '🇧🇫'],
-            ['value' => '822',   'suffix' => ' Mrd CFA',  'label' => $statsLabels[3], 'icon' => '💰'],
+            ['value' => '409',  'suffix' => '',  'label' => $locale === 'en' ? 'Direct employees' : 'Emplois directs', 'icon' => '👥'],
+            ['value' => '1500', 'suffix' => '',  'label' => $locale === 'en' ? 'Subcontracted workers' : 'Travailleurs sous-traitants', 'icon' => '🧰'],
+            ['value' => '60',   'suffix' => '%', 'label' => $locale === 'en' ? 'Local & regional employment' : 'Emploi local et régional', 'icon' => '📍'],
+            ['value' => '99',   'suffix' => '%', 'label' => $locale === 'en' ? 'Burkinabe workers' : 'Travailleurs burkinabè', 'icon' => '🇧🇫'],
         ],
         'news'     => $news,
         'partners' => $partners,

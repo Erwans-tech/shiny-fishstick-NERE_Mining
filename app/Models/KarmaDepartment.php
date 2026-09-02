@@ -48,9 +48,41 @@ class KarmaDepartment extends Model
     private function localized(string $field, ?string $locale): string
     {
         $locale = $locale ?? app()->getLocale();
-        $en = ($this->{$field.'_en'} ?? '') ?: ($this->{$field.'_fr'} ?? '');
-        $fr = $this->{$field.'_fr'} ?? '';
+        $value = $locale === 'en'
+            ? ($this->{$field.'_en'} ?? '')
+            : ($this->{$field.'_fr'} ?? '');
 
-        return $locale === 'en' ? $en : $fr;
+        if (trim((string) $value) !== '') {
+            return $value;
+        }
+
+        $fallback = $locale === 'en'
+            ? ($this->{$field.'_fr'} ?? '')
+            : ($this->{$field.'_en'} ?? '');
+
+        if (trim((string) $fallback) !== '') {
+            return $fallback;
+        }
+
+        return $this->defaultLocalizedValue($field, $locale);
+    }
+
+    private function defaultLocalizedValue(string $field, string $locale): string
+    {
+        $title = trim((string) $this->localizedTitle($locale));
+
+        if ($field === 'tag') {
+            return $locale === 'en' ? 'Department' : 'Département';
+        }
+
+        if ($field === 'title') {
+            return $locale === 'en'
+                ? ($title !== '' ? $title : 'Mine department')
+                : ($title !== '' ? $title : 'Département de la mine');
+        }
+
+        return $locale === 'en'
+            ? 'This department supports the mine’s daily operations, ensures safety and helps deliver long-term value to local stakeholders.'
+            : 'Ce département soutient le fonctionnement quotidien de la mine, assure la sécurité et contribue à créer de la valeur durable pour les parties prenantes locales.';
     }
 }

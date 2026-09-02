@@ -153,7 +153,7 @@
     {{-- ── Statistiques emploi ── --}}
     <section style="padding-top:0;padding-bottom:40px;">
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;">
-            @foreach([['1909+','Emplois directs & indirects','Direct &amp; indirect jobs'],['99%',"Main-d'œuvre burkinabè",'Burkinabe workforce'],['60%','Emploi local et régional','Local & regional employment'],['0','Coût de dossier','Application fee']] as [$v,$fr,$en_label])
+            @foreach([['409','Emplois directs','Direct employees'],['1 500','Travailleurs sous-traitants','Subcontracted workers'],['60%','Emploi local et régional','Local & regional employment'],['99%',"Travailleurs burkinabè",'Burkinabe workers']] as [$v,$fr,$en_label])
             <div style="background:#fff;padding:24px 20px;text-align:center;">
                 <div style="font:300 36px Inter,sans-serif;color:var(--green);margin-bottom:6px;">{{ $v }}</div>
                 <div style="font:500 12px Inter,sans-serif;color:var(--muted);line-height:1.4;">{{ $en ? $en_label : $fr }}</div>
