@@ -22,42 +22,21 @@ php artisan cache:clear   || true
 php artisan view:clear    || true
 php artisan route:clear   || true
 
-# ── 3. Attendre PostgreSQL ──────────────────────────────────
-echo "[INFO] Attente de PostgreSQL..."
-MAX=40
-i=0
-DB_READY=0
-
-until [ $i -ge $MAX ]; do
-    if php -r "
-        try {
-            \$host = getenv('DB_HOST') ?: 'localhost';
-            \$port = getenv('DB_PORT') ?: '5432';
-            \$db   = getenv('DB_DATABASE') ?: 'nere_mining';
-            \$user = getenv('DB_USERNAME') ?: 'nere_user';
-            \$pass = getenv('DB_PASSWORD') ?: '';
-            \$pdo  = new PDO(\"pgsql:host={\$host};port={\$port};dbname={\$db}\",
-                            \$user, \$pass,
-                            [PDO::ATTR_TIMEOUT => 5, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-            echo 'ok';
-        } catch (Exception \$e) { exit(1); }
-    " 2>/dev/null | grep -q "ok"; then
-        DB_READY=1
-        break
-    fi
-    i=$((i+1))
-    echo "  Tentative $i/$MAX — attente 3s..."
-    sleep 3
-done
-
-if [ $DB_READY -eq 0 ]; then
-    echo "[ERREUR] PostgreSQL injoignable apres $MAX tentatives."
-    exit 1
+# ── 3. Base de données SQLite ────────────────────────────────
+echo "[INFO] Configuration SQLite..."
+DB_FILE=/var/www/html/database/database.sqlite
+mkdir -p /var/www/html/database
+if [ ! -f "$DB_FILE" ]; then
+    echo "[INFO] Creation fichier SQLite..."
+    touch "$DB_FILE"
+    chmod 664 "$DB_FILE"
 fi
-echo "[INFO] PostgreSQL disponible."
+chown -R www-data:www-data /var/www/html/database
+chmod -R 775 /var/www/html/database
+echo "[INFO] SQLite pret."
 
 # ── 4. Migrations ────────────────────────────────────────────
-echo "[INFO] Migrations PostgreSQL..."
+echo "[INFO] Migrations SQLite..."
 php artisan migrate --force --no-interaction
 if [ $? -ne 0 ]; then
     echo "[ERREUR] Migrations echouees."

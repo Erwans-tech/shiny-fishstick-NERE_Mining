@@ -29,25 +29,11 @@ services:
       - key: APP_FALLBACK_LOCALE
         value: fr
 
-      # PostgreSQL Render
+      # SQLite (base de données locale)
       - key: DB_CONNECTION
-        value: pgsql
-      - key: DATABASE_URL
-        fromDatabase:
-          name: nere-mining-db
-          property: connectionString
-      - key: DB_HOST
-        fromDatabase:
-          name: nere-mining-db
-          property: host
-      - key: DB_PORT
-        fromDatabase:
-          name: nere-mining-db
-          property: port
+        value: sqlite
       - key: DB_DATABASE
-        fromDatabase:
-          name: nere-mining-db
-          property: database
+        value: /var/www/html/database/database.sqlite
       - key: DB_USERNAME
         fromDatabase:
           name: nere-mining-db
