@@ -300,10 +300,10 @@ return [
     'hse_lead'       => "Le département HSE de Karma s'engage à assurer la sécurité des travailleurs et à minimiser l'impact environnemental grâce à des pratiques rigoureuses et responsables. Son objectif est zéro incident.",
 
     /* Local content */
-    'local_eyebrow'    => 'Développement Durable · Contenu Local',
-    'local_h1'         => 'Créer de la valeur là où nous opérons.',
-    'local_breadcrumb' => 'Contenu Local',
-    'local_lead'       => "Néré Mining s'engage à maximiser les retombées économiques de ses activités au profit des communautés locales, de la région du Nord et du Burkina Faso dans son ensemble.",
+    'local_content_eyebrow'    => 'Développement Durable · Contenu Local',
+    'local_content_h1'         => 'Créer de la valeur là où nous opérons.',
+    'local_content_breadcrumb' => 'Contenu Local',
+    'local_content_lead'       => "Néré Mining s'engage à maximiser les retombées économiques de ses activités au profit des communautés locales, de la région du Nord et du Burkina Faso dans son ensemble.",
 
     /* Sub-nav DD */
     'subnav_overview'      => 'Vue d\'ensemble',

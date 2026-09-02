@@ -300,10 +300,10 @@ return [
     'hse_lead'       => "Karma's HSE department is committed to worker safety and minimising environmental impact through rigorous, responsible practices. Its objective is zero incidents.",
 
     /* Local content */
-    'local_eyebrow'    => 'Sustainability · Local Content',
-    'local_h1'         => 'Creating value where we operate.',
-    'local_breadcrumb' => 'Local Content',
-    'local_lead'       => "Néré Mining is committed to maximising the economic benefits of its activities for local communities, the Northern region and Burkina Faso as a whole.",
+    'local_content_eyebrow'    => 'Sustainability · Local Content',
+    'local_content_h1'         => 'Creating value where we operate.',
+    'local_content_breadcrumb' => 'Local Content',
+    'local_content_lead'       => "Néré Mining is committed to maximising the economic benefits of its activities for local communities, the Northern region and Burkina Faso as a whole.",
 
     /* Sub-nav DD */
     'subnav_overview'      => 'Overview',

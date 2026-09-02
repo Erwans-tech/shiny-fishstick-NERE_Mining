@@ -1,0 +1,7 @@
+<div class="sub-nav">
+    <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>" class="<?php echo e($section === 'news' ? 'active' : ''); ?>"><?php echo e(__('site.subnav_news', [], $loc)); ?></a>
+    <a href="<?php echo e($en ? route('english.press') : route('press')); ?>" class="<?php echo e($section === 'press' ? 'active' : ''); ?>"><?php echo e(__('site.subnav_press', [], $loc)); ?></a>
+    <a href="<?php echo e($en ? route('english.gallery') : route('gallery')); ?>" class="<?php echo e($section === 'gallery' ? 'active' : ''); ?>"><?php echo e(__('site.subnav_gallery', [], $loc)); ?></a>
+    <a href="<?php echo e($en ? route('english.reports') : route('reports')); ?>" class="<?php echo e(in_array($section, ['reports', 'publications']) ? 'active' : ''); ?>"><?php echo e(__('site.subnav_reports', [], $loc)); ?></a>
+    <a href="<?php echo e($en ? route('english.press.contact') : route('press.contact')); ?>" class="<?php echo e($section === 'press-contact' ? 'active' : ''); ?>"><?php echo e(__('site.subnav_press_contact', [], $loc)); ?></a>
+</div><?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views\partials\_media-nav.blade.php ENDPATH**/ ?>
