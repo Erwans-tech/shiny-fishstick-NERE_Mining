@@ -56,7 +56,7 @@ class MediaAsset extends Model
             return asset($this->file_path);
         }
 
-        return \Illuminate\Support\Facades\Storage::disk('public')->url($this->file_path);
+        return \Illuminate\Support\Facades\Storage::disk(config('filesystems.default'))->url($this->file_path);
     }
 
     public function getEmbedUrlAttribute(): ?string

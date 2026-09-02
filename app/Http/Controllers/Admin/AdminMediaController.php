@@ -43,7 +43,7 @@ class AdminMediaController extends Controller
         $data['file_path'] = '';
 
         if ($request->hasFile('file')) {
-            $data['file_path'] = $request->file('file')->store('media', 'public');
+            $data['file_path'] = $request->file('file')->store('media', config('filesystems.default'));
             $data['external_url'] = null;
         }
         unset($data['file']);
@@ -70,9 +70,9 @@ class AdminMediaController extends Controller
 
         if ($request->hasFile('file')) {
             if ($media->file_path && ! str_starts_with($media->file_path, 'images/')) {
-                Storage::disk('public')->delete($media->file_path);
+                Storage::disk(config('filesystems.default'))->delete($media->file_path);
             }
-            $data['file_path'] = $request->file('file')->store('media', 'public');
+            $data['file_path'] = $request->file('file')->store('media', config('filesystems.default'));
             $data['external_url'] = null;
         }
         unset($data['file']);
@@ -90,7 +90,7 @@ class AdminMediaController extends Controller
     public function destroy(MediaAsset $media)
     {
         if ($media->file_path && ! str_starts_with($media->file_path, 'images/')) {
-            Storage::disk('public')->delete($media->file_path);
+                Storage::disk(config('filesystems.default'))->delete($media->file_path);
         }
         $media->delete();
 

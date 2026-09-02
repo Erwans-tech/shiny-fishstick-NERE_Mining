@@ -10,7 +10,12 @@
 }
 
 /* Titres responsifs avec débordement géré */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
@@ -18,7 +23,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Paragraphes avec gestion optimisée */
-p, .text-content {
+p,
+.text-content {
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
@@ -27,26 +33,34 @@ p, .text-content {
 }
 
 /* Cartes et conteneurs avec gestion du débordement */
-.card, .quick-link, .stat-card, .news-card {
+.card,
+.quick-link,
+.stat-card,
+.news-card {
   overflow: hidden;
   word-wrap: break-word;
 }
 
-.card h3, .card h4, .quick-link h3 {
+.card h3,
+.card h4,
+.quick-link h3 {
   line-height: 1.3;
 }
 
-.card p, .quick-link p {
+.card p,
+.quick-link p {
   line-height: 1.5;
 }
 
 /* Excerpts de news complets */
-.news-excerpt, .report-excerpt {
+.news-excerpt,
+.report-excerpt {
   line-height: 1.4;
 }
 
 /* Titres de news complets */
-.news-title, .report-title {
+.news-title,
+.report-title {
   line-height: 1.2;
   font-weight: 600;
 }
@@ -60,7 +74,8 @@ p, .text-content {
 }
 
 /* Boutons avec texte adaptatif */
-.btn, .cta {
+.btn,
+.cta {
   word-wrap: break-word;
   text-align: center;
   white-space: normal;
@@ -112,7 +127,8 @@ p, .text-content {
   word-wrap: break-word;
 }
 
-.table-responsive td, .table-responsive th {
+.table-responsive td,
+.table-responsive th {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -121,7 +137,9 @@ p, .text-content {
 }
 
 /* Formulaires adaptatifs */
-.form-field input, .form-field textarea, .form-field select {
+.form-field input,
+.form-field textarea,
+.form-field select {
   width: 100%;
   word-wrap: break-word;
   padding: 12px 16px;
@@ -166,21 +184,21 @@ p, .text-content {
     font-size: clamp(1.8rem, 8vw, 2.5rem);
     text-align: center;
   }
-  
+
   .hero-content p {
     font-size: 1rem;
     text-align: center;
     padding: 0 1rem;
   }
-  
+
   .card h3 {
     font-size: clamp(1rem, 4vw, 1.2rem);
   }
-  
+
   .card p {
     font-size: clamp(0.9rem, 3vw, 1rem);
   }
-  
+
   .btn {
     font-size: 0.9rem;
     padding: 14px 20px;
@@ -188,17 +206,17 @@ p, .text-content {
     max-width: 300px;
     margin: 0 auto;
   }
-  
+
   .nav-item {
     white-space: normal;
     text-align: center;
     padding: 8px 12px;
   }
-  
+
   .stat-value {
     font-size: clamp(1.5rem, 6vw, 2.2rem);
   }
-  
+
   .stat-label {
     font-size: clamp(0.75rem, 2.5vw, 0.9rem);
   }
@@ -209,11 +227,11 @@ p, .text-content {
   .hero-content h1 {
     font-size: clamp(2.5rem, 5vw, 3.2rem);
   }
-  
+
   .card h3 {
     font-size: clamp(1.1rem, 3vw, 1.3rem);
   }
-  
+
   .card p {
     line-height: 1.5;
   }
@@ -226,11 +244,11 @@ p, .text-content {
     margin: 0 auto;
     padding: 0 2rem;
   }
-  
+
   .card-grid {
     gap: 2rem;
   }
-  
+
   .card p {
     line-height: 1.5;
   }
@@ -333,6 +351,7 @@ p, .text-content {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

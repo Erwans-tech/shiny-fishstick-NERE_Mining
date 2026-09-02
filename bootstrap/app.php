@@ -30,9 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
 
         // ── Niveau de confiance CSRF : SameSite strict + referer ────
-        $middleware->validateCsrfTokens(except: [
-            'gestion-nm/*', // Temporairement désactiver CSRF pour admin (diagnostic)
-        ]);
+            $middleware->validateCsrfTokens();
 
     })
     ->withExceptions(function (Exceptions $exceptions): void {

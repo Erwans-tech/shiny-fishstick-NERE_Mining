@@ -39,7 +39,7 @@ class AdminPressController extends Controller
         ]);
 
         if ($request->hasFile('file')) {
-            $data['file_path'] = $request->file('file')->store('press', 'public');
+            $data['file_path'] = $request->file('file')->store('press', config('filesystems.default'));
         } else {
             $data['file_path'] = '';
         }
@@ -67,8 +67,8 @@ class AdminPressController extends Controller
         ]);
 
         if ($request->hasFile('file')) {
-            if ($pressDocument->file_path) Storage::disk('public')->delete($pressDocument->file_path);
-            $data['file_path'] = $request->file('file')->store('press', 'public');
+            if ($pressDocument->file_path) Storage::disk(config('filesystems.default'))->delete($pressDocument->file_path);
+            $data['file_path'] = $request->file('file')->store('press', config('filesystems.default'));
         }
         unset($data['file']);
 
@@ -80,7 +80,7 @@ class AdminPressController extends Controller
 
     public function destroy(PressDocument $pressDocument)
     {
-        if ($pressDocument->file_path) Storage::disk('public')->delete($pressDocument->file_path);
+        if ($pressDocument->file_path) Storage::disk(config('filesystems.default'))->delete($pressDocument->file_path);
         $pressDocument->delete();
 
         return redirect()->route('admin.press.index')

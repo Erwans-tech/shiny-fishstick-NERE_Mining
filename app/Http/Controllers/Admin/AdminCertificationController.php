@@ -33,7 +33,7 @@ class AdminCertificationController extends Controller
         // Gérer le upload du logo
         $logoPath = null;
         if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('certifications', 'public');
+            $logoPath = $request->file('logo')->store('certifications', config('filesystems.default'));
         }
 
         // Retirer 'logo' du tableau validated car c'est un fichier, pas un champ DB
@@ -68,7 +68,7 @@ class AdminCertificationController extends Controller
 
         // Gérer le upload du logo
         if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('certifications', 'public');
+            $logoPath = $request->file('logo')->store('certifications', config('filesystems.default'));
             $validated['logo_path'] = $logoPath;
         }
 

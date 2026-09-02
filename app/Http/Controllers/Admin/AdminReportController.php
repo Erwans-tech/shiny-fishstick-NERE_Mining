@@ -40,10 +40,10 @@ class AdminReportController extends Controller
         ]);
 
         if ($request->hasFile('file')) {
-            $data['file_path'] = $request->file('file')->store('reports', 'public');
+            $data['file_path'] = $request->file('file')->store('reports', config('filesystems.default'));
         }
         if ($request->hasFile('cover')) {
-            $data['cover_image'] = $request->file('cover')->store('reports/covers', 'public');
+            $data['cover_image'] = $request->file('cover')->store('reports/covers', config('filesystems.default'));
         }
         unset($data['file'], $data['cover']);
 
@@ -70,12 +70,12 @@ class AdminReportController extends Controller
         ]);
 
         if ($request->hasFile('file')) {
-            if ($report->file_path) Storage::disk('public')->delete($report->file_path);
-            $data['file_path'] = $request->file('file')->store('reports', 'public');
+              if ($report->file_path) Storage::disk(config('filesystems.default'))->delete($report->file_path);
+            $data['file_path'] = $request->file('file')->store('reports', config('filesystems.default'));
         }
         if ($request->hasFile('cover')) {
-            if ($report->cover_image) Storage::disk('public')->delete($report->cover_image);
-            $data['cover_image'] = $request->file('cover')->store('reports/covers', 'public');
+              if ($report->cover_image) Storage::disk(config('filesystems.default'))->delete($report->cover_image);
+            $data['cover_image'] = $request->file('cover')->store('reports/covers', config('filesystems.default'));
         }
         unset($data['file'], $data['cover']);
 
@@ -87,8 +87,8 @@ class AdminReportController extends Controller
 
     public function destroy(Report $report)
     {
-        if ($report->file_path)   Storage::disk('public')->delete($report->file_path);
-        if ($report->cover_image) Storage::disk('public')->delete($report->cover_image);
+        if ($report->file_path)   Storage::disk(config('filesystems.default'))->delete($report->file_path);
+            if ($report->cover_image) Storage::disk(config('filesystems.default'))->delete($report->cover_image);
         $report->delete();
 
         return redirect()->route('admin.reports.index')

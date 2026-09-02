@@ -89,7 +89,6 @@ RUN mkdir -p \
         public/uploads/press \
         public/uploads/reports/covers \
         public/uploads/hero \
-    && touch database/database.sqlite \
     && chown -R www-data:www-data \
         storage \
         bootstrap/cache \

@@ -42,7 +42,7 @@ class AdminNewsController extends Controller
 
         if ($request->hasFile('image')) {
             try {
-                $data['image_path'] = $request->file('image')->store('news', 'public');
+                $data['image_path'] = $request->file('image')->store('news', config('filesystems.default'));
             } catch (\Throwable $e) {
                 Log::error('Upload image news echoue : ' . $e->getMessage());
                 return back()->withInput()
@@ -76,9 +76,9 @@ class AdminNewsController extends Controller
         if ($request->hasFile('image')) {
             try {
                 if ($news->image_path) {
-                    Storage::disk('public')->delete($news->image_path);
+                    Storage::disk(config('filesystems.default'))->delete($news->image_path);
                 }
-                $data['image_path'] = $request->file('image')->store('news', 'public');
+                $data['image_path'] = $request->file('image')->store('news', config('filesystems.default'));
             } catch (\Throwable $e) {
                 Log::error('Upload image news update echoue : ' . $e->getMessage());
                 return back()->withInput()
@@ -96,7 +96,7 @@ class AdminNewsController extends Controller
     public function destroy(News $news)
     {
         if ($news->image_path) {
-            Storage::disk('public')->delete($news->image_path);
+            Storage::disk(config('filesystems.default'))->delete($news->image_path);
         }
         $news->delete();
 

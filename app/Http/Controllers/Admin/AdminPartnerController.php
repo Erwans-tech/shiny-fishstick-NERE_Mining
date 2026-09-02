@@ -41,7 +41,7 @@ class AdminPartnerController extends Controller
         $data['is_published'] = $request->boolean('is_published');
 
         if ($request->hasFile('logo')) {
-            $data['logo_path'] = $request->file('logo')->store('partners', 'public');
+            $data['logo_path'] = $request->file('logo')->store('partners', config('filesystems.default'));
         }
         unset($data['logo']);
 
@@ -70,9 +70,9 @@ class AdminPartnerController extends Controller
 
         if ($request->hasFile('logo')) {
             if ($partner->logo_path && !str_starts_with($partner->logo_path, 'images/')) {
-                Storage::disk('public')->delete($partner->logo_path);
+                Storage::disk(config('filesystems.default'))->delete($partner->logo_path);
             }
-            $data['logo_path'] = $request->file('logo')->store('partners', 'public');
+            $data['logo_path'] = $request->file('logo')->store('partners', config('filesystems.default'));
         }
         unset($data['logo']);
 
@@ -85,7 +85,7 @@ class AdminPartnerController extends Controller
     public function destroy(Partner $partner)
     {
         if ($partner->logo_path && !str_starts_with($partner->logo_path, 'images/')) {
-            Storage::disk('public')->delete($partner->logo_path);
+                Storage::disk(config('filesystems.default'))->delete($partner->logo_path);
         }
         $partner->delete();
 

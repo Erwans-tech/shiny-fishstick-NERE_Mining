@@ -28,8 +28,6 @@ class StorageHelper
             return asset($path);
         }
 
-        // Les uploads du site doivent toujours être servis depuis le disque public
-        // pour qu'ils pointent vers /uploads/... en local et vers le bucket public en prod.
-        return Storage::disk('public')->url($path);
+        return Storage::disk(config('filesystems.default'))->url($path);
     }
 }
