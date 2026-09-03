@@ -46,7 +46,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/chrome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/chrome.css') }}?v={{ filemtime(public_path('css/chrome.css')) }}">
     <style>
         :root {
             --ink:   #281d18;
@@ -543,7 +543,17 @@
             background:#fff; border:1px solid var(--line); border-radius:10px;
             padding:18px 14px;
             display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;
+            animation:partnerCardReveal .7s var(--ease-smooth, cubic-bezier(.22,1,.36,1)) both;
             transition:border-color .2s, box-shadow .2s, transform .2s;
+        }
+        .partner-card:nth-child(2) { animation-delay:.1s; }
+        .partner-card:nth-child(3) { animation-delay:.2s; }
+        .partner-card:nth-child(4) { animation-delay:.3s; }
+        .partner-card:nth-child(5) { animation-delay:.4s; }
+        .partner-card:nth-child(6) { animation-delay:.5s; }
+        @keyframes partnerCardReveal {
+            from { opacity:0; transform:translateY(18px); }
+            to { opacity:1; transform:translateY(0); }
         }
         .partner-card:hover { border-color:var(--gold); box-shadow:0 8px 24px rgba(75,23,22,.07); transform:translateY(-3px); }
         .partner-card img { width:auto; max-width:100px; height:48px; object-fit:contain; }
@@ -569,6 +579,7 @@
         @media (prefers-reduced-motion: reduce) {
             .hero-ov { animation:none; }
             .partners-track { animation:none; }
+            .partner-card { animation:none; }
             .hero-copy-slide { animation:none; opacity:1; }
             .hero-copy-slide:not(:first-child) { display:none; }
             .hero-stat { animation:none; }

@@ -8,7 +8,7 @@
 @endphp
 
 @once
-<link rel="stylesheet" href="{{ asset('css/chrome.css') }}">
+<link rel="stylesheet" href="{{ asset('css/chrome.css') }}?v={{ filemtime(public_path('css/chrome.css')) }}">
 @endonce
 
 <header class="site-header">
