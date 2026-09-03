@@ -1,0 +1,398 @@
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE GLOBAL SYSTEM - Néré Mining
+   Adaptation automatique pour tous les écrans (320px → 4K)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Variables Responsive ──────────────────────────────────── */
+:root {
+    /* Spacing Scale */
+    --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+    --space-sm: clamp(0.75rem, 1.5vw, 1rem);
+    --space-md: clamp(1rem, 2vw, 1.5rem);
+    --space-lg: clamp(1.5rem, 3vw, 2.5rem);
+    --space-xl: clamp(2rem, 4vw, 4rem);
+    --space-2xl: clamp(3rem, 6vw, 6rem);
+    
+    /* Container Widths */
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+    --container-2xl: 1536px;
+    
+    /* Fluid Typography */
+    --text-xs: clamp(0.75rem, 0.8vw, 0.875rem);
+    --text-sm: clamp(0.875rem, 0.9vw, 1rem);
+    --text-base: clamp(1rem, 1.1vw, 1.125rem);
+    --text-lg: clamp(1.125rem, 1.3vw, 1.25rem);
+    --text-xl: clamp(1.25rem, 1.5vw, 1.5rem);
+    --text-2xl: clamp(1.5rem, 2vw, 2rem);
+    --text-3xl: clamp(2rem, 2.5vw, 3rem);
+    --text-4xl: clamp(2.5rem, 3vw, 4rem);
+    --text-5xl: clamp(3rem, 4vw, 5rem);
+}
+
+/* ── Global Container System ───────────────────────────────── */
+.container-responsive {
+    width: 100%;
+    max-width: var(--container-2xl);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+}
+
+@media (min-width: 640px) {
+    .container-responsive { max-width: var(--container-sm); }
+}
+
+@media (min-width: 768px) {
+    .container-responsive { max-width: var(--container-md); }
+}
+
+@media (min-width: 1024px) {
+    .container-responsive { 
+        max-width: var(--container-lg);
+        padding-left: var(--space-lg);
+        padding-right: var(--space-lg);
+    }
+}
+
+@media (min-width: 1280px) {
+    .container-responsive { max-width: var(--container-xl); }
+}
+
+@media (min-width: 1536px) {
+    .container-responsive { 
+        max-width: var(--container-2xl);
+        padding-left: var(--space-xl);
+        padding-right: var(--space-xl);
+    }
+}
+
+/* Ultra-wide (2K+) */
+@media (min-width: 1920px) {
+    .container-responsive {
+        max-width: 1800px;
+    }
+}
+
+/* 4K Screens */
+@media (min-width: 2560px) {
+    .container-responsive {
+        max-width: 2200px;
+        padding-left: var(--space-2xl);
+        padding-right: var(--space-2xl);
+    }
+}
+
+/* ── Fluid Grid System ─────────────────────────────────────── */
+.grid-responsive {
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+
+/* 2 columns min on tablet+ */
+@media (min-width: 768px) {
+    .grid-responsive-2 {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+    }
+}
+
+/* 3 columns min on desktop+ */
+@media (min-width: 1024px) {
+    .grid-responsive-3 {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    }
+}
+
+/* 4 columns on large screens */
+@media (min-width: 1280px) {
+    .grid-responsive-4 {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    }
+}
+
+/* ── Responsive Images ──────────────────────────────────────── */
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.img-responsive {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* ── Responsive Typography ──────────────────────────────────── */
+.text-responsive-xs { font-size: var(--text-xs); }
+.text-responsive-sm { font-size: var(--text-sm); }
+.text-responsive-base { font-size: var(--text-base); }
+.text-responsive-lg { font-size: var(--text-lg); }
+.text-responsive-xl { font-size: var(--text-xl); }
+.text-responsive-2xl { font-size: var(--text-2xl); }
+.text-responsive-3xl { font-size: var(--text-3xl); }
+.text-responsive-4xl { font-size: var(--text-4xl); }
+.text-responsive-5xl { font-size: var(--text-5xl); }
+
+/* ── Responsive Spacing ─────────────────────────────────────── */
+.space-y-responsive > * + * {
+    margin-top: var(--space-md);
+}
+
+.space-x-responsive > * + * {
+    margin-left: var(--space-md);
+}
+
+/* ── Breakpoint Utilities ───────────────────────────────────── */
+/* Hide/Show based on screen size */
+.hide-mobile { display: none; }
+@media (min-width: 768px) {
+    .hide-mobile { display: block; }
+    .show-mobile-only { display: none; }
+}
+
+.hide-tablet { display: block; }
+@media (min-width: 768px) and (max-width: 1023px) {
+    .hide-tablet { display: none; }
+}
+
+.hide-desktop { display: block; }
+@media (min-width: 1024px) {
+    .hide-desktop { display: none; }
+}
+
+/* ── Responsive Navigation Fix ──────────────────────────────── */
+@media (max-width: 991px) {
+    /* Ensure mobile menu is accessible */
+    .navbar-collapse {
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+    }
+}
+
+/* ── Responsive Cards ───────────────────────────────────────── */
+.card-responsive {
+    padding: var(--space-md);
+    border-radius: clamp(8px, 1vw, 16px);
+}
+
+@media (min-width: 768px) {
+    .card-responsive {
+        padding: var(--space-lg);
+    }
+}
+
+@media (min-width: 1280px) {
+    .card-responsive {
+        padding: var(--space-xl);
+    }
+}
+
+/* ── Responsive Buttons ─────────────────────────────────────── */
+.btn-responsive {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--text-base);
+    min-height: 44px; /* Touch-friendly */
+}
+
+@media (min-width: 768px) {
+    .btn-responsive {
+        padding: var(--space-md) var(--space-lg);
+        font-size: var(--text-lg);
+    }
+}
+
+/* ── Responsive Hero Sections ───────────────────────────────── */
+.hero-responsive {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    min-height: clamp(400px, 60vh, 700px);
+}
+
+@media (min-width: 1024px) {
+    .hero-responsive {
+        padding-top: var(--space-2xl);
+        padding-bottom: var(--space-2xl);
+        min-height: clamp(500px, 70vh, 900px);
+    }
+}
+
+@media (min-width: 1920px) {
+    .hero-responsive {
+        min-height: clamp(600px, 60vh, 1000px);
+    }
+}
+
+/* ── Aspect Ratio Utilities ─────────────────────────────────── */
+.aspect-16-9 { aspect-ratio: 16 / 9; }
+.aspect-4-3 { aspect-ratio: 4 / 3; }
+.aspect-1-1 { aspect-ratio: 1 / 1; }
+.aspect-21-9 { aspect-ratio: 21 / 9; }
+
+/* ── Safe Areas (notch support) ─────────────────────────────── */
+.safe-top {
+    padding-top: max(var(--space-md), env(safe-area-inset-top));
+}
+
+.safe-bottom {
+    padding-bottom: max(var(--space-md), env(safe-area-inset-bottom));
+}
+
+.safe-left {
+    padding-left: max(var(--space-md), env(safe-area-inset-left));
+}
+
+.safe-right {
+    padding-right: max(var(--space-md), env(safe-area-inset-right));
+}
+
+/* ── Print Styles ───────────────────────────────────────────── */
+@media print {
+    .no-print { display: none !important; }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        color: #000;
+        background: #fff;
+    }
+    
+    a {
+        text-decoration: underline;
+        color: #000;
+    }
+    
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+    }
+}
+
+/* ── Accessibility Enhancements ─────────────────────────────── */
+/* Larger touch targets on mobile */
+@media (max-width: 768px) {
+    a, button, input, select, textarea {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    * {
+        border-color: currentColor !important;
+    }
+}
+
+/* ── Performance Optimizations ──────────────────────────────── */
+/* Will-change for animated elements */
+.animate-optimized {
+    will-change: transform, opacity;
+}
+
+/* GPU acceleration */
+.gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* ── Layout Shifts Prevention ───────────────────────────────── */
+/* Reserve space for images */
+.img-placeholder {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmerLoading 1.5s infinite;
+}
+
+@keyframes shimmerLoading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ── Orientation Support ────────────────────────────────────── */
+@media (orientation: landscape) and (max-height: 500px) {
+    /* Optimize for landscape mobile */
+    .hero-responsive {
+        min-height: 90vh;
+    }
+    
+    .navbar {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+}
+
+/* ── Dark Mode Support (if needed) ──────────────────────────── */
+@media (prefers-color-scheme: dark) {
+    .auto-dark-mode {
+        background-color: #1a1a1a;
+        color: #ffffff;
+    }
+}
+
+/* ── Edge Cases ─────────────────────────────────────────────── */
+/* Very small screens (< 320px) */
+@media (max-width: 319px) {
+    :root {
+        font-size: 14px;
+    }
+    
+    .container-responsive {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}
+
+/* Ultra-wide monitors (> 2560px) */
+@media (min-width: 3440px) {
+    .container-responsive {
+        max-width: 2800px;
+    }
+    
+    body {
+        font-size: 18px;
+    }
+}
+
+/* ── Smooth Scrolling ───────────────────────────────────────── */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* ── Focus Visible (keyboard navigation) ────────────────────── */
+:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+}
+
+/* ── Text Selection ─────────────────────────────────────────── */
+::selection {
+    background-color: var(--gold);
+    color: var(--green);
+}
+
+::-moz-selection {
+    background-color: var(--gold);
+    color: var(--green);
+}

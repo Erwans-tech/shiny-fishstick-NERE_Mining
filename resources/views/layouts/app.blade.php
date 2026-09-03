@@ -73,6 +73,7 @@
     <link rel="stylesheet" href="{{ asset('css/chrome.css') }}?v={{ filemtime(public_path('css/chrome.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/animations.css') }}">
     <link rel="stylesheet" href="{{ asset('css/text-fixes.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive-global.css') }}">
     <style>
         /* ══ Variables ══════════════════════════════════════════ */
         :root {
