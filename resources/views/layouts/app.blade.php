@@ -292,8 +292,8 @@
             margin-top:8px;
         }
         .values-card {
-            min-height:360px;
-            height:auto;
+            height:430px;
+            min-height:430px;
             display:flex;
             flex-direction:column;
             padding:24px 22px 20px;
@@ -309,23 +309,18 @@
         .values-card::before {
             content:"";
             position:absolute;
-            justify-content:flex-start;
-            width:100%;
-            margin-bottom:18px;
+            top:0;
+            left:0;
+            right:0;
+            height:4px;
+            background:linear-gradient(90deg, var(--gold), rgba(255,194,71,.2));
+            transform:scaleX(0);
+            transform-origin:left;
+            transition:transform .35s cubic-bezier(.22,1,.36,1);
         }
-            border-radius:14px;
-            display:grid;
-            place-items:center;
-            font-size:26px;
-            font-weight:800;
-            line-height:1;
-            color:#fff;
-            background:linear-gradient(135deg, rgba(46,87,59,.95), rgba(107,160,96,.8));
-            box-shadow:0 10px 18px rgba(46,87,59,.22);
+        .values-card:hover::before {
+            transform:scaleX(1);
         }
-        .values-card--2 .values-card-icon { background:linear-gradient(135deg, rgba(86,79,69,.95), rgba(134,117,93,.85)); }
-        .values-card--3 .values-card-icon { background:linear-gradient(135deg, rgba(94,84,44,.95), rgba(170,138,74,.85)); }
-        .values-card--4 .values-card-icon { background:linear-gradient(135deg, rgba(74,63,44,.95), rgba(121,102,75,.8)); }
         .values-card .card-tag {
             margin-bottom:0;
             padding:4px 8px;
@@ -350,8 +345,8 @@
             max-width:100%;
             word-wrap:break-word;
             overflow-wrap:break-word;
-            text-align:justify;
-            text-justify:inter-word;
+            text-align:left;
+            text-justify:none;
         }
         .values-card-footer {
             margin-top:auto;
@@ -368,6 +363,9 @@
             color:var(--green);
             font-weight:800;
             border:1px solid rgba(46,87,59,.12);
+        }
+        .values-card-icon {
+            display:none;
         }
 
         /* ── Stat band ── */
@@ -763,7 +761,7 @@
             .org-hbar { width:calc(50% + 8px); }
             .masthead { padding:80px 5vw 60px; }
             .values-grid { grid-template-columns:repeat(2,1fr); }
-            .values-card { min-height:auto; }
+            .values-card { height:auto; min-height:auto; }
         }
         @media(max-width:540px) {
             .org-level--dga { grid-template-columns:1fr; }
