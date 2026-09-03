@@ -22,7 +22,20 @@
     .community-achievement { transition:transform .25s, box-shadow .25s; }
     .community-achievement:hover { transform:translateY(-4px); box-shadow:0 14px 30px rgba(40,29,24,.1); }
     .community-stat { font-variant-numeric:tabular-nums; }
-    @media (max-width:700px) { .community-intro > .lead { font-size:16px; } .community-panel { padding:22px; } }
+    
+    /* Images responsive */
+    .community-images-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:32px; max-width:1180px; margin:48px auto 0; }
+    .community-image-card { margin:0; background:#fff; border-radius:12px; overflow:hidden; border:1px solid var(--line); box-shadow:0 8px 24px rgba(40,29,24,.08); transition:transform .3s ease, box-shadow .3s ease; }
+    .community-image-card:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(40,29,24,.14); }
+    .community-image-card img { width:100%; height:auto; display:block; object-fit:cover; aspect-ratio:16/9; }
+    .community-image-card figcaption { padding:16px 20px; font-size:14px; line-height:1.6; color:var(--muted); }
+    
+    @media (max-width:700px) { 
+        .community-intro > .lead { font-size:16px; } 
+        .community-panel { padding:22px; }
+        .community-images-grid { gap:24px; margin-top:32px; }
+        .community-image-card figcaption { font-size:13px; padding:12px 16px; }
+    }
 </style>
 
 <div class="community-page">
@@ -109,6 +122,37 @@
                 </ul>
             </div>
         </div>
+    </div>
+
+    {{-- Images Communautés --}}
+    <div class="community-images-grid">
+        
+        {{-- Image 1: Session CSL --}}
+        <figure class="community-image-card">
+            <picture>
+                <source srcset="{{ asset('images/communaute/session-comite-suivi-liaison-ouahigouya-2026.webp') }}" type="image/webp">
+                <img src="{{ asset('images/communaute/session-comite-suivi-liaison-ouahigouya-2026.jpg') }}" 
+                     alt="{{ $en ? 'Partial view of participants at a monitoring and liaison committee (CSL) session in Ouahigouya in February 2026' : 'Vue partielle des participants à une session du comité de suivi et de liaison (CSL) à Ouahigouya en février 2026' }}" 
+                     loading="lazy" />
+            </picture>
+            <figcaption>
+                {{ $en ? 'CSL session in Ouahigouya - February 2026' : 'Session du CSL à Ouahigouya - Février 2026' }}
+            </figcaption>
+        </figure>
+
+        {{-- Image 2: Forage --}}
+        <figure class="community-image-card">
+            <picture>
+                <source srcset="{{ asset('images/communaute/forage-chateau-eau-solaire-namissiguima.webp') }}" type="image/webp">
+                <img src="{{ asset('images/communaute/forage-chateau-eau-solaire-namissiguima.png') }}" 
+                     alt="{{ $en ? 'Construction of a borehole equipped with a solar water tower in Namissiguima' : 'Réalisation d\'un forage équipé d\'un château d\'eau solaire à Namissiguima' }}" 
+                     loading="lazy" />
+            </picture>
+            <figcaption>
+                {{ $en ? 'Solar water tower in Namissiguima' : 'Château d\'eau solaire à Namissiguima' }}
+            </figcaption>
+        </figure>
+        
     </div>
 </section>
 
