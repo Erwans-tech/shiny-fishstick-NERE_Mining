@@ -20,7 +20,7 @@ class AdminLeadershipController extends Controller
             });
         }
 
-        $members = $query->orderBy('sort_order')->paginate(20)->withQueryString();
+        $members = $query->orderBy('hierarchy_level')->orderBy('sort_order')->paginate(20)->withQueryString();
         return view('admin.leadership.index', compact('members'));
     }
 
@@ -62,6 +62,7 @@ class AdminLeadershipController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'title' => ['required', 'string', 'max:255'],
             'department' => ['nullable', 'string', 'max:120'],
+            'hierarchy_level' => ['required', 'integer', 'between:1,3'],
             'photo' => ['nullable', 'image', 'max:4096'],
             'is_published' => ['boolean'],
             'sort_order' => ['integer', 'min:0'],

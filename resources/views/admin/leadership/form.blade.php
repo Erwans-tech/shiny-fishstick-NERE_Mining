@@ -26,6 +26,14 @@
                     <input type="text" name="department" value="{{ old('department', $member->department) }}" placeholder="Direction générale, Opérations...">
                 </div>
                 <div class="form-group">
+                    <label>Niveau hiérarchique *</label>
+                    <select name="hierarchy_level" required>
+                        <option value="1" {{ old('hierarchy_level', $member->hierarchy_level ?? 2) == 1 ? 'selected' : '' }}>Direction générale</option>
+                        <option value="2" {{ old('hierarchy_level', $member->hierarchy_level ?? 2) == 2 ? 'selected' : '' }}>Direction générale adjointe</option>
+                        <option value="3" {{ old('hierarchy_level', $member->hierarchy_level ?? 2) == 3 ? 'selected' : '' }}>Direction / responsable</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>Ordre d'affichage</label>
                     <input type="number" name="sort_order" value="{{ old('sort_order', $member->sort_order ?? 0) }}" min="0">
                 </div>

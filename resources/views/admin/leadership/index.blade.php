@@ -14,7 +14,7 @@
     </div>
     <div class="table-wrap">
         <table>
-            <thead><tr><th>Photo</th><th>Nom</th><th>Fonction</th><th>Département</th><th>Ordre</th><th>Statut</th><th>Actions</th></tr></thead>
+            <thead><tr><th>Photo</th><th>Nom</th><th>Fonction</th><th>Niveau</th><th>Département</th><th>Ordre</th><th>Statut</th><th>Actions</th></tr></thead>
             <tbody>
             @forelse($members as $member)
             <tr>
@@ -25,6 +25,7 @@
                 </td>
                 <td>{{ $member->name }}</td>
                 <td class="td-muted">{{ $member->title }}</td>
+                <td class="td-muted">{{ [1 => 'DG', 2 => 'DGA', 3 => 'Direction'][$member->hierarchy_level] ?? 'Direction' }}</td>
                 <td class="td-muted">{{ $member->department }}</td>
                 <td class="td-muted">{{ $member->sort_order }}</td>
                 <td><span class="badge {{ $member->is_published ? 'badge-green' : 'badge-gray' }}">{{ $member->is_published ? 'Visible' : 'Masqué' }}</span></td>
@@ -37,7 +38,7 @@
                 </td>
             </tr>
             @empty
-            <tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted);">Aucun membre configuré.</td></tr>
+            <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">Aucun membre configuré.</td></tr>
             @endforelse
             </tbody>
         </table>

@@ -93,7 +93,7 @@ $page = function (string $locale, string $section, array $extra = []) {
             ? Certification::active()->ordered()->get()
             : collect(),
         'leadership' => $section === 'company-governance'
-            ? LeadershipMember::where('is_published', true)->orderBy('sort_order')->get()
+            ? LeadershipMember::where('is_published', true)->orderBy('hierarchy_level')->orderBy('sort_order')->get()
             : collect(),
     ], $extra));
 };

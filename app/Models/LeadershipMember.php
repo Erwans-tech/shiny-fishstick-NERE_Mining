@@ -10,6 +10,7 @@ class LeadershipMember extends Model
         'name',
         'title',
         'department',
+        'hierarchy_level',
         'photo_path',
         'is_published',
         'sort_order',
