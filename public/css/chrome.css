@@ -79,7 +79,8 @@
     gap: 6px;
     padding: 9px 11px;
     color: rgba(255, 255, 255, 0.88);
-    font: 500 13.5px/1.2 Inter, sans-serif;
+    font: 700 15px/1.2 Inter, sans-serif;
+    text-transform: uppercase;
     text-decoration: none;
     white-space: nowrap;
     border-radius: 8px;

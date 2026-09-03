@@ -22,9 +22,15 @@ class AdminAnalyticsController extends Controller
                     : "DATE({$column})";
                     
             case 'HOUR':
-                return $dbDriver === 'sqlite' 
-                    ? "CAST(strftime('%H', {$column}) AS INTEGER)" 
-                    : "HOUR({$column})";
+                if ($dbDriver === 'sqlite') {
+                    return "CAST(strftime('%H', {$column}) AS INTEGER)";
+                }
+
+                if ($dbDriver === 'pgsql') {
+                    return "CAST(EXTRACT(HOUR FROM {$column}) AS INTEGER)";
+                }
+
+                return "HOUR({$column})";
                     
             default:
                 return $function . "({$column})";

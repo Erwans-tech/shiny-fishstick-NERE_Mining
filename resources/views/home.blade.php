@@ -7,15 +7,29 @@
             'type'      => $slide->type ?? 'image',
             'url'       => $slide->url ?? '',
             'embed_url' => $slide->embed_url ?? null,
+            'is_local_video' => false,
             'title'     => $slide->title ?? '',
             'caption'   => $slide->caption ?? null,
+            'kicker'    => $slide->title ?? 'Néré Mining',
+            'copy'      => $slide->caption ?? '',
         ])->filter()->values()->all()
-        : collect(range(1, 5))->map(fn($i) => [
-            'type'      => 'image',
-            'url'       => asset('images/mining/karma-0'.$i.'.jpg'),
+        : collect([
+            ['type' => 'image', 'filename' => 'gyathursan-mine-5523376_1920.jpg', 'kicker' => 'Une mine de', 'copy' => 'classe mondiale', 'kicker_en' => 'A mine of', 'copy_en' => 'world-class'],
+            ['type' => 'image', 'filename' => 'pexels-gunshe-5125104.jpg', 'kicker' => 'Des opérations', 'copy' => 'responsables', 'kicker_en' => 'Responsible', 'copy_en' => 'operations'],
+            ['type' => 'image', 'filename' => 'shibang-mechanical-2653706_1920.jpg', 'kicker' => 'L’excellence', 'copy' => 'industrielle', 'kicker_en' => 'Industrial', 'copy_en' => 'excellence'],
+            ['type' => 'image', 'filename' => 'tyna_janoch-excavator-2781676_1920.jpg', 'kicker' => 'Des équipes', 'copy' => 'engagées', 'kicker_en' => 'Committed', 'copy_en' => 'teams'],
+            ['type' => 'image', 'filename' => 'tyna_janoch-mine-2781686_1920.jpg', 'kicker' => 'Un territoire', 'copy' => 'en mouvement', 'kicker_en' => 'A region', 'copy_en' => 'in motion'],
+            ['type' => 'image', 'filename' => 'upscalemedia-transformed.jpeg', 'kicker' => 'L’or', 'copy' => 'autrement', 'kicker_en' => 'Gold', 'copy_en' => 'done differently'],
+            ['type' => 'video', 'filename' => 'Video Project 1.mp4', 'kicker' => 'Karma', 'copy' => 'notre mine d’or', 'kicker_en' => 'Karma', 'copy_en' => 'our gold mine'],
+        ])->map(fn($slide) => [
+            'type'      => $slide['type'],
+            'url'       => asset('images/carousel/'.$slide['filename']),
             'embed_url' => null,
-            'title'     => "Karma 0{$i}",
+            'is_local_video' => $slide['type'] === 'video',
+            'title'     => 'Néré Mining',
             'caption'   => null,
+            'kicker'    => $en ? $slide['kicker_en'] : $slide['kicker'],
+            'copy'      => $en ? $slide['copy_en'] : $slide['copy'],
         ])->all();
     $heroDuration = count($heroImages) * 5;
     $heroSlot = 100 / max(count($heroImages), 1);
@@ -78,7 +92,7 @@
 
         /* ── HERO ────────────────────────────────── */
         .hero {
-            position:relative; min-height:52vh;
+            position:relative; min-height:64vh;
             display:flex; align-items:flex-end;
             overflow:hidden; color:#fff;
         }
@@ -90,6 +104,8 @@
             opacity:0; transform:scale(1.07);
             will-change:opacity,transform;
         }
+        .hero-slide:nth-child(even), .hero-slide-video:nth-child(even) { transform-origin:right center; }
+        .hero-slide:nth-child(odd), .hero-slide-video:nth-child(odd) { transform-origin:left center; }
         /* Slide vidéo — iframe en fond plein écran */
         .hero-slide-video {
             position:absolute; inset:0;
@@ -108,14 +124,37 @@
             border:0;
             pointer-events:none;
         }
+        .hero-slide-video video {
+            position:absolute;
+            inset:0;
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            pointer-events:none;
+        }
         @foreach($heroImages as $index => $heroImage)
         @php $bgUrl = is_array($heroImage) ? ($heroImage['url'] ?? '') : $heroImage; @endphp
         .hero-slide:nth-child({{ $index + 1 }}) { background-image:url('{{ $bgUrl }}'); animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
         .hero-slide-video:nth-child({{ $index + 1 }}) { animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
         @keyframes heroSlide{{ $index }} {
-            0%,{{ max(0, $index * $heroSlot - 2) }}% { opacity:0; transform:scale(1.07); }
-            {{ min(100, $index * $heroSlot + 2) }}%,{{ min(100, ($index + 1) * $heroSlot - 2) }}% { opacity:1; transform:scale(1.01); }
-            {{ min(100, ($index + 1) * $heroSlot) }}%,100% { opacity:0; transform:scale(1); }
+            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:scale(1.08); }
+            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:scale(1.02); }
+            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:scale(1); }
+        }
+        @keyframes heroCopySlide{{ $index }} {
+            @if($index % 3 === 0)
+            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:translateY(16px) scale(.98); }
+            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:translateY(0); }
+            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:translateY(-8px) scale(1.01); }
+            @elseif($index % 3 === 1)
+            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:translateX(-24px) rotate(-1deg); }
+            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:translateX(0) rotate(0); }
+            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:translateX(18px) rotate(1deg); }
+            @else
+            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:scale(.9) translateY(8px); }
+            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:scale(1) translateY(0); }
+            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:scale(1.03) translateY(-6px); }
+            @endif
         }
         @endforeach
         /* Overlays */
@@ -124,51 +163,68 @@
             background:
                 linear-gradient(to right, rgba(18,4,4,.85) 0%, rgba(18,4,4,.48) 55%, rgba(18,4,4,.18) 100%),
                 linear-gradient(to top,   rgba(18,4,4,.72) 0%, transparent 50%);
+            background-size:140% 140%,100% 100%;
+            background-position:0% 0%,0% 0%;
+            animation:heroLightDrift 16s ease-in-out infinite alternate;
+        }
+        @keyframes heroLightDrift {
+            from { background-position:0% 0%,0% 0%; }
+            to { background-position:100% 18%,0% 0%; }
         }
         .hero-accent {
             position:absolute; bottom:0; left:0; right:0; height:4px; z-index:3;
             background:linear-gradient(to right, var(--gold), var(--gold2) 60%, transparent 100%);
         }
+        .hero-copy {
+            position:absolute; z-index:3; left:50%; top:50%;
+            width:min(90vw,900px); min-height:140px; transform:translate(-50%,-50%);
+            color:#fff; text-align:left;
+        }
+        .hero-copy-slide {
+            position:absolute; inset:0; opacity:0;
+        }
+        .hero-copy-kicker {
+            display:block; margin-bottom:8px;
+            font:500 clamp(18px,2vw,28px)/1.1 Inter,sans-serif;
+            color:var(--gold); letter-spacing:.02em; text-transform:uppercase;
+            text-shadow:0 2px 12px rgba(42,16,16,.8);
+        }
+        .hero-copy-title {
+            display:block; max-width:780px;
+            font:700 clamp(48px,7vw,96px)/.92 Inter,sans-serif;
+            letter-spacing:-.03em; text-transform:lowercase;
+            color:#fff4dc;
+            background:linear-gradient(105deg,#fff4dc 0%,#ffc247 52%,#e5a72f 100%);
+            -webkit-background-clip:text; background-clip:text;
+            -webkit-text-fill-color:transparent;
+            text-shadow:0 4px 24px rgba(42,16,16,.55);
+        }
         /* Content grid */
-        .hero-body {
-            position:relative; z-index:2; width:100%;
-            min-height: 560px;
-            padding:0 5vw 72px;
-            display:grid; grid-template-columns:1fr 1fr; gap:7vw; align-items:end;
-        }
-        /* Left */
-        .hero-eyebrow {
-            display:inline-flex; align-items:center; gap:10px;
-            color:var(--gold); font:700 11px Inter,sans-serif; letter-spacing:.26em;
-            text-transform:uppercase; margin-bottom:22px;
-        }
-        .hero-eyebrow::before {
-            content:''; display:block; width:30px; height:2px;
-            background:var(--gold); flex-shrink:0;
-        }
-        .hero-h1 {
-            font-size:clamp(42px,5vw,76px); font-weight:300;
-            line-height:.96; letter-spacing:-.03em;
-            color:#fff; margin-bottom:20px;
-        }
-        .hero-h1 strong { font-weight:600; }
-        .hero-intro {
-            color:rgba(255,255,255,.82); font-size:19px; line-height:1.7;
-            max-width:560px; margin-bottom:40px;
-        }
-        .hero-ctas { display:flex; gap:14px; flex-wrap:wrap; }
-        /* Right — stat tiles */
+        /* Stat tiles below the hero image */
         .hero-stats {
-            display:grid; grid-template-columns:1fr 1fr; gap:14px; align-self:end;
+            position:relative; z-index:4;
+            width:min(1180px, 90vw); margin:28px auto 56px;
+            display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
         }
         .hero-stat {
-            background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14);
+            background:#2a1010; border:1px solid rgba(255,194,71,.35);
             border-radius:9px; padding:24px 20px;
             backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
-            transition:all .35s cubic-bezier(.22,1,.36,1);
+            transition:background .35s ease, border-color .35s ease, transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease;
+            animation:heroStatWave 7s ease-in-out infinite;
             cursor:pointer;
             position:relative;
             overflow:hidden;
+            will-change:transform;
+        }
+        .hero-stat:nth-child(2) { animation-delay:-1.375s; }
+        .hero-stat:nth-child(3) { animation-delay:-2.75s; }
+        .hero-stat:nth-child(4) { animation-delay:-4.125s; }
+        @keyframes heroStatWave {
+            0%,100% { transform:translateY(0); }
+            25% { transform:translateY(-4px); }
+            50% { transform:translateY(0); }
+            75% { transform:translateY(3px); }
         }
         .hero-stat::before {
             content:'';
@@ -179,13 +235,13 @@
             transition:opacity .35s cubic-bezier(.22,1,.36,1);
         }
         .hero-stat:hover {
-            background:rgba(255,255,255,.14);
-            border-color:rgba(255,194,71,.5);
-            transform:translateY(-8px);
-            box-shadow:0 16px 40px rgba(255,194,71,.25), inset 0 1px 0 rgba(255,255,255,.2);
+            background:linear-gradient(135deg,#4b1716 0%,#2a1010 100%);
+            border-color:var(--gold);
+            transform:translateY(-6px) scale(1.02);
+            box-shadow:0 16px 34px rgba(42,16,16,.32), 0 0 0 1px rgba(255,194,71,.18), inset 0 1px 0 rgba(255,255,255,.18);
         }
         .hero-stat:hover::before {
-            opacity:1;
+            opacity:.55;
         }
         .hero-stat-val {
             display:block; font-size:34px; font-weight:300;
@@ -195,11 +251,11 @@
             z-index:1;
         }
         .hero-stat:hover .hero-stat-val {
-            transform:scale(1.05);
-            color:#ffd88f;
+            transform:scale(1.08);
+            color:#ffe0a0;
         }
-        .hero-stat-lbl { 
-            font:500 12px Inter,sans-serif; 
+        .hero-stat-lbl {
+            font:500 12px Inter,sans-serif;
             color:rgba(255,255,255,.65); 
             line-height:1.4;
             transition:color .35s cubic-bezier(.22,1,.36,1);
@@ -207,7 +263,7 @@
             z-index:1;
         }
         .hero-stat:hover .hero-stat-lbl {
-            color:rgba(255,255,255,.85);
+            color:#fff;
         }
         /* Scroll hint */
         .hero-scroll {
@@ -281,25 +337,9 @@
             text-align:center;
             backdrop-filter:blur(8px);
         }
-        .intro-brand {
-            display:flex; justify-content:center; align-items:center;
-            margin-bottom:20px;
-            padding:18px 24px;
-            background:linear-gradient(135deg, #4b1716 0%, #2d0d10 100%);
-            border:1px solid rgba(255,194,71,.25);
-            border-radius:16px;
-            box-shadow:0 10px 24px rgba(75,23,22,.25);
-        }
-        .intro-brand img {
-            display:block;
-            width:min(260px, 70%);
-            height:auto;
-            filter: drop-shadow(0 8px 14px rgba(0,0,0,.15));
-            opacity:1;
-        }
         .intro-copy .sec-h2 {
             margin-bottom:16px;
-            font-size:clamp(2.6rem,3.8vw,4.4rem);
+            font-size:clamp(2.3rem,3.4vw,4rem);
             line-height:1.05;
             letter-spacing:-0.04em;
             text-align:center;
@@ -309,7 +349,7 @@
         }
         .intro-point {
             background:rgba(255,255,255,.85); border:1px solid rgba(234,220,197,.7);
-            border-radius:14px; padding:20px 24px; display:flex; align-items:flex-start; gap:16px;
+            border-radius:14px; min-height:180px; padding:28px 24px; display:flex; align-items:center; gap:16px;
             box-shadow:0 8px 20px rgba(40,29,24,.04);
             transition:transform .3s, box-shadow .3s;
         }
@@ -319,7 +359,7 @@
             background-color:var(--gold);
             mask:url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>') no-repeat center/contain;
             -webkit-mask:url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>') no-repeat center/contain;
-            margin-top:2px;
+            margin-top:0;
         }
         .intro-point span {
             color:var(--ink); font-size:1.05rem; line-height:1.65;
@@ -432,31 +472,58 @@
         .news-empty { grid-column:span 3; text-align:center; padding:60px 0; color:var(--muted); font-size:15px; }
 
         /* ── PARTNERS ────────────────────────────── */
-        .partners-sec { background:var(--sand); border-top:1px solid var(--line); padding:12px 5vw 10px; }
-        .partners-head { text-align:center; margin-bottom:16px; }
-        .partners-head .sec-tag { justify-content:center; }
-        .partners-head .sec-h2 { text-align:center; }
-        .partners-head .sec-lead { margin:10px auto 0; text-align:center; }
-        /* Logo strip — scrolls horizontally on mobile */
+        .partners-sec {
+            position:relative; overflow:hidden;
+            background:
+                linear-gradient(90deg,rgba(75,23,22,.045) 1px,transparent 1px),
+                linear-gradient(rgba(75,23,22,.045) 1px,transparent 1px),
+                var(--sand);
+            background-size:32px 32px;
+            border-top:1px solid var(--line); padding:42px 5vw 38px;
+        }
+        .partners-sec::after {
+            content:''; position:absolute; left:5vw; right:5vw; top:0;
+            height:4px; background:linear-gradient(90deg,var(--green),var(--gold),transparent);
+        }
+        .partners-head {
+            max-width:1180px; margin:0 auto 24px;
+            display:block; text-align:center;
+        }
+        .partners-head .sec-tag { justify-content:center; margin-bottom:8px; }
+        .partners-head .sec-h2 { text-align:center; margin:0 0 10px; font-size:clamp(28px,4vw,44px); }
+        .partners-head .sec-lead { width:100%; max-width:900px; margin:0 auto; text-align:center; font-size:1rem; line-height:1.5; }
+        /* Institutional cards — scroll continuously on narrow screens */
         .partners-strip {
-            display:flex; align-items:center; justify-content:center;
-            gap:0; flex-wrap:wrap;
-            border:1px solid var(--line); border-radius:12px;
-            background:#fff; overflow:hidden;
+            position:relative; max-width:1180px; margin:0 auto;
+            border:0; border-radius:0; background:transparent; overflow:hidden;
+        }
+        .partners-track {
+            display:flex; width:max-content; align-items:stretch; gap:16px;
+            animation:partnersMarquee 24s linear infinite;
+        }
+        @keyframes partnersMarquee {
+            from { transform:translateX(0); }
+            to { transform:translateX(-50%); }
         }
         .partner-logo-item {
-            flex:1 1 160px; max-width:220px;
+            flex:0 0 clamp(250px,30vw,360px); max-width:none;
+            min-height:150px;
             display:flex; flex-direction:column; align-items:center; justify-content:center;
-            gap:8px; padding:16px 14px;
-            border-right:1px solid var(--line);
+            gap:7px; padding:18px 16px;
+            border:1px solid rgba(75,23,22,.14); border-radius:10px;
+            background:rgba(255,255,255,.94);
             text-align:center;
-            transition:background .2s;
+            box-shadow:0 12px 26px rgba(75,23,22,.08);
+            transition:background .3s, border-color .3s, box-shadow .3s, transform .3s;
         }
-        .partner-logo-item:last-child { border-right:0; }
-        .partner-logo-item:hover { background:var(--sand); }
+        .partner-logo-item:hover {
+            background:#fff; border-color:var(--gold2);
+            box-shadow:0 18px 34px rgba(75,23,22,.14);
+            transform:translateY(-5px);
+        }
         .partner-logo-img {
-            width:auto; max-width:120px; height:56px;
-            object-fit:contain; display:block;
+            width:min(170px,80%); height:56px; aspect-ratio:2.3;
+            object-fit:contain; display:block; border-radius:4px;
             filter:grayscale(20%); transition:filter .25s;
         }
         .partner-logo-item:hover .partner-logo-img { filter:grayscale(0%); }
@@ -484,24 +551,27 @@
         .partner-cat  { font:500 10px Inter,sans-serif; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); }
 
         /* ── Responsive ──────────────────────────── */
-        @media(max-width:1100px) {
-            .hero-body    { grid-template-columns:1fr; }
-            .hero-stats   { grid-template-columns:repeat(4,1fr); align-self:auto; }
-        }
         @media(max-width:900px) {
             .topbar { display:none; }
             .hero { min-height:100svh; }
-            .hero-body { padding-bottom:64px; }
             .hero-stats { grid-template-columns:repeat(2,1fr); }
             .news-grid  { grid-template-columns:1fr; }
             .news-grid .news-card:first-child { grid-column:span 1; }
         }
         @media(max-width:600px) {
+            .partners-sec { padding:34px 5vw 30px; }
+            .partners-head { margin-bottom:26px; }
+            .partner-logo-item { flex-basis:78vw; min-height:182px; }
             .ql-grid        { grid-template-columns:1fr; }
             .partners-grid  { grid-template-columns:1fr 1fr; }
-            .hero-stats     { grid-template-columns:1fr 1fr; }
-            .btn            { width:100%; }
-            .hero-ctas      { flex-direction:column; }
+            .hero-stats     { grid-template-columns:1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-ov { animation:none; }
+            .partners-track { animation:none; }
+            .hero-copy-slide { animation:none; opacity:1; }
+            .hero-copy-slide:not(:first-child) { display:none; }
+            .hero-stat { animation:none; }
         }
     </style>
 </head>
@@ -520,7 +590,7 @@
         <div class="hero-bg" aria-hidden="true">
             @foreach($heroImages as $index => $heroImage)
                 @if(is_array($heroImage) && ($heroImage['type'] ?? 'image') === 'video')
-                    {{-- Slide vidéo (YouTube / Vimeo) --}}
+                    {{-- Slide vidéo (fichier local, YouTube ou Vimeo) --}}
                     <div class="hero-slide-video" style="background-image:url('{{ $heroImage['url'] ?? '' }}'); background-size:cover; background-position:center;">
                         @if($heroImage['embed_url'])
                         <iframe
@@ -529,6 +599,10 @@
                             title="{{ $heroImage['title'] ?? 'Hero video' }}"
                             loading="lazy">
                         </iframe>
+                        @elseif($heroImage['is_local_video'] ?? false)
+                        <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+                            <source src="{{ $heroImage['url'] }}" type="video/mp4">
+                        </video>
                         @endif
                         @if($heroImage['url'])
                         <div style="position:absolute; inset:0; background:url('{{ $heroImage['url'] }}') center/cover; z-index:-1;"></div>
@@ -541,41 +615,29 @@
             @endforeach
         </div>
         <div class="hero-ov" aria-hidden="true"></div>
+        <div class="hero-copy">
+            @foreach($heroImages as $index => $heroImage)
+            <div class="hero-copy-slide" style="animation:heroCopySlide{{ $index }} {{ $heroDuration }}s infinite;">
+                <span class="hero-copy-kicker">{{ $heroImage['kicker'] ?? 'Néré Mining' }}</span>
+                <span class="hero-copy-title">{{ $heroImage['copy'] ?? '' }}</span>
+            </div>
+            @endforeach
+        </div>
         <div class="hero-accent" aria-hidden="true"></div>
 
-        <div class="hero-body">
-
-            {{-- Slogan + CTA --}}
-            <div>
-                <h1 class="hero-h1">{!! nl2br(e(__('site.home_h1', [], $loc))) !!}</h1>
-                <p class="hero-intro">{{ __('site.home_intro', [], $loc) }}</p>
-                <div class="hero-ctas">
-                    <a class="btn btn-gold"
-                       href="{{ $en ? route('english.karma') : route('karma') }}">
-                        {{ __('site.home_cta_karma', [], $loc) }}
-                    </a>
-                    <a class="btn btn-ghost"
-                       href="{{ $en ? route('english.sustainability') : route('sustainability') }}">
-                        {{ __('site.home_cta_rse', [], $loc) }}
-                    </a>
-                </div>
-            </div>
-
-            {{-- Mini chiffres clés dans le hero --}}
-            <div class="hero-stats" aria-label="{{ $en ? 'Key figures' : 'Chiffres clés' }}">
-                @foreach($stats as $stat)
-                <div class="hero-stat">
-                    <span class="hero-stat-val"
-                          data-target="{{ preg_replace('/[^0-9]/', '', $stat['value']) }}"
-                          data-suffix="{{ $stat['suffix'] ?? '' }}">—</span>
-                    <span class="hero-stat-lbl">{{ $stat['label'] }}</span>
-                </div>
-                @endforeach
-            </div>
-
-        </div>
-
     </section>
+
+    {{-- Chiffres clés sous l'image du hero --}}
+    <div class="hero-stats" aria-label="{{ $en ? 'Key figures' : 'Chiffres clés' }}">
+        @foreach($stats as $stat)
+        <div class="hero-stat">
+            <span class="hero-stat-val"
+                  data-target="{{ preg_replace('/[^0-9]/', '', $stat['value']) }}"
+                  data-suffix="{{ $stat['suffix'] ?? '' }}">—</span>
+            <span class="hero-stat-lbl">{{ $stat['label'] }}</span>
+        </div>
+        @endforeach
+    </div>
 
     {{-- ════════════════════════════════════════
          2 · NÉRÉ MINING
@@ -583,12 +645,9 @@
     <section class="sec intro-sec" aria-labelledby="intro-nere-h">
         <div class="intro-inner">
             <div class="intro-copy">
-                <div class="intro-brand">
-                    <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining" loading="eager">
-                </div>
                 <h2 class="sec-h2" id="intro-nere-h">Une filière aurifère durable, ancrée dans le développement local.</h2>
                 <p class="sec-lead">
-                    Néré Mining conçoit l’extraction de l’or comme une activité créatrice de valeur durable : performance industrielle, respect de l’environnement, sécurité des opérations et inclusion des communautés autour de nos sites.
+                    Néré Mining est un groupe aurifère ancré au Burkina Faso, détenu majoritairement par des actionnaires burkinabè. Nous contribuons au développement local et créons de la valeur pour les communautés autour de notre mine d'or de Karma, en menant nos activités avec transparence, responsabilité et respect de l'environnement.
                 </p>
             </div>
             <div class="intro-points">
@@ -693,47 +752,34 @@
         @php
             $defaultPartners = [
                 [
-                    'img'  => asset('images/partners/burkina-armoiries.svg'),
+                    'img'  => asset('images/partners/armoiries-burkina-faso.jpg'),
                     'name' => $en ? 'Government of Burkina Faso' : 'État burkinabè',
                     'cat'  => $en ? 'State · Mining Ministry' : 'Ministère des Mines',
                     'url'  => null,
                 ],
                 [
-                    'img'  => asset('images/partners/itie-bf.svg'),
+                    'img'  => asset('images/partners/logo-itie-bf.jpg'),
                     'name' => $en ? 'EITI Burkina Faso' : 'ITIE Burkina Faso',
                     'cat'  => $en ? 'Transparency Framework' : 'Transparence fiscale',
                     'url'  => 'https://itie.bf',
                 ],
                 [
-                    'img'  => asset('images/partners/onaser.svg'),
-                    'name' => 'ONASER',
-                    'cat'  => $en ? 'Road Safety Office' : 'Office National de la Sécurité Routière',
-                    'url'  => null,
-                ],
-                [
-                    'img'  => asset('images/partners/enahm.svg'),
-                    'name' => 'ENAHM',
-                    'cat'  => $en ? 'Technical School' : 'École Nationale des Hauts Métiers',
-                    'url'  => null,
-                ],
-                [
-                    'img'  => asset('images/partners/canada.svg'),
-                    'name' => $en ? 'Government of Canada' : 'Canada',
-                    'cat'  => $en ? 'Development partner' : 'Partenaire au développement',
-                    'url'  => 'https://www.canada.ca',
-                ],
-                [
-                    'img'  => asset('images/partners/cnrst.svg'),
-                    'name' => 'CNRST',
-                    'cat'  => $en ? 'National Research Centre' : 'Centre National de Recherche',
-                    'url'  => null,
+                    'img'  => asset('images/partners/chambre-des-mines-burkina.png'),
+                    'name' => $en ? 'Burkina Mining Chamber' : 'Chambre des mines du Burkina',
+                    'cat'  => $en ? 'Mining industry representative' : 'Représentation du secteur minier',
+                    'url'  => 'https://www.chambredesmines.bf',
                 ],
             ];
         @endphp
         <div class="partners-strip" role="list">
-            @foreach($defaultPartners as $p)
-            @php $tag = $p['url'] ? 'a' : 'div'; $href = $p['url'] ? 'href="'.e($p['url']).'" target="_blank" rel="noopener noreferrer"' : ''; @endphp
-            <{{ $tag }} {{ $href }} class="partner-logo-item" role="listitem">
+            <div class="partners-track">
+            @foreach([$defaultPartners, $defaultPartners] as $partnerSet)
+            @foreach($partnerSet as $p)
+            @if($p['url'])
+            <a href="{{ $p['url'] }}" target="_blank" rel="noopener noreferrer" class="partner-logo-item" role="listitem">
+            @else
+            <div class="partner-logo-item" role="listitem">
+            @endif
                 <img class="partner-logo-img"
                      src="{{ $p['img'] }}"
                      alt="{{ $p['name'] }}"
@@ -741,8 +787,14 @@
                      width="120" height="56">
                 <span class="partner-logo-name">{{ $p['name'] }}</span>
                 <span class="partner-logo-cat">{{ $p['cat'] }}</span>
-            </{{ $tag }}>
+            @if($p['url'])
+            </a>
+            @else
+            </div>
+            @endif
             @endforeach
+            @endforeach
+            </div>
         </div>
         @endif
     </section>
