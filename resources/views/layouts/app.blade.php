@@ -27,6 +27,30 @@
     ]);
 
     $mastheadSection = str_replace('-', '_', $section);
+    $mastheadImages = [
+        'company' => 'images/mining/mining-site-aerial-01.jpg',
+        'company_ceo' => 'images/mining/mining-workers-01.jpg',
+        'company_identity' => 'images/mining/gold-processing-01.jpg',
+        'company_history' => 'images/mining/karma-03.jpg',
+        'company_values' => 'images/mining/mining-environment-01.jpg',
+        'company_governance' => 'images/mining/mining-site-aerial-01.jpg',
+        'karma' => 'images/mining/gold-processing-01.jpg',
+        'reserves' => 'images/mining/karma-05.jpg',
+        'projects' => 'images/mining/mining-equipment-01.jpg',
+        'cil_project' => 'images/mining/mining-site-aerial-01.jpg',
+        'sustainability' => 'images/mining/mining-environment-01.jpg',
+        'communities' => 'images/mining/mining-workers-01.jpg',
+        'environment' => 'images/mining/mining-environment-01.jpg',
+        'hse' => 'images/mining/mining-equipment-01.jpg',
+        'local_content' => 'images/mining/mining-workers-01.jpg',
+        'news' => 'images/mining/karma-01.jpg',
+        'press' => 'images/mining/gold-processing-01.jpg',
+        'gallery' => 'images/mining/karma-02.jpg',
+        'reports' => 'images/mining/karma-05.jpg',
+        'press_contact' => 'images/mining/mining-workers-01.jpg',
+        'careers' => 'images/mining/mining-workers-01.jpg',
+    ];
+    $mastheadImage = asset($mastheadImages[$mastheadSection] ?? 'images/mining/karma-03.jpg');
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $loc }}">
@@ -97,9 +121,9 @@
         /* ── Masthead ── */
         .masthead {
             position:relative;
-            padding:120px 5vw 90px;
+            padding:100px 5vw 75px;
             color:white;
-            background:linear-gradient(100deg,rgba(75,23,22,.97) 40%,rgba(75,23,22,.5)),url('{{ asset('images/mining/karma-03.jpg') }}') center/cover;
+            background:linear-gradient(100deg,rgba(75,23,22,.97) 40%,rgba(75,23,22,.5)),url('{{ $mastheadImage }}') center/cover;
             display:flex;
             flex-direction:column;
             justify-content:center;
@@ -126,7 +150,7 @@
             border-right:8px solid rgba(255,194,71,.85);
             border-radius:4px;
             box-shadow:0 0 0 2px rgba(255,255,255,.06), 0 28px 56px rgba(0,0,0,.28);
-            font-size:clamp(38px,5.5vw,72px);
+            font-size:clamp(34px,5vw,64px);
             line-height:.96;
             font-weight:400;
             color:#fff;
