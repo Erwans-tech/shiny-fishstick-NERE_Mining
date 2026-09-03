@@ -1,6 +1,7 @@
 @php
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
+    $showJobsOnly = $showJobsOnly ?? false;
     $total = $jobs->count();
     $countLabel = $total === 1
         ? str_replace(':n', $total, __('site.careers_count_singular', [], $loc))
@@ -11,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ __('site.careers_h1', [], $loc) }} | Néré Mining</title>
+    <title>{{ $showJobsOnly ? __('site.careers_jobs_h2', [], $loc) : __('site.careers_h1', [], $loc) }} | Néré Mining</title>
     <meta name="description" content="{{ __('site.careers_why_lead', [], $loc) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,10 +114,10 @@
     </style>
 </head>
 <body>
-@include('partials._nav', ['locale' => $loc, 'section' => 'careers'])
+@include('partials._nav', ['locale' => $loc, 'section' => $showJobsOnly ? 'jobs' : 'careers'])
 
 <div class="masthead">
-    <h1>{{ __('site.careers_h1', [], $loc) }}</h1>
+    <h1>{{ $showJobsOnly ? __('site.careers_jobs_h2', [], $loc) : __('site.careers_h1', [], $loc) }}</h1>
     <div class="breadcrumb">
         <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link', [], $loc) }}</a>
         › {{ __('site.careers_breadcrumb', [], $loc) }}
@@ -131,7 +132,8 @@
     @endif
 
     {{-- ── Pourquoi Néré Mining ── --}}
-    <section>
+    @if(!$showJobsOnly)
+    <section id="nous-rejoindre">
         <p style="color:var(--gold2);font:700 11px Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;">
             <span style="display:block;width:22px;height:2px;background:var(--gold2);"></span>
             {{ __('site.careers_why_h2', [], $loc) }}
@@ -162,10 +164,12 @@
         </div>
     </section>
 </main>
+    @endif
 
+@if($showJobsOnly)
 {{-- ── Barre de filtres (sticky) ── --}}
 <div class="filter-bar">
-    <form method="GET" action="{{ $en ? route('english.careers') : route('careers') }}" style="display:contents;">
+    <form method="GET" action="{{ $showJobsOnly ? ($en ? route('english.jobs.index') : route('jobs.index')) : ($en ? route('english.careers') : route('careers')) }}" style="display:contents;">
         <select name="dept" class="filter-select" onchange="this.form.submit()">
             <option value="">{{ __('site.careers_filter_dept', [], $loc) }}</option>
             @foreach($departments as $d)
@@ -190,7 +194,7 @@
         </select>
 
         @if(request()->hasAny(['dept','type','level']))
-        <a href="{{ $en ? route('english.careers') : route('careers') }}" class="filter-reset">
+        <a href="{{ $en ? route('english.jobs.index') : route('jobs.index') }}" class="filter-reset">
             ✕ {{ __('site.careers_filter_reset', [], $loc) }}
         </a>
         @endif
@@ -202,7 +206,7 @@
 
 {{-- ── Liste des offres ── --}}
 <main>
-    <div class="jobs-section">
+    <div class="jobs-section" id="offres-emploi">
         <h2 style="color:var(--green);font:400 clamp(28px,3.5vw,44px) Inter,sans-serif;margin-bottom:32px;">
             {{ __('site.careers_jobs_h2', [], $loc) }}
         </h2>
@@ -286,6 +290,7 @@
         </div>
     </div>
 </main>
+@endif
 
 @include('partials._footer', ['loc' => $loc, 'en' => $en])
 <script>

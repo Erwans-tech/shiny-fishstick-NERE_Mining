@@ -4,8 +4,31 @@
 @section('content')
 @php $sustainBase = $en ? route('english.sustainability') : route('sustainability'); @endphp
 
+<style>
+    .community-page section { position:relative; }
+    .community-intro { padding-top:28px; }
+    .community-intro h2 { max-width:900px; margin-bottom:18px; color:var(--green); font-size:clamp(28px,4vw,44px); line-height:1.12; }
+    .community-intro > .lead { max-width:920px; font-size:18px; line-height:1.75; }
+    .community-grid { align-items:stretch; gap:32px; }
+    .community-panel { height:100%; padding:28px; background:rgba(255,255,255,.72); border:1px solid var(--line); border-top:3px solid var(--gold); border-radius:10px; box-shadow:0 10px 26px rgba(40,29,24,.06); }
+    .community-panel h3 { margin-bottom:12px; color:var(--green); }
+    .community-panel p { line-height:1.75; }
+    .community-list { list-style:none; padding:0; margin:16px 0 0; }
+    .community-list li { display:flex; gap:10px; margin-bottom:12px; line-height:1.65; }
+    .community-list li::before { content:'+'; flex:0 0 22px; width:22px; height:22px; border-radius:50%; background:var(--gold); color:var(--green); font-weight:700; line-height:22px; text-align:center; }
+    .community-section-heading { max-width:760px; margin:0 auto 38px; text-align:center; }
+    .community-section-heading h2 { margin-bottom:12px; color:var(--green); font-size:clamp(28px,4vw,40px); }
+    .community-section-heading p { color:var(--muted); line-height:1.75; }
+    .community-achievement { transition:transform .25s, box-shadow .25s; }
+    .community-achievement:hover { transform:translateY(-4px); box-shadow:0 14px 30px rgba(40,29,24,.1); }
+    .community-stat { font-variant-numeric:tabular-nums; }
+    @media (max-width:700px) { .community-intro > .lead { font-size:16px; } .community-panel { padding:22px; } }
+</style>
+
+<div class="community-page">
+
 {{-- ── 1. Politique + Dialogue ─────────────────────────── --}}
-<section>
+<section class="community-intro">
 
     <h2 style="color:var(--green); margin-bottom:20px; font-size:32px;">{{ $en ? 'Community Relations Department: The Showcase of Karma' : 'Le Département des Relations Communautaires : La Vitrine de Karma' }}</h2>
 
@@ -16,18 +39,16 @@
         }}
     </p>
 
-    <div class="grid-2">
-        <div>
+    <div class="grid-2 community-grid">
+        <div class="community-panel">
             {{-- Principes stratégiques --}}
             <h3>{{ $en ? 'Our Relational Strategy' : 'Notre Stratégie Relationnelle' }}</h3>
             <p>{{ $en ? 'Our strategy is based on the following principles:' : 'Notre stratégie est fondée sur les principes suivants :' }}</p>
-            <ul style="list-style:none; padding:0; margin:16px 0; font-size:15px; line-height:1.8;">
-                <li style="margin-bottom:12px; padding-left:24px; position:relative;">
-                    <span style="position:absolute; left:0; color:var(--gold);">✓</span>
+            <ul class="community-list" style="font-size:15px;">
+                <li>
                     {{ $en ? 'Respect for the customs and traditions of communities' : 'Le respect des us et coutumes des communautés' }}
                 </li>
-                <li style="padding-left:24px; position:relative;">
-                    <span style="position:absolute; left:0; color:var(--gold);">✓</span>
+                <li>
                     {{ $en ? 'Permanent dialogue: regular consultations with all stakeholders (customary, religious and administrative authorities, economic actors, civil society actors, artisanal miners)' : 'Le dialogue permanent : concertations régulières avec l\'ensemble des parties prenantes (autorités coutumières et religieuses et administratives, économiques, acteurs de la société civile artisans miniers)' }}
                 </li>
             </ul>
@@ -43,7 +64,7 @@
                 </p>
             </div>
         </div>
-        <div>
+        <div class="community-panel">
             {{-- Comité de suivi --}}
             <h3>{{ $en ? 'Monitoring and Liaison Committee (CSL)' : 'Comité de Suivi et de Liaison (CSL)' }}</h3>
             <p>
@@ -71,19 +92,19 @@
                 <p style="margin-bottom:12px;">{{ $en ? 'Our interventions focus on:' : 'Les interventions de la mine prennent en compte :' }}</p>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8;">
                     <li style="padding-left:20px; position:relative; margin-bottom:8px;">
-                        <span style="position:absolute; left:0;">🎓</span> {{ $en ? 'Education' : 'Éducation' }}
+                        {{ $en ? 'Education' : 'Éducation' }}
                     </li>
                     <li style="padding-left:20px; position:relative; margin-bottom:8px;">
-                        <span style="position:absolute; left:0;">🏥</span> {{ $en ? 'Health' : 'Santé' }}
+                        {{ $en ? 'Health' : 'Santé' }}
                     </li>
                     <li style="padding-left:20px; position:relative; margin-bottom:8px;">
-                        <span style="position:absolute; left:0;">💧</span> {{ $en ? 'Access to potable water' : 'Accès à l\'eau potable' }}
+                        {{ $en ? 'Access to potable water' : 'Accès à l\'eau potable' }}
                     </li>
                     <li style="padding-left:20px; position:relative; margin-bottom:8px;">
-                        <span style="position:absolute; left:0;">👩</span> {{ $en ? 'Women\'s empowerment' : 'Autonomisation des femmes' }}
+                        {{ $en ? 'Women\'s empowerment' : 'Autonomisation des femmes' }}
                     </li>
                     <li style="padding-left:20px; position:relative;">
-                        <span style="position:absolute; left:0;">👨‍💼</span> {{ $en ? 'Youth employability' : 'Employabilité des jeunes' }}
+                        {{ $en ? 'Youth employability' : 'Employabilité des jeunes' }}
                     </li>
                 </ul>
             </div>
@@ -105,7 +126,6 @@
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
             {{-- Éducation --}}
             <div style="background:#fff; padding:32px; border-radius:12px; border:1px solid var(--line);">
-                <div style="font-size:24px; margin-bottom:12px;">🎓</div>
                 <h3 style="color:var(--green); font-size:20px; margin-bottom:16px;">{{ $en ? 'Education' : 'Éducation' }}</h3>
                 <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">{{ $en ? 'Nearly 150M FCFA' : 'Près de 150M FCFA' }}</div>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
@@ -119,7 +139,6 @@
 
             {{-- Santé --}}
             <div style="background:#fff; padding:32px; border-radius:12px; border:1px solid var(--line);">
-                <div style="font-size:24px; margin-bottom:12px;">🏥</div>
                 <h3 style="color:var(--green); font-size:20px; margin-bottom:16px;">{{ $en ? 'Health' : 'Santé' }}</h3>
                 <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">{{ $en ? 'More than 160M FCFA' : 'Plus de 160M FCFA' }}</div>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
@@ -131,7 +150,6 @@
 
             {{-- Accès à l'eau --}}
             <div style="background:#fff; padding:32px; border-radius:12px; border:1px solid var(--line);">
-                <div style="font-size:24px; margin-bottom:12px;">💧</div>
                 <h3 style="color:var(--green); font-size:20px; margin-bottom:16px;">{{ $en ? 'Access to Water' : 'Accès à l\'Eau' }}</h3>
                 <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">{{ $en ? 'More than 240M FCFA' : 'Plus de 240M FCFA' }}</div>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
@@ -144,7 +162,6 @@
 
             {{-- Moyens de subsistance --}}
             <div style="background:#fff; padding:32px; border-radius:12px; border:1px solid var(--line);">
-                <div style="font-size:24px; margin-bottom:12px;">🌾</div>
                 <h3 style="color:var(--green); font-size:20px; margin-bottom:16px;">{{ $en ? 'Livelihoods & Economic Development' : 'Moyens de Subsistance & Développement Économique' }}</h3>
                 <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">{{ $en ? 'More than 350M FCFA' : 'Plus de 350M FCFA' }}</div>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
@@ -158,7 +175,6 @@
 
             {{-- Infrastructures --}}
             <div style="background:#fff; padding:32px; border-radius:12px; border:1px solid var(--line);">
-                <div style="font-size:24px; margin-bottom:12px;">🛣️</div>
                 <h3 style="color:var(--green); font-size:20px; margin-bottom:16px;">{{ $en ? 'Infrastructure & Accessibility' : 'Infrastructures & Désenclavement' }}</h3>
                 <div style="font-size:28px; font-weight:700; color:var(--gold); margin-bottom:12px;">{{ $en ? 'More than 519M FCFA' : 'Plus de 519M FCFA' }}</div>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
@@ -225,7 +241,7 @@
         
         <div class="grid-3">
             <div class="card">
-                <h3 style="color:var(--green); margin-bottom:12px; font-size:18px;">🎓 {{ $en ? 'Education Initiative' : 'Initiative Éducation' }}</h3>
+                <h3 style="color:var(--green); margin-bottom:12px; font-size:18px;">{{ $en ? 'Education Initiative' : 'Initiative Éducation' }}</h3>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
                     <li style="margin-bottom:10px;">• {{ $en ? '850+ students in scholarship programs' : '850+ étudiants en bourses' }}</li>
                     <li style="margin-bottom:10px;">• {{ $en ? 'Technical vocational training' : 'Formation technique professionnelle' }}</li>
@@ -234,7 +250,7 @@
                 </ul>
             </div>
             <div class="card">
-                <h3 style="color:var(--green); margin-bottom:12px; font-size:18px;">🏥 {{ $en ? 'Healthcare Program' : 'Programme Santé' }}</h3>
+                <h3 style="color:var(--green); margin-bottom:12px; font-size:18px;">{{ $en ? 'Healthcare Program' : 'Programme Santé' }}</h3>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
                     <li style="margin-bottom:10px;">• {{ $en ? '12 community health clinics' : '12 cliniques santé communautaire' }}</li>
                     <li style="margin-bottom:10px;">• {{ $en ? 'Free medical consultations' : 'Consultations médicales gratuites' }}</li>
@@ -243,7 +259,7 @@
                 </ul>
             </div>
             <div class="card">
-                <h3 style="color:var(--green); margin-bottom:12px; font-size:18px;">🛣️ {{ $en ? 'Infrastructure Development' : 'Développement Infrastructures' }}</h3>
+                <h3 style="color:var(--green); margin-bottom:12px; font-size:18px;">{{ $en ? 'Infrastructure Development' : 'Développement Infrastructures' }}</h3>
                 <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
                     <li style="margin-bottom:10px;">• {{ $en ? '42km of roads built/maintained' : '42km routes construites/entretenues' }}</li>
                     <li style="margin-bottom:10px;">• {{ $en ? 'Water supply systems' : 'Systèmes approvisionnement eau' }}</li>
@@ -321,4 +337,5 @@
     </div>
 </section>
 
+</div>
 @endsection

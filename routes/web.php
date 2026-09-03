@@ -174,7 +174,7 @@ Route::get('/partenaires', function () {
 })->name('partners');
 
 Route::get('/carrieres',                  [JobOfferController::class, 'index'])->name('careers');
-Route::get('/offres-emploi',              [JobOfferController::class, 'index'])->name('jobs.index');
+Route::get('/offres-emploi',              [JobOfferController::class, 'jobs'])->name('jobs.index');
 Route::get('/offres-emploi/{job:slug}',   [JobOfferController::class, 'show'])->name('jobs.show');
 Route::post('/offres-emploi/{job:slug}/postuler', [JobOfferController::class, 'apply'])->name('jobs.apply')->middleware('throttle:job-apply');
 Route::get('/candidature-spontanee',     [JobOfferController::class, 'spontaneous'])->name('spontaneous');
@@ -249,6 +249,7 @@ Route::get('/en/press-contact', fn() => $page('en', 'press-contact'))->name('eng
 Route::get('/en/publications',  [ReportController::class, 'indexEn'])->name('english.reports');
 
 Route::get('/en/careers',                 [JobOfferController::class, 'indexEn'])->name('english.careers');
+Route::get('/en/jobs',                    [JobOfferController::class, 'jobsEn'])->name('english.jobs.index');
 Route::get('/en/jobs/{job:slug}',         [JobOfferController::class, 'showEn'])->name('english.jobs.show');
 Route::post('/en/jobs/{job:slug}/apply',  [JobOfferController::class, 'apply'])->name('english.jobs.apply')->middleware('throttle:job-apply');
 Route::get('/en/spontaneous-application',  [JobOfferController::class, 'spontaneousEn'])->name('english.spontaneous');

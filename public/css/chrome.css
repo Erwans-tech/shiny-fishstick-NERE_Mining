@@ -129,6 +129,11 @@
     display: block;
 }
 
+.site-nav__item:hover .site-nav__menu,
+.site-nav__item:focus-within .site-nav__menu {
+    display: block;
+}
+
 .site-nav__menu a {
     display: block;
     padding: 10px 16px;

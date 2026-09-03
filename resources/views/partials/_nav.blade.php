@@ -4,6 +4,7 @@
     $isNews    = in_array($sec, ['news','press','gallery','reports','press-contact']);
     $isSustain = in_array($sec, ['sustainability','communities','environment','hse','local-content']);
     $isCompany = in_array($sec, ['company','company-ceo','company-identity','company-history','company-values','company-governance']);
+    $isCareers = in_array($sec, ['careers','jobs','spontaneous']);
     $contactUrl = $en ? route('english.contact') : route('contact');
 @endphp
 
@@ -118,10 +119,19 @@
                 </div>
             </span>
 
-            <a class="site-nav__link {{ $sec === 'careers' ? 'is-active' : '' }}"
-               href="{{ $en ? route('english.careers') : route('careers') }}">
-                {{ __('site.nav_careers') }}
-            </a>
+            <span class="site-nav__item" data-dropdown>
+                <a class="site-nav__link {{ $isCareers ? 'is-active' : '' }}"
+                   href="{{ $en ? route('english.careers') : route('careers') }}">
+                    {{ __('site.nav_careers') }}
+                    <span class="site-nav__caret" aria-hidden="true"></span>
+                </a>
+                <div class="site-nav__menu" role="menu">
+                          <a href="{{ $en ? route('english.careers') : route('careers') }}"
+                       class="{{ $sec === 'careers' ? 'is-current' : '' }}">{{ $en ? 'Join us' : 'Nous rejoindre' }}</a>
+                          <a href="{{ $en ? route('english.jobs.index') : route('jobs.index') }}"
+                       class="{{ $sec === 'jobs' ? 'is-current' : '' }}">{{ $en ? 'Job offers' : 'Offres d’emploi' }}</a>
+                </div>
+            </span>
 
             <div class="site-nav__actions">
                 <a class="site-nav__lang" href="{{ $en ? url('/') : route('english') }}">

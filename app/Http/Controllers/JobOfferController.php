@@ -13,14 +13,26 @@ class JobOfferController extends Controller
     public function index(Request $request)
     {
         App::setLocale('fr');
-        return $this->renderIndex('fr', $request);
+        return $this->renderIndex('fr', $request, false);
     }
 
     /* ── Liste des offres (EN) ── */
     public function indexEn(Request $request)
     {
         App::setLocale('en');
-        return $this->renderIndex('en', $request);
+        return $this->renderIndex('en', $request, false);
+    }
+
+    public function jobs(Request $request)
+    {
+        App::setLocale('fr');
+        return $this->renderIndex('fr', $request, true);
+    }
+
+    public function jobsEn(Request $request)
+    {
+        App::setLocale('en');
+        return $this->renderIndex('en', $request, true);
     }
 
     /* ── Détail d'une offre normale (FR) ── */
@@ -139,7 +151,7 @@ class JobOfferController extends Controller
     }
 
     /* ── Helper rendu liste ── */
-    private function renderIndex(string $locale, Request $request)
+    private function renderIndex(string $locale, Request $request, bool $showJobsOnly = true)
     {
         $query = JobOffer::open()->latest();
 
@@ -157,7 +169,7 @@ class JobOfferController extends Controller
         $departments   = JobOffer::open()->distinct()->orderBy('department')->pluck('department')->filter()->values();
         $contractTypes = JobOffer::open()->distinct()->orderBy('contract_type')->pluck('contract_type')->filter()->values();
 
-        return view('careers.index', compact('jobs', 'departments', 'contractTypes'))
+        return view('careers.index', compact('jobs', 'departments', 'contractTypes', 'showJobsOnly'))
             ->with('locale', $locale);
     }
 }
