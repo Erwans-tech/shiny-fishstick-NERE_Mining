@@ -723,38 +723,6 @@
             <p class="sec-lead">{{ __('site.home_partners_intro', [], $loc) }}</p>
         </div>
 
-        @if($partners->isNotEmpty())
-        {{-- Partenaires gérés en base --}}
-        <div class="partners-grid">
-            @foreach($partners as $p)
-            @php $tag = $p->website_url ? 'a' : 'div'; $attrs = $p->website_url ? 'href="'.e($p->website_url).'" target="_blank" rel="noopener noreferrer"' : ''; @endphp
-            <{{ $tag }} {{ $attrs }} class="partner-card" style="animation-delay:{{ min($loop->index * 0.1, 1.2) }}s">
-                @if($p->logo_path)
-                    @php
-                        // Logos statiques dans public/images/ → asset() direct
-                        // Logos uploadés via admin → dans public/uploads/
-                        $logoUrl = str_starts_with($p->logo_path, 'images/')
-                            ? asset($p->logo_path)
-                            : \App\Helpers\StorageHelper::uploadUrl($p->logo_path);
-                    @endphp
-                    <img class="partner-logo-img"
-                         src="{{ $logoUrl }}"
-                         alt="{{ $p->name }}"
-                         loading="lazy"
-                         width="120" height="56">
-                @else
-                    <div style="width:80px;height:40px;background:var(--sand);border-radius:4px;display:flex;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">
-                        {{ strtoupper(substr($p->name,0,3)) }}
-                    </div>
-                @endif
-                <span class="partner-name">{{ $p->name }}</span>
-                @if($p->category) <span class="partner-cat">{{ $p->category }}</span> @endif
-            </{{ $tag }}>
-            @endforeach
-        </div>
-
-        @else
-        {{-- ── Partenaires institutionnels par défaut — bande logo ── --}}
         @php
             $defaultPartners = [
                 [
@@ -798,29 +766,38 @@
             @else
             </div>
             @endif
+            @foreach([1, 2] as $copy)
+            @foreach($defaultPartners as $p)
+            @php $tag = $p['url'] ? 'a' : 'div'; $attrs = $p['url'] ? 'href="'.$p['url'].'" target="_blank" rel="noopener noreferrer"' : ''; @endphp
+            <{{ $tag }} {{ $attrs }} class="partner-logo-item" role="listitem">
+                <img class="partner-logo-img" src="{{ $p['img'] }}" alt="{{ $p['name'] }}" loading="lazy" width="120" height="56">
+                <span class="partner-logo-name">{{ $p['name'] }}</span>
+                <span class="partner-logo-cat">{{ $p['cat'] }}</span>
+            </{{ $tag }}>
             @endforeach
+            @foreach($partners as $p)
+            @php
+                $tag = $p->website_url ? 'a' : 'div';
+                $attrs = $p->website_url ? 'href="'.e($p->website_url).'" target="_blank" rel="noopener noreferrer"' : '';
+                $logoUrl = $p->logo_path
+                    ? (str_starts_with($p->logo_path, 'images/') ? asset($p->logo_path) : \App\Helpers\StorageHelper::uploadUrl($p->logo_path))
+                    : null;
+            @endphp
+            <{{ $tag }} {{ $attrs }} class="partner-logo-item" role="listitem">
+                @if($logoUrl)
+                <img class="partner-logo-img" src="{{ $logoUrl }}" alt="{{ $p->name }}" loading="lazy" width="120" height="56">
+                @else
+                <div style="width:80px;height:40px;background:var(--sand);border-radius:4px;display:flex;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">
+                    {{ strtoupper(substr($p->name, 0, 3)) }}
+                </div>
+                @endif
+                <span class="partner-logo-name">{{ $p->name }}</span>
+                @if($p->category) <span class="partner-logo-cat">{{ $p->category }}</span> @endif
+            </{{ $tag }}>
             @endforeach
-            </div>
-        </div>
-        @endif
-    </section>
-
-    </main>
-
-    @include('partials._footer', ['loc' => $loc, 'en' => $en])
-
-    <script>
-    (function(){
-        'use strict';
-
-        /* ── Counters ── */
-        function easeOutQuad(t){ return t*(2-t); }
-
-        function runCounter(el){
             var raw    = el.getAttribute('data-target');
             var suffix = el.getAttribute('data-suffix') || '';
             var limit  = parseInt(raw, 10);
-            if(isNaN(limit)){ el.textContent = raw + suffix; return; }
             var dur = 1700, start = null;
             function step(ts){
                 if(!start) start = ts;
