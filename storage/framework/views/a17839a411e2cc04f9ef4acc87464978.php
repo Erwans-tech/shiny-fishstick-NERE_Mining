@@ -49,6 +49,7 @@
     </div>
 </section>
 
+<?php if(false): ?>
 
 <section id="exploitation" class="sand">
     <h2><?php echo e(__('site.karma_prod_h2', [], $loc)); ?></h2>
@@ -77,6 +78,7 @@
     </div>
 </section>
 
+<?php if(false): ?>
 
 <section id="production-timeline">
     <h2><?php echo e($en ? 'Production & Development Timeline' : 'Timeline de Production & Développement'); ?></h2>
@@ -198,6 +200,7 @@
 </section>
 
 
+<?php endif; ?>
 <section id="organisation">
     <h2><?php echo e(__('site.karma_org_h2', [], $loc)); ?></h2>
     <p class="lead"><?php echo e(__('site.karma_org_lead', [], $loc)); ?></p>
@@ -266,6 +269,7 @@
     </div>
 </section>
 
+<?php endif; ?>
 </div>
 <?php $__env->stopSection(); ?>
 

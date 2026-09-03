@@ -7,8 +7,8 @@
     $contactUrl = $en ? route('english.contact') : route('contact');
 ?>
 
-<?php if (! $__env->hasRenderedOnce('d82efa19-1b6e-4465-aa9b-9af7abe29a9d')): $__env->markAsRenderedOnce('d82efa19-1b6e-4465-aa9b-9af7abe29a9d'); ?>
-<link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>">
+<?php if (! $__env->hasRenderedOnce('52d9d282-a6a8-4a07-a50b-980ecf6dc9fc')): $__env->markAsRenderedOnce('52d9d282-a6a8-4a07-a50b-980ecf6dc9fc'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
 <?php endif; ?>
 
 <header class="site-header">
@@ -47,17 +47,25 @@
             </span>
 
             <span class="site-nav__item" data-dropdown>
-                <a class="site-nav__link <?php echo e(in_array($sec, ['karma','resources','reserves']) ? 'is-active' : ''); ?>"
+                <a class="site-nav__link <?php echo e(in_array($sec, ['karma','karma-exploitation','karma-organisation','karma-modele','karma-impact','karma-resources-reserves']) ? 'is-active' : ''); ?>"
                    href="<?php echo e($en ? route('english.karma') : route('karma')); ?>">
                     <?php echo e(__('site.nav_karma')); ?>
 
                     <span class="site-nav__caret" aria-hidden="true"></span>
                 </a>
                 <div class="site-nav__menu" role="menu">
-                    <a href="<?php echo e($en ? route('english.resources') : route('resources')); ?>"
-                       class="<?php echo e($sec === 'resources' ? 'is-current' : ''); ?>"><?php echo e(__('site.nav_karma_resources')); ?></a>
-                    <a href="<?php echo e($en ? route('english.reserves') : route('reserves')); ?>"
-                       class="<?php echo e($sec === 'reserves' ? 'is-current' : ''); ?>"><?php echo e(__('site.nav_karma_reserves')); ?></a>
+                          <a href="<?php echo e($en ? route('english.karma') : route('karma')); ?>"
+                              class="<?php echo e($sec === 'karma' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Overview' : 'Présentation'); ?></a>
+                          <a href="<?php echo e($en ? route('english.karma.exploitation') : route('karma.exploitation')); ?>"
+                              class="<?php echo e($sec === 'karma-exploitation' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Operations' : 'Exploitation'); ?></a>
+                          <a href="<?php echo e($en ? route('english.karma.organisation') : route('karma.organisation')); ?>"
+                              class="<?php echo e($sec === 'karma-organisation' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Organisation' : 'Organisation'); ?></a>
+                          <a href="<?php echo e($en ? route('english.karma.modele') : route('karma.modele')); ?>"
+                              class="<?php echo e($sec === 'karma-modele' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Operating model' : 'Modèle opérationnel'); ?></a>
+                          <a href="<?php echo e($en ? route('english.karma.impact') : route('karma.impact')); ?>"
+                              class="<?php echo e($sec === 'karma-impact' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Impact' : 'Impact'); ?></a>
+                        <a href="<?php echo e($en ? route('english.karma.resources') : route('karma.resources')); ?>"
+                              class="<?php echo e(in_array($sec, ['resources','reserves','karma-resources-reserves']) ? 'is-current' : ''); ?>"><?php echo e($en ? 'Resources & reserves' : 'Ressources & réserves'); ?></a>
                 </div>
             </span>
 

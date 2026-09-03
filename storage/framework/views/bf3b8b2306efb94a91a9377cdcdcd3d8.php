@@ -15,6 +15,35 @@
     ]);
 
     $mastheadSection = str_replace('-', '_', $section);
+    $mastheadImages = [
+        'company' => 'images/mining/mining-site-aerial-01.jpg',
+        'company_ceo' => 'images/mining/mining-workers-01.jpg',
+        'company_identity' => 'images/mining/gold-processing-01.jpg',
+        'company_history' => 'images/mining/karma-03.jpg',
+        'company_values' => 'images/mining/mining-environment-01.jpg',
+        'company_governance' => 'images/mining/mining-site-aerial-01.jpg',
+        'karma' => 'images/mining/gold-processing-01.jpg',
+        'karma_exploitation' => 'images/mining/karma-05.jpg',
+        'karma_organisation' => 'images/mining/mining-site-aerial-01.jpg',
+        'karma_modele' => 'images/mining/karma-04.jpg',
+        'karma_impact' => 'images/mining/mining-workers-01.jpg',
+        'karma_resources_reserves' => 'images/mining/reserves-table.jpg',
+        'reserves' => 'images/mining/karma-05.jpg',
+        'projects' => 'images/mining/mining-equipment-01.jpg',
+        'cil_project' => 'images/mining/mining-site-aerial-01.jpg',
+        'sustainability' => 'images/mining/mining-environment-01.jpg',
+        'communities' => 'images/mining/mining-workers-01.jpg',
+        'environment' => 'images/mining/mining-environment-01.jpg',
+        'hse' => 'images/mining/mining-equipment-01.jpg',
+        'local_content' => 'images/mining/mining-workers-01.jpg',
+        'news' => 'images/mining/karma-01.jpg',
+        'press' => 'images/mining/gold-processing-01.jpg',
+        'gallery' => 'images/mining/karma-02.jpg',
+        'reports' => 'images/mining/karma-05.jpg',
+        'press_contact' => 'images/mining/mining-workers-01.jpg',
+        'careers' => 'images/mining/mining-workers-01.jpg',
+    ];
+    $mastheadImage = asset($mastheadImages[$mastheadSection] ?? 'images/mining/karma-03.jpg');
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo e($loc); ?>">
@@ -32,7 +61,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/animations.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/text-fixes.css')); ?>">
     <style>
@@ -88,9 +117,9 @@
         /* ── Masthead ── */
         .masthead {
             position:relative;
-            padding:120px 5vw 90px;
+            padding:100px 5vw 75px;
             color:white;
-            background:linear-gradient(100deg,rgba(75,23,22,.97) 40%,rgba(75,23,22,.5)),url('<?php echo e(asset('images/mining/karma-03.jpg')); ?>') center/cover;
+            background:linear-gradient(100deg,rgba(75,23,22,.97) 40%,rgba(75,23,22,.5)),url('<?php echo e($mastheadImage); ?>') center/cover;
             display:flex;
             flex-direction:column;
             justify-content:center;
@@ -117,7 +146,7 @@
             border-right:8px solid rgba(255,194,71,.85);
             border-radius:4px;
             box-shadow:0 0 0 2px rgba(255,255,255,.06), 0 28px 56px rgba(0,0,0,.28);
-            font-size:clamp(38px,5.5vw,72px);
+            font-size:clamp(34px,5vw,64px);
             line-height:.96;
             font-weight:400;
             color:#fff;
@@ -259,11 +288,11 @@
             margin-top:8px;
         }
         .values-card {
-            min-height:440px;
-            height:auto;
+            height:430px;
+            min-height:430px;
             display:flex;
             flex-direction:column;
-            padding:22px 20px 18px;
+            padding:24px 22px 20px;
             background:rgba(247,243,238,.9);
             backdrop-filter:blur(4px);
             border:1px solid rgba(75,23,22,.1);
@@ -276,46 +305,25 @@
         .values-card::before {
             content:"";
             position:absolute;
-            inset:0 auto auto 0;
-            width:100%;
+            top:0;
+            left:0;
+            right:0;
             height:4px;
             background:linear-gradient(90deg, var(--gold), rgba(255,194,71,.2));
+            transform:scaleX(0);
+            transform-origin:left;
+            transition:transform .35s cubic-bezier(.22,1,.36,1);
         }
-        .values-card:hover {
-            transform:translateY(-4px);
-            box-shadow:0 12px 28px rgba(75,23,22,.1);
-            border-color:rgba(255,194,71,.35);
+        .values-card:hover::before {
+            transform:scaleX(1);
         }
-        .values-card-top {
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap:12px;
-            margin-bottom:12px;
-        }
-        .values-card-icon {
-            width:52px;
-            height:52px;
-            border-radius:14px;
-            display:grid;
-            place-items:center;
-            font-size:26px;
-            font-weight:800;
-            line-height:1;
-            color:#fff;
-            background:linear-gradient(135deg, rgba(46,87,59,.95), rgba(107,160,96,.8));
-            box-shadow:0 10px 18px rgba(46,87,59,.22);
-        }
-        .values-card--2 .values-card-icon { background:linear-gradient(135deg, rgba(86,79,69,.95), rgba(134,117,93,.85)); }
-        .values-card--3 .values-card-icon { background:linear-gradient(135deg, rgba(94,84,44,.95), rgba(170,138,74,.85)); }
-        .values-card--4 .values-card-icon { background:linear-gradient(135deg, rgba(74,63,44,.95), rgba(121,102,75,.8)); }
         .values-card .card-tag {
             margin-bottom:0;
             padding:4px 8px;
             background:rgba(255,194,71,.12);
         }
         .values-card h3 {
-            font-size:clamp(20px,1.5vw,30px);
+            font-size:clamp(24px,2vw,32px);
             line-height:1.1;
             letter-spacing:-.04em;
             margin:0 0 12px;
@@ -323,6 +331,7 @@
             max-width:100%;
             word-wrap:break-word;
             overflow-wrap:break-word;
+            text-align:center;
         }
         .values-card p {
             margin:0;
@@ -332,7 +341,8 @@
             max-width:100%;
             word-wrap:break-word;
             overflow-wrap:break-word;
-            text-align:justify;
+            text-align:left;
+            text-justify:none;
         }
         .values-card-footer {
             margin-top:auto;
@@ -349,6 +359,9 @@
             color:var(--green);
             font-weight:800;
             border:1px solid rgba(46,87,59,.12);
+        }
+        .values-card-icon {
+            display:none;
         }
 
         /* ── Stat band ── */
@@ -744,7 +757,7 @@
             .org-hbar { width:calc(50% + 8px); }
             .masthead { padding:80px 5vw 60px; }
             .values-grid { grid-template-columns:repeat(2,1fr); }
-            .values-card { min-height:auto; }
+            .values-card { height:auto; min-height:auto; }
         }
         @media(max-width:540px) {
             .org-level--dga { grid-template-columns:1fr; }

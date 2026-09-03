@@ -36,13 +36,13 @@ class PageAnimationController {
   setupHomeAnimations() {
     // Animation parallaxe du hero
     this.setupHeroParallax();
-    
+
     // Animation des statistiques avec compteur
     this.setupStatCounters();
-    
+
     // Animation du carrousel hero
     this.setupHeroCarousel();
-    
+
     // Animation des tuiles de stats au hover
     this.setupStatTiles();
   }
@@ -52,11 +52,11 @@ class PageAnimationController {
     if (!hero) return;
 
     let ticking = false;
-    
+
     const updateParallax = () => {
       const scrollY = window.pageYOffset;
       const rate = scrollY * -0.5;
-      
+
       hero.style.transform = `translateY(${rate}px)`;
       ticking = false;
     };
@@ -87,27 +87,27 @@ class PageAnimationController {
       const parsed = digits;
       return Number.isNaN(parsed) ? null : parsed;
     };
-    
+
     const animateValue = (element, start, end, duration) => {
       const startTime = performance.now();
       const suffix = element.dataset.suffix || '';
       const prefix = element.dataset.prefix || '';
-      
+
       const animate = (currentTime) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Easing function (ease-out)
         const easedProgress = 1 - Math.pow(1 - progress, 3);
-        
+
         const currentValue = start + (end - start) * easedProgress;
         element.textContent = prefix + currentValue.toLocaleString(undefined, { maximumFractionDigits: 1 }) + suffix;
-        
+
         if (progress < 1) {
           requestAnimationFrame(animate);
         }
       };
-      
+
       requestAnimationFrame(animate);
     };
 
@@ -123,11 +123,11 @@ class PageAnimationController {
           }
 
           const duration = parseInt(element.dataset.duration || '2000', 10);
-          
+
           setTimeout(() => {
             animateValue(element, 0, endValue, duration);
           }, 200);
-          
+
           observer.unobserve(element);
         }
       });
@@ -140,7 +140,7 @@ class PageAnimationController {
     document.querySelectorAll('.hero-stat').forEach((tile, index) => {
       // Animation d'entrée échelonnée
       tile.style.animationDelay = `${1.4 + (index * 0.1)}s`;
-      
+
       // Effet de particules au hover
       tile.addEventListener('mouseenter', () => {
         this.createFloatingParticles(tile, 3);
@@ -170,10 +170,10 @@ class PageAnimationController {
   setupCompanyAnimations() {
     // Animation de l'organigramme
     this.setupOrgChart();
-    
+
     // Animation des valeurs avec effet de révélation
     this.setupValuesAnimation();
-    
+
     // Animation du PDG avec effet typing
     this.setupPDGQuote();
   }
@@ -181,12 +181,12 @@ class PageAnimationController {
   setupOrgChart() {
     const orgBoxes = document.querySelectorAll('.org-box');
     const connectors = document.querySelectorAll('.org-connector-v, .org-connector-branch, .org-hbar');
-    
+
     // Animation séquentielle des boîtes
     orgBoxes.forEach((box, index) => {
       box.style.opacity = '0';
       box.style.transform = 'translateY(30px) scale(0.9)';
-      
+
       setTimeout(() => {
         box.style.transition = 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
         box.style.opacity = '1';
@@ -199,7 +199,7 @@ class PageAnimationController {
       connectors.forEach((connector, index) => {
         connector.style.opacity = '0';
         connector.style.transform = 'scaleY(0)';
-        
+
         setTimeout(() => {
           connector.style.transition = 'all 0.6s ease-out';
           connector.style.opacity = '1';
@@ -211,13 +211,13 @@ class PageAnimationController {
 
   setupValuesAnimation() {
     const valueCards = document.querySelectorAll('.values-card');
-    
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('animate-in');
-            
+
             // Ajouter un effet de brillance
             this.addShimmerEffect(entry.target);
           }, index * 150);
@@ -246,21 +246,21 @@ class PageAnimationController {
   setupSustainabilityAnimations() {
     // Animation des étapes du processus
     this.setupProcessSteps();
-    
+
     // Animation des barres de progression environnementales
     this.setupEnvironmentalProgress();
   }
 
   setupProcessSteps() {
     const steps = document.querySelectorAll('.step');
-    
+
     steps.forEach((step, index) => {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             setTimeout(() => {
               entry.target.classList.add('step-animate');
-              
+
               // Animation de la flèche
               const arrow = entry.target.querySelector('::after');
               if (index < steps.length - 1) {
@@ -293,21 +293,21 @@ class PageAnimationController {
   setupNewsAnimations() {
     // Animation en mosaïque des cartes d'actualités
     this.setupNewsGrid();
-    
+
     // Animation des filtres
     this.setupNewsFilters();
   }
 
   setupNewsGrid() {
     const newsCards = document.querySelectorAll('.news-card, .card');
-    
+
     // Animation en vague
     newsCards.forEach((card, index) => {
       card.style.opacity = '0';
       card.style.transform = 'translateY(40px) scale(0.95)';
-      
+
       const delay = Math.floor(index / 3) * 100 + (index % 3) * 50;
-      
+
       setTimeout(() => {
         card.style.transition = 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
         card.style.opacity = '1';
@@ -342,10 +342,10 @@ class PageAnimationController {
   setupAdvancedInteractions() {
     // Effet de suivi du curseur
     this.setupCursorFollower();
-    
+
     // Animation des liens avec effet elastic
     this.setupElasticLinks();
-    
+
     // Animation des images au scroll
     this.setupImageReveal();
   }
@@ -364,7 +364,7 @@ class PageAnimationController {
     // Curseur personnalisé désactivé pour améliorer l'UX
     if (window.innerWidth < 1024) return; // Désactiver sur mobile
     return; // DÉSACTIVÉ: effet de curseur personnalisé retiré pour une meilleure UX
-    
+
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
     cursor.style.cssText = `
@@ -391,13 +391,13 @@ class PageAnimationController {
     const animateCursor = () => {
       cursorX += (mouseX - cursorX) * 0.1;
       cursorY += (mouseY - cursorY) * 0.1;
-      
+
       cursor.style.left = cursorX - 10 + 'px';
       cursor.style.top = cursorY - 10 + 'px';
-      
+
       requestAnimationFrame(animateCursor);
     };
-    
+
     animateCursor();
 
     // Agrandir sur les éléments interactifs
@@ -406,7 +406,7 @@ class PageAnimationController {
         cursor.style.transform = 'scale(2)';
         cursor.style.background = 'radial-gradient(circle, rgba(255,194,71,0.8) 0%, transparent 70%)';
       });
-      
+
       el.addEventListener('mouseleave', () => {
         cursor.style.transform = 'scale(1)';
         cursor.style.background = 'radial-gradient(circle, rgba(255,194,71,0.6) 0%, transparent 70%)';
@@ -417,7 +417,7 @@ class PageAnimationController {
   setupScrollAnimations() {
     // Animation de la barre de progression du scroll
     this.setupScrollProgress();
-    
+
     // Animation des sections au scroll
     this.setupSectionReveal();
   }
@@ -460,13 +460,13 @@ class PageAnimationController {
         opacity: 0.8;
         animation: floatUp 1.5s ease-out forwards;
       `;
-      
+
       const randomX = (Math.random() - 0.5) * 100;
       const randomDelay = Math.random() * 0.5;
-      
+
       particle.style.animationDelay = randomDelay + 's';
       particle.style.setProperty('--random-x', randomX + 'px');
-      
+
       container.style.position = 'relative';
       container.appendChild(particle);
 
@@ -492,7 +492,7 @@ class PageAnimationController {
   addShimmerEffect(element) {
     element.style.position = 'relative';
     element.style.overflow = 'hidden';
-    
+
     const shimmer = document.createElement('div');
     shimmer.style.cssText = `
       position: absolute;
@@ -503,9 +503,9 @@ class PageAnimationController {
       background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
       animation: shimmerMove 1.5s ease-in-out;
     `;
-    
+
     element.appendChild(shimmer);
-    
+
     setTimeout(() => {
       shimmer.remove();
     }, 1500);
@@ -529,7 +529,7 @@ class PageAnimationController {
   setupPerformanceOptimizations() {
     // Intersection Observer pour les animations coûteuses
     const expensiveElements = document.querySelectorAll('.card-3d, .particle, .shimmer');
-    
+
     const performanceObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {

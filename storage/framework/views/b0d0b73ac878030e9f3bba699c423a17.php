@@ -514,6 +514,10 @@
            class="nav-item <?php echo e(request()->routeIs('admin.partners.*') ? 'active' : ''); ?>">
             <span class="nav-icon">🤝</span> Partenaires
         </a>
+        <a href="<?php echo e(route('admin.leadership.index')); ?>"
+           class="nav-item <?php echo e(request()->routeIs('admin.leadership.*') ? 'active' : ''); ?>">
+            <span class="nav-icon">👥</span> Équipe de direction
+        </a>
         <?php $unread = \App\Models\ContactMessage::whereNull('read_at')->count(); ?>
         <a href="<?php echo e(route('admin.messages.index')); ?>"
            class="nav-item <?php echo e(request()->routeIs('admin.messages.*') ? 'active' : ''); ?>">

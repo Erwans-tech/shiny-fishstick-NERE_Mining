@@ -94,7 +94,7 @@ class AnimationManager {
       .sr-scale, .sr-rotate, .stat-value, .progress-bar,
       .cascade-animation
     `);
-    
+
     elementsToReveal.forEach(el => revealObserver.observe(el));
     this.observers.set('reveal', revealObserver);
   }
@@ -125,7 +125,7 @@ class AnimationManager {
 
     let start = 0;
     const increment = target / (duration / 16); // 60fps
-    
+
     const counter = () => {
       start += increment;
       if (start < target) {
@@ -159,13 +159,13 @@ class AnimationManager {
   setupMagneticButtons() {
     // Effet magnétique désactivé pour une meilleure UX
     return; // DÉSACTIVÉ: effets magnétiques retirés
-    
+
     document.querySelectorAll('.magnetic').forEach(button => {
       button.addEventListener('mousemove', (e) => {
         const rect = button.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
         const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
-        
+
         button.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
       });
 
@@ -206,7 +206,7 @@ class AnimationManager {
         const size = Math.max(rect.width, rect.height);
         const x = e.clientX - rect.left - size / 2;
         const y = e.clientY - rect.top - size / 2;
-        
+
         ripple.style.cssText = `
           position: absolute;
           width: ${size}px;
@@ -220,10 +220,10 @@ class AnimationManager {
           pointer-events: none;
           z-index: 1;
         `;
-        
+
         element.style.position = 'relative';
         element.appendChild(ripple);
-        
+
         setTimeout(() => {
           ripple.remove();
         }, 600);
@@ -249,7 +249,7 @@ class AnimationManager {
   setupCardFlipEffects() {
     document.querySelectorAll('.card-flip').forEach(card => {
       let flipped = false;
-      
+
       card.addEventListener('click', () => {
         flipped = !flipped;
         card.style.transform = flipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
@@ -266,7 +266,7 @@ class AnimationManager {
       element.addEventListener('mouseenter', () => {
         element.style.setProperty('--glow-opacity', '1');
       });
-      
+
       element.addEventListener('mouseleave', () => {
         element.style.setProperty('--glow-opacity', '0');
       });
@@ -278,7 +278,7 @@ class AnimationManager {
         const rect = card.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
         const y = ((e.clientY - rect.top) / rect.height - 0.5) * -10;
-        
+
         card.style.transform = `
           translateY(-8px) 
           rotateX(${y}deg) 
@@ -299,9 +299,9 @@ class AnimationManager {
     document.querySelectorAll('.btn-loading').forEach(button => {
       button.addEventListener('click', (e) => {
         if (button.classList.contains('loading')) return;
-        
+
         button.classList.add('loading');
-        
+
         // Simuler une action async
         setTimeout(() => {
           button.classList.remove('loading');
@@ -331,14 +331,14 @@ class AnimationManager {
     const animate = () => {
       currentX += (mouseX - currentX) * 0.1;
       currentY += (mouseY - currentY) * 0.1;
-      
+
       masthead.style.backgroundPosition = `
         ${50 + currentX * 0.5}% ${50 + currentY * 0.5}%
       `;
-      
+
       requestAnimationFrame(animate);
     };
-    
+
     animate();
   }
 
@@ -355,7 +355,7 @@ class AnimationManager {
 
     if (isLowPerformance) {
       document.documentElement.classList.add('low-performance');
-      
+
       // Désactiver les particules sur mobile
       document.querySelectorAll('.particles').forEach(el => {
         el.style.display = 'none';

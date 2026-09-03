@@ -46,7 +46,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
     <style>
         :root {
             --ink:   #281d18;
@@ -543,7 +543,12 @@
             background:#fff; border:1px solid var(--line); border-radius:10px;
             padding:18px 14px;
             display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;
+            animation:partnerCardReveal .7s var(--ease-smooth, cubic-bezier(.22,1,.36,1)) both;
             transition:border-color .2s, box-shadow .2s, transform .2s;
+        }
+        @keyframes partnerCardReveal {
+            from { opacity:0; transform:translateY(18px); }
+            to { opacity:1; transform:translateY(0); }
         }
         .partner-card:hover { border-color:var(--gold); box-shadow:0 8px 24px rgba(75,23,22,.07); transform:translateY(-3px); }
         .partner-card img { width:auto; max-width:100px; height:48px; object-fit:contain; }
@@ -569,6 +574,7 @@
         @media (prefers-reduced-motion: reduce) {
             .hero-ov { animation:none; }
             .partners-track { animation:none; }
+            .partner-card { animation:none; }
             .hero-copy-slide { animation:none; opacity:1; }
             .hero-copy-slide:not(:first-child) { display:none; }
             .hero-stat { animation:none; }
@@ -709,39 +715,6 @@
             <p class="sec-lead"><?php echo e(__('site.home_partners_intro', [], $loc)); ?></p>
         </div>
 
-        <?php if($partners->isNotEmpty()): ?>
-        
-        <div class="partners-grid">
-            <?php $__currentLoopData = $partners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php $tag = $p->website_url ? 'a' : 'div'; $attrs = $p->website_url ? 'href="'.e($p->website_url).'" target="_blank" rel="noopener noreferrer"' : ''; ?>
-            <<?php echo e($tag); ?> <?php echo e($attrs); ?> class="partner-card">
-                <?php if($p->logo_path): ?>
-                    <?php
-                        // Logos statiques dans public/images/ → asset() direct
-                        // Logos uploadés via admin → dans public/uploads/
-                        $logoUrl = str_starts_with($p->logo_path, 'images/')
-                            ? asset($p->logo_path)
-                            : \App\Helpers\StorageHelper::uploadUrl($p->logo_path);
-                    ?>
-                    <img class="partner-logo-img"
-                         src="<?php echo e($logoUrl); ?>"
-                         alt="<?php echo e($p->name); ?>"
-                         loading="lazy"
-                         width="120" height="56">
-                <?php else: ?>
-                    <div style="width:80px;height:40px;background:var(--sand);border-radius:4px;display:flex;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">
-                        <?php echo e(strtoupper(substr($p->name,0,3))); ?>
-
-                    </div>
-                <?php endif; ?>
-                <span class="partner-name"><?php echo e($p->name); ?></span>
-                <?php if($p->category): ?> <span class="partner-cat"><?php echo e($p->category); ?></span> <?php endif; ?>
-            </<?php echo e($tag); ?>>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </div>
-
-        <?php else: ?>
-        
         <?php
             $defaultPartners = [
                 [
@@ -766,30 +739,39 @@
         ?>
         <div class="partners-strip" role="list">
             <div class="partners-track">
-            <?php $__currentLoopData = [$defaultPartners, $defaultPartners]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $partnerSet): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php $__currentLoopData = $partnerSet; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php if($p['url']): ?>
-            <a href="<?php echo e($p['url']); ?>" target="_blank" rel="noopener noreferrer" class="partner-logo-item" role="listitem">
-            <?php else: ?>
-            <div class="partner-logo-item" role="listitem">
-            <?php endif; ?>
-                <img class="partner-logo-img"
-                     src="<?php echo e($p['img']); ?>"
-                     alt="<?php echo e($p['name']); ?>"
-                     loading="lazy"
-                     width="120" height="56">
+            <?php $__currentLoopData = [1, 2]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $copy): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $defaultPartners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $tag = $p['url'] ? 'a' : 'div'; $attrs = $p['url'] ? 'href="'.$p['url'].'" target="_blank" rel="noopener noreferrer"' : ''; ?>
+            <<?php echo e($tag); ?> <?php echo e($attrs); ?> class="partner-logo-item" role="listitem">
+                <img class="partner-logo-img" src="<?php echo e($p['img']); ?>" alt="<?php echo e($p['name']); ?>" loading="lazy" width="120" height="56">
                 <span class="partner-logo-name"><?php echo e($p['name']); ?></span>
                 <span class="partner-logo-cat"><?php echo e($p['cat']); ?></span>
-            <?php if($p['url']): ?>
-            </a>
-            <?php else: ?>
-            </div>
-            <?php endif; ?>
+            </<?php echo e($tag); ?>>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $partners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php
+                $tag = $p->website_url ? 'a' : 'div';
+                $attrs = $p->website_url ? 'href="'.e($p->website_url).'" target="_blank" rel="noopener noreferrer"' : '';
+                $logoUrl = $p->logo_path
+                    ? (str_starts_with($p->logo_path, 'images/') ? asset($p->logo_path) : \App\Helpers\StorageHelper::uploadUrl($p->logo_path))
+                    : null;
+            ?>
+            <<?php echo e($tag); ?> <?php echo e($attrs); ?> class="partner-logo-item" role="listitem">
+                <?php if($logoUrl): ?>
+                <img class="partner-logo-img" src="<?php echo e($logoUrl); ?>" alt="<?php echo e($p->name); ?>" loading="lazy" width="120" height="56">
+                <?php else: ?>
+                <div style="width:80px;height:40px;background:var(--sand);border-radius:4px;display:flex;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">
+                    <?php echo e(strtoupper(substr($p->name, 0, 3))); ?>
+
+                </div>
+                <?php endif; ?>
+                <span class="partner-logo-name"><?php echo e($p->name); ?></span>
+                <?php if($p->category): ?> <span class="partner-logo-cat"><?php echo e($p->category); ?></span> <?php endif; ?>
+            </<?php echo e($tag); ?>>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
-        <?php endif; ?>
     </section>
 
     </main>
@@ -799,39 +781,34 @@
     <script>
     (function(){
         'use strict';
-
-        /* ── Counters ── */
         function easeOutQuad(t){ return t*(2-t); }
-
         function runCounter(el){
-            var raw    = el.getAttribute('data-target');
+            var raw = el.getAttribute('data-target');
             var suffix = el.getAttribute('data-suffix') || '';
-            var limit  = parseInt(raw, 10);
+            var limit = parseInt(raw, 10);
             if(isNaN(limit)){ el.textContent = raw + suffix; return; }
-            var dur = 1700, start = null;
+            var start = null;
             function step(ts){
                 if(!start) start = ts;
-                var p = Math.min((ts-start)/dur, 1);
-                el.textContent = Math.floor(easeOutQuad(p)*limit).toLocaleString('fr-FR') + suffix;
-                if(p < 1) requestAnimationFrame(step);
+                var progress = Math.min((ts-start)/1700, 1);
+                el.textContent = Math.floor(easeOutQuad(progress)*limit).toLocaleString('fr-FR') + suffix;
+                if(progress < 1) requestAnimationFrame(step);
                 else el.textContent = limit.toLocaleString('fr-FR') + suffix;
             }
             requestAnimationFrame(step);
         }
-
-        /* Fire counters when stats section enters viewport */
         var bigCounters = document.querySelectorAll('.stat-num');
         var statsSection = document.getElementById('chiffres');
         if(bigCounters.length && statsSection && 'IntersectionObserver' in window){
             var fired = false;
-            var io = new IntersectionObserver(function(entries){
+            var observer = new IntersectionObserver(function(entries){
                 if(entries[0].isIntersecting && !fired){
                     fired = true;
                     bigCounters.forEach(runCounter);
-                    io.disconnect();
+                    observer.disconnect();
                 }
             }, {threshold: 0.2});
-            io.observe(statsSection);
+            observer.observe(statsSection);
         } else {
             bigCounters.forEach(function(el){
                 var raw = el.getAttribute('data-target');
@@ -840,31 +817,22 @@
                 el.textContent = (isNaN(limit) ? raw : limit.toLocaleString('fr-FR')) + suffix;
             });
         }
-
-        /* Animate hero stat values when the hero enters view */
         function animateHeroValue(el){
             var raw = el.getAttribute('data-target');
             var suffix = el.getAttribute('data-suffix') || '';
             var limit = parseInt(raw, 10);
-            if(isNaN(limit)){
-                el.textContent = raw + suffix;
-                return;
-            }
-
+            if(isNaN(limit)){ el.textContent = raw + suffix; return; }
             var start = null;
-            var duration = 1600;
             function step(ts){
                 if(!start) start = ts;
-                var p = Math.min((ts - start) / duration, 1);
-                var eased = 1 - Math.pow(1 - p, 3);
-                var current = Math.round(limit * eased);
-                el.textContent = current.toLocaleString('fr-FR') + suffix;
-                if(p < 1) requestAnimationFrame(step);
+                var progress = Math.min((ts-start)/1600, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(limit * eased).toLocaleString('fr-FR') + suffix;
+                if(progress < 1) requestAnimationFrame(step);
                 else el.textContent = limit.toLocaleString('fr-FR') + suffix;
             }
             requestAnimationFrame(step);
         }
-
         var heroValues = document.querySelectorAll('.hero-stat-val');
         var heroSection = document.querySelector('.hero');
         if(heroValues.length && heroSection && 'IntersectionObserver' in window){
@@ -875,7 +843,7 @@
                     heroValues.forEach(animateHeroValue);
                     heroObserver.disconnect();
                 }
-            }, { threshold: 0.35 });
+            }, {threshold: 0.35});
             heroObserver.observe(heroSection);
         } else {
             heroValues.forEach(function(el){
@@ -885,13 +853,10 @@
                 el.textContent = (isNaN(limit) ? raw : limit.toLocaleString('fr-FR')) + suffix;
             });
         }
-
-        /* ── Sticky header ── */
         var hdr = document.querySelector('header');
         if(hdr && !hdr.classList.contains('stuck')){
-            /* on mobile header is already fixed via CSS, skip JS */
-            var mq = window.matchMedia('(min-width:901px)');
-            if(mq.matches){
+            var mediaQuery = window.matchMedia('(min-width:901px)');
+            if(mediaQuery.matches){
                 var stuck = false;
                 window.addEventListener('scroll', function(){
                     var need = window.scrollY > 80;
@@ -902,8 +867,6 @@
                 }, {passive:true});
             }
         }
-
-        /* ── Mobile menu ── */
         var btn = document.querySelector('.menu-btn');
         if(btn){
             btn.addEventListener('click', function(){
@@ -912,7 +875,6 @@
                 btn.setAttribute('aria-expanded', open);
             });
         }
-
     })();
     </script>
 </body>

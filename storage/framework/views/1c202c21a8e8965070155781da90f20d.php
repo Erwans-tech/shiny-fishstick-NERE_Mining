@@ -1,6 +1,6 @@
-{{-- Page : Modèle opérationnel de Karma --}}
-@extends('layouts.app')
-@section('content')
+
+
+<?php $__env->startSection('content'); ?>
 <style>
     .future-steps { position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1px; overflow:hidden; background:#5f3a28; border:1px solid rgba(255,194,71,.35); border-radius:18px; box-shadow:0 18px 44px rgba(75,23,22,.2); }
     .future-step { position:relative; min-height:360px; padding:32px 26px 28px; overflow:hidden; background:linear-gradient(145deg,rgba(42,16,16,.98),rgba(75,23,22,.94)); border:0; transition:transform .3s ease,background .3s ease,box-shadow .3s ease; }
@@ -21,19 +21,19 @@
 </style>
 <div class="karma-page">
 <section id="modele-operationnel" class="sand">
-    <h2>{{ __('site.karma_model_h2', [], $loc) }}</h2>
-    <p class="lead">{{ __('site.karma_model_lead', [], $loc) }}</p>
+    <h2><?php echo e(__('site.karma_model_h2', [], $loc)); ?></h2>
+    <p class="lead"><?php echo e(__('site.karma_model_lead', [], $loc)); ?></p>
     <div class="future-steps" role="list">
         <div class="future-crawler" aria-hidden="true" data-machine="excavation"
-             data-exploration="{{ asset('images/equipment/exploration.png') }}"
-             data-extraction="{{ asset('images/equipment/extraction.png') }}"
-             data-treatment="{{ asset('images/equipment/traitement.png') }}"
-             data-rehabilitation="{{ asset('images/equipment/rehabilitation.png') }}">
-            <img src="{{ asset('images/equipment/extraction.png') }}" alt="">
+             data-exploration="<?php echo e(asset('images/equipment/exploration.png')); ?>"
+             data-extraction="<?php echo e(asset('images/equipment/extraction.png')); ?>"
+             data-treatment="<?php echo e(asset('images/equipment/traitement.png')); ?>"
+             data-rehabilitation="<?php echo e(asset('images/equipment/rehabilitation.png')); ?>">
+            <img src="<?php echo e(asset('images/equipment/extraction.png')); ?>" alt="">
         </div>
-        @foreach(range(1, 4) as $i)
-        <article class="future-step" role="listitem"><div class="step-num">0{{ $i }}</div><h4>{{ __('site.karma_step'.$i.'_h4', [], $loc) }}</h4><p>{{ __('site.karma_step'.$i.'_p', [], $loc) }}</p></article>
-        @endforeach
+        <?php $__currentLoopData = range(1, 4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <article class="future-step" role="listitem"><div class="step-num">0<?php echo e($i); ?></div><h4><?php echo e(__('site.karma_step'.$i.'_h4', [], $loc)); ?></h4><p><?php echo e(__('site.karma_step'.$i.'_p', [], $loc)); ?></p></article>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 </section>
 </div>
@@ -62,4 +62,6 @@
         });
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views/pages/karma-modele.blade.php ENDPATH**/ ?>

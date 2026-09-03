@@ -21,37 +21,6 @@
         .identity-description { max-width: 920px; margin: 0 auto 56px; padding: 34px clamp(22px, 4vw, 48px); border-left: 4px solid var(--gold); background: rgba(255,244,220,.7); }
         .identity-description h2 { margin-bottom: 22px; color: var(--green); }
         .identity-description p + p { margin-top: 16px; }
-        .identity-card { min-height: 0; display: flex; flex-direction: column; justify-content: flex-start; border-top: 3px solid var(--gold); transition: transform .3s cubic-bezier(.2,1,.36,1), box-shadow .3s; }
-        .identity-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 36px rgba(0,0,0,0.15);
-        }
-        .identity-card .card-tag {
-            background: rgba(255, 194, 71, 0.18);
-            color: var(--green);
-            border: 1px solid rgba(75, 23, 22, 0.15);
-            align-self: flex-start;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .identity-card h3 {
-            color: var(--green);
-            margin-top: 22px;
-            margin-bottom: 12px;
-            font-size: 22px;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        .identity-card p {
-            color: var(--muted);
-            font-size: 15px;
-            line-height: 1.5;
-        }
-
     </style>
 
     <div class="grid-3 identity-gallery" aria-label="Images de l’identité de Néré Mining">
@@ -71,15 +40,6 @@
         <p>À travers ce nom et ce symbole, Néré Mining réaffirme sa vision : celle d’une entreprise minière souveraine, aux racines profondes, génératrice de valeur partagée pour les communautés et bâtisseuse d’un avenir radieux pour le Burkina Faso.</p>
     </div>
 
-    <div class="grid-3">
-        <?php $__currentLoopData = range(1, 3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="card identity-card">
-            <div class="card-tag"><?php echo e(__('site.company_id'.$i.'_tag', [], $loc)); ?></div>
-            <h3><?php echo e(__('site.company_id'.$i.'_h3', [], $loc)); ?></h3>
-            <p><?php echo e(__('site.company_id'.$i.'_p', [], $loc)); ?></p>
-        </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-    </div>
 </section>
 
 <?php $__env->stopSection(); ?>
