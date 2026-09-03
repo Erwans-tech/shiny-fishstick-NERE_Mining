@@ -36,8 +36,6 @@
 
     <section class="governance-page">
 
-    <p class="lead">{{ __('site.company_gov_lead', [], $loc) }}</p>
-
     @php
         $fallbackLeadership = [
             ['name' => 'Dr. Justin Elie OUEDRAOGO', 'title' => $en ? 'Chief Executive Officer' : 'Président Directeur Général', 'department' => '', 'hierarchy_level' => 1, 'photo_path' => 'images/mining/mining-workers-01.jpg'],
