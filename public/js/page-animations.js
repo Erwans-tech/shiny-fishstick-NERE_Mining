@@ -76,13 +76,15 @@ class PageAnimationController {
 
     const resolveNumericValue = (element) => {
       const rawValue = element.dataset.count || element.textContent || '';
-      const digits = rawValue.toString().replace(/[^\d]/g, '');
+      const digits = element.dataset.count
+        ? Number.parseFloat(rawValue)
+        : Number.parseFloat(rawValue.toString().replace(/[^\d.]/g, ''));
 
-      if (!digits) {
+      if (Number.isNaN(digits)) {
         return null;
       }
 
-      const parsed = parseInt(digits, 10);
+      const parsed = digits;
       return Number.isNaN(parsed) ? null : parsed;
     };
     
@@ -98,8 +100,8 @@ class PageAnimationController {
         // Easing function (ease-out)
         const easedProgress = 1 - Math.pow(1 - progress, 3);
         
-        const currentValue = Math.floor(start + (end - start) * easedProgress);
-        element.textContent = prefix + currentValue.toLocaleString() + suffix;
+        const currentValue = start + (end - start) * easedProgress;
+        element.textContent = prefix + currentValue.toLocaleString(undefined, { maximumFractionDigits: 1 }) + suffix;
         
         if (progress < 1) {
           requestAnimationFrame(animate);

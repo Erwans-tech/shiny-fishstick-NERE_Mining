@@ -37,13 +37,15 @@ class AnimationManager {
   setupCounterAnimations() {
     document.querySelectorAll('.stat-value').forEach((element) => {
       const rawValue = element.getAttribute('data-count') || element.textContent || '';
-      const numericValue = rawValue.toString().replace(/[^\d]/g, '');
+      const numericValue = element.getAttribute('data-count')
+        ? Number.parseFloat(rawValue)
+        : Number.parseFloat(rawValue.toString().replace(/[^\d.]/g, ''));
 
-      if (!numericValue) {
+      if (Number.isNaN(numericValue)) {
         return;
       }
 
-      const target = Number.parseInt(numericValue, 10);
+      const target = numericValue;
       if (Number.isNaN(target)) {
         return;
       }
@@ -104,13 +106,15 @@ class AnimationManager {
     if (this.counters.has(element)) return; // Déjà animé
 
     const rawValue = element.getAttribute('data-count') || element.textContent || '';
-    const numericValue = rawValue.toString().replace(/[^\d]/g, '');
+    const numericValue = element.getAttribute('data-count')
+      ? Number.parseFloat(rawValue)
+      : Number.parseFloat(rawValue.toString().replace(/[^\d.]/g, ''));
 
-    if (!numericValue) {
+    if (Number.isNaN(numericValue)) {
       return;
     }
 
-    const target = parseInt(numericValue, 10);
+    const target = numericValue;
     if (Number.isNaN(target)) {
       return;
     }
@@ -125,10 +129,10 @@ class AnimationManager {
     const counter = () => {
       start += increment;
       if (start < target) {
-        element.textContent = prefix + Math.floor(start).toLocaleString() + suffix;
+        element.textContent = prefix + start.toLocaleString(undefined, { maximumFractionDigits: 1 }) + suffix;
         requestAnimationFrame(counter);
       } else {
-        element.textContent = prefix + target.toLocaleString() + suffix;
+        element.textContent = prefix + target.toLocaleString(undefined, { maximumFractionDigits: 1 }) + suffix;
       }
     };
 
