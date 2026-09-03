@@ -44,8 +44,8 @@ class AdminLoginController extends Controller
         }
 
         $user = User::where('email', $request->input('email'))
-                    ->where('is_admin', true)
-                    ->first();
+            ->where('is_admin', true)
+            ->first();
 
         if (! $user || ! Hash::check($request->input('password'), $user->password)) {
             RateLimiter::hit($ipKey, 60);
@@ -96,5 +96,4 @@ class AdminLoginController extends Controller
         return redirect()->route('admin.login')
             ->with('success', 'Déconnexion réussie.');
     }
-
 }

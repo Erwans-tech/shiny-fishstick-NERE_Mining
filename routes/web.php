@@ -49,7 +49,7 @@ $homeHandler = function (string $locale) {
 
     // Slides du carrousel hero — fallback sur les images statiques si table vide
     $slides = \App\Models\HeroSlide::active()->get();
-    
+
     // Récupère la description SEO pour la page d'accueil
     $descriptions = config('seo.descriptions')[$locale] ?? [];
     $description = $descriptions['home'] ?? '';
@@ -74,11 +74,11 @@ $homeHandler = function (string $locale) {
  */
 $page = function (string $locale, string $section, array $extra = []) {
     App::setLocale($locale);
-    
+
     // Récupère la description SEO
     $descriptions = config('seo.descriptions')[$locale] ?? [];
     $description = $descriptions[$section] ?? '';
-    
+
     return view('page', array_merge([
         'locale'  => $locale,
         'section' => $section,

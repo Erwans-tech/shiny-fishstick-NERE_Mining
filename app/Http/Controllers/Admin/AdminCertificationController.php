@@ -95,7 +95,7 @@ class AdminCertificationController extends Controller
     public function reorder(Request $request)
     {
         $order = $request->input('order', []);
-        
+
         foreach ($order as $index => $id) {
             Certification::find($id)?->update(['sort_order' => $index]);
         }

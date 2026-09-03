@@ -3,58 +3,9 @@
 
 <?php $__env->startSection('content'); ?>
 
-
-<?php
-    $healthScore = collect($siteHealth)->filter()->count();
-    $healthTotal = count($siteHealth);
-    $healthPercent = round(($healthScore / $healthTotal) * 100);
-    $healthColor = $healthPercent >= 75 ? '#10b981' : ($healthPercent >= 50 ? '#f59e0b' : '#ef4444');
-?>
-
-<div style="display:grid; grid-template-columns:2fr 1fr; gap:16px; margin-bottom:20px;">
+<div style="display:flex; margin-bottom:20px;">
     
-    <div class="card">
-        <div class="card-body" style="padding:20px;">
-            <div style="display:flex; align-items:center; gap:16px;">
-                <div style="position:relative; width:70px; height:70px;">
-                    <svg width="70" height="70" style="transform:rotate(-90deg);">
-                        <circle cx="35" cy="35" r="30" fill="none" stroke="#f5f0e8" stroke-width="8"/>
-                        <circle cx="35" cy="35" r="30" fill="none" stroke="<?php echo e($healthColor); ?>" stroke-width="8"
-                                stroke-dasharray="<?php echo e(188.4 * $healthPercent / 100); ?> 188.4"
-                                stroke-linecap="round"/>
-                    </svg>
-                    <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font:700 18px Inter,sans-serif; color:<?php echo e($healthColor); ?>;">
-                        <?php echo e($healthPercent); ?>%
-                    </div>
-                </div>
-                <div style="flex:1;">
-                    <h3 style="font:700 18px Inter,sans-serif; color:var(--ink); margin:0 0 6px;">
-                        Santé du site
-                    </h3>
-                    <div style="font:13px Inter,sans-serif; color:var(--muted); line-height:1.5;">
-                        <?php echo e($healthScore); ?>/<?php echo e($healthTotal); ?> éléments actifs
-                    </div>
-                    <div style="display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;">
-                        <span class="badge <?php echo e($siteHealth['hero_active'] ? 'badge-green' : 'badge-gray'); ?>" style="font-size:10px;">
-                            <?php echo e($siteHealth['hero_active'] ? '✓' : '✗'); ?> Carrousel
-                        </span>
-                        <span class="badge <?php echo e($siteHealth['jobs_active'] ? 'badge-green' : 'badge-gray'); ?>" style="font-size:10px;">
-                            <?php echo e($siteHealth['jobs_active'] ? '✓' : '✗'); ?> Offres d'emploi
-                        </span>
-                        <span class="badge <?php echo e($siteHealth['news_recent'] ? 'badge-green' : 'badge-gray'); ?>" style="font-size:10px;">
-                            <?php echo e($siteHealth['news_recent'] ? '✓' : '✗'); ?> Actus récentes
-                        </span>
-                        <span class="badge <?php echo e($siteHealth['partners_visible'] ? 'badge-green' : 'badge-gray'); ?>" style="font-size:10px;">
-                            <?php echo e($siteHealth['partners_visible'] ? '✓' : '✗'); ?> Partenaires
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
-    <div class="card">
+    <div class="card" style="width:100%;">
         <div class="card-body" style="padding:20px; display:flex; flex-direction:column; justify-content:center; gap:10px;">
             <a href="/" target="_blank" class="btn btn-primary" style="display:flex; align-items:center; justify-content:center; gap:8px;">
                 <span style="font-size:16px;">🌐</span>

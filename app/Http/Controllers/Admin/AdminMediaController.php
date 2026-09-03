@@ -90,7 +90,7 @@ class AdminMediaController extends Controller
     public function destroy(MediaAsset $media)
     {
         if ($media->file_path && ! str_starts_with($media->file_path, 'images/')) {
-                Storage::disk(config('filesystems.default'))->delete($media->file_path);
+            Storage::disk(config('filesystems.default'))->delete($media->file_path);
         }
         $media->delete();
 

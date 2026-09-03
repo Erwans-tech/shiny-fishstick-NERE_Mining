@@ -917,4 +917,4 @@
     </script>
 </body>
 </html>
-<?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views\home.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views/home.blade.php ENDPATH**/ ?>

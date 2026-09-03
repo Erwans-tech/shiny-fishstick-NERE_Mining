@@ -35,7 +35,7 @@ class AdminPartnerController extends Controller
             'category'    => ['nullable', 'string', 'max:80'],
             'website_url' => ['nullable', 'url', 'max:255'],
             'logo'        => ['nullable', 'image', 'max:2048'],
-            'is_published'=> ['boolean'],
+            'is_published' => ['boolean'],
             'sort_order'  => ['integer', 'min:0'],
         ]);
         $data['is_published'] = $request->boolean('is_published');
@@ -63,7 +63,7 @@ class AdminPartnerController extends Controller
             'category'    => ['nullable', 'string', 'max:80'],
             'website_url' => ['nullable', 'url', 'max:255'],
             'logo'        => ['nullable', 'image', 'max:2048'],
-            'is_published'=> ['boolean'],
+            'is_published' => ['boolean'],
             'sort_order'  => ['integer', 'min:0'],
         ]);
         $data['is_published'] = $request->boolean('is_published');
@@ -85,7 +85,7 @@ class AdminPartnerController extends Controller
     public function destroy(Partner $partner)
     {
         if ($partner->logo_path && !str_starts_with($partner->logo_path, 'images/')) {
-                Storage::disk(config('filesystems.default'))->delete($partner->logo_path);
+            Storage::disk(config('filesystems.default'))->delete($partner->logo_path);
         }
         $partner->delete();
 

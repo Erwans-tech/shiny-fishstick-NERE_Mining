@@ -7,7 +7,7 @@
     $contactUrl = $en ? route('english.contact') : route('contact');
 ?>
 
-<?php if (! $__env->hasRenderedOnce('4105ad2b-4bd7-4bb8-97e3-f45b57b92b56')): $__env->markAsRenderedOnce('4105ad2b-4bd7-4bb8-97e3-f45b57b92b56'); ?>
+<?php if (! $__env->hasRenderedOnce('c5b31ed5-a0f0-40cf-aa97-eee318a38aaa')): $__env->markAsRenderedOnce('c5b31ed5-a0f0-40cf-aa97-eee318a38aaa'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>">
 <?php endif; ?>
 
@@ -197,4 +197,4 @@
     });
 })();
 </script>
-<?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views\partials\_nav.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views/partials/_nav.blade.php ENDPATH**/ ?>
