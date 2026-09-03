@@ -174,6 +174,8 @@ return [
     'karma_impact_lead' => "Néré Mining's activities generate direct, measurable benefits for the local, regional and national economy.",
     'karma_resources_h2' => 'Mineral resources',
     'resources_h1' => 'Karma resources.',
+    'karma_resources_reserves_h1' => 'Karma resources and reserves',
+    'karma_resources_reserves_breadcrumb' => 'Resources and reserves',
     'resources_eyebrow' => 'Néré Mining · Resources',
     'resources_breadcrumb' => 'Resources',
     'karma_resources_lead' => "The Karma mine has significant mineral resources identified through rigorous geological exploration campaigns.",

@@ -39,6 +39,7 @@
         'karma_organisation' => 'images/mining/mining-site-aerial-01.jpg',
         'karma_modele' => 'images/mining/karma-04.jpg',
         'karma_impact' => 'images/mining/mining-workers-01.jpg',
+        'karma_resources_reserves' => 'images/mining/reserves-table.jpg',
         'reserves' => 'images/mining/karma-05.jpg',
         'projects' => 'images/mining/mining-equipment-01.jpg',
         'cil_project' => 'images/mining/mining-site-aerial-01.jpg',

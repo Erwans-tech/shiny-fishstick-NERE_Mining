@@ -174,6 +174,8 @@ return [
     'karma_impact_lead' => "L'activité de Néré Mining génère des retombées directes et mesurables pour l'économie locale, régionale et nationale.",
     'karma_resources_h2' => 'Ressources minérales',
     'resources_h1' => 'Les ressources de Karma.',
+    'karma_resources_reserves_h1' => 'Ressources et réserves de Karma',
+    'karma_resources_reserves_breadcrumb' => 'Ressources et réserves',
     'resources_eyebrow' => 'Néré Mining · Ressources',
     'resources_breadcrumb' => 'Ressources',
     'karma_resources_lead' => "La mine de Karma dispose de ressources minérales importantes, identifiées grâce à des campagnes d'exploration géologiques rigoureuses.",

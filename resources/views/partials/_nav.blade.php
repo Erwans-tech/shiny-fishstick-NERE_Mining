@@ -46,7 +46,7 @@
             </span>
 
             <span class="site-nav__item" data-dropdown>
-                <a class="site-nav__link {{ in_array($sec, ['karma','karma-exploitation','karma-organisation','karma-modele','karma-impact','resources','reserves']) ? 'is-active' : '' }}"
+                <a class="site-nav__link {{ in_array($sec, ['karma','karma-exploitation','karma-organisation','karma-modele','karma-impact','karma-resources-reserves']) ? 'is-active' : '' }}"
                    href="{{ $en ? route('english.karma') : route('karma') }}">
                     {{ __('site.nav_karma') }}
                     <span class="site-nav__caret" aria-hidden="true"></span>
@@ -62,10 +62,8 @@
                               class="{{ $sec === 'karma-modele' ? 'is-current' : '' }}">{{ $en ? 'Operating model' : 'Modèle opérationnel' }}</a>
                           <a href="{{ $en ? route('english.karma.impact') : route('karma.impact') }}"
                               class="{{ $sec === 'karma-impact' ? 'is-current' : '' }}">{{ $en ? 'Impact' : 'Impact' }}</a>
-                    <a href="{{ $en ? route('english.resources') : route('resources') }}"
-                       class="{{ $sec === 'resources' ? 'is-current' : '' }}">{{ __('site.nav_karma_resources') }}</a>
-                    <a href="{{ $en ? route('english.reserves') : route('reserves') }}"
-                       class="{{ $sec === 'reserves' ? 'is-current' : '' }}">{{ __('site.nav_karma_reserves') }}</a>
+                        <a href="{{ $en ? route('english.karma.resources') : route('karma.resources') }}"
+                              class="{{ in_array($sec, ['resources','reserves','karma-resources-reserves']) ? 'is-current' : '' }}">{{ $en ? 'Resources & reserves' : 'Ressources & réserves' }}</a>
                 </div>
             </span>
 
