@@ -17,9 +17,6 @@
     <div class="grid-2 values-grid">
         @foreach($values as $i)
         <div class="card values-card values-card--{{ $i }}">
-            <div class="values-card-top">
-                <div class="card-tag">{{ __('site.company_v'.$i.'_tag', [], $loc) }}</div>
-            </div>
             <h3>{{ __('site.company_v'.$i.'_h3', [], $loc) }}</h3>
             <p>{{ __('site.company_v'.$i.'_p', [], $loc) }}</p>
             <div class="values-card-footer">
