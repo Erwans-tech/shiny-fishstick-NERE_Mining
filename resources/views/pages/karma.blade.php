@@ -80,6 +80,7 @@
     </div>
 </section>
 
+@if(false)
 {{-- Production Timeline --}}
 <section id="production-timeline">
     <h2>{{ $en ? 'Production & Development Timeline' : 'Timeline de Production & Développement' }}</h2>
@@ -201,6 +202,7 @@
 </section>
 
 {{-- Organisation --}}
+@endif
 <section id="organisation">
     <h2>{{ __('site.karma_org_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.karma_org_lead', [], $loc) }}</p>
