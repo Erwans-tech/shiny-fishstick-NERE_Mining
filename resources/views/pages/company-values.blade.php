@@ -18,7 +18,6 @@
         @foreach($values as $i)
         <div class="card values-card values-card--{{ $i }}">
             <div class="values-card-top">
-                <div class="values-card-icon">{{ $valueLetters[$i - 1] }}</div>
                 <div class="card-tag">{{ __('site.company_v'.$i.'_tag', [], $loc) }}</div>
             </div>
             <h3>{{ __('site.company_v'.$i.'_h3', [], $loc) }}</h3>

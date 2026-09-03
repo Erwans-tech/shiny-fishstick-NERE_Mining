@@ -292,11 +292,11 @@
             margin-top:8px;
         }
         .values-card {
-            min-height:440px;
+            min-height:360px;
             height:auto;
             display:flex;
             flex-direction:column;
-            padding:22px 20px 18px;
+            padding:24px 22px 20px;
             background:rgba(247,243,238,.9);
             backdrop-filter:blur(4px);
             border:1px solid rgba(75,23,22,.1);
@@ -309,26 +309,10 @@
         .values-card::before {
             content:"";
             position:absolute;
-            inset:0 auto auto 0;
+            justify-content:flex-start;
             width:100%;
-            height:4px;
-            background:linear-gradient(90deg, var(--gold), rgba(255,194,71,.2));
+            margin-bottom:18px;
         }
-        .values-card:hover {
-            transform:translateY(-4px);
-            box-shadow:0 12px 28px rgba(75,23,22,.1);
-            border-color:rgba(255,194,71,.35);
-        }
-        .values-card-top {
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap:12px;
-            margin-bottom:12px;
-        }
-        .values-card-icon {
-            width:52px;
-            height:52px;
             border-radius:14px;
             display:grid;
             place-items:center;
