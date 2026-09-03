@@ -28,32 +28,43 @@
 
     $mastheadSection = str_replace('-', '_', $section);
     $mastheadImages = [
-        'company' => 'images/mining/mining-site-aerial-01.jpg',
+        // Qui Sommes-Nous
+        'company' => 'images/headers/usine-traitement-or-illuminee-nuit.jpeg',
         'company_ceo' => 'images/mining/mining-workers-01.jpg',
-        'company_identity' => 'images/mining/gold-processing-01.jpg',
+        'company_identity' => 'images/headers/coulee-or-fusion-creuset-metallurgie.jpeg',
         'company_history' => 'images/mining/karma-03.jpg',
-        'company_values' => 'images/mining/mining-environment-01.jpg',
+        'company_values' => 'images/headers/equipe-inspection-site-mine-drapeau-securite.jpeg',
         'company_governance' => 'images/mining/mining-site-aerial-01.jpg',
-        'karma' => 'images/mining/gold-processing-01.jpg',
-        'karma_exploitation' => 'images/mining/karma-05.jpg',
-        'karma_organisation' => 'images/mining/mining-site-aerial-01.jpg',
-        'karma_modele' => 'images/mining/karma-04.jpg',
-        'karma_impact' => 'images/mining/mining-workers-01.jpg',
+        
+        // Mine Karma
+        'karma' => 'images/headers/usine-traitement-or-illuminee-nuit.jpeg',
+        'karma_exploitation' => 'images/headers/camion-benne-mine-fosse-exploitation.jpeg',
+        'karma_organisation' => 'images/headers/soudeurs-reparation-equipement-minier-atelier.jpeg',
+        'karma_modele' => 'images/headers/installation-broyage-minerai-crepuscule.jpeg',
+        'karma_impact' => 'images/headers/route-bitumee-panneau-signalisation-projet-ebm.jpeg',
         'karma_resources_reserves' => 'images/mining/reserves-table.jpg',
         'reserves' => 'images/mining/karma-05.jpg',
-        'projects' => 'images/mining/mining-equipment-01.jpg',
-        'cil_project' => 'images/mining/mining-site-aerial-01.jpg',
-        'sustainability' => 'images/mining/mining-environment-01.jpg',
-        'communities' => 'images/mining/mining-workers-01.jpg',
-        'environment' => 'images/mining/mining-environment-01.jpg',
-        'hse' => 'images/mining/mining-equipment-01.jpg',
-        'local_content' => 'images/mining/mining-workers-01.jpg',
+        
+        // Projets
+        'projects' => 'images/headers/equipe-inspection-site-mine-drapeau-securite.jpeg',
+        'cil_project' => 'images/headers/installation-broyage-minerai-crepuscule.jpeg',
+        
+        // Développement Durable
+        'sustainability' => 'images/headers/techniciens-installation-pipeline-eau-mine.jpeg',
+        'communities' => 'images/headers/ceremonie-communaute-locale-terrain-rural.jpeg',
+        'environment' => 'images/headers/techniciens-installation-pipeline-eau-mine.jpeg',
+        'hse' => 'images/headers/equipe-inspection-site-mine-drapeau-securite.jpeg',
+        'local_content' => 'images/headers/soudeurs-reparation-equipement-minier-atelier.jpeg',
+        
+        // Actualités & Presse
         'news' => 'images/mining/karma-01.jpg',
-        'press' => 'images/mining/gold-processing-01.jpg',
+        'press' => 'images/headers/usine-traitement-or-illuminee-nuit.jpeg',
         'gallery' => 'images/mining/karma-02.jpg',
         'reports' => 'images/mining/karma-05.jpg',
         'press_contact' => 'images/mining/mining-workers-01.jpg',
-        'careers' => 'images/mining/mining-workers-01.jpg',
+        
+        // Carrières
+        'careers' => 'images/headers/soudeurs-reparation-equipement-minier-atelier.jpeg',
     ];
     $mastheadImage = asset($mastheadImages[$mastheadSection] ?? 'images/mining/karma-03.jpg');
 @endphp
