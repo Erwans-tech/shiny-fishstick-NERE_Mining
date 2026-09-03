@@ -546,11 +546,6 @@
             animation:partnerCardReveal .7s var(--ease-smooth, cubic-bezier(.22,1,.36,1)) both;
             transition:border-color .2s, box-shadow .2s, transform .2s;
         }
-        .partner-card:nth-child(2) { animation-delay:.1s; }
-        .partner-card:nth-child(3) { animation-delay:.2s; }
-        .partner-card:nth-child(4) { animation-delay:.3s; }
-        .partner-card:nth-child(5) { animation-delay:.4s; }
-        .partner-card:nth-child(6) { animation-delay:.5s; }
         @keyframes partnerCardReveal {
             from { opacity:0; transform:translateY(18px); }
             to { opacity:1; transform:translateY(0); }
@@ -733,7 +728,7 @@
         <div class="partners-grid">
             @foreach($partners as $p)
             @php $tag = $p->website_url ? 'a' : 'div'; $attrs = $p->website_url ? 'href="'.e($p->website_url).'" target="_blank" rel="noopener noreferrer"' : ''; @endphp
-            <{{ $tag }} {{ $attrs }} class="partner-card">
+            <{{ $tag }} {{ $attrs }} class="partner-card" style="animation-delay:{{ min($loop->index * 0.1, 1.2) }}s">
                 @if($p->logo_path)
                     @php
                         // Logos statiques dans public/images/ → asset() direct
