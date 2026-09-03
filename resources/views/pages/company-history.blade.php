@@ -70,19 +70,6 @@
         to { width: 80px; opacity: 1; }
     }
     
-    .history-intro {
-        font: 400 17px/1.9 Inter, sans-serif;
-        color: rgba(255,255,255,.75);
-        max-width: 900px;
-        background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-        padding: 36px 40px;
-        border-radius: 12px;
-        border: 1px solid rgba(255,194,71,.15);
-        border-left: 4px solid var(--gold);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 32px rgba(0,0,0,.3);
-    }
-    
     /* ── Timeline Container ──────────────────────────────────── */
     .timeline-wrapper {
         max-width: 1200px;
@@ -327,65 +314,6 @@
         z-index: 1;
     }
     
-    /* Mining icon badge */
-    .mining-badge {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        width: 40px;
-        height: 40px;
-        background: rgba(255,194,71,.15);
-        border: 1px solid rgba(255,194,71,.3);
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        font-size: 20px;
-        opacity: 0.4;
-        transition: all 0.3s ease;
-        z-index: 2;
-    }
-    
-    .event-content:hover .mining-badge {
-        opacity: 1;
-        transform: rotate(15deg) scale(1.1);
-        background: rgba(255,194,71,.25);
-        border-color: rgba(255,194,71,.5);
-    }
-    
-    /* ── Footer ──────────────────────────────────────────────── */
-    .timeline-footer {
-        max-width: 1200px;
-        margin: 80px auto 0;
-        padding: 0 40px;
-        text-align: center;
-        position: relative;
-        z-index: 2;
-    }
-    
-    .timeline-footer-icon {
-        font-size: 48px;
-        opacity: 0.3;
-        margin-bottom: 16px;
-        display: inline-block;
-        animation: float 3s ease-in-out infinite;
-        filter: drop-shadow(0 4px 12px rgba(255,194,71,.3));
-    }
-    
-    @keyframes float {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-10px) rotate(5deg); }
-    }
-    
-    .timeline-footer-text {
-        font: 600 14px/1.6 Inter, sans-serif;
-        letter-spacing: .12em;
-        text-transform: uppercase;
-        background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    
     /* ── Responsive ──────────────────────────────────────────── */
     @media (max-width: 768px) {
         .history-page {
@@ -393,18 +321,12 @@
         }
         
         .history-header,
-        .timeline-wrapper,
-        .timeline-footer {
+        .timeline-wrapper {
             padding: 0 20px;
         }
         
         .history-header h1 {
             font-size: 36px;
-        }
-        
-        .history-intro {
-            padding: 28px;
-            font-size: 15px;
         }
         
         .timeline-wrapper::before {
@@ -452,11 +374,6 @@
             font-size: 15px;
         }
         
-        .mining-badge {
-            width: 32px;
-            height: 32px;
-            font-size: 16px;
-        }
     }
 </style>
 
@@ -464,9 +381,6 @@
     
     <div class="history-header">
         <h1>{{ $en ? 'Our History' : 'Notre Histoire' }}</h1>
-        <div class="history-intro">
-            {{ __('site.company_history_lead', [], $loc) }}
-        </div>
     </div>
 
     <div class="timeline-wrapper">
@@ -484,23 +398,11 @@
             </div>
             
             <div class="event-content">
-                <div class="mining-badge">
-                    @if($i === 1) 🏗️
-                    @elseif($i === 2) ⛏️
-                    @elseif($i === 3) 💎
-                    @else 🏆
-                    @endif
-                </div>
                 <h3 class="event-title">{{ __('site.company_hist'.$i.'_title', [], $loc) }}</h3>
                 <p class="event-text">{{ __('site.company_hist'.$i.'_p', [], $loc) }}</p>
             </div>
         </article>
         @endforeach
-    </div>
-    
-    <div class="timeline-footer">
-        <div class="timeline-footer-icon">⛏️</div>
-        <p class="timeline-footer-text">{{ $en ? 'Néré Mining - Building the Future' : 'Néré Mining - Construire l\'Avenir' }}</p>
     </div>
     
 </section>

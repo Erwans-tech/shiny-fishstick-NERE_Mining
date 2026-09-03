@@ -175,10 +175,10 @@
         .breadcrumb a:hover { color:#fff; text-decoration:underline; }
 
         /* ── Contenu ── */
-        main { max-width:1240px; margin:auto; }
-        section { padding:80px 5vw; }
+        main { width:100%; max-width:1440px; margin:0 auto; }
+        section { padding:clamp(48px,6vw,88px) clamp(24px,5vw,72px); }
         section + section { padding-top:0; }
-        .lead { max-width:820px; color:var(--muted); font:19px/1.8 Inter,sans-serif; margin-bottom:48px; }
+        .lead { width:100%; max-width:820px; color:var(--muted); font:clamp(16px,1.35vw,19px)/1.8 Inter,sans-serif; margin-bottom:clamp(32px,4vw,48px); }
         h2 {
             color:var(--ink);
             font-size:clamp(26px,2.6vw,40px);
@@ -193,8 +193,8 @@
         p { color:var(--muted); font:19px/1.8 Inter,sans-serif; margin-bottom:12px; text-align:justify; }
 
         /* ── Grilles & Cards ── */
-        .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
-        .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
+        .grid-3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2.2vw,32px); }
+        .grid-2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(20px,2.5vw,36px); align-items:start; }
         .card {
             padding:30px;
             border:1px solid var(--line);
@@ -751,7 +751,7 @@
         /* ── Responsive ── */
         @media(max-width:900px) {
             .topbar { display:none; }
-            .grid-3, .grid-2, .steps, .team-grid, .contact-grid { grid-template-columns:1fr; }
+            .grid-3, .grid-2, .steps, .team-grid, .contact-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
             .stat-band { grid-template-columns:repeat(2,1fr); }
             .step::after { display:none; }
             .step { border-right:0; border-bottom:1px solid rgba(255,255,255,.15); }
@@ -769,6 +769,8 @@
             .values-card { height:auto; min-height:auto; }
         }
         @media(max-width:540px) {
+            section { padding-left:20px; padding-right:20px; }
+            .grid-3, .grid-2, .steps, .team-grid, .contact-grid { grid-template-columns:1fr; }
             .org-level--dga { grid-template-columns:1fr; }
             .org-hbar { display:none; }
             .org-connector-branch { height:16px; }
