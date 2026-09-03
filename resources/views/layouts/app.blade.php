@@ -350,7 +350,8 @@
             max-width:100%;
             word-wrap:break-word;
             overflow-wrap:break-word;
-            text-align:justify;
+            text-align:left;
+            text-justify:none;
         }
         .values-card-footer {
             margin-top:auto;
