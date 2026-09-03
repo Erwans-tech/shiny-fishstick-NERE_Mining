@@ -12,6 +12,13 @@
     .future-step .step-num { position:relative; z-index:1; margin-bottom:52px; color:rgba(255,194,71,.2); font:700 58px/1 Inter,sans-serif; letter-spacing:.08em; }
     .future-step h4 { position:relative; z-index:1; margin-bottom:16px; color:#fff; font:700 15px/1.3 Inter,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
     .future-step p { position:relative; z-index:1; margin:0; color:rgba(255,255,255,.72); font:14px/1.75 Inter,sans-serif; text-align:left; }
+    .future-crawler { position:absolute; z-index:3; left:0; bottom:8px; width:76px; height:34px; opacity:0; pointer-events:none; transform:translateX(-90px); transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .25s ease; filter:drop-shadow(0 5px 7px rgba(0,0,0,.35)); }
+    .future-crawler::before { content:""; position:absolute; left:8px; bottom:0; width:60px; height:12px; border:2px solid #161010; border-radius:9px; background:repeating-linear-gradient(90deg,#3b2921 0 8px,#b37a2d 8px 10px); }
+    .future-crawler::after { content:""; position:absolute; left:20px; bottom:11px; width:42px; height:16px; border-radius:3px 8px 2px 2px; background:#d89a32; border:2px solid #6e421b; box-shadow:-13px 5px 0 -4px #b87321; }
+    .future-crawler-cab { position:absolute; left:38px; bottom:25px; width:21px; height:13px; border:2px solid #6e421b; border-bottom:0; border-radius:3px 5px 0 0; background:#ffc247; }
+    .future-crawler-arm { position:absolute; left:57px; bottom:26px; width:20px; height:3px; background:#ffc247; transform:rotate(-28deg); transform-origin:left center; border-radius:2px; }
+    .future-steps:hover .future-crawler { opacity:1; }
+    @media (prefers-reduced-motion: reduce) { .future-crawler { display:none; } }
     @media(max-width:900px) { .future-steps { grid-template-columns:repeat(2,minmax(0,1fr)); } .future-step { min-height:300px; } }
     @media(max-width:540px) { .future-steps { grid-template-columns:1fr; } .future-step { min-height:0; } .future-step + .future-step { border-left:0; border-top:1px solid rgba(255,194,71,.18); } }
 </style>
@@ -20,10 +27,32 @@
     <h2>{{ __('site.karma_model_h2', [], $loc) }}</h2>
     <p class="lead">{{ __('site.karma_model_lead', [], $loc) }}</p>
     <div class="future-steps" role="list">
+        <div class="future-crawler" aria-hidden="true"><span class="future-crawler-cab"></span><span class="future-crawler-arm"></span></div>
         @foreach(range(1, 4) as $i)
         <article class="future-step" role="listitem"><div class="step-num">0{{ $i }}</div><h4>{{ __('site.karma_step'.$i.'_h4', [], $loc) }}</h4><p>{{ __('site.karma_step'.$i.'_p', [], $loc) }}</p></article>
         @endforeach
     </div>
 </section>
 </div>
+<script>
+    document.querySelectorAll('.future-steps').forEach(function (track) {
+        var crawler = track.querySelector('.future-crawler');
+        var steps = track.querySelectorAll('.future-step');
+        if (!crawler) return;
+        steps.forEach(function (step) {
+            step.addEventListener('mouseenter', function () {
+                var trackRect = track.getBoundingClientRect();
+                var stepRect = step.getBoundingClientRect();
+                var position = stepRect.left - trackRect.left + (stepRect.width - crawler.offsetWidth) / 2;
+                crawler.style.transform = 'translateX(' + position + 'px)';
+            });
+        });
+        track.addEventListener('mouseleave', function () {
+            crawler.style.opacity = '0';
+        });
+        track.addEventListener('mouseenter', function () {
+            crawler.style.opacity = '1';
+        });
+    });
+</script>
 @endsection
