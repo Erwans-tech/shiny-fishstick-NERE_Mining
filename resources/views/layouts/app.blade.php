@@ -74,6 +74,7 @@
     <link rel="stylesheet" href="{{ asset('css/animations.css') }}">
     <link rel="stylesheet" href="{{ asset('css/text-fixes.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive-global.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/text-containers-responsive.css') }}">
     <style>
         /* ══ Variables ══════════════════════════════════════════ */
         :root {

@@ -1,0 +1,440 @@
+/**
+ * Système de Containers de Texte Responsive
+ * Adapte automatiquement la largeur des div de texte à tous les écrans
+ * 
+ * Usage: Ajouter les classes .text-container-* aux divs de contenu
+ */
+
+/* ══════════════════════════════════════════════════════════════
+   VARIABLES & TOKENS
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+    /* Largeurs containers */
+    --container-narrow: min(100%, 760px);    /* Lecture optimale */
+    --container-reading: min(100%, 920px);   /* Texte long */
+    --container-standard: min(100%, 1180px); /* Standard sections */
+    --container-wide: min(100%, 1400px);     /* Contenu large */
+    --container-full: 100%;                  /* Pleine largeur */
+    
+    /* Padding horizontal responsive */
+    --padding-x: clamp(20px, 5vw, 88px);
+    --padding-x-sm: clamp(16px, 4vw, 48px);
+    --padding-x-lg: clamp(24px, 6vw, 120px);
+    
+    /* Gaps responsive */
+    --gap-xs: clamp(12px, 2vw, 16px);
+    --gap-sm: clamp(16px, 3vw, 24px);
+    --gap-md: clamp(24px, 4vw, 32px);
+    --gap-lg: clamp(32px, 5vw, 48px);
+    --gap-xl: clamp(48px, 6vw, 64px);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CLASSES CONTAINER RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+
+/* Container Étroit - Lecture optimale (60-75 caractères/ligne) */
+.text-container-narrow,
+.container-narrow {
+    max-width: var(--container-narrow);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--padding-x-sm);
+    padding-right: var(--padding-x-sm);
+    width: 100%;
+}
+
+/* Container Lecture - Texte long confortable */
+.text-container-reading,
+.container-reading {
+    max-width: var(--container-reading);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--padding-x);
+    padding-right: var(--padding-x);
+    width: 100%;
+}
+
+/* Container Standard - Contenu général */
+.text-container,
+.text-container-standard,
+.container-standard {
+    max-width: var(--container-standard);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--padding-x);
+    padding-right: var(--padding-x);
+    width: 100%;
+}
+
+/* Container Large - Contenu étendu */
+.text-container-wide,
+.container-wide {
+    max-width: var(--container-wide);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--padding-x-lg);
+    padding-right: var(--padding-x-lg);
+    width: 100%;
+}
+
+/* Container Pleine largeur avec padding */
+.text-container-full,
+.container-full {
+    max-width: 100%;
+    padding-left: var(--padding-x);
+    padding-right: var(--padding-x);
+    width: 100%;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   UTILITAIRES WRAPPER & SECTIONS
+   ══════════════════════════════════════════════════════════════ */
+
+/* Section avec background full-width mais contenu limité */
+.section-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.section-wrapper > .text-container,
+.section-wrapper > .text-container-standard,
+.section-wrapper > .text-container-wide {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Break out - Sort du container pour aller en full-width */
+.breakout-full {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    width: 100vw;
+    max-width: none;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TYPOGRAPHIE RESPONSIVE DANS CONTAINERS
+   ══════════════════════════════════════════════════════════════ */
+
+/* Headings adaptatifs */
+.text-container h1,
+.text-container-standard h1,
+.text-container-reading h1 {
+    font-size: clamp(28px, 5vw, 48px);
+    line-height: 1.2;
+    margin-bottom: clamp(16px, 3vw, 24px);
+}
+
+.text-container h2,
+.text-container-standard h2,
+.text-container-reading h2 {
+    font-size: clamp(24px, 4vw, 36px);
+    line-height: 1.3;
+    margin-bottom: clamp(12px, 2vw, 20px);
+}
+
+.text-container h3,
+.text-container-standard h3,
+.text-container-reading h3 {
+    font-size: clamp(20px, 3.5vw, 28px);
+    line-height: 1.4;
+    margin-bottom: clamp(10px, 2vw, 16px);
+}
+
+/* Paragraphes lisibles */
+.text-container p,
+.text-container-standard p,
+.text-container-reading p {
+    font-size: clamp(15px, 1.8vw, 17px);
+    line-height: 1.75;
+    margin-bottom: clamp(16px, 2.5vw, 20px);
+    max-width: 75ch; /* Limite pour lecture optimale */
+}
+
+/* Lead paragraph */
+.text-container .lead,
+.text-container-standard .lead,
+.text-container-reading .lead {
+    font-size: clamp(16px, 2vw, 20px);
+    line-height: 1.7;
+    margin-bottom: clamp(20px, 3vw, 28px);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   GRIDS RESPONSIVE DANS CONTAINERS
+   ══════════════════════════════════════════════════════════════ */
+
+/* Grid 2 colonnes → 1 colonne mobile */
+.text-container .grid-2,
+.text-container-standard .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--gap-md);
+}
+
+/* Grid 3 colonnes → 2 → 1 */
+.text-container .grid-3,
+.text-container-standard .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--gap-md);
+}
+
+/* Grid 4 colonnes → 2 → 1 */
+.text-container .grid-4,
+.text-container-standard .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: var(--gap-sm);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SPACING UTILITIES RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+
+/* Padding vertical sections */
+.section-py-sm {
+    padding-top: clamp(32px, 6vw, 48px);
+    padding-bottom: clamp(32px, 6vw, 48px);
+}
+
+.section-py,
+.section-py-md {
+    padding-top: clamp(48px, 8vw, 64px);
+    padding-bottom: clamp(48px, 8vw, 64px);
+}
+
+.section-py-lg {
+    padding-top: clamp(64px, 10vw, 96px);
+    padding-bottom: clamp(64px, 10vw, 96px);
+}
+
+/* Margin bottom responsive */
+.mb-responsive {
+    margin-bottom: clamp(24px, 4vw, 40px);
+}
+
+.mb-responsive-lg {
+    margin-bottom: clamp(40px, 6vw, 64px);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ADAPTATIONS SPÉCIFIQUES EXISTANTES
+   ══════════════════════════════════════════════════════════════ */
+
+/* Override inline styles problématiques */
+[style*="max-width:1180px"],
+[style*="max-width: 1180px"] {
+    max-width: var(--container-standard) !important;
+    padding-left: var(--padding-x) !important;
+    padding-right: var(--padding-x) !important;
+}
+
+[style*="max-width:920px"],
+[style*="max-width: 920px"] {
+    max-width: var(--container-reading) !important;
+    padding-left: var(--padding-x) !important;
+    padding-right: var(--padding-x) !important;
+}
+
+[style*="max-width:760px"],
+[style*="max-width: 760px"] {
+    max-width: var(--container-narrow) !important;
+    padding-left: var(--padding-x-sm) !important;
+    padding-right: var(--padding-x-sm) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   IMAGES & MEDIA RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+
+.text-container img,
+.text-container-standard img,
+.text-container-reading img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.text-container figure,
+.text-container-standard figure {
+    margin: clamp(24px, 4vw, 40px) 0;
+}
+
+.text-container figcaption,
+.text-container-standard figcaption {
+    font-size: clamp(13px, 1.5vw, 15px);
+    color: var(--muted, #6b7280);
+    margin-top: clamp(8px, 1.5vw, 12px);
+    line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TABLES RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+
+.text-container table,
+.text-container-standard table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+    font-size: clamp(13px, 1.6vw, 15px);
+}
+
+@media (max-width: 768px) {
+    .text-container table,
+    .text-container-standard table {
+        font-size: 12px;
+    }
+}
+
+/* Wrapper scrollable pour tables larges */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: clamp(24px, 4vw, 32px) 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CARDS & PANELS DANS CONTAINERS
+   ══════════════════════════════════════════════════════════════ */
+
+.text-container .card,
+.text-container-standard .card {
+    padding: clamp(20px, 4vw, 32px);
+    border-radius: clamp(8px, 1.5vw, 12px);
+}
+
+.text-container .panel,
+.text-container-standard .panel {
+    padding: clamp(24px, 4vw, 40px);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BREAKPOINTS SPÉCIFIQUES
+   ══════════════════════════════════════════════════════════════ */
+
+/* Mobile Small (< 375px) */
+@media (max-width: 374px) {
+    :root {
+        --padding-x: 16px;
+        --padding-x-sm: 12px;
+    }
+    
+    .text-container,
+    .text-container-standard,
+    .text-container-reading,
+    .text-container-narrow {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+}
+
+/* Mobile (375px - 639px) */
+@media (min-width: 375px) and (max-width: 639px) {
+    .text-container h1 { font-size: 28px; }
+    .text-container h2 { font-size: 24px; }
+    .text-container h3 { font-size: 20px; }
+}
+
+/* Tablet (640px - 1023px) */
+@media (min-width: 640px) and (max-width: 1023px) {
+    .text-container h1 { font-size: 36px; }
+    .text-container h2 { font-size: 28px; }
+    .text-container h3 { font-size: 22px; }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+    /* Largeurs optimales desktop */
+    .text-container-narrow {
+        max-width: 760px;
+    }
+    
+    .text-container-reading {
+        max-width: 920px;
+    }
+    
+    .text-container-standard {
+        max-width: 1180px;
+    }
+    
+    .text-container-wide {
+        max-width: 1400px;
+    }
+}
+
+/* Large Desktop (1920px+) */
+@media (min-width: 1920px) {
+    .text-container-wide {
+        max-width: 1600px;
+    }
+}
+
+/* Ultra-wide (2560px+) */
+@media (min-width: 2560px) {
+    .text-container-wide {
+        max-width: 1920px;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ACCESSIBILITY & PRINT
+   ══════════════════════════════════════════════════════════════ */
+
+/* Focus visible pour navigation clavier */
+.text-container a:focus-visible,
+.text-container-standard a:focus-visible {
+    outline: 2px solid var(--gold, #ffc247);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .text-container *,
+    .text-container-standard * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .text-container,
+    .text-container-standard,
+    .text-container-reading,
+    .text-container-narrow {
+        max-width: 100%;
+        padding: 0;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ══════════════════════════════════════════════════════════════ */
+
+/* Centrage texte */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+/* Max-width texte lisible */
+.max-w-readable {
+    max-width: 75ch;
+}
+
+/* Padding annulé (pour nested containers) */
+.no-padding-x {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Width full (pour sortir du container) */
+.w-full {
+    width: 100%;
+    max-width: none;
+}
