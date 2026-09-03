@@ -6,6 +6,7 @@
 
 @push('styles')
 <style>
+    .governance-page { width:100vw; max-width:none; margin-left:calc(50% - 50vw); padding-left:clamp(24px,5vw,88px); padding-right:clamp(24px,5vw,88px); background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,244,220,.5)); }
     .leadership-section { padding-top:0; }
     .leadership-intro { max-width:760px; margin:0 auto 34px; text-align:center; }
     .leadership-intro h2 { margin-bottom:10px; }
@@ -13,10 +14,10 @@
     .leadership-level + .leadership-level { margin-top:42px; }
     .leadership-level-heading { display:flex; align-items:center; gap:14px; margin:0 0 18px; color:var(--green); font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
     .leadership-level-heading::after { content:""; height:1px; flex:1; background:linear-gradient(90deg,var(--gold),transparent); }
-    .leadership-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; }
+    .leadership-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:22px; }
     .leadership-card { min-height:310px; display:flex; flex-direction:column; align-items:center; padding:26px 18px 22px; text-align:center; background:rgba(255,255,255,.9); border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:14px; box-shadow:0 8px 24px rgba(40,29,24,.07); transition:transform .25s,box-shadow .25s,border-color .25s; }
     .leadership-card:hover { transform:translateY(-5px); border-color:var(--gold); box-shadow:0 16px 30px rgba(40,29,24,.12); }
-    .leadership-card--lead { max-width:700px; margin:0 auto; flex-direction:row; gap:24px; align-items:center; text-align:left; background:linear-gradient(135deg,#4b1716,#2d0d10); color:#fff; border-top-color:var(--gold); }
+    .leadership-card--lead { grid-column:1 / -1; width:min(700px,100%); justify-self:center; max-width:700px; margin:0 auto; flex-direction:row; gap:24px; align-items:center; text-align:left; background:linear-gradient(135deg,#4b1716,#2d0d10); color:#fff; border-top-color:var(--gold); }
     .leadership-card--lead .leadership-name,.leadership-card--lead .leadership-title { color:#fff; }
     .leadership-card--lead .leadership-department { color:rgba(255,255,255,.7); }
     .leadership-photo { width:142px; height:142px; flex:0 0 142px; object-fit:cover; border-radius:50%; border:5px solid rgba(255,194,71,.75); background:var(--sand); }
@@ -31,7 +32,7 @@
 </style>
 @endpush
 
-<section>
+    <section class="governance-page">
 
     <p class="lead">{{ __('site.company_gov_lead', [], $loc) }}</p>
 
