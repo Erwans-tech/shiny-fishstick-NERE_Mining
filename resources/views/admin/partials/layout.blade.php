@@ -514,6 +514,10 @@
            class="nav-item {{ request()->routeIs('admin.partners.*') ? 'active' : '' }}">
             <span class="nav-icon">🤝</span> Partenaires
         </a>
+        <a href="{{ route('admin.leadership.index') }}"
+           class="nav-item {{ request()->routeIs('admin.leadership.*') ? 'active' : '' }}">
+            <span class="nav-icon">👥</span> Équipe de direction
+        </a>
         @php $unread = \App\Models\ContactMessage::whereNull('read_at')->count(); @endphp
         <a href="{{ route('admin.messages.index') }}"
            class="nav-item {{ request()->routeIs('admin.messages.*') ? 'active' : '' }}">

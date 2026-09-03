@@ -4,68 +4,72 @@
 @section('content')
 @php $companyBase = $en ? route('english.company') : route('company'); @endphp
 
+@push('styles')
+<style>
+    .leadership-section { padding-top:0; }
+    .leadership-intro { max-width:760px; margin:0 auto 34px; text-align:center; }
+    .leadership-intro h2 { margin-bottom:10px; }
+    .leadership-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; }
+    .leadership-card { min-height:330px; display:flex; flex-direction:column; align-items:center; padding:26px 18px 22px; text-align:center; background:rgba(255,255,255,.9); border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:14px; box-shadow:0 8px 24px rgba(40,29,24,.07); transition:transform .25s,box-shadow .25s,border-color .25s; }
+    .leadership-card:hover { transform:translateY(-5px); border-color:var(--gold); box-shadow:0 16px 30px rgba(40,29,24,.12); }
+    .leadership-card--lead { grid-column:span 2; flex-direction:row; gap:24px; align-items:center; text-align:left; background:linear-gradient(135deg,#4b1716,#2d0d10); color:#fff; border-top-color:var(--gold); }
+    .leadership-card--lead .leadership-name,.leadership-card--lead .leadership-title { color:#fff; }
+    .leadership-card--lead .leadership-department { color:rgba(255,255,255,.7); }
+    .leadership-photo { width:142px; height:142px; flex:0 0 142px; object-fit:cover; border-radius:50%; border:5px solid rgba(255,194,71,.75); background:var(--sand); }
+    .leadership-card:not(.leadership-card--lead) .leadership-photo { width:118px; height:118px; flex-basis:118px; margin-bottom:18px; }
+    .leadership-initials { display:grid; place-items:center; font-size:38px; font-weight:700; color:var(--green); }
+    .leadership-card--lead .leadership-initials { color:#fff; background:rgba(255,255,255,.12); }
+    .leadership-name { margin:0 0 8px; color:var(--green); font-size:18px; font-weight:700; line-height:1.25; }
+    .leadership-title { margin:0 0 8px; color:var(--gold2); font-size:13px; font-weight:700; line-height:1.35; text-transform:uppercase; letter-spacing:.05em; }
+    .leadership-department { margin:0; color:var(--muted); font-size:14px; line-height:1.5; }
+    @media(max-width:900px) { .leadership-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .leadership-card--lead { grid-column:span 2; } }
+    @media(max-width:540px) { .leadership-grid { grid-template-columns:1fr; } .leadership-card--lead { grid-column:auto; flex-direction:column; text-align:center; } }
+</style>
+@endpush
+
 <section>
 
     <p class="lead">{{ __('site.company_gov_lead', [], $loc) }}</p>
 
-    {{-- Callout + principes --}}
-    <div class="governance-intro">
-        <div class="governance-callout">
-            <h3>{{ __('site.company_gov_callout_h3', [], $loc) }}</h3>
-            <p>{{ __('site.company_gov_callout_p', [], $loc) }}</p>
+    @php
+        $fallbackLeadership = [
+            ['name' => 'Dr. Justin Elie OUEDRAOGO', 'title' => $en ? 'Chief Executive Officer' : 'Président Directeur Général', 'department' => '', 'photo_path' => 'images/mining/mining-workers-01.jpg'],
+            ['name' => 'Justin SAVADOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Administration & Finance' : 'Administration & Finance', 'photo_path' => 'images/mining/gold-processing-01.jpg'],
+            ['name' => 'Pascal Y. OUEDRAOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Supply & Procurement' : 'Approvisionnements', 'photo_path' => 'images/mining/mining-equipment-01.jpg'],
+            ['name' => 'Laurent Michel DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'photo_path' => 'images/mining/mining-site-aerial-01.jpg'],
+            ['name' => 'Augustine OBENG-FORI', 'title' => $en ? 'Deputy CEO (interim)' : 'DGA par intérim', 'department' => $en ? 'Operations' : 'Opérations', 'photo_path' => 'images/mining/mining-environment-01.jpg'],
+        ];
+        $leadershipMembers = $leadership->isNotEmpty() ? $leadership : collect($fallbackLeadership);
+    @endphp
+
+    <div class="leadership-section">
+        <div class="leadership-intro">
+            <h2>{{ $en ? 'Our leadership team' : 'Notre équipe de direction' }}</h2>
+            <p>{{ $en ? 'Meet the leaders who guide Néré Mining and its commitments to the territory.' : 'Découvrez les dirigeants qui portent la vision de Néré Mining et ses engagements pour le territoire.' }}</p>
         </div>
-        <div class="governance-principles">
-            @foreach(range(1, 3) as $i)
-            <div class="governance-principle">
-                <strong>{{ __('site.company_gov_principle'.$i.'_title', [], $loc) }}</strong>
-                <span>{{ __('site.company_gov_principle'.$i.'_p', [], $loc) }}</span>
-            </div>
+        <div class="leadership-grid">
+            @foreach($leadershipMembers as $index => $member)
+            @php
+                $name = is_array($member) ? $member['name'] : $member->name;
+                $title = is_array($member) ? $member['title'] : $member->title;
+                $department = is_array($member) ? $member['department'] : $member->department;
+                $photoPath = is_array($member) ? $member['photo_path'] : $member->photo_path;
+                $photoUrl = $photoPath ? \App\Helpers\StorageHelper::uploadUrl($photoPath) : null;
+                $initials = collect(preg_split('/\s+/', trim($name)))->filter()->map(fn($part) => strtoupper(substr($part, 0, 1)))->take(2)->implode('');
+            @endphp
+            <article class="leadership-card {{ $index === 0 ? 'leadership-card--lead' : '' }}">
+                @if($photoUrl)
+                <img class="leadership-photo" src="{{ $photoUrl }}" alt="{{ $name }}" loading="lazy">
+                @else
+                <div class="leadership-photo leadership-initials" aria-hidden="true">{{ $initials }}</div>
+                @endif
+                <div>
+                    <h3 class="leadership-name">{{ $name }}</h3>
+                    <p class="leadership-title">{{ $title }}</p>
+                    @if($department)<p class="leadership-department">{{ $department }}</p>@endif
+                </div>
+            </article>
             @endforeach
-        </div>
-    </div>
-
-    {{-- Organigramme --}}
-    <div class="governance-chart-panel">
-        <div class="governance-chart-heading">
-            <h3>{{ __('site.company_gov_chart_h3', [], $loc) }}</h3>
-        </div>
-        <div class="governance-legend">
-            <span><i class="legend-pdg"></i>{{ __('site.company_gov_legend_pdg', [], $loc) }}</span>
-            <span><i class="legend-dga"></i>{{ __('site.company_gov_legend_dga', [], $loc) }}</span>
-        </div>
-
-        <div class="org-chart">
-            {{-- PDG --}}
-            <div class="org-level org-level--top">
-                <div class="org-box org-box--pdg">
-                    <div class="org-name">Dr. Justin Elie OUEDRAOGO</div>
-                    <div class="org-title">{{ $en ? 'Chief Executive Officer' : 'Président Directeur Général' }}</div>
-                </div>
-            </div>
-            <div class="org-connector-v"></div>
-            <div class="org-hbar"></div>
-
-            {{-- 4 DGA --}}
-            <div class="org-level org-level--dga">
-                @php
-                    $dgas = [
-                        ['name' => 'Justin SAVADOGO',       'grade' => 'DGA', 'title_fr' => 'Administration & Finance',          'title_en' => 'Administration & Finance'],
-                        ['name' => 'Pascal Y. OUEDRAOGO',   'grade' => 'DGA', 'title_fr' => 'Approvisionnements',                 'title_en' => 'Supply & Procurement'],
-                        ['name' => 'Laurent Michel DABIRE', 'grade' => 'DGA', 'title_fr' => 'Affaires Corporatives & Juridiques', 'title_en' => 'Corporate & Legal Affairs'],
-                        ['name' => 'Augustine OBENG-FORI',  'grade' => $en ? 'Deputy CEO (interim)' : 'DGA par intérim', 'title_fr' => 'Opérations', 'title_en' => 'Operations'],
-                    ];
-                @endphp
-                @foreach($dgas as $dga)
-                <div class="org-branch">
-                    <div class="org-connector-branch"></div>
-                    <div class="org-box org-box--dga">
-                        <div class="org-name">{{ $dga['name'] }}</div>
-                        <div class="org-grade">{{ $dga['grade'] }}</div>
-                        <div class="org-title">{{ $en ? $dga['title_en'] : $dga['title_fr'] }}</div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
         </div>
     </div>
 </section>

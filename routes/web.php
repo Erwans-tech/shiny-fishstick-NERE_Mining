@@ -8,6 +8,7 @@ use App\Models\KarmaDepartment;
 use App\Models\MediaAsset;
 use App\Models\NewsletterSubscriber;
 use App\Models\Partner;
+use App\Models\LeadershipMember;
 use App\Models\PressDocument;
 use App\Models\Report;
 use App\Http\Controllers\JobOfferController;
@@ -90,6 +91,9 @@ $page = function (string $locale, string $section, array $extra = []) {
             : collect(),
         'certifications' => $section === 'company-identity'
             ? Certification::active()->ordered()->get()
+            : collect(),
+        'leadership' => $section === 'company-governance'
+            ? LeadershipMember::where('is_published', true)->orderBy('sort_order')->get()
             : collect(),
     ], $extra));
 };
@@ -372,6 +376,14 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::get('/partenaires/{partner}/modifier',  [AdminPartnerController::class, 'edit'])->name('partners.edit');
         Route::put('/partenaires/{partner}',           [AdminPartnerController::class, 'update'])->name('partners.update');
         Route::delete('/partenaires/{partner}',        [AdminPartnerController::class, 'destroy'])->name('partners.destroy');
+
+        // Equipe de direction
+        Route::get('/equipe-direction',                         [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'index'])->name('leadership.index');
+        Route::get('/equipe-direction/creer',                   [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'create'])->name('leadership.create');
+        Route::post('/equipe-direction',                        [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'store'])->name('leadership.store');
+        Route::get('/equipe-direction/{leadership}/modifier',   [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'edit'])->name('leadership.edit');
+        Route::put('/equipe-direction/{leadership}',            [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'update'])->name('leadership.update');
+        Route::delete('/equipe-direction/{leadership}',         [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'destroy'])->name('leadership.destroy');
 
         // Communiqués de presse
         Route::get('/communiques',                           [AdminPressController::class, 'index'])->name('press.index');
