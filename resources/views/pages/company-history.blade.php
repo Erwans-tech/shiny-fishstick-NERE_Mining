@@ -1,4 +1,4 @@
-{{-- Page : Notre histoire - Mining Excavation Timeline --}}
+{{-- Page : Notre histoire - Illuminated Manuscript Timeline --}}
 @extends('layouts.app')
 
 @section('content')
@@ -6,630 +6,686 @@
 
 <style>
     /* ══════════════════════════════════════════════════════════════
-       MINING EXCAVATION TIMELINE - Design Unique
-       Concept: Timeline comme une excavation minière avec strates
-       ══════════════════════════════════════════════════════════════ */
-    /* ══════════════════════════════════════════════════════════════
-       MINING EXCAVATION TIMELINE - Design Unique
-       Concept: Timeline comme une excavation minière avec strates
+       ILLUMINATED MANUSCRIPT TIMELINE - Premium Design  
+       Concept: Histoire racontée dans un manuscrit enluminé interactif
        ══════════════════════════════════════════════════════════════ */
     
     :root {
-        --depth-surface: #f4e8d8;
-        --depth-1: #e8d5c4;
-        --depth-2: #dcc4b0;
-        --depth-3: #c9a687;
-        --depth-4: #b08968;
-        --rock-dark: #5a4a3a;
-        --gold-ore: #ffd700;
-        --copper: #b87333;
+        --parchment: #f9f6f0;
+        --parchment-dark: #e8e3d8;
+        --ink: #2d2820;
+        --gold-leaf: #d4af37;
+        --gold-bright: #ffd700;
+        --burgundy: #800020;
+        --sepia: #704214;
+        --leather: #5c4033;
     }
     
     .history-page {
         position: relative;
         min-height: 100vh;
-        background: linear-gradient(180deg, #e8f2f7 0%, var(--depth-surface) 100%);
+        background: radial-gradient(ellipse at center, #1a1612 0%, #0d0a08 100%);
+        padding: 80px 20px 120px;
         overflow: hidden;
-        padding: 80px 0 0;
     }
     
-    /* Clouds floating above the excavation */
+    /* Ambient library lighting */
     .history-page::before {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 200px;
-        background: 
-            radial-gradient(ellipse 200px 60px at 20% 40%, rgba(255,255,255,.7), transparent),
-            radial-gradient(ellipse 180px 50px at 60% 60%, rgba(255,255,255,.5), transparent),
-            radial-gradient(ellipse 220px 70px at 85% 30%, rgba(255,255,255,.6), transparent);
+        top: -50%;
+        left: 50%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(212,175,55,.15), transparent 70%);
+        transform: translateX(-50%);
         pointer-events: none;
-        animation: floatClouds 40s ease-in-out infinite;
+        animation: ambientGlow 8s ease-in-out infinite;
     }
     
-    @keyframes floatClouds {
-        0%, 100% { transform: translateX(0); }
-        50% { transform: translateX(30px); }
+    @keyframes ambientGlow {
+        0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+        50% { opacity: 0.6; transform: translateX(-50%) scale(1.1); }
     }
     
-    /* Sun in the sky */
-    .history-sun {
+    /* Floating dust particles */
+    .dust-particle {
         position: absolute;
-        top: 50px;
-        right: 100px;
-        width: 80px;
-        height: 80px;
+        width: 2px;
+        height: 2px;
+        background: rgba(212,175,55,.4);
         border-radius: 50%;
-        background: radial-gradient(circle, #ffd700, #ffed4e);
-        box-shadow: 0 0 40px rgba(255,215,0,.6),
-                    0 0 80px rgba(255,215,0,.3);
-        animation: pulseSun 4s ease-in-out infinite;
-        z-index: 1;
+        pointer-events: none;
+        animation: floatDust 15s linear infinite;
     }
     
-    @keyframes pulseSun {
-        0%, 100% { transform: scale(1); opacity: 0.9; }
-        50% { transform: scale(1.05); opacity: 1; }
+    @keyframes floatDust {
+        0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(-100px) translateX(100px); opacity: 0; }
     }
     
     /* ── Introduction ─────────────────────────────────────────── */
-    .history-intro {
-        position: relative;
-        max-width: 900px;
-        margin: 0 auto 60px;
+    .manuscript-intro {
         text-align: center;
+        max-width: 800px;
+        margin: 0 auto 80px;
+        position: relative;
         z-index: 2;
-        padding: 0 20px;
     }
     
-    .history-intro-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 24px;
-        background: rgba(255,255,255,.9);
-        border: 2px solid var(--gold);
-        border-radius: 30px;
-        color: var(--rock-dark);
-        font: 700 11px Inter, sans-serif;
-        letter-spacing: .2em;
-        text-transform: uppercase;
+    .manuscript-title {
+        font: 300 48px/1.2 'Playfair Display', Georgia, serif;
+        color: var(--gold-leaf);
         margin-bottom: 20px;
-        box-shadow: 0 4px 12px rgba(0,0,0,.1);
+        letter-spacing: .05em;
+        text-shadow: 0 2px 8px rgba(212,175,55,.4);
+        animation: fadeInTitle 1.5s ease-out;
     }
     
-    .history-intro-badge::before {
-        content: '⛏️';
-        font-size: 16px;
-        animation: pickaxeSwing 2s ease-in-out infinite;
+    @keyframes fadeInTitle {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
     
-    @keyframes pickaxeSwing {
-        0%, 100% { transform: rotate(-20deg); }
-        50% { transform: rotate(20deg); }
+    .manuscript-subtitle {
+        font: 400 14px/1.8 Inter, sans-serif;
+        color: var(--parchment-dark);
+        letter-spacing: .15em;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        opacity: 0;
+        animation: fadeIn 1.5s ease-out 0.5s forwards;
     }
     
-    .history-intro .lead {
-        font-size: 18px;
-        line-height: 1.8;
-        color: var(--rock-dark);
+    .manuscript-subtitle::before,
+    .manuscript-subtitle::after {
+        content: '◆';
+        margin: 0 16px;
+        color: var(--gold-leaf);
+        font-size: 10px;
     }
     
-    /* ── Excavation Site Container ───────────────────────────── */
-    .excavation-site {
-        position: relative;
-        max-width: 1400px;
+    .manuscript-lead {
+        font: 400 16px/1.9 Georgia, serif;
+        color: var(--parchment);
+        opacity: 0;
+        animation: fadeIn 1.5s ease-out 1s forwards;
+    }
+    
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+    
+    /* ── Chronicle Book Container ────────────────────────────── */
+    .chronicle-book {
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 0 20px 100px;
-        perspective: 1500px;
-    }
-    
-    /* Ground surface edge */
-    .ground-surface {
+        perspective: 2000px;
         position: relative;
-        height: 60px;
-        background: linear-gradient(180deg, #8b7355 0%, #6b5844 100%);
-        border-top: 4px solid #5a4a3a;
-        margin-bottom: -20px;
-        z-index: 5;
-        box-shadow: inset 0 4px 8px rgba(0,0,0,.3);
     }
     
-    .ground-surface::before {
+    /* Book spine/binding effect */
+    .book-binding {
+        position: relative;
+        width: 20px;
+        height: 400px;
+        background: linear-gradient(90deg, 
+            var(--leather) 0%,
+            #4a3428 50%,
+            var(--leather) 100%
+        );
+        margin: 0 auto 60px;
+        border-radius: 4px;
+        box-shadow: 
+            inset 0 0 10px rgba(0,0,0,.5),
+            0 8px 20px rgba(0,0,0,.6);
+        animation: revealBinding 1s ease-out 0.3s backwards;
+    }
+    
+    @keyframes revealBinding {
+        from { height: 0; opacity: 0; }
+        to { height: 400px; opacity: 1; }
+    }
+    
+    .book-binding::before,
+    .book-binding::after {
         content: '';
         position: absolute;
-        top: -20px;
-        left: 0;
-        right: 0;
-        height: 20px;
-        background: repeating-linear-gradient(
-            90deg,
-            #90a955 0px,
-            #90a955 3px,
-            #7d9342 3px,
-            #7d9342 6px
-        );
+        left: 50%;
+        transform: translateX(-50%);
+        width: 14px;
+        height: 2px;
+        background: var(--gold-leaf);
+        box-shadow: 0 0 6px rgba(212,175,55,.6);
     }
     
-    /* Excavation pit */
-    .excavation-pit {
+    .book-binding::before { top: 40px; }
+    .book-binding::after { bottom: 40px; }
+    
+    /* ── Manuscript Pages ────────────────────────────────────── */
+    .manuscript-pages {
         position: relative;
-        background: linear-gradient(180deg, 
-            var(--depth-1) 0%,
-            var(--depth-2) 30%,
-            var(--depth-3) 60%,
-            var(--depth-4) 100%
-        );
-        border-left: 8px solid var(--rock-dark);
-        border-right: 8px solid var(--rock-dark);
-        padding: 60px 40px 80px;
-        transform-style: preserve-3d;
-        box-shadow: inset 0 10px 30px rgba(0,0,0,.4);
     }
     
-    /* Rock texture overlay */
-    .excavation-pit::before {
+    .manuscript-page {
+        position: relative;
+        margin-bottom: 100px;
+        transform-style: preserve-3d;
+        animation: revealPage 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    }
+    
+    .manuscript-page:nth-child(1) { animation-delay: 0.6s; }
+    .manuscript-page:nth-child(2) { animation-delay: 0.9s; }
+    .manuscript-page:nth-child(3) { animation-delay: 1.2s; }
+    .manuscript-page:nth-child(4) { animation-delay: 1.5s; }
+    
+    @keyframes revealPage {
+        0% {
+            opacity: 0;
+            transform: rotateY(-90deg) translateX(-200px);
+        }
+        100% {
+            opacity: 1;
+            transform: rotateY(0deg) translateX(0);
+        }
+    }
+    
+    /* Page wrapper with fold effect */
+    .page-wrapper {
+        position: relative;
+        background: var(--parchment);
+        border-radius: 8px;
+        box-shadow: 
+            0 20px 60px rgba(0,0,0,.8),
+            inset 0 0 0 1px rgba(212,175,55,.2),
+            inset 0 1px 0 rgba(255,255,255,.3);
+        transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        overflow: hidden;
+        cursor: pointer;
+    }
+    
+    .page-wrapper:hover {
+        transform: translateY(-12px) rotateX(2deg);
+        box-shadow: 
+            0 30px 80px rgba(0,0,0,.9),
+            0 0 0 2px var(--gold-leaf),
+            inset 0 0 0 1px rgba(212,175,55,.3),
+            inset 0 1px 0 rgba(255,255,255,.4);
+    }
+    
+    /* Parchment texture overlay */
+    .page-wrapper::before {
         content: '';
         position: absolute;
         inset: 0;
         background-image: 
-            radial-gradient(circle at 20% 30%, rgba(90,74,58,.3) 2px, transparent 2px),
-            radial-gradient(circle at 80% 60%, rgba(90,74,58,.2) 3px, transparent 3px),
-            radial-gradient(circle at 40% 80%, rgba(90,74,58,.25) 2px, transparent 2px);
-        background-size: 100px 100px;
-        opacity: 0.5;
+            repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(45,40,32,.02) 2px,
+                rgba(45,40,32,.02) 4px
+            );
+        pointer-events: none;
+        opacity: 0.6;
+    }
+    
+    /* Gold leaf corner decorations */
+    .page-wrapper::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 120px;
+        height: 120px;
+        background: 
+            radial-gradient(circle at 0 0, transparent 50%, var(--gold-leaf) 50%, var(--gold-leaf) 52%, transparent 52%),
+            radial-gradient(circle at 100% 0, transparent 50%, var(--gold-leaf) 50%, var(--gold-leaf) 52%, transparent 52%);
+        opacity: 0.15;
         pointer-events: none;
     }
     
-    /* ── Geological Layers (Events) ──────────────────────────── */
-    .geological-layer {
-        position: relative;
-        margin: 0 auto 80px;
-        max-width: 1000px;
-        transform-style: preserve-3d;
-        animation: revealLayer 1s ease-out backwards;
-    }
-    
-    .geological-layer:nth-child(1) { animation-delay: 0.2s; }
-    .geological-layer:nth-child(2) { animation-delay: 0.4s; }
-    .geological-layer:nth-child(3) { animation-delay: 0.6s; }
-    .geological-layer:nth-child(4) { animation-delay: 0.8s; }
-    
-    @keyframes revealLayer {
-        from {
-            opacity: 0;
-            transform: translateY(40px) translateZ(-100px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0) translateZ(0);
-        }
-    }
-    
-    /* Layer structure */
-    .layer-wrapper {
+    /* ── Page Content ────────────────────────────────────────── */
+    .page-content {
         display: grid;
-        grid-template-columns: 80px 1fr;
-        gap: 30px;
-        align-items: start;
-    }
-    
-    /* Depth marker (left side) */
-    .depth-marker {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .depth-marker-line {
-        width: 3px;
-        height: 100%;
-        min-height: 120px;
-        background: linear-gradient(180deg, 
-            var(--gold-ore),
-            var(--copper),
-            var(--rock-dark)
-        );
-        box-shadow: 0 0 10px rgba(255,215,0,.3);
+        grid-template-columns: 180px 1fr;
+        gap: 40px;
+        padding: 50px;
         position: relative;
     }
     
-    .depth-marker-line::before,
-    .depth-marker-line::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        width: 20px;
-        height: 2px;
-        background: var(--rock-dark);
-        transform: translateX(-50%);
+    /* Illuminated Initial (Drop cap with gold decoration) */
+    .illuminated-initial {
+        position: relative;
+        align-self: start;
+        text-align: center;
     }
     
-    .depth-marker-line::before { top: 0; }
-    .depth-marker-line::after { bottom: 0; }
-    
-    .depth-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--gold-ore), #ffed4e);
-        border: 4px solid var(--rock-dark);
+    .initial-decoration {
+        width: 140px;
+        height: 140px;
+        background: linear-gradient(135deg, var(--burgundy), #a0002f);
+        border: 4px solid var(--gold-leaf);
+        border-radius: 12px;
         display: grid;
         place-items: center;
-        font: 700 20px Inter, sans-serif;
-        color: var(--rock-dark);
         box-shadow: 
-            0 0 0 8px rgba(255,215,0,.2),
-            0 8px 20px rgba(0,0,0,.3),
-            inset 0 2px 4px rgba(255,255,255,.4);
+            0 0 0 8px var(--parchment),
+            0 0 0 10px var(--gold-leaf),
+            0 8px 24px rgba(0,0,0,.4),
+            inset 0 2px 8px rgba(255,255,255,.2);
         position: relative;
-        animation: rotateMinerals 15s linear infinite;
-    }
-    
-    @keyframes rotateMinerals {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
-    /* Sparkle effect on gold */
-    .depth-icon::after {
-        content: '✦';
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        color: white;
-        font-size: 14px;
-        animation: sparkle 2s ease-in-out infinite;
-        text-shadow: 0 0 8px rgba(255,255,255,.8);
-    }
-    
-    @keyframes sparkle {
-        0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-        50% { opacity: 1; transform: scale(1) rotate(180deg); }
-    }
-    
-    /* Stratum card (the actual content) */
-    .stratum-card {
-        position: relative;
-        background: linear-gradient(135deg, 
-            rgba(255,255,255,.95) 0%,
-            rgba(255,248,240,.95) 100%
-        );
-        border: 3px solid var(--rock-dark);
-        border-left-width: 8px;
-        border-radius: 12px;
-        padding: 30px 35px;
-        box-shadow: 
-            -4px 0 0 0 var(--gold-ore),
-            8px 8px 0 0 rgba(90,74,58,.3),
-            0 12px 30px rgba(0,0,0,.2);
-        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        cursor: pointer;
         overflow: hidden;
     }
     
-    /* Rock chips decoration */
-    .stratum-card::before {
+    /* Ornamental pattern inside */
+    .initial-decoration::before {
         content: '';
         position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 40px;
-        height: 40px;
-        background: radial-gradient(circle at 30% 30%, 
-            rgba(184,115,51,.2), 
-            transparent
-        );
-        border-radius: 50% 40% 50% 40%;
+        inset: 8px;
+        border: 1px solid rgba(212,175,55,.3);
+        border-radius: 8px;
         pointer-events: none;
     }
     
-    .stratum-card:hover {
-        transform: translateX(8px) translateY(-4px);
-        box-shadow: 
-            -4px 0 0 0 var(--gold-ore),
-            12px 12px 0 0 rgba(90,74,58,.4),
-            0 16px 40px rgba(0,0,0,.3);
+    .initial-number {
+        font: 700 56px/1 'Playfair Display', Georgia, serif;
+        color: var(--gold-bright);
+        text-shadow: 
+            0 2px 4px rgba(0,0,0,.5),
+            0 0 20px rgba(255,215,0,.4);
+        position: relative;
+        z-index: 1;
     }
     
-    /* Fossil/artifact badge */
-    .stratum-badge {
-        position: absolute;
-        top: -12px;
-        right: 30px;
-        padding: 4px 14px;
-        background: var(--rock-dark);
-        color: var(--gold-ore);
-        font: 700 10px Inter, sans-serif;
-        letter-spacing: .15em;
+    .initial-label {
+        display: block;
+        margin-top: 16px;
+        font: 600 11px/1.4 Inter, sans-serif;
+        letter-spacing: .2em;
         text-transform: uppercase;
-        border-radius: 4px;
-        box-shadow: 0 4px 8px rgba(0,0,0,.3);
+        color: var(--gold-leaf);
+        text-shadow: 0 1px 2px rgba(0,0,0,.3);
     }
     
-    .stratum-header {
+    /* Decorative flourish */
+    .flourish-line {
+        width: 60%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold-leaf), transparent);
+        margin: 12px auto 0;
+        position: relative;
+    }
+    
+    .flourish-line::before {
+        content: '◆';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--gold-leaf);
+        font-size: 8px;
+        background: var(--parchment);
+        padding: 0 6px;
+    }
+    
+    /* Text content */
+    .page-text {
+        position: relative;
+    }
+    
+    .page-header {
         display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 20px;
-        margin-bottom: 16px;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 24px;
+        border-bottom: 2px solid var(--gold-leaf);
+        padding-bottom: 16px;
     }
     
-    .stratum-title {
-        font: 600 24px Inter, sans-serif;
-        color: var(--green);
-        line-height: 1.3;
+    .chapter-title {
+        font: 400 32px/1.3 'Playfair Display', Georgia, serif;
+        color: var(--ink);
         flex: 1;
+        position: relative;
     }
     
-    .stratum-toggle {
-        width: 36px;
-        height: 36px;
+    /* Animated underline */
+    .chapter-title::after {
+        content: '';
+        position: absolute;
+        bottom: -18px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--gold-leaf), transparent);
+        transition: width 0.8s ease-out;
+    }
+    
+    .page-wrapper:hover .chapter-title::after {
+        width: 100%;
+    }
+    
+    .page-toggle {
+        width: 44px;
+        height: 44px;
         border-radius: 50%;
-        background: var(--gold);
-        color: var(--rock-dark);
-        border: 3px solid var(--rock-dark);
+        background: linear-gradient(135deg, var(--gold-leaf), var(--gold-bright));
+        border: 3px solid var(--burgundy);
         display: grid;
         place-items: center;
-        font: 700 20px/1 Inter, sans-serif;
+        font: 700 24px/1 Inter, sans-serif;
+        color: var(--burgundy);
         cursor: pointer;
-        transition: all 0.3s ease;
-        flex-shrink: 0;
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        box-shadow: 
+            0 4px 12px rgba(0,0,0,.3),
+            inset 0 1px 2px rgba(255,255,255,.5);
     }
     
-    .stratum-toggle:hover {
-        transform: rotate(90deg) scale(1.1);
-        background: var(--gold-ore);
-        box-shadow: 0 0 12px rgba(255,215,0,.6);
+    .page-toggle:hover {
+        transform: rotate(180deg) scale(1.1);
+        box-shadow: 
+            0 6px 20px rgba(212,175,55,.6),
+            inset 0 1px 2px rgba(255,255,255,.7);
     }
     
-    .stratum-card[open] .stratum-toggle {
-        background: var(--rock-dark);
-        color: var(--gold-ore);
+    .manuscript-page[open] .page-toggle {
+        background: linear-gradient(135deg, var(--burgundy), #a0002f);
+        color: var(--gold-bright);
         transform: rotate(180deg);
     }
     
-    .stratum-content {
-        color: var(--muted);
-        font-size: 15px;
-        line-height: 1.8;
-        padding-top: 16px;
-        border-top: 2px dashed rgba(90,74,58,.2);
-        animation: unfoldContent 0.5s ease-out;
+    .page-body {
+        font: 400 16px/1.9 Georgia, serif;
+        color: var(--sepia);
+        text-align: justify;
+        padding: 0 50px 50px 270px;
+        animation: unfoldText 0.6s ease-out;
     }
     
-    @keyframes unfoldContent {
+    @keyframes unfoldText {
         from {
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(-20px);
+            filter: blur(4px);
         }
         to {
             opacity: 1;
             transform: translateY(0);
+            filter: blur(0);
         }
     }
     
-    /* Mineral deposits floating around */
-    .mineral-deposit {
+    /* First letter styling */
+    .page-body::first-letter {
+        font-size: 2em;
+        font-weight: 700;
+        color: var(--burgundy);
+        float: left;
+        line-height: 0.8;
+        margin: 8px 8px 0 0;
+    }
+    
+    /* Marginal annotations (decorative notes) */
+    .marginal-note {
         position: absolute;
-        width: 8px;
-        height: 8px;
-        background: var(--gold-ore);
+        right: -60px;
+        top: 50%;
+        transform: translateY(-50%);
+        font: italic 11px/1.4 Georgia, serif;
+        color: var(--gold-leaf);
+        text-align: right;
+        max-width: 50px;
+        opacity: 0;
+        transition: opacity 0.4s;
+    }
+    
+    .page-wrapper:hover .marginal-note {
+        opacity: 0.7;
+    }
+    
+    /* Wax seal decoration */
+    .wax-seal {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        width: 60px;
+        height: 60px;
+        background: radial-gradient(circle, var(--burgundy), #5c0015);
         border-radius: 50%;
-        box-shadow: 0 0 8px rgba(255,215,0,.6);
-        animation: floatMineral 6s ease-in-out infinite;
+        border: 3px solid rgba(212,175,55,.4);
+        box-shadow: 
+            0 4px 12px rgba(0,0,0,.4),
+            inset 0 -2px 6px rgba(0,0,0,.5);
+        display: grid;
+        place-items: center;
+        font: 700 10px Inter, sans-serif;
+        color: var(--gold-leaf);
+        letter-spacing: .15em;
         pointer-events: none;
     }
     
-    .mineral-deposit:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
-    .mineral-deposit:nth-child(2) { top: 40%; right: 15%; animation-delay: 1s; }
-    .mineral-deposit:nth-child(3) { top: 65%; left: 20%; animation-delay: 2s; }
-    .mineral-deposit:nth-child(4) { top: 85%; right: 25%; animation-delay: 3s; }
-    
-    @keyframes floatMineral {
-        0%, 100% { 
-            transform: translateY(0) scale(1);
-            opacity: 0.6;
-        }
-        50% { 
-            transform: translateY(-20px) scale(1.2);
-            opacity: 1;
-        }
+    .wax-seal::before {
+        content: attr(data-year);
+        position: relative;
+        z-index: 1;
     }
     
-    /* Drill equipment at bottom */
-    .drill-equipment {
-        text-align: center;
-        padding: 40px 20px;
-        color: var(--rock-dark);
-        font: 600 13px Inter, sans-serif;
-        letter-spacing: .1em;
-        text-transform: uppercase;
+    .wax-seal::after {
+        content: '';
+        position: absolute;
+        inset: 12px;
+        border: 1px solid rgba(212,175,55,.3);
+        border-radius: 50%;
     }
     
-    .drill-equipment::before {
-        content: '⚙️';
-        display: block;
-        font-size: 40px;
-        margin-bottom: 12px;
-        animation: rotateDrill 3s linear infinite;
+    /* ── Quill pen animation (floating) ──────────────────────── */
+    .quill-pen {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        width: 60px;
+        height: 60px;
+        background: rgba(212,175,55,.1);
+        border: 2px solid var(--gold-leaf);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(0,0,0,.4);
+        animation: floatQuill 3s ease-in-out infinite;
+        z-index: 100;
+        transition: all 0.3s;
     }
     
-    @keyframes rotateDrill {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
+    .quill-pen:hover {
+        transform: scale(1.1) rotate(15deg);
+        background: rgba(212,175,55,.2);
+        box-shadow: 0 6px 24px rgba(212,175,55,.4);
+    }
+    
+    @keyframes floatQuill {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(5deg); }
     }
     
     /* ── Responsive ──────────────────────────────────────────── */
     @media (max-width: 900px) {
         .history-page {
-            padding: 60px 0 0;
+            padding: 60px 15px 80px;
         }
         
-        .history-sun {
-            width: 60px;
-            height: 60px;
-            top: 30px;
-            right: 30px;
+        .manuscript-title {
+            font-size: 36px;
         }
         
-        .history-intro {
+        .book-binding {
+            height: 200px;
             margin-bottom: 40px;
         }
         
-        .excavation-pit {
-            padding: 40px 20px 60px;
-            border-left-width: 4px;
-            border-right-width: 4px;
+        .page-content {
+            grid-template-columns: 1fr;
+            gap: 30px;
+            padding: 30px 24px;
         }
         
-        .layer-wrapper {
-            grid-template-columns: 50px 1fr;
-            gap: 15px;
+        .illuminated-initial {
+            margin: 0 auto;
         }
         
-        .depth-icon {
+        .initial-decoration {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .initial-number {
+            font-size: 42px;
+        }
+        
+        .chapter-title {
+            font-size: 24px;
+        }
+        
+        .page-body {
+            font-size: 15px;
+            padding: 20px 0 0;
+        }
+        
+        .manuscript-page {
+            margin-bottom: 60px;
+        }
+        
+        .marginal-note,
+        .quill-pen {
+            display: none;
+        }
+        
+        .wax-seal {
             width: 50px;
             height: 50px;
-            font-size: 16px;
-        }
-        
-        .depth-marker-line {
-            min-height: 100px;
-        }
-        
-        .stratum-card {
-            padding: 20px 24px;
-        }
-        
-        .stratum-title {
-            font-size: 20px;
-        }
-        
-        .stratum-toggle {
-            width: 32px;
-            height: 32px;
-            font-size: 18px;
-        }
-        
-        .geological-layer {
-            margin-bottom: 50px;
-        }
-        
-        .mineral-deposit {
-            display: none;
+            bottom: 20px;
+            right: 20px;
         }
     }
 </style>
 
 <section class="history-page">
-    <div class="history-sun"></div>
+    <!-- Dust particles -->
+    <div class="dust-particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="dust-particle" style="left: 30%; animation-delay: 3s;"></div>
+    <div class="dust-particle" style="left: 60%; animation-delay: 6s;"></div>
+    <div class="dust-particle" style="left: 80%; animation-delay: 9s;"></div>
     
-    <div class="history-intro">
-        <div class="history-intro-badge">
-            <span>{{ $en ? 'Excavating Our Past' : 'Excavation de Notre Histoire' }}</span>
-        </div>
-        <p class="lead">{{ __('site.company_history_lead', [], $loc) }}</p>
+    <div class="manuscript-intro">
+        <h1 class="manuscript-title">{{ $en ? 'The Chronicles' : 'Les Chroniques' }}</h1>
+        <p class="manuscript-subtitle">{{ $en ? 'Of Néré Mining' : 'de Néré Mining' }}</p>
+        <p class="manuscript-lead">{{ __('site.company_history_lead', [], $loc) }}</p>
     </div>
 
-    <div class="excavation-site">
-        <div class="ground-surface"></div>
+    <div class="chronicle-book">
+        <div class="book-binding"></div>
         
-        <div class="excavation-pit">
-            <div class="mineral-deposit"></div>
-            <div class="mineral-deposit"></div>
-            <div class="mineral-deposit"></div>
-            <div class="mineral-deposit"></div>
-            
+        <div class="manuscript-pages">
             @foreach(range(1, 4) as $i)
-            <article class="geological-layer">
-                <div class="layer-wrapper">
-                    <div class="depth-marker">
-                        <div class="depth-icon">{{ $i }}</div>
-                        <div class="depth-marker-line"></div>
+            <details class="manuscript-page" {{ $i === 1 ? 'open' : '' }}>
+                <summary class="page-wrapper">
+                    <div class="page-content">
+                        <div class="illuminated-initial">
+                            <div class="initial-decoration">
+                                <span class="initial-number">{{ $i }}</span>
+                            </div>
+                            <span class="initial-label">{{ $en ? 'Chapter' : 'Chapitre' }}</span>
+                            <div class="flourish-line"></div>
+                        </div>
+                        
+                        <div class="page-text">
+                            <div class="page-header">
+                                <h3 class="chapter-title">{{ __('site.company_hist'.$i.'_title', [], $loc) }}</h3>
+                                <div class="page-toggle">+</div>
+                            </div>
+                            
+                            <div class="marginal-note">Anno {{ 2000 + ($i * 5) }}</div>
+                        </div>
                     </div>
                     
-                    <details class="stratum-card" {{ $i === 1 ? 'open' : '' }}>
-                        <summary class="stratum-header">
-                            <span class="stratum-badge">{{ $en ? 'Era' : 'Ère' }} 0{{ $i }}</span>
-                            <h3 class="stratum-title">{{ __('site.company_hist'.$i.'_title', [], $loc) }}</h3>
-                            <div class="stratum-toggle">+</div>
-                        </summary>
-                        <div class="stratum-content">
-                            <p>{{ __('site.company_hist'.$i.'_p', [], $loc) }}</p>
-                        </div>
-                    </details>
+                    <div class="wax-seal" data-year="{{ 2000 + ($i * 5) }}"></div>
+                </summary>
+                
+                <div class="page-body">
+                    <p>{{ __('site.company_hist'.$i.'_p', [], $loc) }}</p>
                 </div>
-            </article>
+            </details>
             @endforeach
-            
-            <div class="drill-equipment">
-                {{ $en ? 'Digging Deeper Into Tomorrow' : 'Creusons Plus Profond Vers Demain' }}
-            </div>
         </div>
+    </div>
+    
+    <div class="quill-pen" title="{{ $en ? 'Scroll to top' : 'Retour en haut' }}" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        🪶
     </div>
 </section>
 
 <script>
-// Interactive stratum cards
-document.querySelectorAll('.stratum-card').forEach(card => {
-    const toggle = card.querySelector('.stratum-toggle');
-    const summary = card.querySelector('.stratum-header');
+// Interactive manuscript pages
+document.querySelectorAll('.manuscript-page').forEach(page => {
+    const toggle = page.querySelector('.page-toggle');
     
-    // Prevent default details behavior for custom animation
-    summary.addEventListener('click', function(e) {
-        if (e.target === toggle || toggle.contains(e.target)) {
-            return; // Let it work naturally
-        }
-    });
-    
-    // Update toggle icon
-    card.addEventListener('toggle', function() {
-        if (card.open) {
+    page.addEventListener('toggle', function() {
+        if (page.open) {
             toggle.textContent = '−';
         } else {
             toggle.textContent = '+';
         }
     });
-    
-    // 3D tilt effect on hover
-    card.addEventListener('mousemove', function(e) {
-        if (window.innerWidth > 900) {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+});
+
+// Parallax effect on mouse move
+document.addEventListener('mousemove', function(e) {
+    if (window.innerWidth > 900) {
+        const pages = document.querySelectorAll('.page-wrapper');
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+        
+        pages.forEach(page => {
+            const rect = page.getBoundingClientRect();
             
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-            
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateX(8px) translateY(-4px)`;
-        }
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        card.style.transform = '';
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const tiltX = (mouseY - 0.5) * 5;
+                const tiltY = (mouseX - 0.5) * -5;
+                page.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+            }
+        });
+    }
+});
+
+// Reset transform on mouse leave
+document.querySelectorAll('.page-wrapper').forEach(page => {
+    page.addEventListener('mouseleave', function() {
+        page.style.transform = '';
     });
 });
 
-// Parallax depth effect on scroll
-window.addEventListener('scroll', function() {
-    const layers = document.querySelectorAll('.geological-layer');
-    const scrolled = window.pageYOffset;
-    
-    layers.forEach((layer, index) => {
-        const speed = (index + 1) * 0.1;
-        const yPos = -(scrolled * speed);
-        if (window.innerWidth > 900) {
-            layer.style.transform = `translateY(${yPos}px)`;
+// Scroll reveal animation enhancement
+const observerOptions = {
+    threshold: 0.2,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0) rotateY(0deg)';
         }
     });
-}, { passive: true });
+}, observerOptions);
+
+document.querySelectorAll('.manuscript-page').forEach(page => {
+    observer.observe(page);
+});
 </script>
 @endsection
