@@ -747,25 +747,6 @@
         @endphp
         <div class="partners-strip" role="list">
             <div class="partners-track">
-            @foreach([$defaultPartners, $defaultPartners] as $partnerSet)
-            @foreach($partnerSet as $p)
-            @if($p['url'])
-            <a href="{{ $p['url'] }}" target="_blank" rel="noopener noreferrer" class="partner-logo-item" role="listitem">
-            @else
-            <div class="partner-logo-item" role="listitem">
-            @endif
-                <img class="partner-logo-img"
-                     src="{{ $p['img'] }}"
-                     alt="{{ $p['name'] }}"
-                     loading="lazy"
-                     width="120" height="56">
-                <span class="partner-logo-name">{{ $p['name'] }}</span>
-                <span class="partner-logo-cat">{{ $p['cat'] }}</span>
-            @if($p['url'])
-            </a>
-            @else
-            </div>
-            @endif
             @foreach([1, 2] as $copy)
             @foreach($defaultPartners as $p)
             @php $tag = $p['url'] ? 'a' : 'div'; $attrs = $p['url'] ? 'href="'.$p['url'].'" target="_blank" rel="noopener noreferrer"' : ''; @endphp
@@ -795,33 +776,46 @@
                 @if($p->category) <span class="partner-logo-cat">{{ $p->category }}</span> @endif
             </{{ $tag }}>
             @endforeach
-            var raw    = el.getAttribute('data-target');
+            @endforeach
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    @include('partials._footer', ['loc' => $loc, 'en' => $en])
+
+    <script>
+    (function(){
+        'use strict';
+        function easeOutQuad(t){ return t*(2-t); }
+        function runCounter(el){
+            var raw = el.getAttribute('data-target');
             var suffix = el.getAttribute('data-suffix') || '';
-            var limit  = parseInt(raw, 10);
-            var dur = 1700, start = null;
+            var limit = parseInt(raw, 10);
+            if(isNaN(limit)){ el.textContent = raw + suffix; return; }
+            var start = null;
             function step(ts){
                 if(!start) start = ts;
-                var p = Math.min((ts-start)/dur, 1);
-                el.textContent = Math.floor(easeOutQuad(p)*limit).toLocaleString('fr-FR') + suffix;
-                if(p < 1) requestAnimationFrame(step);
+                var progress = Math.min((ts-start)/1700, 1);
+                el.textContent = Math.floor(easeOutQuad(progress)*limit).toLocaleString('fr-FR') + suffix;
+                if(progress < 1) requestAnimationFrame(step);
                 else el.textContent = limit.toLocaleString('fr-FR') + suffix;
             }
             requestAnimationFrame(step);
         }
-
-        /* Fire counters when stats section enters viewport */
         var bigCounters = document.querySelectorAll('.stat-num');
         var statsSection = document.getElementById('chiffres');
         if(bigCounters.length && statsSection && 'IntersectionObserver' in window){
             var fired = false;
-            var io = new IntersectionObserver(function(entries){
+            var observer = new IntersectionObserver(function(entries){
                 if(entries[0].isIntersecting && !fired){
                     fired = true;
                     bigCounters.forEach(runCounter);
-                    io.disconnect();
+                    observer.disconnect();
                 }
             }, {threshold: 0.2});
-            io.observe(statsSection);
+            observer.observe(statsSection);
         } else {
             bigCounters.forEach(function(el){
                 var raw = el.getAttribute('data-target');
@@ -830,31 +824,22 @@
                 el.textContent = (isNaN(limit) ? raw : limit.toLocaleString('fr-FR')) + suffix;
             });
         }
-
-        /* Animate hero stat values when the hero enters view */
         function animateHeroValue(el){
             var raw = el.getAttribute('data-target');
             var suffix = el.getAttribute('data-suffix') || '';
             var limit = parseInt(raw, 10);
-            if(isNaN(limit)){
-                el.textContent = raw + suffix;
-                return;
-            }
-
+            if(isNaN(limit)){ el.textContent = raw + suffix; return; }
             var start = null;
-            var duration = 1600;
             function step(ts){
                 if(!start) start = ts;
-                var p = Math.min((ts - start) / duration, 1);
-                var eased = 1 - Math.pow(1 - p, 3);
-                var current = Math.round(limit * eased);
-                el.textContent = current.toLocaleString('fr-FR') + suffix;
-                if(p < 1) requestAnimationFrame(step);
+                var progress = Math.min((ts-start)/1600, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(limit * eased).toLocaleString('fr-FR') + suffix;
+                if(progress < 1) requestAnimationFrame(step);
                 else el.textContent = limit.toLocaleString('fr-FR') + suffix;
             }
             requestAnimationFrame(step);
         }
-
         var heroValues = document.querySelectorAll('.hero-stat-val');
         var heroSection = document.querySelector('.hero');
         if(heroValues.length && heroSection && 'IntersectionObserver' in window){
@@ -865,7 +850,7 @@
                     heroValues.forEach(animateHeroValue);
                     heroObserver.disconnect();
                 }
-            }, { threshold: 0.35 });
+            }, {threshold: 0.35});
             heroObserver.observe(heroSection);
         } else {
             heroValues.forEach(function(el){
@@ -875,13 +860,10 @@
                 el.textContent = (isNaN(limit) ? raw : limit.toLocaleString('fr-FR')) + suffix;
             });
         }
-
-        /* ── Sticky header ── */
         var hdr = document.querySelector('header');
         if(hdr && !hdr.classList.contains('stuck')){
-            /* on mobile header is already fixed via CSS, skip JS */
-            var mq = window.matchMedia('(min-width:901px)');
-            if(mq.matches){
+            var mediaQuery = window.matchMedia('(min-width:901px)');
+            if(mediaQuery.matches){
                 var stuck = false;
                 window.addEventListener('scroll', function(){
                     var need = window.scrollY > 80;
@@ -892,8 +874,6 @@
                 }, {passive:true});
             }
         }
-
-        /* ── Mobile menu ── */
         var btn = document.querySelector('.menu-btn');
         if(btn){
             btn.addEventListener('click', function(){
@@ -902,7 +882,6 @@
                 btn.setAttribute('aria-expanded', open);
             });
         }
-
     })();
     </script>
 </body>
