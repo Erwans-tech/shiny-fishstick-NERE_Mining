@@ -332,7 +332,7 @@
             background:rgba(255,194,71,.12);
         }
         .values-card h3 {
-            font-size:clamp(20px,1.5vw,30px);
+            font-size:clamp(24px,2vw,32px);
             line-height:1.1;
             letter-spacing:-.04em;
             margin:0 0 12px;
@@ -340,6 +340,7 @@
             max-width:100%;
             word-wrap:break-word;
             overflow-wrap:break-word;
+            text-align:center;
         }
         .values-card p {
             margin:0;
