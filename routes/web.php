@@ -86,7 +86,7 @@ $page = function (string $locale, string $section, array $extra = []) {
         'description' => $description,
         'reports' => $section === 'reports' ? Report::published()->latest('published_at')->get() : collect(),
         'jobs'    => $section === 'careers'  ? JobOffer::open()->latest()->get()                : collect(),
-        'karmaDepartments' => $section === 'karma'
+        'karmaDepartments' => in_array($section, ['karma', 'karma-organisation'])
             ? KarmaDepartment::published()->get()
             : collect(),
         'certifications' => $section === 'company-identity'
@@ -112,6 +112,10 @@ Route::get('/qui-sommes-nous/histoire',    fn() => $page('fr', 'company-history'
 Route::get('/qui-sommes-nous/valeurs',     fn() => $page('fr', 'company-values'))->name('company.values');
 Route::get('/qui-sommes-nous/gouvernance', fn() => $page('fr', 'company-governance'))->name('company.governance');
 Route::get('/karma',                        fn() => $page('fr', 'karma'))->name('karma');
+Route::get('/karma/exploitation',           fn() => $page('fr', 'karma-exploitation'))->name('karma.exploitation');
+Route::get('/karma/organisation',           fn() => $page('fr', 'karma-organisation'))->name('karma.organisation');
+Route::get('/karma/modele-operationnel',    fn() => $page('fr', 'karma-modele'))->name('karma.modele');
+Route::get('/karma/impact',                  fn() => $page('fr', 'karma-impact'))->name('karma.impact');
 Route::get('/ressources',                   fn() => $page('fr', 'resources'))->name('resources');
 Route::get('/reserves',                     fn() => $page('fr', 'reserves'))->name('reserves');
 Route::get('/projets',                      fn() => $page('fr', 'projects'))->name('projects');
@@ -196,6 +200,10 @@ Route::get('/en/about/history',     fn() => $page('en', 'company-history'))->nam
 Route::get('/en/about/values',      fn() => $page('en', 'company-values'))->name('english.company.values');
 Route::get('/en/about/governance',  fn() => $page('en', 'company-governance'))->name('english.company.governance');
 Route::get('/en/karma',              fn() => $page('en', 'karma'))->name('english.karma');
+Route::get('/en/karma/exploitation', fn() => $page('en', 'karma-exploitation'))->name('english.karma.exploitation');
+Route::get('/en/karma/organisation', fn() => $page('en', 'karma-organisation'))->name('english.karma.organisation');
+Route::get('/en/karma/operating-model', fn() => $page('en', 'karma-modele'))->name('english.karma.modele');
+Route::get('/en/karma/impact',       fn() => $page('en', 'karma-impact'))->name('english.karma.impact');
 Route::get('/en/resources',           fn() => $page('en', 'resources'))->name('english.resources');
 Route::get('/en/reserves',             fn() => $page('en', 'reserves'))->name('english.reserves');
 Route::get('/en/projects',           fn() => $page('en', 'projects'))->name('english.projects');

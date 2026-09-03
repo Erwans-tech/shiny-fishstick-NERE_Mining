@@ -46,12 +46,22 @@
             </span>
 
             <span class="site-nav__item" data-dropdown>
-                <a class="site-nav__link {{ in_array($sec, ['karma','resources','reserves']) ? 'is-active' : '' }}"
+                <a class="site-nav__link {{ in_array($sec, ['karma','karma-exploitation','karma-organisation','karma-modele','karma-impact','resources','reserves']) ? 'is-active' : '' }}"
                    href="{{ $en ? route('english.karma') : route('karma') }}">
                     {{ __('site.nav_karma') }}
                     <span class="site-nav__caret" aria-hidden="true"></span>
                 </a>
                 <div class="site-nav__menu" role="menu">
+                          <a href="{{ $en ? route('english.karma') : route('karma') }}"
+                              class="{{ $sec === 'karma' ? 'is-current' : '' }}">{{ $en ? 'Overview' : 'Présentation' }}</a>
+                          <a href="{{ $en ? route('english.karma.exploitation') : route('karma.exploitation') }}"
+                              class="{{ $sec === 'karma-exploitation' ? 'is-current' : '' }}">{{ $en ? 'Operations' : 'Exploitation' }}</a>
+                          <a href="{{ $en ? route('english.karma.organisation') : route('karma.organisation') }}"
+                              class="{{ $sec === 'karma-organisation' ? 'is-current' : '' }}">{{ $en ? 'Organisation' : 'Organisation' }}</a>
+                          <a href="{{ $en ? route('english.karma.modele') : route('karma.modele') }}"
+                              class="{{ $sec === 'karma-modele' ? 'is-current' : '' }}">{{ $en ? 'Operating model' : 'Modèle opérationnel' }}</a>
+                          <a href="{{ $en ? route('english.karma.impact') : route('karma.impact') }}"
+                              class="{{ $sec === 'karma-impact' ? 'is-current' : '' }}">{{ $en ? 'Impact' : 'Impact' }}</a>
                     <a href="{{ $en ? route('english.resources') : route('resources') }}"
                        class="{{ $sec === 'resources' ? 'is-current' : '' }}">{{ __('site.nav_karma_resources') }}</a>
                     <a href="{{ $en ? route('english.reserves') : route('reserves') }}"

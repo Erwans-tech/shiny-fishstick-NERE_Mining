@@ -52,6 +52,7 @@
     </div>
 </section>
 
+@if(false)
 {{-- Chiffres de production --}}
 <section id="exploitation" class="sand">
     <h2>{{ __('site.karma_prod_h2', [], $loc) }}</h2>
@@ -271,5 +272,6 @@
     </div>
 </section>
 
+@endif
 </div>
 @endsection
