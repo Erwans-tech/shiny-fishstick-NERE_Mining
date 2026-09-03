@@ -1,4 +1,4 @@
-{{-- Page : Notre histoire --}}
+{{-- Page : Notre histoire - Style IAM Gold Essakane --}}
 @extends('layouts.app')
 
 @section('content')
@@ -6,310 +6,265 @@
 
 <style>
     /* ══════════════════════════════════════════════════════════════
-       SIMPLE MODERN TIMELINE - Mining Theme
-       Design épuré et agréable comme les sites corporatifs modernes
+       TIMELINE STYLE IAM GOLD - Layout horizontal avec années
        ══════════════════════════════════════════════════════════════ */
     
     .history-page {
-        background: linear-gradient(180deg, #f8f6f3 0%, #fff 100%);
+        background: #f8f8f8;
         padding: 80px 0 100px;
     }
     
-    /* ── Header Section ──────────────────────────────────────── */
+    /* ── Header ──────────────────────────────────────────────── */
     .history-header {
-        text-align: center;
-        max-width: 800px;
-        margin: 0 auto 80px;
-        padding: 0 20px;
+        max-width: 1200px;
+        margin: 0 auto 60px;
+        padding: 0 40px;
     }
     
-    .history-subtitle {
-        font: 600 13px/1.4 Inter, sans-serif;
-        letter-spacing: .15em;
-        text-transform: uppercase;
-        color: var(--gold2);
-        margin-bottom: 16px;
-    }
-    
-    .history-title {
+    .history-header h1 {
         font: 600 42px/1.2 Inter, sans-serif;
         color: var(--green);
         margin-bottom: 24px;
     }
     
-    .history-lead {
-        font: 400 18px/1.7 Inter, sans-serif;
-        color: var(--muted);
-        max-width: 700px;
-        margin: 0 auto;
+    .history-intro {
+        font: 400 16px/1.8 Inter, sans-serif;
+        color: #666;
+        max-width: 900px;
+        background: #fff;
+        padding: 32px;
+        border-radius: 8px;
+        border-left: 4px solid var(--gold);
+        box-shadow: 0 2px 12px rgba(0,0,0,.06);
     }
     
     /* ── Timeline Container ──────────────────────────────────── */
-    .timeline-container {
-        max-width: 1000px;
+    .timeline-wrapper {
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0 40px;
         position: relative;
     }
     
     /* Vertical line */
-    .timeline-container::before {
+    .timeline-wrapper::before {
         content: '';
         position: absolute;
-        left: 50%;
+        left: 220px;
         top: 0;
         bottom: 0;
         width: 2px;
-        background: linear-gradient(180deg, 
-            transparent,
-            var(--gold) 10%,
-            var(--gold) 90%,
-            transparent
-        );
-        transform: translateX(-50%);
+        background: #ddd;
     }
     
     /* ── Timeline Item ───────────────────────────────────────── */
-    .timeline-item {
+    .timeline-event {
         display: grid;
-        grid-template-columns: 1fr 100px 1fr;
-        gap: 40px;
-        align-items: center;
-        margin-bottom: 80px;
+        grid-template-columns: 160px 60px 1fr;
+        gap: 0;
+        margin-bottom: 40px;
         position: relative;
         opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInUp 0.6s ease-out forwards;
+        animation: fadeIn 0.6s ease-out forwards;
     }
     
-    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
-    .timeline-item:nth-child(2) { animation-delay: 0.2s; }
-    .timeline-item:nth-child(3) { animation-delay: 0.3s; }
-    .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+    .timeline-event:nth-child(1) { animation-delay: 0.1s; }
+    .timeline-event:nth-child(2) { animation-delay: 0.2s; }
+    .timeline-event:nth-child(3) { animation-delay: 0.3s; }
+    .timeline-event:nth-child(4) { animation-delay: 0.4s; }
     
-    @keyframes fadeInUp {
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
         to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
         }
     }
     
-    /* Left content (odd items) */
-    .timeline-item:nth-child(odd) .timeline-content {
-        grid-column: 1;
+    /* Year badge (left) */
+    .event-year {
         text-align: right;
+        padding-right: 20px;
+        padding-top: 32px;
     }
     
-    /* Right content (even items) */
-    .timeline-item:nth-child(even) .timeline-content {
-        grid-column: 3;
-        text-align: left;
+    .year-text {
+        font: 700 28px/1.2 Inter, sans-serif;
+        color: var(--gold2);
+        display: block;
+        letter-spacing: -.02em;
     }
     
-    /* ── Timeline Marker ─────────────────────────────────────── */
-    .timeline-marker {
-        grid-column: 2;
+    /* Dot marker (center) */
+    .event-marker {
+        position: relative;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 38px;
+    }
+    
+    .marker-dot {
+        width: 14px;
+        height: 14px;
+        background: var(--gold);
+        border: 3px solid #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 0 2px var(--gold);
+        position: relative;
         z-index: 2;
     }
     
-    .marker-icon {
-        width: 70px;
-        height: 70px;
-        background: linear-gradient(135deg, var(--green), var(--green2));
-        border: 4px solid #fff;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        box-shadow: 0 0 0 4px var(--gold), 0 8px 20px rgba(0,0,0,.15);
-        font: 700 20px Inter, sans-serif;
-        color: var(--gold);
-        transition: transform 0.3s ease;
-    }
-    
-    .timeline-item:hover .marker-icon {
-        transform: scale(1.15);
-    }
-    
-    .marker-year {
-        font: 600 12px Inter, sans-serif;
-        letter-spacing: .1em;
-        color: var(--gold2);
-        padding: 4px 12px;
-        background: rgba(255,194,71,.1);
-        border-radius: 12px;
-    }
-    
-    /* ── Timeline Content Card ───────────────────────────────── */
-    .timeline-content {
+    /* Content card (right) */
+    .event-content {
         background: #fff;
-        padding: 32px;
-        border-radius: 12px;
+        padding: 32px 36px;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0,0,0,.06);
         border-left: 4px solid var(--gold);
-        box-shadow: 0 4px 20px rgba(0,0,0,.08);
         transition: all 0.3s ease;
     }
     
-    .timeline-content:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 30px rgba(0,0,0,.12);
-        border-left-color: var(--gold2);
+    .event-content:hover {
+        box-shadow: 0 4px 20px rgba(0,0,0,.1);
+        transform: translateY(-2px);
     }
     
-    .content-title {
-        font: 600 24px/1.3 Inter, sans-serif;
+    .event-title {
+        font: 600 22px/1.3 Inter, sans-serif;
         color: var(--green);
         margin-bottom: 16px;
     }
     
-    .content-text {
+    .event-text {
         font: 400 15px/1.7 Inter, sans-serif;
-        color: var(--muted);
+        color: #666;
     }
     
-    /* Mining icon decorations */
-    .mining-icon {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        background: var(--gold);
-        mask-size: contain;
-        mask-position: center;
-        margin-bottom: -4px;
-        margin-right: 8px;
-    }
-    
-    /* ── Decorative Elements ─────────────────────────────────── */
-    .history-decoration {
-        position: absolute;
-        opacity: 0.05;
-        pointer-events: none;
-    }
-    
-    .decoration-top {
-        top: -40px;
-        right: 5%;
-        width: 200px;
-        height: 200px;
-        background: radial-gradient(circle, var(--gold), transparent 70%);
-    }
-    
-    .decoration-bottom {
-        bottom: -40px;
-        left: 5%;
-        width: 250px;
-        height: 250px;
-        background: radial-gradient(circle, var(--green), transparent 70%);
-    }
-    
-    /* ── Bottom CTA ──────────────────────────────────────────── */
+    /* ── Footer ──────────────────────────────────────────────── */
     .timeline-footer {
+        max-width: 1200px;
+        margin: 60px auto 0;
+        padding: 0 40px;
         text-align: center;
-        margin-top: 60px;
-        padding: 40px 20px;
+    }
+    
+    .timeline-footer-icon {
+        font-size: 36px;
+        opacity: 0.2;
+        margin-bottom: 12px;
     }
     
     .timeline-footer-text {
-        font: 600 16px/1.6 Inter, sans-serif;
-        color: var(--green);
-        margin-bottom: 16px;
-    }
-    
-    .footer-icon {
-        font-size: 32px;
-        opacity: 0.3;
+        font: 600 14px/1.6 Inter, sans-serif;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: var(--gold2);
     }
     
     /* ── Responsive ──────────────────────────────────────────── */
     @media (max-width: 768px) {
-        .history-title {
+        .history-page {
+            padding: 60px 0 80px;
+        }
+        
+        .history-header,
+        .timeline-wrapper,
+        .timeline-footer {
+            padding: 0 20px;
+        }
+        
+        .history-header h1 {
             font-size: 32px;
         }
         
-        .timeline-container {
-            padding: 0 20px 0 80px;
-        }
-        
-        .timeline-container::before {
-            left: 40px;
-        }
-        
-        .timeline-item {
-            grid-template-columns: 1fr;
-            gap: 0;
-            margin-bottom: 60px;
-        }
-        
-        .timeline-marker {
-            position: absolute;
-            left: 5px;
-            top: 0;
-            grid-column: auto;
-        }
-        
-        .marker-icon {
-            width: 60px;
-            height: 60px;
-            font-size: 18px;
-        }
-        
-        .marker-year {
-            position: absolute;
-            left: 80px;
-            top: 18px;
-        }
-        
-        .timeline-item:nth-child(odd) .timeline-content,
-        .timeline-item:nth-child(even) .timeline-content {
-            grid-column: auto;
-            text-align: left;
-            margin-top: 60px;
-        }
-        
-        .timeline-content {
+        .history-intro {
             padding: 24px;
         }
         
-        .content-title {
+        .timeline-wrapper::before {
+            left: 40px;
+        }
+        
+        .timeline-event {
+            grid-template-columns: 80px 1fr;
+            gap: 0;
+            margin-bottom: 30px;
+        }
+        
+        .event-year {
+            padding-right: 16px;
+            padding-top: 28px;
+        }
+        
+        .year-text {
             font-size: 20px;
+        }
+        
+        .event-marker {
+            position: absolute;
+            left: 40px;
+            top: 36px;
+            padding: 0;
+        }
+        
+        .marker-dot {
+            width: 12px;
+            height: 12px;
+        }
+        
+        .event-content {
+            grid-column: span 2;
+            padding: 24px;
+            margin-top: 60px;
+        }
+        
+        .event-title {
+            font-size: 19px;
+        }
+        
+        .event-text {
+            font-size: 14px;
         }
     }
 </style>
 
 <section class="history-page">
-    <div class="history-decoration decoration-top"></div>
     
     <div class="history-header">
-        <p class="history-subtitle">{{ $en ? 'Our Journey' : 'Notre Parcours' }}</p>
-        <h1 class="history-title">{{ $en ? 'History' : 'Histoire' }}</h1>
-        <p class="history-lead">{{ __('site.company_history_lead', [], $loc) }}</p>
+        <h1>{{ $en ? 'Our History' : 'Notre Histoire' }}</h1>
+        <div class="history-intro">
+            {{ __('site.company_history_lead', [], $loc) }}
+        </div>
     </div>
 
-    <div class="timeline-container">
+    <div class="timeline-wrapper">
         @foreach(range(1, 4) as $i)
-        <div class="timeline-item">
-            <div class="timeline-marker">
-                <div class="marker-icon">0{{ $i }}</div>
-                <span class="marker-year">{{ 2000 + ($i * 5) }}</span>
+        <article class="timeline-event">
+            <div class="event-year">
+                <span class="year-text">{{ 2000 + ($i * 5) }}</span>
             </div>
             
-            <div class="timeline-content">
-                <h3 class="content-title">{{ __('site.company_hist'.$i.'_title', [], $loc) }}</h3>
-                <p class="content-text">{{ __('site.company_hist'.$i.'_p', [], $loc) }}</p>
+            <div class="event-marker">
+                <div class="marker-dot"></div>
             </div>
-        </div>
+            
+            <div class="event-content">
+                <h3 class="event-title">{{ __('site.company_hist'.$i.'_title', [], $loc) }}</h3>
+                <p class="event-text">{{ __('site.company_hist'.$i.'_p', [], $loc) }}</p>
+            </div>
+        </article>
         @endforeach
     </div>
     
     <div class="timeline-footer">
-        <p class="timeline-footer-text">{{ $en ? 'Building the future together' : 'Construisons l\'avenir ensemble' }}</p>
-        <div class="footer-icon">⛏️</div>
+        <div class="timeline-footer-icon">⛏️</div>
+        <p class="timeline-footer-text">{{ $en ? 'Néré Mining - Building the Future' : 'Néré Mining - Construire l\'Avenir' }}</p>
     </div>
     
-    <div class="history-decoration decoration-bottom"></div>
 </section>
 
 @endsection
