@@ -87,13 +87,6 @@
 
     <main>
         <section>
-            <div class="sub-nav">
-                <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>" class="active"><?php echo e(__('site.subnav_news')); ?></a>
-                <a href="<?php echo e($en ? route('english.press') : route('press')); ?>"><?php echo e(__('site.subnav_press')); ?></a>
-                <a href="<?php echo e($en ? route('english.gallery') : route('gallery')); ?>"><?php echo e(__('site.subnav_gallery')); ?></a>
-                <a href="<?php echo e($en ? route('english.reports') : route('reports')); ?>"><?php echo e(__('site.subnav_reports')); ?></a>
-                <a href="<?php echo e($en ? route('english.press.contact') : route('press.contact')); ?>"><?php echo e(__('site.subnav_press_contact')); ?></a>
-            </div>
 
             <?php if($news->isEmpty()): ?>
                 <p style="color:var(--muted);font:16px Inter,sans-serif;"><?php echo e(__('site.news_empty')); ?></p>

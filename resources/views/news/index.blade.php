@@ -86,13 +86,6 @@
 
     <main>
         <section>
-            <div class="sub-nav">
-                <a href="{{ $en ? route('english.news') : route('news.index') }}" class="active">{{ __('site.subnav_news') }}</a>
-                <a href="{{ $en ? route('english.press') : route('press') }}">{{ __('site.subnav_press') }}</a>
-                <a href="{{ $en ? route('english.gallery') : route('gallery') }}">{{ __('site.subnav_gallery') }}</a>
-                <a href="{{ $en ? route('english.reports') : route('reports') }}">{{ __('site.subnav_reports') }}</a>
-                <a href="{{ $en ? route('english.press.contact') : route('press.contact') }}">{{ __('site.subnav_press_contact') }}</a>
-            </div>
 
             @if($news->isEmpty())
                 <p style="color:var(--muted);font:16px Inter,sans-serif;">{{ __('site.news_empty') }}</p>

@@ -2,13 +2,6 @@
 
 
 <section>
-    <div class="sub-nav">
-        <a href="<?php echo e($en ? route('english.sustainability') : route('sustainability')); ?>"><?php echo e(__('site.subnav_overview', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.communities')   : route('sustainability.communities')); ?>"><?php echo e(__('site.subnav_communities', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.environment')   : route('sustainability.environment')); ?>"><?php echo e(__('site.subnav_environment', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.hse')           : route('sustainability.hse')); ?>" class="active"><?php echo e(__('site.subnav_hse', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.local-content') : route('sustainability.local-content')); ?>"><?php echo e(__('site.subnav_local_content', [], $loc)); ?></a>
-    </div>
 
     <p class="lead"><?php echo e(__('site.hse_policy_lead', [], $loc)); ?></p>
 

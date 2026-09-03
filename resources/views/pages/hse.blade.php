@@ -5,13 +5,6 @@
 
 {{-- ── 1. Politique HSE ─────────────────────────────────── --}}
 <section>
-    <div class="sub-nav">
-        <a href="{{ $en ? route('english.sustainability') : route('sustainability') }}">{{ __('site.subnav_overview', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.communities')   : route('sustainability.communities') }}">{{ __('site.subnav_communities', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.environment')   : route('sustainability.environment') }}">{{ __('site.subnav_environment', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.hse')           : route('sustainability.hse') }}" class="active">{{ __('site.subnav_hse', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.local-content') : route('sustainability.local-content') }}">{{ __('site.subnav_local_content', [], $loc) }}</a>
-    </div>
 
     <p class="lead">{{ __('site.hse_policy_lead', [], $loc) }}</p>
 

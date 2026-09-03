@@ -6,13 +6,6 @@
 
 {{-- ── 1. Politique + Dialogue ─────────────────────────── --}}
 <section>
-    <div class="sub-nav">
-        <a href="{{ $sustainBase }}">{{ __('site.subnav_overview', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.communities')   : route('sustainability.communities') }}" class="active">{{ __('site.subnav_communities', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.environment')   : route('sustainability.environment') }}">{{ __('site.subnav_environment', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.hse')           : route('sustainability.hse') }}">{{ __('site.subnav_hse', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.local-content') : route('sustainability.local-content') }}">{{ __('site.subnav_local_content', [], $loc) }}</a>
-    </div>
 
     <h2 style="color:var(--green); margin-bottom:20px; font-size:32px;">{{ $en ? 'Community Relations Department: The Showcase of Karma' : 'Le Département des Relations Communautaires : La Vitrine de Karma' }}</h2>
 

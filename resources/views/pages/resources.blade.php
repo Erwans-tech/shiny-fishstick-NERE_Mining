@@ -22,11 +22,6 @@
 </style>
 
 <section>
-    <div class="sub-nav">
-        <a href="{{ $en ? route('english.karma') : route('karma') }}">{{ __('site.nav_karma', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.resources') : route('resources') }}" class="active">{{ __('site.nav_karma_resources', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.reserves') : route('reserves') }}">{{ __('site.nav_karma_reserves', [], $loc) }}</a>
-    </div>
 
     <div class="resources-hero">
         <div>

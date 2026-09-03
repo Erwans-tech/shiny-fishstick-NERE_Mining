@@ -3,13 +3,6 @@
 
 
 <section>
-    <div class="sub-nav">
-        <a href="<?php echo e($sustainBase); ?>"><?php echo e(__('site.subnav_overview', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.communities')   : route('sustainability.communities')); ?>" class="active"><?php echo e(__('site.subnav_communities', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.environment')   : route('sustainability.environment')); ?>"><?php echo e(__('site.subnav_environment', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.hse')           : route('sustainability.hse')); ?>"><?php echo e(__('site.subnav_hse', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.local-content') : route('sustainability.local-content')); ?>"><?php echo e(__('site.subnav_local_content', [], $loc)); ?></a>
-    </div>
 
     <h2 style="color:var(--green); margin-bottom:20px; font-size:32px;"><?php echo e($en ? 'Community Relations Department: The Showcase of Karma' : 'Le Département des Relations Communautaires : La Vitrine de Karma'); ?></h2>
 

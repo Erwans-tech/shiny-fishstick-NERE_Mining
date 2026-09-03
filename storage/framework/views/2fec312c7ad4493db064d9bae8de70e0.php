@@ -19,11 +19,6 @@
 </style>
 
 <section>
-    <div class="sub-nav">
-        <a href="<?php echo e($en ? route('english.karma') : route('karma')); ?>"><?php echo e(__('site.nav_karma', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.resources') : route('resources')); ?>" class="active"><?php echo e(__('site.nav_karma_resources', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.reserves') : route('reserves')); ?>"><?php echo e(__('site.nav_karma_reserves', [], $loc)); ?></a>
-    </div>
 
     <div class="resources-hero">
         <div>

@@ -1,7 +1,0 @@
-<div class="sub-nav">
-    <a href="<?php echo e($en ? route('english.sustainability') : route('sustainability')); ?>" class="<?php echo e($section === 'sustainability' ? 'active' : ''); ?>"><?php echo e(__('site.subnav_overview', [], $loc)); ?></a>
-    <a href="<?php echo e($en ? route('english.communities') : route('sustainability.communities')); ?>" class="<?php echo e($section === 'communities' ? 'active' : ''); ?>"><?php echo e(__('site.subnav_communities', [], $loc)); ?></a>
-    <a href="<?php echo e($en ? route('english.environment') : route('sustainability.environment')); ?>" class="<?php echo e($section === 'environment' ? 'active' : ''); ?>"><?php echo e(__('site.subnav_environment', [], $loc)); ?></a>
-    <a href="<?php echo e($en ? route('english.hse') : route('sustainability.hse')); ?>" class="<?php echo e($section === 'hse' ? 'active' : ''); ?>"><?php echo e(__('site.subnav_hse', [], $loc)); ?></a>
-    <a href="<?php echo e($en ? route('english.local-content') : route('sustainability.local-content')); ?>" class="<?php echo e($section === 'local-content' ? 'active' : ''); ?>"><?php echo e(__('site.subnav_local_content', [], $loc)); ?></a>
-</div><?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views\partials\_sustainability-nav.blade.php ENDPATH**/ ?>

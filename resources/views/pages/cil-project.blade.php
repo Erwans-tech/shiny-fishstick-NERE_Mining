@@ -55,10 +55,6 @@
 </style>
 
 <section class="cil-page">
-    <div class="sub-nav">
-        <a href="{{ $en ? route('english.projects') : route('projects') }}">{{ __('site.nav_projects', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.projects.cil') : route('projects.cil') }}" class="active">{{ __('site.nav_projects_cil', [], $loc) }}</a>
-    </div>
 
     <p class="lead">{{ __('site.cil_project_lead', [], $loc) }}</p>
 

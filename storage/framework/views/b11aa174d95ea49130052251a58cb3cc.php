@@ -9,14 +9,6 @@
 </style>
 
 <section>
-    <div class="sub-nav">
-        <a href="<?php echo e($companyBase); ?>" class="active"><?php echo e(__('site.subnav_overview', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.company.ceo')        : route('company.ceo')); ?>"><?php echo e(__('site.subnav_company_ceo', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.company.identity')   : route('company.identity')); ?>"><?php echo e(__('site.subnav_company_identity', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.company.history')    : route('company.history')); ?>"><?php echo e(__('site.subnav_company_history', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.company.values')     : route('company.values')); ?>"><?php echo e(__('site.subnav_company_values', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.company.governance') : route('company.governance')); ?>"><?php echo e(__('site.subnav_company_governance', [], $loc)); ?></a>
-    </div>
 
     <p class="lead"><?php echo e(__('site.company_identity_lead', [], $loc)); ?></p>
 

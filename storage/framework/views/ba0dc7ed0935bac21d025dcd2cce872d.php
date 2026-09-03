@@ -52,10 +52,6 @@
 </style>
 
 <section class="cil-page">
-    <div class="sub-nav">
-        <a href="<?php echo e($en ? route('english.projects') : route('projects')); ?>"><?php echo e(__('site.nav_projects', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.projects.cil') : route('projects.cil')); ?>" class="active"><?php echo e(__('site.nav_projects_cil', [], $loc)); ?></a>
-    </div>
 
     <p class="lead"><?php echo e(__('site.cil_project_lead', [], $loc)); ?></p>
 

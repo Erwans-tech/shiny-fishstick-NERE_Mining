@@ -148,13 +148,6 @@
 
         {{-- Sub-nav commun à toutes les pages Actualités & Médias --}}
         <section style="padding-bottom:0;">
-            <div class="sub-nav">
-                <a href="{{ $en ? route('english.news') : route('news.index') }}" {{ $section === 'news' ? 'class=active' : '' }}>{{ __('site.subnav_news') }}</a>
-                <a href="{{ $en ? route('english.press') : route('press') }}" {{ $section === 'press' ? 'class=active' : '' }}>{{ __('site.subnav_press') }}</a>
-                <a href="{{ $en ? route('english.gallery') : route('gallery') }}" {{ $section === 'gallery' ? 'class=active' : '' }}>{{ __('site.subnav_gallery') }}</a>
-                <a href="{{ $en ? route('english.reports') : route('reports') }}" {{ in_array($section, ['reports','publications']) ? 'class=active' : '' }}>{{ __('site.subnav_reports') }}</a>
-                <a href="{{ $en ? route('english.press.contact') : route('press.contact') }}">{{ __('site.subnav_press_contact') }}</a>
-            </div>
         </section>
 
         @if(view()->exists('resources.' . $section))

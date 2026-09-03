@@ -81,11 +81,6 @@
 </style>
 
 <section>
-    <div class="sub-nav">
-        <a href="<?php echo e($en ? route('english.karma') : route('karma')); ?>"><?php echo e(__('site.nav_karma', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.resources') : route('resources')); ?>"><?php echo e(__('site.nav_karma_resources', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.reserves') : route('reserves')); ?>" class="active"><?php echo e(__('site.nav_karma_reserves', [], $loc)); ?></a>
-    </div>
 
     
     <div class="reserves-hero">

@@ -84,11 +84,6 @@
 </style>
 
 <section>
-    <div class="sub-nav">
-        <a href="{{ $en ? route('english.karma') : route('karma') }}">{{ __('site.nav_karma', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.resources') : route('resources') }}">{{ __('site.nav_karma_resources', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.reserves') : route('reserves') }}" class="active">{{ __('site.nav_karma_reserves', [], $loc) }}</a>
-    </div>
 
     {{-- ══ Hero Section ════════════════════════════════════════════ --}}
     <div class="reserves-hero">

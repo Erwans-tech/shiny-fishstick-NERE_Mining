@@ -4,7 +4,6 @@
 @section('content')
 
 <section style="padding-bottom:0;">
-    @include('partials._media-nav')
 </section>
 
 <style>

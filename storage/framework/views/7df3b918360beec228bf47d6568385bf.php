@@ -1,7 +1,6 @@
 <?php $__env->startSection('content'); ?>
 
 <section style="padding-bottom:0;">
-    <?php echo $__env->make('partials._media-nav', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 </section>
 
 <style>

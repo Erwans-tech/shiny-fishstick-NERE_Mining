@@ -77,13 +77,6 @@
 
     <main>
         <section>
-            <div class="sub-nav">
-                <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.subnav_news')); ?></a>
-                <a href="<?php echo e($en ? route('english.press') : route('press')); ?>"><?php echo e(__('site.subnav_press')); ?></a>
-                <a href="<?php echo e($en ? route('english.gallery') : route('gallery')); ?>"><?php echo e(__('site.subnav_gallery')); ?></a>
-                <a href="<?php echo e($en ? route('english.reports') : route('reports')); ?>" class="active"><?php echo e(__('site.subnav_reports')); ?></a>
-                <a href="<?php echo e($en ? route('english.press.contact') : route('press.contact')); ?>"><?php echo e(__('site.subnav_press_contact')); ?></a>
-            </div>
 
             <p class="lead"><?php echo e(__('site.reports_lead')); ?></p>
 

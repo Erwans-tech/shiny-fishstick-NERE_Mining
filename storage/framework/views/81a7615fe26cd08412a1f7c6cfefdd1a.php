@@ -2,13 +2,6 @@
 
 <section>
     
-    <div class="sub-nav">
-        <a href="<?php echo e($en ? route('english.news')          : route('news.index')); ?>"><?php echo e(__('site.subnav_news', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.press')         : route('press')); ?>"><?php echo e(__('site.subnav_press', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.gallery')       : route('gallery')); ?>"><?php echo e(__('site.subnav_gallery', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.reports')       : route('reports')); ?>"><?php echo e(__('site.subnav_reports', [], $loc)); ?></a>
-        <a href="<?php echo e($en ? route('english.press.contact') : route('press.contact')); ?>" class="active"><?php echo e(__('site.subnav_press_contact', [], $loc)); ?></a>
-    </div>
 
     <p class="lead"><?php echo e(__('site.press_contact_lead', [], $loc)); ?></p>
 

@@ -158,8 +158,8 @@
         var parentLink = dd.querySelector('.site-nav__link');
         if (parentLink) {
             parentLink.addEventListener('click', function (e) {
+                e.preventDefault();
                 if (window.matchMedia('(max-width: 1080px)').matches) {
-                    e.preventDefault();
                     dd.classList.toggle('is-open');
                 }
             });

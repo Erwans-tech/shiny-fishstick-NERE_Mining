@@ -5,13 +5,6 @@
 
 <section>
     {{-- Sub-nav Actualités & Médias --}}
-    <div class="sub-nav">
-        <a href="{{ $en ? route('english.news')          : route('news.index') }}">{{ __('site.subnav_news', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.press')         : route('press') }}">{{ __('site.subnav_press', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.gallery')       : route('gallery') }}">{{ __('site.subnav_gallery', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.reports')       : route('reports') }}">{{ __('site.subnav_reports', [], $loc) }}</a>
-        <a href="{{ $en ? route('english.press.contact') : route('press.contact') }}" class="active">{{ __('site.subnav_press_contact', [], $loc) }}</a>
-    </div>
 
     <p class="lead">{{ __('site.press_contact_lead', [], $loc) }}</p>
 

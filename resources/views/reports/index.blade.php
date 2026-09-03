@@ -76,13 +76,6 @@
 
     <main>
         <section>
-            <div class="sub-nav">
-                <a href="{{ $en ? route('english.news') : route('news.index') }}">{{ __('site.subnav_news') }}</a>
-                <a href="{{ $en ? route('english.press') : route('press') }}">{{ __('site.subnav_press') }}</a>
-                <a href="{{ $en ? route('english.gallery') : route('gallery') }}">{{ __('site.subnav_gallery') }}</a>
-                <a href="{{ $en ? route('english.reports') : route('reports') }}" class="active">{{ __('site.subnav_reports') }}</a>
-                <a href="{{ $en ? route('english.press.contact') : route('press.contact') }}">{{ __('site.subnav_press_contact') }}</a>
-            </div>
 
             <p class="lead">{{ __('site.reports_lead') }}</p>
 

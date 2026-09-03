@@ -7,7 +7,7 @@
     $contactUrl = $en ? route('english.contact') : route('contact');
 ?>
 
-<?php if (! $__env->hasRenderedOnce('c5b31ed5-a0f0-40cf-aa97-eee318a38aaa')): $__env->markAsRenderedOnce('c5b31ed5-a0f0-40cf-aa97-eee318a38aaa'); ?>
+<?php if (! $__env->hasRenderedOnce('5bddb876-efda-41dd-80bf-492926ce3e29')): $__env->markAsRenderedOnce('5bddb876-efda-41dd-80bf-492926ce3e29'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>">
 <?php endif; ?>
 
@@ -166,8 +166,8 @@
         var parentLink = dd.querySelector('.site-nav__link');
         if (parentLink) {
             parentLink.addEventListener('click', function (e) {
+                e.preventDefault();
                 if (window.matchMedia('(max-width: 1080px)').matches) {
-                    e.preventDefault();
                     dd.classList.toggle('is-open');
                 }
             });
