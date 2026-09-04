@@ -1,4 +1,12 @@
 <?php $__env->startSection('content'); ?>
+<?php
+    $pressName = \App\Models\SiteSetting::get('press_contact_name', __('site.press_contact_name', [], $loc));
+    $pressJob = \App\Models\SiteSetting::get('press_contact_job', __('site.press_contact_job', [], $loc));
+    $pressPhoto = \App\Models\SiteSetting::get('press_contact_photo', '');
+    $pressPhone = \App\Models\SiteSetting::get('press_contact_phone', '+226 25 33 35 69');
+    $pressEmail = \App\Models\SiteSetting::get('press_contact_email', 'presse@nere-mining.bf');
+    $pressHours = \App\Models\SiteSetting::get('press_contact_hours', __('site.press_contact_hours', [], $loc));
+?>
 
 <section>
     
@@ -10,10 +18,14 @@
         <div>
             <div class="pdg-photo"
                  style="height:280px; border-radius:6px; display:flex; align-items:center; justify-content:center; background:#5a2020;">
-                <span style="color:rgba(255,255,255,.35); font-size:13px; text-align:center;">
-                    <?php echo e($en ? 'Photo coming soon' : 'Photo à venir'); ?>
+                <?php if($pressPhoto): ?>
+                    <img src="<?php echo e($pressPhoto); ?>" alt="<?php echo e($pressName); ?>" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
+                <?php else: ?>
+                    <span style="color:rgba(255,255,255,.35); font-size:13px; text-align:center;">
+                        <?php echo e($en ? 'Photo coming soon' : 'Photo à venir'); ?>
 
-                </span>
+                    </span>
+                <?php endif; ?>
             </div>
         </div>
         <div>
@@ -23,11 +35,11 @@
 
             </div>
             <h2 style="color:#fff; font-size:clamp(26px,3vw,40px); margin-bottom:8px;">
-                <?php echo e(__('site.press_contact_name', [], $loc)); ?>
+                <?php echo e($pressName); ?>
 
             </h2>
             <div style="color:rgba(255,255,255,.7); font:13px Inter,sans-serif; margin-bottom:28px;">
-                <?php echo e(__('site.press_contact_job', [], $loc)); ?>
+                <?php echo e($pressJob); ?>
 
             </div>
             <ul style="list-style:none; display:flex; flex-direction:column; gap:14px;">
@@ -38,7 +50,7 @@
                             <?php echo e(__('site.press_contact_phone_label', [], $loc)); ?>
 
                         </div>
-                        <span style="color:#fff; font:15px Inter,sans-serif;">+226 25 33 35 69</span>
+                        <span style="color:#fff; font:15px Inter,sans-serif;"><?php echo e($pressPhone); ?></span>
                     </div>
                 </li>
                 <li style="display:flex; gap:14px; align-items:center;">
@@ -48,9 +60,10 @@
                             <?php echo e(__('site.press_contact_email_label', [], $loc)); ?>
 
                         </div>
-                        <a href="mailto:presse@nere-mining.bf"
+                        <a href="mailto:<?php echo e($pressEmail); ?>"
                            style="color:#fff; font:15px Inter,sans-serif; text-decoration:underline;">
-                            presse@nere-mining.bf
+                            <?php echo e($pressEmail); ?>
+
                         </a>
                     </div>
                 </li>
@@ -61,7 +74,7 @@
                             <?php echo e(__('site.press_contact_hours_label', [], $loc)); ?>
 
                         </div>
-                        <span style="color:#fff; font:15px Inter,sans-serif;"><?php echo e(__('site.press_contact_hours', [], $loc)); ?></span>
+                        <span style="color:#fff; font:15px Inter,sans-serif;"><?php echo e($pressHours); ?></span>
                     </div>
                 </li>
             </ul>
@@ -69,6 +82,7 @@
     </div>
 </section>
 
+<?php if(false): ?>
 
 <section class="sand" style="padding:60px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
@@ -116,21 +130,7 @@
     </div>
 </section>
 
-
-<section>
-    <h2><?php echo e(__('site.press_contact_services_h2', [], $loc)); ?></h2>
-    <p class="lead"><?php echo e(__('site.press_contact_services_lead', [], $loc)); ?></p>
-    <div class="grid-3">
-        <?php $__currentLoopData = range(1, 6); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="card">
-            <div class="card-tag"><?php echo e(__('site.pc_svc'.$i.'_tag', [], $loc)); ?></div>
-            <h3><?php echo e(__('site.pc_svc'.$i.'_h3', [], $loc)); ?></h3>
-            <p><?php echo e(__('site.pc_svc'.$i.'_p', [], $loc)); ?></p>
-        </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-    </div>
-</section>
-
+<?php endif; ?>
 
 <section class="sand">
     <h2><?php echo e(__('site.press_contact_form_h2', [], $loc)); ?></h2>

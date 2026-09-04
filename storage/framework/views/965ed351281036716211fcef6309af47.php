@@ -2,35 +2,35 @@
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
     $slides = $slides ?? collect();
-    $heroImages = $slides->isNotEmpty()
-        ? $slides->map(fn($slide) => [
+    $defaultHeroImages = collect([
+        ['type' => 'image', 'filename' => 'gyathursan-mine-5523376_1920.jpg', 'kicker' => 'Une mine de', 'copy' => 'classe mondiale', 'kicker_en' => 'A mine of', 'copy_en' => 'world-class'],
+        ['type' => 'image', 'filename' => 'pexels-gunshe-5125104.jpg', 'kicker' => 'Des opérations', 'copy' => 'responsables', 'kicker_en' => 'Responsible', 'copy_en' => 'operations'],
+        ['type' => 'image', 'filename' => 'shibang-mechanical-2653706_1920.jpg', 'kicker' => 'L’excellence', 'copy' => 'industrielle', 'kicker_en' => 'Industrial', 'copy_en' => 'excellence'],
+        ['type' => 'image', 'filename' => 'tyna_janoch-excavator-2781676_1920.jpg', 'kicker' => 'Des équipes', 'copy' => 'engagées', 'kicker_en' => 'Committed', 'copy_en' => 'teams'],
+        ['type' => 'image', 'filename' => 'tyna_janoch-mine-2781686_1920.jpg', 'kicker' => 'Un territoire', 'copy' => 'en mouvement', 'kicker_en' => 'A region', 'copy_en' => 'in motion'],
+        ['type' => 'video', 'filename' => 'Video Project 1.mp4', 'kicker' => 'Karma', 'copy' => 'notre mine d’or', 'kicker_en' => 'Karma', 'copy_en' => 'our gold mine'],
+    ])->map(fn($slide) => [
+        'type'      => $slide['type'],
+        'url'       => asset('images/carousel/'.$slide['filename']),
+        'embed_url' => null,
+        'is_local_video' => $slide['type'] === 'video',
+        'title'     => 'Néré Mining',
+        'caption'   => null,
+        'kicker'    => $en ? $slide['kicker_en'] : $slide['kicker'],
+        'copy'      => $en ? $slide['copy_en'] : $slide['copy'],
+    ]);
+
+    $heroImages = $defaultHeroImages->merge($slides->map(fn($slide) => [
             'type'      => $slide->type ?? 'image',
             'url'       => $slide->url ?? '',
+            'video_url' => $slide->video_url ?? null,
             'embed_url' => $slide->embed_url ?? null,
-            'is_local_video' => false,
+            'is_local_video' => ($slide->type ?? 'image') === 'video' && empty($slide->embed_url),
             'title'     => $slide->title ?? '',
             'caption'   => $slide->caption ?? null,
             'kicker'    => $slide->title ?? 'Néré Mining',
             'copy'      => $slide->caption ?? '',
-        ])->filter()->values()->all()
-        : collect([
-            ['type' => 'image', 'filename' => 'gyathursan-mine-5523376_1920.jpg', 'kicker' => 'Une mine de', 'copy' => 'classe mondiale', 'kicker_en' => 'A mine of', 'copy_en' => 'world-class'],
-            ['type' => 'image', 'filename' => 'pexels-gunshe-5125104.jpg', 'kicker' => 'Des opérations', 'copy' => 'responsables', 'kicker_en' => 'Responsible', 'copy_en' => 'operations'],
-            ['type' => 'image', 'filename' => 'shibang-mechanical-2653706_1920.jpg', 'kicker' => 'L’excellence', 'copy' => 'industrielle', 'kicker_en' => 'Industrial', 'copy_en' => 'excellence'],
-            ['type' => 'image', 'filename' => 'tyna_janoch-excavator-2781676_1920.jpg', 'kicker' => 'Des équipes', 'copy' => 'engagées', 'kicker_en' => 'Committed', 'copy_en' => 'teams'],
-            ['type' => 'image', 'filename' => 'tyna_janoch-mine-2781686_1920.jpg', 'kicker' => 'Un territoire', 'copy' => 'en mouvement', 'kicker_en' => 'A region', 'copy_en' => 'in motion'],
-            ['type' => 'image', 'filename' => 'upscalemedia-transformed.jpeg', 'kicker' => 'L’or', 'copy' => 'autrement', 'kicker_en' => 'Gold', 'copy_en' => 'done differently'],
-            ['type' => 'video', 'filename' => 'Video Project 1.mp4', 'kicker' => 'Karma', 'copy' => 'notre mine d’or', 'kicker_en' => 'Karma', 'copy_en' => 'our gold mine'],
-        ])->map(fn($slide) => [
-            'type'      => $slide['type'],
-            'url'       => asset('images/carousel/'.$slide['filename']),
-            'embed_url' => null,
-            'is_local_video' => $slide['type'] === 'video',
-            'title'     => 'Néré Mining',
-            'caption'   => null,
-            'kicker'    => $en ? $slide['kicker_en'] : $slide['kicker'],
-            'copy'      => $en ? $slide['copy_en'] : $slide['copy'],
-        ])->all();
+        ])->filter()->values())->values();
     $heroDuration = count($heroImages) * 5;
     $heroSlot = 100 / max(count($heroImages), 1);
 ?>
@@ -580,6 +580,8 @@
             .hero-stat { animation:none; }
         }
     </style>
+    <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
+    <script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
 </head>
 <body>
 
@@ -605,7 +607,7 @@
                         </iframe>
                         <?php elseif($heroImage['is_local_video'] ?? false): ?>
                         <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-                            <source src="<?php echo e($heroImage['url']); ?>" type="video/mp4">
+                            <source src="<?php echo e($heroImage['video_url'] ?? $heroImage['url']); ?>" type="video/mp4">
                         </video>
                         <?php endif; ?>
                         <?php if($heroImage['url']): ?>
@@ -644,18 +646,19 @@
     </div>
 
     
-    <section class="sec intro-sec" aria-labelledby="intro-nere-h">
+    <section class="sec intro-sec sa-animated-section" aria-labelledby="intro-nere-h">
+        <div class="sa-particles-container" data-count="5"></div>
         <div class="intro-inner">
-            <div class="intro-copy">
+            <div class="intro-copy sa-reveal sa-delay-1">
                 <h2 class="sec-h2" id="intro-nere-h">Une filière aurifère durable, ancrée dans le développement local.</h2>
                 <p class="sec-lead">
                     Néré Mining est un groupe aurifère ancré au Burkina Faso, détenu majoritairement par des actionnaires burkinabè. Nous contribuons au développement local et créons de la valeur pour les communautés autour de notre mine d'or de Karma, en menant nos activités avec transparence, responsabilité et respect de l'environnement.
                 </p>
             </div>
             <div class="intro-points">
-                <div class="intro-point"><span>Nous développons une mine responsable, avec des standards de sécurité et de qualité élevés.</span></div>
-                <div class="intro-point"><span>Nous créons de la valeur pour les populations locales en favorisant l’emploi, les partenariats et la transparence.</span></div>
-                <div class="intro-point"><span>Nous accompagnons une croissance minière tournée vers le long terme, la sobriété environnementale et la confiance.</span></div>
+                <div class="intro-point sa-reveal sa-delay-1"><span>Nous développons une mine responsable, avec des standards de sécurité et de qualité élevés.</span></div>
+                <div class="intro-point sa-reveal sa-delay-2"><span>Nous créons de la valeur pour les populations locales en favorisant l’emploi, les partenariats et la transparence.</span></div>
+                <div class="intro-point sa-reveal sa-delay-3"><span>Nous accompagnons une croissance minière tournée vers le long terme, la sobriété environnementale et la confiance.</span></div>
             </div>
         </div>
     </section>
@@ -663,15 +666,16 @@
     
 
     
-    <section class="sec news-sec" id="actualites" aria-labelledby="news-h">
-        <div class="news-head">
+    <section class="sec news-sec sa-animated-section" id="actualites" aria-labelledby="news-h">
+        <div class="sa-particles-container" data-count="3"></div>
+        <div class="news-head sa-reveal">
             <div>
                 <h2 class="sec-h2" id="news-h"><?php echo e(__('site.home_news_h2', [], $loc)); ?></h2>
             </div>
         </div>
         <div class="news-grid">
             <?php $__empty_1 = true; $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-            <a class="news-card-link" href="<?php echo e($en ? route('english.news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) : route('news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i])); ?>" aria-label="<?php echo e(__('site.read_more', [], $loc)); ?> : <?php echo e(e($item['title'])); ?>">
+            <a class="news-card-link sa-reveal sa-delay-<?php echo e($i % 3 + 1); ?>" href="<?php echo e($en ? route('english.news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) : route('news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i])); ?>" aria-label="<?php echo e(__('site.read_more', [], $loc)); ?> : <?php echo e(e($item['title'])); ?>">
                 <article class="news-card sr">
                     <div class="news-img-wrap">
                         <?php if(!empty($item['image']) && !str_contains((string)$item['image'], 'null')): ?>
@@ -708,8 +712,9 @@
     </section>
 
     
-    <section class="sec partners-sec" id="partenaires" aria-labelledby="partners-h">
-        <div class="partners-head">
+    <section class="sec partners-sec sa-animated-section" id="partenaires" aria-labelledby="partners-h">
+        <div class="sa-particles-container" data-count="4"></div>
+        <div class="partners-head sa-reveal">
             <span class="sec-tag"><?php echo e(__('site.home_partners_label', [], $loc)); ?></span>
             <h2 class="sec-h2" id="partners-h"><?php echo e(__('site.home_partners_h2', [], $loc)); ?></h2>
             <p class="sec-lead"><?php echo e(__('site.home_partners_intro', [], $loc)); ?></p>

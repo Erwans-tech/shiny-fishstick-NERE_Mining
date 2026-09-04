@@ -1,0 +1,1129 @@
+/**
+ * 🌿 SUSTAINABILITY ANIMATIONS — Néré Mining
+ * Animations riches pour la section Développement Durable
+ * Défilement · Survol · Clic · Arrière-plans dynamiques
+ */
+
+/* ═══════════════════════════════════════════════════════════
+   1. VARIABLES SUSTAINABILITY
+═══════════════════════════════════════════════════════════ */
+:root {
+  --sa-green: #4b1716;
+  --sa-gold: #ffc247;
+  --sa-gold2: #e5a72f;
+  --sa-sand: #fff4dc;
+  --sa-muted: #70645c;
+  --sa-earth: #a0522d;
+  --sa-sky: #1a3a5c;
+  --sa-leaf: #2d5a27;
+  --sa-glow: rgba(255, 194, 71, 0.35);
+  --sa-glow2: rgba(75, 23, 22, 0.2);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   2. ANIMATED BACKGROUND SECTIONS (style TikTok / immersif)
+═══════════════════════════════════════════════════════════ */
+
+/* Hero dynamique avec orbes flottantes */
+.sa-hero-bg {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #4b1716 0%, #2d0d0e 40%, #1a0a0b 100%);
+}
+
+.sa-hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(255,194,71,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 30%, rgba(75,23,22,0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 60% 80%, rgba(45,90,39,0.15) 0%, transparent 40%);
+  animation: sa-bg-breathe 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes sa-bg-breathe {
+  0% { opacity: 0.7; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+
+/* Sections avec fond animé dynamique */
+.sa-animated-section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f8f3ee 0%, #ece5dc 100%);
+  transition: background 1.2s ease;
+}
+
+.sa-animated-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,194,71,0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(75,23,22,0.05) 0%, transparent 30%);
+  pointer-events: none;
+  transition: background 0.3s ease;
+  z-index: 0;
+}
+
+.sa-animated-section > * { position: relative; z-index: 1; }
+
+/* Fond sable animé */
+.sa-sand-animated {
+  position: relative;
+  background: linear-gradient(180deg, #fff8e8 0%, #fff4dc 40%, #fef0d2 100%);
+  overflow: hidden;
+}
+
+.sa-sand-animated::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(255,194,71,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 0% 100%, rgba(75,23,22,0.03) 0%, transparent 40%);
+  animation: sa-sand-shift 12s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes sa-sand-shift {
+  0% { transform: translateX(-2%) translateY(-1%); opacity: 0.8; }
+  100% { transform: translateX(2%) translateY(1%); opacity: 1; }
+}
+
+/* Fond dark premium */
+.sa-dark-section {
+  position: relative;
+  background: linear-gradient(135deg, #4b1716 0%, #281d18 60%, #1a1210 100%);
+  overflow: hidden;
+}
+
+.sa-dark-section::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,194,71,0.08) 0%, transparent 70%);
+  top: -200px;
+  right: -200px;
+  animation: sa-orb-float 10s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.sa-dark-section::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,194,71,0.05) 0%, transparent 70%);
+  bottom: -100px;
+  left: -100px;
+  animation: sa-orb-float 13s ease-in-out infinite alternate-reverse;
+  pointer-events: none;
+}
+
+@keyframes sa-orb-float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, -30px) scale(1.1); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3. SCROLL REVEAL ANIMATIONS — Variantes riches
+═══════════════════════════════════════════════════════════ */
+
+/* Fade up (standard) */
+.sa-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+}
+.sa-reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Fade depuis la gauche */
+.sa-reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+}
+.sa-reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+/* Fade depuis la droite */
+.sa-reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+}
+.sa-reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* Zoom in */
+.sa-reveal-scale {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-spring);
+}
+.sa-reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+/* Flip card reveal */
+.sa-reveal-flip {
+  opacity: 0;
+  transform: rotateX(-20deg) translateY(30px);
+  transform-origin: top center;
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+.sa-reveal-flip.visible { opacity: 1; transform: rotateX(0) translateY(0); }
+
+/* Délais en cascade */
+.sa-delay-1 { transition-delay: 0.1s; }
+.sa-delay-2 { transition-delay: 0.2s; }
+.sa-delay-3 { transition-delay: 0.3s; }
+.sa-delay-4 { transition-delay: 0.4s; }
+.sa-delay-5 { transition-delay: 0.5s; }
+.sa-delay-6 { transition-delay: 0.6s; }
+.sa-delay-7 { transition-delay: 0.7s; }
+
+/* Respect des préférences de motion */
+@media (prefers-reduced-motion: reduce) {
+  .sa-reveal, .sa-reveal-left, .sa-reveal-right,
+  .sa-reveal-scale, .sa-reveal-flip {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   4. CARDS — Effets hover premium
+═══════════════════════════════════════════════════════════ */
+
+/* Carte pilier avec glow hover */
+.sa-pillar-card {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f9f6f0 100%);
+  border: 1px solid rgba(75,23,22,0.1);
+  border-radius: 16px;
+  padding: 32px;
+  overflow: hidden;
+  transition:
+    transform 0.4s var(--ease-spring),
+    box-shadow 0.4s var(--ease-smooth),
+    border-color 0.3s;
+  cursor: pointer;
+}
+
+.sa-pillar-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sa-gold), var(--sa-gold2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-smooth);
+}
+
+.sa-pillar-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,194,71,0.08) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.sa-pillar-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow:
+    0 20px 60px rgba(75,23,22,0.12),
+    0 4px 16px rgba(255,194,71,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  border-color: rgba(255,194,71,0.35);
+}
+
+.sa-pillar-card:hover::before { transform: scaleX(1); }
+.sa-pillar-card:hover::after { opacity: 1; }
+
+/* Icon flottant dans les pilier cards */
+.sa-pillar-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255,194,71,0.15), rgba(75,23,22,0.08));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  transition: transform 0.4s var(--ease-spring), background 0.3s;
+  border: 1px solid rgba(255,194,71,0.2);
+}
+
+.sa-pillar-card:hover .sa-pillar-icon {
+  transform: rotate(5deg) scale(1.15);
+  background: linear-gradient(135deg, rgba(255,194,71,0.25), rgba(75,23,22,0.12));
+}
+
+/* Effet ripple au clic */
+.sa-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.sa-ripple-wave {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,194,71,0.3);
+  transform: scale(0);
+  animation: sa-ripple-anim 0.7s linear;
+  pointer-events: none;
+}
+
+@keyframes sa-ripple-anim {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   5. MÉTRIQUES / STATS — Animations visuelles
+═══════════════════════════════════════════════════════════ */
+
+/* Carte métrique animée */
+.sa-metric-card {
+  position: relative;
+  text-align: center;
+  padding: 32px 24px;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(234,220,197,0.6);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s var(--ease-smooth);
+}
+
+.sa-metric-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sa-gold), var(--sa-gold2));
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left;
+  transition: transform 1.5s var(--ease-smooth) 0.3s;
+}
+
+.sa-metric-card.visible::before {
+  transform: scaleX(1);
+}
+
+.sa-metric-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 48px rgba(75,23,22,0.1), 0 4px 12px rgba(255,194,71,0.08);
+}
+
+/* Valeur principale avec glow au reveal */
+.sa-metric-value {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  color: var(--sa-green);
+  line-height: 1;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.sa-metric-value::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 8px;
+  background: rgba(255,194,71,0.15);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.4s, transform 0.4s var(--ease-spring);
+}
+
+.sa-metric-card:hover .sa-metric-value::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Barre de progression animée */
+.sa-progress-bar {
+  height: 6px;
+  background: rgba(234,220,197,0.5);
+  border-radius: 99px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.sa-progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--sa-gold), var(--sa-gold2));
+  width: 0%;
+  transition: width 1.8s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.sa-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 40px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: sa-shimmer 2s ease-in-out infinite;
+}
+
+@keyframes sa-shimmer {
+  0% { transform: translateX(-100px); }
+  100% { transform: translateX(200px); }
+}
+
+/* Chiffre qui pulse à l'entrée */
+@keyframes sa-count-pulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12); color: var(--sa-gold2); }
+  100% { transform: scale(1); }
+}
+
+.sa-count-done { animation: sa-count-pulse 0.5s var(--ease-spring); }
+
+/* ═══════════════════════════════════════════════════════════
+   6. RÉALISATIONS / ACHIEVEMENTS — Cards interactives
+═══════════════════════════════════════════════════════════ */
+
+.sa-achievement-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--sa-gold);
+  border-radius: 16px;
+  padding: 32px;
+  overflow: hidden;
+  transition: all 0.4s var(--ease-smooth);
+  cursor: pointer;
+}
+
+/* Gradient d'accent qui monte au hover */
+.sa-achievement-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 0;
+  background: linear-gradient(0deg, rgba(255,194,71,0.06) 0%, transparent 100%);
+  transition: height 0.5s var(--ease-smooth);
+  pointer-events: none;
+}
+
+.sa-achievement-card:hover::before { height: 100%; }
+
+.sa-achievement-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 64px rgba(75,23,22,0.12), 0 0 0 1px rgba(255,194,71,0.3);
+  border-color: rgba(255,194,71,0.5);
+}
+
+/* Montant en or qui scintille */
+.sa-achievement-amount {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 700;
+  color: var(--sa-gold2);
+  margin-bottom: 14px;
+  position: relative;
+  display: inline-block;
+}
+
+.sa-achievement-amount::before {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: var(--sa-gold);
+  transition: width 0.5s var(--ease-smooth);
+}
+
+.sa-achievement-card:hover .sa-achievement-amount::before {
+  width: 100%;
+}
+
+/* Icone de catégorie */
+.sa-category-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255,194,71,0.12), rgba(75,23,22,0.06));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255,194,71,0.2);
+  transition: transform 0.4s var(--ease-spring), box-shadow 0.3s;
+}
+
+.sa-achievement-card:hover .sa-category-icon {
+  transform: scale(1.15) rotate(-5deg);
+  box-shadow: 0 8px 20px rgba(255,194,71,0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   7. TOTAL INVESTMENT — Banner premium
+═══════════════════════════════════════════════════════════ */
+
+.sa-total-banner {
+  position: relative;
+  padding: 48px 40px;
+  background: linear-gradient(135deg, #4b1716 0%, #281d18 100%);
+  border-radius: 20px;
+  text-align: center;
+  overflow: hidden;
+  margin-top: 48px;
+}
+
+.sa-total-banner::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,194,71,0.12) 0%, transparent 70%);
+  animation: sa-orb-float 7s ease-in-out infinite alternate;
+}
+
+.sa-total-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255,194,71,0.02) 0px,
+    rgba(255,194,71,0.02) 1px,
+    transparent 1px,
+    transparent 30px
+  );
+}
+
+.sa-total-banner > * { position: relative; z-index: 1; }
+
+.sa-total-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 12px;
+}
+
+.sa-total-value {
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 700;
+  color: var(--sa-gold);
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(255,194,71,0.4);
+  animation: sa-value-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes sa-value-glow {
+  0% { text-shadow: 0 0 20px rgba(255,194,71,0.3); }
+  100% { text-shadow: 0 0 60px rgba(255,194,71,0.6), 0 0 100px rgba(255,194,71,0.3); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   8. TIMELINE — Frise chronologique animée
+═══════════════════════════════════════════════════════════ */
+
+.sa-timeline {
+  position: relative;
+  padding: 0 0 0 40px;
+}
+
+.sa-timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--sa-gold), rgba(255,194,71,0.1));
+}
+
+.sa-timeline-item {
+  position: relative;
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
+}
+
+.sa-timeline-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sa-timeline-dot {
+  position: absolute;
+  left: -32px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--sa-gold);
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px rgba(255,194,71,0.3);
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
+}
+
+.sa-timeline-item:hover .sa-timeline-dot {
+  transform: scale(1.4);
+  box-shadow: 0 0 0 6px rgba(255,194,71,0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   9. LISTE ANIMÉE
+═══════════════════════════════════════════════════════════ */
+
+.sa-animated-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sa-animated-list li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(234,220,197,0.4);
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.5s var(--ease-smooth), transform 0.5s var(--ease-smooth), background 0.3s;
+  border-radius: 8px;
+  padding-left: 8px;
+}
+
+.sa-animated-list li:last-child { border-bottom: none; }
+
+.sa-animated-list li.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sa-animated-list li:hover {
+  background: rgba(255,194,71,0.04);
+}
+
+.sa-list-bullet {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sa-gold), var(--sa-gold2));
+  color: var(--sa-green);
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s var(--ease-spring);
+  box-shadow: 0 3px 8px rgba(255,194,71,0.25);
+  margin-top: 2px;
+}
+
+.sa-animated-list li:hover .sa-list-bullet {
+  transform: scale(1.2) rotate(15deg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   10. CARDS PROGRAMME — Flip / tilt 3D
+═══════════════════════════════════════════════════════════ */
+
+.sa-program-card {
+  position: relative;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(234,220,197,0.7);
+  border-radius: 16px;
+  padding: 30px;
+  overflow: hidden;
+  transition:
+    transform 0.4s var(--ease-smooth),
+    box-shadow 0.4s var(--ease-smooth);
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.sa-program-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sa-gold), var(--sa-gold2), var(--sa-gold));
+  background-size: 200% 100%;
+  animation: sa-gradient-shift 3s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.sa-program-card:hover::after { opacity: 1; }
+
+@keyframes sa-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.sa-program-card:hover {
+  transform: perspective(600px) rotateX(-3deg) rotateY(2deg) translateY(-6px);
+  box-shadow: 0 20px 50px rgba(75,23,22,0.1), 0 8px 20px rgba(255,194,71,0.08);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   11. SECTION HERO METRICS — Bande de stats dynamique
+═══════════════════════════════════════════════════════════ */
+
+.sa-hero-metric {
+  position: relative;
+  padding: 28px 20px;
+  text-align: center;
+  background: rgba(75,23,22,0.92);
+  border-right: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.sa-hero-metric::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(255,194,71,0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.sa-hero-metric:hover { background: rgba(75,23,22,1); }
+.sa-hero-metric:hover::before { opacity: 1; }
+
+.sa-hero-metric-val {
+  display: block;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 300;
+  color: var(--sa-gold);
+  margin-bottom: 8px;
+  line-height: 1;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.sa-hero-metric:hover .sa-hero-metric-val {
+  transform: scale(1.08);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   12. FLOATING PARTICLES (orbes ambiantes)
+═══════════════════════════════════════════════════════════ */
+
+.sa-particles-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.sa-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,194,71,0.3) 0%, transparent 70%);
+  animation: sa-particle-float linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes sa-particle-float {
+  0% { transform: translateY(100%) translateX(0) scale(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(-20px) translateX(var(--drift, 30px)) scale(1.5); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   13. BACKGROUND PARALLAX SECTIONS
+═══════════════════════════════════════════════════════════ */
+
+.sa-parallax-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.sa-parallax-bg {
+  position: absolute;
+  inset: -20%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(0px) saturate(0.8);
+  will-change: transform;
+  transition: filter 0.5s ease;
+}
+
+.sa-parallax-section:hover .sa-parallax-bg {
+  filter: blur(0px) saturate(1);
+}
+
+.sa-parallax-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(75,23,22,0.92) 0%, rgba(40,29,24,0.85) 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   14. STEP / PROCESSUS ANIMÉ
+═══════════════════════════════════════════════════════════ */
+
+.sa-step-card {
+  position: relative;
+  background: rgba(255,255,255,0.88);
+  border: 1px solid rgba(234,220,197,0.6);
+  border-radius: 16px;
+  padding: 28px;
+  overflow: hidden;
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.sa-step-card::before {
+  content: attr(data-step);
+  position: absolute;
+  right: -10px;
+  bottom: -20px;
+  font-size: 120px;
+  font-weight: 900;
+  color: rgba(75,23,22,0.04);
+  line-height: 1;
+  transition: color 0.4s, transform 0.4s var(--ease-smooth);
+  user-select: none;
+}
+
+.sa-step-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(75,23,22,0.09);
+  border-color: rgba(255,194,71,0.3);
+}
+
+.sa-step-card:hover::before {
+  color: rgba(255,194,71,0.08);
+  transform: scale(1.1) rotate(-5deg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   15. BOUTONS ANIMÉS
+═══════════════════════════════════════════════════════════ */
+
+.sa-btn-animated {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+  border: 2px solid var(--sa-gold);
+  color: var(--sa-green);
+  background: transparent;
+  text-decoration: none;
+}
+
+.sa-btn-animated::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--sa-gold);
+  transform: translateX(-101%);
+  transition: transform 0.4s var(--ease-smooth);
+  z-index: 0;
+}
+
+.sa-btn-animated > * { position: relative; z-index: 1; }
+
+.sa-btn-animated:hover {
+  color: var(--sa-green);
+  box-shadow: 0 8px 24px rgba(255,194,71,0.3);
+  transform: translateY(-2px);
+}
+
+.sa-btn-animated:hover::before { transform: translateX(0); }
+
+.sa-btn-animated .sa-btn-arrow {
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.sa-btn-animated:hover .sa-btn-arrow { transform: translateX(6px); }
+
+/* ═══════════════════════════════════════════════════════════
+   16. IMAGE CARDS — Hover reveal caption
+═══════════════════════════════════════════════════════════ */
+
+.sa-image-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.sa-image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-smooth), filter 0.4s;
+}
+
+.sa-image-card:hover img {
+  transform: scale(1.06);
+  filter: brightness(0.85);
+}
+
+.sa-image-card-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 20px;
+  background: linear-gradient(0deg, rgba(30,10,10,0.85) 0%, transparent 100%);
+  transform: translateY(60%);
+  transition: transform 0.4s var(--ease-smooth);
+  color: #fff;
+}
+
+.sa-image-card:hover .sa-image-card-caption {
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   17. SECTION HEADING — Decoration animée
+═══════════════════════════════════════════════════════════ */
+
+.sa-section-heading {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 48px;
+  position: relative;
+}
+
+.sa-section-heading h2 {
+  color: var(--sa-green);
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  position: relative;
+  display: inline-block;
+}
+
+.sa-section-heading h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sa-gold), var(--sa-gold2));
+  border-radius: 2px;
+  transition: transform 0.6s var(--ease-smooth) 0.2s;
+}
+
+.sa-section-heading.visible h2::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* Ligne de séparation animée */
+.sa-divider {
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sa-gold), var(--sa-gold2));
+  border-radius: 2px;
+  margin: 24px auto;
+  transition: width 0.8s var(--ease-smooth);
+}
+
+.sa-section-heading.visible .sa-divider { width: 80px; }
+
+/* ═══════════════════════════════════════════════════════════
+   18. HOVER GLOW UTILITY
+═══════════════════════════════════════════════════════════ */
+
+.sa-glow-hover {
+  transition: box-shadow 0.3s ease;
+}
+
+.sa-glow-hover:hover {
+  box-shadow:
+    0 0 0 1px rgba(255,194,71,0.3),
+    0 8px 32px rgba(75,23,22,0.08),
+    0 0 40px rgba(255,194,71,0.08);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   19. CARTE PARTENAIRE — Tilt interactif
+═══════════════════════════════════════════════════════════ */
+
+.sa-partner-card {
+  position: relative;
+  background: rgba(255,255,255,0.88);
+  border: 1px solid rgba(234,220,197,0.5);
+  border-radius: 14px;
+  padding: 28px;
+  transition: all 0.3s var(--ease-smooth);
+  overflow: hidden;
+}
+
+.sa-partner-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, transparent, rgba(255,194,71,0.04));
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.sa-partner-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 36px rgba(75,23,22,0.08);
+  border-color: rgba(255,194,71,0.25);
+}
+
+.sa-partner-card:hover::before { opacity: 1; }
+
+/* ═══════════════════════════════════════════════════════════
+   20. SCROLL INDICATOR — Chevrons en bas de section
+═══════════════════════════════════════════════════════════ */
+
+.sa-scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  animation: sa-scroll-bounce 2s ease-in-out infinite;
+}
+
+.sa-scroll-indicator span {
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid rgba(255,194,71,0.6);
+  border-bottom: 2px solid rgba(255,194,71,0.6);
+  transform: rotate(45deg);
+}
+
+.sa-scroll-indicator span:nth-child(1) { opacity: 0.4; }
+.sa-scroll-indicator span:nth-child(2) { opacity: 0.7; }
+.sa-scroll-indicator span:nth-child(3) { opacity: 1; }
+
+@keyframes sa-scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   21. COUNTER PULSE (pour les stat-bands existants)
+═══════════════════════════════════════════════════════════ */
+
+.sa-stat-item-enhanced {
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.sa-stat-item-enhanced::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255,194,71,0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.sa-stat-item-enhanced:hover::after { opacity: 1; }
+
+/* ═══════════════════════════════════════════════════════════
+   22. SECTION TRANSITION — Vague entre sections
+═══════════════════════════════════════════════════════════ */
+
+.sa-wave-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(75,23,22,0.03) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.sa-wave-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(0deg, rgba(75,23,22,0.03) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   23. HOVER COLOR SHIFT — Pour les sections sable
+═══════════════════════════════════════════════════════════ */
+
+.sa-color-shift {
+  transition: background 1s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   24. TYPEWRITER CURSOR
+═══════════════════════════════════════════════════════════ */
+
+.sa-typewriter::after {
+  content: '|';
+  animation: sa-cursor-blink 0.8s ease-in-out infinite;
+  color: var(--sa-gold);
+}
+
+@keyframes sa-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   25. RESPONSIVE
+═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .sa-pillar-card:hover {
+    transform: translateY(-4px);
+  }
+  .sa-achievement-card:hover {
+    transform: translateY(-4px);
+  }
+  .sa-program-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sa-hero-bg::before,
+  .sa-sand-animated::after,
+  .sa-dark-section::before,
+  .sa-dark-section::after,
+  .sa-total-value,
+  .sa-progress-fill::after,
+  .sa-scroll-indicator,
+  .sa-particle,
+  .sa-orb-float { animation: none; }
+
+  .sa-pillar-card,
+  .sa-achievement-card,
+  .sa-program-card,
+  .sa-metric-card,
+  .sa-step-card,
+  .sa-partner-card {
+    transition: none;
+  }
+}

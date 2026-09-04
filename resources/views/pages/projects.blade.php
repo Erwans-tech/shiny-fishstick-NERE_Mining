@@ -43,12 +43,16 @@
     .exploration-lightbox__close { position:absolute; top:-42px; right:0; border:1px solid rgba(255,255,255,.55); background:var(--green); color:#fff; padding:8px 14px; border-radius:4px; cursor:pointer; font:600 11px Inter,sans-serif; text-transform:uppercase; }
 </style>
 {{-- Projets d'exploration --}}
-<section id="exploration">
-    <h2>{{ __('site.projects_expl_h2', [], $loc) }}</h2>
-    <p class="lead">{{ __('site.projects_expl_lead', [], $loc) }}</p>
+<section id="exploration" class="sa-animated-section" style="padding-top:40px;">
+    <div class="sa-particles-container" data-count="6"></div>
+    <div class="sa-section-heading sa-reveal" style="text-align:left; max-width:none; margin-bottom:24px;">
+        <h2 style="text-align:left;">{{ __('site.projects_expl_h2', [], $loc) }}</h2>
+        <div class="sa-divider" style="margin: 0;"></div>
+    </div>
+    <p class="lead sa-reveal sa-delay-1">{{ __('site.projects_expl_lead', [], $loc) }}</p>
 
-    <div class="projects-grid">
-        <article class="card project-card exploration-card sr">
+    <div class="projects-grid" style="margin-top:32px;">
+        <article class="card project-card exploration-card sa-reveal sa-delay-1">
             <button class="exploration-card__image" type="button" data-exploration-image="{{ asset('images/exploration/geologie-dassoui.png') }}" data-exploration-alt="{{ $en ? 'Dassoui exploration permit and regional geology map' : 'Carte géologique régionale du permis d’exploration de Dassoui' }}" data-exploration-caption="{{ $en ? 'Regional geology and Dassoui exploration permit.' : 'Géologie régionale et permis d’exploration de Dassoui.' }}"><img src="{{ asset('images/exploration/geologie-dassoui.png') }}" alt="{{ $en ? 'Dassoui exploration permit and regional geology map' : 'Carte géologique régionale du permis d’exploration de Dassoui' }}" loading="lazy"></button>
             <div class="exploration-card__body">
                 <div class="card-tag">{{ $en ? 'Dassoui permit' : 'Permis de Dassoui' }}</div>
@@ -58,7 +62,7 @@
             </div>
         </article>
 
-        <article class="card project-card exploration-card sr">
+        <article class="card project-card exploration-card sa-reveal sa-delay-2">
             <button class="exploration-card__image" type="button" data-exploration-image="{{ asset('images/exploration/forage.jpg') }}" data-exploration-alt="{{ $en ? 'Reverse circulation drilling rig' : 'Foreuse de reconnaissance minière' }}" data-exploration-caption="{{ $en ? 'Drilling and sampling campaign in the field.' : 'Campagne de forage et d’échantillonnage sur le terrain.' }}"><img src="{{ asset('images/exploration/forage.jpg') }}" alt="{{ $en ? 'Reverse circulation drilling rig' : 'Foreuse de reconnaissance minière' }}" loading="lazy"></button>
             <div class="exploration-card__body">
                 <div class="card-tag">{{ $en ? 'Field program' : 'Programme terrain' }}</div>
@@ -68,7 +72,7 @@
             </div>
         </article>
 
-        <article class="card project-card exploration-card exploration-card--map sr">
+        <article class="card project-card exploration-card exploration-card--map sa-reveal sa-delay-3">
             <button class="exploration-card__image" type="button" data-exploration-image="{{ asset('images/exploration/permis-carte.jpg') }}" data-exploration-alt="{{ $en ? 'Exploration permits and mineral targets map' : 'Carte des permis d’exploration et des cibles minérales' }}" data-exploration-caption="{{ $en ? 'Exploration permits, targets and licence coverage.' : 'Permis d’exploration, cibles et couverture des titres.' }}"><img src="{{ asset('images/exploration/permis-carte.jpg') }}" alt="{{ $en ? 'Exploration permits and mineral targets map' : 'Carte des permis d’exploration et des cibles minérales' }}" loading="lazy"></button>
             <div class="exploration-card__body">
                 <div class="card-tag">{{ $en ? 'Portfolio' : 'Portefeuille' }}</div>
@@ -80,67 +84,68 @@
     </div>
 
     <div class="exploration-evidence" aria-label="{{ $en ? 'Exploration field evidence' : 'Documents visuels de l’exploration' }}">
-        <figure>
+        <figure class="sa-reveal sa-delay-1">
             <button type="button" data-exploration-image="{{ asset('images/exploration/panorama-goulagou.png') }}" data-exploration-alt="{{ $en ? 'Annotated 180 degree view from Goulagou Hill' : 'Vue panoramique annotée depuis la colline de Goulagou' }}" data-exploration-caption="{{ $en ? 'Annotated Goulagou Hill panorama.' : 'Panorama annoté depuis la colline de Goulagou.' }}"><img src="{{ asset('images/exploration/panorama-goulagou.png') }}" alt="{{ $en ? 'Annotated 180 degree view from Goulagou Hill' : 'Vue panoramique annotée depuis la colline de Goulagou' }}" loading="lazy"></button>
             <figcaption>{{ $en ? 'Goulagou Hill panorama: the annotated horizon places GG1, Nami, Rambo, GG2 and Kao within the exploration landscape.' : 'Panorama de la colline de Goulagou : l’horizon annoté situe GG1, Nami, Rambo, GG2 et Kao dans le paysage d’exploration.' }}</figcaption>
         </figure>
-        <figure>
+        <figure class="sa-reveal sa-delay-2">
             <button type="button" data-exploration-image="{{ asset('images/exploration/equipe-instrumentation.jpg') }}" data-exploration-alt="{{ $en ? 'Exploration team working with technical equipment' : 'Équipe d’exploration travaillant avec un équipement technique' }}" data-exploration-caption="{{ $en ? 'Field team and technical instrumentation.' : 'Équipe terrain et instrumentation technique.' }}"><img src="{{ asset('images/exploration/equipe-instrumentation.jpg') }}" alt="{{ $en ? 'Exploration team working with technical equipment' : 'Équipe d’exploration travaillant avec un équipement technique' }}" loading="lazy"></button>
             <figcaption>{{ $en ? 'Field teams and technical instrumentation support data collection and target assessment.' : 'Les équipes et l’instrumentation terrain soutiennent la collecte des données et l’évaluation des cibles.' }}</figcaption>
         </figure>
-        <figure>
+        <figure class="sa-reveal sa-delay-3">
             <button type="button" data-exploration-image="{{ asset('images/exploration/permis-tableau.png') }}" data-exploration-alt="{{ $en ? 'Exploration permits validity table' : 'Tableau de validité des permis d’exploration' }}" data-exploration-caption="{{ $en ? 'Exploration permit register and validity dates.' : 'Registre des permis d’exploration et dates de validité.' }}"><img src="{{ asset('images/exploration/permis-tableau.png') }}" alt="{{ $en ? 'Exploration permits validity table' : 'Tableau de validité des permis d’exploration' }}" loading="lazy"></button>
             <figcaption>{{ $en ? 'Permit register: Dassoui, Basnere Est and Ouest, Lougouri, Ronga, Rigui and Zanna are shown with their holders and validity years.' : 'Registre des permis : Dassoui, Basnere Est et Ouest, Lougouri, Ronga, Rigui et Zanna sont présentés avec leurs détenteurs et années de validité.' }}</figcaption>
         </figure>
     </div>
 </section>
 
-<section class="sand sr" style="margin-top: 24px;">
-    <div class="card" style="padding: 28px;">
-        <div class="card-tag">{{ $en ? 'Priority' : 'Priorité' }}</div>
-        <h3>{{ $en ? 'A disciplined exploration strategy' : 'Une stratégie d’exploration disciplinée' }}</h3>
-        <p style="margin:0; text-align:justify;">
-            {{ $en
-                ? 'Each project is evaluated through geological analysis, resource potential and a realistic development timeline. The objective is to identify deposits that can create value while staying aligned with responsible mining standards and local expectations.'
-                : 'Chaque projet est évalué selon son potentiel géologique, sa valeur économique et un calendrier de développement réaliste. L’objectif est d’identifier des gisements capables de créer de la valeur tout en restant alignés avec les normes minières responsables et les attentes locales.' }}
-        </p>
+<section class="sa-sand-animated" style="position:relative; padding:70px 5vw; margin-top:24px;">
+    <div class="sa-wave-top"></div>
+    <div style="position:relative; z-index:1; max-width:1180px; margin:0 auto;">
+        <div class="sa-program-card sa-reveal" style="padding: 28px;">
+            <div class="card-tag">{{ $en ? 'Priority' : 'Priorité' }}</div>
+            <h3>{{ $en ? 'A disciplined exploration strategy' : 'Une stratégie d’exploration disciplinée' }}</h3>
+            <p style="margin:0; text-align:justify;">
+                {{ $en
+                    ? 'Each project is evaluated through geological analysis, resource potential and a realistic development timeline. The objective is to identify deposits that can create value while staying aligned with responsible mining standards and local expectations.'
+                    : 'Chaque projet est évalué selon son potentiel géologique, sa valeur économique et un calendrier de développement réaliste. L’objectif est d’identifier des gisements capables de créer de la valeur tout en restant alignés avec les normes minières responsables et les attentes locales.' }}
+            </p>
+        </div>
     </div>
-    </section>
-
-    <div class="exploration-lightbox" data-exploration-lightbox aria-hidden="true">
-        <figure class="exploration-lightbox__dialog">
-            <button class="exploration-lightbox__close" type="button" data-exploration-close>{{ $en ? 'Close' : 'Fermer' }}</button>
-            <img data-exploration-preview src="" alt="">
-            <figcaption data-exploration-caption></figcaption>
-        </figure>
-    </div>
-
-    <script>
-        (() => {
-            const lightbox = document.querySelector('[data-exploration-lightbox]');
-            const preview = lightbox?.querySelector('[data-exploration-preview]');
-            const caption = lightbox?.querySelector('[data-exploration-caption]');
-            const close = () => {
-                lightbox?.classList.remove('is-open');
-                lightbox?.setAttribute('aria-hidden', 'true');
-                if (preview) preview.removeAttribute('src');
-            };
-            document.querySelectorAll('[data-exploration-image]').forEach((button) => button.addEventListener('click', () => {
-                if (!lightbox || !preview || !caption) return;
-                preview.src = button.dataset.explorationImage;
-                preview.alt = button.dataset.explorationAlt || '';
-                caption.textContent = button.dataset.explorationCaption || '';
-                lightbox.classList.add('is-open');
-                lightbox.setAttribute('aria-hidden', 'false');
-                lightbox.querySelector('[data-exploration-close]')?.focus();
-            }));
-            lightbox?.querySelector('[data-exploration-close]')?.addEventListener('click', close);
-            lightbox?.addEventListener('click', (event) => { if (event.target === lightbox) close(); });
-            document.addEventListener('keydown', (event) => { if (event.key === 'Escape') close(); });
-        })();
-    </script>
+    <div class="sa-wave-bottom"></div>
 </section>
 
+<div class="exploration-lightbox" data-exploration-lightbox aria-hidden="true">
+    <figure class="exploration-lightbox__dialog">
+        <button class="exploration-lightbox__close" type="button" data-exploration-close>{{ $en ? 'Close' : 'Fermer' }}</button>
+        <img data-exploration-preview src="" alt="">
+        <figcaption data-exploration-caption></figcaption>
+    </figure>
+</div>
 
+<script>
+    (() => {
+        const lightbox = document.querySelector('[data-exploration-lightbox]');
+        const preview = lightbox?.querySelector('[data-exploration-preview]');
+        const caption = lightbox?.querySelector('[data-exploration-caption]');
+        const close = () => {
+            lightbox?.classList.remove('is-open');
+            lightbox?.setAttribute('aria-hidden', 'true');
+            if (preview) preview.removeAttribute('src');
+        };
+        document.querySelectorAll('[data-exploration-image]').forEach((button) => button.addEventListener('click', () => {
+            if (!lightbox || !preview || !caption) return;
+            preview.src = button.dataset.explorationImage;
+            preview.alt = button.dataset.explorationAlt || '';
+            caption.textContent = button.dataset.explorationCaption || '';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+            lightbox.querySelector('[data-exploration-close]')?.focus();
+        }));
+        lightbox?.querySelector('[data-exploration-close]')?.addEventListener('click', close);
+        lightbox?.addEventListener('click', (event) => { if (event.target === lightbox) close(); });
+        document.addEventListener('keydown', (event) => { if (event.key === 'Escape') close(); });
+    })();
+</script>
 
 @endsection

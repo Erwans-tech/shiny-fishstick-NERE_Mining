@@ -10,16 +10,9 @@ use Illuminate\Validation\Rule;
 
 class AdminUserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware(function ($request, $next) {
-            if (!auth()->user()->is_admin) {
-                abort(403, 'Accès interdit - Administrateur requis');
-            }
-            return $next($request);
-        });
-    }
+    // Laravel 11: Les middlewares sont définis dans les routes ou via attributs
+    // Pas besoin de __construct() pour les middlewares
+}
 
     /**
      * Affiche la liste des utilisateurs administrateurs

@@ -60,6 +60,7 @@
         .pagination a,.pagination span{padding:10px 16px;border:1px solid var(--line);border-radius:4px;font:500 13px Inter,sans-serif;color:var(--muted);}
         .pagination a:hover{background:var(--green);color:#fff;border-color:var(--green);}
         .pagination .active span{background:var(--green);color:#fff;border-color:var(--green);}
+        .news-link:hover .sa-arrow-hover { transform: translateX(4px); }
         footer{padding:32px 5vw;background:#351312;color:#eadcca;display:flex;justify-content:space-between;align-items:center;font:12px Inter,sans-serif;}
         .footer-links{display:flex;gap:20px;}
         .footer-links a:hover{color:var(--gold);}
@@ -71,6 +72,8 @@
             footer{flex-direction:column;gap:12px;text-align:center;}
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('css/sustainability-animations.css') }}">
+    <script src="{{ asset('js/sustainability-animations.js') }}"></script>
 </head>
 <body>
     @include('partials._nav', ['locale' => $locale ?? 'fr', 'section' => 'news'])
@@ -85,14 +88,15 @@
     </div>
 
     <main>
-        <section>
+        <section class="sa-animated-section">
+            <div class="sa-particles-container" data-count="5"></div>
 
             @if($news->isEmpty())
-                <p style="color:var(--muted);font:16px Inter,sans-serif;">{{ __('site.news_empty') }}</p>
+                <p class="sa-reveal" style="color:var(--muted);font:16px Inter,sans-serif;">{{ __('site.news_empty') }}</p>
             @else
                 <div class="news-grid">
-                    @foreach($news as $item)
-                    <article class="news-card">
+                    @foreach($news as $index => $item)
+                    <article class="news-card sa-reveal sa-delay-{{ $index % 3 + 1 }}">
                         @if($item->image_path)
                             <img class="news-img" src="{{ \App\Helpers\StorageHelper::uploadUrl($item->image_path) }}" alt="{{ $item->title }}">
                         @else
@@ -102,13 +106,13 @@
                             <div class="news-meta">{{ $item->category }} · {{ $item->published_at?->translatedFormat('d M Y') }}</div>
                             <h2>{{ $item->title }}</h2>
                             @if($item->excerpt)<p>{{ $item->excerpt }}</p>@endif
-                            <a class="news-link" href="{{ $en ? route('english.news.show', $item) : route('news.show', $item) }}">{{ __('site.read_more') }}</a>
+                            <a class="news-link" href="{{ $en ? route('english.news.show', $item) : route('news.show', $item) }}">{{ __('site.read_more') }} <span style="display:inline-block; transition:transform .2s; font-size:14px; margin-left:4px;" class="sa-arrow-hover">→</span></a>
                         </div>
                     </article>
                     @endforeach
                 </div>
 
-                <div class="pagination">
+                <div class="pagination sa-reveal" style="margin-top:60px;">
                     {{ $news->links() }}
                 </div>
             @endif

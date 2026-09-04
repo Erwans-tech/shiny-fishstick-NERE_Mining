@@ -1,6 +1,18 @@
 {{-- Page : Organisation de Karma --}}
 @extends('layouts.app')
 @section('content')
+<style>
+    .karma-page > section > .lead {
+        width: 100%;
+        max-width: none;
+    }
+
+    @media (max-width: 600px) {
+        .karma-page > section > .lead {
+            text-align: left;
+        }
+    }
+</style>
 <div class="karma-page">
 <section id="organisation">
     <h2>{{ __('site.karma_org_h2', [], $loc) }}</h2>

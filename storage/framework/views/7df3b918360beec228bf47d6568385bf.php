@@ -12,31 +12,8 @@
 </style>
 
 <section>
+    <h2 style="color:var(--green); margin:0 0 18px; font-size:28px; font-weight:600;"><?php echo e($en ? 'All Reports & Documents' : 'Tous les Rapports & Documents'); ?></h2>
     <p class="lead"><?php echo e(__('site.reports_lead', [], $loc)); ?></p>
-
-    
-    <div style="margin:40px 0; padding:24px; background:var(--sand); border-radius:12px; border:1px solid var(--line);">
-        <h3 style="color:var(--green); margin-bottom:16px; font-size:18px; font-weight:600;"><?php echo e($en ? 'Latest Reports' : 'Derniers Rapports'); ?></h3>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">
-            <div style="background:#fff; padding:16px; border-radius:8px; border:1px solid var(--line);">
-                <span class="report-category-badge report-cat-sustainability"><?php echo e($en ? 'Sustainability' : 'Durabilité'); ?></span>
-                <h4 style="font-size:14px; font-weight:600; margin:8px 0;"><?php echo e($en ? 'Annual Sustainability Report' : 'Rapport Durabilité Annuel'); ?></h4>
-                <p style="font-size:13px; color:var(--muted); margin:0;"><?php echo e($en ? '2024 performance & initiatives' : 'Performance & initiatives 2024'); ?></p>
-            </div>
-            <div style="background:#fff; padding:16px; border-radius:8px; border:1px solid var(--line);">
-                <span class="report-category-badge report-cat-financial"><?php echo e($en ? 'Financial' : 'Financier'); ?></span>
-                <h4 style="font-size:14px; font-weight:600; margin:8px 0;"><?php echo e($en ? 'Annual Financial Report' : 'Rapport Financier Annuel'); ?></h4>
-                <p style="font-size:13px; color:var(--muted); margin:0;"><?php echo e($en ? '2024 results & contributions' : 'Résultats & contributions 2024'); ?></p>
-            </div>
-            <div style="background:#fff; padding:16px; border-radius:8px; border:1px solid var(--line);">
-                <span class="report-category-badge report-cat-technical"><?php echo e($en ? 'Technical' : 'Technique'); ?></span>
-                <h4 style="font-size:14px; font-weight:600; margin:8px 0;"><?php echo e($en ? 'JORC Resource Statement' : 'Déclaration Ressource JORC'); ?></h4>
-                <p style="font-size:13px; color:var(--muted); margin:0;"><?php echo e($en ? 'Mineral resources classification' : 'Classification ressources minérales'); ?></p>
-            </div>
-        </div>
-    </div>
-
-    <h2 style="color:var(--green); margin:40px 0 24px; font-size:28px; font-weight:600;"><?php echo e($en ? 'All Reports & Documents' : 'Tous les Rapports & Documents'); ?></h2>
 
     <div class="grid-3">
         <?php $__empty_1 = true; $__currentLoopData = $reports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $report): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>

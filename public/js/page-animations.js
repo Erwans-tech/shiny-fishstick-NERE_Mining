@@ -23,7 +23,7 @@ class PageAnimationController {
     const path = window.location.pathname;
     if (path === '/' || path === '/en') return 'home';
     if (path.includes('company')) return 'company';
-    if (path.includes('sustainability')) return 'sustainability';
+    if (path.includes('sustainability') || path.includes('developpement-durable')) return 'sustainability';
     if (path.includes('news')) return 'news';
     if (path.includes('careers')) return 'careers';
     if (path.includes('reports')) return 'reports';
@@ -244,48 +244,150 @@ class PageAnimationController {
    * 🌱 ANIMATIONS PAGE DURABILITÉ
    */
   setupSustainabilityAnimations() {
-    // Animation des étapes du processus
     this.setupProcessSteps();
+    this.setupSustainabilityMetrics();
+    this.setupSustainabilityDiscovery();
+    this.setupSustainabilityPointers();
+  }
 
-    // Animation des barres de progression environnementales
-    this.setupEnvironmentalProgress();
+  setupSustainabilityDiscovery() {
+    const items = document.querySelectorAll(`
+      main .card,
+      main .esg-metric,
+      main .sustain-metric,
+      main .community-panel,
+      main .community-achievement,
+      main .community-image-card,
+      main .stat-item,
+      main .map-wrap,
+      main h2,
+      main .lead,
+      main .sustain-list-block
+    `);
+
+    items.forEach((el, index) => {
+      el.style.setProperty('--reveal-delay', `${(index % 6) * 70}ms`);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-revealed');
+        this.animateSustainMetric(entry.target);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -48px' });
+
+    items.forEach(el => observer.observe(el));
+  }
+
+  setupSustainabilityPointers() {
+    const interactive = document.querySelectorAll(`
+      main .card,
+      main .esg-metric,
+      main .sustain-metric,
+      main .community-panel,
+      main .community-achievement
+    `);
+
+    interactive.forEach(card => {
+      card.addEventListener('mousemove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mx', `${x}%`);
+        card.style.setProperty('--my', `${y}%`);
+      });
+
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('a')) return;
+        this.spawnSustainRipple(card, event);
+        card.classList.toggle('is-focused');
+        card.classList.remove('is-pop');
+        void card.offsetWidth;
+        card.classList.add('is-pop');
+      });
+    });
+  }
+
+  spawnSustainRipple(card, event) {
+    const rect = card.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'sustain-ripple';
+    ripple.style.left = `${event.clientX - rect.left - 6}px`;
+    ripple.style.top = `${event.clientY - rect.top - 6}px`;
+    card.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 700);
+  }
+
+  setupSustainabilityMetrics() {
+    document.querySelectorAll('.esg-value, .sustain-metric__value').forEach(el => {
+      if (el.dataset.count) return;
+      const raw = (el.textContent || '').trim();
+      const match = raw.match(/^([^0-9]*)([0-9]+(?:[.,][0-9]+)?)(.*)$/);
+      if (!match) return;
+      const value = Number.parseFloat(match[2].replace(',', '.'));
+      if (Number.isNaN(value) || value > 10000) return;
+      el.dataset.prefix = match[1];
+      el.dataset.suffix = match[3];
+      el.dataset.count = String(value);
+      el.dataset.original = raw;
+    });
+  }
+
+  animateSustainMetric(target) {
+    const values = target.matches('.esg-value, .sustain-metric__value, .stat-value')
+      ? [target]
+      : target.querySelectorAll('.esg-value, .sustain-metric__value, .stat-value');
+
+    values.forEach(element => {
+      const raw = element.dataset.count || element.textContent || '';
+      const digits = Number.parseFloat(String(raw).replace(/[^\d.]/g, ''));
+      if (Number.isNaN(digits) || digits > 10000) return;
+      if (element.dataset.counted === 'true') return;
+      element.dataset.counted = 'true';
+
+      const suffix = element.dataset.suffix || '';
+      const prefix = element.dataset.prefix || '';
+      const duration = 1400;
+      const startTime = performance.now();
+      const decimals = String(digits).includes('.') ? 1 : 0;
+
+      const tick = (now) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = digits * eased;
+        element.textContent = prefix + current.toLocaleString(undefined, {
+          maximumFractionDigits: decimals,
+          minimumFractionDigits: decimals
+        }) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+        else if (element.dataset.original) element.textContent = element.dataset.original;
+      };
+
+      requestAnimationFrame(tick);
+    });
   }
 
   setupProcessSteps() {
     const steps = document.querySelectorAll('.step');
+    if (!steps.length) return;
 
-    steps.forEach((step, index) => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.classList.add('step-animate');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('step-animate');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.4 });
 
-              // Animation de la flèche
-              const arrow = entry.target.querySelector('::after');
-              if (index < steps.length - 1) {
-                this.animateStepArrow(entry.target);
-              }
-            }, index * 200);
-          }
-        });
-      }, { threshold: 0.5 });
-
-      observer.observe(step);
-    });
-
-    this.injectCSS(`
-      .step {
-        opacity: 0;
-        transform: translateX(-30px);
-        transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-      }
-      .step.step-animate {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    `);
+    steps.forEach(step => observer.observe(step));
   }
+
+  setupEnvironmentalProgress() { }
+  setupSectionReveal() { }
+  setupPDGQuote() { }
+  animateStepArrow() { }
 
   /**
    * 📰 ANIMATIONS PAGE ACTUALITÉS
@@ -523,7 +625,11 @@ class PageAnimationController {
       this.styleSheet = document.createElement('style');
       document.head.appendChild(this.styleSheet);
     }
-    this.styleSheet.sheet.insertRule(css, this.styleSheet.sheet.cssRules.length);
+    try {
+      this.styleSheet.sheet.insertRule(css, this.styleSheet.sheet.cssRules.length);
+    } catch (error) {
+      this.styleSheet.appendChild(document.createTextNode(css));
+    }
   }
 
   setupPerformanceOptimizations() {

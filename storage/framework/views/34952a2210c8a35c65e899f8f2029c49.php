@@ -1,14 +1,18 @@
 <?php $__env->startSection('content'); ?>
 
 
-<section style="padding:60px 5vw;">
+<section class="sa-animated-section" style="padding:60px 5vw;">
+    <div class="sa-particles-container" data-count="3"></div>
     <div style="max-width:1180px; margin:0 auto;">
-        <h2 style="text-align:center; font-size:clamp(1.8rem,3.5vw,2.8rem); color:var(--green); margin-bottom:48px; font-weight:400; letter-spacing:-.01em;"><?php echo e($en ? 'Our Locations' : 'Nos Localisations'); ?></h2>
+        <div class="sa-section-heading sa-reveal">
+            <h2><?php echo e($en ? 'Our Locations' : 'Nos Localisations'); ?></h2>
+            <div class="sa-divider"></div>
+        </div>
         
-        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:48px;">
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:48px; margin-top:40px;">
 
             
-            <div class="contact-card sr">
+            <div class="contact-card sa-reveal sa-delay-1">
                 <div class="contact-card-header">
                     <span class="contact-card-icon">🏢</span>
                     <div>
@@ -43,7 +47,7 @@
             </div>
 
             
-            <div class="contact-card contact-card--mine sr">
+            <div class="contact-card contact-card--mine sa-reveal sa-delay-2">
                 <div class="contact-card-header">
                     <span class="contact-card-icon">⛏️</span>
                     <div>
@@ -88,7 +92,7 @@
             </div>
 
             
-            <div class="contact-card sr">
+            <div class="contact-card sa-reveal sa-delay-3">
                 <div class="contact-card-header">
                     <span class="contact-card-icon">📍</span>
                     <div>
@@ -124,7 +128,7 @@
         </div>
 
         
-        <div class="map-wrap sr">
+        <div class="map-wrap sa-reveal sa-delay-2">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d935649.2!2d-1.5!3d13.2!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xe2e9eb9d1aba949%3A0x7f46e8f12f1c0a55!2sOuagadougou!5e0!3m2!1s<?php echo e($loc); ?>!2sbf!4v1"
                 loading="lazy"
@@ -136,27 +140,29 @@
 </section>
 
 
-<section style="padding:80px 5vw; background:#fff; border-top:1px solid var(--line);">
-    <div style="max-width:1000px; margin:0 auto;">
-        <div style="text-align:center; margin-bottom:48px;">
-            <h2 style="font-size:clamp(1.8rem,3.5vw,2.8rem); color:var(--green); margin-bottom:12px; font-weight:400; letter-spacing:-.01em;"><?php echo e(__('site.contact_form_h2', [], $loc)); ?></h2>
-            <p style="font-size:1.05rem; color:var(--muted); line-height:1.7; margin:0;"><?php echo e(__('site.contact_form_lead', [], $loc)); ?></p>
+<section class="sa-sand-animated" style="position:relative; padding:80px 5vw; border-top:1px solid var(--line);">
+    <div class="sa-wave-top"></div>
+    <div style="position:relative; z-index:1; max-width:1000px; margin:0 auto;">
+        <div class="sa-section-heading sa-reveal">
+            <h2><?php echo e(__('site.contact_form_h2', [], $loc)); ?></h2>
+            <div class="sa-divider"></div>
+            <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;"><?php echo e(__('site.contact_form_lead', [], $loc)); ?></p>
         </div>
 
         <?php if(session('success')): ?>
-        <div style="background:#dcfce7; border:1px solid #86efac; color:#166534; padding:16px 20px; border-radius:8px; margin-bottom:24px; display:flex; align-items:center; gap:12px;">
+        <div class="sa-reveal" style="background:#dcfce7; border:1px solid #86efac; color:#166534; padding:16px 20px; border-radius:8px; margin-bottom:24px; display:flex; align-items:center; gap:12px;">
             <span style="font-size:20px;">✓</span>
             <span><?php echo e(session('success')); ?></span>
         </div>
         <?php endif; ?>
 
         <?php if($errors->any()): ?>
-        <div style="background:#fee2e2; border:1px solid #fecaca; color:#991b1b; padding:16px 20px; border-radius:8px; margin-bottom:24px;">
+        <div class="sa-reveal" style="background:#fee2e2; border:1px solid #fecaca; color:#991b1b; padding:16px 20px; border-radius:8px; margin-bottom:24px;">
             <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $e): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;"><span>✕</span><span><?php echo e($e); ?></span></div><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         <?php endif; ?>
 
-        <form style="background:var(--light); border:1px solid var(--line); border-radius:14px; padding:40px; box-shadow:0 4px 12px rgba(0,0,0,.04);" method="POST" action="<?php echo e($en ? route('english.contact.store') : route('contact.store')); ?>">
+        <form class="sa-program-card sa-reveal sa-delay-1" style="margin-top:40px; padding:40px; box-shadow:0 8px 24px rgba(40,29,24,.08); background:#fff;" method="POST" action="<?php echo e($en ? route('english.contact.store') : route('contact.store')); ?>">
             <?php echo csrf_field(); ?>
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
@@ -165,7 +171,7 @@
                     <label for="name" style="display:block; font:600 13px Inter,sans-serif; color:var(--ink); margin-bottom:8px; letter-spacing:.01em; text-transform:uppercase;"><?php echo e(__('site.contact_name_label', [], $loc)); ?> *</label>
                     <input id="name" name="name" required value="<?php echo e(old('name')); ?>"
                            placeholder="<?php echo e($en ? 'Your full name' : 'Votre nom complet'); ?>"
-                           style="width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font:14px Inter,sans-serif; transition:border-color .2s, box-shadow .2s;"
+                           style="width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font:14px Inter,sans-serif; transition:border-color .2s, box-shadow .2s; outline:none;"
                            onfocus="this.style.borderColor='var(--gold2)'; this.style.boxShadow='0 0 0 3px rgba(229,167,47,.1)'"
                            onblur="this.style.borderColor='var(--line)'; this.style.boxShadow='none'">
                 </div>
@@ -174,7 +180,7 @@
                     <label for="email" style="display:block; font:600 13px Inter,sans-serif; color:var(--ink); margin-bottom:8px; letter-spacing:.01em; text-transform:uppercase;"><?php echo e(__('site.contact_email_label', [], $loc)); ?> *</label>
                     <input id="email" type="email" name="email" required value="<?php echo e(old('email')); ?>"
                            placeholder="<?php echo e($en ? 'your@email.com' : 'votre@email.com'); ?>"
-                           style="width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font:14px Inter,sans-serif; transition:border-color .2s, box-shadow .2s;"
+                           style="width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font:14px Inter,sans-serif; transition:border-color .2s, box-shadow .2s; outline:none;"
                            onfocus="this.style.borderColor='var(--gold2)'; this.style.boxShadow='0 0 0 3px rgba(229,167,47,.1)'"
                            onblur="this.style.borderColor='var(--line)'; this.style.boxShadow='none'">
                 </div>
@@ -182,7 +188,7 @@
                 <div style="grid-column:span 2;">
                     <label for="contact-form-type" style="display:block; font:600 13px Inter,sans-serif; color:var(--ink); margin-bottom:8px; letter-spacing:.01em; text-transform:uppercase;"><?php echo e(__('site.contact_type_label', [], $loc)); ?></label>
                     <select id="contact-form-type" name="type"
-                            style="width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font:14px Inter,sans-serif; transition:border-color .2s, box-shadow .2s; cursor:pointer;"
+                            style="width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font:14px Inter,sans-serif; transition:border-color .2s, box-shadow .2s; cursor:pointer; outline:none;"
                             onfocus="this.style.borderColor='var(--gold2)'; this.style.boxShadow='0 0 0 3px rgba(229,167,47,.1)'"
                             onblur="this.style.borderColor='var(--line)'; this.style.boxShadow='none'">
                         <?php
@@ -210,7 +216,7 @@
                     <label for="subject" style="display:block; font:600 13px Inter,sans-serif; color:var(--ink); margin-bottom:8px; letter-spacing:.01em; text-transform:uppercase;"><?php echo e(__('site.contact_subject_label', [], $loc)); ?></label>
                     <input id="subject" name="subject" value="<?php echo e(old('subject', request('subject'))); ?>"
                            placeholder="<?php echo e($en ? 'Brief subject of your message' : 'Objet de votre message en quelques mots'); ?>"
-                           style="width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font:14px Inter,sans-serif; transition:border-color .2s, box-shadow .2s;"
+                           style="width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font:14px Inter,sans-serif; transition:border-color .2s, box-shadow .2s; outline:none;"
                            onfocus="this.style.borderColor='var(--gold2)'; this.style.boxShadow='0 0 0 3px rgba(229,167,47,.1)'"
                            onblur="this.style.borderColor='var(--line)'; this.style.boxShadow='none'">
                 </div>
@@ -219,31 +225,32 @@
                     <label for="contact-message" style="display:block; font:600 13px Inter,sans-serif; color:var(--ink); margin-bottom:8px; letter-spacing:.01em; text-transform:uppercase;"><?php echo e(__('site.contact_message_label', [], $loc)); ?> *</label>
                     <textarea id="contact-message" name="message" required
                               placeholder="<?php echo e($en ? 'Write your message here…' : 'Rédigez votre message ici…'); ?>"
-                              style="width:100%; min-height:140px; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font:14px Inter,sans-serif; transition:border-color .2s, box-shadow .2s; resize:vertical;"
+                              style="width:100%; min-height:140px; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font:14px Inter,sans-serif; transition:border-color .2s, box-shadow .2s; resize:vertical; outline:none;"
                               onfocus="this.style.borderColor='var(--gold2)'; this.style.boxShadow='0 0 0 3px rgba(229,167,47,.1)'"
                               onblur="this.style.borderColor='var(--line)'; this.style.boxShadow='none'"><?php echo e(old('message')); ?></textarea>
                 </div>
 
                 <div style="grid-column:span 2; margin-top:12px;">
-                    <button type="submit" 
-                            style="width:100%; padding:16px 32px; background:var(--gold); color:var(--ink); font:700 12px Inter,sans-serif; text-transform:uppercase; letter-spacing:.1em; border:0; border-radius:8px; cursor:pointer; transition:all .3s cubic-bezier(.22,1,.36,1); box-shadow:0 4px 12px rgba(255,194,71,.2);"
-                            onmouseover="this.style.background='var(--gold2)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(255,194,71,.32)';"
-                            onmouseout="this.style.background='var(--gold)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(255,194,71,.2)';">
-                        <?php echo e(__('site.send_message', [], $loc)); ?>
-
+                    <button class="sa-btn-animated" type="submit" 
+                            style="width:100%; padding:16px 32px; border:0; justify-content:center; box-shadow:0 8px 24px rgba(255,194,71,.2);">
+                        <span><?php echo e(__('site.send_message', [], $loc)); ?></span>
                     </button>
                 </div>
             </div>
         </form>
     </div>
+    <div class="sa-wave-bottom"></div>
 </section>
 
 
-<section style="padding:80px 5vw; background:var(--sand); border-top:1px solid var(--line);">
+<section class="sa-animated-section" style="padding:80px 5vw; background:#fff;">
     <div style="max-width:900px; margin:0 auto;">
-        <h2 style="text-align:center; font-size:clamp(1.8rem,3.5vw,2.8rem); color:var(--green); margin-bottom:48px; font-weight:400; letter-spacing:-.01em;"><?php echo e($en ? 'Frequently Asked Questions' : 'Questions Fréquemment Posées'); ?></h2>
+        <div class="sa-section-heading sa-reveal">
+            <h2><?php echo e($en ? 'Frequently Asked Questions' : 'Questions Fréquemment Posées'); ?></h2>
+            <div class="sa-divider"></div>
+        </div>
         
-        <div style="display:grid; gap:20px;">
+        <div style="display:grid; gap:20px; margin-top:40px;">
             <?php
                 $faqs = [
                     [
@@ -274,12 +281,12 @@
             ?>
             
             <?php $__currentLoopData = $faqs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idx => $faq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <details style="border:1px solid var(--line); border-radius:10px; padding:24px; background:#fff; cursor:pointer; transition:all .3s;">
+            <details class="sa-reveal sa-delay-<?php echo e($idx + 1); ?>" style="border:1px solid var(--line); border-radius:12px; padding:24px; background:var(--light); cursor:pointer; transition:all .3s; box-shadow:0 4px 12px rgba(40,29,24,.03);">
                 <summary style="font:600 15px Inter,sans-serif; color:var(--green); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center;">
                     <span><?php echo e($en ? $faq['q_en'] : $faq['q_fr']); ?></span>
                     <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; background:rgba(229,167,47,.1); border-radius:50%; transition:transform .3s;">→</span>
                 </summary>
-                <p style="color:var(--ink); line-height:1.7; margin:16px 0 0 0; font-size:14px;"><?php echo e($en ? $faq['a_en'] : $faq['a_fr']); ?></p>
+                <p style="color:var(--muted); line-height:1.7; margin:16px 0 0 0; font-size:14px;"><?php echo e($en ? $faq['a_en'] : $faq['a_fr']); ?></p>
             </details>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
@@ -369,6 +376,5 @@
 <?php $__env->stopPush(); ?>
 
 <?php $__env->stopSection(); ?>
-
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views\pages\contact.blade.php ENDPATH**/ ?>

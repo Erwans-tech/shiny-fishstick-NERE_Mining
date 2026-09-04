@@ -55,19 +55,9 @@ services:
           name: nere-mining-db
           property: password
 
-      # Filesystem : Cloudflare R2 en production (gratuit 10GB, compatible S3)
+      # Les médias uploadés sont versionnés dans public/uploads et inclus dans l'image Docker.
       - key: FILESYSTEM_DISK
-        value: r2
-      - key: R2_ACCESS_KEY_ID
-        sync: false # À renseigner manuellement dans Render > Environment
-      - key: R2_SECRET_ACCESS_KEY
-        sync: false # À renseigner manuellement dans Render > Environment
-      - key: R2_BUCKET
-        sync: false # Nom du bucket créé dans Cloudflare R2
-      - key: R2_ACCOUNT_ID
-        sync: false # Votre Cloudflare Account ID (32 caractères)
-      - key: R2_PUBLIC_URL
-        sync: false # URL publique du bucket (ex: https://pub-xxx.r2.dev ou domaine custom)
+        value: public
 
       # HTTPS (Render gère le TLS)
       - key: FORCE_HTTPS

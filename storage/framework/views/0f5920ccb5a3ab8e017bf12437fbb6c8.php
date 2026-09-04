@@ -1,13 +1,18 @@
+<?php $__env->startPush('styles'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
+<?php $__env->stopPush(); ?>
+
 <?php $__env->startSection('content'); ?>
 
 
-<section>
+<section class="sa-animated-section" style="padding-top:40px;">
+    <div class="sa-particles-container" data-count="6"></div>
 
-    <p class="lead"><?php echo e(__('site.env_policy_lead', [], $loc)); ?></p>
+    <p class="lead sa-reveal"><?php echo e(__('site.env_policy_lead', [], $loc)); ?></p>
 
-    <div class="grid-3">
+    <div class="grid-3" style="margin-top:24px;">
         <?php $__currentLoopData = range(1, 3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="card">
+        <div class="sa-program-card sa-reveal sa-delay-<?php echo e($i); ?>">
             <div class="card-tag"><?php echo e(__('site.env_policy'.$i.'_tag', [], $loc)); ?></div>
             <h3><?php echo e(__('site.env_policy'.$i.'_h3', [], $loc)); ?></h3>
             <p><?php echo e(__('site.env_policy'.$i.'_p', [], $loc)); ?></p>
@@ -17,42 +22,53 @@
 </section>
 
 
-<section class="sand" style="padding:60px 5vw;">
-    <div style="max-width:1180px; margin:0 auto;">
-        <h2 style="text-align:center; color:var(--green); margin-bottom:12px; font-size:36px; font-weight:600;"><?php echo e($en ? 'Environmental Performance' : 'Performance Environnementale'); ?></h2>
-        
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:24px; margin-bottom:40px;">
-            <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
-                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">-32%</div>
-                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'CO₂ Emissions Reduced' : 'Émissions CO₂ Réduites'); ?></div>
-                <div style="font-size:12px; color:var(--muted); margin-top:8px;">2020-2024</div>
+<section class="sa-sand-animated" style="padding:70px 5vw; position:relative;">
+    <div class="sa-wave-top"></div>
+    <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
+
+        <div class="sa-section-heading sa-reveal">
+            <h2><?php echo e($en ? 'Environmental Performance' : 'Performance Environnementale'); ?></h2>
+            <div class="sa-divider"></div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:20px; margin-top:48px;">
+            <?php
+                $envMetrics = [
+                    ['icon'=>'☁️','count'=>32,'prefix'=>'-','suffix'=>'%','label'=>$en?'CO₂ Emissions Reduced':'Émissions CO₂ Réduites','sub'=>'2020-2024','bar'=>'32%'],
+                    ['icon'=>'💧','count'=>28,'prefix'=>'-','suffix'=>'%','label'=>$en?'Water Consumption':'Consommation Eau','sub'=>$en?'Reduction efficiency':'Amélioration efficacité','bar'=>'28%'],
+                    ['icon'=>'♻️','count'=>95,'suffix'=>'%','label'=>$en?'Waste Recycled':'Déchets Recyclés','sub'=>$en?'or reused annually':'ou réutilisés annuels','bar'=>'95%'],
+                    ['icon'=>'✨','count'=>100,'suffix'=>'%','label'=>$en?'Conflict-Free Gold':'Or Conflit-Libre','sub'=>$en?'Responsible sourcing':'Approvisionnement responsable','bar'=>'100%'],
+                ];
+            ?>
+            <?php $__currentLoopData = $envMetrics; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="sa-metric-card sa-reveal sa-delay-<?php echo e($k+1); ?>">
+                <div style="font-size:28px; margin-bottom:8px;"><?php echo e($m['icon']); ?></div>
+                <div class="sa-metric-value sustain-metric__value"
+                     data-count="<?php echo e($m['count']); ?>"
+                     <?php if(isset($m['prefix'])): ?> data-prefix="<?php echo e($m['prefix']); ?>" <?php endif; ?>
+                     data-suffix="<?php echo e($m['suffix']); ?>"
+                     data-original="<?php echo e(($m['prefix']??'').$m['count'].$m['suffix']); ?>">
+                    <?php echo e(($m['prefix']??'').$m['count'].$m['suffix']); ?>
+
+                </div>
+                <div style="font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-top:8px; line-height:1.4;"><?php echo e($m['label']); ?></div>
+                <div style="font-size:11px; color:var(--muted); margin-top:4px; opacity:0.8;"><?php echo e($m['sub']); ?></div>
+                <div class="sa-progress-bar" style="margin-top:12px;">
+                    <div class="sa-progress-fill" data-width="<?php echo e($m['bar']); ?>"></div>
+                </div>
             </div>
-            <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
-                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">-28%</div>
-                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'Water Consumption' : 'Consommation Eau'); ?></div>
-                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'Reduction efficiency' : 'Amélioration efficacité'); ?></div>
-            </div>
-            <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
-                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">95%</div>
-                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'Waste Recycled' : 'Déchets Recyclés'); ?></div>
-                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'or reused annually' : 'ou réutilisés annuels'); ?></div>
-            </div>
-            <div style="background:#fff; padding:24px; border-radius:8px; text-align:center; border:1px solid var(--line);">
-                <div style="font-size:32px; font-weight:700; color:var(--green); margin-bottom:8px;">100%</div>
-                <div style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;"><?php echo e($en ? 'Conflict-Free Gold' : 'Or Conflit-Libre'); ?></div>
-                <div style="font-size:12px; color:var(--muted); margin-top:8px;"><?php echo e($en ? 'Responsible sourcing' : 'Approvisionnement responsable'); ?></div>
-            </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     </div>
+    <div class="sa-wave-bottom"></div>
 </section>
 
 
-<section>
-    <p class="lead"><?php echo e(__('site.env_mitigation_lead', [], $loc)); ?></p>
-
-    <div class="grid-3">
+<section class="sa-animated-section" style="padding:70px 5vw;">
+    <p class="lead sa-reveal"><?php echo e(__('site.env_mitigation_lead', [], $loc)); ?></p>
+    <div class="grid-3" style="margin-top:24px;">
         <?php $__currentLoopData = range(1, 3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="card">
+        <div class="sa-program-card sa-reveal sa-delay-<?php echo e($i); ?>">
             <div class="card-tag"><?php echo e(__('site.env_mitigation'.$i.'_tag', [], $loc)); ?></div>
             <h3><?php echo e(__('site.env_mitigation'.$i.'_h3', [], $loc)); ?></h3>
             <p><?php echo e(__('site.env_mitigation'.$i.'_p', [], $loc)); ?></p>
@@ -62,47 +78,80 @@
 </section>
 
 
-<section class="sand" style="padding:60px 5vw;">
-    <div style="max-width:1180px; margin:0 auto;">
-        <p class="lead"><?php echo e(__('site.env_water_lead', [], $loc)); ?></p>
+<section class="sa-sand-animated" style="padding:70px 5vw; position:relative;">
+    <div class="sa-wave-top"></div>
+    <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
 
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;">
-            <div>
-                <h3 style="color:var(--green); margin-bottom:20px; font-size:20px; font-weight:600;"><?php echo e($en ? 'Water Management' : 'Gestion de l\'Eau'); ?></h3>
-                <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
-                    <li style="margin-bottom:12px;">• <?php echo e($en ? 'Rainwater harvesting & storage systems' : 'Systèmes récupération eau pluie'); ?></li>
-                    <li style="margin-bottom:12px;">• <?php echo e($en ? 'Wastewater treatment & recycling' : 'Traitement & recyclage eaux usées'); ?></li>
-                    <li style="margin-bottom:12px;">• <?php echo e($en ? 'Groundwater monitoring programs' : 'Programmes suivi eau souterraine'); ?></li>
-                    <li style="margin-bottom:12px;">• <?php echo e($en ? 'Community water access initiatives' : 'Initiatives accès eau communautaire'); ?></li>
-                    <li>• <?php echo e($en ? 'Biodiversity & wetland protection' : 'Protection biodiversité & zones humides'); ?></li>
+        <p class="lead sa-reveal"><?php echo e(__('site.env_water_lead', [], $loc)); ?></p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; margin-top:32px;">
+            <div class="sa-program-card sa-reveal sa-delay-1">
+                <div style="font-size:32px; margin-bottom:14px;">💧</div>
+                <h3 style="color:var(--green); margin-bottom:16px; font-size:20px;"><?php echo e($en ? 'Water Management' : 'Gestion de l\'Eau'); ?></h3>
+                <ul class="sa-animated-list">
+                    <?php $__currentLoopData = [
+                        $en?'Rainwater harvesting & storage systems':'Systèmes récupération eau pluie',
+                        $en?'Wastewater treatment & recycling':'Traitement & recyclage eaux usées',
+                        $en?'Groundwater monitoring programs':'Programmes suivi eau souterraine',
+                        $en?'Community water access initiatives':'Initiatives accès eau communautaire',
+                        $en?'Biodiversity & wetland protection':'Protection biodiversité & zones humides',
+                    ]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li>
+                        <span class="sa-list-bullet" style="font-size:11px;">•</span>
+                        <span style="font-size:14px; color:var(--muted); line-height:1.6;"><?php echo e($item); ?></span>
+                    </li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div>
-            <div>
-                <h3 style="color:var(--green); margin-bottom:20px; font-size:20px; font-weight:600;"><?php echo e($en ? 'Waste & Emissions' : 'Déchets & Émissions'); ?></h3>
-                <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.8; color:var(--muted);">
-                    <li style="margin-bottom:12px;">• <?php echo e($en ? 'Tailings management & disposal' : 'Gestion & disposition des rejets'); ?></li>
-                    <li style="margin-bottom:12px;">• <?php echo e($en ? 'Hazardous waste segregation & treatment' : 'Séparation & traitement déchets dangereux'); ?></li>
-                    <li style="margin-bottom:12px;">• <?php echo e($en ? 'Greenhouse gas reduction targets' : 'Objectifs réduction gaz serre'); ?></li>
-                    <li style="margin-bottom:12px;">• <?php echo e($en ? 'Renewable energy transition (solar pilot)' : 'Transition énergies renouvelables (pilot solaire)'); ?></li>
-                    <li>• <?php echo e($en ? 'Air quality monitoring & dust control' : 'Suivi qualité air & contrôle poussières'); ?></li>
+
+            <div class="sa-program-card sa-reveal sa-delay-2">
+                <div style="font-size:32px; margin-bottom:14px;">🏭</div>
+                <h3 style="color:var(--green); margin-bottom:16px; font-size:20px;"><?php echo e($en ? 'Waste & Emissions' : 'Déchets & Émissions'); ?></h3>
+                <ul class="sa-animated-list">
+                    <?php $__currentLoopData = [
+                        $en?'Tailings management & disposal':'Gestion & disposition des rejets',
+                        $en?'Hazardous waste segregation & treatment':'Séparation & traitement déchets dangereux',
+                        $en?'Greenhouse gas reduction targets':'Objectifs réduction gaz serre',
+                        $en?'Renewable energy transition (solar pilot)':'Transition énergies renouvelables (pilot solaire)',
+                        $en?'Air quality monitoring & dust control':'Suivi qualité air & contrôle poussières',
+                    ]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li>
+                        <span class="sa-list-bullet" style="font-size:11px;">•</span>
+                        <span style="font-size:14px; color:var(--muted); line-height:1.6;"><?php echo e($item); ?></span>
+                    </li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div>
         </div>
 
+        
         <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:40px;">
-            <div class="card">
+            <div class="sa-achievement-card sa-reveal sa-delay-1">
+                <div class="sa-category-icon">🌱</div>
                 <div class="card-tag"><?php echo e($en ? 'Land Rehabilitation' : 'Réhabilitation Terrains'); ?></div>
-                <h3><?php echo e($en ? 'Post-Mining Land Use' : 'Utilisation Terre Post-Minière'); ?></h3>
-                <p><?php echo e($en ? 'Closure plans include reforestation, agricultural use restoration, and creation of wildlife habitats compatible with community needs.' : 'Plans de fermeture incluent reboisement, restauration usage agricole, création habitats faune compatible besoins communautaires.'); ?></p>
+                <h3 style="color:var(--green); margin-bottom:10px;"><?php echo e($en ? 'Post-Mining Land Use' : 'Utilisation Terre Post-Minière'); ?></h3>
+                <p style="font-size:14px; margin:0;">
+                    <?php echo e($en ? 'Closure plans include reforestation, agricultural use restoration, and creation of wildlife habitats compatible with community needs.' : 'Plans de fermeture incluent reboisement, restauration usage agricole, création habitats faune compatible besoins communautaires.'); ?>
+
+                </p>
             </div>
-            <div class="card">
+            <div class="sa-achievement-card sa-reveal sa-delay-2">
+                <div class="sa-category-icon">🦋</div>
                 <div class="card-tag"><?php echo e($en ? 'Biodiversity' : 'Biodiversité'); ?></div>
-                <h3><?php echo e($en ? 'Flora & Fauna Protection' : 'Protection Flore & Faune'); ?></h3>
-                <p><?php echo e($en ? 'Regular biodiversity surveys, protected species monitoring, and habitat corridors maintained throughout operations and closure phases.' : 'Surveys biodiversité réguliers, suivi espèces protégées, corridors habitat maintenus opérations & fermeture.'); ?></p>
+                <h3 style="color:var(--green); margin-bottom:10px;"><?php echo e($en ? 'Flora & Fauna Protection' : 'Protection Flore & Faune'); ?></h3>
+                <p style="font-size:14px; margin:0;">
+                    <?php echo e($en ? 'Regular biodiversity surveys, protected species monitoring, and habitat corridors maintained throughout operations and closure phases.' : 'Surveys biodiversité réguliers, suivi espèces protégées, corridors habitat maintenus opérations & fermeture.'); ?>
+
+                </p>
             </div>
         </div>
     </div>
+    <div class="sa-wave-bottom"></div>
 </section>
+
+<?php $__env->startPush('scripts'); ?>
+<script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
+<?php $__env->stopPush(); ?>
 
 <?php $__env->stopSection(); ?>
 

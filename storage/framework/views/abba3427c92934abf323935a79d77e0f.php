@@ -20,6 +20,8 @@
                 <legend style="font:600 16px Inter,sans-serif; color:var(--green); text-transform:capitalize; margin-bottom:16px; border-bottom:2px solid var(--line); padding-bottom:12px;">
                     <?php if($category === 'carousel'): ?>
                         🎬 Carrousel héro
+                    <?php elseif($category === 'press'): ?>
+                        Contact presse
                     <?php else: ?>
                         <?php echo e($category); ?>
 
@@ -30,6 +32,12 @@
                     <?php
                         $labelText = implode(' ', array_slice(explode('_', $setting->key), 1));
                         $descriptions = [
+                            'press_contact_name' => 'Nom affiché sur la fiche de contact presse publique',
+                            'press_contact_job' => 'Fonction affichée sous le nom du contact presse',
+                            'press_contact_photo' => 'URL de la photo affichée sur la fiche de contact presse (laisser vide pour le placeholder)',
+                            'press_contact_phone' => 'Numéro affiché pour le contact presse',
+                            'press_contact_email' => 'Adresse e-mail affichée et utilisée pour le contact presse',
+                            'press_contact_hours' => 'Plage horaire affichée pour la disponibilité presse',
                             'carousel_autoplay' => 'Active la rotation automatique des slides',
                             'carousel_interval' => 'Durée d\'affichage de chaque slide (en millisecondes)',
                             'carousel_transition_speed' => 'Vitesse de transition entre les slides (en millisecondes)',

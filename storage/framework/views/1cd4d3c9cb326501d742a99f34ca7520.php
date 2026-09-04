@@ -47,6 +47,7 @@
         .article-cover{width:100%;max-height:480px;object-fit:cover;border-radius:8px;margin-bottom:40px;}
         .back-link{display:inline-flex;align-items:center;gap:8px;color:var(--red);font:600 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;margin-bottom:32px;}
         .back-link:hover{color:var(--green);}
+        .back-link:hover .sa-arrow-hover-left { transform: translateX(-4px); }
         footer{padding:32px 5vw;background:#351312;color:#eadcca;display:flex;justify-content:space-between;align-items:center;font:12px Inter,sans-serif;}
         .footer-links{display:flex;gap:20px;}
         .footer-links a:hover{color:var(--gold);}
@@ -57,6 +58,8 @@
             footer{flex-direction:column;gap:12px;text-align:center;}
         }
     </style>
+    <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
+    <script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
 </head>
 <body>
     <?php echo $__env->make('partials._nav', ['locale' => $locale ?? 'fr', 'section' => 'news'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
@@ -72,19 +75,20 @@
         </div>
     </div>
 
-    <div class="article-wrap">
-        <a class="back-link" href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.back_to_news')); ?></a>
+    <div class="article-wrap sa-animated-section">
+        <div class="sa-particles-container" data-count="2"></div>
+        <a class="back-link sa-reveal" href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><span style="display:inline-block; transition:transform .2s; font-size:14px; margin-right:4px;" class="sa-arrow-hover-left">←</span> <?php echo e(__('site.back_to_news')); ?></a>
 
-        <div class="article-meta">
+        <div class="article-meta sa-reveal sa-delay-1">
             <span><?php echo e($news->published_at?->translatedFormat('d M Y')); ?></span>
             <span><?php echo e($news->category); ?></span>
         </div>
 
         <?php if($news->image_path): ?>
-            <img class="article-cover" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($news->image_path)); ?>" alt="<?php echo e($news->title); ?>">
+            <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($news->image_path)); ?>" alt="<?php echo e($news->title); ?>">
         <?php endif; ?>
 
-        <div class="article-body">
+        <div class="article-body sa-reveal sa-delay-2">
             <?php if($news->content): ?>
                 <?php echo nl2br(e($news->content)); ?>
 

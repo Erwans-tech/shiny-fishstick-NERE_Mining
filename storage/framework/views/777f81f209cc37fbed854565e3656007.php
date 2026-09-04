@@ -1,6 +1,18 @@
 
 
 <?php $__env->startSection('content'); ?>
+<style>
+    .karma-page > section > .lead {
+        width: 100%;
+        max-width: none;
+    }
+
+    @media (max-width: 600px) {
+        .karma-page > section > .lead {
+            text-align: left;
+        }
+    }
+</style>
 <div class="karma-page">
 <section id="organisation">
     <h2><?php echo e(__('site.karma_org_h2', [], $loc)); ?></h2>

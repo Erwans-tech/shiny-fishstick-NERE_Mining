@@ -4,10 +4,11 @@
     $isNews    = in_array($sec, ['news','press','gallery','reports','press-contact']);
     $isSustain = in_array($sec, ['sustainability','communities','environment','hse','local-content']);
     $isCompany = in_array($sec, ['company','company-ceo','company-identity','company-history','company-values','company-governance']);
+    $isCareers = in_array($sec, ['careers','jobs','spontaneous']);
     $contactUrl = $en ? route('english.contact') : route('contact');
 ?>
 
-<?php if (! $__env->hasRenderedOnce('52d9d282-a6a8-4a07-a50b-980ecf6dc9fc')): $__env->markAsRenderedOnce('52d9d282-a6a8-4a07-a50b-980ecf6dc9fc'); ?>
+<?php if (! $__env->hasRenderedOnce('75ea4585-9467-4626-b791-7dfbd27ad12a')): $__env->markAsRenderedOnce('75ea4585-9467-4626-b791-7dfbd27ad12a'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
 <?php endif; ?>
 
@@ -123,11 +124,20 @@
                 </div>
             </span>
 
-            <a class="site-nav__link <?php echo e($sec === 'careers' ? 'is-active' : ''); ?>"
-               href="<?php echo e($en ? route('english.careers') : route('careers')); ?>">
-                <?php echo e(__('site.nav_careers')); ?>
+            <span class="site-nav__item" data-dropdown>
+                <a class="site-nav__link <?php echo e($isCareers ? 'is-active' : ''); ?>"
+                   href="<?php echo e($en ? route('english.careers') : route('careers')); ?>">
+                    <?php echo e(__('site.nav_careers')); ?>
 
-            </a>
+                    <span class="site-nav__caret" aria-hidden="true"></span>
+                </a>
+                <div class="site-nav__menu" role="menu">
+                          <a href="<?php echo e($en ? route('english.careers') : route('careers')); ?>"
+                       class="<?php echo e($sec === 'careers' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Join us' : 'Nous rejoindre'); ?></a>
+                          <a href="<?php echo e($en ? route('english.jobs.index') : route('jobs.index')); ?>"
+                       class="<?php echo e($sec === 'jobs' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Job offers' : 'Offres d’emploi'); ?></a>
+                </div>
+            </span>
 
             <div class="site-nav__actions">
                 <a class="site-nav__lang" href="<?php echo e($en ? url('/') : route('english')); ?>">

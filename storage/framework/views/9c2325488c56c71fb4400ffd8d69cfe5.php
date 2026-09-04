@@ -3,13 +3,19 @@
 
 <?php $__env->startSection('content'); ?>
 
+<?php
+    $defaultSlides = \App\Models\HeroSlide::defaults();
+    $displaySlides = $defaultSlides->merge($slides);
+    $activeSlides = $displaySlides->where('is_active', true)->values();
+?>
+
 
 <div class="card" style="margin-bottom:20px;">
     <div class="card-header">
         <div>
             <h2>🖼️ Diaporama de la page d'accueil</h2>
             <span class="card-header-sub">
-                <?php echo e($slides->count()); ?> slide(s) · <?php echo e($slides->where('is_active', true)->count()); ?> active(s)
+                <?php echo e($displaySlides->count()); ?> slide(s) · <?php echo e($activeSlides->count()); ?> active(s)
             </span>
         </div>
         <a href="<?php echo e(route('admin.hero.create')); ?>" class="btn btn-primary">
@@ -29,46 +35,14 @@
         <span style="font-size:16px;">💡</span>
         <span>
             Faites glisser les lignes pour réordonner. Cliquez sur <strong>Activer/Masquer</strong> pour contrôler l'affichage sur le site en temps réel.
-            <?php if($slides->isEmpty()): ?>
-                <strong style="color:#854d0e;"> — Aucune slide configurée : les 5 images par défaut (karma-01 à karma-05) sont utilisées.</strong>
-            <?php endif; ?>
+            <strong style="color:#854d0e;"> — Les 6 médias par défaut restent disponibles avec vos slides configurées.</strong>
         </span>
     </div>
 </div>
 
-
-<?php if($slides->isEmpty()): ?>
-<div class="card" style="padding:48px; text-align:center; color:var(--muted);">
-    <div style="font-size:40px; margin-bottom:14px;">🏔️</div>
-    <h3 style="font:500 18px Inter,sans-serif; color:var(--green); margin-bottom:8px;">Aucune slide configurée</h3>
-    <p style="font-size:14px; margin-bottom:20px;">Le carrousel utilise actuellement les 5 images par défaut.<br>Ajoutez vos propres images pour personnaliser le diaporama.</p>
-    <a href="<?php echo e(route('admin.hero.create')); ?>" class="btn btn-primary">+ Ajouter la première slide</a>
-</div>
-
-
-<div class="card" style="margin-top:20px;">
-    <div class="card-header">
-        <h2 style="color:var(--muted);">Images par défaut (actuellement affichées)</h2>
-    </div>
-    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px; padding:20px;">
-        <?php $__currentLoopData = range(1,5); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div style="border-radius:8px; overflow:hidden; border:1px solid var(--line);">
-            <img src="<?php echo e(asset('images/mining/karma-0'.$i.'.jpg')); ?>"
-                 style="width:100%; height:120px; object-fit:cover; display:block;"
-                 alt="Karma 0<?php echo e($i); ?>">
-            <div style="padding:8px 10px; font:500 11px Inter,sans-serif; color:var(--muted); background:#faf8f4;">
-                karma-0<?php echo e($i); ?>.jpg
-            </div>
-        </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-    </div>
-</div>
-
-<?php else: ?>
-
 <div id="slides-list" class="card">
     <div class="card-header">
-        <h2>Slides configurées</h2>
+        <h2>Slides du carrousel</h2>
         <span style="font:500 12px Inter,sans-serif; color:var(--muted);">⠿ Glisser pour réordonner</span>
     </div>
     <div class="table-wrap">
@@ -84,18 +58,24 @@
                 </tr>
             </thead>
             <tbody id="sortable-slides">
-                <?php $__currentLoopData = $slides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr data-id="<?php echo e($slide->id); ?>" style="cursor:grab; <?php echo e(!$slide->is_active ? 'opacity:.55;' : ''); ?>">
+                <?php $__currentLoopData = $displaySlides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <tr <?php if($slide->id): ?> data-id="<?php echo e($slide->id); ?>" <?php endif; ?> style="<?php echo e($slide->id ? 'cursor:grab;' : ''); ?> <?php echo e(!$slide->is_active ? 'opacity:.55;' : ''); ?>">
                     
-                    <td style="text-align:center; font-size:18px; color:var(--muted); cursor:grab;">⠿</td>
+                    <td style="text-align:center; font-size:18px; color:var(--muted); <?php echo e($slide->id ? 'cursor:grab;' : ''); ?>"><?php echo e($slide->id ? '⠿' : '—'); ?></td>
 
                     
                     <td>
                         <div style="width:110px; height:65px; border-radius:6px; overflow:hidden; border:1px solid var(--line);">
-                            <img src="<?php echo e($slide->url); ?>"
-                                 style="width:100%; height:100%; object-fit:cover;"
-                                 alt="<?php echo e($slide->title ?? 'Slide'); ?>"
-                                 loading="lazy">
+                               <?php if(($slide->type ?? 'image') === 'video'): ?>
+                               <video src="<?php echo e($slide->url); ?>" muted playsinline preload="metadata"
+                                    style="width:100%; height:100%; object-fit:cover;"
+                                    aria-label="<?php echo e($slide->title ?? 'Slide vidéo'); ?>"></video>
+                               <?php else: ?>
+                               <img src="<?php echo e($slide->url); ?>"
+                                   style="width:100%; height:100%; object-fit:cover;"
+                                   alt="<?php echo e($slide->title ?? 'Slide'); ?>"
+                                   loading="lazy">
+                               <?php endif; ?>
                         </div>
                     </td>
 
@@ -126,6 +106,7 @@
 
                     
                     <td>
+                        <?php if($slide->id): ?>
                         <form method="POST" action="<?php echo e(route('admin.hero.toggle', $slide)); ?>">
                             <?php echo csrf_field(); ?> <?php echo method_field('PATCH'); ?>
                             <button type="submit"
@@ -135,10 +116,14 @@
 
                             </button>
                         </form>
+                        <?php else: ?>
+                        <span class="badge badge-gray">Par défaut</span>
+                        <?php endif; ?>
                     </td>
 
                     
                     <td>
+                        <?php if($slide->id): ?>
                         <div style="display:flex; gap:6px;">
                             <a href="<?php echo e(route('admin.hero.edit', $slide)); ?>" class="btn btn-ghost btn-sm">
                                 Modifier
@@ -149,6 +134,9 @@
                                 <button type="submit" class="btn btn-danger btn-sm">✕</button>
                             </form>
                         </div>
+                        <?php else: ?>
+                        <span style="font:11px Inter,sans-serif; color:var(--muted);">Automatique</span>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -161,10 +149,9 @@
 <div class="card" style="margin-top:20px;">
     <div class="card-header">
         <h2>👁 Prévisualisation du carrousel</h2>
-        <span class="card-header-sub">Rendu approximatif — <?php echo e($slides->where('is_active', true)->count()); ?> slide(s) active(s)</span>
+        <span class="card-header-sub">Rendu approximatif — <?php echo e($activeSlides->count()); ?> slide(s) active(s)</span>
     </div>
     <div style="position:relative; height:220px; overflow:hidden; background:#1a0505;">
-        <?php $activeSlides = $slides->where('is_active', true)->values(); ?>
         <?php $__empty_1 = true; $__currentLoopData = $activeSlides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idx => $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
         <div style="
             position:absolute; inset:0;
@@ -257,12 +244,14 @@
     });
 
     // Rendre les lignes draggables
-    tbody.querySelectorAll('tr').forEach(function(tr){ tr.draggable = true; });
+    tbody.querySelectorAll('tr[data-id]').forEach(function(tr){ tr.draggable = true; });
 
     function saveOrder(){
         var rows = tbody.querySelectorAll('tr');
         var order = [];
-        rows.forEach(function(tr, i){ order.push({id: parseInt(tr.dataset.id), order: i}); });
+        rows.forEach(function(tr, i){
+            if (tr.dataset.id) order.push({id: parseInt(tr.dataset.id), order: i});
+        });
 
         fetch('<?php echo e(route('admin.hero.reorder')); ?>', {
             method: 'POST',
@@ -287,7 +276,6 @@
     }
 })();
 </script>
-<?php endif; ?>
 
 <?php $__env->stopSection(); ?>
 

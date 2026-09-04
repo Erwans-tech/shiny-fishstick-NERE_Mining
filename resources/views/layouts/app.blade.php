@@ -78,11 +78,15 @@
     {!! App\Helpers\CanonicalHelper::render($section, $loc) !!}
     {!! App\Helpers\CanonicalHelper::renderHreflang($section, $loc) !!}
     {!! App\Helpers\OpenGraphHelper::render($section, $loc, $description ?? null) !!}
+    @if($isSustain)
+    <script>document.documentElement.classList.add('sustain-js');</script>
+    @endif
+    <link rel="stylesheet" href="{{ asset('css/sustainability-animations.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/chrome.css') }}?v={{ filemtime(public_path('css/chrome.css')) }}">
-    <link rel="stylesheet" href="{{ asset('css/animations.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animations.css') }}?v={{ filemtime(public_path('css/animations.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/text-fixes.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive-global.css') }}">
     <link rel="stylesheet" href="{{ asset('css/text-containers-responsive.css') }}">
@@ -149,6 +153,11 @@
             text-align:center;
             overflow:hidden;
         }
+        .masthead h1 {
+            margin-left:auto;
+            margin-right:auto;
+            text-align:center;
+        }
         .masthead::after {
             content:'';
             position:absolute;
@@ -191,7 +200,7 @@
         main { width:100%; max-width:1440px; margin:0 auto; }
         section { padding:clamp(48px,6vw,88px) clamp(24px,5vw,72px); }
         section + section { padding-top:0; }
-        .lead { width:100%; max-width:820px; color:var(--muted); font:clamp(16px,1.35vw,19px)/1.8 Inter,sans-serif; margin-bottom:clamp(32px,4vw,48px); }
+        .lead { width:100%; max-width:none; color:var(--muted); font:clamp(16px,1.35vw,19px)/1.8 Inter,sans-serif; margin-bottom:clamp(32px,4vw,48px); }
         h2 {
             color:var(--ink);
             font-size:clamp(26px,2.6vw,40px);
@@ -200,6 +209,11 @@
             margin:0 0 18px;
             letter-spacing:-.03em;
             position:relative;
+        }
+        section > h2 {
+            margin-left:auto;
+            margin-right:auto;
+            text-align:center;
         }
         h3 { color:var(--green); font-size:23px; font-weight:500; margin-bottom:12px; }
         h4 { color:var(--green); font-size:16px; font-weight:600; margin-bottom:8px; letter-spacing:.04em; text-transform:uppercase; }
@@ -263,7 +277,8 @@
             display:block;
             width:100%;
             height:360px;
-            object-fit:cover;
+            object-fit:contain;
+            object-position:center;
             filter:saturate(1.05) contrast(1.02);
         }
         .values-hero-overlay {
@@ -794,7 +809,7 @@
     @yield('head')
     @stack('styles')
 </head>
-<body>
+<body class="{{ $isSustain ? 'is-sustain' : '' }}">
     @include('partials._nav', ['locale' => $loc, 'section' => $section])
 
     {{-- ── Masthead — h1 centré, sans répétition ── --}}
@@ -828,14 +843,20 @@
     @include('partials._footer', ['loc' => $loc, 'en' => $en])
 
     <script src="{{ asset('js/animations.js') }}"></script>
-    <script src="{{ asset('js/page-animations.js') }}"></script>
+    <script src="{{ asset('js/page-animations.js') }}?v={{ filemtime(public_path('js/page-animations.js')) }}"></script>
+    <script src="{{ asset('js/sustainability-animations.js') }}"></script>
     <script>
         // Initialisation supplémentaire si nécessaire
         document.addEventListener('DOMContentLoaded', () => {
+            const isSustain = document.body.classList.contains('is-sustain');
+
             // Ajouter des classes d'animation aux éléments existants
             document.querySelectorAll('.card').forEach((card, index) => {
-                card.classList.add('card-3d', 'sr-fade-up', 'is-visible');
-                card.style.animationDelay = (index * 0.1) + 's';
+                card.classList.add('card-3d');
+                if (!isSustain) {
+                    card.classList.add('sr-fade-up', 'is-visible');
+                    card.style.animationDelay = (index * 0.1) + 's';
+                }
             });
 
             // Ajouter l'animation shimmer aux cartes importantes
@@ -865,9 +886,11 @@
             }
 
             // Animation en cascade pour les grilles
-            document.querySelectorAll('.grid-3, .grid-2, .projects-grid, .values-grid').forEach(grid => {
-                grid.classList.add('cascade-animation');
-            });
+            if (!isSustain) {
+                document.querySelectorAll('.grid-3, .grid-2, .projects-grid, .values-grid').forEach(grid => {
+                    grid.classList.add('cascade-animation');
+                });
+            }
 
             // Ajouter l'effet ripple aux liens et boutons
             document.querySelectorAll('a, button, .btn').forEach(element => {

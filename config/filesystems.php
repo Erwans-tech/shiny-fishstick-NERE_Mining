@@ -7,8 +7,8 @@ return [
     | Default Filesystem Disk
     |--------------------------------------------------------------------------
     |
-    | En développement local : "public" (dossier public/uploads/)
-    | En production Render   : "r2"    (Cloudflare R2, compatible S3)
+    | En développement et sur Render : "public" (dossier public/uploads/ versionné)
+    | R2 reste disponible en option si un stockage externe est configuré.
     |
     */
     'default' => env('FILESYSTEM_DISK', 'public'),

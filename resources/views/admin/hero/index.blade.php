@@ -4,13 +4,19 @@
 
 @section('content')
 
+@php
+    $defaultSlides = \App\Models\HeroSlide::defaults();
+    $displaySlides = $defaultSlides->merge($slides);
+    $activeSlides = $displaySlides->where('is_active', true)->values();
+@endphp
+
 {{-- En-tête --}}
 <div class="card" style="margin-bottom:20px;">
     <div class="card-header">
         <div>
             <h2>🖼️ Diaporama de la page d'accueil</h2>
             <span class="card-header-sub">
-                {{ $slides->count() }} slide(s) · {{ $slides->where('is_active', true)->count() }} active(s)
+                {{ $displaySlides->count() }} slide(s) · {{ $activeSlides->count() }} active(s)
             </span>
         </div>
         <a href="{{ route('admin.hero.create') }}" class="btn btn-primary">
@@ -29,46 +35,14 @@
         <span style="font-size:16px;">💡</span>
         <span>
             Faites glisser les lignes pour réordonner. Cliquez sur <strong>Activer/Masquer</strong> pour contrôler l'affichage sur le site en temps réel.
-            @if($slides->isEmpty())
-                <strong style="color:#854d0e;"> — Aucune slide configurée : les 5 images par défaut (karma-01 à karma-05) sont utilisées.</strong>
-            @endif
+            <strong style="color:#854d0e;"> — Les 6 médias par défaut restent disponibles avec vos slides configurées.</strong>
         </span>
     </div>
 </div>
 
-{{-- Grille de slides --}}
-@if($slides->isEmpty())
-<div class="card" style="padding:48px; text-align:center; color:var(--muted);">
-    <div style="font-size:40px; margin-bottom:14px;">🏔️</div>
-    <h3 style="font:500 18px Inter,sans-serif; color:var(--green); margin-bottom:8px;">Aucune slide configurée</h3>
-    <p style="font-size:14px; margin-bottom:20px;">Le carrousel utilise actuellement les 5 images par défaut.<br>Ajoutez vos propres images pour personnaliser le diaporama.</p>
-    <a href="{{ route('admin.hero.create') }}" class="btn btn-primary">+ Ajouter la première slide</a>
-</div>
-
-{{-- Aperçu des slides par défaut --}}
-<div class="card" style="margin-top:20px;">
-    <div class="card-header">
-        <h2 style="color:var(--muted);">Images par défaut (actuellement affichées)</h2>
-    </div>
-    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px; padding:20px;">
-        @foreach(range(1,5) as $i)
-        <div style="border-radius:8px; overflow:hidden; border:1px solid var(--line);">
-            <img src="{{ asset('images/mining/karma-0'.$i.'.jpg') }}"
-                 style="width:100%; height:120px; object-fit:cover; display:block;"
-                 alt="Karma 0{{ $i }}">
-            <div style="padding:8px 10px; font:500 11px Inter,sans-serif; color:var(--muted); background:#faf8f4;">
-                karma-0{{ $i }}.jpg
-            </div>
-        </div>
-        @endforeach
-    </div>
-</div>
-
-@else
-
 <div id="slides-list" class="card">
     <div class="card-header">
-        <h2>Slides configurées</h2>
+        <h2>Slides du carrousel</h2>
         <span style="font:500 12px Inter,sans-serif; color:var(--muted);">⠿ Glisser pour réordonner</span>
     </div>
     <div class="table-wrap">
@@ -84,18 +58,24 @@
                 </tr>
             </thead>
             <tbody id="sortable-slides">
-                @foreach($slides as $slide)
-                <tr data-id="{{ $slide->id }}" style="cursor:grab; {{ !$slide->is_active ? 'opacity:.55;' : '' }}">
+                @foreach($displaySlides as $slide)
+                <tr @if($slide->id) data-id="{{ $slide->id }}" @endif style="{{ $slide->id ? 'cursor:grab;' : '' }} {{ !$slide->is_active ? 'opacity:.55;' : '' }}">
                     {{-- Handle drag --}}
-                    <td style="text-align:center; font-size:18px; color:var(--muted); cursor:grab;">⠿</td>
+                    <td style="text-align:center; font-size:18px; color:var(--muted); {{ $slide->id ? 'cursor:grab;' : '' }}">{{ $slide->id ? '⠿' : '—' }}</td>
 
                     {{-- Aperçu image --}}
                     <td>
                         <div style="width:110px; height:65px; border-radius:6px; overflow:hidden; border:1px solid var(--line);">
-                            <img src="{{ $slide->url }}"
-                                 style="width:100%; height:100%; object-fit:cover;"
-                                 alt="{{ $slide->title ?? 'Slide' }}"
-                                 loading="lazy">
+                               @if(($slide->type ?? 'image') === 'video')
+                               <video src="{{ $slide->url }}" muted playsinline preload="metadata"
+                                    style="width:100%; height:100%; object-fit:cover;"
+                                    aria-label="{{ $slide->title ?? 'Slide vidéo' }}"></video>
+                               @else
+                               <img src="{{ $slide->url }}"
+                                   style="width:100%; height:100%; object-fit:cover;"
+                                   alt="{{ $slide->title ?? 'Slide' }}"
+                                   loading="lazy">
+                               @endif
                         </div>
                     </td>
 
@@ -123,6 +103,7 @@
 
                     {{-- Statut --}}
                     <td>
+                        @if($slide->id)
                         <form method="POST" action="{{ route('admin.hero.toggle', $slide) }}">
                             @csrf @method('PATCH')
                             <button type="submit"
@@ -131,10 +112,14 @@
                                 {{ $slide->is_active ? '● Visible' : '○ Masquée' }}
                             </button>
                         </form>
+                        @else
+                        <span class="badge badge-gray">Par défaut</span>
+                        @endif
                     </td>
 
                     {{-- Actions --}}
                     <td>
+                        @if($slide->id)
                         <div style="display:flex; gap:6px;">
                             <a href="{{ route('admin.hero.edit', $slide) }}" class="btn btn-ghost btn-sm">
                                 Modifier
@@ -145,6 +130,9 @@
                                 <button type="submit" class="btn btn-danger btn-sm">✕</button>
                             </form>
                         </div>
+                        @else
+                        <span style="font:11px Inter,sans-serif; color:var(--muted);">Automatique</span>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
@@ -157,10 +145,9 @@
 <div class="card" style="margin-top:20px;">
     <div class="card-header">
         <h2>👁 Prévisualisation du carrousel</h2>
-        <span class="card-header-sub">Rendu approximatif — {{ $slides->where('is_active', true)->count() }} slide(s) active(s)</span>
+        <span class="card-header-sub">Rendu approximatif — {{ $activeSlides->count() }} slide(s) active(s)</span>
     </div>
     <div style="position:relative; height:220px; overflow:hidden; background:#1a0505;">
-        @php $activeSlides = $slides->where('is_active', true)->values(); @endphp
         @forelse($activeSlides as $idx => $slide)
         <div style="
             position:absolute; inset:0;
@@ -252,12 +239,14 @@
     });
 
     // Rendre les lignes draggables
-    tbody.querySelectorAll('tr').forEach(function(tr){ tr.draggable = true; });
+    tbody.querySelectorAll('tr[data-id]').forEach(function(tr){ tr.draggable = true; });
 
     function saveOrder(){
         var rows = tbody.querySelectorAll('tr');
         var order = [];
-        rows.forEach(function(tr, i){ order.push({id: parseInt(tr.dataset.id), order: i}); });
+        rows.forEach(function(tr, i){
+            if (tr.dataset.id) order.push({id: parseInt(tr.dataset.id), order: i});
+        });
 
         fetch('{{ route('admin.hero.reorder') }}', {
             method: 'POST',
@@ -282,6 +271,5 @@
     }
 })();
 </script>
-@endif
 
 @endsection

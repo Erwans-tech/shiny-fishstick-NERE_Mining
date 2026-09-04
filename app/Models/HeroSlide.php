@@ -72,22 +72,24 @@ class HeroSlide extends Model
     public function getUrlAttribute(): string
     {
         if (! $this->image_path) {
-            return '';
+            return $this->video_url ?? '';
         }
 
         if (str_starts_with($this->image_path, 'images/')) {
-            return asset($this->image_path);
+            return url($this->image_path);
         }
 
-        $disk = Storage::disk(config('filesystems.default', 'public'));
+        $diskName = config('filesystems.default', 'public');
+        $disk = Storage::disk($diskName);
         $path = $this->image_path;
 
         if ($disk->exists($path)) {
-            return $disk->url($path);
+            $diskConfig = config('filesystems.disks');
+            $baseUrl = rtrim((string) ($diskConfig[$diskName]['url'] ?? ''), '/');
+            return $baseUrl . '/' . ltrim($path, '/');
         }
 
-        $defaultIndex = ((int) ($this->sort_order ?? 0) % 5) + 1;
-        return asset("images/mining/karma-0{$defaultIndex}.jpg");
+        return '';
     }
 
     /** Scope : slides actives triées par ordre d'affichage. */
@@ -102,16 +104,23 @@ class HeroSlide extends Model
      */
     public static function defaults(): \Illuminate\Support\Collection
     {
-        return collect(range(1, 5))->map(fn($i) => (object) [
+        return collect([
+            ['type' => 'image', 'filename' => 'gyathursan-mine-5523376_1920.jpg', 'title' => 'Une mine de classe mondiale'],
+            ['type' => 'image', 'filename' => 'pexels-gunshe-5125104.jpg', 'title' => 'Des opérations responsables'],
+            ['type' => 'image', 'filename' => 'shibang-mechanical-2653706_1920.jpg', 'title' => 'L’excellence industrielle'],
+            ['type' => 'image', 'filename' => 'tyna_janoch-excavator-2781676_1920.jpg', 'title' => 'Des équipes engagées'],
+            ['type' => 'image', 'filename' => 'tyna_janoch-mine-2781686_1920.jpg', 'title' => 'Un territoire en mouvement'],
+            ['type' => 'video', 'filename' => 'Video Project 1.mp4', 'title' => 'Karma, notre mine d’or'],
+        ])->map(fn($slide, $index) => (object) [
             'id'         => null,
-            'type'       => 'image',
-            'title'      => "Karma 0{$i}",
+            'type'       => $slide['type'],
+            'title'      => $slide['title'],
             'caption'    => null,
-            'image_path' => "images/mining/karma-0{$i}.jpg",
+            'image_path' => "images/carousel/{$slide['filename']}",
             'video_url'  => null,
             'is_active'  => true,
-            'sort_order' => $i,
-            'url'        => asset("images/mining/karma-0{$i}.jpg"),
+            'sort_order' => $index,
+            'url'        => url("images/carousel/{$slide['filename']}"),
             'embed_url'  => null,
         ]);
     }

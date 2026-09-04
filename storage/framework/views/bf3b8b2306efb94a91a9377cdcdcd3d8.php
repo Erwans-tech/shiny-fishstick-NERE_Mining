@@ -16,32 +16,43 @@
 
     $mastheadSection = str_replace('-', '_', $section);
     $mastheadImages = [
-        'company' => 'images/mining/mining-site-aerial-01.jpg',
+        // Qui Sommes-Nous
+        'company' => 'images/headers/usine-traitement-or-illuminee-nuit.jpeg',
         'company_ceo' => 'images/mining/mining-workers-01.jpg',
-        'company_identity' => 'images/mining/gold-processing-01.jpg',
+        'company_identity' => 'images/headers/coulee-or-fusion-creuset-metallurgie.jpeg',
         'company_history' => 'images/mining/karma-03.jpg',
-        'company_values' => 'images/mining/mining-environment-01.jpg',
+        'company_values' => 'images/headers/equipe-inspection-site-mine-drapeau-securite.jpeg',
         'company_governance' => 'images/mining/mining-site-aerial-01.jpg',
-        'karma' => 'images/mining/gold-processing-01.jpg',
-        'karma_exploitation' => 'images/mining/karma-05.jpg',
-        'karma_organisation' => 'images/mining/mining-site-aerial-01.jpg',
-        'karma_modele' => 'images/mining/karma-04.jpg',
-        'karma_impact' => 'images/mining/mining-workers-01.jpg',
+        
+        // Mine Karma
+        'karma' => 'images/headers/usine-traitement-or-illuminee-nuit.jpeg',
+        'karma_exploitation' => 'images/headers/camion-benne-mine-fosse-exploitation.jpeg',
+        'karma_organisation' => 'images/headers/soudeurs-reparation-equipement-minier-atelier.jpeg',
+        'karma_modele' => 'images/headers/installation-broyage-minerai-crepuscule.jpeg',
+        'karma_impact' => 'images/headers/route-bitumee-panneau-signalisation-projet-ebm.jpeg',
         'karma_resources_reserves' => 'images/mining/reserves-table.jpg',
         'reserves' => 'images/mining/karma-05.jpg',
-        'projects' => 'images/mining/mining-equipment-01.jpg',
-        'cil_project' => 'images/mining/mining-site-aerial-01.jpg',
-        'sustainability' => 'images/mining/mining-environment-01.jpg',
-        'communities' => 'images/mining/mining-workers-01.jpg',
-        'environment' => 'images/mining/mining-environment-01.jpg',
-        'hse' => 'images/mining/mining-equipment-01.jpg',
-        'local_content' => 'images/mining/mining-workers-01.jpg',
+        
+        // Projets
+        'projects' => 'images/headers/equipe-inspection-site-mine-drapeau-securite.jpeg',
+        'cil_project' => 'images/headers/installation-broyage-minerai-crepuscule.jpeg',
+        
+        // Développement Durable
+        'sustainability' => 'images/headers/techniciens-installation-pipeline-eau-mine.jpeg',
+        'communities' => 'images/headers/ceremonie-communaute-locale-terrain-rural.jpeg',
+        'environment' => 'images/headers/techniciens-installation-pipeline-eau-mine.jpeg',
+        'hse' => 'images/headers/equipe-inspection-site-mine-drapeau-securite.jpeg',
+        'local_content' => 'images/headers/soudeurs-reparation-equipement-minier-atelier.jpeg',
+        
+        // Actualités & Presse
         'news' => 'images/mining/karma-01.jpg',
-        'press' => 'images/mining/gold-processing-01.jpg',
+        'press' => 'images/headers/usine-traitement-or-illuminee-nuit.jpeg',
         'gallery' => 'images/mining/karma-02.jpg',
         'reports' => 'images/mining/karma-05.jpg',
         'press_contact' => 'images/mining/mining-workers-01.jpg',
-        'careers' => 'images/mining/mining-workers-01.jpg',
+        
+        // Carrières
+        'careers' => 'images/headers/soudeurs-reparation-equipement-minier-atelier.jpeg',
     ];
     $mastheadImage = asset($mastheadImages[$mastheadSection] ?? 'images/mining/karma-03.jpg');
 ?>
@@ -58,12 +69,18 @@
 
     <?php echo App\Helpers\OpenGraphHelper::render($section, $loc, $description ?? null); ?>
 
+    <?php if($isSustain): ?>
+    <script>document.documentElement.classList.add('sustain-js');</script>
+    <?php endif; ?>
+    <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('css/animations.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/animations.css')); ?>?v=<?php echo e(filemtime(public_path('css/animations.css'))); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/text-fixes.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/responsive-global.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/text-containers-responsive.css')); ?>">
     <style>
         /* ══ Variables ══════════════════════════════════════════ */
         :root {
@@ -127,6 +144,11 @@
             text-align:center;
             overflow:hidden;
         }
+        .masthead h1 {
+            margin-left:auto;
+            margin-right:auto;
+            text-align:center;
+        }
         .masthead::after {
             content:'';
             position:absolute;
@@ -166,10 +188,10 @@
         .breadcrumb a:hover { color:#fff; text-decoration:underline; }
 
         /* ── Contenu ── */
-        main { max-width:1240px; margin:auto; }
-        section { padding:80px 5vw; }
+        main { width:100%; max-width:1440px; margin:0 auto; }
+        section { padding:clamp(48px,6vw,88px) clamp(24px,5vw,72px); }
         section + section { padding-top:0; }
-        .lead { max-width:820px; color:var(--muted); font:19px/1.8 Inter,sans-serif; margin-bottom:48px; }
+        .lead { width:100%; max-width:none; color:var(--muted); font:clamp(16px,1.35vw,19px)/1.8 Inter,sans-serif; margin-bottom:clamp(32px,4vw,48px); }
         h2 {
             color:var(--ink);
             font-size:clamp(26px,2.6vw,40px);
@@ -179,13 +201,18 @@
             letter-spacing:-.03em;
             position:relative;
         }
+        section > h2 {
+            margin-left:auto;
+            margin-right:auto;
+            text-align:center;
+        }
         h3 { color:var(--green); font-size:23px; font-weight:500; margin-bottom:12px; }
         h4 { color:var(--green); font-size:16px; font-weight:600; margin-bottom:8px; letter-spacing:.04em; text-transform:uppercase; }
         p { color:var(--muted); font:19px/1.8 Inter,sans-serif; margin-bottom:12px; text-align:justify; }
 
         /* ── Grilles & Cards ── */
-        .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
-        .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
+        .grid-3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2.2vw,32px); }
+        .grid-2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(20px,2.5vw,36px); align-items:start; }
         .card {
             padding:30px;
             border:1px solid var(--line);
@@ -241,7 +268,8 @@
             display:block;
             width:100%;
             height:360px;
-            object-fit:cover;
+            object-fit:contain;
+            object-position:center;
             filter:saturate(1.05) contrast(1.02);
         }
         .values-hero-overlay {
@@ -742,7 +770,7 @@
         /* ── Responsive ── */
         @media(max-width:900px) {
             .topbar { display:none; }
-            .grid-3, .grid-2, .steps, .team-grid, .contact-grid { grid-template-columns:1fr; }
+            .grid-3, .grid-2, .steps, .team-grid, .contact-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
             .stat-band { grid-template-columns:repeat(2,1fr); }
             .step::after { display:none; }
             .step { border-right:0; border-bottom:1px solid rgba(255,255,255,.15); }
@@ -760,6 +788,8 @@
             .values-card { height:auto; min-height:auto; }
         }
         @media(max-width:540px) {
+            section { padding-left:20px; padding-right:20px; }
+            .grid-3, .grid-2, .steps, .team-grid, .contact-grid { grid-template-columns:1fr; }
             .org-level--dga { grid-template-columns:1fr; }
             .org-hbar { display:none; }
             .org-connector-branch { height:16px; }
@@ -770,7 +800,7 @@
     <?php echo $__env->yieldContent('head'); ?>
     <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
-<body>
+<body class="<?php echo e($isSustain ? 'is-sustain' : ''); ?>">
     <?php echo $__env->make('partials._nav', ['locale' => $loc, 'section' => $section], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     
@@ -805,14 +835,20 @@
     <?php echo $__env->make('partials._footer', ['loc' => $loc, 'en' => $en], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <script src="<?php echo e(asset('js/animations.js')); ?>"></script>
-    <script src="<?php echo e(asset('js/page-animations.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/page-animations.js')); ?>?v=<?php echo e(filemtime(public_path('js/page-animations.js'))); ?>"></script>
+    <script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
     <script>
         // Initialisation supplémentaire si nécessaire
         document.addEventListener('DOMContentLoaded', () => {
+            const isSustain = document.body.classList.contains('is-sustain');
+
             // Ajouter des classes d'animation aux éléments existants
             document.querySelectorAll('.card').forEach((card, index) => {
-                card.classList.add('card-3d', 'sr-fade-up', 'is-visible');
-                card.style.animationDelay = (index * 0.1) + 's';
+                card.classList.add('card-3d');
+                if (!isSustain) {
+                    card.classList.add('sr-fade-up', 'is-visible');
+                    card.style.animationDelay = (index * 0.1) + 's';
+                }
             });
 
             // Ajouter l'animation shimmer aux cartes importantes
@@ -842,9 +878,11 @@
             }
 
             // Animation en cascade pour les grilles
-            document.querySelectorAll('.grid-3, .grid-2, .projects-grid, .values-grid').forEach(grid => {
-                grid.classList.add('cascade-animation');
-            });
+            if (!isSustain) {
+                document.querySelectorAll('.grid-3, .grid-2, .projects-grid, .values-grid').forEach(grid => {
+                    grid.classList.add('cascade-animation');
+                });
+            }
 
             // Ajouter l'effet ripple aux liens et boutons
             document.querySelectorAll('a, button, .btn').forEach(element => {

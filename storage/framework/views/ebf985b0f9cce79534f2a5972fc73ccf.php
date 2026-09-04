@@ -1,6 +1,7 @@
 <?php
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
+    $showJobsOnly = $showJobsOnly ?? false;
     $total = $jobs->count();
     $countLabel = $total === 1
         ? str_replace(':n', $total, __('site.careers_count_singular', [], $loc))
@@ -11,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo e(__('site.careers_h1', [], $loc)); ?> | Néré Mining</title>
+    <title><?php echo e($showJobsOnly ? __('site.careers_jobs_h2', [], $loc) : __('site.careers_h1', [], $loc)); ?> | Néré Mining</title>
     <meta name="description" content="<?php echo e(__('site.careers_why_lead', [], $loc)); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,6 +62,7 @@
 
         /* ── Jobs list ── */
         .jobs-section{padding:60px 5vw 80px;}
+        .jobs-section h2{max-width:100%;text-align:center;}
         .jobs-list{display:flex;flex-direction:column;gap:16px;}
         .job-card{display:grid;grid-template-columns:1fr auto;gap:28px;padding:28px 32px;border:1px solid var(--line);background:#fff;border-radius:10px;align-items:center;transition:box-shadow .2s,border-color .2s,transform .18s;}
         .job-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.07);border-color:var(--gold);transform:translateX(4px);}
@@ -113,10 +115,10 @@
     </style>
 </head>
 <body>
-<?php echo $__env->make('partials._nav', ['locale' => $loc, 'section' => 'careers'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+<?php echo $__env->make('partials._nav', ['locale' => $loc, 'section' => $showJobsOnly ? 'jobs' : 'careers'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 <div class="masthead">
-    <h1><?php echo e(__('site.careers_h1', [], $loc)); ?></h1>
+    <h1><?php echo e($showJobsOnly ? __('site.careers_jobs_h2', [], $loc) : __('site.careers_h1', [], $loc)); ?></h1>
     <div class="breadcrumb">
         <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link', [], $loc)); ?></a>
         › <?php echo e(__('site.careers_breadcrumb', [], $loc)); ?>
@@ -132,7 +134,8 @@
     <?php endif; ?>
 
     
-    <section>
+    <?php if(!$showJobsOnly): ?>
+    <section id="nous-rejoindre">
         <p style="color:var(--gold2);font:700 11px Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;">
             <span style="display:block;width:22px;height:2px;background:var(--gold2);"></span>
             <?php echo e(__('site.careers_why_h2', [], $loc)); ?>
@@ -165,10 +168,12 @@
         </div>
     </section>
 </main>
+    <?php endif; ?>
 
+<?php if($showJobsOnly): ?>
 
 <div class="filter-bar">
-    <form method="GET" action="<?php echo e($en ? route('english.careers') : route('careers')); ?>" style="display:contents;">
+    <form method="GET" action="<?php echo e($showJobsOnly ? ($en ? route('english.jobs.index') : route('jobs.index')) : ($en ? route('english.careers') : route('careers'))); ?>" style="display:contents;">
         <select name="dept" class="filter-select" onchange="this.form.submit()">
             <option value=""><?php echo e(__('site.careers_filter_dept', [], $loc)); ?></option>
             <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -194,7 +199,7 @@
         </select>
 
         <?php if(request()->hasAny(['dept','type','level'])): ?>
-        <a href="<?php echo e($en ? route('english.careers') : route('careers')); ?>" class="filter-reset">
+        <a href="<?php echo e($en ? route('english.jobs.index') : route('jobs.index')); ?>" class="filter-reset">
             ✕ <?php echo e(__('site.careers_filter_reset', [], $loc)); ?>
 
         </a>
@@ -207,7 +212,7 @@
 
 
 <main>
-    <div class="jobs-section">
+    <div class="jobs-section" id="offres-emploi">
         <h2 style="color:var(--green);font:400 clamp(28px,3.5vw,44px) Inter,sans-serif;margin-bottom:32px;">
             <?php echo e(__('site.careers_jobs_h2', [], $loc)); ?>
 
@@ -296,6 +301,7 @@
         </div>
     </div>
 </main>
+<?php endif; ?>
 
 <?php echo $__env->make('partials._footer', ['loc' => $loc, 'en' => $en], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 <script>

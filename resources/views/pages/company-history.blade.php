@@ -154,9 +154,14 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         display: block;
+        white-space: nowrap;
         letter-spacing: -.03em;
         filter: drop-shadow(0 2px 8px rgba(255,194,71,.3));
         transition: all 0.4s ease;
+    }
+
+    .timeline-event:last-child .year-text {
+        font-size: 22px;
     }
     
     .timeline-event:hover .year-text {
@@ -238,8 +243,6 @@
         backdrop-filter: blur(10px);
         padding: 36px 40px;
         border-radius: 12px;
-        border: 1px solid rgba(255,194,71,.2);
-        border-left: 4px solid var(--gold);
         box-shadow: 
             0 8px 32px rgba(0,0,0,.3),
             inset 0 1px 0 rgba(255,255,255,.1);
@@ -275,10 +278,8 @@
     
     .event-content:hover {
         transform: translateX(8px) translateY(-4px);
-        border-left-color: var(--gold2);
         box-shadow: 
             0 12px 48px rgba(0,0,0,.4),
-            0 0 0 1px rgba(255,194,71,.3),
             inset 0 1px 0 rgba(255,255,255,.2);
     }
     
@@ -343,11 +344,15 @@
             padding-right: 20px;
             padding-top: 32px;
         }
+
+        .year-badge {
+            transform: translateX(-50px);
+        }
         
         .year-text {
             font-size: 26px;
         }
-        
+
         .event-marker {
             position: absolute;
             left: 50px;
@@ -383,12 +388,18 @@
         <h1>{{ $en ? 'Our History' : 'Notre Histoire' }}</h1>
     </div>
 
+    @php
+        $historyYears = $en
+            ? ['2003', '2016', '2022', 'Today']
+            : ['2003', '2016', '2022', "Aujourd'hui"];
+    @endphp
+
     <div class="timeline-wrapper">
         @foreach(range(1, 4) as $i)
         <article class="timeline-event">
             <div class="event-year">
                 <div class="year-badge">
-                    <span class="year-text">{{ 2000 + ($i * 5) }}</span>
+                    <span class="year-text">{{ $historyYears[$i - 1] }}</span>
                     <span class="year-label">{{ $en ? 'Year' : 'Année' }}</span>
                 </div>
             </div>

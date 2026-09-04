@@ -60,6 +60,7 @@
         .pagination a,.pagination span{padding:10px 16px;border:1px solid var(--line);border-radius:4px;font:500 13px Inter,sans-serif;color:var(--muted);}
         .pagination a:hover{background:var(--green);color:#fff;border-color:var(--green);}
         .pagination .active span{background:var(--green);color:#fff;border-color:var(--green);}
+        .news-link:hover .sa-arrow-hover { transform: translateX(4px); }
         footer{padding:32px 5vw;background:#351312;color:#eadcca;display:flex;justify-content:space-between;align-items:center;font:12px Inter,sans-serif;}
         .footer-links{display:flex;gap:20px;}
         .footer-links a:hover{color:var(--gold);}
@@ -71,6 +72,8 @@
             footer{flex-direction:column;gap:12px;text-align:center;}
         }
     </style>
+    <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
+    <script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
 </head>
 <body>
     <?php echo $__env->make('partials._nav', ['locale' => $locale ?? 'fr', 'section' => 'news'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
@@ -86,14 +89,15 @@
     </div>
 
     <main>
-        <section>
+        <section class="sa-animated-section">
+            <div class="sa-particles-container" data-count="5"></div>
 
             <?php if($news->isEmpty()): ?>
-                <p style="color:var(--muted);font:16px Inter,sans-serif;"><?php echo e(__('site.news_empty')); ?></p>
+                <p class="sa-reveal" style="color:var(--muted);font:16px Inter,sans-serif;"><?php echo e(__('site.news_empty')); ?></p>
             <?php else: ?>
                 <div class="news-grid">
-                    <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <article class="news-card">
+                    <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <article class="news-card sa-reveal sa-delay-<?php echo e($index % 3 + 1); ?>">
                         <?php if($item->image_path): ?>
                             <img class="news-img" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($item->image_path)); ?>" alt="<?php echo e($item->title); ?>">
                         <?php else: ?>
@@ -103,13 +107,13 @@
                             <div class="news-meta"><?php echo e($item->category); ?> · <?php echo e($item->published_at?->translatedFormat('d M Y')); ?></div>
                             <h2><?php echo e($item->title); ?></h2>
                             <?php if($item->excerpt): ?><p><?php echo e($item->excerpt); ?></p><?php endif; ?>
-                            <a class="news-link" href="<?php echo e($en ? route('english.news.show', $item) : route('news.show', $item)); ?>"><?php echo e(__('site.read_more')); ?></a>
+                            <a class="news-link" href="<?php echo e($en ? route('english.news.show', $item) : route('news.show', $item)); ?>"><?php echo e(__('site.read_more')); ?> <span style="display:inline-block; transition:transform .2s; font-size:14px; margin-left:4px;" class="sa-arrow-hover">→</span></a>
                         </div>
                     </article>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
 
-                <div class="pagination">
+                <div class="pagination sa-reveal" style="margin-top:60px;">
                     <?php echo e($news->links()); ?>
 
                 </div>

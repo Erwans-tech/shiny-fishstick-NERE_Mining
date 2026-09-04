@@ -33,10 +33,18 @@
     .rr-card ul { margin:12px 0 0; padding-left:18px; color:var(--muted); font-size:14px; line-height:1.8; }
     .rr-gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
     .rr-gallery figure { margin:0; overflow:hidden; background:#fff; border:1px solid var(--line); border-radius:12px; }
+    .rr-zoom-button { display:block; width:100%; padding:0; border:0; background:none; cursor:zoom-in; }
+    .rr-zoom-button:focus-visible { outline:3px solid var(--gold); outline-offset:-3px; }
     .rr-gallery img { display:block; width:100%; height:210px; object-fit:cover; }
     .rr-gallery figcaption { padding:14px 16px; color:var(--muted); font-size:13px; line-height:1.5; }
+    .rr-lightbox { position:fixed; inset:0; z-index:500; display:none; align-items:center; justify-content:center; padding:28px; background:rgba(20,8,6,.9); }
+    .rr-lightbox.is-open { display:flex; }
+    .rr-lightbox-dialog { position:relative; max-width:min(1500px,96vw); max-height:92vh; margin:0; }
+    .rr-lightbox img { display:block; max-width:100%; max-height:82vh; object-fit:contain; background:#fff; border-radius:8px; }
+    .rr-lightbox figcaption { margin-top:12px; color:#fff; text-align:center; font-size:14px; line-height:1.5; }
+    .rr-lightbox-close { position:absolute; top:-42px; right:0; border:1px solid rgba(255,255,255,.55); background:var(--green); color:#fff; padding:8px 14px; border-radius:4px; cursor:pointer; font:600 11px Inter,sans-serif; text-transform:uppercase; }
     @media(max-width:900px) { .rr-intro,.rr-columns { grid-template-columns:1fr; } .rr-kpis { grid-template-columns:repeat(2,1fr); } }
-    @media(max-width:560px) { .rr-kpis,.rr-gallery { grid-template-columns:1fr; } .rr-gallery img { height:220px; } }
+    @media(max-width:560px) { .rr-kpis,.rr-gallery { grid-template-columns:1fr; } .rr-gallery img { height:220px; } .rr-lightbox { padding:16px; } }
 </style>
 <?php $__env->stopPush(); ?>
 
@@ -47,15 +55,17 @@
             <p class="lead"><?php echo e($en ? 'A consolidated view of the deposits, resources and reserves that support the development of the Karma mining complex.' : 'Une vue consolidée des gisements, ressources et réserves qui soutiennent le développement du complexe minier de Karma.'); ?></p>
             <p class="rr-note"><?php echo e($en ? 'The figures presented follow the available project documentation and the JORC reporting framework. They are provided for information and remain subject to technical updates.' : 'Les chiffres présentés suivent la documentation disponible du projet et le référentiel de déclaration JORC. Ils sont communiqués à titre informatif et restent susceptibles d’être actualisés selon les études techniques.'); ?></p>
         </div>
-        <img src="<?php echo e(asset('images/resources/resources-map.jpg')); ?>" alt="<?php echo e($en ? 'Karma mineral resources map' : 'Carte des ressources minérales de Karma'); ?>" loading="lazy">
+        <button class="rr-zoom-button" type="button" data-rr-image="<?php echo e(asset('images/resources/resources-map.jpg')); ?>" data-rr-alt="<?php echo e($en ? 'Karma mineral resources map' : 'Carte des ressources minérales de Karma'); ?>" data-rr-caption="<?php echo e($en ? 'Geological map locating the Karma deposits, exploration targets, lithologies and distance rings around the processing area.' : 'Carte géologique localisant les gisements de Karma, les cibles d’exploration, les lithologies et les couronnes de distance autour de l’usine.'); ?>">
+            <img src="<?php echo e(asset('images/resources/resources-map.jpg')); ?>" alt="<?php echo e($en ? 'Karma mineral resources map' : 'Carte des ressources minérales de Karma'); ?>" loading="lazy">
+        </button>
     </section>
 
     <section class="rr-section rr-section--sand">
         <div class="rr-heading"><h2><?php echo e($en ? 'Key figures' : 'Chiffres clés'); ?></h2><p><?php echo e($en ? 'Main resource and reserve indicators for the Karma project.' : 'Principaux indicateurs de ressources et de réserves du projet Karma.'); ?></p></div>
         <div class="rr-kpis">
-            <div class="rr-kpi"><strong>6 638</strong><span><?php echo e($en ? 'P&P resources · Koz' : 'Ressources P&P · Koz'); ?></span></div>
-            <div class="rr-kpi"><strong>87 528</strong><span><?php echo e($en ? 'M&I resources · Koz' : 'Ressources M&I · Koz'); ?></span></div>
-            <div class="rr-kpi"><strong>18 103</strong><span><?php echo e($en ? 'Inferred resources · Kt' : 'Ressources inférées · Kt'); ?></span></div>
+            <div class="rr-kpi"><strong>6 638 Koz</strong><span><?php echo e($en ? 'P&P resources · 0.97 g/t Au' : 'Ressources P&P · 0,97 g/t Au'); ?></span></div>
+            <div class="rr-kpi"><strong>87 528 Koz</strong><span><?php echo e($en ? 'M&I resources · 0.93 g/t Au' : 'Ressources M&I · 0,93 g/t Au'); ?></span></div>
+            <div class="rr-kpi"><strong>18 103 Kt</strong><span><?php echo e($en ? 'Inferred resources · 1.25 g/t Au · 725 Koz' : 'Ressources inférées · 1,25 g/t Au · 725 Koz'); ?></span></div>
             <div class="rr-kpi"><strong>25/04/2025</strong><span><?php echo e($en ? 'Reference date' : 'Date de référence'); ?></span></div>
         </div>
     </section>
@@ -77,7 +87,7 @@
         <div class="rr-heading"><h2><?php echo e($en ? 'Probable reserves' : 'Réserves probables'); ?></h2><p><?php echo e($en ? 'Economically extractable reserves with proven mining viability.' : 'Réserves économiquement exploitables avec une viabilité minière établie.'); ?></p></div>
         <div class="rr-columns">
             <div class="rr-card"><h3><?php echo e($en ? 'By deposit' : 'Par gisement'); ?></h3><ul><li>GG1 : 662 Kt, 0.70 g/t, 15 Koz</li><li>Kao Nord : 4 031 Kt, 1.14 g/t, 148 Koz</li><li>Yabonsgo : 297 Kt, 1.57 g/t, 15 Koz</li><li>Nami : 896 Kt, 0.76 g/t, 22 Koz</li><li><strong>Total : 5 886 Kt, 1.06 g/t, 200 Koz</strong></li></ul></div>
-            <figure class="rr-card"><img src="<?php echo e(asset('images/mining/reserves-table.jpg')); ?>" alt="<?php echo e($en ? 'Probable reserves table' : 'Tableau des réserves probables'); ?>" loading="lazy" style="display:block;width:100%;max-height:300px;object-fit:contain;"><p style="margin-top:12px;text-align:center;"><?php echo e($en ? 'Probable reserves by deposit.' : 'Réserves probables par gisement.'); ?></p></figure>
+            <figure class="rr-card"><button class="rr-zoom-button" type="button" data-rr-image="<?php echo e(asset('images/mining/reserves-table.jpg')); ?>" data-rr-alt="<?php echo e($en ? 'Probable reserves table' : 'Tableau des réserves probables'); ?>" data-rr-caption="<?php echo e($en ? 'Probable reserves by deposit, split by oxide, transition and sulphide material.' : 'Réserves probables par gisement, ventilées entre minerai oxydé, de transition et sulfuré.'); ?>"><img src="<?php echo e(asset('images/mining/reserves-table.jpg')); ?>" alt="<?php echo e($en ? 'Probable reserves table' : 'Tableau des réserves probables'); ?>" loading="lazy" style="display:block;width:100%;max-height:300px;object-fit:contain;"></button><p style="margin-top:12px;text-align:center;"><?php echo e($en ? 'Probable reserves by deposit.' : 'Réserves probables par gisement.'); ?></p></figure>
         </div>
     </section>
 
@@ -91,9 +101,43 @@
 
     <section class="rr-section rr-section--sand">
         <div class="rr-heading"><h2><?php echo e($en ? 'Technical overview' : 'Aperçu technique'); ?></h2><p><?php echo e($en ? 'Maps and reference documents supporting the resource and reserve overview.' : 'Cartes et documents de référence qui accompagnent la synthèse des ressources et réserves.'); ?></p></div>
-        <div class="rr-gallery"><figure><img src="<?php echo e(asset('images/resources/resources-reserves-2025.jpg')); ?>" alt="<?php echo e($en ? 'Karma resources and reserves' : 'Ressources et réserves de Karma'); ?>" loading="lazy"><figcaption><?php echo e($en ? 'Resources and reserves overview' : 'Vue d’ensemble des ressources et réserves'); ?></figcaption></figure><figure><img src="<?php echo e(asset('images/mining/reserves-chart.jpg')); ?>" alt="<?php echo e($en ? 'Measured and indicated resources' : 'Ressources mesurées et indiquées'); ?>" loading="lazy"><figcaption><?php echo e($en ? 'Measured and indicated resources' : 'Ressources mesurées et indiquées'); ?></figcaption></figure><figure><img src="<?php echo e(asset('images/resources/licenses-map.jpg')); ?>" alt="<?php echo e($en ? 'Karma licenses map' : 'Carte des permis de Karma'); ?>" loading="lazy"><figcaption><?php echo e($en ? 'Licenses and exploration area' : 'Permis et zone d’exploration'); ?></figcaption></figure></div>
+        <div class="rr-gallery"><figure><button class="rr-zoom-button" type="button" data-rr-image="<?php echo e(asset('images/resources/resources-reserves-2025.jpg')); ?>" data-rr-alt="<?php echo e($en ? 'Karma resources and reserves' : 'Ressources et réserves de Karma'); ?>" data-rr-caption="<?php echo e($en ? 'Consolidated resources and reserves map dated 25 April 2025, with deposit-level P&P, M&I and inferred figures.' : 'Carte consolidée des ressources et réserves datée du 25 avril 2025, avec les chiffres P&P, M&I et inférés par gisement.'); ?>"><img src="<?php echo e(asset('images/resources/resources-reserves-2025.jpg')); ?>" alt="<?php echo e($en ? 'Karma resources and reserves' : 'Ressources et réserves de Karma'); ?>" loading="lazy"></button><figcaption><?php echo e($en ? 'Resources and reserves overview' : 'Vue d’ensemble des ressources et réserves'); ?></figcaption></figure><figure><button class="rr-zoom-button" type="button" data-rr-image="<?php echo e(asset('images/mining/reserves-chart.jpg')); ?>" data-rr-alt="<?php echo e($en ? 'Measured and indicated resources' : 'Ressources mesurées et indiquées'); ?>" data-rr-caption="<?php echo e($en ? 'The table totals 96,320 Kt at 0.92 g/t Au and 2,841 Koz for measured and indicated resources.' : 'Le tableau totalise 96 320 Kt à 0,92 g/t Au et 2 841 Koz pour les ressources mesurées et indiquées.'); ?>"><img src="<?php echo e(asset('images/mining/reserves-chart.jpg')); ?>" alt="<?php echo e($en ? 'Measured and indicated resources' : 'Ressources mesurées et indiquées'); ?>" loading="lazy"></button><figcaption><?php echo e($en ? 'Measured and indicated resources' : 'Ressources mesurées et indiquées'); ?></figcaption></figure><figure><button class="rr-zoom-button" type="button" data-rr-image="<?php echo e(asset('images/resources/licenses-map.jpg')); ?>" data-rr-alt="<?php echo e($en ? 'Karma licenses map' : 'Carte des permis de Karma'); ?>" data-rr-caption="<?php echo e($en ? 'License map showing the Karma exploitation permit and surrounding exploration holdings and deposits.' : 'Carte des permis montrant le permis d’exploitation de Karma, les titres d’exploration voisins et les gisements.'); ?>"><img src="<?php echo e(asset('images/resources/licenses-map.jpg')); ?>" alt="<?php echo e($en ? 'Karma licenses map' : 'Carte des permis de Karma'); ?>" loading="lazy"></button><figcaption><?php echo e($en ? 'Licenses and exploration area' : 'Permis et zone d’exploration'); ?></figcaption></figure></div>
     </section>
+
 </div>
+
+<div class="rr-lightbox" data-rr-lightbox aria-hidden="true">
+    <figure class="rr-lightbox-dialog">
+        <button class="rr-lightbox-close" type="button" data-rr-close><?php echo e($en ? 'Close' : 'Fermer'); ?></button>
+        <img data-rr-preview src="" alt="">
+        <figcaption data-rr-caption></figcaption>
+    </figure>
+</div>
+
+<script>
+    (() => {
+        const lightbox = document.querySelector('[data-rr-lightbox]');
+        const preview = lightbox?.querySelector('[data-rr-preview]');
+        const caption = lightbox?.querySelector('[data-rr-caption]');
+        const close = () => {
+            lightbox?.classList.remove('is-open');
+            lightbox?.setAttribute('aria-hidden', 'true');
+            if (preview) preview.removeAttribute('src');
+        };
+        document.querySelectorAll('[data-rr-image]').forEach((button) => button.addEventListener('click', () => {
+            if (!lightbox || !preview || !caption) return;
+            preview.src = button.dataset.rrImage;
+            preview.alt = button.dataset.rrAlt || '';
+            caption.textContent = button.dataset.rrCaption || '';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+            lightbox.querySelector('[data-rr-close]')?.focus();
+        }));
+        lightbox?.querySelector('[data-rr-close]')?.addEventListener('click', close);
+        lightbox?.addEventListener('click', (event) => { if (event.target === lightbox) close(); });
+        document.addEventListener('keydown', (event) => { if (event.key === 'Escape') close(); });
+    })();
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views\pages\karma-resources-reserves.blade.php ENDPATH**/ ?>

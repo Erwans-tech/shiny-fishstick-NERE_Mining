@@ -13,6 +13,439 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
+   🌱 DÉVELOPPEMENT DURABLE — découverte au scroll / survol / clic
+   ══════════════════════════════════════════════════════════════════════════ */
+
+html.sustain-js body.is-sustain .cascade-animation>* {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+html.sustain-js body.is-sustain main .card,
+html.sustain-js body.is-sustain main .esg-metric,
+html.sustain-js body.is-sustain main .sustain-metric,
+html.sustain-js body.is-sustain main .community-panel,
+html.sustain-js body.is-sustain main .community-achievement,
+html.sustain-js body.is-sustain main .community-image-card,
+html.sustain-js body.is-sustain main .stat-item,
+html.sustain-js body.is-sustain main .map-wrap,
+html.sustain-js body.is-sustain main .sustain-list-block {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity .75s var(--ease-smooth) var(--reveal-delay, 0ms),
+    transform .75s var(--ease-smooth) var(--reveal-delay, 0ms),
+    box-shadow .4s var(--ease-smooth),
+    border-color .35s ease;
+}
+
+html.sustain-js body.is-sustain main .card.is-revealed,
+html.sustain-js body.is-sustain main .esg-metric.is-revealed,
+html.sustain-js body.is-sustain main .sustain-metric.is-revealed,
+html.sustain-js body.is-sustain main .community-panel.is-revealed,
+html.sustain-js body.is-sustain main .community-achievement.is-revealed,
+html.sustain-js body.is-sustain main .community-image-card.is-revealed,
+html.sustain-js body.is-sustain main .stat-item.is-revealed,
+html.sustain-js body.is-sustain main .map-wrap.is-revealed,
+html.sustain-js body.is-sustain main .sustain-list-block.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body.is-sustain .masthead {
+  animation: sustainMastheadIn .9s var(--ease-smooth) both;
+}
+
+body.is-sustain .masthead h1 {
+  animation: sustainTitleIn .8s var(--ease-smooth) .15s both;
+}
+
+@keyframes sustainMastheadIn {
+  from {
+    clip-path: inset(8% 12% 8% 12%);
+    filter: saturate(.7);
+  }
+
+  to {
+    clip-path: inset(0);
+    filter: none;
+  }
+}
+
+@keyframes sustainTitleIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+body.is-sustain main h2 {
+  position: relative;
+}
+
+body.is-sustain main h2.is-revealed::after {
+  content: '';
+  display: block;
+  width: min(160px, 42%);
+  height: 3px;
+  margin: 14px auto 0;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--gold), rgba(255, 194, 71, 0));
+  animation: sustainRule .7s var(--ease-smooth) both;
+}
+
+body.is-sustain main h2.is-revealed:not([style*="text-align:center"]):not([style*="text-align: center"])::after {
+  margin-left: 0;
+}
+
+@keyframes sustainRule {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+body.is-sustain main .card,
+body.is-sustain main .community-panel,
+body.is-sustain main .community-achievement,
+body.is-sustain main .sustain-metric,
+body.is-sustain main .esg-metric {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+body.is-sustain main .card::after,
+body.is-sustain main .community-panel::after,
+body.is-sustain main .community-achievement::after,
+body.is-sustain main .sustain-metric::after,
+body.is-sustain main .esg-metric::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 194, 71, .2), transparent 46%);
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+body.is-sustain main .card:hover::after,
+body.is-sustain main .community-panel:hover::after,
+body.is-sustain main .community-achievement:hover::after,
+body.is-sustain main .sustain-metric:hover::after,
+body.is-sustain main .esg-metric:hover::after,
+body.is-sustain main .card.is-focused::after {
+  opacity: 1;
+}
+
+html.sustain-js body.is-sustain main .card.is-revealed:hover,
+html.sustain-js body.is-sustain main .community-panel.is-revealed:hover,
+html.sustain-js body.is-sustain main .community-achievement.is-revealed:hover,
+html.sustain-js body.is-sustain main .sustain-metric.is-revealed:hover,
+html.sustain-js body.is-sustain main .esg-metric.is-revealed:hover,
+html.sustain-js body.is-sustain main .pillar-card.is-revealed:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 38px rgba(40, 29, 24, .14);
+  border-color: rgba(255, 194, 71, .45);
+}
+
+html.sustain-js body.is-sustain main .card.is-revealed.is-focused {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: 0 20px 42px rgba(40, 29, 24, .16);
+  outline: 3px solid rgba(255, 194, 71, .38);
+  outline-offset: 4px;
+}
+
+body.is-sustain main .card.is-focused::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--gold), var(--gold2));
+  animation: sustainBar .45s var(--ease-bounce) both;
+}
+
+@keyframes sustainBar {
+  from {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+body.is-sustain main .card h3,
+body.is-sustain main .card h4 {
+  transition: color .3s ease, transform .3s var(--ease-smooth);
+}
+
+body.is-sustain main .card:hover h3,
+body.is-sustain main .card:hover h4,
+body.is-sustain main .card.is-focused h3,
+body.is-sustain main .card.is-focused h4 {
+  color: var(--gold2);
+  transform: translateX(4px);
+}
+
+body.is-sustain main .card.is-pop {
+  animation: sustainPop .55s var(--ease-bounce);
+}
+
+@keyframes sustainPop {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.035);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+body.is-sustain main .pillar-card {
+  background:
+    linear-gradient(180deg, #fff 0%, #f9f6f0 100%);
+}
+
+body.is-sustain main .pillar-card .btn {
+  transition: transform .3s var(--ease-bounce), background .3s ease, color .3s ease;
+}
+
+body.is-sustain main .pillar-card:hover .btn {
+  transform: translateX(6px);
+  background: var(--gold);
+  color: var(--green);
+  border-color: var(--gold);
+}
+
+.sustain-metric,
+.esg-metric {
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.esg-metric {
+  position: relative;
+}
+
+.sustain-metric__ring {
+  --p: 0;
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: conic-gradient(var(--gold) calc(var(--p) * 1%), rgba(234, 220, 197, .7) 0);
+  display: grid;
+  place-items: center;
+  transition: background .8s var(--ease-smooth);
+}
+
+.sustain-metric__ring::after {
+  content: '';
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.sustain-metric__value,
+.esg-value {
+  font-variant-numeric: tabular-nums;
+  transition: transform .35s var(--ease-bounce), color .3s ease;
+}
+
+.sustain-metric:hover .sustain-metric__value,
+.esg-metric:hover .esg-value {
+  transform: scale(1.08);
+  color: var(--gold2);
+}
+
+.sustain-progress {
+  height: 6px;
+  margin-top: 14px;
+  border-radius: 99px;
+  background: rgba(234, 220, 197, .55);
+  overflow: hidden;
+}
+
+.sustain-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  transition: width 1.2s var(--ease-smooth);
+}
+
+.sustain-metric.is-revealed .sustain-progress span,
+.esg-metric.is-revealed .sustain-progress span {
+  width: var(--bar, 100%);
+}
+
+body.is-sustain main ul li {
+  transition: transform .35s var(--ease-smooth), color .3s ease, padding-left .3s ease;
+}
+
+body.is-sustain main .card.is-revealed li,
+body.is-sustain main .community-panel.is-revealed li,
+body.is-sustain main .community-achievement.is-revealed li,
+body.is-sustain main .sustain-list-block.is-revealed li {
+  animation: sustainLi .5s var(--ease-smooth) both;
+}
+
+body.is-sustain main .card.is-revealed li:nth-child(1),
+body.is-sustain main .community-panel.is-revealed li:nth-child(1),
+body.is-sustain main .community-achievement.is-revealed li:nth-child(1) {
+  animation-delay: .05s;
+}
+
+body.is-sustain main .card.is-revealed li:nth-child(2),
+body.is-sustain main .community-panel.is-revealed li:nth-child(2),
+body.is-sustain main .community-achievement.is-revealed li:nth-child(2) {
+  animation-delay: .12s;
+}
+
+body.is-sustain main .card.is-revealed li:nth-child(3),
+body.is-sustain main .community-panel.is-revealed li:nth-child(3),
+body.is-sustain main .community-achievement.is-revealed li:nth-child(3) {
+  animation-delay: .19s;
+}
+
+body.is-sustain main .card.is-revealed li:nth-child(4),
+body.is-sustain main .community-panel.is-revealed li:nth-child(4),
+body.is-sustain main .community-achievement.is-revealed li:nth-child(4) {
+  animation-delay: .26s;
+}
+
+body.is-sustain main .card.is-revealed li:nth-child(5),
+body.is-sustain main .community-panel.is-revealed li:nth-child(5),
+body.is-sustain main .community-achievement.is-revealed li:nth-child(5) {
+  animation-delay: .33s;
+}
+
+@keyframes sustainLi {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+body.is-sustain main .card.is-focused li,
+body.is-sustain main .community-achievement.is-focused li {
+  padding-left: 6px;
+}
+
+body.is-sustain main .community-image-card {
+  overflow: hidden;
+}
+
+body.is-sustain main .community-image-card img {
+  transition: transform 1.1s var(--ease-smooth), filter .5s ease;
+}
+
+body.is-sustain main .community-image-card.is-revealed img {
+  animation: sustainKenBurns 12s ease-in-out infinite alternate;
+}
+
+body.is-sustain main .community-image-card:hover img {
+  transform: scale(1.06);
+  filter: saturate(1.08);
+  animation: none;
+}
+
+@keyframes sustainKenBurns {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.07);
+  }
+}
+
+body.is-sustain main .lead.is-revealed {
+  animation: sustainFade .7s var(--ease-smooth) both;
+}
+
+@keyframes sustainFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.sustain-ripple {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 194, 71, .45);
+  transform: scale(0);
+  pointer-events: none;
+  animation: sustainRipple .7s ease-out forwards;
+}
+
+@keyframes sustainRipple {
+  to {
+    transform: scale(28);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  html.sustain-js body.is-sustain main .card,
+  html.sustain-js body.is-sustain main .esg-metric,
+  html.sustain-js body.is-sustain main .sustain-metric,
+  html.sustain-js body.is-sustain main .community-panel,
+  html.sustain-js body.is-sustain main .community-achievement,
+  html.sustain-js body.is-sustain main .community-image-card,
+  html.sustain-js body.is-sustain main .stat-item,
+  html.sustain-js body.is-sustain main .map-wrap,
+  html.sustain-js body.is-sustain main .sustain-list-block,
+  body.is-sustain .masthead,
+  body.is-sustain .masthead h1,
+  body.is-sustain main .lead.is-revealed,
+  body.is-sustain main .card.is-revealed li,
+  body.is-sustain main .community-image-card.is-revealed img {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+    clip-path: none;
+    filter: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
    🌊 ANIMATIONS D'ARRIÈRE-PLAN 
    ══════════════════════════════════════════════════════════════════════════ */
 
@@ -1170,4 +1603,20 @@ button[type="submit"]:hover::before {
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
+}
+
+/* Priorité aux interactions durables sur les classes d’animation globales */
+.sustainability-card.sustainability-card:hover,
+.sustainability-card.sustainability-card.is-focused {
+  transform: translateY(-8px) scale(1.015);
+}
+
+.sustainability-card.sustainability-card:hover h2,
+.sustainability-card.sustainability-card:hover h3,
+.sustainability-card.sustainability-card:hover h4,
+.sustainability-card.sustainability-card.is-focused h2,
+.sustainability-card.sustainability-card.is-focused h3,
+.sustainability-card.sustainability-card.is-focused h4 {
+  color: var(--gold2);
+  transform: translateX(4px);
 }

@@ -28,8 +28,10 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 
+# Les médias publics uploadés font partie du déploiement Git.
 public/uploads/*
-!public/uploads/.gitkeep
+!public/uploads/
+!public/uploads/**
 /bootstrap/cache
 
 # Render specific

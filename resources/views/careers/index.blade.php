@@ -62,6 +62,7 @@
 
         /* ── Jobs list ── */
         .jobs-section{padding:60px 5vw 80px;}
+        .jobs-section h2{max-width:100%;text-align:center;}
         .jobs-list{display:flex;flex-direction:column;gap:16px;}
         .job-card{display:grid;grid-template-columns:1fr auto;gap:28px;padding:28px 32px;border:1px solid var(--line);background:#fff;border-radius:10px;align-items:center;transition:box-shadow .2s,border-color .2s,transform .18s;}
         .job-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.07);border-color:var(--gold);transform:translateX(4px);}
