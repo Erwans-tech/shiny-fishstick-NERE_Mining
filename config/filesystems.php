@@ -11,7 +11,7 @@ return [
     | Le stockage externe n'est pas utilisé sur le plan Render gratuit.
     |
     */
-    'default' => env('FILESYSTEM_DISK', 'public'),
+    'default' => 'public',
 
     'disks' => [
 
