@@ -63,9 +63,15 @@ services:
       - key: FORCE_HTTPS
         value: "true"
 
-      # Sessions persistantes dans PostgreSQL; le filesystem Render est éphémère
+      # Session locale fiable pour le service Render gratuit (un seul conteneur)
       - key: SESSION_DRIVER
-        value: database
+        value: file
+      - key: SESSION_ENCRYPT
+        value: "false"
+      - key: SESSION_SECURE_COOKIE
+        value: "true"
+      - key: SESSION_SAME_SITE
+        value: lax
       - key: CACHE_STORE
         value: file
       - key: QUEUE_CONNECTION
