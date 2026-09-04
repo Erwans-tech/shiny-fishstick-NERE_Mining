@@ -20,16 +20,8 @@ php artisan migrate --force
 
 # Synchroniser les données éditoriales versionnées avec la base Render.
 # Les tables sensibles (users, sessions, candidatures) ne sont pas concernées.
-if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ] && [ -n "$DB_USERNAME" ] && [ -n "$DB_PASSWORD" ]; then
-	echo "🗃️  Synchronisation du contenu éditorial versionné..."
-	export PGPASSWORD="$DB_PASSWORD"
-	psql "host=$DB_HOST port=${DB_PORT:-5432} dbname=$DB_DATABASE user=$DB_USERNAME" \
-		-v ON_ERROR_STOP=1 \
-		-c "TRUNCATE TABLE certifications, hero_slides, karma_departments, leadership_members, media_assets, news, partners, press_documents, reports, site_settings RESTART IDENTITY CASCADE;" \
-		&& psql "host=$DB_HOST port=${DB_PORT:-5432} dbname=$DB_DATABASE user=$DB_USERNAME" \
-			-v ON_ERROR_STOP=1 -f database/local-content.sql
-	unset PGPASSWORD
-fi
+echo "🗃️  Synchronisation du contenu éditorial versionné..."
+php artisan db:seed --class=LocalContentSeeder --force
 
 # Créer ou mettre à jour l'administrateur depuis les secrets Render
 if [ -n "$ADMIN_EMAIL" ] && [ -n "$ADMIN_PASSWORD" ]; then
