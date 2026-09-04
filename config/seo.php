@@ -63,11 +63,4 @@ return [
         ],
     ],
 
-    /**
-     * Get description for a section and locale
-     */
-    'get' => function ($section, $locale = 'fr') {
-        $descriptions = config('seo.descriptions')[$locale] ?? [];
-        return $descriptions[$section] ?? '';
-    },
 ];

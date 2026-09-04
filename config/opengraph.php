@@ -121,19 +121,4 @@ return [
         ],
     ],
 
-    /**
-     * Get OG image for section
-     */
-    'getImage' => function ($section) {
-        $images = config('opengraph.images', []);
-        return config('app.url') . ($images[$section] ?? $images['default']);
-    },
-
-    /**
-     * Get OG title for section and locale
-     */
-    'getTitle' => function ($section, $locale = 'fr') {
-        $titles = config('opengraph.titles', [])[$locale] ?? [];
-        return $titles[$section] ?? 'Néré Mining';
-    },
 ];
