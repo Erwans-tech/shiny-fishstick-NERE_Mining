@@ -59,7 +59,8 @@
         .sidebar-meta{padding:20px 22px;border-bottom:1px solid var(--line);}
         .meta-row{display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid #f5f0e8;}
         .meta-row:last-child{border-bottom:0;}
-        .meta-icon{font-size:16px;width:22px;text-align:center;flex-shrink:0;margin-top:1px;}
+        .meta-icon{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;color:var(--gold2);flex-shrink:0;margin-top:1px;}
+        .meta-icon svg,.inline-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.8;}
         .meta-label{font:600 10px Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:2px;}
         .meta-value{font:500 13px Inter,sans-serif;color:var(--ink);}
         .sidebar-share{padding:16px 22px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;}
@@ -111,7 +112,7 @@
     <h1>{{ $job->title }}</h1>
     <div class="meta-badges">
         <span class="badge b-white">{{ $job->contract_type }}</span>
-        <span class="badge b-white">📍 {{ $job->location }}</span>
+                <span class="badge b-white"><span class="inline-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg></span> {{ $job->location }}</span>
         @if($job->experience_level)
             <span class="badge b-white">{{ $en ? $job->experienceLabelEn() : $job->experienceLabelFr() }}</span>
         @endif
@@ -233,7 +234,7 @@
                             <div class="file-group" onclick="document.getElementById('cv-input').click()">
                                 <input type="file" id="cv-input" name="cv" accept=".pdf,.doc,.docx"
                                        onchange="showFileName(this,'cv-name')">
-                                <div class="file-label">📎 {{ $en ? 'Click to attach your CV' : 'Cliquez pour joindre votre CV' }}</div>
+                                <div class="file-label"><span class="inline-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m20.5 11.5-8.8 8.8a5 5 0 0 1-7.1-7.1l9-9a3.5 3.5 0 0 1 5 5l-8.9 8.9a2 2 0 1 1-2.8-2.8l8.3-8.3"/></svg></span> {{ $en ? 'Click to attach your CV' : 'Cliquez pour joindre votre CV' }}</div>
                                 <div class="file-hint">{{ __('site.careers_file_hint', [], $loc) }}</div>
                                 <div class="file-name" id="cv-name"></div>
                             </div>
@@ -245,7 +246,7 @@
                             <div class="file-group" onclick="document.getElementById('cover-input').click()">
                                 <input type="file" id="cover-input" name="cover_letter_file" accept=".pdf,.doc,.docx"
                                        onchange="showFileName(this,'cover-name')">
-                                <div class="file-label">📎 {{ $en ? 'Attach cover letter (optional)' : 'Joindre la lettre (optionnel)' }}</div>
+                                <div class="file-label"><span class="inline-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m20.5 11.5-8.8 8.8a5 5 0 0 1-7.1-7.1l9-9a3.5 3.5 0 0 1 5 5l-8.9 8.9a2 2 0 1 1-2.8-2.8l8.3-8.3"/></svg></span> {{ $en ? 'Attach cover letter (optional)' : 'Joindre la lettre (optionnel)' }}</div>
                                 <div class="file-hint">{{ __('site.careers_file_hint', [], $loc) }}</div>
                                 <div class="file-name" id="cover-name"></div>
                             </div>
@@ -271,32 +272,32 @@
             </div>
             <div class="sidebar-meta">
                 <div class="meta-row">
-                    <span class="meta-icon">📋</span>
+                    <span class="meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4h12v17H6zM9 2h6v4H9M9 10h6M9 14h6M9 18h4"/></svg></span>
                     <div><div class="meta-label">{{ $en ? 'Contract' : 'Contrat' }}</div><div class="meta-value">{{ $job->contract_type }}</div></div>
                 </div>
                 <div class="meta-row">
-                    <span class="meta-icon">📍</span>
+                    <span class="meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg></span>
                     <div><div class="meta-label">{{ $en ? 'Location' : 'Lieu' }}</div><div class="meta-value">{{ $job->location }}</div></div>
                 </div>
                 @if($job->experience_level)
                 <div class="meta-row">
-                    <span class="meta-icon">🎓</span>
+                    <span class="meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 11v5c3 2 7 2 10 0v-5M21 10v6"/></svg></span>
                     <div><div class="meta-label">{{ __('site.careers_experience_label', [], $loc) }}</div><div class="meta-value">{{ $en ? $job->experienceLabelEn() : $job->experienceLabelFr() }}</div></div>
                 </div>
                 @endif
                 @if($job->salary_range)
                 <div class="meta-row">
-                    <span class="meta-icon">💰</span>
+                    <span class="meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M7 6V4h10v2M12 10v5M14 12h-4"/></svg></span>
                     <div><div class="meta-label">{{ __('site.careers_salary_label', [], $loc) }}</div><div class="meta-value">{{ $job->salary_range }}</div></div>
                 </div>
                 @endif
                 <div class="meta-row">
-                    <span class="meta-icon">📅</span>
+                    <span class="meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg></span>
                     <div><div class="meta-label">{{ __('site.careers_posted_label', [], $loc) }}</div><div class="meta-value">{{ $job->created_at->translatedFormat('d M Y') }}</div></div>
                 </div>
                 @if($job->deadline)
                 <div class="meta-row">
-                    <span class="meta-icon">⏰</span>
+                    <span class="meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M8 3 6 5M16 3l2 2"/></svg></span>
                     <div>
                         <div class="meta-label">{{ __('site.careers_expires_label', [], $loc) }}</div>
                         <div class="meta-value" style="{{ $isUrgent ? 'color:#dc2626;font-weight:600;' : '' }}">{{ $job->deadline->translatedFormat('d M Y') }}</div>
@@ -304,14 +305,9 @@
                 </div>
                 @endif
             </div>
-            <div style="padding:20px 22px;">
-                <a href="#apply" class="form-submit" style="display:block;text-align:center;text-transform:uppercase;letter-spacing:.1em;padding:14px;background:var(--green);color:#fff;border-radius:6px;font:600 12px Inter,sans-serif;">
-                    {{ __('site.careers_apply_title', [], $loc) }} →
-                </a>
-            </div>
             <div class="sidebar-share">
                 <button class="share-btn" onclick="copyJobUrl(this)">
-                    🔗 {{ __('site.careers_share', [], $loc) }}
+                    <span class="inline-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.2 1.2"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2a5 5 0 0 0 7.1 7.1l1.2-1.2"/></svg></span> {{ __('site.careers_share', [], $loc) }}
                 </button>
             </div>
         </div>
