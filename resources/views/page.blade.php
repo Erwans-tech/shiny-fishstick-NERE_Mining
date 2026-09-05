@@ -11,7 +11,7 @@
     Pour ajouter une nouvelle page :
       1. Créer resources/views/pages/ma-section.blade.php
       2. Ajouter la route dans routes/web.php : fn() => $page('fr', 'ma-section')
-      C'est tout — aucune modification de ce fichier n'est nécessaire.
+      C'est tout  - aucune modification de ce fichier n'est nécessaire.
 --}}
 @php
     $en  = ($locale ?? 'fr') === 'en';

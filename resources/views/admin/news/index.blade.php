@@ -39,7 +39,7 @@
                         <span class="badge badge-gray">Brouillon</span>
                     @endif
                 </td>
-                <td class="td-muted">{{ $item->published_at?->format('d/m/Y') ?? '—' }}</td>
+                <td class="td-muted">{{ $item->published_at?->format('d/m/Y') ?? ' -' }}</td>
                 <td>
                     <a href="{{ route('admin.news.edit', $item) }}" class="btn btn-ghost btn-sm">Modifier</a>
                     <form method="POST" action="{{ route('admin.news.destroy', $item) }}"

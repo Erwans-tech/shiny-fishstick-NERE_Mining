@@ -26,10 +26,10 @@
                     @if($d->file_path)
                         <a href="{{ \App\Helpers\StorageHelper::uploadUrl($d->file_path) }}" target="_blank" class="badge badge-green">Fichier ↗</a>
                     @else
-                        <span class="badge badge-gray">—</span>
+                        <span class="badge badge-gray"> -</span>
                     @endif
                 </td>
-                <td class="td-muted">{{ $d->published_at?->format('d/m/Y') ?? '—' }}</td>
+                <td class="td-muted">{{ $d->published_at?->format('d/m/Y') ?? ' -' }}</td>
                 <td>
                     <a href="{{ route('admin.press.edit', $d) }}" class="btn btn-ghost btn-sm">Modifier</a>
                     <form method="POST" action="{{ route('admin.press.destroy', $d) }}" style="display:inline;" onsubmit="return confirm('Supprimer ?')">

@@ -65,7 +65,7 @@ class AdminNewsletterSubscriberController extends Controller
             foreach ($subscribers as $sub) {
                 fputcsv($file, [
                     $sub->email,
-                    $sub->subscribed_at ? $sub->subscribed_at->format('d/m/Y H:i') : '—',
+                    $sub->subscribed_at ? $sub->subscribed_at->format('d/m/Y H:i') : ' -',
                 ]);
             }
 

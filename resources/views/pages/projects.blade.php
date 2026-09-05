@@ -45,9 +45,9 @@
 {{-- Projets d'exploration --}}
 <section id="exploration" class="sa-animated-section" style="padding-top:40px;">
     <div class="sa-particles-container" data-count="6"></div>
-    <div class="sa-section-heading sa-reveal" style="text-align:left; max-width:none; margin-bottom:24px;">
-        <h2 style="text-align:left;">{{ __('site.projects_expl_h2', [], $loc) }}</h2>
-        <div class="sa-divider" style="margin: 0;"></div>
+    <div class="sa-section-heading sa-reveal" style="margin-bottom:24px;">
+        <h2>{{ __('site.projects_expl_h2', [], $loc) }}</h2>
+        <div class="sa-divider"></div>
     </div>
     <p class="lead sa-reveal sa-delay-1">{{ __('site.projects_expl_lead', [], $loc) }}</p>
 

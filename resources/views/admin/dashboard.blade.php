@@ -238,7 +238,7 @@
 </div>
 @endif
 
-{{-- ══ Ressources rapides — grille compacte ════════════════════ --}}
+{{-- ══ Ressources rapides  - grille compacte ════════════════════ --}}
 <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:28px;">
     <a href="{{ route('admin.hero.index') }}" class="stat-tile stat-tile--compact" style="text-decoration:none;">
         <div class="stat-tile-icon" style="font-size:20px;">🎬</div>
@@ -298,7 +298,7 @@
     </a>
 </div>
 
-{{-- ══ Corps principal — 3 colonnes ════════════════════════════ --}}
+{{-- ══ Corps principal  - 3 colonnes ════════════════════════════ --}}
 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; align-items:start;">
 
     {{-- ── Activité récente : Actualités ── --}}

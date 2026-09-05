@@ -1,4 +1,4 @@
-# 🚀 Déploiement sur Railway — Néré Mining
+# 🚀 Déploiement sur Railway  - Néré Mining
 
 Guide complet pour déployer votre application Laravel sur **Railway** avec MySQL.
 

@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'file_path'    => '',
             'published_at' => now()->subMonths(3),
         ]);
-        
+
         Report::create([
             'title'        => 'Étude d\'Impact Environnemental - Karma',
             'category'     => 'Environnement',
@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
         // Offres d'emploi avec vraies données
         JobOffer::query()->delete();
 
-        // 1. Offre de candidature spontanée — logique séparée, jamais affichée dans la liste
+        // 1. Offre de candidature spontanée  - logique séparée, jamais affichée dans la liste
         JobOffer::create([
             'title'          => 'Candidature spontanée',
             'slug'           => 'candidature-spontanee',
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
             'is_published'     => true,
             'is_spontaneous'   => false,
         ]);
-        
+
         JobOffer::create([
             'title'            => 'Responsable Sécurité HSE',
             'slug'             => 'responsable-securite-hse',
@@ -109,11 +109,13 @@ class DatabaseSeeder extends Seeder
 
         // Assets média
         MediaAsset::query()->delete();
-        foreach ([
-            ['title' => 'Les opérations de Karma',   'file_path' => 'images/mining/karma-01.jpg'],
-            ['title' => 'Les installations minières', 'file_path' => 'images/mining/karma-03.jpg'],
-            ['title' => 'Une équipe au travail',      'file_path' => 'images/mining/karma-04.jpg'],
-        ] as $i => $media) {
+        foreach (
+            [
+                ['title' => 'Les opérations de Karma',   'file_path' => 'images/mining/karma-01.jpg'],
+                ['title' => 'Les installations minières', 'file_path' => 'images/mining/karma-03.jpg'],
+                ['title' => 'Une équipe au travail',      'file_path' => 'images/mining/karma-04.jpg'],
+            ] as $i => $media
+        ) {
             MediaAsset::create($media + ['type' => 'image', 'placement' => 'gallery', 'is_published' => true, 'sort_order' => $i]);
         }
 

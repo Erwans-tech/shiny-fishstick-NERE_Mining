@@ -61,8 +61,8 @@
                     <div style="font-weight:600;">{{ $app->full_name }}</div>
                     <div style="font:12px Inter,sans-serif;color:var(--muted);">{{ $app->email }}</div>
                 </td>
-                <td class="td-muted">{{ $app->jobOffer?->title ?? '—' }}</td>
-                <td class="td-muted">{{ $app->experience_years ?? '—' }}</td>
+                <td class="td-muted">{{ $app->jobOffer?->title ?? ' -' }}</td>
+                <td class="td-muted">{{ $app->experience_years ?? ' -' }}</td>
                 <td>
                     @php $s = $statuses[$app->status] ?? ['label'=>$app->status,'badge'=>'badge-gray']; @endphp
                     <span class="badge {{ $s['badge'] }}">{{ $s['label'] }}</span>

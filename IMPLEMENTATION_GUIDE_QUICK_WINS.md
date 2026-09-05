@@ -1,10 +1,10 @@
-# 🔧 Step-by-Step Implementation Guide — Top 8 Quick Wins
+# 🔧 Step-by-Step Implementation Guide  - Top 8 Quick Wins
 
 ## ⏱️ Timeline: 15 heures → Massive Performance Boost
 
 ---
 
-## #1️⃣ EAGER LOADING — 2 heures (Priority: 🔴 NOW)
+## #1️⃣ EAGER LOADING  - 2 heures (Priority: 🔴 NOW)
 
 **Goal:** Réduire les requêtes DB de 50%
 
@@ -111,7 +111,7 @@ public function index() {
 
 ---
 
-## #2️⃣ CACHING — 1.5 heures (Priority: 🔴 NOW)
+## #2️⃣ CACHING  - 1.5 heures (Priority: 🔴 NOW)
 
 **Goal:** Cache pages statiques → 10x speed
 
@@ -195,7 +195,7 @@ Impact: 11x speedup! 🚀
 
 ---
 
-## #3️⃣ IMAGE OPTIMIZATION — 1 heure (Priority: 🔴 NOW)
+## #3️⃣ IMAGE OPTIMIZATION  - 1 heure (Priority: 🔴 NOW)
 
 **Goal:** +15 Lighthouse points
 
@@ -274,7 +274,7 @@ Cumulative Layout Shift: 0.25 → 0.08
 
 ---
 
-## #4️⃣ SITEMAP & ROBOTS.txt — 1 heure (Priority: 🔴 NOW)
+## #4️⃣ SITEMAP & ROBOTS.txt  - 1 heure (Priority: 🔴 NOW)
 
 ### Step 1: Créer robots.txt
 
@@ -367,7 +367,7 @@ Impact: +470% indexed content!
 
 ---
 
-## #5️⃣ META TAGS DYNAMIQUES — 2 heures (Priority: 🟡 SOON)
+## #5️⃣ META TAGS DYNAMIQUES  - 2 heures (Priority: 🟡 SOON)
 
 ### Step 1: Ajouter dans app.blade.php
 
@@ -414,7 +414,7 @@ public function show(News $news) {
 
 ---
 
-## #6️⃣ JSON-LD STRUCTURED DATA — 1.5 heures (Priority: 🟡 SOON)
+## #6️⃣ JSON-LD STRUCTURED DATA  - 1.5 heures (Priority: 🟡 SOON)
 
 ### Step 1: Ajouter Organization schema
 
@@ -449,7 +449,7 @@ public function show(News $news) {
 ### Step 2: Ajouter NewsArticle schema pour chaque article
 
 ```php
-// app/Http/Controllers/NewsController.php — show()
+// app/Http/Controllers/NewsController.php  - show()
 'schema' => [
     "@context" => "https://schema.org",
     "@type" => "NewsArticle",
@@ -481,7 +481,7 @@ public function show(News $news) {
 
 ---
 
-## #7️⃣ RATE LIMITING AVANCÉ — 1 heure (Priority: 🟡 SOON)
+## #7️⃣ RATE LIMITING AVANCÉ  - 1 heure (Priority: 🟡 SOON)
 
 ### Step 1: Configurer custom throttle limits
 
@@ -502,7 +502,7 @@ return [
 ```php
 // routes/web.php
 
-// Admin login — strict rate limit
+// Admin login  - strict rate limit
 Route::middleware(['throttle:admin-login'])->group(function() {
     Route::post('/gestion-nm/connexion', [AdminLoginController::class, 'login']);
 });
@@ -523,7 +523,7 @@ Route::middleware(['admin.auth', 'throttle:file-upload'])->group(function() {
 
 ---
 
-## #8️⃣ UPLOAD VALIDATION & SECURITY — 2 heures (Priority: 🔴 NOW)
+## #8️⃣ UPLOAD VALIDATION & SECURITY  - 2 heures (Priority: 🔴 NOW)
 
 ### Step 1: Améliorer validation des uploads
 
@@ -638,7 +638,7 @@ XSS vulnerabilities: 0
 
 ---
 
-## 🎯 Summary — Après les 8 Quick Wins (15 heures)
+## 🎯 Summary  - Après les 8 Quick Wins (15 heures)
 
 ```
 BEFORE:                         AFTER:

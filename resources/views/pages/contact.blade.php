@@ -16,7 +16,7 @@
         
         <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:48px; margin-top:40px;">
 
-            {{-- ── 1. Siège social — Ouagadougou ── --}}
+            {{-- ── 1. Siège social  - Ouagadougou ── --}}
             <div class="contact-card sa-reveal sa-delay-1">
                 <div class="contact-card-header">
                     <span class="contact-card-icon">🏢</span>
@@ -91,7 +91,7 @@
                 </ul>
             </div>
 
-            {{-- ── 3. Bureau de liaison — Ouahigouya ── --}}
+            {{-- ── 3. Bureau de liaison  - Ouahigouya ── --}}
             <div class="contact-card sa-reveal sa-delay-3">
                 <div class="contact-card-header">
                     <span class="contact-card-icon">📍</span>
@@ -125,7 +125,7 @@
             </div>
         </div>
 
-        {{-- Carte Google Maps — les 3 sites --}}
+        {{-- Carte Google Maps  - les 3 sites --}}
         <div class="map-wrap sa-reveal sa-delay-2">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d935649.2!2d-1.5!3d13.2!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xe2e9eb9d1aba949%3A0x7f46e8f12f1c0a55!2sOuagadougou!5e0!3m2!1s{{ $loc }}!2sbf!4v1"
@@ -138,7 +138,7 @@
 </section>
 
 {{-- ════════════════════════════════════════════════════════
-     Section : Formulaire de contact général — Design moderne
+     Section : Formulaire de contact général  - Design moderne
 ════════════════════════════════════════════════════════ --}}
 <section class="sa-sand-animated" style="position:relative; padding:80px 5vw; border-top:1px solid var(--line);">
     <div class="sa-wave-top"></div>
@@ -162,7 +162,7 @@
         </div>
         @endif
 
-        <form class="sa-program-card sa-reveal sa-delay-1" style="margin-top:40px; padding:40px; box-shadow:0 8px 24px rgba(40,29,24,.08); background:#fff;" method="POST" action="{{ $en ? route('english.contact.store') : route('contact.store') }}">
+        <form class="sa-program-card contact-form-card" style="width:100%; margin:40px auto 0; padding:40px; box-shadow:0 8px 24px rgba(40,29,24,.08); background:#fff;" method="POST" action="{{ $en ? route('english.contact.store') : route('contact.store') }}">
             @csrf
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
@@ -251,7 +251,7 @@
             <div class="sa-divider"></div>
         </div>
         
-        <div style="display:grid; gap:20px; margin-top:40px;">
+        <div style="display:grid; gap:12px; margin-top:28px;">
             @php
                 $faqs = [
                     [
@@ -282,12 +282,12 @@
             @endphp
             
             @foreach($faqs as $idx => $faq)
-            <details class="sa-reveal sa-delay-{{ $idx + 1 }}" style="border:1px solid var(--line); border-radius:12px; padding:24px; background:var(--light); cursor:pointer; transition:all .3s; box-shadow:0 4px 12px rgba(40,29,24,.03);">
+            <details class="sa-reveal sa-delay-{{ $idx + 1 }}" style="border:1px solid var(--line); border-radius:10px; padding:16px 18px; background:var(--light); cursor:pointer; transition:all .3s; box-shadow:0 4px 12px rgba(40,29,24,.03);">
                 <summary style="font:600 15px Inter,sans-serif; color:var(--green); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center;">
                     <span>{{ $en ? $faq['q_en'] : $faq['q_fr'] }}</span>
                     <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; background:rgba(229,167,47,.1); border-radius:50%; transition:transform .3s;">→</span>
                 </summary>
-                <p style="color:var(--muted); line-height:1.7; margin:16px 0 0 0; font-size:14px;">{{ $en ? $faq['a_en'] : $faq['a_fr'] }}</p>
+                <p style="color:var(--muted); line-height:1.55; margin:12px 0 0 0; font-size:14px;">{{ $en ? $faq['a_en'] : $faq['a_fr'] }}</p>
             </details>
             @endforeach
         </div>
@@ -323,6 +323,12 @@
         border-color:rgba(255,194,71,.3);
     }
     .contact-card:hover::before { opacity:1; }
+    .contact-form-card,
+    .contact-form-card:hover {
+        transform:none;
+        transition:none;
+    }
+    .contact-form-card::after { animation:none; opacity:0; }
     .contact-card--mine { border-top:4px solid var(--gold); }
     .contact-card-header {
         display:flex;

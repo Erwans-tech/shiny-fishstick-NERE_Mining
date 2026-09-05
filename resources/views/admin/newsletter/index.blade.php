@@ -53,7 +53,7 @@
                     @foreach($subscribers as $subscriber)
                         <tr>
                             <td>{{ $subscriber->email }}</td>
-                            <td>{{ $subscriber->subscribed_at ? $subscriber->subscribed_at->format('d/m/Y H:i') : '—' }}</td>
+                            <td>{{ $subscriber->subscribed_at ? $subscriber->subscribed_at->format('d/m/Y H:i') : ' -' }}</td>
                             <td style="text-align:right;">
                                 <form action="{{ route('admin.newsletter.destroy', $subscriber) }}" method="POST" onsubmit="return confirm('Supprimer cet abonné ?');" style="display:inline;">
                                     @csrf

@@ -39,7 +39,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Néré Mining — {{ $en ? 'Gold with lasting value' : "L'or d'une valeur durable" }}</title>
+    <title>Néré Mining  - {{ $en ? 'Gold with lasting value' : "L'or d'une valeur durable" }}</title>
     <meta name="description" content="{{ $en
         ? 'Néré Mining, Burkinabe gold mining group committed to responsible mining at Karma.'
         : 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.' }}">
@@ -106,7 +106,7 @@
         }
         .hero-slide:nth-child(even), .hero-slide-video:nth-child(even) { transform-origin:right center; }
         .hero-slide:nth-child(odd), .hero-slide-video:nth-child(odd) { transform-origin:left center; }
-        /* Slide vidéo — iframe en fond plein écran */
+        /* Slide vidéo  - iframe en fond plein écran */
         .hero-slide-video {
             position:absolute; inset:0;
             opacity:0;
@@ -436,27 +436,27 @@
         }
         .news-card-link:hover .news-card::before { transform:scaleX(1); }
         .news-img-wrap { overflow:hidden; border-radius:16px 16px 0 0; }
-        .news-img { width:100%; height:220px; object-fit:cover; transition:transform .5s ease; display:block; }
-        .news-grid .news-card:first-child .news-img { height:300px; }
+        .news-img { width:100%; height:170px; object-fit:cover; transition:transform .5s ease; display:block; }
+        .news-grid .news-card:first-child .news-img { height:220px; }
         .news-card-link:hover .news-img { transform:scale(1.04); }
         .news-img-ph {
-            width:100%; height:220px;
+            width:100%; height:170px;
             background:linear-gradient(135deg, var(--green) 0%, #7a2a29 100%);
             display:flex; align-items:center; justify-content:center;
             font:700 38px Inter,sans-serif; color:rgba(255,255,255,.2); letter-spacing:.1em;
         }
-        .news-grid .news-card:first-child .news-img-ph { height:300px; }
-        .news-body { padding:28px 32px; display:flex; flex-direction:column; flex:1; position:relative; z-index:2; background:#fff; }
+        .news-grid .news-card:first-child .news-img-ph { height:220px; }
+        .news-body { padding:20px 24px; display:flex; flex-direction:column; flex:1; position:relative; z-index:2; background:#fff; }
         .news-meta {
             font:700 11px Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase;
             color:var(--gold2); margin-bottom:14px; display:inline-block;
             background:rgba(255,194,71,.1); padding:4px 10px; border-radius:4px;
         }
         .news-card h3 {
-            font-size:22px; font-weight:600; color:var(--ink); line-height:1.3;
-            margin-bottom:20px; letter-spacing:-.01em; transition:color .2s;
+            font-size:18px; font-weight:600; color:var(--ink); line-height:1.3;
+            margin-bottom:14px; letter-spacing:-.01em; transition:color .2s;
         }
-        .news-grid .news-card:first-child h3 { font-size:32px; }
+        .news-grid .news-card:first-child h3 { font-size:26px; }
         .news-card-link:hover h3 { color:var(--green); }
         .news-read {
             margin-top:auto; font:700 11px Inter,sans-serif; letter-spacing:.14em;
@@ -492,10 +492,18 @@
         .partners-head .sec-tag { justify-content:center; margin-bottom:8px; }
         .partners-head .sec-h2 { text-align:center; margin:0 0 10px; font-size:clamp(28px,4vw,44px); }
         .partners-head .sec-lead { width:100%; max-width:900px; margin:0 auto; text-align:center; font-size:1rem; line-height:1.5; }
-        /* Institutional cards — scroll continuously on narrow screens */
+        /* Institutional cards  - scroll continuously on narrow screens */
         .partners-strip {
             position:relative; max-width:1180px; margin:0 auto;
-            border:0; border-radius:0; background:transparent; overflow:hidden;
+            border:0; border-radius:0; background:transparent; overflow-x:auto; overflow-y:hidden;
+            overscroll-behavior-x:contain; scrollbar-width:thin;
+            scrollbar-color:rgba(75,23,22,.35) transparent;
+            cursor:grab;
+        }
+        .partners-strip:active { cursor:grabbing; }
+        .partners-strip:hover .partners-track,
+        .partners-strip:focus-within .partners-track {
+            animation-play-state:paused;
         }
         .partners-track {
             display:flex; width:max-content; align-items:stretch; gap:16px;
@@ -590,11 +598,11 @@
     <main>
 
     {{-- ════════════════════════════════════════
-         1 · SLOGAN — HERO
+         1 · SLOGAN  - HERO
     ════════════════════════════════════════ --}}
     <section class="hero" aria-label="{{ $en ? 'Homepage hero' : 'Bannière principale' }}">
 
-        {{-- Slideshow — images ET vidéos --}}
+        {{-- Slideshow  - images ET vidéos --}}
         <div class="hero-bg" aria-hidden="true">
             @foreach($heroImages as $index => $heroImage)
                 @if(is_array($heroImage) && ($heroImage['type'] ?? 'image') === 'video')
@@ -641,7 +649,7 @@
         <div class="hero-stat">
             <span class="hero-stat-val"
                   data-target="{{ preg_replace('/[^0-9]/', '', $stat['value']) }}"
-                  data-suffix="{{ $stat['suffix'] ?? '' }}">—</span>
+                  data-suffix="{{ $stat['suffix'] ?? '' }}"> -</span>
             <span class="hero-stat-lbl">{{ $stat['label'] }}</span>
         </div>
         @endforeach
@@ -692,7 +700,10 @@
                                  alt="{{ e($item['title']) }}"
                                  loading="{{ $i === 0 ? 'eager' : 'lazy' }}">
                         @else
-                            <div class="news-img-ph" aria-hidden="true">NM</div>
+                            <img class="news-img news-img-ph"
+                                 src="{{ asset('images/placeholders/default-image.svg') }}"
+                                 alt="{{ e($item['title']) }}"
+                                 loading="lazy">
                         @endif
                     </div>
                     <div class="news-body">
@@ -864,6 +875,33 @@
                 var limit = parseInt(raw, 10);
                 el.textContent = (isNaN(limit) ? raw : limit.toLocaleString('fr-FR')) + suffix;
             });
+        }
+        var partnersStrip = document.querySelector('.partners-strip');
+        if(partnersStrip){
+            partnersStrip.style.touchAction = 'pan-x';
+            var draggingPartners = false;
+            var partnersStartX = 0;
+            var partnersStartScroll = 0;
+            partnersStrip.addEventListener('pointerdown', function(event){
+                if(event.pointerType === 'mouse' && event.button !== 0) return;
+                draggingPartners = true;
+                partnersStartX = event.clientX;
+                partnersStartScroll = partnersStrip.scrollLeft;
+                partnersStrip.setPointerCapture(event.pointerId);
+            });
+            partnersStrip.addEventListener('pointermove', function(event){
+                if(!draggingPartners) return;
+                partnersStrip.scrollLeft = partnersStartScroll - (event.clientX - partnersStartX);
+            });
+            function stopPartnersDrag(event){
+                if(!draggingPartners) return;
+                draggingPartners = false;
+                if(partnersStrip.hasPointerCapture(event.pointerId)){
+                    partnersStrip.releasePointerCapture(event.pointerId);
+                }
+            }
+            partnersStrip.addEventListener('pointerup', stopPartnersDrag);
+            partnersStrip.addEventListener('pointercancel', stopPartnersDrag);
         }
         var hdr = document.querySelector('header');
         if(hdr && !hdr.classList.contains('stuck')){

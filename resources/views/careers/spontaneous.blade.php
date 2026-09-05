@@ -188,7 +188,7 @@
                     <div class="form-group">
                         <label class="fl" for="sp_exp">{{ __('site.careers_field_exp_years', [], $loc) }}</label>
                         <select id="sp_exp" name="experience_years">
-                            <option value="">—</option>
+                            <option value=""> -</option>
                             <option value="0-1"  {{ old('experience_years') === '0-1'  ? 'selected' : '' }}>0 – 1 {{ $en ? 'yr' : 'an' }}</option>
                             <option value="2-4"  {{ old('experience_years') === '2-4'  ? 'selected' : '' }}>2 – 4 {{ $en ? 'yrs' : 'ans' }}</option>
                             <option value="5-9"  {{ old('experience_years') === '5-9'  ? 'selected' : '' }}>5 – 9 {{ $en ? 'yrs' : 'ans' }}</option>
@@ -257,7 +257,7 @@
     @endphp
     @if($openJobs->isNotEmpty())
     <div class="open-offers">
-        <h3>{{ $en ? 'Open positions — maybe one fits you' : 'Offres ouvertes — peut-être l\'une d\'elles vous correspond' }}</h3>
+        <h3>{{ $en ? 'Open positions  - maybe one fits you' : 'Offres ouvertes  - peut-être l\'une d\'elles vous correspond' }}</h3>
         @foreach($openJobs as $oj)
         @php
             if (empty($oj->slug)) {

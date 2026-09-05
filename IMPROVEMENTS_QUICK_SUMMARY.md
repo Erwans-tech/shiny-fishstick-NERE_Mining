@@ -1,17 +1,17 @@
-# ⚡ Quick Summary — 20 Améliorations pour Néré Mining
+# ⚡ Quick Summary  - 20 Améliorations pour Néré Mining
 
 ## 🎯 Top 8 Quick Wins (15 heures = +40% performance)
 
 | # | Amélioration | Temps | Impact | Effort |
 |---|---|---|---|---|
-| 1️⃣ | **Eager Loading** — Éliminer N+1 queries | 2h | 🚀🚀🚀 -50% DB queries | ⭐ |
-| 2️⃣ | **Caching** — Cache pages/données statiques | 1.5h | 🚀🚀🚀 10x speed | ⭐ |
-| 3️⃣ | **Image Optimization** — Lazy load + webp | 1h | 🚀🚀 +15 Lighthouse | ⭐ |
-| 4️⃣ | **Sitemap & Robots.txt** — SEO crawlability | 1h | 🚀🚀 +25% indexation | ⭐ |
-| 5️⃣ | **Meta Tags Dynamiques** — OG, Twitter, etc | 2h | 🚀🚀 +20% social sharing | ⭐ |
-| 6️⃣ | **JSON-LD Schema** — Rich snippets Google | 1.5h | 🚀🚀 Google featured snippets | ⭐ |
-| 7️⃣ | **Rate Limiting Avancé** — DDoS protection | 1h | 🚀🚀 Security +95% | ⭐ |
-| 8️⃣ | **Upload Validation** — XSS/injection proof | 2h | 🚀🚀 Security +95% | ⭐ |
+| 1️⃣ | **Eager Loading**  - Éliminer N+1 queries | 2h | 🚀🚀🚀 -50% DB queries | ⭐ |
+| 2️⃣ | **Caching**  - Cache pages/données statiques | 1.5h | 🚀🚀🚀 10x speed | ⭐ |
+| 3️⃣ | **Image Optimization**  - Lazy load + webp | 1h | 🚀🚀 +15 Lighthouse | ⭐ |
+| 4️⃣ | **Sitemap & Robots.txt**  - SEO crawlability | 1h | 🚀🚀 +25% indexation | ⭐ |
+| 5️⃣ | **Meta Tags Dynamiques**  - OG, Twitter, etc | 2h | 🚀🚀 +20% social sharing | ⭐ |
+| 6️⃣ | **JSON-LD Schema**  - Rich snippets Google | 1.5h | 🚀🚀 Google featured snippets | ⭐ |
+| 7️⃣ | **Rate Limiting Avancé**  - DDoS protection | 1h | 🚀🚀 Security +95% | ⭐ |
+| 8️⃣ | **Upload Validation**  - XSS/injection proof | 2h | 🚀🚀 Security +95% | ⭐ |
 
 **Résultat après 15h:** Page speed ~2.5s → ~0.8s ✨ | Lighthouse 60 → 85 📈 | SEO ranking +30%
 
@@ -23,8 +23,8 @@
 |---|---|---|
 | 9️⃣ | Pagination listes (News, Reports, Gallery) | UX +30%, bounce rate -20% |
 | 🔟 | Search + Advanced Filtering | Discovery +50%, session +25% |
-| 1️⃣1️⃣ | RBAC — Role-Based Access Control | Multi-user admin, security |
-| 1️⃣2️⃣ | Audit Log — Track admin actions | Compliance, security audit trail |
+| 1️⃣1️⃣ | RBAC  - Role-Based Access Control | Multi-user admin, security |
+| 1️⃣2️⃣ | Audit Log  - Track admin actions | Compliance, security audit trail |
 | 1️⃣3️⃣ | API REST avec versioning | Future mobile app, 3rd-party |
 | 1️⃣4️⃣ | Email Notifications + Queues | Async, faster response |
 | 1️⃣5️⃣ | Custom 404/500 Error Pages | Brand consistency |
@@ -111,7 +111,7 @@ Week 2: Scaling (20h)
 
 ---
 
-## 🎬 Start Now — Pick One
+## 🎬 Start Now  - Pick One
 
 **Best entry point?** → Start with **#1 Eager Loading**
 

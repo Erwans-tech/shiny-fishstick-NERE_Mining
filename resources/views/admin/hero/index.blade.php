@@ -1,6 +1,6 @@
 @extends('admin.partials.layout')
 @section('title', 'Carrousel Hero')
-@section('page-title', 'Carrousel — Page d\'accueil')
+@section('page-title', 'Carrousel  - Page d\'accueil')
 
 @section('content')
 
@@ -35,7 +35,7 @@
         <span style="font-size:16px;">💡</span>
         <span>
             Faites glisser les lignes pour réordonner. Cliquez sur <strong>Activer/Masquer</strong> pour contrôler l'affichage sur le site en temps réel.
-            <strong style="color:#854d0e;"> — Les 6 médias par défaut restent disponibles avec vos slides configurées.</strong>
+            <strong style="color:#854d0e;">  - Les 6 médias par défaut restent disponibles avec vos slides configurées.</strong>
         </span>
     </div>
 </div>
@@ -61,7 +61,7 @@
                 @foreach($displaySlides as $slide)
                 <tr @if($slide->id) data-id="{{ $slide->id }}" @endif style="{{ $slide->id ? 'cursor:grab;' : '' }} {{ !$slide->is_active ? 'opacity:.55;' : '' }}">
                     {{-- Handle drag --}}
-                    <td style="text-align:center; font-size:18px; color:var(--muted); {{ $slide->id ? 'cursor:grab;' : '' }}">{{ $slide->id ? '⠿' : '—' }}</td>
+                    <td style="text-align:center; font-size:18px; color:var(--muted); {{ $slide->id ? 'cursor:grab;' : '' }}">{{ $slide->id ? '⠿' : ' -' }}</td>
 
                     {{-- Aperçu image --}}
                     <td>
@@ -82,7 +82,7 @@
                     {{-- Titre + légende --}}
                     <td>
                         <div style="font:600 13px Inter,sans-serif; color:var(--green);">
-                            {{ $slide->title ?? '—' }}
+                            {{ $slide->title ?? ' -' }}
                         </div>
                         @if($slide->caption)
                         <div style="font:12px Inter,sans-serif; color:var(--muted); margin-top:3px; font-style:italic;">
@@ -145,7 +145,7 @@
 <div class="card" style="margin-top:20px;">
     <div class="card-header">
         <h2>👁 Prévisualisation du carrousel</h2>
-        <span class="card-header-sub">Rendu approximatif — {{ $activeSlides->count() }} slide(s) active(s)</span>
+        <span class="card-header-sub">Rendu approximatif  - {{ $activeSlides->count() }} slide(s) active(s)</span>
     </div>
     <div style="position:relative; height:220px; overflow:hidden; background:#1a0505;">
         @forelse($activeSlides as $idx => $slide)

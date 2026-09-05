@@ -101,22 +101,22 @@
                     $applicationTemplates = [
                         'received' => [
                             'label' => 'Accusé de réception',
-                            'subject' => 'Votre candidature — '.$application->jobOffer?->title,
+                            'subject' => 'Votre candidature  - '.$application->jobOffer?->title,
                             'body' => "Bonjour :first_name,\n\nNous vous confirmons la bonne réception de votre candidature au poste de :job_title. Notre équipe va étudier votre dossier avec attention et reviendra vers vous dès que possible.\n\nCordialement,\nL'équipe Néré Mining",
                         ],
                         'interview' => [
                             'label' => 'Proposer un entretien',
-                            'subject' => 'Entretien — '.$application->jobOffer?->title,
+                            'subject' => 'Entretien  - '.$application->jobOffer?->title,
                             'body' => "Bonjour :first_name,\n\nAprès examen de votre candidature au poste de :job_title, nous souhaitons échanger avec vous lors d'un entretien. Merci de nous indiquer vos disponibilités afin que nous puissions convenir d'un créneau.\n\nCordialement,\nL'équipe Néré Mining",
                         ],
                         'accepted' => [
                             'label' => 'Candidature retenue',
-                            'subject' => 'Suite à votre candidature — '.$application->jobOffer?->title,
+                            'subject' => 'Suite à votre candidature  - '.$application->jobOffer?->title,
                             'body' => "Bonjour :first_name,\n\nNous avons le plaisir de vous informer que votre candidature au poste de :job_title a retenu notre attention. Nous vous contacterons prochainement pour vous communiquer les prochaines étapes.\n\nCordialement,\nL'équipe Néré Mining",
                         ],
                         'rejected' => [
                             'label' => 'Réponse négative',
-                            'subject' => 'Suite à votre candidature — '.$application->jobOffer?->title,
+                            'subject' => 'Suite à votre candidature  - '.$application->jobOffer?->title,
                             'body' => "Bonjour :first_name,\n\nNous vous remercions pour l'intérêt porté à Néré Mining et pour le temps consacré à votre candidature au poste de :job_title. Après étude attentive de votre dossier, nous ne sommes malheureusement pas en mesure de donner une suite favorable à votre candidature.\n\nNous vous souhaitons pleine réussite dans vos projets.\n\nCordialement,\nL'équipe Néré Mining",
                         ],
                     ];
@@ -137,7 +137,7 @@
         </div>
     </div>
 
-    {{-- RIGHT — Actions --}}
+    {{-- RIGHT  - Actions --}}
     <div>
         <div class="card">
             <div class="card-header"><h2>Statut & Notes</h2></div>

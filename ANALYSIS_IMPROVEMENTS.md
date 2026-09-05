@@ -1,4 +1,4 @@
-# 📊 Analyse des Améliorations Possibles — Néré Mining
+# 📊 Analyse des Améliorations Possibles  - Néré Mining
 
 ## Executive Summary
 
@@ -10,9 +10,9 @@ Le site Néré Mining est **bien architecturé** avec Laravel 13 + Tailwind CSS.
 
 ---
 
-## 🚀 QUICK WINS — Impacts Rapides (1-2 jours)
+## 🚀 QUICK WINS  - Impacts Rapides (1-2 jours)
 
-### 1. **Eager Loading — Eliminer N+1 Queries** ⭐ PRIORITÉ 1
+### 1. **Eager Loading  - Eliminer N+1 Queries** ⭐ PRIORITÉ 1
 
 **Impact:** -50% requêtes DB  
 **Effort:** 2 heures
@@ -79,7 +79,7 @@ KarmaDepartment::saved(function($model) {
 
 ---
 
-### 3. **Lazy Loading Images — Optimiser LCP** ⭐ PRIORITÉ 3
+### 3. **Lazy Loading Images  - Optimiser LCP** ⭐ PRIORITÉ 3
 
 **Impact:** +15-20 points Lighthouse  
 **Effort:** 1 heure
@@ -130,7 +130,7 @@ Sitemap: https://neremining.sn/sitemap.xml
 ```
 
 ```php
-// routes/web.php — ajouter route dynamique
+// routes/web.php  - ajouter route dynamique
 Route::get('sitemap.xml', function() {
     $sitemap = [
         ['loc' => route('index'), 'changefreq' => 'weekly', 'priority' => 1.0],
@@ -212,7 +212,7 @@ Route::get('sitemap.xml', function() {
 
 **Pour Articles News:**
 ```php
-// News controller — pass JSON-LD
+// News controller  - pass JSON-LD
 $schema = [
     "@context" => "https://schema.org",
     "@type" => "NewsArticle",
@@ -234,7 +234,7 @@ $schema = [
 **À ajouter:**
 
 ```php
-// config/throttle.php — custom limits
+// config/throttle.php  - custom limits
 'job-apply' => '10,1440',          # 10 par jour par IP
 'contact-form' => '5,60',          # 5 par minute par IP
 'newsletter' => '2,1440',          # 2 par jour
@@ -299,7 +299,7 @@ public function store(Request $request) {
 
 ---
 
-## 🎯 MEDIUM EFFORT — Features Valorisantes (1-2 semaines)
+## 🎯 MEDIUM EFFORT  - Features Valorisantes (1-2 semaines)
 
 ### 9. **Pagination & Infinite Scroll**
 
@@ -382,7 +382,7 @@ Route::middleware(['can:edit-news'])->group(function() {
 
 ---
 
-### 12. **Audit Log — Track Admin Actions**
+### 12. **Audit Log  - Track Admin Actions**
 
 **Impact:** Compliance +100%, security audit trail  
 **Effort:** 6-8 heures
@@ -484,7 +484,7 @@ Mail::queue(new NewMessageNotification($data));
 @extends('layouts.app')
 @section('content')
     <div class="error-page">
-        <h1>404 — Page non trouvée</h1>
+        <h1>404  - Page non trouvée</h1>
         <p>La page que vous cherchez n'existe pas.</p>
         <a href="/" class="btn btn-primary">Retour à l'accueil</a>
     </div>
@@ -530,7 +530,7 @@ public function getRelated() {
 
 ---
 
-## 🏗️ LONG-TERM — Architectural Improvements (2-4 semaines+)
+## 🏗️ LONG-TERM  - Architectural Improvements (2-4 semaines+)
 
 ### 18. **CDN & Image Optimization Service**
 

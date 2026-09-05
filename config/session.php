@@ -127,7 +127,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        'nm_session'   // Nom neutre — ne révèle pas le framework
+        'nm_session'   // Nom neutre  - ne révèle pas le framework
     ),
 
     /*

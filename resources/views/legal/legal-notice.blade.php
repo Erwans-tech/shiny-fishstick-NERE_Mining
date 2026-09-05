@@ -24,7 +24,7 @@
 
             <h2 style="font-size:1.4rem; color:#4b1716; margin:26px 0 12px;">1. Publisher</h2>
             <p>
-                {{ $en ? 'Néré Mining — mining and industrial group active in Burkina Faso.' : 'Néré Mining — groupe minier et industriel actif au Burkina Faso.' }}
+                {{ $en ? 'Néré Mining  - mining and industrial group active in Burkina Faso.' : 'Néré Mining  - groupe minier et industriel actif au Burkina Faso.' }}
             </p>
 
             <h2 style="font-size:1.4rem; color:#4b1716; margin:26px 0 12px;">2. Contact</h2>

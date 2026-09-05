@@ -53,7 +53,7 @@
                 <div class="form-group">
                     <label>Niveau d'expérience</label>
                     <select name="experience_level">
-                        <option value="">— Non précisé —</option>
+                        <option value=""> - Non précisé  -</option>
                         @foreach(\App\Models\JobOffer::experienceLevels() as $key => $labels)
                         <option value="{{ $key }}" {{ old('experience_level', $job->experience_level) === $key ? 'selected' : '' }}>
                             {{ $labels['fr'] }}
@@ -88,7 +88,7 @@
                     <label>Profil recherché / Exigences</label>
                     <textarea name="requirements" style="min-height:130px;"
                               placeholder="Liste les critères : diplôme, expérience, compétences. Un critère par ligne.">{{ old('requirements', $job->requirements) }}</textarea>
-                    <span class="form-hint">Un critère par ligne — chaque ligne sera affichée avec une coche ✓ sur le site.</span>
+                    <span class="form-hint">Un critère par ligne  - chaque ligne sera affichée avec une coche ✓ sur le site.</span>
                 </div>
 
                 {{-- Publié --}}
@@ -114,7 +114,7 @@
                                style="text-transform:none;letter-spacing:0;font-size:14px;font-weight:500;color:var(--ink);">
                             Candidature spontanée
                             <span style="font:400 12px Inter,sans-serif;color:var(--muted);display:block;">
-                                Cette offre n'apparaît pas dans la liste — elle alimente uniquement la page candidature spontanée.
+                                Cette offre n'apparaît pas dans la liste  - elle alimente uniquement la page candidature spontanée.
                             </span>
                         </label>
                     </div>

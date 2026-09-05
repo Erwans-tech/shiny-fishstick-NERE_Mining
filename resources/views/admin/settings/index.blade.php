@@ -79,9 +79,9 @@
                             <span class="form-hint">
                                 {{ $descriptions[$setting->key] }}
                                 @if($setting->key === 'carousel_interval')
-                                    — Valeur actuelle : {{ number_format($setting->value / 1000, 1) }} secondes
+                                     - Valeur actuelle : {{ number_format($setting->value / 1000, 1) }} secondes
                                 @elseif($setting->key === 'carousel_transition_speed')
-                                    — Valeur actuelle : {{ number_format($setting->value / 1000, 2) }} secondes
+                                     - Valeur actuelle : {{ number_format($setting->value / 1000, 2) }} secondes
                                 @endif
                             </span>
                             @endif

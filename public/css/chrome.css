@@ -1,4 +1,4 @@
-/* Header + footer publics — Néré Mining
+/* Header + footer publics  - Néré Mining
    Selectors are scoped (.site-header / .site-footer) so page-level
    `header {}` / `nav {}` / `footer {}` rules cannot reshape the chrome. */
 

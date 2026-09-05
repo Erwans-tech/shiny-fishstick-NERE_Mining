@@ -28,7 +28,7 @@ class AdminDashboardController extends Controller
             'reports'          => Report::count(),
             'jobs'             => JobOffer::where('is_published', true)->where('is_spontaneous', false)->count(),
             'jobs_expiring'    => JobOffer::open()->whereNotNull('deadline')
-                                    ->where('deadline', '<=', now()->addDays(7))->count(),
+                ->where('deadline', '<=', now()->addDays(7))->count(),
             'applications'     => JobApplication::count(),
             'applications_new' => JobApplication::whereNull('read_at')->count(),
             'partners'         => Partner::where('is_published', true)->count(),
@@ -68,7 +68,7 @@ class AdminDashboardController extends Controller
             ->take(3)
             ->get(['id', 'title', 'category', 'published_at', 'slug']);
 
-        // Activité récente — 5 dernières actualités
+        // Activité récente  - 5 dernières actualités
         $recentNews = News::latest()->take(5)->get(['id', 'title', 'category', 'published_at', 'created_at', 'slug']);
 
         // 5 derniers messages
@@ -153,7 +153,7 @@ class AdminDashboardController extends Controller
             'session_driver' => config('session.driver'),
             'admin_user' => session('admin_name', 'Inconnu'),
         ];
-        
+
         return view('admin.dashboard-alt', compact('stats'));
     }
 }

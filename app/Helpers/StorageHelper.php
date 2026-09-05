@@ -20,7 +20,7 @@ class StorageHelper
     public static function uploadUrl(?string $path): string
     {
         if (empty($path)) {
-            return '';
+            return asset('images/placeholders/default-image.svg');
         }
 
         // Fichiers statiques versionés dans public/images/ → asset() direct

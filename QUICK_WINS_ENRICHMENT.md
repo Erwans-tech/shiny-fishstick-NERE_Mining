@@ -73,7 +73,7 @@ Yearly production:
 **Current stats array (line ~430):**
 ```php
 $stats = [
-    ['value' => '— Koz', 'label' => 'Annual Production'],
+    ['value' => ' - Koz', 'label' => 'Annual Production'],
     ['value' => '1,200+', 'label' => 'Jobs Created'],
     ['value' => '18 yrs', 'label' => 'Operating History'],
     ['value' => '3.4 M', 'label' => 'Tonnes Extracted'],

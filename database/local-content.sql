@@ -127,7 +127,7 @@ INSERT INTO public.reports (id, title, category, description, file_path, cover_i
 --
 
 INSERT INTO public.site_settings (id, key, value, type, created_at, updated_at) VALUES (7, 'press_contact_name', '[Nom du Responsable Communication]', 'text', NULL, NULL);
-INSERT INTO public.site_settings (id, key, value, type, created_at, updated_at) VALUES (8, 'press_contact_job', 'Responsable Communication & Relations Presse — Néré Mining S.A.', 'text', NULL, NULL);
+INSERT INTO public.site_settings (id, key, value, type, created_at, updated_at) VALUES (8, 'press_contact_job', 'Responsable Communication & Relations Presse  - Néré Mining S.A.', 'text', NULL, NULL);
 INSERT INTO public.site_settings (id, key, value, type, created_at, updated_at) VALUES (10, 'press_contact_phone', '+226 25 33 35 69', 'text', NULL, NULL);
 INSERT INTO public.site_settings (id, key, value, type, created_at, updated_at) VALUES (12, 'press_contact_hours', 'Lundi – Vendredi, 8h – 17h (GMT+0)', 'text', NULL, NULL);
 INSERT INTO public.site_settings (id, key, value, type, created_at, updated_at) VALUES (1, 'carousel_autoplay', 'true', 'text', '2026-09-02 14:02:39', '2026-09-03 17:59:50');

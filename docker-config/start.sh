@@ -1,8 +1,8 @@
 #!/bin/sh
-# Script de démarrage — Production serveurs Néré Mining
+# Script de démarrage  - Production serveurs Néré Mining
 # Base de données : PostgreSQL (Render)
 
-echo "=== Nere Mining — Demarrage production ==="
+echo "=== Nere Mining  - Demarrage production ==="
 
 # ── Port (Render : 10000, Apache/Nginx classique : 80) ───────
 PORT=${PORT:-80}
@@ -31,7 +31,7 @@ MAX_RETRIES=40
 
 while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
     RETRY_COUNT=$((RETRY_COUNT + 1))
-    echo "   Tentative $RETRY_COUNT/$MAX_RETRIES — attente 3s..."
+    echo "   Tentative $RETRY_COUNT/$MAX_RETRIES  - attente 3s..."
     
     if nc -z "$DB_HOST" "$DB_PORT" 2>/dev/null; then
         echo "[INFO] PostgreSQL connecté !"
@@ -59,10 +59,10 @@ php artisan migrate --force --no-interaction 2>&1 | grep -v "already exists" || 
 # ── 5. Seed initial (une seule fois) ─────────────────────────
 SEEDED_FLAG=/var/www/html/storage/.seeded
 if [ ! -f "$SEEDED_FLAG" ]; then
-    echo "[INFO] Premier demarrage — seed..."
+    echo "[INFO] Premier demarrage  - seed..."
     php artisan db:seed --force --no-interaction && touch "$SEEDED_FLAG"
 else
-    echo "[INFO] Donnees deja seedees — skip."
+    echo "[INFO] Donnees deja seedees  - skip."
 fi
 
 # ── 6. Cache production ──────────────────────────────────────
@@ -98,7 +98,7 @@ if su-exec www-data touch /var/www/html/public/uploads/.write_test 2>/dev/null; 
     rm -f /var/www/html/public/uploads/.write_test
     echo "[INFO] Permissions uploads OK."
 else
-    echo "[WARN] public/uploads non inscriptible — uploads pourraient echouer."
+    echo "[WARN] public/uploads non inscriptible  - uploads pourraient echouer."
 fi
 
 # ── 8. Supervisord ───────────────────────────────────────────

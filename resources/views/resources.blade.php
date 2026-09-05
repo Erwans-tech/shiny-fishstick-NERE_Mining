@@ -101,9 +101,27 @@
         .sand { background:var(--sand); }
 
         /* ── Newsletter ── */
-        .newsletter-form { display:flex; gap:10px; max-width:500px; }
-        .newsletter-form input { flex:1; padding:14px 15px; border:1px solid var(--line); border-radius:4px; font:15px Inter,sans-serif; color:var(--ink); }
-        .newsletter-form button { border:0; padding:14px 20px; background:var(--red); color:#fff; font:600 12px Inter,sans-serif; text-transform:uppercase; letter-spacing:.08em; border-radius:4px; cursor:pointer; }
+        .newsletter-section {
+            position:relative; isolation:isolate; overflow:hidden;
+            padding:64px 5vw 68px; background:linear-gradient(125deg,#fff4dc 0%,#f8ead0 58%,#f3dfbd 100%);
+            border-top:1px solid rgba(229,167,47,.25); border-bottom:1px solid rgba(75,23,22,.08);
+        }
+        .newsletter-section::before {
+            content:''; position:absolute; z-index:-1; width:420px; height:420px; right:-130px; top:-230px;
+            border:1px solid rgba(229,167,47,.32); border-radius:50%; box-shadow:0 0 0 24px rgba(229,167,47,.05),0 0 0 48px rgba(229,167,47,.035);
+        }
+        .newsletter-section::after {
+            content:''; position:absolute; z-index:-1; left:5vw; bottom:0; width:110px; height:4px;
+            background:linear-gradient(90deg,var(--green),var(--gold),transparent);
+        }
+        .newsletter-inner { max-width:1120px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr) minmax(380px,500px); gap:56px; align-items:center; }
+        .newsletter-copy h2 { max-width:660px; color:var(--green); font-size:clamp(28px,4vw,46px); line-height:1.08; font-weight:500; letter-spacing:-.02em; }
+        .newsletter-copy .lead { max-width:620px; margin-top:14px; color:var(--muted); font-size:16px; line-height:1.65; }
+        .newsletter-form { display:flex; gap:10px; width:100%; max-width:500px; padding:8px; background:rgba(255,255,255,.72); border:1px solid rgba(75,23,22,.12); border-radius:8px; box-shadow:0 14px 30px rgba(75,23,22,.08); }
+        .newsletter-form input { min-width:0; flex:1; padding:14px 15px; border:1px solid transparent; border-radius:4px; background:#fff; font:15px Inter,sans-serif; color:var(--ink); outline:none; transition:border-color .2s,box-shadow .2s; }
+        .newsletter-form input:focus { border-color:var(--gold2); box-shadow:0 0 0 3px rgba(229,167,47,.16); }
+        .newsletter-form button { flex:0 0 auto; border:0; padding:14px 20px; background:var(--red); color:#fff; font:600 12px Inter,sans-serif; text-transform:uppercase; letter-spacing:.08em; border-radius:4px; cursor:pointer; transition:background .2s,transform .2s,box-shadow .2s; }
+        .newsletter-form button:hover { background:var(--green); transform:translateY(-2px); box-shadow:0 8px 18px rgba(75,23,22,.18); }
 
         /* ── Footer ── */
         footer { padding:32px 5vw; background:#351312; color:#eadcca; display:flex; justify-content:space-between; align-items:center; font:12px Inter,sans-serif; }
@@ -125,7 +143,14 @@
             .grid-3, .gallery-grid { grid-template-columns:1fr; }
             .gallery-item, .gallery-item:nth-child(1), .gallery-item:nth-child(2), .gallery-item:nth-child(3) { grid-column:span 1; grid-row:auto; }
             .gallery-media, .gallery-item:nth-child(1) .gallery-media { height:280px; }
+            .newsletter-inner { grid-template-columns:1fr; gap:28px; }
+            .newsletter-form { max-width:none; }
             footer { flex-direction:column; gap:12px; text-align:center; }
+        }
+        @media(max-width:520px) {
+            .newsletter-section { padding:48px 5vw 52px; }
+            .newsletter-form { flex-direction:column; }
+            .newsletter-form button { width:100%; }
         }
     </style>
 </head>
@@ -220,14 +245,18 @@
         @endif
 
         {{-- Newsletter --}}
-        <section class="sand">
-            <h2>{{ __('site.newsletter_h2') }}</h2>
-            <p class="lead">{{ __('site.newsletter_lead') }}</p>
-            <form class="newsletter-form" method="POST" action="{{ $en ? route('english.newsletter.store') : route('newsletter.store') }}">
-                @csrf
-                <input type="email" name="email" placeholder="{{ __('site.newsletter_email') }}" required>
-                <button type="submit">{{ __('site.subscribe') }}</button>
-            </form>
+        <section class="newsletter-section">
+            <div class="newsletter-inner">
+                <div class="newsletter-copy">
+                    <h2>{{ __('site.newsletter_h2') }}</h2>
+                    <p class="lead">{{ __('site.newsletter_lead') }}</p>
+                </div>
+                <form class="newsletter-form" method="POST" action="{{ $en ? route('english.newsletter.store') : route('newsletter.store') }}">
+                    @csrf
+                    <input type="email" name="email" placeholder="{{ __('site.newsletter_email') }}" required>
+                    <button type="submit">{{ __('site.subscribe') }}</button>
+                </form>
+            </div>
         </section>
     </main>
 

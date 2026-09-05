@@ -3,9 +3,6 @@
 
 @section('content')
 
-<section style="padding-bottom:0;">
-</section>
-
 <style>
     .report-category-badge { display:inline-block; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; margin-bottom:12px; }
     .report-cat-sustainability { background:rgba(75,23,22,.1); color:var(--green); }

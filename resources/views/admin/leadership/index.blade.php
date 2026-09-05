@@ -21,7 +21,7 @@
                 <td>
                     @if($member->photo_path)
                         <img src="{{ \App\Helpers\StorageHelper::uploadUrl($member->photo_path) }}" style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
-                    @else <span class="badge badge-gray">—</span> @endif
+                    @else <span class="badge badge-gray"> -</span> @endif
                 </td>
                 <td>{{ $member->name }}</td>
                 <td class="td-muted">{{ $member->title }}</td>

@@ -43,7 +43,7 @@ class AdminAuth
                 ->exists();
             if (! $still) {
                 $request->session()->flush();
-                Log::warning('Session admin invalidee — compte introuvable', ['id' => $adminId]);
+                Log::warning('Session admin invalidee  - compte introuvable', ['id' => $adminId]);
                 return redirect()->route('admin.login')
                     ->with('error', 'Session expirée. Veuillez vous reconnecter.');
             }

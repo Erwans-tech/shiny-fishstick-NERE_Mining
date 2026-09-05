@@ -100,7 +100,7 @@
                         @if($item->image_path)
                             <img class="news-img" src="{{ \App\Helpers\StorageHelper::uploadUrl($item->image_path) }}" alt="{{ $item->title }}">
                         @else
-                            <div class="news-img-placeholder">{{ __('site.news_img_placeholder') }}</div>
+                            <img class="news-img news-img-placeholder" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}">
                         @endif
                         <div class="news-body">
                             <div class="news-meta">{{ $item->category }} · {{ $item->published_at?->translatedFormat('d M Y') }}</div>

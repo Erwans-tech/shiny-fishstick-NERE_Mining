@@ -1,6 +1,6 @@
 Voici le plan de développement par priorité.
 
-## Priorité 0 — Socle technique
+## Priorité 0  - Socle technique
 
 **État : terminé**
 
@@ -14,7 +14,7 @@ Voici le plan de développement par priorité.
 - Modèle `News` créé.
 - Actualités chargées depuis la base de données.
 
-## Priorité 1 — Structure institutionnelle
+## Priorité 1  - Structure institutionnelle
 
 **Objectif : rendre le site crédible et facile à parcourir**
 
@@ -40,7 +40,7 @@ Créer les pages :
    - Emploi local.
    - Gouvernance et éthique.
 
-## Priorité 2 — Rapports et transparence
+## Priorité 2  - Rapports et transparence
 
 **Objectif : reprendre l’un des points forts d’Essakane**
 
@@ -69,7 +69,7 @@ Report
 - published_at
 ```
 
-## Priorité 3 — Administration du contenu
+## Priorité 3  - Administration du contenu
 
 **Objectif : permettre à l’équipe de gérer le site sans modifier le code**
 
@@ -89,7 +89,7 @@ Créer des rôles :
 - responsable RH ;
 - responsable RSE.
 
-## Priorité 4 — Carrières et emploi local
+## Priorité 4  - Carrières et emploi local
 
 Créer une rubrique **Carrières** avec :
 
@@ -115,7 +115,7 @@ JobOffer
 - is_published
 ```
 
-## Priorité 5 — Contact et relations communautaires
+## Priorité 5  - Contact et relations communautaires
 
 Créer plusieurs formulaires :
 
@@ -134,7 +134,7 @@ Prévoir :
 - stockage des demandes ;
 - tableau de suivi dans l’administration.
 
-## Priorité 6 — Actualités avancées
+## Priorité 6  - Actualités avancées
 
 Améliorer le module déjà créé :
 
@@ -146,7 +146,7 @@ Améliorer le module déjà créé :
 - images optimisées ;
 - actualités similaires.
 
-## Priorité 7 — SEO, performance et sécurité
+## Priorité 7  - SEO, performance et sécurité
 
 Avant la mise en ligne :
 

@@ -1,4 +1,4 @@
-# 🎯 Néré Mining — Rapport d'Analyse & Améliorations
+# 🎯 Néré Mining  - Rapport d'Analyse & Améliorations
 
 ## 📋 Contenu de cette Analyse
 
@@ -37,7 +37,7 @@ J'ai complété une **analyse exhaustive du projet Néré Mining** et créé **3
 
 ---
 
-## 🎯 Les 8 Quick Wins — 15 heures = +40% Performance
+## 🎯 Les 8 Quick Wins  - 15 heures = +40% Performance
 
 ### Priorité 🔴 À Faire Maintenant
 
@@ -46,14 +46,14 @@ Impact: **Massive (+40% performance)**
 
 | # | Item | Temps | Impact | Diff |
 |---|---|---|---|---|
-| 1 | **Eager Loading** — Éliminer N+1 queries | 2h | 🚀🚀🚀 | ⭐ Très facile |
-| 2 | **Caching** — Pages/données statiques | 1.5h | 🚀🚀🚀 | ⭐ Facile |
-| 3 | **Image Optimization** — Lazy + webp | 1h | 🚀🚀 | ⭐ Très facile |
-| 4 | **Sitemap & Robots.txt** — SEO crawl | 1h | 🚀🚀 | ⭐ Très facile |
-| 5 | **Meta Tags** — OG, Twitter, canonical | 2h | 🚀🚀 | ⭐ Facile |
-| 6 | **JSON-LD Schema** — Rich snippets | 1.5h | 🚀🚀 | ⭐ Facile |
-| 7 | **Rate Limiting** — DDoS + brute-force | 1h | 🚀🚀 | ⭐ Très facile |
-| 8 | **Upload Validation** — XSS protection | 2h | 🚀🚀 | ⭐ Facile |
+| 1 | **Eager Loading**  - Éliminer N+1 queries | 2h | 🚀🚀🚀 | ⭐ Très facile |
+| 2 | **Caching**  - Pages/données statiques | 1.5h | 🚀🚀🚀 | ⭐ Facile |
+| 3 | **Image Optimization**  - Lazy + webp | 1h | 🚀🚀 | ⭐ Très facile |
+| 4 | **Sitemap & Robots.txt**  - SEO crawl | 1h | 🚀🚀 | ⭐ Très facile |
+| 5 | **Meta Tags**  - OG, Twitter, canonical | 2h | 🚀🚀 | ⭐ Facile |
+| 6 | **JSON-LD Schema**  - Rich snippets | 1.5h | 🚀🚀 | ⭐ Facile |
+| 7 | **Rate Limiting**  - DDoS + brute-force | 1h | 🚀🚀 | ⭐ Très facile |
+| 8 | **Upload Validation**  - XSS protection | 2h | 🚀🚀 | ⭐ Facile |
 
 ### Résultats Attendus Après 15h
 
@@ -91,8 +91,8 @@ Security:
 ### Medium Priority (🟡 9 items, 40h)
 - [ ] #9 Pagination (News, Reports, Gallery)
 - [ ] #10 Search & Advanced Filtering
-- [ ] #11 RBAC — Role-Based Access Control
-- [ ] #12 Audit Log — Track admin actions
+- [ ] #11 RBAC  - Role-Based Access Control
+- [ ] #12 Audit Log  - Track admin actions
 - [ ] #13 API REST avec versioning
 - [ ] #14 Email Notifications & Queues
 - [ ] #15 Custom 404/500 Error Pages
@@ -204,9 +204,9 @@ CDN setup (20h)
 
 **Fichiers à modifier:** (See IMPLEMENTATION_GUIDE_QUICK_WINS.md)
 
-1. `app/Http/Controllers/HomeController.php` — add `.with()` to queries
-2. `app/Http/Controllers/NewsController.php` — same pattern
-3. `app/Http/Controllers/ReportController.php` — same pattern
+1. `app/Http/Controllers/HomeController.php`  - add `.with()` to queries
+2. `app/Http/Controllers/NewsController.php`  - same pattern
+3. `app/Http/Controllers/ReportController.php`  - same pattern
 4. Test: Run `php artisan tinker` and check query count
 
 **Time estimate:** 45 minutes
@@ -230,9 +230,9 @@ CDN setup (20h)
 
 ## 🎯 Key Files to Review
 
-- `ANALYSIS_IMPROVEMENTS.md` — Complete analysis (read first)
-- `IMPROVEMENTS_QUICK_SUMMARY.md` — Visual summary
-- `IMPLEMENTATION_GUIDE_QUICK_WINS.md` — Step-by-step code (copy-paste ready)
+- `ANALYSIS_IMPROVEMENTS.md`  - Complete analysis (read first)
+- `IMPROVEMENTS_QUICK_SUMMARY.md`  - Visual summary
+- `IMPLEMENTATION_GUIDE_QUICK_WINS.md`  - Step-by-step code (copy-paste ready)
 
 ---
 
@@ -257,10 +257,10 @@ A: None! All items use only Laravel built-in features + standard packages.
 
 ## 📞 Summary
 
-✅ **Site is solid** — Good architecture, clean code  
-⚡ **Quick wins exist** — 15 hours → +40% performance  
-🚀 **Easy to implement** — All code provided, step-by-step guide  
-💰 **Strong ROI** — 3-5x revenue potential over 6 months  
+✅ **Site is solid**  - Good architecture, clean code  
+⚡ **Quick wins exist**  - 15 hours → +40% performance  
+🚀 **Easy to implement**  - All code provided, step-by-step guide  
+💰 **Strong ROI**  - 3-5x revenue potential over 6 months  
 
 **Recommendation:** Start with the 8 quick wins. Implement over 1-2 weeks. Measure results. Then decide on medium items.
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════════════
-#  NÉRÉ MINING — Script de rollback production
+#  NÉRÉ MINING  - Script de rollback production
 #  Usage : bash rollback.sh [COMMIT_SHA]
 #  Sans argument : revient au commit précédent
 # ═══════════════════════════════════════════════════════════════════════
@@ -18,7 +18,7 @@ TARGET_COMMIT="${1:-HEAD~1}"
 
 echo ""
 echo "═══════════════════════════════════════════════════════"
-echo "  NÉRÉ MINING — Rollback vers : $TARGET_COMMIT"
+echo "  NÉRÉ MINING  - Rollback vers : $TARGET_COMMIT"
 echo "═══════════════════════════════════════════════════════"
 echo ""
 

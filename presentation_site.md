@@ -1,4 +1,4 @@
-# 🪨 Néré Mining — Guide de présentation du site
+# 🪨 Néré Mining  - Guide de présentation du site
 
 > Site web institutionnel bilingue (français / anglais) de la société minière **Néré Mining**, opérant la mine d'or de **Karma** au Burkina Faso.
 > Développé avec **Laravel 13** + PostgreSQL + Vite.
@@ -12,7 +12,7 @@ Visiteur public ──→ Site FR / EN  (lecture seule, contenu dynamique BDD)
 Administrateur ──→ /gestion-nm   (interface privée, gestion complète du contenu)
 ```
 
-Le site est **100 % géré en BDD** : aucun contenu n'est codé en dur dans les templates — tout passe par l'admin.
+Le site est **100 % géré en BDD** : aucun contenu n'est codé en dur dans les templates  - tout passe par l'admin.
 
 ---
 
@@ -41,13 +41,13 @@ Le site est **100 % géré en BDD** : aucun contenu n'est codé en dur dans les 
 | `/mediatheque` | `/en/media` | Galerie photos/vidéos |
 | `/communiques` | `/en/press-releases` | Communiqués de presse |
 | `/publications` | `/en/publications` | Rapports & documents |
-| `/partenaires` | — | Partenaires institutionnels |
+| `/partenaires` |  - | Partenaires institutionnels |
 | `/carrieres` | `/en/careers` | Carrières |
 | `/offres-emploi/{slug}` | `/en/jobs/{slug}` | Détail offre d'emploi |
 | `/candidature-spontanee` | `/en/spontaneous-application` | Candidature spontanée |
 | `/contact` | `/en/contact` | Contact |
 
-### Page d'accueil — éléments dynamiques
+### Page d'accueil  - éléments dynamiques
 
 - **Chiffres clés** (hardcodés dans les routes, modifiables) :
   - 80 000 oz / an de production d'or
@@ -67,7 +67,7 @@ URL   : http://localhost:8000/gestion-nm
 Login : email + mot de passe (compte utilisateur avec is_admin = true)
 ```
 
-> ⚠️ L'URL `/admin` n'existe pas — c'est volontairement masqué pour la sécurité.
+> ⚠️ L'URL `/admin` n'existe pas  - c'est volontairement masqué pour la sécurité.
 
 **Sécurité intégrée :** Rate limiting à 5 tentatives/minute par IP. Blocage automatique en cas d'attaque.
 
@@ -99,7 +99,7 @@ Vue synthétique avec :
 
 Le site utilise **PostgreSQL** (ou SQLite en local) avec les tables suivantes :
 
-### `news` — Actualités
+### `news`  - Actualités
 | Champ | Description |
 |---|---|
 | `title` | Titre de l'article |
@@ -109,7 +109,7 @@ Le site utilise **PostgreSQL** (ou SQLite en local) avec les tables suivantes :
 | `image_path` | Chemin vers l'image (dans `public/uploads/news/`) |
 | `published_at` | Date de publication (null = brouillon) |
 
-### `reports` — Publications
+### `reports`  - Publications
 | Champ | Description |
 |---|---|
 | `title` | Titre du rapport |
@@ -118,7 +118,7 @@ Le site utilise **PostgreSQL** (ou SQLite en local) avec les tables suivantes :
 | `file_path` | Chemin vers le PDF |
 | `published_at` | Date de publication |
 
-### `job_offers` — Offres d'emploi
+### `job_offers`  - Offres d'emploi
 | Champ | Description |
 |---|---|
 | `title` | Intitulé du poste |
@@ -133,7 +133,7 @@ Le site utilise **PostgreSQL** (ou SQLite en local) avec les tables suivantes :
 | `is_published` | Visible sur le site ? |
 | `is_spontaneous` | Offre de candidature spontanée ? |
 
-### `job_applications` — Candidatures reçues
+### `job_applications`  - Candidatures reçues
 | Champ | Description |
 |---|---|
 | `first_name`, `last_name` | Identité du candidat |
@@ -143,7 +143,7 @@ Le site utilise **PostgreSQL** (ou SQLite en local) avec les tables suivantes :
 | `status` | `new` / `reviewed` / `shortlisted` / `rejected` |
 | `job_offer_id` | Offre concernée (null si candidature spontanée) |
 
-### `media_assets` — Médiathèque
+### `media_assets`  - Médiathèque
 | Champ | Description |
 |---|---|
 | `title` | Nom du média |
@@ -153,7 +153,7 @@ Le site utilise **PostgreSQL** (ou SQLite en local) avec les tables suivantes :
 | `is_published` | Visible sur le site ? |
 | `sort_order` | Ordre d'affichage |
 
-### `partners` — Partenaires
+### `partners`  - Partenaires
 | Champ | Description |
 |---|---|
 | `name` | Nom du partenaire |
@@ -163,7 +163,7 @@ Le site utilise **PostgreSQL** (ou SQLite en local) avec les tables suivantes :
 | `is_published` | Visible sur le site ? |
 | `sort_order` | Ordre d'affichage |
 
-### `press_documents` — Communiqués de presse
+### `press_documents`  - Communiqués de presse
 | Champ | Description |
 |---|---|
 | `title` | Titre du communiqué |
@@ -172,7 +172,7 @@ Le site utilise **PostgreSQL** (ou SQLite en local) avec les tables suivantes :
 | `file_path` | PDF associé |
 | `published_at` | Date de publication |
 
-### `contact_messages` — Messages de contact
+### `contact_messages`  - Messages de contact
 | Champ | Description |
 |---|---|
 | `name`, `email` | Expéditeur |
@@ -181,13 +181,13 @@ Le site utilise **PostgreSQL** (ou SQLite en local) avec les tables suivantes :
 | `type` | Catégorie de demande |
 | `read_at` | Date de lecture (null = non lu) |
 
-### `newsletter_subscribers` — Abonnés newsletter
+### `newsletter_subscribers`  - Abonnés newsletter
 | Champ | Description |
 |---|---|
 | `email` | Adresse e-mail |
 | `subscribed_at` | Date d'inscription |
 
-### `users` — Comptes admin
+### `users`  - Comptes admin
 | Champ | Description |
 |---|---|
 | `name`, `email` | Identité |
@@ -221,7 +221,7 @@ public/images/
 
 ---
 
-## 🔄 Flux de données — exemple Actualités
+## 🔄 Flux de données  - exemple Actualités
 
 ```
 Admin crée un article
@@ -276,11 +276,11 @@ http://localhost:8000/gestion-nm
 
 ## ✅ Points forts à mentionner en présentation
 
-- 🌐 **Bilingue natif** — FR et EN avec URLs propres
-- 🔐 **Admin sécurisé** — URL masquée, rate limiting, session PHP
-- 📱 **Responsive** — conçu pour mobile, tablette et desktop
-- ♻️ **Contenu 100 % dynamique** — tout est gérable sans toucher au code
-- 📎 **Gestion documentaire** — upload PDF, CV, images directement en admin
-- 👥 **Module RH complet** — offres, candidatures, statuts, téléchargement CV
-- 📧 **Formulaires intégrés** — contact, newsletter, candidature spontanée
-- 🏗️ **Architecture MVC propre** — Laravel 11, facilement évolutif
+- 🌐 **Bilingue natif**  - FR et EN avec URLs propres
+- 🔐 **Admin sécurisé**  - URL masquée, rate limiting, session PHP
+- 📱 **Responsive**  - conçu pour mobile, tablette et desktop
+- ♻️ **Contenu 100 % dynamique**  - tout est gérable sans toucher au code
+- 📎 **Gestion documentaire**  - upload PDF, CV, images directement en admin
+- 👥 **Module RH complet**  - offres, candidatures, statuts, téléchargement CV
+- 📧 **Formulaires intégrés**  - contact, newsletter, candidature spontanée
+- 🏗️ **Architecture MVC propre**  - Laravel 11, facilement évolutif

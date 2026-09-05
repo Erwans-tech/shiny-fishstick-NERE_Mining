@@ -1,6 +1,6 @@
 # Amélioration du design des pages Néré Mining
 
-Refonte visuelle de toutes les pages intérieures et de la page d'accueil pour un rendu premium, moderne et dynamique — **sans modifier le header (`_nav.blade.php`, `chrome.css` header) ni le footer (`_footer.blade.php`, `chrome.css` footer)**.
+Refonte visuelle de toutes les pages intérieures et de la page d'accueil pour un rendu premium, moderne et dynamique  - **sans modifier le header (`_nav.blade.php`, `chrome.css` header) ni le footer (`_footer.blade.php`, `chrome.css` footer)**.
 
 ## Périmètre
 
@@ -12,7 +12,7 @@ Les améliorations portent sur **3 axes** : les styles globaux dans le layout, l
 
 ---
 
-### 1. Layout global — `app.blade.php` (styles `<style>` inline)
+### 1. Layout global  - `app.blade.php` (styles `<style>` inline)
 
 #### [MODIFY] [app.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/layouts/app.blade.php)
 
@@ -32,7 +32,7 @@ Améliorations dans le `<style>` du layout (lignes 42–337) :
 
 ---
 
-### 2. Page d'accueil — `home.blade.php`
+### 2. Page d'accueil  - `home.blade.php`
 
 #### [MODIFY] [home.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/home.blade.php)
 
@@ -43,7 +43,7 @@ Améliorations dans le `<style>` du layout (lignes 42–337) :
 
 ---
 
-### 3. Pages intérieures — Blade views sous `pages/`
+### 3. Pages intérieures  - Blade views sous `pages/`
 
 #### [MODIFY] [karma.blade.php](file:///c:/Users/erwan/OneDrive/Bureau/REFONTESITE/resources/views/pages/karma.blade.php)
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Administration') — Néré Mining</title>
+    <title>@yield('title', 'Administration')  - Néré Mining</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/admin-animations.css') }}">
@@ -394,7 +394,7 @@
         .pagination .active span { background: var(--green); color: #fff; border-color: var(--green); }
         .pagination .disabled span { opacity: .4; }
 
-        /* ══ Dashboard — stat tiles ═══════════════════════════════ */
+        /* ══ Dashboard  - stat tiles ═══════════════════════════════ */
         .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
         .stat-tile {
             background: #fff;
@@ -663,5 +663,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+@include('partials.emoji-icons')
 </body>
 </html>

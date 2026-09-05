@@ -814,7 +814,7 @@
 <body class="{{ $isSustain ? 'is-sustain' : '' }}">
     @include('partials._nav', ['locale' => $loc, 'section' => $section])
 
-    {{-- ── Masthead — h1 centré, sans répétition ── --}}
+    {{-- ── Masthead  - h1 centré, sans répétition ── --}}
     @hasSection('masthead')
         @yield('masthead')
     @else

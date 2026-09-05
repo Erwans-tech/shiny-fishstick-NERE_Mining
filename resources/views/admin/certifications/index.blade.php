@@ -35,7 +35,7 @@
                         <tr>
                             <td style="font-weight:600;">{{ $cert->name }}</td>
                             <td class="td-muted">{{ Str::limit($cert->description, 40) }}</td>
-                            <td class="td-muted">{{ $cert->issued_at?->format('d/m/Y') ?? '—' }}</td>
+                            <td class="td-muted">{{ $cert->issued_at?->format('d/m/Y') ?? ' -' }}</td>
                             <td class="td-muted">
                                 @if($cert->expires_at)
                                     {{ $cert->expires_at->format('d/m/Y') }}
@@ -43,7 +43,7 @@
                                         <span class="badge badge-red" style="font-size:10px;">Expiré</span>
                                     @endif
                                 @else
-                                    —
+                                     -
                                 @endif
                             </td>
                             <td>

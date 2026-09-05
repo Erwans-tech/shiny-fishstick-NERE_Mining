@@ -43,7 +43,7 @@
                     <div style="margin-bottom:10px;"><img src="{{ \App\Helpers\StorageHelper::uploadUrl($member->photo_path) }}" style="width:88px;height:88px;border-radius:50%;object-fit:cover;"></div>
                     @endif
                     <input type="file" name="photo" accept="image/*">
-                    <span class="form-hint">JPG, PNG ou WebP — max 4 Mo.</span>
+                    <span class="form-hint">JPG, PNG ou WebP  - max 4 Mo.</span>
                 </div>
                 <div class="form-group full">
                     <div class="toggle-wrap">

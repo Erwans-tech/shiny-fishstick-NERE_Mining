@@ -54,7 +54,7 @@
 
 ## 📈 Pages Existantes à Enrichir
 
-### HIGH Priority (Semaine 1-2) — 8-12 heures
+### HIGH Priority (Semaine 1-2)  - 8-12 heures
 
 | Page | État Actuel | Enrichissement | Effort |
 |------|------------|-----------------|--------|

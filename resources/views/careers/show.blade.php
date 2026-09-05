@@ -40,7 +40,7 @@
         /* Layout */
         .page-body{max-width:1240px;margin:0 auto;padding:60px 5vw;display:grid;grid-template-columns:1fr 380px;gap:48px;align-items:start;}
 
-        /* Left — job detail */
+        /* Left  - job detail */
         .job-detail{}
         .section-block{margin-bottom:40px;}
         .section-block h2{font:600 20px Inter,sans-serif;color:var(--green);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line);}
@@ -50,7 +50,7 @@
         .requirements-list li{display:flex;gap:10px;align-items:flex-start;font:14px/1.6 Inter,sans-serif;color:var(--muted);}
         .requirements-list li::before{content:'✓';color:var(--gold2);font-weight:700;flex-shrink:0;margin-top:1px;}
 
-        /* Right — sticky sidebar */
+        /* Right  - sticky sidebar */
         .sidebar{position:sticky;top:92px;}
         .sidebar-card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
         .sidebar-head{padding:20px 22px;background:var(--green);color:#fff;}
@@ -136,7 +136,7 @@
 {{-- Body --}}
 <div class="page-body">
 
-    {{-- LEFT — Détail --}}
+    {{-- LEFT  - Détail --}}
     <div>
 
         @if(session('apply_success'))
@@ -209,7 +209,7 @@
                         <div class="form-group">
                             <label class="fl" for="experience_years">{{ __('site.careers_field_exp_years', [], $loc) }}</label>
                             <select id="experience_years" name="experience_years">
-                                <option value="">—</option>
+                                <option value=""> -</option>
                                 <option value="0-1" {{ old('experience_years') === '0-1' ? 'selected' : '' }}>0 – 1 {{ $en ? 'yr' : 'an' }}</option>
                                 <option value="2-4" {{ old('experience_years') === '2-4' ? 'selected' : '' }}>2 – 4 {{ $en ? 'yrs' : 'ans' }}</option>
                                 <option value="5-9" {{ old('experience_years') === '5-9' ? 'selected' : '' }}>5 – 9 {{ $en ? 'yrs' : 'ans' }}</option>
@@ -262,7 +262,7 @@
         </div>
     </div>
 
-    {{-- RIGHT — Sidebar sticky --}}
+    {{-- RIGHT  - Sidebar sticky --}}
     <aside class="sidebar">
         <div class="sidebar-card">
             <div class="sidebar-head">

@@ -211,10 +211,10 @@ Pour tester le système, utiliser ces vidéos de démonstration minière:
 
 | Source | Images | Vidéos | Format |
 |--------|--------|--------|--------|
-| Unsplash | 270+ | — | JPG, HD |
+| Unsplash | 270+ |  - | JPG, HD |
 | Pixabay | 8,000+ | 104+ | JPG, MP4, 4K |
 | Pexels | 1,000+ | 80+ | JPG, MP4 |
-| StockSnap | 3+ | — | JPG |
+| StockSnap | 3+ |  - | JPG |
 | **TOTAL** | **9,000+** | **184+** | **HD/4K** |
 
 ---

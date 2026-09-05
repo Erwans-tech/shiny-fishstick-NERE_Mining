@@ -48,7 +48,7 @@ $homeHandler = function (string $locale) {
 
     $partners = Partner::where('is_published', true)->orderBy('sort_order')->get();
 
-    // Slides du carrousel hero — fallback sur les images statiques si table vide
+    // Slides du carrousel hero  - fallback sur les images statiques si table vide
     $slides = \App\Models\HeroSlide::active()->get();
 
     // Récupère la description SEO pour la page d'accueil
@@ -262,7 +262,7 @@ Route::get('/en/reports',  fn() => redirect()->route('english.reports', status: 
 
 /*
 |--------------------------------------------------------------------------
-| Forms (POST) — locale-aware responses
+| Forms (POST)  - locale-aware responses
 |--------------------------------------------------------------------------
 */
 Route::post('/newsletter', function (Request $request) {
@@ -354,7 +354,7 @@ Route::get('/en/legal-notice', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Administration — URL masquée
+| Administration  - URL masquée
 | Accès : /gestion-nm
 |--------------------------------------------------------------------------
 */

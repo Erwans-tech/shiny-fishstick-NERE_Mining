@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Nere Mining</title>
+  <desc id="desc">Image par defaut Nere Mining</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4b1716"/>
+      <stop offset="1" stop-color="#281d18"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffc247" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#e5a72f" stop-opacity=".25"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="760" fill="url(#background)"/>
+  <circle cx="930" cy="170" r="150" fill="url(#sun)" opacity=".75"/>
+  <path d="M0 560 230 350l150 125 205-245 180 190 165-115 270 255v200H0Z" fill="#6f2924" opacity=".8"/>
+  <path d="m0 650 250-180 170 115 190-185 210 170 150-105 230 150v145H0Z" fill="#281d18" opacity=".85"/>
+  <g fill="none" stroke="#ffc247" stroke-linecap="round" stroke-linejoin="round" stroke-width="8" opacity=".9">
+    <path d="M505 515h190M540 515l45-130h30l45 130M562 445h116M575 410h82"/>
+    <path d="M600 385v-55M570 350h60"/>
+  </g>
+  <text x="600" y="665" fill="#fff4dc" font-family="Arial, sans-serif" font-size="34" font-weight="600" letter-spacing="8" text-anchor="middle">NERE MINING</text>
+</svg>

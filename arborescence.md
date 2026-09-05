@@ -3,10 +3,10 @@ PROPOSITION D'ARBORESCENCE SITE WEB GLOBAL NÉRÉ MINING
 PAGE D'ACCUEIL
 Éléments clés à afficher :
 o	Slogan 
-o	Chiffres clés animés — production, emplois, % de nationaux, retombées fiscales
+o	Chiffres clés animés  - production, emplois, % de nationaux, retombées fiscales
 o	Liens rapides vers les rubriques principales
 o	Dernières actualités
-o	Partenaires institutionnels — État burkinabè, ITIE, chambres des mines
+o	Partenaires institutionnels  - État burkinabè, ITIE, chambres des mines
 
 QUI SOMMES-NOUS ?
 1.	Mot du PDG
@@ -38,8 +38,8 @@ NOS PROJETS EN DEVELOPPEMENT
 DÉVELOPPEMENT DURABLE 
 1.	Nos Communautés 
 •	Politique de relations communautaires
-•	Dialogue communautaire — cadres de concertation
-•	Investissements sociaux — FMD, projets réalisés
+•	Dialogue communautaire  - cadres de concertation
+•	Investissements sociaux  - FMD, projets réalisés
 •	Mécanisme de gestion des plaintes
 •	Carte des villages impactés et réalisations, etc
 •	Nos partenaires communautaires (associations et groupements locaux)
@@ -65,7 +65,7 @@ ACTUALITÉS  ET MÉDIAS
 1.	Pourquoi choisir Néré Mining ?
 2.	Offres d'emploi, stages
 CONTACT
-1.	Siège social Ouagadougou — adresse, téléphone, email 
-2.	Site de la mine de Karma — contacts terrain 
+1.	Siège social Ouagadougou  - adresse, téléphone, email 
+2.	Site de la mine de Karma  - contacts terrain 
 3.	Bureau de liaison de Ouahigouya 
 4.	Formulaire de contact général

@@ -23,7 +23,7 @@
                 <td>{{ $j->title }}</td>
                 <td class="td-muted">{{ $j->department }}</td>
                 <td class="td-muted">{{ $j->location }}</td>
-                <td class="td-muted">{{ $j->deadline?->format('d/m/Y') ?? '—' }}</td>
+                <td class="td-muted">{{ $j->deadline?->format('d/m/Y') ?? ' -' }}</td>
                 <td><span class="badge {{ $j->is_published ? 'badge-green' : 'badge-gray' }}">{{ $j->is_published ? 'Publié' : 'Masqué' }}</span>
                     @if($j->is_spontaneous) <span class="badge badge-yellow" style="margin-left:4px;">Spontanée</span> @endif
                 </td>

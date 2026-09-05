@@ -1,5 +1,5 @@
 /**
- * 🌿 SUSTAINABILITY ANIMATIONS JS — Néré Mining
+ * 🌿 SUSTAINABILITY ANIMATIONS JS  - Néré Mining
  * Moteur d'animations interactives pour section Développement Durable
  */
 
@@ -55,7 +55,7 @@ class SustainabilityAnimator {
   }
 
   /* ═══════════════════════════════════════════════════
-     1. SCROLL REVEAL — Intersection Observer
+     1. SCROLL REVEAL  - Intersection Observer
   ═══════════════════════════════════════════════════ */
 
   setupScrollReveal() {
@@ -92,7 +92,7 @@ class SustainabilityAnimator {
   }
 
   /* ═══════════════════════════════════════════════════
-     2. SECTION HEADINGS — Underline + divider
+     2. SECTION HEADINGS  - Underline + divider
   ═══════════════════════════════════════════════════ */
 
   setupSectionHeadings() {
@@ -228,7 +228,7 @@ class SustainabilityAnimator {
   }
 
   /* ═══════════════════════════════════════════════════
-     5. LISTE ANIMÉE — Items en cascade
+     5. LISTE ANIMÉE  - Items en cascade
   ═══════════════════════════════════════════════════ */
 
   setupAnimatedLists() {
@@ -248,7 +248,7 @@ class SustainabilityAnimator {
   }
 
   /* ═══════════════════════════════════════════════════
-     6. STAT ITEMS — Enhanced
+     6. STAT ITEMS  - Enhanced
   ═══════════════════════════════════════════════════ */
 
   setupStatItems() {
@@ -258,7 +258,7 @@ class SustainabilityAnimator {
   }
 
   /* ═══════════════════════════════════════════════════
-     7. RIPPLE EFFECT — Au clic
+     7. RIPPLE EFFECT  - Au clic
   ═══════════════════════════════════════════════════ */
 
   setupRippleEffect() {
@@ -290,7 +290,7 @@ class SustainabilityAnimator {
   }
 
   /* ═══════════════════════════════════════════════════
-     8. MAGNETIC HOVER — Léger déplacement vers curseur
+     8. MAGNETIC HOVER  - Léger déplacement vers curseur
   ═══════════════════════════════════════════════════ */
 
   setupMagneticHover() {
@@ -313,7 +313,7 @@ class SustainabilityAnimator {
   }
 
   /* ═══════════════════════════════════════════════════
-     9. MOUSE TRACKING BG — Arrière-plan suit le curseur
+     9. MOUSE TRACKING BG  - Arrière-plan suit le curseur
   ═══════════════════════════════════════════════════ */
 
   setupMouseTrackingBg() {
@@ -363,7 +363,7 @@ class SustainabilityAnimator {
   }
 
   /* ═══════════════════════════════════════════════════
-     11. PARTICLES — Orbes flottantes
+     11. PARTICLES  - Orbes flottantes
   ═══════════════════════════════════════════════════ */
 
   setupParticles() {
@@ -399,7 +399,7 @@ class SustainabilityAnimator {
   }
 
   /* ═══════════════════════════════════════════════════
-     12. TYPEWRITER — Effet machine à écrire
+     12. TYPEWRITER  - Effet machine à écrire
   ═══════════════════════════════════════════════════ */
 
   setupTypewriter() {
@@ -429,7 +429,7 @@ class SustainabilityAnimator {
   }
 
   /* ═══════════════════════════════════════════════════
-     13. PARALLAX SCROLL — Sur les sections bg
+     13. PARALLAX SCROLL  - Sur les sections bg
   ═══════════════════════════════════════════════════ */
 
   setupParallax() {
@@ -461,7 +461,7 @@ class SustainabilityAnimator {
 
 /* ═══════════════════════════════════════════════════════════
    BACKGROUND GRADIENTS DYNAMIQUES (changement au défilement)
-   — Style TikTok / immersif
+    - Style TikTok / immersif
 ═══════════════════════════════════════════════════════════ */
 
 class BackgroundGradientShifter {
@@ -502,7 +502,7 @@ class BackgroundGradientShifter {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ENHANCED CARD HOVER — Effet de lumière qui suit la souris
+   ENHANCED CARD HOVER  - Effet de lumière qui suit la souris
 ═══════════════════════════════════════════════════════════ */
 
 class CardLightEffect {
@@ -533,7 +533,7 @@ class CardLightEffect {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SMOOTH SECTION TRANSITIONS — Fade between sections
+   SMOOTH SECTION TRANSITIONS  - Fade between sections
 ═══════════════════════════════════════════════════════════ */
 
 class SectionTransitions {
@@ -563,7 +563,7 @@ class SectionTransitions {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CLIC ANIMATION — Total banner
+   CLIC ANIMATION  - Total banner
 ═══════════════════════════════════════════════════════════ */
 
 class BannerClickEffect {

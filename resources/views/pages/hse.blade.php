@@ -24,7 +24,7 @@
     </div>
 </section>
 
-{{-- ── 2. Safety Performance — KPIs ───────────────────── --}}
+{{-- ── 2. Safety Performance  - KPIs ───────────────────── --}}
 <section class="sa-sand-animated" style="padding:70px 5vw; position:relative;">
     <div class="sa-wave-top"></div>
     <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">

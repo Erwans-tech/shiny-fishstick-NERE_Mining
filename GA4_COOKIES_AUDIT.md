@@ -309,16 +309,16 @@ Ces pages doivent détailler :
 
 Pour ce site, je recommande formellement :
 
-### Recommandation 1 — décider du modèle analytique
+### Recommandation 1  - décider du modèle analytique
 
 - soit le site ne collecte aucun analytics tiers ;
 - soit il utilise GA4 avec consentement explicite.
 
-### Recommandation 2 — ne pas lancer GA4 avant consentement
+### Recommandation 2  - ne pas lancer GA4 avant consentement
 
 Le script ne doit pas s’exécuter tant que l’utilisateur n’a pas accepté les cookies analytiques.
 
-### Recommandation 3 — documenter le tracking interne
+### Recommandation 3  - documenter le tracking interne
 
 Le tracking interne du serveur doit être clairement déclaré dans la politique, surtout s’il comporte :
 
@@ -327,11 +327,11 @@ Le tracking interne du serveur doit être clairement déclaré dans la politique
 - referrer
 - pages visitées
 
-### Recommandation 4 — ajouter un mécanisme de refus simple
+### Recommandation 4  - ajouter un mécanisme de refus simple
 
 Le bouton “Refuser” doit être aussi visible que le bouton “Accepter”.
 
-### Recommandation 5 — garder la sécurité des cookies de session
+### Recommandation 5  - garder la sécurité des cookies de session
 
 Les cookies techniques essentiels restent autorisés sans consentement, mais les cookies analytiques doivent être soumis à consentement.
 

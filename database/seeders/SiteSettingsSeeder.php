@@ -21,21 +21,21 @@ class SiteSettingsSeeder extends Seeder
 
             // Press contact
             ['key' => 'press_contact_name', 'value' => '[Nom du Responsable Communication]', 'type' => 'text'],
-            ['key' => 'press_contact_job', 'value' => 'Responsable Communication & Relations Presse — Néré Mining S.A.', 'type' => 'text'],
+            ['key' => 'press_contact_job', 'value' => 'Responsable Communication & Relations Presse  - Néré Mining S.A.', 'type' => 'text'],
             ['key' => 'press_contact_photo', 'value' => '', 'type' => 'url'],
             ['key' => 'press_contact_phone', 'value' => '+226 25 33 35 69', 'type' => 'text'],
             ['key' => 'press_contact_email', 'value' => 'presse@nere-mining.bf', 'type' => 'email'],
             ['key' => 'press_contact_hours', 'value' => 'Lundi – Vendredi, 8h – 17h (GMT+0)', 'type' => 'text'],
-            
+
             // Footer
-            ['key' => 'footer_copyright', 'value' => '© '.date('Y').' Néré Mining. Tous droits réservés.', 'type' => 'text'],
+            ['key' => 'footer_copyright', 'value' => '© ' . date('Y') . ' Néré Mining. Tous droits réservés.', 'type' => 'text'],
             ['key' => 'footer_description', 'value' => 'Néré Mining est une mine d\'or opérée selon les standards environnementaux et sociaux les plus élevés.', 'type' => 'textarea'],
-            
+
             // Social media
             ['key' => 'social_linkedin', 'value' => '', 'type' => 'url'],
             ['key' => 'social_facebook', 'value' => '', 'type' => 'url'],
             ['key' => 'social_twitter', 'value' => '', 'type' => 'url'],
-            
+
             // SEO/Meta
             ['key' => 'seo_title', 'value' => 'Néré Mining - Exploitation minière responsable', 'type' => 'text'],
             ['key' => 'seo_description', 'value' => 'Découvrez Néré Mining, une mine d\'or au Sénégal engagée dans l\'exploitation durable et responsable.', 'type' => 'textarea'],
