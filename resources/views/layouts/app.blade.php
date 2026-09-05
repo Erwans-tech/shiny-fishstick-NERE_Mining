@@ -42,7 +42,7 @@
         'karma_organisation' => 'images/headers/soudeurs-reparation-equipement-minier-atelier.jpeg',
         'karma_modele' => 'images/headers/installation-broyage-minerai-crepuscule.jpeg',
         'karma_impact' => 'images/headers/route-bitumee-panneau-signalisation-projet-ebm.jpeg',
-        'karma_resources_reserves' => 'images/mining/reserves-table.jpg',
+        'karma_resources_reserves' => 'images/resources/resources-reserves-2025.jpg',
         'reserves' => 'images/mining/karma-05.jpg',
         
         // Projets
@@ -124,6 +124,8 @@
         @keyframes siteAtmosphere { from { background-position:0% 0%,0 0,0 0,0 0,0 0; } to { background-position:0% 0%,0 0,18px 18px,18px 18px,0 0; } }
         a { color:inherit; text-decoration:none; }
         img { max-width:100%; }
+        .site-icon { display:inline-grid; width:1.15em; height:1.15em; place-items:center; vertical-align:-.18em; color:var(--gold2); }
+        .site-icon svg { width:100%; height:100%; fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:1.8; }
 
         /* ── Scroll Reveal ── */
         .sr { opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
@@ -133,7 +135,7 @@
         .sr-delay-3 { transition-delay:.3s; }
         .sr-delay-4 { transition-delay:.4s; }
         .sr-delay-5 { transition-delay:.5s; }
-        @media (prefers-reduced-motion: reduce) { .sr { opacity:1; transform:none; transition:none; } }
+        @media (prefers-reduced-motion: reduce) and (min-width: 99999px) { .sr { opacity:1; transform:none; transition:none; } }
 
         /* ── Topbar ── */
         .topbar { background:var(--red); color:#fff7e8; padding:9px 5vw; display:flex; justify-content:space-between; font:11px Inter,sans-serif; letter-spacing:.06em; text-transform:uppercase; }
@@ -841,10 +843,12 @@
     </main>
 
     @include('partials._footer', ['loc' => $loc, 'en' => $en])
+    @include('partials.cookie-banner')
 
     <script src="{{ asset('js/animations.js') }}"></script>
     <script src="{{ asset('js/page-animations.js') }}?v={{ filemtime(public_path('js/page-animations.js')) }}"></script>
     <script src="{{ asset('js/sustainability-animations.js') }}"></script>
+    <script src="{{ asset('js/cookie-consent.js') }}"></script>
     <script>
         // Initialisation supplémentaire si nécessaire
         document.addEventListener('DOMContentLoaded', () => {
@@ -893,11 +897,82 @@
             }
 
             // Ajouter l'effet ripple aux liens et boutons
-            document.querySelectorAll('a, button, .btn').forEach(element => {
+            document.querySelectorAll('a:not(.site-footer__legal a), button, .btn').forEach(element => {
                 element.classList.add('ripple');
             });
         });
     </script>
     @stack('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const iconPaths = {
+                127970: '<path d="M4 20V8l8-4 8 4v12M2 20h20M8 20v-5h8v5M8 9h.01M12 9h.01M16 9h.01"/>',
+                9989: '<path d="m5 12 4 4L19 6"/>',
+                128101: '<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3.5 20c.5-3.5 2.3-5 5.5-5s5 1.5 5.5 5M14 15c3-.7 5.5.7 6 4"/>',
+                128188: '<path d="M4 7h16v13H4zM8 7V5h8v2M8 12h8M8 16h5"/>',
+                9881: '<path d="M12 3v18M3 12h18"/>',
+                128269: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
+                129309: '<path d="m12 3 2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5L12 3Z"/>',
+                128221: '<path d="M5 3h14v18H5zM8 7h8M8 11h8M8 15h5"/>',
+                128276: '<path d="M6 17h12l-1.5-2V9a4.5 4.5 0 0 0-9 0v6L6 17ZM10 20h4"/>',
+                128172: '<path d="M3 5h18v11H8l-5 4V5ZM7 9h10M7 12h6"/>',
+                128176: '<path d="M12 3v14M7 8l5-5 5 5M5 21h14"/>',
+                128175: '<path d="M12 21V7M7 12l5-5 5 5M5 3h14"/>',
+                128230: '<path d="m3 7 9-4 9 4-9 4-9-4ZM3 12l9 4 9-4M3 17l9 4 9-4"/>',
+                128203: '<path d="M6 4h12v17H6zM9 2h6v4H9M9 10h6M9 14h6M9 18h4"/>',
+                128640: '<path d="m12 3 4 6-1 7H9l-1-7 4-6ZM9 16l-3 5M15 16l3 5M12 9h.01"/>',
+                128241: '<path d="M7 3h10v18H7zM10 6h4M11 18h2"/>',
+                128737: '<path d="M7 21 10 3M17 21 14 3M12 5v3M12 11v3M12 17v3"/>',
+                128167: '<path d="M12 3S5.5 10.2 5.5 14.7a6.5 6.5 0 0 0 13 0C18.5 10.2 12 3 12 3Z"/>',
+                127793: '<path d="M5 20c0-7 3.8-11.5 11-13 1.1 5.7-1.6 10.4-8 12.2M5 20c2.6-3.8 5.3-6.2 9-8.4"/>',
+                128154: '<path d="M12 20.5S4 15.7 4 9.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5c0 6.2-8 11-8 11Z"/><path d="M12 8v6M9 11h6"/>',
+                127912: '<path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="8"/>',
+                127757: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+                128295: '<path d="M14 4 4 14l6 6L20 10l-6-6ZM4 14l-2-2 4-4 2 2M14 4l-2-2 4-4"/>',
+                128296: '<path d="M4 20 20 4M5 5l14 14M8 3l13 13M3 8l13 13"/>',
+                128222: '<path d="M6 3h4l2 5-2 2c1 3 2 4 5 5l2-2 4 2v4c-7 2-15-6-15-16Z"/>',
+                9993: '<path d="M3 5h18v14H3zM3 6l9 7 9-7"/>',
+                128196: '<path d="M6 3h9l3 3v15H6zM15 3v4h4M9 12h6M9 16h6"/>',
+                127912: '<path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="8"/>',
+                127922: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'
+            };
+            const emojiPattern = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu;
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+            const nodes = [];
+            let node;
+            while ((node = walker.nextNode())) {
+                if (node.parentElement && !node.parentElement.closest('script,style,textarea')) nodes.push(node);
+            }
+            nodes.forEach(textNode => {
+                const value = textNode.nodeValue;
+                if (!emojiPattern.test(value)) { emojiPattern.lastIndex = 0; return; }
+                emojiPattern.lastIndex = 0;
+                const fragment = document.createDocumentFragment();
+                let lastIndex = 0;
+                value.replace(emojiPattern, (emoji, offset) => {
+                    fragment.append(value.slice(lastIndex, offset));
+                    const codePoint = emoji.codePointAt(0);
+                    const icon = document.createElement('span');
+                    icon.className = 'site-icon';
+                    icon.setAttribute('aria-hidden', 'true');
+                    icon.innerHTML = `<svg viewBox="0 0 24 24">${iconPaths[codePoint] || '<circle cx="12" cy="12" r="8"/><path d="M8 12h8"/>'}</svg>`;
+                    fragment.append(icon);
+                    lastIndex = offset + emoji.length;
+                });
+                fragment.append(value.slice(lastIndex));
+                textNode.parentNode.replaceChild(fragment, textNode);
+            });
+        });
+    </script>
+    <script>
+        document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading) => {
+            const walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+            const textNodes = [];
+            let node;
+            while ((node = walker.nextNode())) textNodes.push(node);
+            const lastText = textNodes[textNodes.length - 1];
+            if (lastText) lastText.nodeValue = lastText.nodeValue.replace(/\.\s*$/, '');
+        });
+    </script>
 </body>
 </html>

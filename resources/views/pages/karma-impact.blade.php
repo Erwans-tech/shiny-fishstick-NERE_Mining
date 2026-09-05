@@ -1,6 +1,19 @@
 {{-- Page : Impact de Karma --}}
 @extends('layouts.app')
 @section('content')
+<style>
+    .karma-page .karma-impact-card .card-tag {
+        margin-bottom:18px;
+        padding:7px 14px;
+        font-size:14px;
+        letter-spacing:.09em;
+        line-height:1.3;
+        text-align:center;
+    }
+    @media (max-width:600px) {
+        .karma-page .karma-impact-card .card-tag { font-size:12px; }
+    }
+</style>
 <div class="karma-page">
 <section id="impact">
     <h2>{{ __('site.karma_impact_h2', [], $loc) }}</h2>

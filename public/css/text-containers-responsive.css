@@ -393,7 +393,7 @@
 }
 
 /* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 99999px) {
     .text-container *,
     .text-container-standard * {
         animation-duration: 0.01ms !important;

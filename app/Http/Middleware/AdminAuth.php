@@ -38,18 +38,14 @@ class AdminAuth
         // (protection contre suppression de compte après login)
         $adminId = session('admin_id');
         if ($adminId) {
-            static $checked = false;
-            if (! $checked) {
-                $checked = true;
-                $still = \App\Models\User::where('id', $adminId)
-                    ->where('is_admin', true)
-                    ->exists();
-                if (! $still) {
-                    $request->session()->flush();
-                    Log::warning('Session admin invalidee — compte introuvable', ['id' => $adminId]);
-                    return redirect()->route('admin.login')
-                        ->with('error', 'Session expirée. Veuillez vous reconnecter.');
-                }
+            $still = \App\Models\User::where('id', $adminId)
+                ->where('is_admin', true)
+                ->exists();
+            if (! $still) {
+                $request->session()->flush();
+                Log::warning('Session admin invalidee — compte introuvable', ['id' => $adminId]);
+                return redirect()->route('admin.login')
+                    ->with('error', 'Session expirée. Veuillez vous reconnecter.');
             }
         }
 

@@ -4,15 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class JobOffer extends Model
 {
     protected $fillable = [
-        'title', 'slug', 'department', 'location', 'contract_type',
-        'experience_level', 'salary_range',
-        'description', 'requirements', 'deadline',
-        'is_published', 'is_spontaneous',
+        'title',
+        'slug',
+        'department',
+        'location',
+        'contract_type',
+        'experience_level',
+        'salary_range',
+        'description',
+        'requirements',
+        'deadline',
+        'is_published',
+        'is_spontaneous',
     ];
 
     protected function casts(): array
@@ -42,8 +51,8 @@ class JobOffer extends Model
 
         while (
             static::where('slug', $slug)
-                ->when($excludeId, fn($q) => $q->where('id', '!=', $excludeId))
-                ->exists()
+            ->when($excludeId, fn($q) => $q->where('id', '!=', $excludeId))
+            ->exists()
         ) {
             $slug = $base . '-' . $i++;
         }
@@ -65,12 +74,15 @@ class JobOffer extends Model
     /** Scope : offres publiées, non expirées, NON spontanées. */
     public function scopeOpen($query)
     {
-        return $query
-            ->where('is_published', true)
-            ->where('is_spontaneous', false)
+        $query->where('is_published', true)
+            ->when(Schema::hasColumn($this->getTable(), 'is_spontaneous'), function ($query) {
+                $query->where('is_spontaneous', false);
+            })
             ->where(function ($q) {
                 $q->whereNull('deadline')->orWhere('deadline', '>=', today());
             });
+
+        return $query;
     }
 
     /** Scope : récupère l'offre de candidature spontanée active. */
@@ -89,7 +101,7 @@ class JobOffer extends Model
             'mid'       => ['fr' => 'Intermédiaire (2–5 ans)', 'en' => 'Mid-level (2–5 yrs)'],
             'senior'    => ['fr' => 'Senior (5–10 ans)',   'en' => 'Senior (5–10 yrs)'],
             'expert'    => ['fr' => 'Expert (10 ans +)',   'en' => 'Expert (10+ yrs)'],
-            'internship'=> ['fr' => 'Stage',               'en' => 'Internship'],
+            'internship' => ['fr' => 'Stage',               'en' => 'Internship'],
         ];
     }
 

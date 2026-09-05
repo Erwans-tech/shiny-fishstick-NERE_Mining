@@ -486,8 +486,8 @@ return [
     'karma_step4_p'  => "La réhabilitation du site est effectuée pour restaurer et minimiser l'impact environnemental après l'exploitation. Végétalisation, remblayage et restauration des sols.",
 
     'karma_imp_jobs_h3'   => 'Emploi',
-    'karma_imp_job1_tag'  => 'Emplois directs',
-    'karma_imp_job1_p'    => "1 909 emplois directs et indirects créés (409 emplois directs + 1 500 sous-traitants), avec une politique de recrutement prioritaire pour les ressortissants des communautés riveraines.",
+    'karma_imp_job1_tag'  => 'Emploi',
+    'karma_imp_job1_p'    => "1 909 emplois créés (409 emplois + 1 500 sous-traitants), avec une politique de recrutement prioritaire pour les ressortissants des communautés riveraines.",
     'karma_imp_job2_tag'  => 'Emploi local et régional',
     'karma_imp_job2_p'    => "60% d'emploi local et régional. Priorité donnée aux candidats originaires des provinces du Zondoma et des régions voisines du Nord et du Centre-Nord.",
     'karma_imp_job3_tag'  => 'Emploi des femmes',
@@ -728,6 +728,12 @@ return [
     'company_identity_eyebrow_short' => 'Notre identité',
     'company_identity_h1'         => 'Notre identité et notre symbole.',
     'company_identity_breadcrumb' => 'Notre identité',
+    'company_identity_symbols_h2' => 'Le sens des symboles : Racines, présent et avenir au Burkina Faso',
+    'company_identity_symbols_p1' => 'Le nom « Néré » porte en lui plusieurs résonances, à la fois culturelle, écologique et humaine, profondément ancrées dans l’identité du Burkina Faso.',
+    'company_identity_symbols_p2' => 'En premier lieu, le Néré (Parkia biglobosa) est un arbre providentiel et polyvalent. Dans les traditions sahéliennes, chaque composante de cet arbre est valorisée pour l’alimentation humaine, animale ou l’artisanat. Au-delà de ses vertus nutritives, le Néré est un pilier écologique : il enrichit durablement les sols grâce à la fixation de l’azote et déploie un système racinaire puissant qui combat efficacement l’érosion. Véritable moteur des économies rurales, il incarne la durabilité et l’inclusion au cœur des systèmes agroforestiers.',
+    'company_identity_symbols_p3' => 'C’est cette richesse et cette résilience qui ont inspiré l’identité visuelle de notre société. Le logo de Néré Mining puise sa force dans la fleur stylisée du Néré. Son cercle central d’un jaune éclatant symbolise la mine d’or, protégée et nourrie par son environnement.',
+    'company_identity_symbols_p4' => 'Enfin, par une heureuse harmonie linguistique, « Néré » signifie également « belle » en mooré, la principale langue parlée au Burkina Faso.',
+    'company_identity_symbols_p5' => 'À travers ce nom et ce symbole, Néré Mining réaffirme sa vision : celle d’une entreprise minière souveraine, aux racines profondes, génératrice de valeur partagée pour les communautés et bâtisseuse d’un avenir radieux pour le Burkina Faso.',
 
     /* company-history */
     'company_history_eyebrow'    => 'Qui sommes-nous ? · Notre histoire',

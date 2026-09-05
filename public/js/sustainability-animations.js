@@ -8,16 +8,12 @@
 class SustainabilityAnimator {
   constructor() {
     this.observers = new Map();
-    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.reducedMotion = false;
     this.particles = [];
     this.mouseX = 0;
     this.mouseY = 0;
 
-    if (!this.reducedMotion) {
-      this.init();
-    } else {
-      this.initBasic();
-    }
+    this.init();
   }
 
   /* ═══════════════════════════════════════════════════
@@ -76,9 +72,11 @@ class SustainabilityAnimator {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          entry.target.classList.add('visible', 'is-visible');
           // Déclenche les barres si présentes dans l'élément
           this.triggerProgressBarsIn(entry.target);
+        } else {
+          entry.target.classList.remove('visible', 'is-visible');
         }
       });
     }, {
@@ -102,6 +100,8 @@ class SustainabilityAnimator {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
         }
       });
     }, { threshold: 0.2 });
@@ -279,8 +279,8 @@ class SustainabilityAnimator {
         wave.style.cssText = `
           width: ${size}px;
           height: ${size}px;
-          left: ${x - size/2}px;
-          top: ${y - size/2}px;
+          left: ${x - size / 2}px;
+          top: ${y - size / 2}px;
         `;
 
         el.appendChild(wave);
@@ -600,7 +600,7 @@ class BannerClickEffect {
 ═══════════════════════════════════════════════════════════ */
 
 // Démarrer sur tout le site
-(function() {
+(function () {
   const animator = new SustainabilityAnimator();
   const bgShifter = new BackgroundGradientShifter();
   const bannerFx = new BannerClickEffect();
@@ -642,6 +642,8 @@ class BannerClickEffect {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible', 'is-visible');
+        } else {
+          entry.target.classList.remove('visible', 'is-visible');
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });

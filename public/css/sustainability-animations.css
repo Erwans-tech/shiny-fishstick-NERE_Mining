@@ -188,7 +188,7 @@
 .sa-delay-7 { transition-delay: 0.7s; }
 
 /* Respect des préférences de motion */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 99999px) {
   .sa-reveal, .sa-reveal-left, .sa-reveal-right,
   .sa-reveal-scale, .sa-reveal-flip {
     opacity: 1;
@@ -1107,7 +1107,7 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 99999px) {
   .sa-hero-bg::before,
   .sa-sand-animated::after,
   .sa-dark-section::before,

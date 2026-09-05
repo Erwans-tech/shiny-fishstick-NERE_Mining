@@ -62,5 +62,11 @@
             <span>{{ $copyright }}</span>
             <span>Ouagadougou, Burkina Faso</span>
         </div>
+
+        <div class="site-footer__legal">
+            <a href="{{ $en ? route('english.cookies.policy') : route('cookies.policy') }}">{{ $en ? 'Cookies policy' : 'Politique cookies' }}</a>
+            <a href="{{ $en ? route('english.privacy.policy') : route('privacy.policy') }}">{{ $en ? 'Privacy policy' : 'Confidentialité' }}</a>
+            <a href="{{ $en ? route('english.legal.notice') : route('legal.notice') }}">{{ $en ? 'Legal notice' : 'Mentions légales' }}</a>
+        </div>
     </div>
 </footer>

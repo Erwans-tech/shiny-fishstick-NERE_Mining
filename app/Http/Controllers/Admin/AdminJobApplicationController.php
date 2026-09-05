@@ -7,6 +7,7 @@ use App\Models\JobApplication;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AdminJobApplicationController extends Controller
 {
@@ -62,7 +63,7 @@ class AdminJobApplicationController extends Controller
         abort_unless($application->cv_path, 404);
         $path = Storage::disk('local')->path($application->cv_path);
         abort_unless(file_exists($path), 404);
-        return response()->download($path, 'CV_' . $application->full_name . '.pdf');
+        return response()->download($path, 'CV_' . Str::slug($application->full_name ?: 'candidat') . '.pdf');
     }
 
     public function downloadCoverLetter(JobApplication $application)
@@ -70,7 +71,7 @@ class AdminJobApplicationController extends Controller
         abort_unless($application->cover_letter_path, 404);
         $path = Storage::disk('local')->path($application->cover_letter_path);
         abort_unless(file_exists($path), 404);
-        return response()->download($path, 'Lettre_' . $application->full_name . '.pdf');
+        return response()->download($path, 'Lettre_' . Str::slug($application->full_name ?: 'candidat') . '.pdf');
     }
 
     public function updateStatus(Request $request, JobApplication $application)

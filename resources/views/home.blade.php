@@ -77,7 +77,7 @@
         @keyframes siteAtmosphere { from { background-position:0% 0%,0 0,0 0,0 0,0 0; } to { background-position:0% 0%,0 0,18px 18px,18px 18px,0 0; } }
         .sec:not(.hero) { animation:contentRise .8s ease-out both; }
         @keyframes contentRise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-        @media (prefers-reduced-motion: reduce) { body, .sec:not(.hero) { animation:none; } }
+        @media (prefers-reduced-motion: reduce) and (min-width: 99999px) { body, .sec:not(.hero) { animation:none; } }
         a { color:inherit; text-decoration:none; }
         img { display:block; max-width:100%; }
 
@@ -191,7 +191,7 @@
         }
         .hero-copy-title {
             display:block; max-width:780px;
-            font:700 clamp(48px,7vw,96px)/.92 Inter,sans-serif;
+            font:700 clamp(48px,7vw,96px)/1.15 Inter,sans-serif;
             letter-spacing:-.03em; text-transform:lowercase;
             color:#fff4dc;
             background:linear-gradient(105deg,#fff4dc 0%,#ffc247 52%,#e5a72f 100%);
@@ -571,7 +571,7 @@
             .partners-grid  { grid-template-columns:1fr 1fr; }
             .hero-stats     { grid-template-columns:1fr; }
         }
-        @media (prefers-reduced-motion: reduce) {
+        @media (prefers-reduced-motion: reduce) and (min-width: 99999px) {
             .hero-ov { animation:none; }
             .partners-track { animation:none; }
             .partner-card { animation:none; }

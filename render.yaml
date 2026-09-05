@@ -4,7 +4,7 @@ services:
     name: nere-mining
     runtime: docker
     repo: https://github.com/Erwans-tech/shiny-fishstick-NERE_Mining
-    branch: production-stable
+    branch: prod-finale
     dockerfilePath: ./Dockerfile
     healthCheckPath: /up
     plan: free

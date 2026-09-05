@@ -322,6 +322,36 @@ Route::post('/en/contact', function (Request $request) {
 */
 Route::get('/sitemap.xml', [SitemapController::class, 'sitemap'])->name('sitemap');
 
+Route::get('/politique-de-confidentialite', function () {
+    App::setLocale('fr');
+    return view('legal.privacy-policy', ['locale' => 'fr', 'section' => 'privacy']);
+})->name('privacy.policy');
+
+Route::get('/politique-cookies', function () {
+    App::setLocale('fr');
+    return view('legal.cookies-policy', ['locale' => 'fr', 'section' => 'cookies']);
+})->name('cookies.policy');
+
+Route::get('/mentions-legales', function () {
+    App::setLocale('fr');
+    return view('legal.legal-notice', ['locale' => 'fr', 'section' => 'legal']);
+})->name('legal.notice');
+
+Route::get('/en/privacy-policy', function () {
+    App::setLocale('en');
+    return view('legal.privacy-policy', ['locale' => 'en', 'section' => 'privacy']);
+})->name('english.privacy.policy');
+
+Route::get('/en/cookies-policy', function () {
+    App::setLocale('en');
+    return view('legal.cookies-policy', ['locale' => 'en', 'section' => 'cookies']);
+})->name('english.cookies.policy');
+
+Route::get('/en/legal-notice', function () {
+    App::setLocale('en');
+    return view('legal.legal-notice', ['locale' => 'en', 'section' => 'legal']);
+})->name('english.legal.notice');
+
 /*
 |--------------------------------------------------------------------------
 | Administration — URL masquée

@@ -84,6 +84,8 @@ class AnimationManager {
           if (entry.target.classList.contains('cascade-animation')) {
             entry.target.classList.add('in-view');
           }
+        } else {
+          entry.target.classList.remove('is-visible', 'in-view');
         }
       });
     }, observerOptions);

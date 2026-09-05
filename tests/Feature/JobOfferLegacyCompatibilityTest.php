@@ -14,6 +14,7 @@ class JobOfferLegacyCompatibilityTest extends TestCase
 
     public function test_open_scope_ignores_spontaneous_filter_when_column_is_missing(): void
     {
+        Schema::dropIfExists('job_applications');
         Schema::dropIfExists('job_offers');
 
         Schema::create('job_offers', function (Blueprint $table) {

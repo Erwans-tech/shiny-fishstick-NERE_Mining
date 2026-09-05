@@ -23,7 +23,7 @@
         .masthead { animation:contentRise .8s ease-out both; }
         main > section { animation:contentRise .7s ease-out both; }
         @keyframes contentRise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-        @media (prefers-reduced-motion: reduce) { body, .masthead, main > section { animation:none; } }
+        @media (prefers-reduced-motion: reduce) and (min-width: 99999px) { body, .masthead, main > section { animation:none; } }
         a { color:inherit; text-decoration:none; }
 
         /* ── Topbar ── */

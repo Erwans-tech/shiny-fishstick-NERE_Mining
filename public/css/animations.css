@@ -420,7 +420,7 @@ body.is-sustain main .lead.is-revealed {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 99999px) {
 
   html.sustain-js body.is-sustain main .card,
   html.sustain-js body.is-sustain main .esg-metric,
@@ -1011,7 +1011,7 @@ body.is-sustain main .lead.is-revealed {
    ══════════════════════════════════════════════════════════════════════════ */
 
 /* Désactiver les animations sur les appareils lents */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 99999px) {
 
   *,
   *::before,
@@ -1583,7 +1583,7 @@ button[type="submit"]:hover::before {
 }
 
 /* Désactiver les animations sur batterie faible */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 99999px) {
 
   .hero-slide,
   .hero-stat,

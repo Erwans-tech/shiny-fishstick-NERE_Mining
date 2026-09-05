@@ -591,7 +591,7 @@
 }
 
 /* Désactiver toutes les animations si préféré */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 99999px) {
   .admin-stat-tile,
   .admin-form-group,
   .admin-table tbody tr,

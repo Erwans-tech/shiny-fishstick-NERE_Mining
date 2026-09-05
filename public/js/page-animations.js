@@ -6,7 +6,7 @@
 class PageAnimationController {
   constructor() {
     this.currentPage = this.detectCurrentPage();
-    this.animationsEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.animationsEnabled = true;
     this.init();
   }
 

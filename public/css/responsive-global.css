@@ -282,7 +282,7 @@ img, picture, video, canvas, svg {
 }
 
 /* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 99999px) {
     *,
     *::before,
     *::after {
@@ -374,7 +374,7 @@ html {
     scroll-behavior: smooth;
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 99999px) {
     html {
         scroll-behavior: auto;
     }

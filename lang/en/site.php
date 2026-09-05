@@ -486,8 +486,8 @@ return [
     'karma_step4_p'  => 'Site rehabilitation is carried out to restore and minimise environmental impact after extraction. Revegetation, backfilling and soil restoration.',
 
     'karma_imp_jobs_h3'   => 'Employment',
-    'karma_imp_job1_tag'  => 'Direct jobs',
-    'karma_imp_job1_p'    => "1,909 direct and indirect jobs created (409 direct jobs + 1,500 contractors), with a priority recruitment policy for residents of surrounding communities.",
+    'karma_imp_job1_tag'  => 'Employment',
+    'karma_imp_job1_p'    => "1,909 jobs created (409 jobs + 1,500 contractors), with a priority recruitment policy for residents of surrounding communities.",
     'karma_imp_job2_tag'  => 'Local & regional employment',
     'karma_imp_job2_p'    => "60% local and regional employment. Priority given to candidates from Zondoma Province and the neighbouring Northern and Centre-Nord regions.",
     'karma_imp_job3_tag'  => "Women's employment",
@@ -728,6 +728,12 @@ return [
     'company_identity_eyebrow_short' => 'Our identity',
     'company_identity_h1'            => 'Our identity and our symbol.',
     'company_identity_breadcrumb'    => 'Our identity',
+    'company_identity_symbols_h2'    => 'The meaning of our symbols: roots, present and future in Burkina Faso',
+    'company_identity_symbols_p1'    => 'The name "Néré" carries several cultural, ecological and human meanings, deeply rooted in Burkina Faso.',
+    'company_identity_symbols_p2'    => 'First, the Néré (Parkia biglobosa) is a providential and versatile tree. In Sahelian traditions, every part of the tree is valued for human food, animal feed or crafts. Beyond its nutritional benefits, the Néré is an ecological pillar: it enriches soils sustainably through nitrogen fixation and develops a powerful root system that effectively combats erosion. A true driver of rural economies, it embodies sustainability and inclusion at the heart of agroforestry systems.',
+    'company_identity_symbols_p3'    => 'This richness and resilience inspired our company’s visual identity. The Néré Mining logo draws its strength from the stylised flower of the Néré tree. Its bright yellow central circle symbolises the gold mine, protected and nourished by its environment.',
+    'company_identity_symbols_p4'    => 'Finally, through a happy linguistic harmony, “Néré” also means “beautiful” in Mooré, the main language spoken in Burkina Faso.',
+    'company_identity_symbols_p5'    => 'Through this name and symbol, Néré Mining reaffirms its vision: that of a sovereign mining company with deep roots, creating shared value for communities and building a bright future for Burkina Faso.',
 
     /* company-history */
     'company_history_eyebrow'       => 'About us · Our history',

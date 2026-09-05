@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - production
+      - prod-finale
       - main
   workflow_dispatch:
 
@@ -15,7 +16,7 @@ jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
-    
+
     services:
       mysql:
         image: mysql:8.0
@@ -36,7 +37,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: "8.3"
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, pdo_mysql
           coverage: none
 
@@ -58,8 +59,8 @@ jobs:
     name: Build and Push Image
     runs-on: ubuntu-latest
     needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/production'
-    
+    if: github.event_name == 'push' && github.ref == 'refs/heads/prod-finale'
+
     permissions:
       contents: read
       packages: write
@@ -104,8 +105,8 @@ jobs:
     name: Deploy to Production Server
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/production'
-    
+    if: github.event_name == 'push' && github.ref == 'refs/heads/prod-finale'
+
     environment:
       name: production
       url: https://your-production-url.com
@@ -122,24 +123,24 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
             cd /var/www/html/your-project-path
-            
+
             # Pull latest code
-            git pull origin production
-            
+            git pull origin prod-finale
+
             # Install/update dependencies
             composer install --no-interaction --no-dev --prefer-dist
-            
+
             # Run migrations
             php artisan migrate --force
-            
+
             # Clear caches
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
-            
+
             # Restart services if needed
             sudo systemctl restart php-fpm
-            
+
             # Clear Laravel cache
             php artisan cache:clear
 

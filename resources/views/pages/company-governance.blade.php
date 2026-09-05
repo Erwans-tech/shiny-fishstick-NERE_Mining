@@ -25,9 +25,9 @@
     .leadership-initials { display:grid; place-items:center; font-size:48px; font-weight:700; color:var(--green); }
     .leadership-card--lead .leadership-initials { color:#fff; background:rgba(255,255,255,.12); }
     .leadership-name { margin:0 0 8px; color:var(--green); font-size:18px; font-weight:700; line-height:1.25; }
-    .leadership-card > div:last-child { width:100%; min-width:0; }
+    .leadership-card > div:last-child { width:100%; min-width:0; text-align:center; }
     .leadership-name, .leadership-title, .leadership-department { overflow-wrap:break-word; word-break:normal; }
-    .leadership-title { margin:0 0 8px; color:var(--gold2); font-size:12px; font-weight:700; line-height:1.4; text-transform:uppercase; letter-spacing:.02em; }
+    .leadership-title { margin:0 0 8px; color:var(--gold2); font-size:12px; font-weight:700; line-height:1.4; text-transform:uppercase; letter-spacing:.02em; text-align:center; text-wrap:balance; }
     .leadership-department { margin:0; color:var(--muted); font-size:14px; line-height:1.5; word-break:normal; }
     @media(max-width:900px) { .leadership-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media(max-width:540px) { .leadership-grid { grid-template-columns:1fr; } .leadership-card--lead { flex-direction:column; text-align:center; } }
