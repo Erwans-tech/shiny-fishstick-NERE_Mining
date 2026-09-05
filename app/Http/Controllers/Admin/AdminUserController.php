@@ -12,7 +12,6 @@ class AdminUserController extends Controller
 {
     // Laravel 11: Les middlewares sont définis dans les routes ou via attributs
     // Pas besoin de __construct() pour les middlewares
-}
 
     /**
      * Affiche la liste des utilisateurs administrateurs
@@ -20,7 +19,7 @@ class AdminUserController extends Controller
     public function index()
     {
         $admins = User::admin()->orderBy('created_at', 'desc')->get();
-        
+
         return view('admin.users.index', compact('admins'));
     }
 
@@ -89,7 +88,7 @@ class AdminUserController extends Controller
         }
 
         // Empêcher de modifier son propre compte via cette interface
-        if ($user->id === auth()->id()) {
+        if ((int) $user->id === (int) session('admin_id')) {
             return redirect()
                 ->route('admin.users.index')
                 ->with('error', 'Vous ne pouvez pas modifier votre propre compte via cette interface.');
@@ -109,7 +108,7 @@ class AdminUserController extends Controller
         }
 
         // Empêcher de modifier son propre compte
-        if ($user->id === auth()->id()) {
+        if ((int) $user->id === (int) session('admin_id')) {
             return redirect()
                 ->route('admin.users.index')
                 ->with('error', 'Vous ne pouvez pas modifier votre propre compte.');
@@ -157,7 +156,7 @@ class AdminUserController extends Controller
         }
 
         // Empêcher de supprimer son propre compte
-        if ($user->id === auth()->id()) {
+        if ((int) $user->id === (int) session('admin_id')) {
             return redirect()
                 ->route('admin.users.index')
                 ->with('error', 'Vous ne pouvez pas supprimer votre propre compte.');
@@ -188,7 +187,7 @@ class AdminUserController extends Controller
             abort(404, 'Administrateur non trouvé');
         }
 
-        if ($user->id === auth()->id()) {
+        if ((int) $user->id === (int) session('admin_id')) {
             return redirect()
                 ->route('admin.users.index')
                 ->with('error', 'Vous ne pouvez pas modifier votre propre statut.');
@@ -199,7 +198,7 @@ class AdminUserController extends Controller
         $user->update(['is_admin' => !$user->is_admin]);
 
         $status = $user->is_admin ? 'activé' : 'désactivé';
-        
+
         return redirect()
             ->route('admin.users.index')
             ->with('success', 'Administrateur ' . $status . ' : ' . $user->name);
