@@ -5,7 +5,7 @@
 
 <?php
     $defaultSlides = \App\Models\HeroSlide::defaults();
-    $displaySlides = $defaultSlides->merge($slides);
+    $displaySlides = $slides->isNotEmpty() ? $slides : $defaultSlides;
     $activeSlides = $displaySlides->where('is_active', true)->values();
 ?>
 

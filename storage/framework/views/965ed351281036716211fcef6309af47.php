@@ -20,7 +20,7 @@
         'copy'      => $en ? $slide['copy_en'] : $slide['copy'],
     ]);
 
-    $heroImages = $defaultHeroImages->merge($slides->map(fn($slide) => [
+    $databaseHeroImages = $slides->map(fn($slide) => [
             'type'      => $slide->type ?? 'image',
             'url'       => $slide->url ?? '',
             'video_url' => $slide->video_url ?? null,
@@ -30,7 +30,8 @@
             'caption'   => $slide->caption ?? null,
             'kicker'    => $slide->title ?? 'Néré Mining',
             'copy'      => $slide->caption ?? '',
-        ])->filter()->values())->values();
+        ])->filter(fn($slide) => !empty($slide['url']))->values();
+    $heroImages = $databaseHeroImages->isNotEmpty() ? $databaseHeroImages : $defaultHeroImages;
     $heroDuration = count($heroImages) * 5;
     $heroSlot = 100 / max(count($heroImages), 1);
 ?>
