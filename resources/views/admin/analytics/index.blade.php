@@ -4,8 +4,12 @@
 @section('page-title', 'Statistiques')
 
 @section('content')
-<div class="admin-content-header">
-    <h1>📊 Statistiques du site</h1>
+<div class="admin-content-header analytics-header">
+    <div>
+        <div class="analytics-kicker">Pilotage du trafic</div>
+        <h1>Statistiques du site</h1>
+        <p class="admin-content-subtitle">Analyse du trafic et des performances</p>
+    </div>
     <p class="admin-content-subtitle">Analyse du trafic et des performances</p>
     
     {{-- Filtre période --}}
@@ -22,6 +26,7 @@
 </div>
 
 {{-- Métriques principales --}}
+<div class="analytics-summary">
 <div class="admin-metrics-grid">
     <div class="metric-card admin-stat-tile" data-count="{{ $totalVisits }}">
         <div class="metric-icon">📈</div>
@@ -63,11 +68,18 @@
         </div>
     </div>
 </div>
+</div>
 
 {{-- Graphique des visites --}}
-<div class="admin-chart-section">
+<div class="admin-chart-section analytics-primary-panel">
     <div class="admin-chart-container">
-        <h2>📊 Évolution des visites ({{ $days }} derniers jours)</h2>
+        <div class="panel-heading">
+            <div>
+                <div class="panel-eyebrow">Tendance</div>
+                <h2>Évolution des visites</h2>
+            </div>
+            <span class="period-badge">{{ $days }} jours</span>
+        </div>
         <div class="chart-wrapper">
             <canvas id="visitsChart" width="400" height="200"></canvas>
         </div>
@@ -75,7 +87,7 @@
 </div>
 
 {{-- Grille de données --}}
-<div class="admin-data-grid">
+<div class="admin-data-grid analytics-data-grid">
     
     {{-- Pages populaires --}}
     <div class="admin-data-panel">
@@ -220,6 +232,32 @@
 <style>
 /* ═══ STATISTIQUES ADMIN ══════════════════════════════════════════ */
 
+.analytics-header {
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+}
+
+.analytics-header h1 {
+    color: var(--ink);
+    font-size: clamp(26px, 3vw, 36px);
+    letter-spacing: -.03em;
+    line-height: 1.1;
+}
+
+.analytics-kicker,
+.panel-eyebrow {
+    color: var(--gold2);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+}
+
 .admin-content-header {
     margin-bottom: 32px;
     display: flex;
@@ -234,42 +272,62 @@
 }
 
 .admin-filters {
-    align-self: flex-start;
+    align-self: flex-end;
 }
 
 .admin-select {
-    padding: 8px 12px;
+    min-width: 190px;
+    padding: 11px 34px 11px 14px;
     border: 1px solid var(--line);
-    border-radius: 6px;
+    border-radius: 8px;
     background: white;
     font-size: 14px;
     color: var(--ink);
+    box-shadow: 0 3px 12px rgba(40,29,24,.04);
 }
 
 /* Métriques principales */
+.analytics-summary {
+    margin-bottom: 28px;
+}
+
 .admin-metrics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-bottom: 40px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 0;
 }
 
 .metric-card {
-    background: white;
+    background: rgba(255,255,255,.9);
     border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    transition: all 0.3s ease;
+    border-radius: 10px;
+    padding: 18px;
+    display: block;
+    min-height: 128px;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 18px rgba(40,29,24,.035);
+}
+
+.metric-card:hover {
+    border-color: rgba(229,167,47,.65);
+    box-shadow: 0 8px 24px rgba(40,29,24,.08);
+    transform: translateY(-2px);
 }
 
 .metric-icon {
-    font-size: 28px;
-    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-bottom: 17px;
+    border-radius: 8px;
+    background: var(--sand);
+    color: var(--gold2);
+    font-size: 17px;
 }
 
 .metric-content {
@@ -277,7 +335,7 @@
 }
 
 .metric-value {
-    font-size: 28px;
+    font-size: clamp(24px, 2.4vw, 32px);
     font-weight: 600;
     color: var(--green);
     line-height: 1;
@@ -285,7 +343,7 @@
 }
 
 .metric-label {
-    font-size: 14px;
+    font-size: 11px;
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -293,22 +351,42 @@
 
 /* Graphique */
 .admin-chart-section {
-    background: white;
+    background: rgba(255,255,255,.92);
     border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 32px;
-    margin-bottom: 40px;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 18px rgba(40,29,24,.035);
+}
+
+.panel-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
 }
 
 .admin-chart-container h2 {
-    margin-bottom: 24px;
+    margin: 0;
     font-size: 20px;
     color: var(--green);
 }
 
+.period-badge {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: var(--sand);
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    white-space: nowrap;
+}
+
 .chart-wrapper {
     position: relative;
-    height: 300px;
+    height: 320px;
 }
 
 #visitsChart {
@@ -318,20 +396,21 @@
 /* Grille de données */
 .admin-data-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
+    grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
+    gap: 16px;
 }
 
 .admin-data-panel {
-    background: white;
+    background: rgba(255,255,255,.92);
     border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 24px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 18px rgba(40,29,24,.035);
 }
 
 .admin-data-panel h3 {
-    margin-bottom: 20px;
-    font-size: 18px;
+    margin-bottom: 16px;
+    font-size: 16px;
     color: var(--green);
 }
 
@@ -355,7 +434,7 @@
 }
 
 .admin-table td {
-    padding: 12px 8px;
+    padding: 11px 8px;
     border-bottom: 1px solid var(--line);
     font-size: 14px;
 }
@@ -364,6 +443,10 @@
     font-family: 'Monaco', monospace;
     font-size: 13px;
     color: var(--ink);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 320px;
 }
 
 .visits-count, .visits-percent {
@@ -508,8 +591,19 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .analytics-header {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .admin-filters,
+    .admin-select {
+        width: 100%;
+    }
+
     .admin-metrics-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     
     .admin-data-grid {
@@ -518,6 +612,21 @@
     
     .peak-hours-row {
         grid-template-columns: repeat(4, 1fr);
+    }
+
+    .chart-wrapper {
+        height: 240px;
+    }
+
+    .admin-chart-section,
+    .admin-data-panel {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 440px) {
+    .admin-metrics-grid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
@@ -572,7 +681,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 x: {
                     ticks: {
-                        color: '#70645c'
+                        color: '#70645c',
+                        maxTicksLimit: {{ $days <= 30 ? 10 : 12 }}
                     },
                     grid: {
                         color: 'rgba(234, 220, 197, 0.5)'

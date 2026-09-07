@@ -40,7 +40,8 @@ class AdminAnalyticsController extends Controller
     public function index()
     {
         // Période sélectionnée (par défaut : 30 derniers jours)
-        $days = request('days', 30);
+        $days = (int) request('days', 30);
+        $days = in_array($days, [7, 30, 90, 365], true) ? $days : 30;
         $startDate = now()->subDays($days);
 
         // ═══ STATISTIQUES GLOBALES ═══════════════════════════════════
@@ -67,13 +68,13 @@ class AdminAnalyticsController extends Controller
         // Pages par visite (moyenne)
         $avgPagesPerVisit = $uniqueVisitors > 0 ? round($totalVisits / $uniqueVisitors, 1) : 0;
 
-        // ═══ GRAPHIQUE DES VISITES (30 derniers jours) ══════════════
+        // ═══ GRAPHIQUE DES VISITES (période sélectionnée) ══════════
 
         $dailyVisits = SiteAnalytics::select(
             DB::raw($this->getDbFunction('DATE', 'visited_at') . ' as date'),
             DB::raw('COUNT(*) as count')
         )
-            ->where('visited_at', '>=', now()->subDays(30))
+            ->where('visited_at', '>=', $startDate)
             ->groupBy('date')
             ->orderBy('date')
             ->get()
@@ -81,7 +82,7 @@ class AdminAnalyticsController extends Controller
 
         // Remplir les jours manquants avec 0
         $visitsByDay = collect();
-        for ($i = 29; $i >= 0; $i--) {
+        for ($i = $days - 1; $i >= 0; $i--) {
             $date = now()->subDays($i)->format('Y-m-d');
             $visitsByDay->push([
                 'date' => now()->subDays($i)->format('d/m'),
