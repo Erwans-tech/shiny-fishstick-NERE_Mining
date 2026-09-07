@@ -39,6 +39,8 @@ class AdminNewsController extends Controller
             'image'        => ['nullable', 'image', 'max:4096'],
             'gallery_images' => ['nullable', 'array', 'max:12'],
             'gallery_images.*' => ['image', 'max:4096'],
+            'gallery' => ['nullable', 'array', 'max:12'],
+            'gallery.*' => ['image', 'max:4096'],
             'published_at' => ['nullable', 'date'],
         ]);
 
@@ -75,6 +77,8 @@ class AdminNewsController extends Controller
             'image'        => ['nullable', 'image', 'max:4096'],
             'gallery_images' => ['nullable', 'array', 'max:12'],
             'gallery_images.*' => ['image', 'max:4096'],
+            'gallery' => ['nullable', 'array', 'max:12'],
+            'gallery.*' => ['image', 'max:4096'],
             'published_at' => ['nullable', 'date'],
         ]);
 
@@ -119,7 +123,12 @@ class AdminNewsController extends Controller
     {
         $paths = [];
 
-        foreach ($request->file('gallery_images', []) as $image) {
+        $images = array_merge(
+            $request->file('gallery_images', []),
+            $request->file('gallery', []),
+        );
+
+        foreach ($images as $image) {
             $paths[] = $image->store('news/gallery', config('filesystems.default'));
         }
 
