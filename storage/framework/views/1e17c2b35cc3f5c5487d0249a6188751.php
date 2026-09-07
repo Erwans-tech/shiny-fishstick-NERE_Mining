@@ -1,14 +1,14 @@
-@php
+<?php
     $loc = $locale ?? 'fr';
     $en = $loc === 'en';
-@endphp
+?>
 <!DOCTYPE html>
-<html lang="{{ $loc }}">
+<html lang="<?php echo e($loc); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $news->title }} | Néré Mining</title>
-    <meta name="description" content="{{ $news->excerpt ?? $news->title }}">
+    <title><?php echo e($news->title); ?> | Néré Mining</title>
+    <meta name="description" content="<?php echo e($news->excerpt ?? $news->title); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
         .dropdown-menu a:hover{background:var(--sand);}
         .nav-lang{margin-left:12px;border:1px solid rgba(255,255,255,.3);border-radius:4px;}
         .menu-btn{display:none;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;padding:8px 14px;font:600 11px Inter,sans-serif;letter-spacing:.08em;cursor:pointer;border-radius:4px;}
-        .masthead{padding:100px 5vw 80px;color:white;background:linear-gradient(100deg,rgba(75,23,22,.96) 45%,rgba(75,23,22,.55)),url('{{ $news->image_path ? \App\Helpers\StorageHelper::uploadUrl($news->image_path) : asset('images/mining/karma-01.jpg') }}') center/cover;}
+        .masthead{padding:100px 5vw 80px;color:white;background:linear-gradient(100deg,rgba(75,23,22,.96) 45%,rgba(75,23,22,.55)),url('<?php echo e($news->image_path ? \App\Helpers\StorageHelper::uploadUrl($news->image_path) : asset('images/mining/karma-01.jpg')); ?>') center/cover;}
         .eyebrow{color:var(--gold);font:600 11px Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;}
         h1{max-width:860px;font-size:clamp(32px,5vw,64px);line-height:1.05;font-weight:400;color:#fff;}
         .breadcrumb{margin-top:20px;font:12px Inter,sans-serif;color:rgba(255,255,255,.6);}
@@ -60,57 +60,60 @@
             .article-gallery{grid-template-columns:1fr;}
         }
     </style>
-    <link rel="stylesheet" href="{{ asset('css/sustainability-animations.css') }}">
-    <script src="{{ asset('js/sustainability-animations.js') }}"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
+    <script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
 </head>
 <body>
-    @include('partials._nav', ['locale' => $locale ?? 'fr', 'section' => 'news'])
+    <?php echo $__env->make('partials._nav', ['locale' => $locale ?? 'fr', 'section' => 'news'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <div class="masthead">
-        <h1>{{ $news->title }}</h1>
+        <h1><?php echo e($news->title); ?></h1>
         <div class="breadcrumb">
-            <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link') }}</a> ›
-            <a href="{{ $en ? route('english.news') : route('news.index') }}">{{ __('site.nav_news') }}</a> ›
-            <a href="{{ $en ? route('english.news') : route('news.index') }}">{{ __('site.subnav_news') }}</a> ›
-            {{ Str::limit($news->title, 40) }}
+            <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link')); ?></a> ›
+            <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.nav_news')); ?></a> ›
+            <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.subnav_news')); ?></a> ›
+            <?php echo e(Str::limit($news->title, 40)); ?>
+
         </div>
     </div>
 
     <div class="article-wrap sa-animated-section">
         <div class="sa-particles-container" data-count="2"></div>
-        <a class="back-link sa-reveal" href="{{ $en ? route('english.news') : route('news.index') }}">{{ __('site.back_to_news') }}</a>
+        <a class="back-link sa-reveal" href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.back_to_news')); ?></a>
 
         <div class="article-meta sa-reveal sa-delay-1">
-            <span>{{ $news->published_at?->translatedFormat('d M Y') }}</span>
-            <span>{{ $news->category }}</span>
+            <span><?php echo e($news->published_at?->translatedFormat('d M Y')); ?></span>
+            <span><?php echo e($news->category); ?></span>
         </div>
 
-        @if($news->image_path)
-            <img class="article-cover sa-reveal sa-delay-1" src="{{ \App\Helpers\StorageHelper::uploadUrl($news->image_path) }}" alt="{{ $news->title }}" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <img class="article-cover sa-reveal sa-delay-1" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}" style="display:none;">
-        @else
-            <img class="article-cover sa-reveal sa-delay-1" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}">
-        @endif
+        <?php if($news->image_path): ?>
+            <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($news->image_path)); ?>" alt="<?php echo e($news->title); ?>" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(__('site.news_img_placeholder')); ?>" style="display:none;">
+        <?php else: ?>
+            <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(__('site.news_img_placeholder')); ?>">
+        <?php endif; ?>
 
         <div class="article-body sa-reveal sa-delay-2">
-            @if($news->content)
-                {!! nl2br(e($news->content)) !!}
-            @elseif($news->excerpt)
-                <p>{{ $news->excerpt }}</p>
-            @else
-                <p>{{ $en ? 'Article content coming soon.' : 'Contenu de l\'article à venir.' }}</p>
-            @endif
+            <?php if($news->content): ?>
+                <?php echo nl2br(e($news->content)); ?>
 
-            @if($news->gallery_images)
-                <div class="article-gallery" aria-label="{{ $en ? 'Article images' : 'Images de l\'article' }}">
-                    @foreach($news->gallery_images as $galleryImage)
-                        <img src="{{ \App\Helpers\StorageHelper::uploadUrl($galleryImage) }}" alt="{{ $news->title }}" loading="lazy">
-                    @endforeach
+            <?php elseif($news->excerpt): ?>
+                <p><?php echo e($news->excerpt); ?></p>
+            <?php else: ?>
+                <p><?php echo e($en ? 'Article content coming soon.' : 'Contenu de l\'article à venir.'); ?></p>
+            <?php endif; ?>
+
+            <?php if($news->gallery_images): ?>
+                <div class="article-gallery" aria-label="<?php echo e($en ? 'Article images' : 'Images de l\'article'); ?>">
+                    <?php $__currentLoopData = $news->gallery_images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $galleryImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <img src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($galleryImage)); ?>" alt="<?php echo e($news->title); ?>" loading="lazy">
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-            @endif
+            <?php endif; ?>
         </div>
     </div>
 
-@include('partials._footer', ['loc' => $loc, 'en' => $en])
+<?php echo $__env->make('partials._footer', ['loc' => $loc, 'en' => $en], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 </body>
 </html>
+<?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views/news/show.blade.php ENDPATH**/ ?>

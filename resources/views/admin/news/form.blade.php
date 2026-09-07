@@ -50,6 +50,21 @@
                     <input id="image" type="file" name="image" accept="image/*">
                     <span class="form-hint">PNG, JPG  - max 8 Mo. En local, la limite PHP doit être configurée à 8 Mo minimum.</span>
                 </div>
+                <div class="form-group full">
+                    <label for="gallery_images">Images dans l'article</label>
+                    @if($news->gallery_images)
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+                        @foreach($news->gallery_images as $galleryImage)
+                            <img src="{{ \App\Helpers\StorageHelper::uploadUrl($galleryImage) }}" alt="" style="width:110px;height:75px;border-radius:6px;object-fit:cover;">
+                        @endforeach
+                    </div>
+                    <span class="form-hint" style="display:block;margin-bottom:8px;">Sélectionner de nouvelles images remplacera la galerie actuelle.</span>
+                    @endif
+                    <input id="gallery_images" type="file" name="gallery_images[]" accept="image/*" multiple>
+                    <span class="form-hint">Jusqu'à 12 images, PNG ou JPG, 4 Mo maximum par image.</span>
+                    @error('gallery_images')<div class="form-error">{{ $message }}</div>@enderror
+                    @error('gallery_images.*')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
                 <div class="form-actions full">
                     <button type="submit" class="btn btn-primary">
                         {{ $news->exists ? '✓ Enregistrer' : '+ Créer l\'article' }}

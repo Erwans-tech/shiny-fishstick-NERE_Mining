@@ -37,6 +37,8 @@ class AdminNewsController extends Controller
             'excerpt'      => ['nullable', 'string', 'max:500'],
             'content'      => ['nullable', 'string'],
             'image'        => ['nullable', 'image', 'max:4096'],
+            'gallery_images' => ['nullable', 'array', 'max:12'],
+            'gallery_images.*' => ['image', 'max:4096'],
             'published_at' => ['nullable', 'date'],
         ]);
 
@@ -49,6 +51,7 @@ class AdminNewsController extends Controller
                     ->withErrors(['image' => 'L\'image n\'a pas pu etre sauvegardee : ' . $e->getMessage()]);
             }
         }
+        $data['gallery_images'] = $this->storeGalleryImages($request);
         unset($data['image']);
 
         News::create($data);
@@ -70,6 +73,8 @@ class AdminNewsController extends Controller
             'excerpt'      => ['nullable', 'string', 'max:500'],
             'content'      => ['nullable', 'string'],
             'image'        => ['nullable', 'image', 'max:4096'],
+            'gallery_images' => ['nullable', 'array', 'max:12'],
+            'gallery_images.*' => ['image', 'max:4096'],
             'published_at' => ['nullable', 'date'],
         ]);
 
@@ -85,6 +90,11 @@ class AdminNewsController extends Controller
                     ->withErrors(['image' => 'L\'image n\'a pas pu etre sauvegardee : ' . $e->getMessage()]);
             }
         }
+        $newGalleryImages = $this->storeGalleryImages($request);
+        if ($newGalleryImages !== []) {
+            $this->deleteGalleryImages($news->gallery_images ?? []);
+            $data['gallery_images'] = $newGalleryImages;
+        }
         unset($data['image']);
 
         $news->update($data);
@@ -98,9 +108,30 @@ class AdminNewsController extends Controller
         if ($news->image_path) {
             Storage::disk(config('filesystems.default'))->delete($news->image_path);
         }
+        $this->deleteGalleryImages($news->gallery_images ?? []);
         $news->delete();
 
         return redirect()->route('admin.news.index')
             ->with('success', 'Article supprime.');
+    }
+
+    private function storeGalleryImages(Request $request): array
+    {
+        $paths = [];
+
+        foreach ($request->file('gallery_images', []) as $image) {
+            $paths[] = $image->store('news/gallery', config('filesystems.default'));
+        }
+
+        return $paths;
+    }
+
+    private function deleteGalleryImages(array $paths): void
+    {
+        foreach ($paths as $path) {
+            if (is_string($path) && $path !== '') {
+                Storage::disk(config('filesystems.default'))->delete($path);
+            }
+        }
     }
 }

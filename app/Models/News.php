@@ -22,12 +22,16 @@ class News extends Model
         'excerpt',
         'content',
         'image_path',
+        'gallery_images',
         'published_at',
     ];
 
     protected function casts(): array
     {
-        return ['published_at' => 'datetime'];
+        return [
+            'published_at' => 'datetime',
+            'gallery_images' => 'array',
+        ];
     }
 
     protected static function booted(): void
