@@ -27,9 +27,31 @@ class AdminSiteSettingController extends Controller
     public function update(Request $request)
     {
         $settings = $request->input('settings', []);
+        $storedSettings = SiteSetting::whereIn('key', array_keys($settings))->get()->keyBy('key');
+        $rules = [];
 
-        foreach ($settings as $key => $value) {
-            SiteSetting::set($key, $value);
+        foreach ($storedSettings as $setting) {
+            $rule = ['nullable', 'string', 'max:5000'];
+
+            if ($setting->type === 'number') {
+                $rule = ['required', 'integer', 'min:0', 'max:86400000'];
+            } elseif ($setting->type === 'email') {
+                $rule[] = 'email';
+            } elseif ($setting->type === 'url') {
+                $rule[] = 'url';
+            }
+
+            $rules['settings.' . $setting->key] = $rule;
+        }
+
+        $validated = $request->validate($rules);
+
+        foreach ($storedSettings as $key => $setting) {
+            $value = $validated['settings'][$key] ?? '';
+            if ($setting->type === 'boolean') {
+                $value = filter_var($value, FILTER_VALIDATE_BOOLEAN) ? 'true' : 'false';
+            }
+            SiteSetting::set($key, $value, $setting->type);
         }
 
         return redirect()->route('admin.settings.index')

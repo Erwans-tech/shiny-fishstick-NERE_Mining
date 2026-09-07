@@ -398,6 +398,7 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
 
         // Statistiques et analytics
         Route::get('/statistiques', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'index'])->name('analytics.index');
+        Route::get('/statistiques/export', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'export'])->name('analytics.export');
 
         // Actualités
         Route::get('/actualites',               [AdminNewsController::class, 'index'])->name('news.index');

@@ -10,18 +10,19 @@
         <h1>Statistiques du site</h1>
         <p class="admin-content-subtitle">Analyse du trafic et des performances</p>
     </div>
-    <p class="admin-content-subtitle">Analyse du trafic et des performances</p>
-    
-    {{-- Filtre période --}}
-    <div class="admin-filters">
-        <form method="GET" class="filter-form">
-            <select name="days" onchange="this.form.submit()" class="admin-select">
+    <div class="analytics-actions">
+        <a class="analytics-action" href="{{ route('admin.analytics.export', ['days' => $days]) }}" title="Télécharger les visites en CSV">↓ Exporter CSV</a>
+        <button class="analytics-action analytics-refresh" type="button" title="Actualiser les données">↻ Actualiser</button>
+        <div class="admin-filters">
+            <form method="GET" class="filter-form">
+                <select name="days" onchange="this.form.submit()" class="admin-select" aria-label="Période d'analyse">
                 <option value="7" {{ $days == 7 ? 'selected' : '' }}>7 derniers jours</option>
                 <option value="30" {{ $days == 30 ? 'selected' : '' }}>30 derniers jours</option>
                 <option value="90" {{ $days == 90 ? 'selected' : '' }}>3 derniers mois</option>
                 <option value="365" {{ $days == 365 ? 'selected' : '' }}>12 derniers mois</option>
-            </select>
-        </form>
+                </select>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -33,6 +34,11 @@
         <div class="metric-content">
             <div class="metric-value stat-value" data-count="{{ $totalVisits }}">{{ number_format($totalVisits) }}</div>
             <div class="metric-label">Total visites</div>
+            @if($visitsChange !== null)
+                <div class="metric-trend {{ $visitsChange >= 0 ? 'is-up' : 'is-down' }}">{{ $visitsChange >= 0 ? '↑' : '↓' }} {{ abs($visitsChange) }}% vs période précédente</div>
+            @else
+                <div class="metric-trend">Première période mesurée</div>
+            @endif
         </div>
     </div>
     
@@ -241,6 +247,35 @@
     border-bottom: 1px solid var(--line);
 }
 
+.analytics-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.analytics-action {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 13px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color .2s, background .2s, transform .2s;
+}
+
+.analytics-action:hover {
+    border-color: var(--gold2);
+    background: var(--sand);
+    transform: translateY(-1px);
+}
+
 .analytics-header h1 {
     color: var(--ink);
     font-size: clamp(26px, 3vw, 36px);
@@ -348,6 +383,15 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
+
+.metric-trend {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.metric-trend.is-up { color: #16803c; }
+.metric-trend.is-down { color: var(--red); }
 
 /* Graphique */
 .admin-chart-section {
@@ -597,6 +641,15 @@
         gap: 18px;
     }
 
+    .analytics-actions {
+        justify-content: stretch;
+    }
+
+    .analytics-action {
+        flex: 1;
+        justify-content: center;
+    }
+
     .admin-filters,
     .admin-select {
         width: 100%;
@@ -636,6 +689,15 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    const refreshButton = document.querySelector('.analytics-refresh');
+    if (refreshButton) {
+        refreshButton.addEventListener('click', function() {
+            refreshButton.textContent = '↻ Actualisation…';
+            refreshButton.disabled = true;
+            window.location.reload();
+        });
+    }
+
     // Graphique des visites
     const ctx = document.getElementById('visitsChart').getContext('2d');
     

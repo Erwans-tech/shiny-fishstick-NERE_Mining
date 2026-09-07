@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SiteAnalytics;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AdminAnalyticsController extends Controller
@@ -48,6 +49,14 @@ class AdminAnalyticsController extends Controller
 
         // Total visites
         $totalVisits = SiteAnalytics::where('visited_at', '>=', $startDate)->count();
+
+        $previousTotalVisits = SiteAnalytics::whereBetween('visited_at', [
+            $startDate->copy()->subDays($days),
+            $startDate,
+        ])->count();
+        $visitsChange = $previousTotalVisits > 0
+            ? round((($totalVisits - $previousTotalVisits) / $previousTotalVisits) * 100)
+            : null;
 
         // Visiteurs uniques (basé sur IP hashée)
         $uniqueVisitors = SiteAnalytics::where('visited_at', '>=', $startDate)
@@ -180,6 +189,8 @@ class AdminAnalyticsController extends Controller
 
         return view('admin.analytics.index', compact(
             'totalVisits',
+            'previousTotalVisits',
+            'visitsChange',
             'uniqueVisitors',
             'visitsToday',
             'bounceRate',
@@ -191,5 +202,34 @@ class AdminAnalyticsController extends Controller
             'peakHours',
             'days'
         ));
+    }
+
+    public function export(Request $request)
+    {
+        $days = (int) $request->input('days', 30);
+        $days = in_array($days, [7, 30, 90, 365], true) ? $days : 30;
+        $startDate = now()->subDays($days);
+        $rows = SiteAnalytics::where('visited_at', '>=', $startDate)
+            ->latest('visited_at')
+            ->get(['visited_at', 'page_url', 'referrer', 'device_type', 'country']);
+
+        return response()->streamDownload(function () use ($rows): void {
+            $output = fopen('php://output', 'w');
+            fputcsv($output, ['Date', 'Page', 'Source', 'Appareil', 'Pays']);
+
+            foreach ($rows as $row) {
+                fputcsv($output, [
+                    $row->visited_at?->format('Y-m-d H:i:s'),
+                    $row->page_url,
+                    $row->referrer ?: 'Direct',
+                    $row->device_type ?: 'Inconnu',
+                    $row->country ?: 'Inconnu',
+                ]);
+            }
+
+            fclose($output);
+        }, 'nere-mining-statistiques-' . $days . 'j.csv', [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+        ]);
     }
 }

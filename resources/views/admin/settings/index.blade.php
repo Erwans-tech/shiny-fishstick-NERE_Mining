@@ -9,6 +9,19 @@
         <span class="card-header-sub">Configurer les paramètres généraux du site</span>
     </div>
 
+    <div class="settings-toolbar">
+        <label class="settings-search">
+            <span aria-hidden="true">⌕</span>
+            <input type="search" id="settings-search" placeholder="Rechercher un paramètre…" autocomplete="off">
+        </label>
+        <div class="settings-tabs" role="tablist" aria-label="Catégories de paramètres">
+            <button type="button" class="settings-tab is-active" data-settings-filter="all">Tous</button>
+            @foreach($grouped as $category => $categorySettings)
+                <button type="button" class="settings-tab" data-settings-filter="{{ $category }}">{{ ucfirst($category) }}</button>
+            @endforeach
+        </div>
+    </div>
+
     @if(session('success'))
         <div class="alert alert-success" style="margin:0 20px 16px;">{{ session('success') }}</div>
     @endif
@@ -17,7 +30,7 @@
         @csrf
 
         @forelse($grouped as $category => $categorySettings)
-            <fieldset style="margin-bottom:32px;">
+            <fieldset class="settings-section" data-settings-category="{{ $category }}" style="margin-bottom:32px;">
                 <legend style="font:600 16px Inter,sans-serif; color:var(--green); text-transform:capitalize; margin-bottom:16px; border-bottom:2px solid var(--line); padding-bottom:12px;">
                     @if($category === 'carousel')
                         🎬 Carrousel héro
@@ -47,7 +60,7 @@
                         ];
                     @endphp
 
-                    <div class="form-group" style="margin-bottom:20px;">
+                    <div class="form-group settings-field" data-setting-search="{{ strtolower($setting->key . ' ' . $labelText) }}" style="margin-bottom:20px;">
                         @if($setting->type === 'boolean')
                             {{-- Toggle switch pour boolean --}}
                             <div class="toggle-wrap">
@@ -136,12 +149,28 @@
             <p style="color:var(--muted); text-align:center; padding:40px;">Aucun paramètre à afficher.</p>
         @endforelse
 
-        <div style="display:flex; gap:12px; margin-top:28px; padding-top:20px; border-top:2px solid var(--line);">
-            <button type="submit" class="btn btn-primary">💾 Enregistrer les paramètres</button>
+        <div class="settings-actions">
+            <button type="submit" class="btn btn-primary" id="settings-save">💾 Enregistrer les paramètres</button>
             <a href="{{ route('admin.dashboard') }}" class="btn btn-ghost">Annuler</a>
+            <span class="settings-save-state" id="settings-save-state" role="status" aria-live="polite"></span>
         </div>
     </form>
 </div>
+
+<style>
+    .settings-toolbar { padding: 20px; background: #fffaf1; border-bottom: 1px solid var(--line); }
+    .settings-search { display:flex; align-items:center; gap:10px; max-width:520px; padding:0 13px; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--muted); }
+    .settings-search span { font-size:22px; line-height:1; }
+    .settings-search input { width:100%; padding:11px 0; border:0; outline:0; background:transparent; color:var(--ink); font:14px Inter,sans-serif; }
+    .settings-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+    .settings-tab { border:1px solid var(--line); border-radius:999px; padding:7px 12px; background:#fff; color:var(--muted); font:600 11px Inter,sans-serif; cursor:pointer; text-transform:capitalize; }
+    .settings-tab:hover, .settings-tab.is-active { border-color:var(--green); background:var(--green); color:#fff; }
+    .settings-section { transition:opacity .2s; }
+    .settings-section.is-hidden, .settings-field.is-hidden { display:none; }
+    .settings-actions { display:flex; align-items:center; gap:12px; margin-top:28px; padding-top:20px; border-top:2px solid var(--line); }
+    .settings-save-state { color:#16803c; font-size:12px; }
+    @media (max-width:700px) { .settings-actions { align-items:stretch; flex-direction:column; } .settings-actions .btn { text-align:center; } }
+</style>
 
 {{-- Preview live du carrousel --}}
 @if($grouped->has('carousel'))
@@ -173,6 +202,42 @@
 <script>
 // Update preview live
 document.addEventListener('DOMContentLoaded', function() {
+    var search = document.getElementById('settings-search');
+    var tabs = document.querySelectorAll('[data-settings-filter]');
+    var sections = document.querySelectorAll('[data-settings-category]');
+    var fields = document.querySelectorAll('[data-setting-search]');
+    var activeCategory = 'all';
+
+    function filterSettings() {
+        var term = (search ? search.value : '').toLowerCase().trim();
+        sections.forEach(function(section) {
+            var categoryMatch = activeCategory === 'all' || section.dataset.settingsCategory === activeCategory;
+            var visibleFields = 0;
+            section.querySelectorAll('[data-setting-search]').forEach(function(field) {
+                var matches = categoryMatch && (!term || field.dataset.settingSearch.indexOf(term) !== -1);
+                field.classList.toggle('is-hidden', !matches);
+                if (matches) visibleFields++;
+            });
+            section.classList.toggle('is-hidden', visibleFields === 0);
+        });
+    }
+
+    if (search) search.addEventListener('input', filterSettings);
+    tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            activeCategory = tab.dataset.settingsFilter;
+            tabs.forEach(function(item) { item.classList.toggle('is-active', item === tab); });
+            filterSettings();
+        });
+    });
+
+    var settingsForm = document.querySelector('form[action="{{ route('admin.settings.update') }}"]');
+    var saveState = document.getElementById('settings-save-state');
+    if (settingsForm && saveState) {
+        settingsForm.addEventListener('input', function() { saveState.textContent = 'Modifications non enregistrées'; saveState.style.color = 'var(--red)'; });
+        settingsForm.addEventListener('submit', function() { saveState.textContent = 'Enregistrement…'; saveState.style.color = '#16803c'; });
+    }
+
     var intervalInput = document.getElementById('settings[carousel_interval]');
     var speedInput = document.getElementById('settings[carousel_transition_speed]');
     var autoplayInput = document.getElementById('settings_carousel_autoplay');
