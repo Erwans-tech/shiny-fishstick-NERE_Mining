@@ -16,7 +16,9 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'cookie'),
+    'driver' => env('APP_ENV') === 'production'
+        ? 'database'
+        : env('SESSION_DRIVER', 'file'),
 
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +47,9 @@ return [
     |
     */
 
-    'encrypt' => env('SESSION_ENCRYPT', true),
+    'encrypt' => env('APP_ENV') === 'production'
+        ? false
+        : env('SESSION_ENCRYPT', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -127,7 +131,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        'nm_session'   // Nom neutre  - ne révèle pas le framework
+        'nm_session_v2'
     ),
 
     /*

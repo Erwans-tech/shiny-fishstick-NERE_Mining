@@ -30,7 +30,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
 
         // ── Niveau de confiance CSRF : SameSite strict + referer ────
-        $middleware->validateCsrfTokens();
+        // La connexion admin reste protégée par le rate limiter et les identifiants,
+        // mais ne doit pas dépendre d'un ancien token stocké dans un cookie Render.
+        $middleware->validateCsrfTokens(except: [
+            'gestion-nm/connexion',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
 
