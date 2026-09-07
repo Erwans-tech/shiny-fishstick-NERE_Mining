@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - production
-      - prod-finale
+      - production-stable
       - main
   workflow_dispatch:
 
@@ -59,7 +59,7 @@ jobs:
     name: Build and Push Image
     runs-on: ubuntu-latest
     needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/prod-finale'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/production-stable'
 
     permissions:
       contents: read
@@ -105,7 +105,7 @@ jobs:
     name: Deploy to Production Server
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/prod-finale'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/production-stable'
 
     environment:
       name: production
@@ -125,7 +125,7 @@ jobs:
             cd /var/www/html/your-project-path
 
             # Pull latest code
-            git pull origin prod-finale
+            git pull origin production-stable
 
             # Install/update dependencies
             composer install --no-interaction --no-dev --prefer-dist
