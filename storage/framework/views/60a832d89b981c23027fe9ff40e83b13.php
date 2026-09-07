@@ -20,7 +20,7 @@
         .masthead{animation:contentRise .8s ease-out both;}
         main>section{animation:contentRise .7s ease-out both;}
         @keyframes contentRise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-        @media (prefers-reduced-motion: reduce){body,.masthead,main>section{animation:none;}}
+        @media (prefers-reduced-motion: reduce) and (min-width: 99999px){body,.masthead,main>section{animation:none;}}
         a{color:inherit;text-decoration:none;}
         .topbar{background:var(--red);color:#fff7e8;padding:9px 5vw;display:flex;justify-content:space-between;font:11px Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;}
         header{padding:18px 5vw;background:var(--green);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.25);}
@@ -101,7 +101,7 @@
                         <?php if($item->image_path): ?>
                             <img class="news-img" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($item->image_path)); ?>" alt="<?php echo e($item->title); ?>">
                         <?php else: ?>
-                            <div class="news-img-placeholder"><?php echo e(__('site.news_img_placeholder')); ?></div>
+                            <img class="news-img news-img-placeholder" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(__('site.news_img_placeholder')); ?>">
                         <?php endif; ?>
                         <div class="news-body">
                             <div class="news-meta"><?php echo e($item->category); ?> · <?php echo e($item->published_at?->translatedFormat('d M Y')); ?></div>

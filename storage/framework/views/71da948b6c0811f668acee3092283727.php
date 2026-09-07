@@ -69,7 +69,7 @@
                             <label for="title">Titre (usage interne)</label>
                             <input id="title" type="text" name="title"
                                    value="<?php echo e(old('title', $slide->title)); ?>"
-                                   placeholder="Ex : Panorama Karma — Août 2025">
+                                   placeholder="Ex : Panorama Karma  - Août 2025">
                             <span class="form-hint">Visible uniquement dans l'admin, pas sur le site.</span>
                             <?php $__errorArgs = ['title'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -82,7 +82,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="form-group full">
-                            <label for="caption">Légende <span style="font-weight:400; text-transform:none; letter-spacing:0;">(optionnelle — affichée sur le héro)</span></label>
+                            <label for="caption">Légende <span style="font-weight:400; text-transform:none; letter-spacing:0;">(optionnelle  - affichée sur le héro)</span></label>
                             <input id="caption" type="text" name="caption"
                                    value="<?php echo e(old('caption', $slide->caption)); ?>"
                                    placeholder="Ex : La mine de Karma vue du ciel"
@@ -146,7 +146,7 @@ unset($__errorArgs, $__bag); ?>
                             Cliquez ou glissez une image ici
                         </div>
                         <div style="font:12px Inter,sans-serif; color:var(--muted); margin-top:5px;">
-                            JPG · PNG · WebP · GIF — max 10 Mo — recommandé : 1920×1080 px
+                            JPG · PNG · WebP · GIF  - max 10 Mo  - recommandé : 1920×1080 px
                         </div>
                     </div>
                     <input type="file" id="image-input" name="image" data-conditional-field="image"
@@ -241,7 +241,7 @@ unset($__errorArgs, $__bag); ?>
                                     Cliquez ou glissez votre vidéo ici
                                 </div>
                                 <div style="font:12px Inter,sans-serif; color:var(--muted); margin-top:5px;">
-                                    MP4 · WebM · MOV — max 50 Mo — recommandé : 1920×1080 px
+                                    MP4 · WebM · MOV  - max 50 Mo  - recommandé : 1920×1080 px
                                 </div>
                             </div>
                             <input type="file" id="video_file" name="video_file"
@@ -287,7 +287,7 @@ unset($__errorArgs, $__bag); ?>
 
                         
                         <div class="form-group full">
-                            <label>Image de couverture <span style="font-weight:400; text-transform:none; letter-spacing:0;">(optionnelle — générée auto pour MP4)</span></label>
+                            <label>Image de couverture <span style="font-weight:400; text-transform:none; letter-spacing:0;">(optionnelle  - générée auto pour MP4)</span></label>
 
                             <?php if($slide->exists && $slide->image_path && $slide->isVideo()): ?>
                             <div style="margin-bottom:10px;">

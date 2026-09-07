@@ -52,7 +52,7 @@
         @media (max-width:700px) { .identity-description { padding:30px 22px; border-left-width:4px; border-radius:3px 12px 12px 3px; } .identity-description p { font-size:14px; line-height:1.75; } }
     </style>
 
-    <div class="grid-3 identity-gallery" aria-label="Images de l’identité de Néré Mining">
+    <div class="grid-3 identity-gallery" aria-label="<?php echo e($en ? 'Néré Mining identity images' : 'Images de l’identité de Néré Mining'); ?>">
         <?php $__currentLoopData = $identityImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <figure>
                 <img src="<?php echo e($image); ?>" alt="<?php echo e($en ? 'Néré Mining identity image' : 'Image illustrant l’identité de Néré Mining'); ?>" loading="lazy">
@@ -61,12 +61,12 @@
     </div>
 
     <div class="identity-description">
-        <h2>Le sens des symboles : Racines, présent et avenir au Burkina Faso</h2>
-        <p>Le nom « Néré » porte en lui plusieurs résonances, à la fois culturelle, écologique et humaine, profondément ancrées dans l’identité du Burkina Faso.</p>
-        <p>En premier lieu, le Néré (<em>Parkia biglobosa</em>) est un arbre providentiel et polyvalent. Dans les traditions sahéliennes, chaque composante de cet arbre est valorisée pour l’alimentation humaine, animale ou l’artisanat. Au-delà de ses vertus nutritives, le Néré est un pilier écologique : il enrichit durablement les sols grâce à la fixation de l’azote et déploie un système racinaire puissant qui combat efficacement l’érosion. Véritable moteur des économies rurales, il incarne la durabilité et l’inclusion au cœur des systèmes agroforestiers.</p>
-        <p>C’est cette richesse et cette résilience qui ont inspiré l’identité visuelle de notre société. Le logo de Néré Mining puise sa force dans la fleur stylisée du Néré. Son cercle central d’un jaune éclatant symbolise la mine d’or, protégée et nourrie par son environnement.</p>
-        <p>Enfin, par une heureuse harmonie linguistique, « Néré » signifie également « belle » en mooré, la principale langue parlée au Burkina Faso.</p>
-        <p>À travers ce nom et ce symbole, Néré Mining réaffirme sa vision : celle d’une entreprise minière souveraine, aux racines profondes, génératrice de valeur partagée pour les communautés et bâtisseuse d’un avenir radieux pour le Burkina Faso.</p>
+        <h2><?php echo e(__('site.company_identity_symbols_h2', [], $loc)); ?></h2>
+        <p><?php echo e(__('site.company_identity_symbols_p1', [], $loc)); ?></p>
+        <p><?php echo e(__('site.company_identity_symbols_p2', [], $loc)); ?></p>
+        <p><?php echo e(__('site.company_identity_symbols_p3', [], $loc)); ?></p>
+        <p><?php echo e(__('site.company_identity_symbols_p4', [], $loc)); ?></p>
+        <p><?php echo e(__('site.company_identity_symbols_p5', [], $loc)); ?></p>
     </div>
 
 </section>

@@ -24,7 +24,7 @@
                         <?php $logoUrl = str_starts_with($p->logo_path,'images/') ? asset($p->logo_path) : \App\Helpers\StorageHelper::uploadUrl($p->logo_path); ?>
                         <img src="<?php echo e($logoUrl); ?>" style="height:40px;max-width:80px;object-fit:contain;">
                     <?php else: ?>
-                        <span class="badge badge-gray">—</span>
+                        <span class="badge badge-gray"> -</span>
                     <?php endif; ?>
                 </td>
                 <td><?php echo e($p->name); ?></td>

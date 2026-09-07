@@ -38,7 +38,7 @@
                         <span class="badge badge-gray">Brouillon</span>
                     <?php endif; ?>
                 </td>
-                <td class="td-muted"><?php echo e($item->published_at?->format('d/m/Y') ?? '—'); ?></td>
+                <td class="td-muted"><?php echo e($item->published_at?->format('d/m/Y') ?? ' -'); ?></td>
                 <td>
                     <a href="<?php echo e(route('admin.news.edit', $item)); ?>" class="btn btn-ghost btn-sm">Modifier</a>
                     <form method="POST" action="<?php echo e(route('admin.news.destroy', $item)); ?>"

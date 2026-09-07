@@ -210,7 +210,7 @@ unset($__errorArgs, $__bag); ?>
                     <div class="form-group">
                         <label class="fl" for="sp_exp"><?php echo e(__('site.careers_field_exp_years', [], $loc)); ?></label>
                         <select id="sp_exp" name="experience_years">
-                            <option value="">—</option>
+                            <option value=""> -</option>
                             <option value="0-1"  <?php echo e(old('experience_years') === '0-1'  ? 'selected' : ''); ?>>0 – 1 <?php echo e($en ? 'yr' : 'an'); ?></option>
                             <option value="2-4"  <?php echo e(old('experience_years') === '2-4'  ? 'selected' : ''); ?>>2 – 4 <?php echo e($en ? 'yrs' : 'ans'); ?></option>
                             <option value="5-9"  <?php echo e(old('experience_years') === '5-9'  ? 'selected' : ''); ?>>5 – 9 <?php echo e($en ? 'yrs' : 'ans'); ?></option>
@@ -294,7 +294,7 @@ unset($__errorArgs, $__bag); ?>
     ?>
     <?php if($openJobs->isNotEmpty()): ?>
     <div class="open-offers">
-        <h3><?php echo e($en ? 'Open positions — maybe one fits you' : 'Offres ouvertes — peut-être l\'une d\'elles vous correspond'); ?></h3>
+        <h3><?php echo e($en ? 'Open positions  - maybe one fits you' : 'Offres ouvertes  - peut-être l\'une d\'elles vous correspond'); ?></h3>
         <?php $__currentLoopData = $openJobs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $oj): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <?php
             if (empty($oj->slug)) {

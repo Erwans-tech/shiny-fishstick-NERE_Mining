@@ -22,7 +22,7 @@
                 <td><?php echo e($j->title); ?></td>
                 <td class="td-muted"><?php echo e($j->department); ?></td>
                 <td class="td-muted"><?php echo e($j->location); ?></td>
-                <td class="td-muted"><?php echo e($j->deadline?->format('d/m/Y') ?? '—'); ?></td>
+                <td class="td-muted"><?php echo e($j->deadline?->format('d/m/Y') ?? ' -'); ?></td>
                 <td><span class="badge <?php echo e($j->is_published ? 'badge-green' : 'badge-gray'); ?>"><?php echo e($j->is_published ? 'Publié' : 'Masqué'); ?></span>
                     <?php if($j->is_spontaneous): ?> <span class="badge badge-yellow" style="margin-left:4px;">Spontanée</span> <?php endif; ?>
                 </td>

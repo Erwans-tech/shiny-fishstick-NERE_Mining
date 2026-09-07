@@ -8,7 +8,7 @@
     $contactUrl = $en ? route('english.contact') : route('contact');
 ?>
 
-<?php if (! $__env->hasRenderedOnce('75ea4585-9467-4626-b791-7dfbd27ad12a')): $__env->markAsRenderedOnce('75ea4585-9467-4626-b791-7dfbd27ad12a'); ?>
+<?php if (! $__env->hasRenderedOnce('2b3125ff-1f1f-4828-bc80-0abafdce0114')): $__env->markAsRenderedOnce('2b3125ff-1f1f-4828-bc80-0abafdce0114'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
 <?php endif; ?>
 

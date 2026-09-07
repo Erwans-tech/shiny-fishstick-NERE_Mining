@@ -81,7 +81,7 @@ unset($__errorArgs, $__bag); ?>
             <?php endif; ?>
             <input type="file" name="logo" id="logo" accept="image/*"
                    style="width:100%; padding:8px 12px; border:1px solid var(--line); border-radius:4px; font:13px Inter,sans-serif;">
-            <small style="color:var(--muted);">PNG, JPG, JPEG (max 2 MB) — Laissez vide pour garder l'image actuelle</small>
+            <small style="color:var(--muted);">PNG, JPG, JPEG (max 2 MB)  - Laissez vide pour garder l'image actuelle</small>
             <?php $__errorArgs = ['logo'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :

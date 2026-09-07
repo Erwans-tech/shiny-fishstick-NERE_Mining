@@ -64,6 +64,7 @@
         .jobs-section{padding:60px 5vw 80px;}
         .jobs-section h2{max-width:100%;text-align:center;}
         .jobs-list{display:flex;flex-direction:column;gap:16px;}
+        .job-card-link{display:block;color:inherit;text-decoration:none;}
         .job-card{display:grid;grid-template-columns:1fr auto;gap:28px;padding:28px 32px;border:1px solid var(--line);background:#fff;border-radius:10px;align-items:center;transition:box-shadow .2s,border-color .2s,transform .18s;}
         .job-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.07);border-color:var(--gold);transform:translateX(4px);}
         .job-left{}
@@ -237,8 +238,8 @@
                     $job->save();
                 }
                 $detailRoute = $en ? route('english.jobs.show', $job) : route('jobs.show', $job);
-                $applyRoute  = $en ? route('english.jobs.apply', $job) : route('jobs.apply',  $job);
             ?>
+            <a class="job-card-link" href="<?php echo e($detailRoute); ?>" aria-label="<?php echo e($job->title); ?>">
             <article class="job-card">
                 <div class="job-left">
                     <div class="job-dept-row">
@@ -247,7 +248,7 @@
                             <span class="job-urgent"><?php echo e($daysLeft === 0 ? __('site.careers_alert_urgent', [], $loc) : str_replace(':n', $daysLeft, __('site.careers_alert_deadline', [], $loc))); ?></span>
                         <?php endif; ?>
                     </div>
-                    <h3><a href="<?php echo e($detailRoute); ?>" style="color:inherit;"><?php echo e($job->title); ?></a></h3>
+                    <h3><?php echo e($job->title); ?></h3>
                     <?php if($job->description): ?>
                         <p class="job-excerpt"><?php echo e(Str::limit($job->description, 160)); ?></p>
                     <?php endif; ?>
@@ -274,15 +275,16 @@
                     <?php endif; ?>
                 </div>
                 <div class="job-right">
-                    <a class="btn-apply" href="<?php echo e($detailRoute); ?>">
+                    <span class="btn-apply">
                         <?php echo e(__('site.careers_apply', [], $loc)); ?> →
-                    </a>
-                    <a class="btn-see" href="<?php echo e($detailRoute); ?>">
+                    </span>
+                    <span class="btn-see">
                         <?php echo e(__('site.careers_see_offer', [], $loc)); ?>
 
-                    </a>
+                    </span>
                 </div>
             </article>
+            </a>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         <?php endif; ?>

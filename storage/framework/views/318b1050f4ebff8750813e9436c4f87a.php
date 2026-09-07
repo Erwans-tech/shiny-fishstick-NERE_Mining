@@ -8,8 +8,8 @@
 <section class="sa-animated-section" style="padding-top:40px;">
     <div class="sa-particles-container" data-count="5"></div>
 
-    <div class="sa-section-heading sa-reveal" style="text-align:left; max-width:none; margin-bottom:24px;">
-        <h2 style="text-align:left;"><?php echo e(__('site.local_policy_h2', [], $loc)); ?></h2>
+    <div class="sa-section-heading sa-reveal" style="margin:0 auto 24px; text-align:center;">
+        <h2 style="text-align:center;"><?php echo e(__('site.local_policy_h2', [], $loc)); ?></h2>
     </div>
     <p class="lead sa-reveal sa-delay-1"><?php echo e(__('site.local_policy_lead', [], $loc)); ?></p>
 
@@ -160,7 +160,7 @@
                 <?php echo e($en ? '99% Burkinabe Workforce' : '99% Main d\'œuvre burkinabè'); ?>
 
             </div>
-            <p style="color:rgba(255,255,255,0.7); font-size:14px; margin-top:12px; position:relative; z-index:1;">
+            <p style="color:rgba(255,255,255,0.7); font-size:14px; margin:12px 0 0; position:relative; z-index:1; text-align:center;">
                 <?php echo e($en ? 'A concrete commitment to local economic development' : 'Un engagement concret pour le développement économique local'); ?>
 
             </p>

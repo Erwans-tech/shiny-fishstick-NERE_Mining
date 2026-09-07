@@ -1,5 +1,5 @@
 <?php $__env->startSection('title', 'Carrousel Hero'); ?>
-<?php $__env->startSection('page-title', 'Carrousel — Page d\'accueil'); ?>
+<?php $__env->startSection('page-title', 'Carrousel  - Page d\'accueil'); ?>
 
 <?php $__env->startSection('content'); ?>
 
@@ -35,7 +35,7 @@
         <span style="font-size:16px;">💡</span>
         <span>
             Faites glisser les lignes pour réordonner. Cliquez sur <strong>Activer/Masquer</strong> pour contrôler l'affichage sur le site en temps réel.
-            <strong style="color:#854d0e;"> — Les 6 médias par défaut restent disponibles avec vos slides configurées.</strong>
+            <strong style="color:#854d0e;">  - Les 6 médias par défaut restent disponibles avec vos slides configurées.</strong>
         </span>
     </div>
 </div>
@@ -61,7 +61,7 @@
                 <?php $__currentLoopData = $displaySlides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr <?php if($slide->id): ?> data-id="<?php echo e($slide->id); ?>" <?php endif; ?> style="<?php echo e($slide->id ? 'cursor:grab;' : ''); ?> <?php echo e(!$slide->is_active ? 'opacity:.55;' : ''); ?>">
                     
-                    <td style="text-align:center; font-size:18px; color:var(--muted); <?php echo e($slide->id ? 'cursor:grab;' : ''); ?>"><?php echo e($slide->id ? '⠿' : '—'); ?></td>
+                    <td style="text-align:center; font-size:18px; color:var(--muted); <?php echo e($slide->id ? 'cursor:grab;' : ''); ?>"><?php echo e($slide->id ? '⠿' : ' -'); ?></td>
 
                     
                     <td>
@@ -82,7 +82,7 @@
                     
                     <td>
                         <div style="font:600 13px Inter,sans-serif; color:var(--green);">
-                            <?php echo e($slide->title ?? '—'); ?>
+                            <?php echo e($slide->title ?? ' -'); ?>
 
                         </div>
                         <?php if($slide->caption): ?>
@@ -149,7 +149,7 @@
 <div class="card" style="margin-top:20px;">
     <div class="card-header">
         <h2>👁 Prévisualisation du carrousel</h2>
-        <span class="card-header-sub">Rendu approximatif — <?php echo e($activeSlides->count()); ?> slide(s) active(s)</span>
+        <span class="card-header-sub">Rendu approximatif  - <?php echo e($activeSlides->count()); ?> slide(s) active(s)</span>
     </div>
     <div style="position:relative; height:220px; overflow:hidden; background:#1a0505;">
         <?php $__empty_1 = true; $__currentLoopData = $activeSlides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idx => $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>

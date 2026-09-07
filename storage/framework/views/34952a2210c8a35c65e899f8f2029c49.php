@@ -162,7 +162,7 @@
         </div>
         <?php endif; ?>
 
-        <form class="sa-program-card sa-reveal sa-delay-1" style="margin-top:40px; padding:40px; box-shadow:0 8px 24px rgba(40,29,24,.08); background:#fff;" method="POST" action="<?php echo e($en ? route('english.contact.store') : route('contact.store')); ?>">
+        <form class="sa-program-card contact-form-card" style="width:100%; margin:40px auto 0; padding:40px; box-shadow:0 8px 24px rgba(40,29,24,.08); background:#fff;" method="POST" action="<?php echo e($en ? route('english.contact.store') : route('contact.store')); ?>">
             <?php echo csrf_field(); ?>
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
@@ -250,7 +250,7 @@
             <div class="sa-divider"></div>
         </div>
         
-        <div style="display:grid; gap:20px; margin-top:40px;">
+        <div style="display:grid; gap:12px; margin-top:28px;">
             <?php
                 $faqs = [
                     [
@@ -281,12 +281,12 @@
             ?>
             
             <?php $__currentLoopData = $faqs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idx => $faq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <details class="sa-reveal sa-delay-<?php echo e($idx + 1); ?>" style="border:1px solid var(--line); border-radius:12px; padding:24px; background:var(--light); cursor:pointer; transition:all .3s; box-shadow:0 4px 12px rgba(40,29,24,.03);">
+            <details class="sa-reveal sa-delay-<?php echo e($idx + 1); ?>" style="border:1px solid var(--line); border-radius:10px; padding:16px 18px; background:var(--light); cursor:pointer; transition:all .3s; box-shadow:0 4px 12px rgba(40,29,24,.03);">
                 <summary style="font:600 15px Inter,sans-serif; color:var(--green); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center;">
                     <span><?php echo e($en ? $faq['q_en'] : $faq['q_fr']); ?></span>
                     <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; background:rgba(229,167,47,.1); border-radius:50%; transition:transform .3s;">→</span>
                 </summary>
-                <p style="color:var(--muted); line-height:1.7; margin:16px 0 0 0; font-size:14px;"><?php echo e($en ? $faq['a_en'] : $faq['a_fr']); ?></p>
+                <p style="color:var(--muted); line-height:1.55; margin:12px 0 0 0; font-size:14px;"><?php echo e($en ? $faq['a_en'] : $faq['a_fr']); ?></p>
             </details>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
@@ -322,6 +322,12 @@
         border-color:rgba(255,194,71,.3);
     }
     .contact-card:hover::before { opacity:1; }
+    .contact-form-card,
+    .contact-form-card:hover {
+        transform:none;
+        transition:none;
+    }
+    .contact-form-card::after { animation:none; opacity:0; }
     .contact-card--mine { border-top:4px solid var(--gold); }
     .contact-card-header {
         display:flex;

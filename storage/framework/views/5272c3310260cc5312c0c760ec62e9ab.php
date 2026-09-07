@@ -21,7 +21,7 @@
                 <td>
                     <?php if($member->photo_path): ?>
                         <img src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($member->photo_path)); ?>" style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
-                    <?php else: ?> <span class="badge badge-gray">—</span> <?php endif; ?>
+                    <?php else: ?> <span class="badge badge-gray"> -</span> <?php endif; ?>
                 </td>
                 <td><?php echo e($member->name); ?></td>
                 <td class="td-muted"><?php echo e($member->title); ?></td>

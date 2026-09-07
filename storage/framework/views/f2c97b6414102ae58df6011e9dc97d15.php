@@ -23,7 +23,7 @@
         .masthead { animation:contentRise .8s ease-out both; }
         main > section { animation:contentRise .7s ease-out both; }
         @keyframes contentRise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-        @media (prefers-reduced-motion: reduce) { body, .masthead, main > section { animation:none; } }
+        @media (prefers-reduced-motion: reduce) and (min-width: 99999px) { body, .masthead, main > section { animation:none; } }
         a { color:inherit; text-decoration:none; }
 
         /* ── Topbar ── */
@@ -101,9 +101,27 @@
         .sand { background:var(--sand); }
 
         /* ── Newsletter ── */
-        .newsletter-form { display:flex; gap:10px; max-width:500px; }
-        .newsletter-form input { flex:1; padding:14px 15px; border:1px solid var(--line); border-radius:4px; font:15px Inter,sans-serif; color:var(--ink); }
-        .newsletter-form button { border:0; padding:14px 20px; background:var(--red); color:#fff; font:600 12px Inter,sans-serif; text-transform:uppercase; letter-spacing:.08em; border-radius:4px; cursor:pointer; }
+        .newsletter-section {
+            position:relative; isolation:isolate; overflow:hidden;
+            padding:64px 5vw 68px; background:linear-gradient(125deg,#fff4dc 0%,#f8ead0 58%,#f3dfbd 100%);
+            border-top:1px solid rgba(229,167,47,.25); border-bottom:1px solid rgba(75,23,22,.08);
+        }
+        .newsletter-section::before {
+            content:''; position:absolute; z-index:-1; width:420px; height:420px; right:-130px; top:-230px;
+            border:1px solid rgba(229,167,47,.32); border-radius:50%; box-shadow:0 0 0 24px rgba(229,167,47,.05),0 0 0 48px rgba(229,167,47,.035);
+        }
+        .newsletter-section::after {
+            content:''; position:absolute; z-index:-1; left:5vw; bottom:0; width:110px; height:4px;
+            background:linear-gradient(90deg,var(--green),var(--gold),transparent);
+        }
+        .newsletter-inner { max-width:1120px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr) minmax(380px,500px); gap:56px; align-items:center; }
+        .newsletter-copy h2 { max-width:660px; color:var(--green); font-size:clamp(28px,4vw,46px); line-height:1.08; font-weight:500; letter-spacing:-.02em; }
+        .newsletter-copy .lead { max-width:620px; margin-top:14px; color:var(--muted); font-size:16px; line-height:1.65; }
+        .newsletter-form { display:flex; gap:10px; width:100%; max-width:500px; padding:8px; background:rgba(255,255,255,.72); border:1px solid rgba(75,23,22,.12); border-radius:8px; box-shadow:0 14px 30px rgba(75,23,22,.08); }
+        .newsletter-form input { min-width:0; flex:1; padding:14px 15px; border:1px solid transparent; border-radius:4px; background:#fff; font:15px Inter,sans-serif; color:var(--ink); outline:none; transition:border-color .2s,box-shadow .2s; }
+        .newsletter-form input:focus { border-color:var(--gold2); box-shadow:0 0 0 3px rgba(229,167,47,.16); }
+        .newsletter-form button { flex:0 0 auto; border:0; padding:14px 20px; background:var(--red); color:#fff; font:600 12px Inter,sans-serif; text-transform:uppercase; letter-spacing:.08em; border-radius:4px; cursor:pointer; transition:background .2s,transform .2s,box-shadow .2s; }
+        .newsletter-form button:hover { background:var(--green); transform:translateY(-2px); box-shadow:0 8px 18px rgba(75,23,22,.18); }
 
         /* ── Footer ── */
         footer { padding:32px 5vw; background:#351312; color:#eadcca; display:flex; justify-content:space-between; align-items:center; font:12px Inter,sans-serif; }
@@ -125,7 +143,14 @@
             .grid-3, .gallery-grid { grid-template-columns:1fr; }
             .gallery-item, .gallery-item:nth-child(1), .gallery-item:nth-child(2), .gallery-item:nth-child(3) { grid-column:span 1; grid-row:auto; }
             .gallery-media, .gallery-item:nth-child(1) .gallery-media { height:280px; }
+            .newsletter-inner { grid-template-columns:1fr; gap:28px; }
+            .newsletter-form { max-width:none; }
             footer { flex-direction:column; gap:12px; text-align:center; }
+        }
+        @media(max-width:520px) {
+            .newsletter-section { padding:48px 5vw 52px; }
+            .newsletter-form { flex-direction:column; }
+            .newsletter-form button { width:100%; }
         }
     </style>
 </head>
@@ -160,15 +185,15 @@
             <div class="grid-3">
                 <?php $__empty_1 = true; $__currentLoopData = $partners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $partner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                 <article class="card">
-                    <div class="card-tag"><?php echo e($partner->category ?? 'Partenaire'); ?></div>
+                    <div class="card-tag"><?php echo e($partner->category ?? ($en ? 'Partner' : 'Partenaire')); ?></div>
                     <h3><?php echo e($partner->name); ?></h3>
-                    <p>Partenaire institutionnel de Néré Mining.</p>
+                    <p><?php echo e($en ? 'Institutional partner of Néré Mining.' : 'Partenaire institutionnel de Néré Mining.'); ?></p>
                     <?php if($partner->website_url): ?>
-                        <a class="btn btn-gold" style="margin-top:16px;" href="<?php echo e($partner->website_url); ?>" target="_blank" rel="noopener">Voir le site</a>
+                        <a class="btn btn-gold" style="margin-top:16px;" href="<?php echo e($partner->website_url); ?>" target="_blank" rel="noopener"><?php echo e($en ? 'Visit website' : 'Voir le site'); ?></a>
                     <?php endif; ?>
                 </article>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                <p class="lead" style="grid-column:span 3;">Les partenaires seront publiés prochainement.</p>
+                <p class="lead" style="grid-column:span 3;"><?php echo e($en ? 'Partners will be published shortly.' : 'Les partenaires seront publiés prochainement.'); ?></p>
                 <?php endif; ?>
             </div>
         </section>
@@ -183,7 +208,7 @@
                     <?php $__currentLoopData = $media; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <figure class="gallery-item">
                         <?php if($item->type === 'youtube'): ?>
-                            <a class="gallery-media" href="<?php echo e($item->external_url); ?>" target="_blank" rel="noopener" aria-label="Voir <?php echo e($item->title); ?>"><img src="<?php echo e($item->thumbnail_url); ?>" alt="<?php echo e($item->title); ?>"><span class="gallery-play" aria-hidden="true">▶</span></a>
+                            <a class="gallery-media" href="<?php echo e($item->external_url); ?>" target="_blank" rel="noopener" aria-label="<?php echo e($en ? 'View' : 'Voir'); ?> <?php echo e($item->title); ?>"><img src="<?php echo e($item->thumbnail_url); ?>" alt="<?php echo e($item->title); ?>"><span class="gallery-play" aria-hidden="true">▶</span></a>
                         <?php elseif($item->type === 'google_drive'): ?>
                             <a class="gallery-media" href="<?php echo e($item->external_url); ?>" target="_blank" rel="noopener" aria-label="Ouvrir <?php echo e($item->title); ?>"><div style="height:100%;display:grid;place-items:center;color:#fff;font:600 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;">Google Drive ↗</div></a>
                         <?php elseif($item->url): ?>
@@ -221,21 +246,25 @@
         <?php endif; ?>
 
         
-        <section class="sand">
-            <h2><?php echo e(__('site.newsletter_h2')); ?></h2>
-            <p class="lead"><?php echo e(__('site.newsletter_lead')); ?></p>
-            <form class="newsletter-form" method="POST" action="<?php echo e($en ? route('english.newsletter.store') : route('newsletter.store')); ?>">
-                <?php echo csrf_field(); ?>
-                <input type="email" name="email" placeholder="<?php echo e(__('site.newsletter_email')); ?>" required>
-                <button type="submit"><?php echo e(__('site.subscribe')); ?></button>
-            </form>
+        <section class="newsletter-section">
+            <div class="newsletter-inner">
+                <div class="newsletter-copy">
+                    <h2><?php echo e(__('site.newsletter_h2')); ?></h2>
+                    <p class="lead"><?php echo e(__('site.newsletter_lead')); ?></p>
+                </div>
+                <form class="newsletter-form" method="POST" action="<?php echo e($en ? route('english.newsletter.store') : route('newsletter.store')); ?>">
+                    <?php echo csrf_field(); ?>
+                    <input type="email" name="email" placeholder="<?php echo e(__('site.newsletter_email')); ?>" required>
+                    <button type="submit"><?php echo e(__('site.subscribe')); ?></button>
+                </form>
+            </div>
         </section>
     </main>
 
 <?php echo $__env->make('partials._footer', ['loc' => $loc, 'en' => $en], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie">
-        <button class="lightbox-close" type="button" aria-label="Fermer">&times;</button>
+        <button class="lightbox-close" type="button" aria-label="<?php echo e($en ? 'Close' : 'Fermer'); ?>">&times;</button>
         <img src="" alt="">
     </div>
 

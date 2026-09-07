@@ -60,7 +60,7 @@ unset($__errorArgs, $__bag); ?>
                 <div class="form-group">
                     <label>Niveau d'expérience</label>
                     <select name="experience_level">
-                        <option value="">— Non précisé —</option>
+                        <option value=""> - Non précisé  -</option>
                         <?php $__currentLoopData = \App\Models\JobOffer::experienceLevels(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $labels): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <option value="<?php echo e($key); ?>" <?php echo e(old('experience_level', $job->experience_level) === $key ? 'selected' : ''); ?>>
                             <?php echo e($labels['fr']); ?>
@@ -96,7 +96,7 @@ unset($__errorArgs, $__bag); ?>
                     <label>Profil recherché / Exigences</label>
                     <textarea name="requirements" style="min-height:130px;"
                               placeholder="Liste les critères : diplôme, expérience, compétences. Un critère par ligne."><?php echo e(old('requirements', $job->requirements)); ?></textarea>
-                    <span class="form-hint">Un critère par ligne — chaque ligne sera affichée avec une coche ✓ sur le site.</span>
+                    <span class="form-hint">Un critère par ligne  - chaque ligne sera affichée avec une coche ✓ sur le site.</span>
                 </div>
 
                 
@@ -122,7 +122,7 @@ unset($__errorArgs, $__bag); ?>
                                style="text-transform:none;letter-spacing:0;font-size:14px;font-weight:500;color:var(--ink);">
                             Candidature spontanée
                             <span style="font:400 12px Inter,sans-serif;color:var(--muted);display:block;">
-                                Cette offre n'apparaît pas dans la liste — elle alimente uniquement la page candidature spontanée.
+                                Cette offre n'apparaît pas dans la liste  - elle alimente uniquement la page candidature spontanée.
                             </span>
                         </label>
                     </div>

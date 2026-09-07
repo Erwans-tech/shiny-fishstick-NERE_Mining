@@ -34,7 +34,7 @@
                         <tr>
                             <td style="font-weight:600;"><?php echo e($cert->name); ?></td>
                             <td class="td-muted"><?php echo e(Str::limit($cert->description, 40)); ?></td>
-                            <td class="td-muted"><?php echo e($cert->issued_at?->format('d/m/Y') ?? '—'); ?></td>
+                            <td class="td-muted"><?php echo e($cert->issued_at?->format('d/m/Y') ?? ' -'); ?></td>
                             <td class="td-muted">
                                 <?php if($cert->expires_at): ?>
                                     <?php echo e($cert->expires_at->format('d/m/Y')); ?>
@@ -43,7 +43,7 @@
                                         <span class="badge badge-red" style="font-size:10px;">Expiré</span>
                                     <?php endif; ?>
                                 <?php else: ?>
-                                    —
+                                     -
                                 <?php endif; ?>
                             </td>
                             <td>

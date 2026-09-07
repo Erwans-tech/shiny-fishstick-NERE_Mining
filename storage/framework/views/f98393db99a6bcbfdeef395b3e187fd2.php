@@ -25,10 +25,10 @@
                     <?php if($r->file_path): ?>
                         <a href="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($r->file_path)); ?>" target="_blank" class="badge badge-green">PDF ↗</a>
                     <?php else: ?>
-                        <span class="badge badge-gray">—</span>
+                        <span class="badge badge-gray"> -</span>
                     <?php endif; ?>
                 </td>
-                <td class="td-muted"><?php echo e($r->published_at?->format('d/m/Y') ?? '—'); ?></td>
+                <td class="td-muted"><?php echo e($r->published_at?->format('d/m/Y') ?? ' -'); ?></td>
                 <td>
                     <a href="<?php echo e(route('admin.reports.edit', $r)); ?>" class="btn btn-ghost btn-sm">Modifier</a>
                     <form method="POST" action="<?php echo e(route('admin.reports.destroy', $r)); ?>" style="display:inline;"

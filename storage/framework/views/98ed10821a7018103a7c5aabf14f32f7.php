@@ -51,7 +51,7 @@
                     <?php $__currentLoopData = $subscribers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subscriber): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td><?php echo e($subscriber->email); ?></td>
-                            <td><?php echo e($subscriber->subscribed_at ? $subscriber->subscribed_at->format('d/m/Y H:i') : '—'); ?></td>
+                            <td><?php echo e($subscriber->subscribed_at ? $subscriber->subscribed_at->format('d/m/Y H:i') : ' -'); ?></td>
                             <td style="text-align:right;">
                                 <form action="<?php echo e(route('admin.newsletter.destroy', $subscriber)); ?>" method="POST" onsubmit="return confirm('Supprimer cet abonné ?');" style="display:inline;">
                                     <?php echo csrf_field(); ?>

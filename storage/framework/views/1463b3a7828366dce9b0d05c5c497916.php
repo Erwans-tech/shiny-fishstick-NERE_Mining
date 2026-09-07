@@ -1,5 +1,5 @@
 <?php if($paginator->hasPages()): ?>
-    <nav role="navigation" aria-label="Pagination Navigation">
+    <nav role="navigation" aria-label="<?php echo __('Pagination Navigation'); ?>">
         <ul class="pagination">
             
             <?php if($paginator->onFirstPage()): ?>

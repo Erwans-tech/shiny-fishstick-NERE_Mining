@@ -11,7 +11,7 @@
     $footerDescription = SiteSetting::get('footer_description', 'Groupe aurifère burkinabè exploitant la mine de Karma dans le nord du Burkina Faso.');
 ?>
 
-<?php if (! $__env->hasRenderedOnce('4a5f9698-1aa1-4169-aca4-07caec7539bc')): $__env->markAsRenderedOnce('4a5f9698-1aa1-4169-aca4-07caec7539bc'); ?>
+<?php if (! $__env->hasRenderedOnce('80439f33-811c-4a90-99e9-f85a311f94b5')): $__env->markAsRenderedOnce('80439f33-811c-4a90-99e9-f85a311f94b5'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
 <?php endif; ?>
 
@@ -62,6 +62,12 @@
         <div class="site-footer__bottom">
             <span><?php echo e($copyright); ?></span>
             <span>Ouagadougou, Burkina Faso</span>
+        </div>
+
+        <div class="site-footer__legal">
+            <a href="<?php echo e($en ? route('english.cookies.policy') : route('cookies.policy')); ?>"><?php echo e($en ? 'Cookies policy' : 'Politique cookies'); ?></a>
+            <a href="<?php echo e($en ? route('english.privacy.policy') : route('privacy.policy')); ?>"><?php echo e($en ? 'Privacy policy' : 'Confidentialité'); ?></a>
+            <a href="<?php echo e($en ? route('english.legal.notice') : route('legal.notice')); ?>"><?php echo e($en ? 'Legal notice' : 'Mentions légales'); ?></a>
         </div>
     </div>
 </footer>

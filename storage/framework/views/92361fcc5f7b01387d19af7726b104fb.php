@@ -60,8 +60,8 @@
                     <div style="font-weight:600;"><?php echo e($app->full_name); ?></div>
                     <div style="font:12px Inter,sans-serif;color:var(--muted);"><?php echo e($app->email); ?></div>
                 </td>
-                <td class="td-muted"><?php echo e($app->jobOffer?->title ?? '—'); ?></td>
-                <td class="td-muted"><?php echo e($app->experience_years ?? '—'); ?></td>
+                <td class="td-muted"><?php echo e($app->jobOffer?->title ?? ' -'); ?></td>
+                <td class="td-muted"><?php echo e($app->experience_years ?? ' -'); ?></td>
                 <td>
                     <?php $s = $statuses[$app->status] ?? ['label'=>$app->status,'badge'=>'badge-gray']; ?>
                     <span class="badge <?php echo e($s['badge']); ?>"><?php echo e($s['label']); ?></span>

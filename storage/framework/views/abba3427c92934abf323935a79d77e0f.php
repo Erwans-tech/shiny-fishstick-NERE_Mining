@@ -83,9 +83,9 @@
                                 <?php echo e($descriptions[$setting->key]); ?>
 
                                 <?php if($setting->key === 'carousel_interval'): ?>
-                                    — Valeur actuelle : <?php echo e(number_format($setting->value / 1000, 1)); ?> secondes
+                                     - Valeur actuelle : <?php echo e(number_format($setting->value / 1000, 1)); ?> secondes
                                 <?php elseif($setting->key === 'carousel_transition_speed'): ?>
-                                    — Valeur actuelle : <?php echo e(number_format($setting->value / 1000, 2)); ?> secondes
+                                     - Valeur actuelle : <?php echo e(number_format($setting->value / 1000, 2)); ?> secondes
                                 <?php endif; ?>
                             </span>
                             <?php endif; ?>

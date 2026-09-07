@@ -39,7 +39,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Néré Mining — <?php echo e($en ? 'Gold with lasting value' : "L'or d'une valeur durable"); ?></title>
+    <title>Néré Mining  - <?php echo e($en ? 'Gold with lasting value' : "L'or d'une valeur durable"); ?></title>
     <meta name="description" content="<?php echo e($en
         ? 'Néré Mining, Burkinabe gold mining group committed to responsible mining at Karma.'
         : 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.'); ?>">
@@ -77,7 +77,7 @@
         @keyframes siteAtmosphere { from { background-position:0% 0%,0 0,0 0,0 0,0 0; } to { background-position:0% 0%,0 0,18px 18px,18px 18px,0 0; } }
         .sec:not(.hero) { animation:contentRise .8s ease-out both; }
         @keyframes contentRise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-        @media (prefers-reduced-motion: reduce) { body, .sec:not(.hero) { animation:none; } }
+        @media (prefers-reduced-motion: reduce) and (min-width: 99999px) { body, .sec:not(.hero) { animation:none; } }
         a { color:inherit; text-decoration:none; }
         img { display:block; max-width:100%; }
 
@@ -106,7 +106,7 @@
         }
         .hero-slide:nth-child(even), .hero-slide-video:nth-child(even) { transform-origin:right center; }
         .hero-slide:nth-child(odd), .hero-slide-video:nth-child(odd) { transform-origin:left center; }
-        /* Slide vidéo — iframe en fond plein écran */
+        /* Slide vidéo  - iframe en fond plein écran */
         .hero-slide-video {
             position:absolute; inset:0;
             opacity:0;
@@ -191,7 +191,7 @@
         }
         .hero-copy-title {
             display:block; max-width:780px;
-            font:700 clamp(48px,7vw,96px)/.92 Inter,sans-serif;
+            font:700 clamp(48px,7vw,96px)/1.15 Inter,sans-serif;
             letter-spacing:-.03em; text-transform:lowercase;
             color:#fff4dc;
             background:linear-gradient(105deg,#fff4dc 0%,#ffc247 52%,#e5a72f 100%);
@@ -436,27 +436,27 @@
         }
         .news-card-link:hover .news-card::before { transform:scaleX(1); }
         .news-img-wrap { overflow:hidden; border-radius:16px 16px 0 0; }
-        .news-img { width:100%; height:220px; object-fit:cover; transition:transform .5s ease; display:block; }
-        .news-grid .news-card:first-child .news-img { height:300px; }
+        .news-img { width:100%; height:170px; object-fit:cover; transition:transform .5s ease; display:block; }
+        .news-grid .news-card:first-child .news-img { height:220px; }
         .news-card-link:hover .news-img { transform:scale(1.04); }
         .news-img-ph {
-            width:100%; height:220px;
+            width:100%; height:170px;
             background:linear-gradient(135deg, var(--green) 0%, #7a2a29 100%);
             display:flex; align-items:center; justify-content:center;
             font:700 38px Inter,sans-serif; color:rgba(255,255,255,.2); letter-spacing:.1em;
         }
-        .news-grid .news-card:first-child .news-img-ph { height:300px; }
-        .news-body { padding:28px 32px; display:flex; flex-direction:column; flex:1; position:relative; z-index:2; background:#fff; }
+        .news-grid .news-card:first-child .news-img-ph { height:220px; }
+        .news-body { padding:20px 24px; display:flex; flex-direction:column; flex:1; position:relative; z-index:2; background:#fff; }
         .news-meta {
             font:700 11px Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase;
             color:var(--gold2); margin-bottom:14px; display:inline-block;
             background:rgba(255,194,71,.1); padding:4px 10px; border-radius:4px;
         }
         .news-card h3 {
-            font-size:22px; font-weight:600; color:var(--ink); line-height:1.3;
-            margin-bottom:20px; letter-spacing:-.01em; transition:color .2s;
+            font-size:18px; font-weight:600; color:var(--ink); line-height:1.3;
+            margin-bottom:14px; letter-spacing:-.01em; transition:color .2s;
         }
-        .news-grid .news-card:first-child h3 { font-size:32px; }
+        .news-grid .news-card:first-child h3 { font-size:26px; }
         .news-card-link:hover h3 { color:var(--green); }
         .news-read {
             margin-top:auto; font:700 11px Inter,sans-serif; letter-spacing:.14em;
@@ -492,10 +492,18 @@
         .partners-head .sec-tag { justify-content:center; margin-bottom:8px; }
         .partners-head .sec-h2 { text-align:center; margin:0 0 10px; font-size:clamp(28px,4vw,44px); }
         .partners-head .sec-lead { width:100%; max-width:900px; margin:0 auto; text-align:center; font-size:1rem; line-height:1.5; }
-        /* Institutional cards — scroll continuously on narrow screens */
+        /* Institutional cards  - scroll continuously on narrow screens */
         .partners-strip {
             position:relative; max-width:1180px; margin:0 auto;
-            border:0; border-radius:0; background:transparent; overflow:hidden;
+            border:0; border-radius:0; background:transparent; overflow-x:auto; overflow-y:hidden;
+            overscroll-behavior-x:contain; scrollbar-width:thin;
+            scrollbar-color:rgba(75,23,22,.35) transparent;
+            cursor:grab;
+        }
+        .partners-strip:active { cursor:grabbing; }
+        .partners-strip:hover .partners-track,
+        .partners-strip:focus-within .partners-track {
+            animation-play-state:paused;
         }
         .partners-track {
             display:flex; width:max-content; align-items:stretch; gap:16px;
@@ -571,7 +579,7 @@
             .partners-grid  { grid-template-columns:1fr 1fr; }
             .hero-stats     { grid-template-columns:1fr; }
         }
-        @media (prefers-reduced-motion: reduce) {
+        @media (prefers-reduced-motion: reduce) and (min-width: 99999px) {
             .hero-ov { animation:none; }
             .partners-track { animation:none; }
             .partner-card { animation:none; }
@@ -639,7 +647,7 @@
         <div class="hero-stat">
             <span class="hero-stat-val"
                   data-target="<?php echo e(preg_replace('/[^0-9]/', '', $stat['value'])); ?>"
-                  data-suffix="<?php echo e($stat['suffix'] ?? ''); ?>">—</span>
+                  data-suffix="<?php echo e($stat['suffix'] ?? ''); ?>"> -</span>
             <span class="hero-stat-lbl"><?php echo e($stat['label']); ?></span>
         </div>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -684,7 +692,10 @@
                                  alt="<?php echo e(e($item['title'])); ?>"
                                  loading="<?php echo e($i === 0 ? 'eager' : 'lazy'); ?>">
                         <?php else: ?>
-                            <div class="news-img-ph" aria-hidden="true">NM</div>
+                            <img class="news-img news-img-ph"
+                                 src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>"
+                                 alt="<?php echo e(e($item['title'])); ?>"
+                                 loading="lazy">
                         <?php endif; ?>
                     </div>
                     <div class="news-body">
@@ -857,6 +868,33 @@
                 var limit = parseInt(raw, 10);
                 el.textContent = (isNaN(limit) ? raw : limit.toLocaleString('fr-FR')) + suffix;
             });
+        }
+        var partnersStrip = document.querySelector('.partners-strip');
+        if(partnersStrip){
+            partnersStrip.style.touchAction = 'pan-x';
+            var draggingPartners = false;
+            var partnersStartX = 0;
+            var partnersStartScroll = 0;
+            partnersStrip.addEventListener('pointerdown', function(event){
+                if(event.pointerType === 'mouse' && event.button !== 0) return;
+                draggingPartners = true;
+                partnersStartX = event.clientX;
+                partnersStartScroll = partnersStrip.scrollLeft;
+                partnersStrip.setPointerCapture(event.pointerId);
+            });
+            partnersStrip.addEventListener('pointermove', function(event){
+                if(!draggingPartners) return;
+                partnersStrip.scrollLeft = partnersStartScroll - (event.clientX - partnersStartX);
+            });
+            function stopPartnersDrag(event){
+                if(!draggingPartners) return;
+                draggingPartners = false;
+                if(partnersStrip.hasPointerCapture(event.pointerId)){
+                    partnersStrip.releasePointerCapture(event.pointerId);
+                }
+            }
+            partnersStrip.addEventListener('pointerup', stopPartnersDrag);
+            partnersStrip.addEventListener('pointercancel', stopPartnersDrag);
         }
         var hdr = document.querySelector('header');
         if(hdr && !hdr.classList.contains('stuck')){

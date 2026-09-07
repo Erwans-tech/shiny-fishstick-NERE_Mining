@@ -47,7 +47,7 @@
                     </div>
                     <?php endif; ?>
                     <input type="file" name="logo" accept="image/*,.svg">
-                    <span class="form-hint">PNG, JPG ou SVG — max 2 Mo.</span>
+                    <span class="form-hint">PNG, JPG ou SVG  - max 2 Mo.</span>
                 </div>
                 <div class="form-actions full">
                     <button type="submit" class="btn btn-primary"><?php echo e($partner->exists ? '✓ Enregistrer' : '+ Ajouter'); ?></button>
