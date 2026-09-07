@@ -243,10 +243,11 @@
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:20px; margin-top:40px;">
             @php
                 $impacts = [
-                    ['icon'=>'students','val'=>'850','count'=>850,'suffix'=>'','label'=>$en?'Students in Programs':'Étudiants en Programmes','bar'=>'85%'],
-                    ['icon'=>'clinic','val'=>'12','count'=>12,'suffix'=>'','label'=>$en?'Healthcare Clinics':'Cliniques Santé','bar'=>'60%'],
-                    ['icon'=>'dialogue','val'=>'85%','count'=>85,'suffix'=>'%','label'=>$en?'Grievances Resolved':'Griefs Résolus','bar'=>'85%'],
-                    ['icon'=>'road','val'=>'42km','count'=>42,'suffix'=>'km','label'=>$en?'Roads Built/Maintained':'Routes Construites/Entretenues','bar'=>'70%'],
+                    ['icon'=>'education','val'=>'150M','count'=>'150','suffix'=>'M','label'=>$en?'Education investment (FCFA)':'Investissement éducation (FCFA)','bar'=>'29%'],
+                    ['icon'=>'health','val'=>'160M','count'=>'160','suffix'=>'M','label'=>$en?'Health investment (FCFA)':'Investissement santé (FCFA)','bar'=>'31%'],
+                    ['icon'=>'water','val'=>'240M','count'=>'240','suffix'=>'M','label'=>$en?'Water access investment (FCFA)':'Investissement accès à l’eau (FCFA)','bar'=>'46%'],
+                    ['icon'=>'livelihoods','val'=>'350M','count'=>'350','suffix'=>'M','label'=>$en?'Livelihoods investment (FCFA)':'Investissement moyens de subsistance (FCFA)','bar'=>'67%'],
+                    ['icon'=>'infrastructure','val'=>'519M','count'=>'519','suffix'=>'M','label'=>$en?'Infrastructure investment (FCFA)':'Investissement infrastructures (FCFA)','bar'=>'100%'],
                 ];
             @endphp
             @foreach($impacts as $k => $imp)

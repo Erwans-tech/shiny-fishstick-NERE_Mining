@@ -50,15 +50,15 @@
     </div>
 </section>
 
-{{-- ── 2. ESG Performance ───────────────────────────── --}}
+{{-- ── 2. Repères documentés ─────────────────────────── --}}
 <section class="sa-sand-animated" style="padding:70px 5vw; position:relative;">
     <div class="sa-wave-top"></div>
     <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ $en ? 'ESG Performance' : 'Performance ESG' }}</h2>
+            <h2>{{ $en ? 'Documented Community Figures' : 'Repères documentés' }}</h2>
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;">
-                {{ $en ? 'Our commitment to Environmental, Social, and Governance excellence drives sustainable value creation.' : 'Notre engagement pour excellence Environnementale, Sociale et Gouvernance crée de la valeur durable.' }}
+                {{ $en ? 'Verified figures from Karma mine community relations and development actions, covering 2014-2025.' : 'Données documentées sur les relations communautaires et les actions de développement de la mine de Karma, de 2014 à 2025.' }}
             </p>
         </div>
 
@@ -66,12 +66,11 @@
 
             @php
                 $esgData = [
-                    ['count'=>32,'prefix'=>'-','suffix'=>'%','label'=>$en?'CO₂ Reduction (2020-2024)':'Réduction CO₂ (2020-2024)','bar'=>'32%','icon'=>'🌱'],
-                    ['count'=>28,'prefix'=>'-','suffix'=>'%','label'=>$en?'Water Consumption Reduced':'Consommation Eau Réduite','bar'=>'28%','icon'=>'💧'],
-                    ['count'=>95,'suffix'=>'%','label'=>$en?'Waste Recycled/Reused':'Déchets Recyclés/Réutilisés','bar'=>'95%','icon'=>'♻️'],
-                    ['count'=>80,'suffix'=>'%+','label'=>$en?'Local Hiring Rate':'Taux Recrutement Local','bar'=>'80%','icon'=>'👷'],
-                    ['count'=>100,'suffix'=>'%','label'=>$en?'Safety Culture':'Culture sécurité','bar'=>'100%','icon'=>'🛡️'],
-                    ['count'=>100,'suffix'=>'%','label'=>$en?'Conflict-Free Gold':'Or Conflit-Libre','bar'=>'100%','icon'=>'✨'],
+                    ['count'=>11,'suffix'=>'','label'=>$en?'Villages directly impacted':'Villages impactés directement','bar'=>'25%','icon'=>'🏘️'],
+                    ['count'=>23,'suffix'=>'','label'=>$en?'Villages indirectly impacted':'Villages impactés indirectement','bar'=>'52%','icon'=>'🗺️'],
+                    ['count'=>44,'suffix'=>'','label'=>$en?'Localities in the area of influence':'Localités dans le rayon d’influence','bar'=>'100%','icon'=>'📍'],
+                    ['count'=>'1.419','suffix'=>' Md','label'=>$en?'Community investment (FCFA)':'Investissement communautaire (FCFA)','bar'=>'100%','icon'=>'🤝'],
+                    ['count'=>'7.5','suffix'=>' km','label'=>$en?'RD149 paved':'RD149 bitumée','bar'=>'100%','icon'=>'🛣️'],
                 ];
             @endphp
 
