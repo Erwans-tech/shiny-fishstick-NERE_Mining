@@ -598,13 +598,13 @@ return [
 
     /* ══ HSE  - chiffres + cartes ══ */
     'hse_stat1_val'  => '0',
-    'hse_stat1_label' => 'Objectif accident mortel',
+    'hse_stat1_label' => 'Objectif accident et préjudice',
     'hse_stat2_val'  => '100%',
-    'hse_stat2_label' => 'Employés formés à la sécurité',
+    'hse_stat2_label' => 'Droit de signaler ou refuser un travail dangereux',
     'hse_stat3_val'  => 'HSE',
-    'hse_stat3_label' => 'Conformité aux standards HSE',
-    'hse_stat4_val'  => 'ITIE',
-    'hse_stat4_label' => 'Rapports transparents publiés',
+    'hse_stat3_label' => 'Systèmes, audits et suivi des performances',
+    'hse_stat4_val'  => '24/7',
+    'hse_stat4_label' => 'Signalement confidentiel des situations à risque',
     'hse_card1_tag'  => 'Politique',
     'hse_card1_h3' => 'Politique HSE',
     'hse_card1_p'    => "Tolérance zéro pour les comportements dangereux. Droit de chaque employé d'arrêter une opération qu'il juge non sécurisée.",
