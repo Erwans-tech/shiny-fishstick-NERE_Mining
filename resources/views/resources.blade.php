@@ -184,15 +184,15 @@
             <div class="grid-3">
                 @forelse($partners as $partner)
                 <article class="card">
-                    <div class="card-tag">{{ $partner->category ?? 'Partenaire' }}</div>
+                    <div class="card-tag">{{ $partner->category ?? ($en ? 'Partner' : 'Partenaire') }}</div>
                     <h3>{{ $partner->name }}</h3>
-                    <p>Partenaire institutionnel de Néré Mining.</p>
+                    <p>{{ $en ? 'Institutional partner of Néré Mining.' : 'Partenaire institutionnel de Néré Mining.' }}</p>
                     @if($partner->website_url)
-                        <a class="btn btn-gold" style="margin-top:16px;" href="{{ $partner->website_url }}" target="_blank" rel="noopener">Voir le site</a>
+                        <a class="btn btn-gold" style="margin-top:16px;" href="{{ $partner->website_url }}" target="_blank" rel="noopener">{{ $en ? 'Visit website' : 'Voir le site' }}</a>
                     @endif
                 </article>
                 @empty
-                <p class="lead" style="grid-column:span 3;">Les partenaires seront publiés prochainement.</p>
+                <p class="lead" style="grid-column:span 3;">{{ $en ? 'Partners will be published shortly.' : 'Les partenaires seront publiés prochainement.' }}</p>
                 @endforelse
             </div>
         </section>
@@ -207,7 +207,7 @@
                     @foreach($media as $item)
                     <figure class="gallery-item">
                         @if($item->type === 'youtube')
-                            <a class="gallery-media" href="{{ $item->external_url }}" target="_blank" rel="noopener" aria-label="Voir {{ $item->title }}"><img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}"><span class="gallery-play" aria-hidden="true">▶</span></a>
+                            <a class="gallery-media" href="{{ $item->external_url }}" target="_blank" rel="noopener" aria-label="{{ $en ? 'View' : 'Voir' }} {{ $item->title }}"><img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}"><span class="gallery-play" aria-hidden="true">▶</span></a>
                         @elseif($item->type === 'google_drive')
                             <a class="gallery-media" href="{{ $item->external_url }}" target="_blank" rel="noopener" aria-label="Ouvrir {{ $item->title }}"><div style="height:100%;display:grid;place-items:center;color:#fff;font:600 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;">Google Drive ↗</div></a>
                         @elseif($item->url)
@@ -263,7 +263,7 @@
 @include('partials._footer', ['loc' => $loc, 'en' => $en])
 
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie">
-        <button class="lightbox-close" type="button" aria-label="Fermer">&times;</button>
+        <button class="lightbox-close" type="button" aria-label="{{ $en ? 'Close' : 'Fermer' }}">&times;</button>
         <img src="" alt="">
     </div>
 

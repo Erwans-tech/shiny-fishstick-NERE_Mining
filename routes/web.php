@@ -232,6 +232,19 @@ Route::get('/en/media', function () {
     ]);
 })->name('english.gallery');
 
+Route::get('/en/partners', function () {
+    App::setLocale('en');
+    $descriptions = config('seo.descriptions')['en'] ?? [];
+    return view('resources', [
+        'locale'    => 'en',
+        'section'   => 'partners',
+        'description' => $descriptions['partners'] ?? '',
+        'partners'  => Partner::where('is_published', true)->orderBy('sort_order')->get(),
+        'media'     => collect(),
+        'documents' => collect(),
+    ]);
+})->name('english.partners');
+
 Route::get('/en/press-releases', function () {
     App::setLocale('en');
     $descriptions = config('seo.descriptions')['en'] ?? [];

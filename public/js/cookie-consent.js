@@ -23,7 +23,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function saveConsent(choice) {
-        localStorage.setItem(consentKey, choice);
+        try {
+            window.localStorage.setItem(consentKey, choice);
+        } catch (error) {
+            // Consent still applies for the current page when storage is unavailable.
+        }
         runGtagConsent(choice);
         hideBanner();
     }
@@ -34,7 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    const currentChoice = localStorage.getItem(consentKey);
+    let currentChoice = null;
+    try {
+        currentChoice = window.localStorage.getItem(consentKey);
+    } catch (error) {
+        // A blocked storage still means that no consent has been recorded.
+    }
 
     if (!currentChoice) {
         showBanner();

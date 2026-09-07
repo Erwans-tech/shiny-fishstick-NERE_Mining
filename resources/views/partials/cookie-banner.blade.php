@@ -1,20 +1,25 @@
+@php
+    $cookieLocale = $loc ?? app()->getLocale();
+    $cookieEnglish = $cookieLocale === 'en';
+@endphp
+
 <div id="cookie-banner" class="cookie-banner" aria-live="polite" style="display:none;">
     <div class="cookie-banner__inner">
         <div class="cookie-banner__content">
-            <div class="cookie-banner__title">Gestion des cookies</div>
+            <div class="cookie-banner__title">{{ $cookieEnglish ? 'Cookie preferences' : 'Gestion des cookies' }}</div>
             <p>
-                Nous utilisons des cookies essentiels au fonctionnement du site et des cookies analytiques
-                pour améliorer votre expérience et mesurer l’audience. Vous pouvez accepter ou refuser
-                les cookies non essentiels à tout moment.
+                {{ $cookieEnglish
+                    ? 'We use essential cookies to operate the site and analytics cookies to improve your experience and measure audience. You can accept or refuse non-essential cookies at any time.'
+                    : 'Nous utilisons des cookies essentiels au fonctionnement du site et des cookies analytiques pour améliorer votre expérience et mesurer l’audience. Vous pouvez accepter ou refuser les cookies non essentiels à tout moment.' }}
             </p>
         </div>
         <div class="cookie-banner__actions">
-            <a href="{{ route('cookies.policy') }}" class="cookie-banner__link">En savoir plus</a>
+            <a href="{{ $cookieEnglish ? route('english.cookies.policy') : route('cookies.policy') }}" class="cookie-banner__link">{{ $cookieEnglish ? 'Learn more' : 'En savoir plus' }}</a>
             <button type="button" class="cookie-banner__btn cookie-banner__btn--secondary" data-cookie-action="reject">
-                Refuser
+                {{ $cookieEnglish ? 'Refuse' : 'Refuser' }}
             </button>
             <button type="button" class="cookie-banner__btn cookie-banner__btn--primary" data-cookie-action="accept">
-                Accepter
+                {{ $cookieEnglish ? 'Accept' : 'Accepter' }}
             </button>
         </div>
     </div>

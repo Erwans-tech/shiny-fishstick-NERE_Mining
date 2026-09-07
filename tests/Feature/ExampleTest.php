@@ -18,4 +18,18 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_english_cookie_banner_and_partners_page_are_localized(): void
+    {
+        $this->get('/en/cookies-policy')
+            ->assertOk()
+            ->assertSee('Cookie preferences')
+            ->assertSee('Accept')
+            ->assertSee('/en/cookies-policy');
+
+        $this->get('/en/partners')
+            ->assertOk()
+            ->assertSee('Our institutional and technical partners')
+            ->assertDontSee('Les partenaires seront publiés prochainement.');
+    }
 }

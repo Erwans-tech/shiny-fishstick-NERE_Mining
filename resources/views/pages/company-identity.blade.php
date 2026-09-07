@@ -54,7 +54,7 @@
         @media (max-width:700px) { .identity-description { padding:30px 22px; border-left-width:4px; border-radius:3px 12px 12px 3px; } .identity-description p { font-size:14px; line-height:1.75; } }
     </style>
 
-    <div class="grid-3 identity-gallery" aria-label="Images de l’identité de Néré Mining">
+    <div class="grid-3 identity-gallery" aria-label="{{ $en ? 'Néré Mining identity images' : 'Images de l’identité de Néré Mining' }}">
         @foreach($identityImages as $image)
             <figure>
                 <img src="{{ $image }}" alt="{{ $en ? 'Néré Mining identity image' : 'Image illustrant l’identité de Néré Mining' }}" loading="lazy">
