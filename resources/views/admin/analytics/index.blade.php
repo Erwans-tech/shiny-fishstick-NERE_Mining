@@ -114,7 +114,8 @@
                             <td class="page-url">{{ $page['url'] }}</td>
                             <td class="visits-count">{{ number_format($page['visits']) }}</td>
                             <td class="visits-percent">
-                                {{ $totalVisits > 0 ? round(($page['visits'] / $totalVisits) * 100, 1) : 0 }}%
+                                <div class="visits-percent-value">{{ $totalVisits > 0 ? round(($page['visits'] / $totalVisits) * 100, 1) : 0 }}%</div>
+                                <div class="page-share"><span style="width:{{ $totalVisits > 0 ? min(100, round(($page['visits'] / $totalVisits) * 100, 1)) : 0 }}%"></span></div>
                             </td>
                         </tr>
                         @endforeach
@@ -326,6 +327,17 @@
     margin-bottom: 28px;
 }
 
+.analytics-summary::before {
+    content: 'Vue d’ensemble';
+    display: block;
+    margin-bottom: 10px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
 .admin-metrics-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -402,6 +414,9 @@
     margin-bottom: 28px;
     box-shadow: 0 4px 18px rgba(40,29,24,.035);
 }
+
+.analytics-primary-panel { position:relative; }
+.analytics-primary-panel::after { content:''; position:absolute; left:24px; right:24px; bottom:0; height:3px; border-radius:3px 3px 0 0; background:var(--gold); opacity:.8; }
 
 .panel-heading {
     display: flex;
@@ -497,6 +512,10 @@
     font-weight: 600;
     text-align: right;
 }
+
+.visits-percent-value { font-weight:600; }
+.page-share { width:74px; height:4px; margin-top:5px; overflow:hidden; border-radius:999px; background:var(--line); }
+.page-share span { display:block; height:100%; border-radius:inherit; background:var(--gold2); }
 
 /* Appareils */
 .device-stats {

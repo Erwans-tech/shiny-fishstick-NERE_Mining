@@ -3,10 +3,25 @@
 @section('page-title', 'Paramètres du site')
 
 @section('content')
-<div class="card">
+<div class="card settings-page">
     <div class="card-header">
         <h2>⚙️ Paramètres du site</h2>
         <span class="card-header-sub">Configurer les paramètres généraux du site</span>
+    </div>
+
+    <div class="settings-overview">
+        <div class="settings-overview-item">
+            <span class="settings-overview-icon">⚙</span>
+            <span><strong>{{ $settings->count() }}</strong><small>paramètres</small></span>
+        </div>
+        <div class="settings-overview-item">
+            <span class="settings-overview-icon">◈</span>
+            <span><strong>{{ $grouped->count() }}</strong><small>catégories</small></span>
+        </div>
+        <div class="settings-overview-item">
+            <span class="settings-overview-icon">✓</span>
+            <span><strong>{{ $settings->where('value', '!=', '')->count() }}</strong><small>valeurs configurées</small></span>
+        </div>
     </div>
 
     <div class="settings-toolbar">
@@ -158,6 +173,13 @@
 </div>
 
 <style>
+    .settings-page { overflow:hidden; }
+    .settings-overview { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1px; background:var(--line); border-bottom:1px solid var(--line); }
+    .settings-overview-item { display:flex; align-items:center; gap:10px; padding:16px 20px; background:#fff; }
+    .settings-overview-icon { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:8px; background:var(--sand); color:var(--gold2); font-weight:700; }
+    .settings-overview-item strong, .settings-overview-item small { display:block; }
+    .settings-overview-item strong { color:var(--green); font-size:20px; line-height:1; }
+    .settings-overview-item small { margin-top:3px; color:var(--muted); font-size:11px; }
     .settings-toolbar { padding: 20px; background: #fffaf1; border-bottom: 1px solid var(--line); }
     .settings-search { display:flex; align-items:center; gap:10px; max-width:520px; padding:0 13px; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--muted); }
     .settings-search span { font-size:22px; line-height:1; }
@@ -165,11 +187,14 @@
     .settings-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
     .settings-tab { border:1px solid var(--line); border-radius:999px; padding:7px 12px; background:#fff; color:var(--muted); font:600 11px Inter,sans-serif; cursor:pointer; text-transform:capitalize; }
     .settings-tab:hover, .settings-tab.is-active { border-color:var(--green); background:var(--green); color:#fff; }
-    .settings-section { transition:opacity .2s; }
+    .settings-section { margin:0 0 22px !important; padding:20px; border:1px solid var(--line); border-radius:10px; background:rgba(255,255,255,.62); transition:opacity .2s, border-color .2s; }
+    .settings-section:hover { border-color:rgba(229,167,47,.7); }
+    .settings-section legend { width:100%; padding:0 0 12px !important; margin:0 0 20px !important; }
+    .settings-section .settings-field + .settings-field { padding-top:18px; border-top:1px solid #f0ebe3; }
     .settings-section.is-hidden, .settings-field.is-hidden { display:none; }
     .settings-actions { display:flex; align-items:center; gap:12px; margin-top:28px; padding-top:20px; border-top:2px solid var(--line); }
     .settings-save-state { color:#16803c; font-size:12px; }
-    @media (max-width:700px) { .settings-actions { align-items:stretch; flex-direction:column; } .settings-actions .btn { text-align:center; } }
+    @media (max-width:700px) { .settings-overview { grid-template-columns:1fr; } .settings-actions { align-items:stretch; flex-direction:column; } .settings-actions .btn { text-align:center; } }
 </style>
 
 {{-- Preview live du carrousel --}}
