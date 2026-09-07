@@ -19,7 +19,8 @@
             <div class="pdg-photo"
                  style="height:280px; border-radius:6px; display:flex; align-items:center; justify-content:center; background:#5a2020;">
                 <?php if($pressPhoto): ?>
-                    <img src="<?php echo e($pressPhoto); ?>" alt="<?php echo e($pressName); ?>" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
+                    <img src="<?php echo e($pressPhoto); ?>" alt="<?php echo e($pressName); ?>" style="width:100%; height:100%; object-fit:cover; border-radius:6px;" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span style="display:none;color:rgba(255,255,255,.35);font-size:13px;text-align:center;"><?php echo e($en ? 'Photo coming soon' : 'Photo à venir'); ?></span>
                 <?php else: ?>
                     <span style="color:rgba(255,255,255,.35); font-size:13px; text-align:center;">
                         <?php echo e($en ? 'Photo coming soon' : 'Photo à venir'); ?>

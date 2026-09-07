@@ -690,7 +690,9 @@
                             <img class="news-img"
                                  src="<?php echo e($item['image']); ?>"
                                  alt="<?php echo e(e($item['title'])); ?>"
-                                 loading="<?php echo e($i === 0 ? 'eager' : 'lazy'); ?>">
+                                 loading="<?php echo e($i === 0 ? 'eager' : 'lazy'); ?>"
+                                 onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <img class="news-img news-img-ph" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(e($item['title'])); ?>" loading="lazy" style="display:none;">
                         <?php else: ?>
                             <img class="news-img news-img-ph"
                                  src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>"
@@ -759,7 +761,8 @@
             <?php $__currentLoopData = $defaultPartners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <?php $tag = $p['url'] ? 'a' : 'div'; $attrs = $p['url'] ? 'href="'.$p['url'].'" target="_blank" rel="noopener noreferrer"' : ''; ?>
             <<?php echo e($tag); ?> <?php echo e($attrs); ?> class="partner-logo-item" role="listitem">
-                <img class="partner-logo-img" src="<?php echo e($p['img']); ?>" alt="<?php echo e($p['name']); ?>" loading="lazy" width="120" height="56">
+                <img class="partner-logo-img" src="<?php echo e($p['img']); ?>" alt="<?php echo e($p['name']); ?>" loading="lazy" width="120" height="56" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div style="display:none;width:80px;height:40px;background:var(--sand);border-radius:4px;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);"><?php echo e(strtoupper(substr($p['name'], 0, 3))); ?></div>
                 <span class="partner-logo-name"><?php echo e($p['name']); ?></span>
                 <span class="partner-logo-cat"><?php echo e($p['cat']); ?></span>
             </<?php echo e($tag); ?>>
@@ -774,7 +777,8 @@
             ?>
             <<?php echo e($tag); ?> <?php echo e($attrs); ?> class="partner-logo-item" role="listitem">
                 <?php if($logoUrl): ?>
-                <img class="partner-logo-img" src="<?php echo e($logoUrl); ?>" alt="<?php echo e($p->name); ?>" loading="lazy" width="120" height="56">
+                <img class="partner-logo-img" src="<?php echo e($logoUrl); ?>" alt="<?php echo e($p->name); ?>" loading="lazy" width="120" height="56" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div style="display:none;width:80px;height:40px;background:var(--sand);border-radius:4px;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);"><?php echo e(strtoupper(substr($p->name, 0, 3))); ?></div>
                 <?php else: ?>
                 <div style="width:80px;height:40px;background:var(--sand);border-radius:4px;display:flex;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">
                     <?php echo e(strtoupper(substr($p->name, 0, 3))); ?>

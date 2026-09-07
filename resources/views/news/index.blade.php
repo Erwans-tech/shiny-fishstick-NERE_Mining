@@ -98,7 +98,8 @@
                     @foreach($news as $index => $item)
                     <article class="news-card sa-reveal sa-delay-{{ $index % 3 + 1 }}">
                         @if($item->image_path)
-                            <img class="news-img" src="{{ \App\Helpers\StorageHelper::uploadUrl($item->image_path) }}" alt="{{ $item->title }}">
+                            <img class="news-img" src="{{ \App\Helpers\StorageHelper::uploadUrl($item->image_path) }}" alt="{{ $item->title }}" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <img class="news-img news-img-placeholder" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}" style="display:none;">
                         @else
                             <img class="news-img news-img-placeholder" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}">
                         @endif

@@ -22,7 +22,8 @@
             <div class="pdg-photo"
                  style="height:280px; border-radius:6px; display:flex; align-items:center; justify-content:center; background:#5a2020;">
                 @if($pressPhoto)
-                    <img src="{{ $pressPhoto }}" alt="{{ $pressName }}" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
+                    <img src="{{ $pressPhoto }}" alt="{{ $pressName }}" style="width:100%; height:100%; object-fit:cover; border-radius:6px;" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span style="display:none;color:rgba(255,255,255,.35);font-size:13px;text-align:center;">{{ $en ? 'Photo coming soon' : 'Photo à venir' }}</span>
                 @else
                     <span style="color:rgba(255,255,255,.35); font-size:13px; text-align:center;">
                         {{ $en ? 'Photo coming soon' : 'Photo à venir' }}

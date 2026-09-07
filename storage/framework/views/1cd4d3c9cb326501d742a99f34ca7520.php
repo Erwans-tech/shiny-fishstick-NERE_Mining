@@ -84,7 +84,10 @@
         </div>
 
         <?php if($news->image_path): ?>
-            <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($news->image_path)); ?>" alt="<?php echo e($news->title); ?>">
+            <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($news->image_path)); ?>" alt="<?php echo e($news->title); ?>" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(__('site.news_img_placeholder')); ?>" style="display:none;">
+        <?php else: ?>
+            <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(__('site.news_img_placeholder')); ?>">
         <?php endif; ?>
 
         <div class="article-body sa-reveal sa-delay-2">

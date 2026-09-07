@@ -99,7 +99,8 @@
                     <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <article class="news-card sa-reveal sa-delay-<?php echo e($index % 3 + 1); ?>">
                         <?php if($item->image_path): ?>
-                            <img class="news-img" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($item->image_path)); ?>" alt="<?php echo e($item->title); ?>">
+                            <img class="news-img" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($item->image_path)); ?>" alt="<?php echo e($item->title); ?>" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <img class="news-img news-img-placeholder" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(__('site.news_img_placeholder')); ?>" style="display:none;">
                         <?php else: ?>
                             <img class="news-img news-img-placeholder" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(__('site.news_img_placeholder')); ?>">
                         <?php endif; ?>

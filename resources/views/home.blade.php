@@ -698,7 +698,9 @@
                             <img class="news-img"
                                  src="{{ $item['image'] }}"
                                  alt="{{ e($item['title']) }}"
-                                 loading="{{ $i === 0 ? 'eager' : 'lazy' }}">
+                                 loading="{{ $i === 0 ? 'eager' : 'lazy' }}"
+                                 onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <img class="news-img news-img-ph" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ e($item['title']) }}" loading="lazy" style="display:none;">
                         @else
                             <img class="news-img news-img-ph"
                                  src="{{ asset('images/placeholders/default-image.svg') }}"
@@ -767,7 +769,8 @@
             @foreach($defaultPartners as $p)
             @php $tag = $p['url'] ? 'a' : 'div'; $attrs = $p['url'] ? 'href="'.$p['url'].'" target="_blank" rel="noopener noreferrer"' : ''; @endphp
             <{{ $tag }} {{ $attrs }} class="partner-logo-item" role="listitem">
-                <img class="partner-logo-img" src="{{ $p['img'] }}" alt="{{ $p['name'] }}" loading="lazy" width="120" height="56">
+                <img class="partner-logo-img" src="{{ $p['img'] }}" alt="{{ $p['name'] }}" loading="lazy" width="120" height="56" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div style="display:none;width:80px;height:40px;background:var(--sand);border-radius:4px;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">{{ strtoupper(substr($p['name'], 0, 3)) }}</div>
                 <span class="partner-logo-name">{{ $p['name'] }}</span>
                 <span class="partner-logo-cat">{{ $p['cat'] }}</span>
             </{{ $tag }}>
@@ -782,7 +785,8 @@
             @endphp
             <{{ $tag }} {{ $attrs }} class="partner-logo-item" role="listitem">
                 @if($logoUrl)
-                <img class="partner-logo-img" src="{{ $logoUrl }}" alt="{{ $p->name }}" loading="lazy" width="120" height="56">
+                <img class="partner-logo-img" src="{{ $logoUrl }}" alt="{{ $p->name }}" loading="lazy" width="120" height="56" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div style="display:none;width:80px;height:40px;background:var(--sand);border-radius:4px;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">{{ strtoupper(substr($p->name, 0, 3)) }}</div>
                 @else
                 <div style="width:80px;height:40px;background:var(--sand);border-radius:4px;display:flex;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">
                     {{ strtoupper(substr($p->name, 0, 3)) }}
