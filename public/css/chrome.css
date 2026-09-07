@@ -311,8 +311,24 @@
 }
 
 @media (max-width: 1080px) {
+    .site-header__bar {
+        min-height: 82px;
+        padding: 0 18px;
+    }
+
+    .site-logo {
+        height: 72px;
+        margin-left: 0;
+    }
+
+    .site-logo img {
+        height: 72px;
+        max-width: 250px;
+    }
+
     .site-menu-btn {
         display: inline-flex;
+        flex-shrink: 0;
     }
 
     .site-nav {
@@ -396,6 +412,29 @@
 }
 
 @media (max-width: 640px) {
+    .site-header__bar {
+        min-height: 68px;
+        padding: 0 12px;
+        gap: 8px;
+    }
+
+    .site-logo {
+        height: 58px;
+        min-width: 0;
+    }
+
+    .site-logo img {
+        height: 58px;
+        max-width: min(62vw, 205px);
+    }
+
+    .site-menu-btn {
+        height: 40px;
+        padding: 0 10px;
+        gap: 6px;
+        font-size: 11px;
+    }
+
     .site-footer__top {
         flex-direction: column;
         align-items: stretch;
