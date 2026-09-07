@@ -20,17 +20,29 @@
         'copy'      => $en ? $slide['copy_en'] : $slide['copy'],
     ]);
 
-    $databaseHeroImages = $slides->map(fn($slide) => [
-            'type'      => $slide->type ?? 'image',
-            'url'       => $slide->url ?? '',
-            'video_url' => $slide->video_url ?? null,
-            'embed_url' => $slide->embed_url ?? null,
-            'is_local_video' => ($slide->type ?? 'image') === 'video' && empty($slide->embed_url),
-            'title'     => $slide->title ?? '',
-            'caption'   => $slide->caption ?? null,
-            'kicker'    => $slide->title ?? 'Néré Mining',
-            'copy'      => $slide->caption ?? '',
-        ])->filter(fn($slide) => !empty($slide['url']))->values();
+    $defaultText = [
+        'gyathursan-mine-5523376_1920.jpg' => ['Une mine de', 'classe mondiale', 'A mine of', 'world-class'],
+        'pexels-gunshe-5125104.jpg' => ['Des opérations', 'responsables', 'Responsible', 'operations'],
+        'shibang-mechanical-2653706_1920.jpg' => ['L’excellence', 'industrielle', 'Industrial', 'excellence'],
+        'tyna_janoch-excavator-2781676_1920.jpg' => ['Des équipes', 'engagées', 'Committed', 'teams'],
+        'tyna_janoch-mine-2781686_1920.jpg' => ['Un territoire', 'en mouvement', 'A region', 'in motion'],
+        'Video Project 1.mp4' => ['Karma', 'notre mine d’or', 'Karma', 'our gold mine'],
+    ];
+    $databaseHeroImages = $slides->map(function ($slide) use ($defaultText, $en) {
+            $filename = basename((string) ($slide->image_path ?? ''));
+            $default = $defaultText[$filename] ?? null;
+            return [
+                'type'      => $slide->type ?? 'image',
+                'url'       => $slide->url ?? '',
+                'video_url' => $slide->video_url ?? null,
+                'embed_url' => $slide->embed_url ?? null,
+                'is_local_video' => ($slide->type ?? 'image') === 'video' && empty($slide->embed_url),
+                'title'     => $slide->title ?? '',
+                'caption'   => $slide->caption ?? null,
+                'kicker'    => $default ? ($en ? $default[2] : $default[0]) : ($slide->title ?? 'Néré Mining'),
+                'copy'      => $default ? ($en ? $default[3] : $default[1]) : ($slide->caption ?: ($slide->title ?? 'Néré Mining')),
+            ];
+        })->filter(fn($slide) => !empty($slide['url']))->values();
     $heroImages = $databaseHeroImages->isNotEmpty() ? $databaseHeroImages : $defaultHeroImages;
     $heroDuration = count($heroImages) * 5;
     $heroSlot = 100 / max(count($heroImages), 1);
