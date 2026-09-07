@@ -62,6 +62,10 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perHour(2)->by($request->ip());
         });
 
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->getAuthIdentifier() ?? $request->ip());
+        });
+
         // ── 3. Directive Blade @uploadUrl ───────────────────────────
         // Usage dans les vues : @uploadUrl($model->image_path)
         // ou en PHP inline   : \App\Helpers\StorageHelper::uploadUrl($path)
@@ -69,10 +73,16 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo e(\\App\\Helpers\\StorageHelper::uploadUrl({$path})); ?>";
         });
         Validator::extend('safe_file', function ($attribute, $value, $parameters) {
-            $allowedMimes = ['image/jpeg','image/png','image/gif','image/webp',
-                             'application/pdf','application/msword',
-                             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                             'image/svg+xml'];
+            $allowedMimes = [
+                'image/jpeg',
+                'image/png',
+                'image/gif',
+                'image/webp',
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'image/svg+xml'
+            ];
             return in_array($value->getMimeType(), $allowedMimes, true);
         });
 

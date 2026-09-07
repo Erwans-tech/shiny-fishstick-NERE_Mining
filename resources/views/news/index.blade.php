@@ -7,6 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link rel="canonical" href="{{ $en ? url('/en/news') : url('/actualites') }}">
     <title>{{ __('site.news_h1') }} | Néré Mining</title>
     <meta name="description" content="{{ $en ? 'Latest news from Néré Mining and the Karma mine.' : 'Toute l\'actualité de Néré Mining et de la mine de Karma.' }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,7 +100,7 @@
                     @foreach($news as $index => $item)
                     <article class="news-card sa-reveal sa-delay-{{ $index % 3 + 1 }}">
                         @if($item->image_path)
-                            <img class="news-img" src="{{ \App\Helpers\StorageHelper::uploadUrl($item->image_path) }}" alt="{{ $item->title }}" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <img class="news-img" src="{{ \App\Helpers\StorageHelper::uploadUrl($item->image_path) }}" alt="Image : {{ $item->title }}" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
                             <img class="news-img news-img-placeholder" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}" style="display:none;">
                         @else
                             <img class="news-img news-img-placeholder" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}">

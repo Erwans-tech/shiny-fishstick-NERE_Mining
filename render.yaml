@@ -17,6 +17,10 @@ services:
         value: production
       - key: APP_DEBUG
         value: "false"
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: error
       - key: APP_URL
         fromService:
           name: nere-mining
@@ -62,6 +66,8 @@ services:
       # HTTPS (Render gère le TLS)
       - key: FORCE_HTTPS
         value: "true"
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://nere-mining.bf
 
       # Session PostgreSQL : le token CSRF et la connexion admin survivent aux redémarrages
       - key: SESSION_DRIVER
@@ -78,12 +84,6 @@ services:
         value: file
       - key: QUEUE_CONNECTION
         value: sync
-
-      # Logs vers stderr (visible dans Render logs)
-      - key: LOG_CHANNEL
-        value: stderr
-      - key: LOG_LEVEL
-        value: error
 
 databases:
   - name: nere-mining-db

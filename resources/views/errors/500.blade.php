@@ -21,15 +21,6 @@
             Something went wrong on our end. Our team has been notified and is working to fix it. Please try again in a few moments.
         </p>
 
-        <!-- Error details (show only in debug mode) -->
-        @if(config('app.debug') && $exception)
-        <div style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 6px; padding: 20px; margin: 20px 0; text-align: left; max-height: 200px; overflow-y: auto;">
-            <p style="font-size: 12px; color: #ef4444; margin: 0; font-family: monospace; word-break: break-all;">
-                <strong>Error:</strong> {{ $exception->getMessage() }}
-            </p>
-        </div>
-        @endif
-
         <!-- Action buttons -->
         <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin: 40px 0;">
             <a href="{{ url('/') }}" style="display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; text-decoration: none; border-radius: 6px; font-weight: 600; transition: all 0.3s ease; border: 2px solid transparent;">

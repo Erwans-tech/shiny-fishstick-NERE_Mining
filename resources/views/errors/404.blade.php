@@ -13,7 +13,7 @@
 
         <!-- Error title -->
         <h1 style="font-size: 48px; color: #ffffff; margin: 20px 0; font-weight: 700; letter-spacing: -1px;">
-            {{ $exception->getMessage() ?: 'Page not found' }}
+            Page introuvable
         </h1>
 
         <!-- Error description -->
@@ -33,9 +33,9 @@
 
         <!-- Helpful links -->
         <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(217,119,6,0.2);">
-            <p style="color: #7a8190; font-size: 14px; margin-bottom: 20px;">Useful links:</p>
+            <p style="color: #7a8190; font-size: 14px; margin-bottom: 20px;">Liens utiles :</p>
             <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;">
-                <a href="{{ route(request()->segment(1) === 'en' ? 'english.news' : 'news') }}" style="color: #b0b9c6; text-decoration: none; font-size: 14px; transition: color 0.3s;">News</a>
+                <a href="{{ route(request()->segment(1) === 'en' ? 'english.news' : 'news.index') }}" style="color: #b0b9c6; text-decoration: none; font-size: 14px; transition: color 0.3s;">Actualités</a>
                 <a href="{{ route(request()->segment(1) === 'en' ? 'english.karma' : 'karma') }}" style="color: #b0b9c6; text-decoration: none; font-size: 14px; transition: color 0.3s;">KARMA Mine</a>
                 <a href="{{ route(request()->segment(1) === 'en' ? 'english.careers' : 'careers') }}" style="color: #b0b9c6; text-decoration: none; font-size: 14px; transition: color 0.3s;">Careers</a>
                 <a href="{{ route(request()->segment(1) === 'en' ? 'english.contact' : 'contact') }}" style="color: #b0b9c6; text-decoration: none; font-size: 14px; transition: color 0.3s;">Contact us</a>

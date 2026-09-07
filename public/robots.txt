@@ -1,4 +1,10 @@
-# Néré Mining - robots.txt for SEO
+User-agent: *
+Allow: /
+Disallow: /gestion-nm
+Disallow: /storage/
+Disallow: /uploads/applications/
+
+Sitemap: https://nere-mining.bf/sitemap.xml# Néré Mining - robots.txt for SEO
 # https://www.robotstxt.org/
 
 # Allow all search engines

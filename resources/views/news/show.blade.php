@@ -7,6 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link rel="canonical" href="{{ $en ? route('english.news.show', $news) : route('news.show', $news) }}">
     <title>{{ $news->title }} | Néré Mining</title>
     <meta name="description" content="{{ $news->excerpt ?? $news->title }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">

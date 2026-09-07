@@ -73,8 +73,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <title>{{ $title ?? __('site.'.$mastheadSection.'_h1', [], $loc) }} | Néré Mining</title>
     <meta name="description" content="{{ $description ?? '' }}">
+    <script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'MiningCompany',
+        'name' => 'Néré Mining',
+        'url' => config('app.url'),
+        'logo' => asset('images/logo-nere.png'),
+        'description' => $description ?? 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.',
+        'address' => ['@type' => 'PostalAddress', 'addressCountry' => 'BF'],
+        'sameAs' => array_values(array_filter([config('app.url') . '/en'])),
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP) !!}
+    </script>
     {!! App\Helpers\CanonicalHelper::render($section, $loc) !!}
     {!! App\Helpers\CanonicalHelper::renderHreflang($section, $loc) !!}
     {!! App\Helpers\OpenGraphHelper::render($section, $loc, $description ?? null) !!}

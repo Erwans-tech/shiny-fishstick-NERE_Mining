@@ -4,7 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -30,13 +30,17 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
 
         // ── Niveau de confiance CSRF : SameSite strict + referer ────
-        // La connexion admin reste protégée par le rate limiter et les identifiants,
-        // mais ne doit pas dépendre d'un ancien token stocké dans un cookie Render.
-        $middleware->validateCsrfTokens(except: [
-            'gestion-nm/connexion',
-        ]);
+        $middleware->validateCsrfTokens();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+
+        $exceptions->render(function (\Throwable $exception, Request $request) {
+            if (app()->environment('production') && ! $request->expectsJson() && ! $exception instanceof HttpExceptionInterface) {
+                return response()->view('errors.500', [], 500);
+            }
+
+            return null;
+        });
 
         // Réponse JSON pour les routes API uniquement
         $exceptions->shouldRenderJsonWhen(

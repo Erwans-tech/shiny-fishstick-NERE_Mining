@@ -52,10 +52,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <title>Néré Mining  - {{ $en ? 'Gold with lasting value' : "L'or d'une valeur durable" }}</title>
     <meta name="description" content="{{ $en
         ? 'Néré Mining, Burkinabe gold mining group committed to responsible mining at Karma.'
         : 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.' }}">
+    <link rel="canonical" href="{{ $en ? url('/en') : url('/') }}">
+    {!! \App\Helpers\OpenGraphHelper::render('home', $loc, $en ? 'Néré Mining, Burkinabe gold mining group committed to responsible mining at Karma.' : 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.') !!}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">

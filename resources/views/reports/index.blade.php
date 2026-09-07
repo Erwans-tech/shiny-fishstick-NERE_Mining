@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <title>{{ __('site.reports_h1') }} | Néré Mining</title>
     <meta name="description" content="{{ __('site.reports_lead') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
