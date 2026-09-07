@@ -63,11 +63,11 @@ services:
       - key: FORCE_HTTPS
         value: "true"
 
-      # Session dans le cookie : fiable après redémarrage du conteneur Render
+      # Session PostgreSQL : le token CSRF et la connexion admin survivent aux redémarrages
       - key: SESSION_DRIVER
-        value: cookie
+        value: database
       - key: SESSION_ENCRYPT
-        value: "true"
+        value: "false"
       - key: SESSION_SECURE_COOKIE
         value: "true"
       - key: SESSION_SAME_SITE
