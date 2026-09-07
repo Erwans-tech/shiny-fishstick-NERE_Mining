@@ -5,8 +5,9 @@
 /* Correction générale des débordements de texte */
 * {
   word-wrap: break-word;
-  word-break: break-word;
-  hyphens: auto;
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: none;
 }
 
 /* Titres responsifs avec débordement géré */
@@ -18,7 +19,8 @@ h5,
 h6 {
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: auto;
+  word-break: normal;
+  hyphens: none;
   max-width: 100%;
 }
 
@@ -27,7 +29,8 @@ p,
 .text-content {
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: auto;
+  word-break: normal;
+  hyphens: none;
   text-align: justify;
   text-justify: inter-word;
 }
@@ -67,9 +70,9 @@ p,
 
 /* Navigation responsive */
 .nav-item {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
   max-width: 100%;
 }
 
@@ -129,10 +132,11 @@ p,
 
 .table-responsive td,
 .table-responsive th {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 200px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  max-width: none;
+  overflow-wrap: break-word;
   padding: 8px 12px;
 }
 
@@ -156,9 +160,10 @@ p,
 
 /* Breadcrumbs responsive */
 .breadcrumb {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  overflow: visible;
+  white-space: normal;
+  text-overflow: clip;
+  overflow-wrap: break-word;
   max-width: 100%;
 }
 

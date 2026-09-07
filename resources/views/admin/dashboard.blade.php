@@ -313,7 +313,7 @@
                style="display:flex; align-items:center; gap:12px; padding:12px 20px; border-bottom:1px solid #f5f0e8; transition:background .15s; text-decoration:none;"
                onmouseover="this.style.background='#faf8f4'" onmouseout="this.style.background=''">
                 <div style="flex:1; min-width:0;">
-                    <div style="font:600 13px Inter,sans-serif; color:var(--green); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                    <div style="font:600 13px Inter,sans-serif; color:var(--green); white-space:normal; overflow:visible; overflow-wrap:break-word;">
                         {{ $news->title }}
                     </div>
                     <div style="font:12px Inter,sans-serif; color:var(--muted); margin-top:2px;">
@@ -395,10 +395,10 @@
                 {{ strtoupper(substr($app->first_name, 0, 1)) }}
             </div>
             <div style="flex:1; min-width:0;">
-                <div style="font:600 13px Inter,sans-serif; color:var(--green); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                <div style="font:600 13px Inter,sans-serif; color:var(--green); white-space:normal; overflow:visible; overflow-wrap:break-word;">
                     {{ $app->first_name }} {{ $app->last_name }}
                 </div>
-                <div style="font:12px Inter,sans-serif; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                <div style="font:12px Inter,sans-serif; color:var(--muted); white-space:normal; overflow:visible; overflow-wrap:break-word;">
                     {{ $app->jobOffer?->title ?? 'Candidature spontanée' }}
                 </div>
             </div>

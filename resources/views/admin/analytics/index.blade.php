@@ -549,10 +549,9 @@
     font-family: 'Monaco', monospace;
     font-size: 13px;
     color: var(--ink);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 320px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    max-width: 360px;
 }
 
 .visits-count, .visits-percent {
