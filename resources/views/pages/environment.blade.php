@@ -24,6 +24,25 @@
     </div>
 </section>
 
+{{-- ── 2. Notre engagement environnemental ───────────── --}}
+<section class="sa-sand-animated environment-commitment" style="padding:70px 5vw; position:relative;">
+    <div style="max-width:980px; margin:0 auto; position:relative; z-index:1;">
+        <div class="sa-section-heading sa-reveal">
+            <h2>Notre engagement environnemental</h2>
+            <div class="sa-divider"></div>
+        </div>
+
+        <div class="environment-commitment__body sa-reveal sa-delay-1">
+            <p>Riverstone Karma est engagée dans une démarche de développement durable fondée sur une gestion responsable de l’environnement et une exploitation maîtrisée des ressources minérales. Notre approche repose sur le principe d’une gestion environnementale « sans préjudice » et sur la mise en place de systèmes permettant d’identifier, de surveiller et de maîtriser les aspects et impacts environnementaux de nos activités. Nous nous engageons à respecter les lois et réglementations nationales ainsi que les standards internationaux applicables au secteur minier, notamment les normes environnementales, de santé et de sécurité de la Société financière internationale (SFI) et de la Banque mondiale, ainsi que le Code international de gestion du cyanure.</p>
+
+            <p>Notre engagement se traduit par une amélioration continue de notre performance environnementale, notamment à travers la maîtrise de notre empreinte écologique, l’amélioration de l’efficacité énergétique, la gestion responsable de l’eau et la prise en compte des enjeux liés au changement climatique et aux émissions de gaz à effet de serre. Nous renforçons également les compétences de nos employés et sous-traitants afin de leur permettre d’exercer leurs responsabilités conformément aux exigences environnementales et aux bonnes pratiques de l’industrie.</p>
+
+            <p>La transparence, la concertation et la responsabilité constituent des principes essentiels de notre démarche. Riverstone Karma travaille avec les représentants des communautés locales afin de les sensibiliser aux enjeux environnementaux liés à ses activités et s’engage à consulter les parties prenantes concernées. Des audits permettent régulièrement d’évaluer l’efficacité de nos systèmes de gestion environnementale et d’en communiquer les résultats. Nous veillons également à disposer des ressources nécessaires à la réhabilitation des sites et à la fermeture des opérations conformément à nos obligations.</p>
+        </div>
+    </div>
+    <div class="sa-wave-bottom"></div>
+</section>
+
 {{-- ── 2. Performance Environnementale ────────────────── --}}
 <section class="sa-sand-animated" style="padding:70px 5vw; position:relative;">
     <div class="sa-wave-top"></div>
