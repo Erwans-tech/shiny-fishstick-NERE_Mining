@@ -14,6 +14,7 @@
 @php
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
+    $section = $section ?? 'home'; // Default section if not provided
 
     $isCompany = in_array($section, [
         'company','company-ceo','company-identity',
