@@ -60,7 +60,7 @@ php artisan db:seed --force --class=EnrichedNewsSeeder || echo "Seeder déjà ex
 
 # Sync database from local dump (for production parity)
 echo "🔄 Synchronisation des données locales..."
-php artisan db:seed --force --class=SyncDatabaseSeeder || echo "Sync seeder non exécuté"
+php artisan db:seed --force --class=RobustSyncSeeder || echo "Sync seeder non exécuté"
 
 echo "✅ Déploiement terminé !
 🔗 Admin: ${APP_URL}/gestion-nm
