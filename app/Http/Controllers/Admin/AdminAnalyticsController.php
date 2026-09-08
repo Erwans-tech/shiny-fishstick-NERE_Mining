@@ -43,6 +43,11 @@ class AdminAnalyticsController extends Controller
         // Période sélectionnée (par défaut : 30 derniers jours)
         $days = (int) request('days', 30);
         $days = in_array($days, [7, 30, 90, 365], true) ? $days : 30;
+        
+        // Filtres optionnels
+        $pageFilter = request('page', '');
+        $deviceFilter = request('device', '');
+        
         $startDate = now()->subDays($days);
 
         // ═══ STATISTIQUES GLOBALES ═══════════════════════════════════
@@ -76,6 +81,56 @@ class AdminAnalyticsController extends Controller
 
         // Pages par visite (moyenne)
         $avgPagesPerVisit = $uniqueVisitors > 0 ? round($totalVisits / $uniqueVisitors, 1) : 0;
+
+        // ═══ NOUVELLES MÉTRIQUES D'ENGAGEMENT ════════════════════════
+
+        // Taux de rebond par rapport à la période précédente
+        $previousSinglePageVisitors = SiteAnalytics::select('ip_address')
+            ->whereBetween('visited_at', [
+                $startDate->copy()->subDays($days),
+                $startDate,
+            ])
+            ->groupBy('ip_address')
+            ->havingRaw('COUNT(*) = 1')
+            ->count();
+        $previousUniqueVisitors = SiteAnalytics::whereBetween('visited_at', [
+            $startDate->copy()->subDays($days),
+            $startDate,
+        ])->distinct('ip_address')->count('ip_address');
+        $previousBounceRate = $previousUniqueVisitors > 0 ? round(($previousSinglePageVisitors / $previousUniqueVisitors) * 100) : 0;
+        $bounceRateChange = $previousBounceRate > 0 ? $bounceRate - $previousBounceRate : null;
+
+        // Temps d'engagement moyen (en secondes)
+        $engagementTime = 0;
+        if ($uniqueVisitors > 0) {
+            $avgVisitDuration = SiteAnalytics::where('visited_at', '>=', $startDate)
+                ->selectRaw('AVG(EXTRACT(EPOCH FROM (visited_at - LAG(visited_at) OVER (PARTITION BY ip_address ORDER BY visited_at)))) as avg_duration')
+                ->value('avg_duration');
+            $engagementTime = max(0, round($avgVisitDuration ?? 0));
+        }
+
+        // Visites récurrentes (visiteurs qui reviennent)
+        $recurringVisitors = SiteAnalytics::where('visited_at', '>=', $startDate)
+            ->select('ip_address')
+            ->groupBy('ip_address')
+            ->havingRaw('COUNT(*) > 1')
+            ->count();
+        $recurringRate = $uniqueVisitors > 0 ? round(($recurringVisitors / $uniqueVisitors) * 100) : 0;
+
+        // Pages vues totales
+        $totalPageViews = $totalVisits;
+
+        // Visites en croissance cette semaine vs semaine précédente
+        $thisWeekVisits = SiteAnalytics::where('visited_at', '>=', now()->startOfWeek())
+            ->where('visited_at', '<', now()->endOfWeek())
+            ->count();
+        $lastWeekVisits = SiteAnalytics::whereBetween('visited_at', [
+            now()->subWeek()->startOfWeek(),
+            now()->subWeek()->endOfWeek(),
+        ])->count();
+        $weeklyChange = $lastWeekVisits > 0
+            ? round((($thisWeekVisits - $lastWeekVisits) / $lastWeekVisits) * 100)
+            : null;
 
         // ═══ GRAPHIQUE DES VISITES (période sélectionnée) ══════════
 
@@ -194,13 +249,23 @@ class AdminAnalyticsController extends Controller
             'uniqueVisitors',
             'visitsToday',
             'bounceRate',
+            'bounceRateChange',
             'avgPagesPerVisit',
             'visitsByDay',
             'topPages',
             'devices',
             'referrers',
             'peakHours',
-            'days'
+            'days',
+            'engagementTime',
+            'recurringVisitors',
+            'recurringRate',
+            'totalPageViews',
+            'thisWeekVisits',
+            'lastWeekVisits',
+            'weeklyChange',
+            'pageFilter',
+            'deviceFilter'
         ));
     }
 
@@ -208,23 +273,50 @@ class AdminAnalyticsController extends Controller
     {
         $days = (int) $request->input('days', 30);
         $days = in_array($days, [7, 30, 90, 365], true) ? $days : 30;
+        $format = $request->input('format', 'csv'); // csv ou json
         $startDate = now()->subDays($days);
+        
         $rows = SiteAnalytics::where('visited_at', '>=', $startDate)
             ->latest('visited_at')
             ->get(['visited_at', 'page_url', 'referrer', 'device_type', 'country']);
 
+        if ($format === 'json') {
+            return response()->json([
+                'export_date' => now()->toIso8601String(),
+                'period_days' => $days,
+                'total_records' => $rows->count(),
+                'data' => $rows->map(function ($row) {
+                    return [
+                        'date' => $row->visited_at?->format('Y-m-d H:i:s'),
+                        'page' => $row->page_url,
+                        'source' => $row->referrer ?: 'Direct',
+                        'device' => $row->device_type ?: 'Unknown',
+                        'country' => $row->country ?: 'Unknown',
+                    ];
+                })
+            ], 200, [
+                'Content-Disposition' => 'attachment; filename="nere-mining-statistiques-' . $days . 'j.json"',
+            ]);
+        }
+
+        // CSV export (par défaut)
         return response()->streamDownload(function () use ($rows): void {
             $output = fopen('php://output', 'w');
-            fputcsv($output, ['Date', 'Page', 'Source', 'Appareil', 'Pays']);
+            
+            // BOM for UTF-8 in Excel
+            fprintf($output, chr(0xEF) . chr(0xBB) . chr(0xBF));
+            
+            // En-têtes
+            fputcsv($output, ['Date', 'Page', 'Source', 'Appareil', 'Pays'], ';');
 
             foreach ($rows as $row) {
                 fputcsv($output, [
-                    $row->visited_at?->format('Y-m-d H:i:s'),
-                    $row->page_url,
+                    $row->visited_at?->format('Y-m-d H:i:s') ?: '',
+                    $row->page_url ?: '',
                     $row->referrer ?: 'Direct',
                     $row->device_type ?: 'Inconnu',
                     $row->country ?: 'Inconnu',
-                ]);
+                ], ';');
             }
 
             fclose($output);
