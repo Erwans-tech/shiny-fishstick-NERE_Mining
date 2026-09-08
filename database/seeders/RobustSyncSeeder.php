@@ -69,7 +69,15 @@ Riverstone Karma SA réaffirme son engagement à promouvoir une exploitation min
             'updated_at' => '2026-09-08 07:55:04',
             'content' => 'Parmi les entreprises présentes au Forum Mines 2026 figure Riverstone Karma SA, détenue par la société Néré Mining. Elle est venue réaffirmer son engagement en matière de santé, de sécurité et d\'environnement (HSE). Pour elle, cette participation constitue une occasion privilégiée de partager les expériences du secteur et de renforcer les bonnes pratiques.
 
-Selon Esaie Sawadogo, chargé de santé et sécurité à Riverstone Karma, la présence de l\'entreprise à cette édition s\'inscrit dans une volonté de contribuer activement aux réflexions sur les enjeux du secteur. «La santé et la sécurité constituent un pilier essentiel au bon fonctionnement d\'une industrie, particulièrement dans le secteur minier. Il était de notre devoir de prendre part à cette rencontre afin d\'échanger sur les défis à relever et de contribuer au renforcement de la culture santé-sécurité », a-t-il expliqué.',
+Selon Esaie Sawadogo, chargé de santé et sécurité à Riverstone Karma, la présence de l\'entreprise à cette édition s\'inscrit dans une volonté de contribuer activement aux réflexions sur les enjeux du secteur. «La santé et la sécurité constituent un pilier essentiel au bon fonctionnement d\'une industrie, particulièrement dans le secteur minier. Il était de notre devoir de prendre part à cette rencontre afin d\'échanger sur les défis à relever et de contribuer au renforcement de la culture santé-sécurité », a-t-il expliqué.
+
+Après avoir acquis la mine de Karma en 2022, Néré Mining se distingue comme la première société minière de droit burkinabé, détenue par des actionnaires majoritairement nationaux. En participant au forum, l\'entreprise met également en lumière ses projets à travers un stand d\'exposition ouvert aux visiteurs. Les représentants de Néré Mining ont également pris part à plusieurs panels consacrés aux questions de santé, de sécurité et d\'environnement. Ces échanges ont permis de découvrir les expériences d\'autres sociétés minières ainsi que les évolutions des textes réglementaires en vigueur dans le domaine du HSE.
+
+« Nous repartons satisfaits de ces échanges. Les expériences partagées et les conseils reçus nous permettront d\'améliorer davantage nos pratiques afin de garantir un environnement de travail toujours plus sûr », a confié M. Sawadogo.
+
+À l\'endroit des acteurs du secteur et des entreprises burkinabè, il a lancé un appel à faire de la santé et de la sécurité une priorité. « Le capital humain demeure la première richesse de toute entreprise. Il est indispensable de mettre en place un système HSE efficace afin d\'offrir aux travailleurs des conditions de travail sûres et favorables à leur productivité », a-t-il conclu.
+
+À travers cette participation, Néré Mining confirme sa volonté de promouvoir une culture de prévention et d\'amélioration continue, en cohérence avec les objectifs du Forum Mines 2026 pour un secteur minier plus performant, plus responsable et plus sûr.',
             'slug' => 'forum-mines-2026-nere-mining-reaffirme-son-engagement-en-faveur-des-pratiques-durables-dans-lexploitation-miniere',
             'gallery_images' => null,
         ]);
@@ -84,7 +92,21 @@ Selon Esaie Sawadogo, chargé de santé et sécurité à Riverstone Karma, la pr
             'created_at' => '2026-09-07 13:52:26',
             'updated_at' => '2026-09-08 07:54:05',
             'content' => 'MOT DU PARRAIN
-Je voudrais exprimer mes vifs remerciements à l\'endroit du Gouvernement du Burkina Faso pour le choix porté sur ma modeste personne pour parrainer cette 6 ème édition de la SAMAO.',
+
+Je voudrais exprimer mes vifs remerciements à l\'endroit du Gouvernement du Burkina Faso pour le choix porté sur ma modeste personne pour parrainer cette 6ème édition de la SAMAO.
+
+Le thème de cette rencontre « Les minéraux critiques : Quelles stratégies de développement pour les pays africains ? » est d\'un intérêt stratégique pour « réaliser l\'Afrique que nous voulons, c\'est à dire une Afrique qui compte et qui gagne».
+
+Des premières Journées de Promotion des activités minières (PROMIN en 1995) à la SAMAO 2024, que de chemin parcouru !!!! Quel engagement soutenu et quelle belle détermination du Gouvernement, des acteurs privés, de la société civile et des Partenaires techniques et financiers, à faire du secteur minier, un puissant levier de développement économique et social de nos chers pays !!!
+
+Notre vision, notre ambition et notre engagement dans le secteur minier est d\'en faire un véritable accélérateur de l\'industrialisation de notre continent et de créer des chaines de valeurs par une approche intégrée basée sur la diversification et le développement de son incommensurable potentiel géologique, la valeur de ses ressources humaines, la création de richesses et le soutien aux petites et moyennes entreprises, en vue de leur insertion dans l\'économie minière.
+
+Les thématiques abordées durant ces trois jours à l\'ère de la transition énergétique constituent autant de défis qu\'il nous faut relever ensemble, si nous voulons faire de l\'Afrique le Continent de l\'avenir. Certes, beaucoup a été fait mais beaucoup reste encore à parfaire. Et comme une termitière vivante, ajoutons toujours de la terre à la terre.
+
+Je terminerai enfin, en souhaitant plein succès à la SAMAO 2024 et en félicitant toutes les parties prenantes dans l\'Organisation de cet important évènement continental qui démontre une fois de plus le rôle prépondérant de notre cher pays dans le concert des plus grandes nations minières.
+
+NAAABA BAOOGO DE GOURCY
+PDG de NERE MINING SA',
             'slug' => 'semaine-des-activites-minieres-de-lafrique-de-louest',
             'gallery_images' => null,
         ]);
