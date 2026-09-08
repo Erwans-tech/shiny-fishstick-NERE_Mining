@@ -58,6 +58,10 @@ php artisan admin:create --email="$ADMIN_EMAIL" --password="$ADMIN_PASSWORD" || 
 echo "🌱 Initialisation des données..."
 php artisan db:seed --force --class=EnrichedNewsSeeder || echo "Seeder déjà exécuté ou erreur"
 
+# Sync database from local dump (for production parity)
+echo "🔄 Synchronisation des données locales..."
+php artisan db:seed --force --class=SyncDatabaseSeeder || echo "Sync seeder non exécuté"
+
 echo "✅ Déploiement terminé !
 🔗 Admin: ${APP_URL}/gestion-nm
 📧 Email: ${ADMIN_EMAIL}
