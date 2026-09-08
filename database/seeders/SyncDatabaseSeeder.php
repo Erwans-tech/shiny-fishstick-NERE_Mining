@@ -23,6 +23,9 @@ class SyncDatabaseSeeder extends Seeder
 
         $sql = file_get_contents($sqlFile);
         
+        // Convert MySQL backticks to PostgreSQL double quotes
+        $sql = str_replace('`', '"', $sql);
+        
         // Split into individual statements and execute
         $statements = array_filter(
             array_map('trim', explode(';', $sql)),
