@@ -28,6 +28,8 @@ class StorageHelper
             return asset($path);
         }
 
-        return Storage::disk(config('filesystems.default'))->url($path);
+        // Toujours utiliser asset() pour les fichiers uploads car ils sont versionés dans Git
+        // Exemple: partners/xxx.jpg → /uploads/partners/xxx.jpg
+        return asset('uploads/' . $path);
     }
 }
