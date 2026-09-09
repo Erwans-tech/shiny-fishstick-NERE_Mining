@@ -8,8 +8,9 @@
     $contactUrl = $en ? route('english.contact') : route('contact');
 ?>
 
-<?php if (! $__env->hasRenderedOnce('518bf1a2-2fe4-4235-a460-a43ef2364ad3')): $__env->markAsRenderedOnce('518bf1a2-2fe4-4235-a460-a43ef2364ad3'); ?>
+<?php if (! $__env->hasRenderedOnce('35268262-5cd7-4285-95a9-acb0bcd1305f')): $__env->markAsRenderedOnce('35268262-5cd7-4285-95a9-acb0bcd1305f'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/text-fixes.css')); ?>?v=<?php echo e(filemtime(public_path('css/text-fixes.css'))); ?>">
 <?php endif; ?>
 
 <header class="site-header">
@@ -26,10 +27,18 @@
         </button>
 
         <nav class="site-nav" data-site-nav>
+            <span class="site-nav__item site-nav__item--home">
+                <a class="site-nav__link <?php echo e($sec === 'home' ? 'is-active' : ''); ?>"
+                   href="<?php echo e($en ? route('english') : url('/')); ?>">
+                    <?php echo e(__('site.home_link')); ?>
+
+                </a>
+            </span>
+
             <span class="site-nav__item" data-dropdown>
                 <a class="site-nav__link <?php echo e($isCompany ? 'is-active' : ''); ?>"
                    href="<?php echo e($en ? route('english.company') : route('company')); ?>">
-                    <?php echo e(__('site.nav_company')); ?>
+                    <?php echo e(strtolower(__('site.nav_company'))); ?>
 
                     <span class="site-nav__caret" aria-hidden="true"></span>
                 </a>
@@ -59,14 +68,14 @@
                               class="<?php echo e($sec === 'karma' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Overview' : 'Présentation'); ?></a>
                           <a href="<?php echo e($en ? route('english.karma.exploitation') : route('karma.exploitation')); ?>"
                               class="<?php echo e($sec === 'karma-exploitation' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Operations' : 'Exploitation'); ?></a>
+                        <a href="<?php echo e($en ? route('english.karma.resources') : route('karma.resources')); ?>"
+                              class="<?php echo e(in_array($sec, ['resources','reserves','karma-resources-reserves']) ? 'is-current' : ''); ?>"><?php echo e($en ? 'Resources & reserves' : 'Ressources & réserves'); ?></a>
                           <a href="<?php echo e($en ? route('english.karma.organisation') : route('karma.organisation')); ?>"
                               class="<?php echo e($sec === 'karma-organisation' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Organisation' : 'Organisation'); ?></a>
                           <a href="<?php echo e($en ? route('english.karma.modele') : route('karma.modele')); ?>"
                               class="<?php echo e($sec === 'karma-modele' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Operating model' : 'Modèle opérationnel'); ?></a>
                           <a href="<?php echo e($en ? route('english.karma.impact') : route('karma.impact')); ?>"
                               class="<?php echo e($sec === 'karma-impact' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Impact' : 'Impact'); ?></a>
-                        <a href="<?php echo e($en ? route('english.karma.resources') : route('karma.resources')); ?>"
-                              class="<?php echo e(in_array($sec, ['resources','reserves','karma-resources-reserves']) ? 'is-current' : ''); ?>"><?php echo e($en ? 'Resources & reserves' : 'Ressources & réserves'); ?></a>
                 </div>
             </span>
 

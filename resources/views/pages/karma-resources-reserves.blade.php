@@ -51,7 +51,7 @@
 <div class="rr-page">
     <section class="rr-intro">
         <div>
-            <h2>{{ $en ? 'Karma mineral resources and reserves' : 'Ressources et réserves minérales de Karma' }}</h2>
+            
             <p class="lead">{{ $en ? 'A consolidated view of the deposits, resources and reserves that support the development of the Karma mining complex.' : 'Une vue consolidée des gisements, ressources et réserves qui soutiennent le développement du complexe minier de Karma.' }}</p>
             <p class="rr-note">{{ $en ? 'The figures presented follow the available project documentation and the JORC reporting framework. They are provided for information and remain subject to technical updates.' : 'Les chiffres présentés suivent la documentation disponible du projet et le référentiel de déclaration JORC. Ils sont communiqués à titre informatif et restent susceptibles d’être actualisés selon les études techniques.' }}</p>
         </div>
@@ -61,7 +61,7 @@
     </section>
 
     <section class="rr-section rr-section--sand">
-        <div class="rr-heading"><h2>{{ $en ? 'Key figures' : 'Chiffres clés' }}</h2><p>{{ $en ? 'Main resource and reserve indicators for the Karma project.' : 'Principaux indicateurs de ressources et de réserves du projet Karma.' }}</p></div>
+        <div class="rr-heading"><p>{{ $en ? 'Main resource and reserve indicators for the Karma project.' : 'Principaux indicateurs de ressources et de réserves du projet Karma.' }}</p></div>
         <div class="rr-kpis">
             <div class="rr-kpi"><strong>6 638 Koz</strong><span>{{ $en ? 'P&P resources · 0.97 g/t Au' : 'Ressources P&P · 0,97 g/t Au' }}</span></div>
             <div class="rr-kpi"><strong>87 528 Koz</strong><span>{{ $en ? 'M&I resources · 0.93 g/t Au' : 'Ressources M&I · 0,93 g/t Au' }}</span></div>
@@ -71,7 +71,7 @@
     </section>
 
     <section class="rr-section">
-        <div class="rr-heading"><h2>{{ $en ? 'Resources by deposit' : 'Ressources par gisement' }}</h2><p>{{ $en ? 'Classification according to the JORC reporting framework.' : 'Classification selon le référentiel de déclaration JORC.' }}</p></div>
+        <div class="rr-heading"><p>{{ $en ? 'Classification according to the JORC reporting framework.' : 'Classification selon le référentiel de déclaration JORC.' }}</p></div>
         <div class="rr-table-wrap"><table class="rr-table"><thead><tr><th>{{ $en ? 'Deposit' : 'Gisement' }}</th><th>{{ $en ? 'Type' : 'Type' }}</th><th>{{ $en ? 'Tonnage (Kt)' : 'Tonnage (Kt)' }}</th><th>{{ $en ? 'Grade (g/t)' : 'Teneur (g/t)' }}</th><th>{{ $en ? 'Gold (Koz)' : 'Or (Koz)' }}</th></tr></thead><tbody>
             @foreach([
                 ['Nami',$en?'Oxide':'Oxydé','1,633','0.82','15.2'],['GG1',$en?'Mixed':'Mixte','5,888','1.00','36.3'],['GG2',$en?'Sulfide':'Sulfuré','5,320','1.65','59.8'],['Kao',$en?'Mixed':'Mixte','3,156','0.95','27.1'],['Goulagou',$en?'Oxide':'Oxydé','1,641','0.78','11.2']
@@ -84,7 +84,7 @@
     </section>
 
     <section class="rr-section rr-section--sand">
-        <div class="rr-heading"><h2>{{ $en ? 'Probable reserves' : 'Réserves probables' }}</h2><p>{{ $en ? 'Economically extractable reserves with proven mining viability.' : 'Réserves économiquement exploitables avec une viabilité minière établie.' }}</p></div>
+        <div class="rr-heading"><p>{{ $en ? 'Economically extractable reserves with proven mining viability.' : 'Réserves économiquement exploitables avec une viabilité minière établie.' }}</p></div>
         <div class="rr-columns">
             <div class="rr-card"><h3>{{ $en ? 'By deposit' : 'Par gisement' }}</h3><ul><li>GG1 : 662 Kt, 0.70 g/t, 15 Koz</li><li>Kao Nord : 4 031 Kt, 1.14 g/t, 148 Koz</li><li>Yabonsgo : 297 Kt, 1.57 g/t, 15 Koz</li><li>Nami : 896 Kt, 0.76 g/t, 22 Koz</li><li><strong>Total : 5 886 Kt, 1.06 g/t, 200 Koz</strong></li></ul></div>
             <figure class="rr-card"><button class="rr-zoom-button" type="button" data-rr-image="{{ asset('images/mining/reserves-table.jpg') }}" data-rr-alt="{{ $en ? 'Probable reserves table' : 'Tableau des réserves probables' }}" data-rr-caption="{{ $en ? 'Probable reserves by deposit, split by oxide, transition and sulphide material.' : 'Réserves probables par gisement, ventilées entre minerai oxydé, de transition et sulfuré.' }}"><img src="{{ asset('images/mining/reserves-table.jpg') }}" alt="{{ $en ? 'Probable reserves table' : 'Tableau des réserves probables' }}" loading="lazy" style="display:block;width:100%;max-height:300px;object-fit:contain;"></button><p style="margin-top:12px;text-align:center;">{{ $en ? 'Probable reserves by deposit.' : 'Réserves probables par gisement.' }}</p></figure>
@@ -92,7 +92,7 @@
     </section>
 
     <section class="rr-section">
-        <div class="rr-heading"><h2>{{ $en ? 'Measured, indicated and inferred resources' : 'Ressources mesurées, indiquées et inférées' }}</h2><p>{{ $en ? 'The geological confidence level guides how each resource category is interpreted and developed.' : 'Le niveau de confiance géologique guide l’interprétation et le développement de chaque catégorie de ressources.' }}</p></div>
+        <div class="rr-heading"><p>{{ $en ? 'The geological confidence level guides how each resource category is interpreted and developed.' : 'Le niveau de confiance géologique guide l’interprétation et le développement de chaque catégorie de ressources.' }}</p></div>
         <div class="rr-columns">
             <div class="rr-card"><h3>{{ $en ? 'Measured and indicated' : 'Mesurées et indiquées' }}</h3><p>{{ $en ? 'These resources benefit from established geological continuity and drilling data across the principal deposits.' : 'Ces ressources bénéficient d’une continuité géologique établie et de données de forage sur les principaux gisements.' }}</p><ul><li>Kao Main : 26 901 Kt à 0,84 g/t</li><li>GG2 : 14 316 Kt à 1,31 g/t</li><li>Kao Nord : 12 024 Kt à 1,16 g/t</li><li>GG1 : 4 971 Kt à 0,72 g/t</li></ul></div>
             <div class="rr-card"><h3>{{ $en ? 'Inferred resources' : 'Ressources inférées' }}</h3><p>{{ $en ? 'Estimated from more limited geological evidence, these resources may evolve as exploration and development continue.' : 'Estimées à partir de données géologiques plus limitées, ces ressources peuvent évoluer avec la poursuite de l’exploration et du développement.' }}</p><div class="rr-kpis" style="margin-top:18px;grid-template-columns:repeat(3,1fr);"><div class="rr-kpi"><strong>18 103</strong><span>Kt</span></div><div class="rr-kpi"><strong>1.25</strong><span>g/t</span></div><div class="rr-kpi"><strong>725</strong><span>Koz</span></div></div></div>
@@ -100,7 +100,7 @@
     </section>
 
     <section class="rr-section rr-section--sand">
-        <div class="rr-heading"><h2>{{ $en ? 'Technical overview' : 'Aperçu technique' }}</h2><p>{{ $en ? 'Maps and reference documents supporting the resource and reserve overview.' : 'Cartes et documents de référence qui accompagnent la synthèse des ressources et réserves.' }}</p></div>
+        <div class="rr-heading"><p>{{ $en ? 'Maps and reference documents supporting the resource and reserve overview.' : 'Cartes et documents de référence qui accompagnent la synthèse des ressources et réserves.' }}</p></div>
         <div class="rr-gallery"><figure><button class="rr-zoom-button" type="button" data-rr-image="{{ asset('images/resources/resources-reserves-2025.jpg') }}" data-rr-alt="{{ $en ? 'Karma resources and reserves' : 'Ressources et réserves de Karma' }}" data-rr-caption="{{ $en ? 'Consolidated resources and reserves map dated 25 April 2025, with deposit-level P&P, M&I and inferred figures.' : 'Carte consolidée des ressources et réserves datée du 25 avril 2025, avec les chiffres P&P, M&I et inférés par gisement.' }}"><img src="{{ asset('images/resources/resources-reserves-2025.jpg') }}" alt="{{ $en ? 'Karma resources and reserves' : 'Ressources et réserves de Karma' }}" loading="lazy"></button><figcaption>{{ $en ? 'Resources and reserves overview' : 'Vue d’ensemble des ressources et réserves' }}</figcaption></figure><figure><button class="rr-zoom-button" type="button" data-rr-image="{{ asset('images/mining/reserves-chart.jpg') }}" data-rr-alt="{{ $en ? 'Measured and indicated resources' : 'Ressources mesurées et indiquées' }}" data-rr-caption="{{ $en ? 'The table totals 96,320 Kt at 0.92 g/t Au and 2,841 Koz for measured and indicated resources.' : 'Le tableau totalise 96 320 Kt à 0,92 g/t Au et 2 841 Koz pour les ressources mesurées et indiquées.' }}"><img src="{{ asset('images/mining/reserves-chart.jpg') }}" alt="{{ $en ? 'Measured and indicated resources' : 'Ressources mesurées et indiquées' }}" loading="lazy"></button><figcaption>{{ $en ? 'Measured and indicated resources' : 'Ressources mesurées et indiquées' }}</figcaption></figure><figure><button class="rr-zoom-button" type="button" data-rr-image="{{ asset('images/resources/licenses-map.jpg') }}" data-rr-alt="{{ $en ? 'Karma licenses map' : 'Carte des permis de Karma' }}" data-rr-caption="{{ $en ? 'License map showing the Karma exploitation permit and surrounding exploration holdings and deposits.' : 'Carte des permis montrant le permis d’exploitation de Karma, les titres d’exploration voisins et les gisements.' }}"><img src="{{ asset('images/resources/licenses-map.jpg') }}" alt="{{ $en ? 'Karma licenses map' : 'Carte des permis de Karma' }}" loading="lazy"></button><figcaption>{{ $en ? 'Licenses and exploration area' : 'Permis et zone d’exploration' }}</figcaption></figure></div>
     </section>
 

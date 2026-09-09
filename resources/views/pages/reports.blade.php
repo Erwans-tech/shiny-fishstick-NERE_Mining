@@ -12,7 +12,7 @@
 </style>
 
 <section>
-    <h2 style="color:var(--green); margin:0 0 18px; font-size:28px; font-weight:600;">{{ $en ? 'All Reports & Documents' : 'Tous les Rapports & Documents' }}</h2>
+    
     <p class="lead">{{ __('site.reports_lead', [], $loc) }}</p>
 
     <div class="grid-3">

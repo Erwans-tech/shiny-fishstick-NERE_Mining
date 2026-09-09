@@ -51,7 +51,7 @@
 
     <div class="leadership-section">
         <div class="leadership-intro">
-            <h2>{{ $en ? 'Our leadership team' : 'Notre équipe de direction' }}</h2>
+            
             <p>{{ $en ? 'Meet the leaders who guide Néré Mining and its commitments to the territory.' : 'Découvrez les dirigeants qui portent la vision de Néré Mining et ses engagements pour le territoire.' }}</p>
         </div>
         @foreach($leadershipLevels as $level => $levelMembers)

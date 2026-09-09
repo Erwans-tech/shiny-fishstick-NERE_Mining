@@ -1,14 +1,14 @@
-@php
+<?php
     $loc = $locale ?? 'fr';
     $en = $loc === 'en';
-@endphp
+?>
 <!DOCTYPE html>
-<html lang="{{ $locale ?? 'fr' }}">
+<html lang="<?php echo e($locale ?? 'fr'); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ __('site.'.$section.'_h1') }} | Néré Mining</title>
-    <meta name="description" content="{{ __('site.'.$section.'_lead') }}">
+    <title><?php echo e(__('site.'.$section.'_h1')); ?> | Néré Mining</title>
+    <meta name="description" content="<?php echo e(__('site.'.$section.'_lead')); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -46,7 +46,7 @@
         .menu-btn { display:none; border:1px solid rgba(255,255,255,.4); background:none; color:#fff; padding:8px 14px; font:600 11px Inter,sans-serif; letter-spacing:.08em; cursor:pointer; border-radius:4px; }
 
         /* ── Masthead ── */
-        .masthead { padding:100px 5vw 80px; color:white; background:linear-gradient(100deg,rgba(75,23,22,.96) 45%,rgba(75,23,22,.55)),url('{{ asset('images/mining/karma-02.jpg') }}') center/cover; }
+        .masthead { padding:100px 5vw 80px; color:white; background:linear-gradient(100deg,rgba(75,23,22,.96) 45%,rgba(75,23,22,.55)),url('<?php echo e(asset('images/mining/karma-02.jpg')); ?>') center/cover; }
         .eyebrow { color:var(--gold); font:600 11px Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; margin-bottom:14px; }
         h1 { max-width:800px; font-size:clamp(40px,6vw,76px); line-height:.97; font-weight:400; color:#fff; }
         .breadcrumb { margin-top:20px; font:12px Inter,sans-serif; color:rgba(255,255,255,.6); }
@@ -155,110 +155,116 @@
     </style>
 </head>
 <body>
-    @include('partials._nav', ['locale' => $locale ?? 'fr', 'section' => $section])
+    <?php echo $__env->make('partials._nav', ['locale' => $locale ?? 'fr', 'section' => $section], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <div class="masthead">
-        <h1>{{ __('site.'.$section.'_h1') }}</h1>
+        <h1><?php echo e(__('site.'.$section.'_h1')); ?></h1>
+        <div class="breadcrumb">
+            <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link')); ?></a> ›
+            <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.nav_news')); ?></a>
+            › <?php echo e(__('site.'.$section.'_breadcrumb')); ?>
+
+        </div>
     </div>
 
     <main>
-        @if(session('success'))
-            <section><p class="lead" style="color:#31501f; background:#e7f0d7; padding:16px 20px; border-radius:4px;">{{ session('success') }}</p></section>
-        @endif
+        <?php if(session('success')): ?>
+            <section><p class="lead" style="color:#31501f; background:#e7f0d7; padding:16px 20px; border-radius:4px;"><?php echo e(session('success')); ?></p></section>
+        <?php endif; ?>
 
-        {{-- Sub-nav commun à toutes les pages Actualités & Médias --}}
+        
         <section style="padding-bottom:0;">
         </section>
 
-        @if(view()->exists('resources.' . $section))
-            @include('resources.' . $section)
-        @else
-        @if($section === 'partners')
+        <?php if(view()->exists('resources.' . $section)): ?>
+            <?php echo $__env->make('resources.' . $section, array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+        <?php else: ?>
+        <?php if($section === 'partners'): ?>
         <section>
-            <p class="lead">{{ $en ? 'Our institutional and technical partners contribute to mining development rooted in Burkina Faso\'s priorities.' : 'Nos partenaires institutionnels et techniques contribuent à un développement minier ancré dans les priorités du Burkina Faso.' }}</p>
+            <p class="lead"><?php echo e($en ? 'Our institutional and technical partners contribute to mining development rooted in Burkina Faso\'s priorities.' : 'Nos partenaires institutionnels et techniques contribuent à un développement minier ancré dans les priorités du Burkina Faso.'); ?></p>
             <div class="grid-3">
-                @forelse($partners as $partner)
+                <?php $__empty_1 = true; $__currentLoopData = $partners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $partner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                 <article class="card">
-                    <div class="card-tag">{{ $partner->category ?? ($en ? 'Partner' : 'Partenaire') }}</div>
-                    <h3>{{ $partner->name }}</h3>
-                    <p>{{ $en ? 'Institutional partner of Néré Mining.' : 'Partenaire institutionnel de Néré Mining.' }}</p>
-                    @if($partner->website_url)
-                        <a class="btn btn-gold" style="margin-top:16px;" href="{{ $partner->website_url }}" target="_blank" rel="noopener">{{ $en ? 'Visit website' : 'Voir le site' }}</a>
-                    @endif
+                    <div class="card-tag"><?php echo e($partner->category ?? ($en ? 'Partner' : 'Partenaire')); ?></div>
+                    <h3><?php echo e($partner->name); ?></h3>
+                    <p><?php echo e($en ? 'Institutional partner of Néré Mining.' : 'Partenaire institutionnel de Néré Mining.'); ?></p>
+                    <?php if($partner->website_url): ?>
+                        <a class="btn btn-gold" style="margin-top:16px;" href="<?php echo e($partner->website_url); ?>" target="_blank" rel="noopener"><?php echo e($en ? 'Visit website' : 'Voir le site'); ?></a>
+                    <?php endif; ?>
                 </article>
-                @empty
-                <p class="lead" style="grid-column:span 3;">{{ $en ? 'Partners will be published shortly.' : 'Les partenaires seront publiés prochainement.' }}</p>
-                @endforelse
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                <p class="lead" style="grid-column:span 3;"><?php echo e($en ? 'Partners will be published shortly.' : 'Les partenaires seront publiés prochainement.'); ?></p>
+                <?php endif; ?>
             </div>
         </section>
 
-        @elseif($section === 'gallery')
+        <?php elseif($section === 'gallery'): ?>
         <section>
-            <p class="lead">{{ __('site.gallery_lead') }}</p>
-            @if($media->isEmpty())
-                <p class="lead">{{ __('site.gallery_empty') }}</p>
-            @else
+            <p class="lead"><?php echo e(__('site.gallery_lead')); ?></p>
+            <?php if($media->isEmpty()): ?>
+                <p class="lead"><?php echo e(__('site.gallery_empty')); ?></p>
+            <?php else: ?>
                 <div class="gallery-grid">
-                    @foreach($media as $item)
+                    <?php $__currentLoopData = $media; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <figure class="gallery-item">
-                        @if($item->type === 'youtube')
-                            <a class="gallery-media" href="{{ $item->external_url }}" target="_blank" rel="noopener" aria-label="{{ $en ? 'View' : 'Voir' }} {{ $item->title }}"><img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}"><span class="gallery-play" aria-hidden="true">▶</span></a>
-                        @elseif($item->type === 'google_drive')
-                            <a class="gallery-media" href="{{ $item->external_url }}" target="_blank" rel="noopener" aria-label="Ouvrir {{ $item->title }}"><div style="height:100%;display:grid;place-items:center;color:#fff;font:600 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;">Google Drive ↗</div></a>
-                        @elseif($item->url)
-                            <a class="gallery-media" href="{{ $item->url }}" data-lightbox-src="{{ $item->url }}" data-lightbox-alt="{{ $item->title }}" aria-label="Agrandir {{ $item->title }}"><img src="{{ $item->url }}" alt="{{ $item->title }}"></a>
-                        @endif
+                        <?php if($item->type === 'youtube'): ?>
+                            <a class="gallery-media" href="<?php echo e($item->external_url); ?>" target="_blank" rel="noopener" aria-label="<?php echo e($en ? 'View' : 'Voir'); ?> <?php echo e($item->title); ?>"><img src="<?php echo e($item->thumbnail_url); ?>" alt="<?php echo e($item->title); ?>"><span class="gallery-play" aria-hidden="true">▶</span></a>
+                        <?php elseif($item->type === 'google_drive'): ?>
+                            <a class="gallery-media" href="<?php echo e($item->external_url); ?>" target="_blank" rel="noopener" aria-label="Ouvrir <?php echo e($item->title); ?>"><div style="height:100%;display:grid;place-items:center;color:#fff;font:600 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;">Google Drive ↗</div></a>
+                        <?php elseif($item->url): ?>
+                            <a class="gallery-media" href="<?php echo e($item->url); ?>" data-lightbox-src="<?php echo e($item->url); ?>" data-lightbox-alt="<?php echo e($item->title); ?>" aria-label="Agrandir <?php echo e($item->title); ?>"><img src="<?php echo e($item->url); ?>" alt="<?php echo e($item->title); ?>"></a>
+                        <?php endif; ?>
                         <figcaption class="gallery-caption">
-                            <h3>{{ $item->title }}</h3>
-                            @if($item->caption)<p>{{ $item->caption }}</p>@endif
+                            <h3><?php echo e($item->title); ?></h3>
+                            <?php if($item->caption): ?><p><?php echo e($item->caption); ?></p><?php endif; ?>
                         </figcaption>
                     </figure>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-            @endif
+            <?php endif; ?>
         </section>
 
-        @elseif($section === 'press')
+        <?php elseif($section === 'press'): ?>
         <section>
-            <p class="lead">{{ __('site.press_lead') }}</p>
+            <p class="lead"><?php echo e(__('site.press_lead')); ?></p>
             <div class="grid-3">
-                @forelse($documents as $document)
+                <?php $__empty_1 = true; $__currentLoopData = $documents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $document): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                 <article class="card">
-                    <div class="card-tag">{{ $document->document_type }}</div>
-                    <h3>{{ $document->title }}</h3>
-                    @if($document->description)<p>{{ $document->description }}</p>@endif
-                    @if($document->file_path)
-                        <a class="btn btn-gold" style="margin-top:16px; display:inline-block;" href="{{ asset($document->file_path) }}">{{ __('site.download_pdf') }}</a>
-                    @endif
+                    <div class="card-tag"><?php echo e($document->document_type); ?></div>
+                    <h3><?php echo e($document->title); ?></h3>
+                    <?php if($document->description): ?><p><?php echo e($document->description); ?></p><?php endif; ?>
+                    <?php if($document->file_path): ?>
+                        <a class="btn btn-gold" style="margin-top:16px; display:inline-block;" href="<?php echo e(asset($document->file_path)); ?>"><?php echo e(__('site.download_pdf')); ?></a>
+                    <?php endif; ?>
                 </article>
-                @empty
-                <p class="lead" style="grid-column:span 3;">{{ __('site.press_empty') }}</p>
-                @endforelse
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                <p class="lead" style="grid-column:span 3;"><?php echo e(__('site.press_empty')); ?></p>
+                <?php endif; ?>
             </div>
         </section>
-        @endif
-        @endif
+        <?php endif; ?>
+        <?php endif; ?>
 
-        {{-- Newsletter --}}
+        
         <section class="newsletter-section">
             <div class="newsletter-inner">
                 <div class="newsletter-copy">
-                    
-                    <p class="lead">{{ __('site.newsletter_lead') }}</p>
+                    <h2><?php echo e(__('site.newsletter_h2')); ?></h2>
+                    <p class="lead"><?php echo e(__('site.newsletter_lead')); ?></p>
                 </div>
-                <form class="newsletter-form" method="POST" action="{{ $en ? route('english.newsletter.store') : route('newsletter.store') }}">
-                    @csrf
-                    <input type="email" name="email" placeholder="{{ __('site.newsletter_email') }}" required>
-                    <button type="submit">{{ __('site.subscribe') }}</button>
+                <form class="newsletter-form" method="POST" action="<?php echo e($en ? route('english.newsletter.store') : route('newsletter.store')); ?>">
+                    <?php echo csrf_field(); ?>
+                    <input type="email" name="email" placeholder="<?php echo e(__('site.newsletter_email')); ?>" required>
+                    <button type="submit"><?php echo e(__('site.subscribe')); ?></button>
                 </form>
             </div>
         </section>
     </main>
 
-@include('partials._footer', ['loc' => $loc, 'en' => $en])
+<?php echo $__env->make('partials._footer', ['loc' => $loc, 'en' => $en], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie">
-        <button class="lightbox-close" type="button" aria-label="{{ $en ? 'Close' : 'Fermer' }}">&times;</button>
+        <button class="lightbox-close" type="button" aria-label="<?php echo e($en ? 'Close' : 'Fermer'); ?>">&times;</button>
         <img src="" alt="">
     </div>
 
@@ -293,3 +299,4 @@
     </script>
 </body>
 </html>
+<?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views/resources.blade.php ENDPATH**/ ?>

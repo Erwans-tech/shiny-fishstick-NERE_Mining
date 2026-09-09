@@ -55,7 +55,7 @@
     <div class="sa-wave-top"></div>
     <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ $en ? 'Documented Community Figures' : 'Repères documentés' }}</h2>
+            
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;">
                 {{ $en ? 'Verified figures from Karma mine community relations and development actions, covering 2014-2025.' : 'Données documentées sur les relations communautaires et les actions de développement de la mine de Karma, de 2014 à 2025.' }}
@@ -99,7 +99,7 @@
 <section class="sa-animated-section" style="padding:70px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ $en ? 'Our Initiatives' : 'Nos Initiatives' }}</h2>
+            
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;">
                 {{ $en ? 'Strategic programs addressing environmental, social and economic priorities.' : 'Programmes stratégiques adressant priorités environnementales, sociales et économiques.' }}

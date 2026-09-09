@@ -82,11 +82,6 @@
 
     <div class="masthead">
         <h1>{{ __('site.news_h1') }}</h1>
-        <div class="breadcrumb">
-            <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link') }}</a> ›
-            <a href="{{ $en ? route('english.news') : route('news.index') }}">{{ __('site.nav_news') }}</a>
-            › {{ __('site.news_breadcrumb') }}
-        </div>
     </div>
 
     <main>
@@ -107,7 +102,7 @@
                         @endif
                         <div class="news-body">
                             <div class="news-meta">{{ $item->category }} · {{ $item->published_at?->translatedFormat('d M Y') }}</div>
-                            <h2>{{ $item->title }}</h2>
+                            
                             @if($item->excerpt)<p>{{ $item->excerpt }}</p>@endif
                             <a class="news-link" href="{{ $en ? route('english.news.show', $item) : route('news.show', $item) }}">{{ __('site.read_more') }} <span style="display:inline-block; transition:transform .2s; font-size:14px; margin-left:4px;" class="sa-arrow-hover">→</span></a>
                         </div>

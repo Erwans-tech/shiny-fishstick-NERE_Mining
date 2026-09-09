@@ -12,7 +12,7 @@
     <div class="sa-particles-container" data-count="5"></div>
 
     <div class="sa-section-heading sa-reveal" style="margin:0 auto 24px; text-align:center;">
-        <h2 style="text-align:center;">{{ __('site.local_policy_h2', [], $loc) }}</h2>
+        
     </div>
     <p class="lead sa-reveal sa-delay-1">{{ __('site.local_policy_lead', [], $loc) }}</p>
 
@@ -60,7 +60,7 @@
     <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
 
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ $en ? 'Local Spending Impact' : 'Impact Dépenses Locales' }}</h2>
+            
             <div class="sa-divider"></div>
         </div>
 
@@ -103,7 +103,7 @@
 <section class="sa-animated-section" style="padding:70px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal" style="text-align:left; max-width:none;">
-            <h2 style="text-align:left;">{{ __('site.local_supplier_h2', [], $loc) }}</h2>
+            
         </div>
         <p class="lead sa-reveal sa-delay-1">{{ __('site.local_supplier_lead', [], $loc) }}</p>
 
@@ -125,7 +125,7 @@
     <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
 
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ $en ? 'Categories of Local Sourcing' : 'Catégories d\'Approvisionnement Local' }}</h2>
+            
             <div class="sa-divider"></div>
         </div>
 

@@ -68,11 +68,7 @@
 
     <div class="masthead">
         <h1>{{ __('site.reports_h1') }}</h1>
-        <div class="breadcrumb">
-            <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link') }}</a> ›
-            <a href="{{ $en ? route('english.news') : route('news.index') }}">{{ __('site.nav_news') }}</a>
-            › {{ __('site.reports_breadcrumb') }}
-        </div>
+
     </div>
 
     <main>

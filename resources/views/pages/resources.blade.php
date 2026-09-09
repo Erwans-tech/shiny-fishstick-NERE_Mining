@@ -35,7 +35,7 @@
 </section>
 
 <section class="sand">
-    <h2>{{ __('site.resources_figures_h2', [], $loc) }}</h2>
+    
     <p class="lead">{{ __('site.resources_figures_lead', [], $loc) }}</p>
     <div class="stat-band">
         <div class="stat-item"><span class="stat-value">6 638</span><span class="stat-label">{{ __('site.resources_pp_label', [], $loc) }}</span></div>
@@ -49,7 +49,7 @@
 {{-- Resource Breakdown by Deposit --}}
 <section style="padding:60px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
-        <h2 style="color:var(--green); margin-bottom:12px; font-size:36px; font-weight:600;">{{ $en ? 'Resource Classification (JORC)' : 'Classification Ressource (JORC)' }}</h2>
+        
         <p style="color:var(--muted); font-size:15px; line-height:1.8; margin-bottom:32px;">{{ $en ? 'Mineral resources classified according to international JORC Code standards.' : 'Ressources minérales classifiées selon standards JORC internationaux.' }}</p>
 
         <div style="overflow-x:auto;">
@@ -98,7 +98,7 @@
 </section>
 
 <section>
-    <h2>{{ __('site.resources_maps_h2', [], $loc) }}</h2>
+    
     <p class="lead">{{ __('site.resources_maps_lead', [], $loc) }}</p>
     <div class="resources-gallery">
         @foreach([

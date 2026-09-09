@@ -1,4 +1,4 @@
-@php
+<?php
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
     $slides = $slides ?? collect();
@@ -42,23 +42,24 @@
     $heroImages = $databaseHeroImages->isNotEmpty() ? $databaseHeroImages : $defaultHeroImages;
     $heroDuration = count($heroImages) * 5;
     $heroSlot = 100 / max(count($heroImages), 1);
-@endphp
+?>
 <!DOCTYPE html>
-<html lang="{{ $loc }}">
+<html lang="<?php echo e($loc); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
-    <title>Néré Mining  - {{ $en ? 'Gold with lasting value' : "L'or d'une valeur durable" }}</title>
-    <meta name="description" content="{{ $en
+    <link rel="icon" href="<?php echo e(asset('favicon.svg')); ?>" type="image/svg+xml">
+    <title>Néré Mining  - <?php echo e($en ? 'Gold with lasting value' : "L'or d'une valeur durable"); ?></title>
+    <meta name="description" content="<?php echo e($en
         ? 'Néré Mining, Burkinabe gold mining group committed to responsible mining at Karma.'
-        : 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.' }}">
-    <link rel="canonical" href="{{ $en ? url('/en') : url('/') }}">
-    {!! \App\Helpers\OpenGraphHelper::render('home', $loc, $en ? 'Néré Mining, Burkinabe gold mining group committed to responsible mining at Karma.' : 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.') !!}
+        : 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.'); ?>">
+    <link rel="canonical" href="<?php echo e($en ? url('/en') : url('/')); ?>">
+    <?php echo \App\Helpers\OpenGraphHelper::render('home', $loc, $en ? 'Néré Mining, Burkinabe gold mining group committed to responsible mining at Karma.' : 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.'); ?>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/chrome.css') }}?v={{ filemtime(public_path('css/chrome.css')) }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
     <style>
         :root {
             --ink:   #281d18;
@@ -147,31 +148,31 @@
             object-fit:cover;
             pointer-events:none;
         }
-        @foreach($heroImages as $index => $heroImage)
-        @php $bgUrl = is_array($heroImage) ? ($heroImage['url'] ?? '') : $heroImage; @endphp
-        .hero-slide:nth-child({{ $index + 1 }}) { background-image:url('{{ $bgUrl }}'); animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
-        .hero-slide-video:nth-child({{ $index + 1 }}) { animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
-        @keyframes heroSlide{{ $index }} {
-            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:scale(1.08); }
-            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:scale(1.02); }
-            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:scale(1.05); }
+        <?php $__currentLoopData = $heroImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $heroImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php $bgUrl = is_array($heroImage) ? ($heroImage['url'] ?? '') : $heroImage; ?>
+        .hero-slide:nth-child(<?php echo e($index + 1); ?>) { background-image:url('<?php echo e($bgUrl); ?>'); animation:heroSlide<?php echo e($index); ?> <?php echo e($heroDuration); ?>s infinite; }
+        .hero-slide-video:nth-child(<?php echo e($index + 1); ?>) { animation:heroSlide<?php echo e($index); ?> <?php echo e($heroDuration); ?>s infinite; }
+        @keyframes heroSlide<?php echo e($index); ?> {
+            0%,<?php echo e(max(0, $index * $heroSlot - 5)); ?>% { opacity:0; transform:scale(1.08); }
+            <?php echo e(max(0, $index * $heroSlot - 1)); ?>%,<?php echo e(min(100, ($index + 1) * $heroSlot - 5)); ?>% { opacity:1; transform:scale(1.02); }
+            <?php echo e(min(100, ($index + 1) * $heroSlot - 1)); ?>%,100% { opacity:0; transform:scale(1.05); }
         }
-        @keyframes heroCopySlide{{ $index }} {
-            @if($index % 3 === 0)
-            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:translateY(16px) scale(.98); }
-            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:translateY(0) scale(1); }
-            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:translateY(-8px) scale(1.01); }
-            @elseif($index % 3 === 1)
-            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:translateX(-24px) rotate(-1deg); }
-            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:translateX(0) rotate(0); }
-            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:translateX(18px) rotate(1deg); }
-            @else
-            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:scale(.9) translateY(8px); }
-            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:scale(1) translateY(0); }
-            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:scale(1.03) translateY(-6px); }
-            @endif
+        @keyframes heroCopySlide<?php echo e($index); ?> {
+            <?php if($index % 3 === 0): ?>
+            0%,<?php echo e(max(0, $index * $heroSlot - 5)); ?>% { opacity:0; transform:translateY(16px) scale(.98); }
+            <?php echo e(max(0, $index * $heroSlot - 1)); ?>%,<?php echo e(min(100, ($index + 1) * $heroSlot - 5)); ?>% { opacity:1; transform:translateY(0) scale(1); }
+            <?php echo e(min(100, ($index + 1) * $heroSlot - 1)); ?>%,100% { opacity:0; transform:translateY(-8px) scale(1.01); }
+            <?php elseif($index % 3 === 1): ?>
+            0%,<?php echo e(max(0, $index * $heroSlot - 5)); ?>% { opacity:0; transform:translateX(-24px) rotate(-1deg); }
+            <?php echo e(max(0, $index * $heroSlot - 1)); ?>%,<?php echo e(min(100, ($index + 1) * $heroSlot - 5)); ?>% { opacity:1; transform:translateX(0) rotate(0); }
+            <?php echo e(min(100, ($index + 1) * $heroSlot - 1)); ?>%,100% { opacity:0; transform:translateX(18px) rotate(1deg); }
+            <?php else: ?>
+            0%,<?php echo e(max(0, $index * $heroSlot - 5)); ?>% { opacity:0; transform:scale(.9) translateY(8px); }
+            <?php echo e(max(0, $index * $heroSlot - 1)); ?>%,<?php echo e(min(100, ($index + 1) * $heroSlot - 5)); ?>% { opacity:1; transform:scale(1) translateY(0); }
+            <?php echo e(min(100, ($index + 1) * $heroSlot - 1)); ?>%,100% { opacity:0; transform:scale(1.03) translateY(-6px); }
+            <?php endif; ?>
         }
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         /* Overlays */
         .hero-ov {
             position:absolute; inset:0; z-index:1;
@@ -607,81 +608,79 @@
             .hero-stat { animation:none; }
         }
     </style>
-    <link rel="stylesheet" href="{{ asset('css/sustainability-animations.css') }}">
-    <script src="{{ asset('js/sustainability-animations.js') }}"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
+    <script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
 </head>
 <body>
 
-    @include('partials._nav', ['locale' => $loc, 'section' => 'home'])
+    <?php echo $__env->make('partials._nav', ['locale' => $loc, 'section' => 'home'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <main>
 
-    {{-- ════════════════════════════════════════
-         1 · SLOGAN  - HERO
-    ════════════════════════════════════════ --}}
-    <section class="hero" aria-label="{{ $en ? 'Homepage hero' : 'Bannière principale' }}">
+    
+    <section class="hero" aria-label="<?php echo e($en ? 'Homepage hero' : 'Bannière principale'); ?>">
 
-        {{-- Slideshow  - images ET vidéos --}}
+        
         <div class="hero-bg" aria-hidden="true">
-            @foreach($heroImages as $index => $heroImage)
-                @if(is_array($heroImage) && ($heroImage['type'] ?? 'image') === 'video')
-                    {{-- Slide vidéo (fichier local, YouTube ou Vimeo) --}}
-                    <div class="hero-slide-video" style="background-image:url('{{ $heroImage['url'] ?? '' }}'); background-size:cover; background-position:center;">
-                        @if($heroImage['embed_url'])
+            <?php $__currentLoopData = $heroImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $heroImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php if(is_array($heroImage) && ($heroImage['type'] ?? 'image') === 'video'): ?>
+                    
+                    <div class="hero-slide-video" style="background-image:url('<?php echo e($heroImage['url'] ?? ''); ?>'); background-size:cover; background-position:center;">
+                        <?php if($heroImage['embed_url']): ?>
                         <iframe
-                            src="{{ $heroImage['embed_url'] }}"
+                            src="<?php echo e($heroImage['embed_url']); ?>"
                             allow="autoplay; encrypted-media"
-                            title="{{ $heroImage['title'] ?? 'Hero video' }}"
+                            title="<?php echo e($heroImage['title'] ?? 'Hero video'); ?>"
                             loading="lazy">
                         </iframe>
-                        @elseif($heroImage['is_local_video'] ?? false)
+                        <?php elseif($heroImage['is_local_video'] ?? false): ?>
                         <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-                            <source src="{{ $heroImage['video_url'] ?? $heroImage['url'] }}" type="video/mp4">
+                            <source src="<?php echo e($heroImage['video_url'] ?? $heroImage['url']); ?>" type="video/mp4">
                         </video>
-                        @endif
-                        @if($heroImage['url'])
-                        <div style="position:absolute; inset:0; background:url('{{ $heroImage['url'] }}') center/cover; z-index:-1;"></div>
-                        @endif
+                        <?php endif; ?>
+                        <?php if($heroImage['url']): ?>
+                        <div style="position:absolute; inset:0; background:url('<?php echo e($heroImage['url']); ?>') center/cover; z-index:-1;"></div>
+                        <?php endif; ?>
                     </div>
-                @else
-                    {{-- Slide image classique --}}
-                    <div class="hero-slide" style="background-image:url('{{ $heroImage['url'] ?? ($heroImage['image'] ?? '') }}'); background-size:cover; background-position:center;"></div>
-                @endif
-            @endforeach
+                <?php else: ?>
+                    
+                    <div class="hero-slide" style="background-image:url('<?php echo e($heroImage['url'] ?? ($heroImage['image'] ?? '')); ?>'); background-size:cover; background-position:center;"></div>
+                <?php endif; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         <div class="hero-ov" aria-hidden="true"></div>
         <div class="hero-copy">
-            @foreach($heroImages as $index => $heroImage)
-            <div class="hero-copy-slide" style="animation:heroCopySlide{{ $index }} {{ $heroDuration }}s infinite;">
-                <span class="hero-copy-kicker">{{ $heroImage['kicker'] ?? 'Néré Mining' }}</span>
-                <span class="hero-copy-title">{{ $heroImage['copy'] ?? '' }}</span>
+            <?php $__currentLoopData = $heroImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $heroImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="hero-copy-slide" style="animation:heroCopySlide<?php echo e($index); ?> <?php echo e($heroDuration); ?>s infinite;">
+                <span class="hero-copy-kicker"><?php echo e($heroImage['kicker'] ?? 'Néré Mining'); ?></span>
+                <span class="hero-copy-title"><?php echo e($heroImage['copy'] ?? ''); ?></span>
             </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         <div class="hero-accent" aria-hidden="true"></div>
 
     </section>
 
-    {{-- Chiffres clés sous l'image du hero --}}
-    <div class="hero-stats" aria-label="{{ $en ? 'Key figures' : 'Chiffres clés' }}">
-        @foreach($stats as $stat)
+    
+    <div class="hero-stats" aria-label="<?php echo e($en ? 'Key figures' : 'Chiffres clés'); ?>">
+        <?php $__currentLoopData = $stats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="hero-stat">
             <span class="hero-stat-val"
-                  data-target="{{ preg_replace('/[^0-9]/', '', $stat['value']) }}"
-                  data-suffix="{{ $stat['suffix'] ?? '' }}"> -</span>
-            <span class="hero-stat-lbl">{{ $stat['label'] }}</span>
+                  data-target="<?php echo e(preg_replace('/[^0-9]/', '', $stat['value'])); ?>"
+                  data-suffix="<?php echo e($stat['suffix'] ?? ''); ?>"> -</span>
+            <span class="hero-stat-lbl"><?php echo e($stat['label']); ?></span>
         </div>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 
-    {{-- ════════════════════════════════════════
-         2 · NÉRÉ MINING
-    ════════════════════════════════════════ --}}
+    
     <section class="sec intro-sec sa-animated-section" aria-labelledby="intro-nere-h">
         <div class="sa-particles-container" data-count="5"></div>
         <div class="intro-inner">
             <div class="intro-copy sa-reveal sa-delay-1">
-                
+                <h2 class="sec-h2" id="intro-nere-h">·<br>
+Néré Mining, Une<br>
+expertise nationale au service du développement durable !**</h2>
                 <p class="sec-lead">
                     Néré Mining SA est une entreprise minière aurifère majoritairement détenue par des capitaux burkinabè. À travers l’exploitation de sa mine de Karma et ses activités d’exploration, Néré Mining ambitionne de contribuer au développement d’un secteur minier national performant, responsable et créateur de valeur pour le Burkina Faso. Notre ambition est de transformer le potentiel minier national en une valeur durable et partagée, au bénéfice des communautés, des travailleurs, de l’État et de nos partenaires.
                 </p>
@@ -694,73 +693,69 @@
         </div>
     </section>
 
-    {{-- ════════════════════════════════════════
-         3 · CHIFFRES DÉTAILLÉS (ENRICHISSEMENT)
-    ════════════════════════════════════════ --}}
+    
 
-    {{-- ════════════════════════════════════════
-         4 · DERNIÈRES ACTUALITÉS
-    ════════════════════════════════════════ --}}
+    
     <section class="sec news-sec sa-animated-section" id="actualites" aria-labelledby="news-h">
         <div class="sa-particles-container" data-count="3"></div>
         <div class="news-head sa-reveal">
             <div>
-                
+                <h2 class="sec-h2" id="news-h"><?php echo e(__('site.home_news_h2', [], $loc)); ?></h2>
             </div>
         </div>
         <div class="news-grid">
-            @forelse($news as $i => $item)
-            <a class="news-card-link sa-reveal sa-delay-{{ $i % 3 + 1 }}" href="{{ $en ? route('english.news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) : route('news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) }}" aria-label="{{ __('site.read_more', [], $loc) }} : {{ e($item['title']) }}">
+            <?php $__empty_1 = true; $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+            <a class="news-card-link sa-reveal sa-delay-<?php echo e($i % 3 + 1); ?>" href="<?php echo e($en ? route('english.news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) : route('news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i])); ?>" aria-label="<?php echo e(__('site.read_more', [], $loc)); ?> : <?php echo e(e($item['title'])); ?>">
                 <article class="news-card sr">
                     <div class="news-img-wrap">
-                        @if(!empty($item['image']) && !str_contains((string)$item['image'], 'null'))
+                        <?php if(!empty($item['image']) && !str_contains((string)$item['image'], 'null')): ?>
                             <img class="news-img"
-                                 src="{{ $item['image'] }}"
-                                 alt="{{ e($item['title']) }}"
-                                 loading="{{ $i === 0 ? 'eager' : 'lazy' }}"
+                                 src="<?php echo e($item['image']); ?>"
+                                 alt="<?php echo e(e($item['title'])); ?>"
+                                 loading="<?php echo e($i === 0 ? 'eager' : 'lazy'); ?>"
                                  onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-                            <img class="news-img news-img-ph" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ e($item['title']) }}" loading="lazy" style="display:none;">
-                        @else
+                            <img class="news-img news-img-ph" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(e($item['title'])); ?>" loading="lazy" style="display:none;">
+                        <?php else: ?>
                             <img class="news-img news-img-ph"
-                                 src="{{ asset('images/placeholders/default-image.svg') }}"
-                                 alt="{{ e($item['title']) }}"
+                                 src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>"
+                                 alt="<?php echo e(e($item['title'])); ?>"
                                  loading="lazy">
-                        @endif
+                        <?php endif; ?>
                     </div>
                     <div class="news-body">
-                        <div class="news-meta">{{ $item['category'] }} · {{ $item['date'] }}</div>
-                        <h3>{{ $item['title'] }}</h3>
+                        <div class="news-meta"><?php echo e($item['category']); ?> · <?php echo e($item['date']); ?></div>
+                        <h3><?php echo e($item['title']); ?></h3>
                         <span class="news-read">
-                            {{ __('site.read_more', [], $loc) }}
+                            <?php echo e(__('site.read_more', [], $loc)); ?>
+
                             <span class="news-read-arr">→</span>
                         </span>
                     </div>
                 </article>
             </a>
-            @empty
-            <div class="news-empty">{{ __('site.news_empty', [], $loc) }}</div>
-            @endforelse
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+            <div class="news-empty"><?php echo e(__('site.news_empty', [], $loc)); ?></div>
+            <?php endif; ?>
         </div>
         <div style="display:flex; justify-content:center; margin-top:32px;">
             <a class="btn btn-dark"
-               href="{{ $en ? route('english.news') : route('news.index') }}">
-                {{ __('site.all_news', [], $loc) }}
+               href="<?php echo e($en ? route('english.news') : route('news.index')); ?>">
+                <?php echo e(__('site.all_news', [], $loc)); ?>
+
             </a>
         </div>
     </section>
 
-    {{-- ════════════════════════════════════════
-         5 · PARTENAIRES INSTITUTIONNELS
-    ════════════════════════════════════════ --}}
+    
     <section class="sec partners-sec sa-animated-section" id="partenaires" aria-labelledby="partners-h">
         <div class="sa-particles-container" data-count="4"></div>
         <div class="partners-head sa-reveal">
-            <span class="sec-tag">{{ __('site.home_partners_label', [], $loc) }}</span>
-            
-            <p class="sec-lead">{{ __('site.home_partners_intro', [], $loc) }}</p>
+            <span class="sec-tag"><?php echo e(__('site.home_partners_label', [], $loc)); ?></span>
+            <h2 class="sec-h2" id="partners-h"><?php echo e(__('site.home_partners_h2', [], $loc)); ?></h2>
+            <p class="sec-lead"><?php echo e(__('site.home_partners_intro', [], $loc)); ?></p>
         </div>
 
-        @php
+        <?php
             $defaultPartners = [
                 [
                     'img'  => asset('images/partners/armoiries-burkina-faso.jpg'),
@@ -781,48 +776,49 @@
                     'url'  => 'https://www.chambredesmines.bf',
                 ],
             ];
-        @endphp
+        ?>
         <div class="partners-strip" role="list">
             <div class="partners-track">
-            @foreach([1, 2] as $copy)
-            @foreach($defaultPartners as $p)
-            @php $tag = $p['url'] ? 'a' : 'div'; $attrs = $p['url'] ? 'href="'.$p['url'].'" target="_blank" rel="noopener noreferrer"' : ''; @endphp
-            <{{ $tag }} {{ $attrs }} class="partner-logo-item" role="listitem">
-                <img class="partner-logo-img" src="{{ $p['img'] }}" alt="{{ $p['name'] }}" loading="lazy" width="120" height="56" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div style="display:none;width:80px;height:40px;background:var(--sand);border-radius:4px;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">{{ strtoupper(substr($p['name'], 0, 3)) }}</div>
-                <span class="partner-logo-name">{{ $p['name'] }}</span>
-                <span class="partner-logo-cat">{{ $p['cat'] }}</span>
-            </{{ $tag }}>
-            @endforeach
-            @foreach($partners as $p)
-            @php
+            <?php $__currentLoopData = [1, 2]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $copy): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $defaultPartners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $tag = $p['url'] ? 'a' : 'div'; $attrs = $p['url'] ? 'href="'.$p['url'].'" target="_blank" rel="noopener noreferrer"' : ''; ?>
+            <<?php echo e($tag); ?> <?php echo e($attrs); ?> class="partner-logo-item" role="listitem">
+                <img class="partner-logo-img" src="<?php echo e($p['img']); ?>" alt="<?php echo e($p['name']); ?>" loading="lazy" width="120" height="56" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div style="display:none;width:80px;height:40px;background:var(--sand);border-radius:4px;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);"><?php echo e(strtoupper(substr($p['name'], 0, 3))); ?></div>
+                <span class="partner-logo-name"><?php echo e($p['name']); ?></span>
+                <span class="partner-logo-cat"><?php echo e($p['cat']); ?></span>
+            </<?php echo e($tag); ?>>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $partners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php
                 $tag = $p->website_url ? 'a' : 'div';
                 $attrs = $p->website_url ? 'href="'.e($p->website_url).'" target="_blank" rel="noopener noreferrer"' : '';
                 $logoUrl = $p->logo_path
                     ? (str_starts_with($p->logo_path, 'images/') ? asset($p->logo_path) : \App\Helpers\StorageHelper::uploadUrl($p->logo_path))
                     : null;
-            @endphp
-            <{{ $tag }} {{ $attrs }} class="partner-logo-item" role="listitem">
-                @if($logoUrl)
-                <img class="partner-logo-img" src="{{ $logoUrl }}" alt="{{ $p->name }}" loading="lazy" width="120" height="56" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div style="display:none;width:80px;height:40px;background:var(--sand);border-radius:4px;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">{{ strtoupper(substr($p->name, 0, 3)) }}</div>
-                @else
+            ?>
+            <<?php echo e($tag); ?> <?php echo e($attrs); ?> class="partner-logo-item" role="listitem">
+                <?php if($logoUrl): ?>
+                <img class="partner-logo-img" src="<?php echo e($logoUrl); ?>" alt="<?php echo e($p->name); ?>" loading="lazy" width="120" height="56" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div style="display:none;width:80px;height:40px;background:var(--sand);border-radius:4px;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);"><?php echo e(strtoupper(substr($p->name, 0, 3))); ?></div>
+                <?php else: ?>
                 <div style="width:80px;height:40px;background:var(--sand);border-radius:4px;display:flex;align-items:center;justify-content:center;font:700 13px Inter;color:var(--green);">
-                    {{ strtoupper(substr($p->name, 0, 3)) }}
+                    <?php echo e(strtoupper(substr($p->name, 0, 3))); ?>
+
                 </div>
-                @endif
-                <span class="partner-logo-name">{{ $p->name }}</span>
-                @if($p->category) <span class="partner-logo-cat">{{ $p->category }}</span> @endif
-            </{{ $tag }}>
-            @endforeach
-            @endforeach
+                <?php endif; ?>
+                <span class="partner-logo-name"><?php echo e($p->name); ?></span>
+                <?php if($p->category): ?> <span class="partner-logo-cat"><?php echo e($p->category); ?></span> <?php endif; ?>
+            </<?php echo e($tag); ?>>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </section>
 
     </main>
 
-    @include('partials._footer', ['loc' => $loc, 'en' => $en])
+    <?php echo $__env->make('partials._footer', ['loc' => $loc, 'en' => $en], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <script>
     (function(){
@@ -952,3 +948,4 @@
     </script>
 </body>
 </html>
+<?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views/home.blade.php ENDPATH**/ ?>

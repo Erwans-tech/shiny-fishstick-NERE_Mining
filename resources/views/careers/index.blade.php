@@ -120,10 +120,6 @@
 
 <div class="masthead">
     <h1>{{ $showJobsOnly ? __('site.careers_jobs_h2', [], $loc) : __('site.careers_h1', [], $loc) }}</h1>
-    <div class="breadcrumb">
-        <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link', [], $loc) }}</a>
-        › {{ __('site.careers_breadcrumb', [], $loc) }}
-    </div>
 </div>
 
 <main>
@@ -140,9 +136,7 @@
             <span style="display:block;width:22px;height:2px;background:var(--gold2);"></span>
             {{ __('site.careers_why_h2', [], $loc) }}
         </p>
-        <h2 style="color:var(--green);font:400 clamp(28px,3.5vw,44px) Inter,sans-serif;line-height:1.05;margin-bottom:14px;">
-            {{ __('site.careers_why_lead', [], $loc) }}
-        </h2>
+        
         <div class="why-grid">
             @foreach(range(1,3) as $i)
             <div class="why-card">
@@ -209,9 +203,7 @@
 {{-- ── Liste des offres ── --}}
 <main>
     <div class="jobs-section" id="offres-emploi">
-        <h2 style="color:var(--green);font:400 clamp(28px,3.5vw,44px) Inter,sans-serif;margin-bottom:32px;">
-            {{ __('site.careers_jobs_h2', [], $loc) }}
-        </h2>
+        
 
         @if($jobs->isEmpty())
         <div class="empty-state">

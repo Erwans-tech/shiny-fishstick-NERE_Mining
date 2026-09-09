@@ -67,7 +67,7 @@
     {{-- ══ Hero Section ════════════════════════════════════════════ --}}
     <div class="reserves-hero">
         <div class="sa-reveal sa-delay-1">
-            <h2 style="color:var(--green); font-size:clamp(26px,4vw,36px); margin-bottom:20px; font-weight:700;">{{ $en ? 'Mineral Reserves' : 'Réserves Minérales' }}</h2>
+            
             <div class="sa-divider" style="margin: 0 0 24px 0;"></div>
             <p class="lead" style="font-size:17px; margin-bottom:16px;">{{ __('site.karma_reserves_lead', [], $loc) }}</p>
             <p style="color:var(--muted); line-height:1.7;">{{ __('site.karma_reserves_detail', [], $loc) }}</p>
@@ -83,7 +83,7 @@
     <div style="position:relative; z-index:1; max-width:1180px; margin:0 auto;">
         {{-- ══ Probable Reserves Section ═════════════════════════════ --}}
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ $en ? 'Probable Reserves' : 'Réserves Probables' }}</h2>
+            
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;">
                 {{ $en ? 'Economically extractable mineral reserves with proven mining viability' : 'Réserves minérales économiquement exploitables avec viabilité minière prouvée' }}
@@ -175,7 +175,7 @@
     <div style="max-width:1180px; margin:0 auto;">
         {{-- ══ Measured & Indicated Resources ═════════════════════════ --}}
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ $en ? 'Indicated & Measured Mineral Resources' : 'Ressources Minérales Mesurées et Indiquées' }}</h2>
+            
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;">
                 {{ $en ? 'Mineral resources with established geological confidence and drilling data' : 'Ressources minérales avec confiance géologique établie et données de forage' }}
@@ -221,7 +221,7 @@
     <div style="position:relative; z-index:1; max-width:1180px; margin:0 auto;">
         {{-- ══ Inferred Resources ════════════════════════════════════ --}}
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ $en ? 'Inferred Mineral Resources' : 'Ressources Minérales Inférées' }}</h2>
+            
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;">
                 {{ $en ? 'Mineral resources estimated with limited geological evidence' : 'Ressources minérales estimées avec preuves géologiques limitées' }}
@@ -252,7 +252,7 @@
     <div style="max-width:1180px; margin:0 auto;">
         {{-- ══ Classification Definitions ════════════════════════════ --}}
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ $en ? 'Classification Definitions' : 'Définitions de Classification' }}</h2>
+            
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;">
                 {{ $en ? 'JORC (Australasian Code for Reporting of Exploration Results, Mineral Resources and Ore Reserves) standard definitions' : 'Définitions selon le code JORC (Australian Code for Reporting of Exploration Results, Mineral Resources and Ore Reserves)' }}

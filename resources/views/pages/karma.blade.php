@@ -40,7 +40,7 @@
     <div class="sa-particles-container" data-count="5"></div>
 
     <div class="sa-section-heading sa-reveal" style="text-align:left; max-width:none; margin-bottom:24px;">
-        <h2 style="text-align:left;">{{ __('site.karma_pres_h2', [], $loc) }}</h2>
+        
         <div class="sa-divider" style="margin: 0;"></div>
     </div>
     
@@ -79,7 +79,7 @@
     <div class="sa-wave-top"></div>
     <div style="position:relative; z-index:1; max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ __('site.karma_prod_h2', [], $loc) }}</h2>
+            
             <div class="sa-divider"></div>
         </div>
 
@@ -133,7 +133,7 @@
 {{-- Production Timeline --}}
 <section id="production-timeline" class="sa-animated-section" style="padding:70px 5vw;">
     <div class="sa-section-heading sa-reveal">
-        <h2>{{ $en ? 'Production & Development Timeline' : 'Timeline de Production & Développement' }}</h2>
+        
         <div class="sa-divider"></div>
     </div>
     <p class="lead sa-reveal" style="text-align:center; margin-bottom:48px;">{{ $en ? 'Karma mine history from 2007 to present' : 'Historique de la mine de Karma de 2007 à nos jours' }}</p>
@@ -181,7 +181,7 @@
     <div class="sa-wave-top"></div>
     <div style="position:relative; z-index:1; max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ $en ? 'Mineral Resources & Reserves' : 'Ressources & Réserves Minérales' }}</h2>
+            
             <div class="sa-divider"></div>
         </div>
         <p class="lead sa-reveal" style="text-align:center; margin-bottom:48px;">{{ $en ? 'JORC-classified mineral resources across five major deposits at Karma' : 'Ressources minérales classifiées JORC dans cinq gisements majeurs' }}</p>
@@ -264,7 +264,7 @@
 @endif
 <section id="organisation" class="sa-animated-section" style="padding:70px 5vw;">
     <div class="sa-section-heading sa-reveal">
-        <h2>{{ __('site.karma_org_h2', [], $loc) }}</h2>
+        
         <div class="sa-divider"></div>
     </div>
     <p class="lead sa-reveal" style="text-align:center; margin-bottom:40px;">{{ __('site.karma_org_lead', [], $loc) }}</p>
@@ -297,7 +297,7 @@
     <div class="sa-wave-top"></div>
     <div style="position:relative; z-index:1; max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ __('site.karma_model_h2', [], $loc) }}</h2>
+            
             <div class="sa-divider"></div>
         </div>
         <p class="lead sa-reveal" style="text-align:center; margin-bottom:48px;">{{ __('site.karma_model_lead', [], $loc) }}</p>
@@ -316,7 +316,7 @@
 {{-- Impact --}}
 <section id="impact" class="sa-animated-section" style="padding:70px 5vw;">
     <div class="sa-section-heading sa-reveal">
-        <h2>{{ __('site.karma_impact_h2', [], $loc) }}</h2>
+        
         <div class="sa-divider"></div>
     </div>
     <p class="lead sa-reveal" style="text-align:center; margin-bottom:48px;">{{ __('site.karma_impact_lead', [], $loc) }}</p>

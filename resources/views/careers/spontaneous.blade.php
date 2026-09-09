@@ -101,11 +101,6 @@
     <a href="{{ $listRoute }}" class="back-link">← {{ __('site.careers_back', [], $loc) }}</a>
     <h1>{{ __('site.careers_spontaneous_title', [], $loc) }}</h1>
     <p class="masthead-lead">{{ __('site.careers_spontaneous_lead', [], $loc) }}</p>
-    <div class="breadcrumb">
-        <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link', [], $loc) }}</a> ›
-        <a href="{{ $listRoute }}">{{ __('site.nav_careers', [], $loc) }}</a> ›
-        {{ __('site.careers_spontaneous_title', [], $loc) }}
-    </div>
 </div>
 
 <div class="page-body">
@@ -135,7 +130,7 @@
 
     {{-- Formulaire --}}
     <div class="form-section">
-        <h2>{{ $en ? 'Submit your unsolicited application' : 'Déposer votre candidature spontanée' }}</h2>
+        
         <p class="form-lead">{{ __('site.careers_apply_lead', [], $loc) }}</p>
 
         @if(!empty($errors) && $errors->isNotEmpty())

@@ -127,11 +127,6 @@
             </span>
         @endif
     </div>
-    <div class="breadcrumb">
-        <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link', [], $loc) }}</a> ›
-        <a href="{{ $listRoute }}">{{ __('site.nav_careers', [], $loc) }}</a> ›
-        {{ Str::limit($job->title, 50) }}
-    </div>
 </div>
 
 {{-- Body --}}
@@ -146,14 +141,14 @@
 
         {{-- Description --}}
         <div class="section-block">
-            <h2>{{ $en ? 'Job description' : 'Description du poste' }}</h2>
+            
             <div class="job-description">{{ $job->description }}</div>
         </div>
 
         {{-- Profil recherché --}}
         @if($job->requirements)
         <div class="section-block">
-            <h2>{{ __('site.careers_requirements_h3', [], $loc) }}</h2>
+            
             <ul class="requirements-list">
                 @foreach(preg_split('/\r?\n/', trim($job->requirements)) as $line)
                     @if(trim($line))<li>{{ $line }}</li>@endif
@@ -164,7 +159,7 @@
 
         {{-- Formulaire de candidature --}}
         <div class="apply-section" id="apply">
-            <h2>{{ __('site.careers_apply_title', [], $loc) }}</h2>
+            
             <p class="apply-lead">{{ __('site.careers_apply_lead', [], $loc) }}</p>
 
             @if($errors->any())

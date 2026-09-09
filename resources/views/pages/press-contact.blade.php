@@ -36,9 +36,7 @@
                  style="color:var(--gold); font:600 11px Inter,sans-serif; letter-spacing:.2em; text-transform:uppercase; margin-bottom:16px;">
                 {{ __('site.press_contact_role_label', [], $loc) }}
             </div>
-            <h2 style="color:#fff; font-size:clamp(26px,3vw,40px); margin-bottom:8px;">
-                {{ $pressName }}
-            </h2>
+            
             <div style="color:rgba(255,255,255,.7); font:13px Inter,sans-serif; margin-bottom:28px;">
                 {{ $pressJob }}
             </div>
@@ -82,7 +80,7 @@
 {{-- Press Kit & Media Resources --}}
 <section class="sand" style="padding:60px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
-        <h2 style="text-align:center; color:var(--green); margin-bottom:12px; font-size:36px; font-weight:600;">{{ $en ? 'Press Kit & Resources' : 'Kit Presse & Ressources' }}</h2>
+        
         <p style="text-align:center; color:var(--muted); font-size:15px; margin-bottom:40px;">{{ $en ? 'Download company information, logos, and media assets.' : 'Télécharger informations entreprise, logos et ressources média.' }}</p>
         
         <div class="grid-3">
@@ -132,7 +130,7 @@
     <div class="press-form-inner">
         <div class="press-form-heading">
             <span class="press-form-kicker">{{ $en ? 'Media relations' : 'Relations médias' }}</span>
-            <h2>{{ __('site.press_contact_form_h2', [], $loc) }}</h2>
+            
             <p class="lead">{{ __('site.press_contact_form_lead', [], $loc) }}</p>
         </div>
 

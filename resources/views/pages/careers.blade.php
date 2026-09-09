@@ -56,7 +56,7 @@
     <section class="sa-animated-section" style="margin-bottom:60px;">
         <div class="sa-particles-container" data-count="3"></div>
         <div class="sa-section-heading sa-reveal">
-            <h2 style="text-align:center; color:var(--green); margin-bottom:12px; font-size:32px; font-weight:600;">{{ __('site.careers_jobs_lead', [], $loc) }}</h2>
+            
             <div class="sa-divider"></div>
             <p style="text-align:center; color:var(--muted); font-size:14px; margin-bottom:32px; line-height:1.7;">{{ $en ? 'We are continuously looking for talented professionals to join our growing team at Karma mine.' : 'Nous recherchons continuellement des professionnels talentueux pour rejoindre notre équipe croissante.' }}</p>
         </div>
@@ -115,7 +115,7 @@
         <div class="sa-wave-top"></div>
         <div style="position:relative; z-index:1;">
             <div class="sa-section-heading sa-reveal">
-                <h2 style="text-align:center; color:var(--green); margin-bottom:12px; font-size:32px; font-weight:600;">{{ $en ? 'Life at Néré Mining' : 'La Vie chez Néré Mining' }}</h2>
+                
                 <div class="sa-divider"></div>
             </div>
             
@@ -147,7 +147,7 @@
 
     {{-- Call to Action --}}
     <section class="sa-animated-section sa-reveal" style="text-align:center;">
-        <h2 style="color:var(--green); margin-bottom:16px; font-size:28px; font-weight:600;">{{ $en ? 'Ready to Join Néré Mining?' : 'Prêt à Rejoindre Néré Mining ?' }}</h2>
+        
         <p style="color:var(--muted); font-size:14px; margin-bottom:24px; line-height:1.7;">{{ $en ? 'Explore our open positions, apply directly, or send us your CV for future opportunities.' : 'Explorez nos postes ouverts, postulez directement, ou envoyez-nous votre CV pour opportunités futures.' }}</p>
         <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
             <a class="sa-btn-animated"

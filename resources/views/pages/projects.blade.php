@@ -46,7 +46,7 @@
 <section id="exploration" class="sa-animated-section" style="padding-top:40px;">
     <div class="sa-particles-container" data-count="6"></div>
     <div class="sa-section-heading sa-reveal" style="margin-bottom:24px;">
-        <h2>{{ __('site.projects_expl_h2', [], $loc) }}</h2>
+        
         <div class="sa-divider"></div>
     </div>
     <p class="lead sa-reveal sa-delay-1">{{ __('site.projects_expl_lead', [], $loc) }}</p>
@@ -63,10 +63,10 @@
         </article>
 
         <article class="card project-card exploration-card sa-reveal sa-delay-2">
-            <button class="exploration-card__image" type="button" data-exploration-image="{{ asset('images/exploration/forage.jpg') }}" data-exploration-alt="{{ $en ? 'Reverse circulation drilling rig' : 'Foreuse de reconnaissance minière' }}" data-exploration-caption="{{ $en ? 'Drilling and sampling campaign in the field.' : 'Campagne de forage et d’échantillonnage sur le terrain.' }}"><img src="{{ asset('images/exploration/forage.jpg') }}" alt="{{ $en ? 'Reverse circulation drilling rig' : 'Foreuse de reconnaissance minière' }}" loading="lazy"></button>
+            <button class="exploration-card__image" type="button" data-exploration-image="{{ asset('images/mining/mining-site-aerial-01.jpg') }}" data-exploration-alt="{{ $en ? 'Mine site aerial view' : 'Vue aérienne du site minier' }}" data-exploration-caption="{{ $en ? 'Mine operation area and infrastructure.' : 'Zone d’exploitation minière et infrastructures.' }}"><img src="{{ asset('images/mining/mining-site-aerial-01.jpg') }}" alt="{{ $en ? 'Mine site aerial view' : 'Vue aérienne du site minier' }}" loading="lazy"></button>
             <div class="exploration-card__body">
                 <div class="card-tag">{{ $en ? 'Field program' : 'Programme terrain' }}</div>
-                <h3>{{ $en ? 'Drilling and target verification' : 'Forage et vérification des cibles' }}</h3>
+                <h3>{{ $en ? 'Mine site and field operations' : 'Site minier et opérations terrain' }}</h3>
                 <p>{{ $en ? 'Exploration moves from the map to the field through drilling, sampling and geological logging. These activities test the continuity, geometry and grade potential of anomalies before any resource estimate is considered.' : 'L’exploration passe de la carte au terrain par le forage, l’échantillonnage et la description géologique. Ces travaux testent la continuité, la géométrie et le potentiel des anomalies avant toute estimation de ressources.' }}</p>
                 <div class="exploration-card__meta"><span><strong>{{ $en ? 'Focus:' : 'Objectif :' }}</strong> {{ $en ? 'subsurface confirmation' : 'confirmation en profondeur' }}</span><span><strong>{{ $en ? 'Work:' : 'Travaux :' }}</strong> {{ $en ? 'drilling and sampling' : 'forage et échantillonnage' }}</span></div>
             </div>
@@ -97,22 +97,6 @@
             <figcaption>{{ $en ? 'Permit register: Dassoui, Basnere Est and Ouest, Lougouri, Ronga, Rigui and Zanna are shown with their holders and validity years.' : 'Registre des permis : Dassoui, Basnere Est et Ouest, Lougouri, Ronga, Rigui et Zanna sont présentés avec leurs détenteurs et années de validité.' }}</figcaption>
         </figure>
     </div>
-</section>
-
-<section class="sa-sand-animated" style="position:relative; padding:70px 5vw; margin-top:24px;">
-    <div class="sa-wave-top"></div>
-    <div style="position:relative; z-index:1; max-width:1180px; margin:0 auto;">
-        <div class="sa-program-card sa-reveal" style="padding: 28px;">
-            <div class="card-tag">{{ $en ? 'Priority' : 'Priorité' }}</div>
-            <h3>{{ $en ? 'A disciplined exploration strategy' : 'Une stratégie d’exploration disciplinée' }}</h3>
-            <p style="margin:0; text-align:justify;">
-                {{ $en
-                    ? 'Each project is evaluated through geological analysis, resource potential and a realistic development timeline. The objective is to identify deposits that can create value while staying aligned with responsible mining standards and local expectations.'
-                    : 'Chaque projet est évalué selon son potentiel géologique, sa valeur économique et un calendrier de développement réaliste. L’objectif est d’identifier des gisements capables de créer de la valeur tout en restant alignés avec les normes minières responsables et les attentes locales.' }}
-            </p>
-        </div>
-    </div>
-    <div class="sa-wave-bottom"></div>
 </section>
 
 <div class="exploration-lightbox" data-exploration-lightbox aria-hidden="true">

@@ -1,6 +1,6 @@
-{{-- Page : Organisation de Karma --}}
-@extends('layouts.app')
-@section('content')
+
+
+<?php $__env->startSection('content'); ?>
 <style>
     .karma-page > section > .lead {
         width: 100%;
@@ -32,27 +32,27 @@
 </style>
 <div class="karma-page">
 <section id="organisation">
-    
-    <p class="lead">{{ __('site.karma_org_lead', [], $loc) }}</p>
+    <h2><?php echo e(__('site.karma_org_h2', [], $loc)); ?></h2>
+    <p class="lead"><?php echo e(__('site.karma_org_lead', [], $loc)); ?></p>
     <div class="organisation-grid">
-        @forelse($karmaDepartments ?? collect() as $dept)
-        @php $deptTag = trim((string) $dept->localizedTag($loc)); $deptTitle = trim((string) $dept->localizedTitle($loc)); $deptBody = trim((string) $dept->localizedBody($loc)); @endphp
+        <?php $__empty_1 = true; $__currentLoopData = $karmaDepartments ?? collect(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+        <?php $deptTag = trim((string) $dept->localizedTag($loc)); $deptTitle = trim((string) $dept->localizedTitle($loc)); $deptBody = trim((string) $dept->localizedBody($loc)); ?>
         <details class="card organisation-card">
-            <summary><div class="card-tag">{{ $deptTag !== '' ? $deptTag : __('site.karma_dept'.$loop->iteration.'_tag', [], $loc) }}</div><h3>{{ $deptTitle !== '' ? $deptTitle : __('site.karma_dept'.$loop->iteration.'_h3', [], $loc) }}</h3></summary>
-            <div class="organisation-card__body"><p>{{ $deptBody !== '' ? $deptBody : __('site.karma_dept'.$loop->iteration.'_p', [], $loc) }}</p></div>
+            <summary><div class="card-tag"><?php echo e($deptTag !== '' ? $deptTag : __('site.karma_dept'.$loop->iteration.'_tag', [], $loc)); ?></div><h3><?php echo e($deptTitle !== '' ? $deptTitle : __('site.karma_dept'.$loop->iteration.'_h3', [], $loc)); ?></h3></summary>
+            <div class="organisation-card__body"><p><?php echo e($deptBody !== '' ? $deptBody : __('site.karma_dept'.$loop->iteration.'_p', [], $loc)); ?></p></div>
         </details>
-        @empty
-        @foreach(range(1, 9) as $i)
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+        <?php $__currentLoopData = range(1, 9); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <details class="card organisation-card">
-            <summary><div class="card-tag">{{ __('site.karma_dept'.$i.'_tag', [], $loc) }}</div><h3>{{ __('site.karma_dept'.$i.'_h3', [], $loc) }}</h3></summary>
-            <div class="organisation-card__body"><p>{{ __('site.karma_dept'.$i.'_p', [], $loc) }}</p></div>
+            <summary><div class="card-tag"><?php echo e(__('site.karma_dept'.$i.'_tag', [], $loc)); ?></div><h3><?php echo e(__('site.karma_dept'.$i.'_h3', [], $loc)); ?></h3></summary>
+            <div class="organisation-card__body"><p><?php echo e(__('site.karma_dept'.$i.'_p', [], $loc)); ?></p></div>
         </details>
-        @endforeach
-        @endforelse
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
     </div>
 </section>
 </div>
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const cards = document.querySelectorAll('.organisation-card');
@@ -67,5 +67,7 @@
         cards.forEach(card => observer.observe(card));
     });
 </script>
-@endpush
-@endsection
+<?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views/pages/karma-organisation.blade.php ENDPATH**/ ?>

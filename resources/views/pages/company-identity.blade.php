@@ -14,11 +14,6 @@
     <div class="identity-masthead__veil"></div>
     <div class="identity-masthead__content">
         <h1>{{ __('site.company_identity_h1', [], $loc) }}</h1>
-        <div class="breadcrumb">
-            <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link', [], $loc) }}</a>
-            › <a href="{{ $en ? route('english.company') : route('company') }}">{{ __('site.nav_company', [], $loc) }}</a>
-            › {{ __('site.company_identity_breadcrumb', [], $loc) }}
-        </div>
     </div>
 </div>
 @endsection
@@ -63,7 +58,7 @@
     </div>
 
     <div class="identity-description">
-        <h2>{{ __('site.company_identity_symbols_h2', [], $loc) }}</h2>
+        
         <p>{{ __('site.company_identity_symbols_p1', [], $loc) }}</p>
         <p>{{ __('site.company_identity_symbols_p2', [], $loc) }}</p>
         <p>{{ __('site.company_identity_symbols_p3', [], $loc) }}</p>

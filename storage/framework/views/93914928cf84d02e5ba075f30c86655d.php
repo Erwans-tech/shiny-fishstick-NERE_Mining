@@ -1,17 +1,5 @@
-{{--
-    Layout partagé pour toutes les pages publiques.
 
-    Variables attendues depuis le contrôleur / route :
-      $locale   string   'fr' | 'en'
-      $section  string   slug de la section (ex: 'karma', 'company-ceo'…)
-      $title    string   (optionnel) titre <title> custom
-
-    Slots Blade :
-      @yield('head')          styles/scripts supplémentaires dans <head>
-      @yield('masthead')      contenu masthead (fourni par le layout lui-même par défaut)
-      @yield('content')       contenu principal de la page
---}}
-@php
+<?php
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
     $section = $section ?? 'home'; // Default section if not provided
@@ -68,18 +56,21 @@
         'careers' => 'images/headers/soudeurs-reparation-equipement-minier-atelier.jpeg',
     ];
     $mastheadImage = asset($mastheadImages[$mastheadSection] ?? 'images/mining/karma-03.jpg');
-@endphp
+?>
 <!DOCTYPE html>
-<html lang="{{ $loc }}">
+<html lang="<?php echo e($loc); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
-    <title>{{ $title ?? __('site.'.$mastheadSection.'_h1', [], $loc) }} | Néré Mining</title>
-    <meta name="description" content="{{ $description ?? '' }}">
+    <link rel="icon" href="<?php echo e(asset('favicon.svg')); ?>" type="image/svg+xml">
+    <title><?php echo e($title ?? __('site.'.$mastheadSection.'_h1', [], $loc)); ?> | Néré Mining</title>
+    <meta name="description" content="<?php echo e($description ?? ''); ?>">
     <script type="application/ld+json">
-    {!! json_encode([
-        '@context' => 'https://schema.org',
+    <?php echo json_encode([
+        '<?php $__contextArgs = [];
+if (context()->has($__contextArgs[0])) :
+if (isset($value)) { $__contextPrevious[] = $value; }
+$value = context()->get($__contextArgs[0]); ?>' => 'https://schema.org',
         '@type' => 'MiningCompany',
         'name' => 'Néré Mining',
         'url' => config('app.url'),
@@ -87,23 +78,27 @@
         'description' => $description ?? 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.',
         'address' => ['@type' => 'PostalAddress', 'addressCountry' => 'BF'],
         'sameAs' => array_values(array_filter([config('app.url') . '/en'])),
-    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP) !!}
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP); ?>
+
     </script>
-    {!! App\Helpers\CanonicalHelper::render($section, $loc) !!}
-    {!! App\Helpers\CanonicalHelper::renderHreflang($section, $loc) !!}
-    {!! App\Helpers\OpenGraphHelper::render($section, $loc, $description ?? null) !!}
-    @if($isSustain)
+    <?php echo App\Helpers\CanonicalHelper::render($section, $loc); ?>
+
+    <?php echo App\Helpers\CanonicalHelper::renderHreflang($section, $loc); ?>
+
+    <?php echo App\Helpers\OpenGraphHelper::render($section, $loc, $description ?? null); ?>
+
+    <?php if($isSustain): ?>
     <script>document.documentElement.classList.add('sustain-js');</script>
-    @endif
-    <link rel="stylesheet" href="{{ asset('css/sustainability-animations.css') }}">
+    <?php endif; ?>
+    <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/chrome.css') }}?v={{ filemtime(public_path('css/chrome.css')) }}">
-    <link rel="stylesheet" href="{{ asset('css/animations.css') }}?v={{ filemtime(public_path('css/animations.css')) }}">
-    <link rel="stylesheet" href="{{ asset('css/text-fixes.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/responsive-global.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/text-containers-responsive.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/animations.css')); ?>?v=<?php echo e(filemtime(public_path('css/animations.css'))); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/text-fixes.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/responsive-global.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/text-containers-responsive.css')); ?>">
     <style>
         /* ══ Variables ══════════════════════════════════════════ */
         :root {
@@ -161,7 +156,7 @@
             position:relative;
             padding:100px 5vw 75px;
             color:white;
-            background:linear-gradient(100deg,rgba(75,23,22,.97) 40%,rgba(75,23,22,.5)),url('{{ $mastheadImage }}') center/cover;
+            background:linear-gradient(100deg,rgba(75,23,22,.97) 40%,rgba(75,23,22,.5)),url('<?php echo e($mastheadImage); ?>') center/cover;
             display:flex;
             flex-direction:column;
             justify-content:center;
@@ -822,36 +817,36 @@
             .values-grid { grid-template-columns:1fr; }
         }
     </style>
-    @yield('head')
-    @stack('styles')
+    <?php echo $__env->yieldContent('head'); ?>
+    <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
-<body class="{{ $isSustain ? 'is-sustain' : '' }}">
-    @include('partials._nav', ['locale' => $loc, 'section' => $section])
+<body class="<?php echo e($isSustain ? 'is-sustain' : ''); ?>">
+    <?php echo $__env->make('partials._nav', ['locale' => $loc, 'section' => $section], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-    {{-- ── Masthead  - h1 centré, sans répétition ── --}}
-    @hasSection('masthead')
-        @yield('masthead')
-    @else
+    
+    <?php if (! empty(trim($__env->yieldContent('masthead')))): ?>
+        <?php echo $__env->yieldContent('masthead'); ?>
+    <?php else: ?>
     <div class="masthead">
-        <h1>{{ __('site.'.$mastheadSection.'_h1', [], $loc) }}</h1>
+        <h1><?php echo e(__('site.'.$mastheadSection.'_h1', [], $loc)); ?></h1>
     </div>
-    @endif
+    <?php endif; ?>
 
     <main>
-        @if(session('success'))
-        <section><div class="alert-success">{{ session('success') }}</div></section>
-        @endif
+        <?php if(session('success')): ?>
+        <section><div class="alert-success"><?php echo e(session('success')); ?></div></section>
+        <?php endif; ?>
 
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
     </main>
 
-    @include('partials._footer', ['loc' => $loc, 'en' => $en])
-    @include('partials.cookie-banner')
+    <?php echo $__env->make('partials._footer', ['loc' => $loc, 'en' => $en], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('partials.cookie-banner', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-    <script src="{{ asset('js/animations.js') }}"></script>
-    <script src="{{ asset('js/page-animations.js') }}?v={{ filemtime(public_path('js/page-animations.js')) }}"></script>
-    <script src="{{ asset('js/sustainability-animations.js') }}"></script>
-    <script src="{{ asset('js/cookie-consent.js') }}"></script>
+    <script src="<?php echo e(asset('js/animations.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/page-animations.js')); ?>?v=<?php echo e(filemtime(public_path('js/page-animations.js'))); ?>"></script>
+    <script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/cookie-consent.js')); ?>"></script>
     <script>
         // Initialisation supplémentaire si nécessaire
         document.addEventListener('DOMContentLoaded', () => {
@@ -905,7 +900,7 @@
             });
         });
     </script>
-    @stack('scripts')
+    <?php echo $__env->yieldPushContent('scripts'); ?>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const iconPaths = {
@@ -979,3 +974,4 @@
     </script>
 </body>
 </html>
+<?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views/layouts/app.blade.php ENDPATH**/ ?>

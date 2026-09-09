@@ -28,7 +28,7 @@
 <section class="sa-sand-animated environment-commitment" style="padding:70px 5vw; position:relative;">
     <div style="max-width:980px; margin:0 auto; position:relative; z-index:1;">
         <div class="sa-section-heading sa-reveal">
-            <h2>Notre engagement environnemental</h2>
+            
             <div class="sa-divider"></div>
         </div>
 
@@ -49,7 +49,7 @@
     <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
 
         <div class="sa-section-heading sa-reveal">
-            <h2>{{ $en ? 'Environmental Performance' : 'Performance Environnementale' }}</h2>
+            
             <div class="sa-divider"></div>
         </div>
 

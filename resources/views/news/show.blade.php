@@ -70,12 +70,6 @@
 
     <div class="masthead">
         <h1>{{ $news->title }}</h1>
-        <div class="breadcrumb">
-            <a href="{{ $en ? route('english') : url('/') }}">{{ __('site.home_link') }}</a> ›
-            <a href="{{ $en ? route('english.news') : route('news.index') }}">{{ __('site.nav_news') }}</a> ›
-            <a href="{{ $en ? route('english.news') : route('news.index') }}">{{ __('site.subnav_news') }}</a> ›
-            {{ Str::limit($news->title, 40) }}
-        </div>
     </div>
 
     <div class="article-wrap sa-animated-section">

@@ -27,10 +27,17 @@
         </button>
 
         <nav class="site-nav" data-site-nav>
+            <span class="site-nav__item site-nav__item--home">
+                <a class="site-nav__link {{ $sec === 'home' ? 'is-active' : '' }}"
+                   href="{{ $en ? route('english') : url('/') }}">
+                    {{ __('site.home_link') }}
+                </a>
+            </span>
+
             <span class="site-nav__item" data-dropdown>
                 <a class="site-nav__link {{ $isCompany ? 'is-active' : '' }}"
                    href="{{ $en ? route('english.company') : route('company') }}">
-                    {{ __('site.nav_company') }}
+                    {{ strtolower(__('site.nav_company')) }}
                     <span class="site-nav__caret" aria-hidden="true"></span>
                 </a>
                 <div class="site-nav__menu" role="menu">
@@ -58,14 +65,14 @@
                               class="{{ $sec === 'karma' ? 'is-current' : '' }}">{{ $en ? 'Overview' : 'Présentation' }}</a>
                           <a href="{{ $en ? route('english.karma.exploitation') : route('karma.exploitation') }}"
                               class="{{ $sec === 'karma-exploitation' ? 'is-current' : '' }}">{{ $en ? 'Operations' : 'Exploitation' }}</a>
+                        <a href="{{ $en ? route('english.karma.resources') : route('karma.resources') }}"
+                              class="{{ in_array($sec, ['resources','reserves','karma-resources-reserves']) ? 'is-current' : '' }}">{{ $en ? 'Resources & reserves' : 'Ressources & réserves' }}</a>
                           <a href="{{ $en ? route('english.karma.organisation') : route('karma.organisation') }}"
                               class="{{ $sec === 'karma-organisation' ? 'is-current' : '' }}">{{ $en ? 'Organisation' : 'Organisation' }}</a>
                           <a href="{{ $en ? route('english.karma.modele') : route('karma.modele') }}"
                               class="{{ $sec === 'karma-modele' ? 'is-current' : '' }}">{{ $en ? 'Operating model' : 'Modèle opérationnel' }}</a>
                           <a href="{{ $en ? route('english.karma.impact') : route('karma.impact') }}"
                               class="{{ $sec === 'karma-impact' ? 'is-current' : '' }}">{{ $en ? 'Impact' : 'Impact' }}</a>
-                        <a href="{{ $en ? route('english.karma.resources') : route('karma.resources') }}"
-                              class="{{ in_array($sec, ['resources','reserves','karma-resources-reserves']) ? 'is-current' : '' }}">{{ $en ? 'Resources & reserves' : 'Ressources & réserves' }}</a>
                 </div>
             </span>
 

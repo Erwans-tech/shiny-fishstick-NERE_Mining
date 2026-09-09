@@ -22,22 +22,22 @@
                 {{ $en ? 'Néré Mining is responsible for the publication of this website.' : 'Néré Mining est responsable de la publication de ce site web.' }}
             </p>
 
-            <h2 style="font-size:1.4rem; color:#4b1716; margin:26px 0 12px;">1. Publisher</h2>
+            
             <p>
                 {{ $en ? 'Néré Mining  - mining and industrial group active in Burkina Faso.' : 'Néré Mining  - groupe minier et industriel actif au Burkina Faso.' }}
             </p>
 
-            <h2 style="font-size:1.4rem; color:#4b1716; margin:26px 0 12px;">2. Contact</h2>
+            
             <p>
                 {{ $en ? 'Contact details are indicated in the footer of the site and on the contact page.' : 'Les coordonnées de contact sont indiquées dans le pied de page du site et sur la page contact.' }}
             </p>
 
-            <h2 style="font-size:1.4rem; color:#4b1716; margin:26px 0 12px;">3. Website hosting</h2>
+            
             <p>
                 {{ $en ? 'This website is hosted on the hosting provider selected for production. The relevant details are communicated in the project documentation.' : 'Ce site est hébergé par le fournisseur choisi pour la production. Les détails correspondants sont communiqués dans la documentation du projet.' }}
             </p>
 
-            <h2 style="font-size:1.4rem; color:#4b1716; margin:26px 0 12px;">4. Intellectual property</h2>
+            
             <p>
                 {{ $en ? 'All content published on this site is protected by intellectual property rights unless otherwise stated.' : 'Tout le contenu publié sur ce site est protégé par les droits de propriété intellectuelle, sauf mention contraire.' }}
             </p>

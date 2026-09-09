@@ -16,7 +16,7 @@
 </style>
 <div class="karma-page">
 <section id="impact">
-    <h2>{{ __('site.karma_impact_h2', [], $loc) }}</h2>
+    
     <p class="lead">{{ __('site.karma_impact_lead', [], $loc) }}</p>
     <div class="grid-2">
         <div>
