@@ -58,18 +58,6 @@
 
     <p class="lead">{{ __('site.cil_project_lead', [], $loc) }}</p>
 
-    <div class="grid-2" style="margin-top:36px;">
-        <div class="card">
-            <div class="card-tag">{{ __('site.cil_project_location_tag', [], $loc) }}</div>
-            <h3>{{ __('site.cil_project_location_h3', [], $loc) }}</h3>
-            <p>{{ __('site.cil_project_location_p', [], $loc) }}</p>
-        </div>
-        <div class="card">
-            <div class="card-tag">{{ __('site.cil_project_assets_tag', [], $loc) }}</div>
-            <h3>{{ __('site.cil_project_assets_h3', [], $loc) }}</h3>
-            <p>{{ __('site.cil_project_assets_p', [], $loc) }}</p>
-        </div>
-    </div>
 </section>
 
 <section class="sand">

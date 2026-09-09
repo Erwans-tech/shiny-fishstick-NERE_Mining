@@ -1,3 +1,6 @@
+
+
+
 <?php $__env->startSection('content'); ?>
 <style>
     /* ══ Section Headers ════════════════════════════════════════ */
@@ -72,7 +75,7 @@
 <section class="sand">
     
     <div class="cil-header">
-        <h2><?php echo e($en ? 'Resource Placement' : 'Emplacement des Ressources'); ?></h2>
+        
         <p><?php echo e($en ? 'Location of ore deposits for the CIL project' : 'Localisation des gisements de minerai pour le projet CIL'); ?></p>
     </div>
 
@@ -111,7 +114,7 @@
 <section>
     
     <div class="cil-header">
-        <h2><?php echo e($en ? 'Mill Feed Plan' : 'Plan d\'Alimentation de l\'Usine'); ?></h2>
+        
         <p><?php echo e($en ? '12-year production schedule with three main ore sources' : 'Programme de production de 12 ans avec trois sources de minerai principales'); ?></p>
     </div>
 
@@ -154,7 +157,7 @@
 <section class="sand">
     
     <div class="cil-header">
-        <h2><?php echo e($en ? 'Leaching Process' : 'Processus de Lixiviation'); ?></h2>
+        
         <p><?php echo e($en ? 'Technical design of the CIL heap leaching operation' : 'Conception technique du processus de lixiviation en tas'); ?></p>
     </div>
 
@@ -197,7 +200,7 @@
 <section>
     
     <div class="cil-header">
-        <h2><?php echo e($en ? 'Project Schedule' : 'Calendrier du Projet'); ?></h2>
+        
         <p><?php echo e($en ? '14-month execution timeline with critical milestones' : 'Calendrier d\'exécution de 14 mois avec jalons critiques'); ?></p>
     </div>
 
@@ -235,7 +238,7 @@
 <section class="sand">
     
     <div class="cil-header">
-        <h2><?php echo e($en ? 'Site Layout & Arrangement' : 'Aménagement et Disposition du Site'); ?></h2>
+        
         <p><?php echo e($en ? 'Aerial view of CIL plant infrastructure and integration with existing facilities' : 'Vue aérienne de l\'infrastructure de l\'usine CIL et intégration aux installations existantes'); ?></p>
     </div>
 
@@ -266,7 +269,7 @@
 <section>
     
     <div class="cil-header">
-        <h2><?php echo e(__('site.cil_project_gallery_h2', [], $loc)); ?></h2>
+        
         <p><?php echo e($en ? 'Project documentation and technical materials' : 'Documentation du projet et matériaux techniques'); ?></p>
     </div>
 
