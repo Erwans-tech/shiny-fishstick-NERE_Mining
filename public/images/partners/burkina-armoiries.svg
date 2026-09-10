@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" role="img" aria-label="Armoiries du Burkina Faso">
+  <!-- Shield -->
+  <path d="M60 4 L104 24 L104 54 Q104 72 60 78 Q16 72 16 54 L16 24 Z" fill="#009A44"/>
+  <path d="M60 4 L104 24 L104 40 L16 40 L16 24 Z" fill="#EF2B2D"/>
+  <!-- Star -->
+  <polygon points="60,26 63.1,35.5 73,35.5 65.5,41.2 68.5,50.8 60,45.3 51.5,50.8 54.5,41.2 47,35.5 56.9,35.5" fill="#FFD700"/>
+</svg>

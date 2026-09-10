@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" role="img" aria-label="ONASER Burkina Faso">
+  <!-- UN blue circle -->
+  <circle cx="36" cy="40" r="28" fill="#009EDB"/>
+  <!-- UN globe simplified -->
+  <circle cx="36" cy="40" r="18" fill="none" stroke="#fff" stroke-width="1.5"/>
+  <ellipse cx="36" cy="40" rx="8" ry="18" fill="none" stroke="#fff" stroke-width="1.2"/>
+  <line x1="18" y1="40" x2="54" y2="40" stroke="#fff" stroke-width="1.2"/>
+  <line x1="20" y1="30" x2="52" y2="30" stroke="#fff" stroke-width="1"/>
+  <line x1="20" y1="50" x2="52" y2="50" stroke="#fff" stroke-width="1"/>
+  <!-- ONASER text -->
+  <text x="74" y="32" font-family="Arial,sans-serif" font-weight="900" font-size="20" fill="#EF2B2D" letter-spacing="1">ONAS</text>
+  <text x="74" y="32" font-family="Arial,sans-serif" font-weight="900" font-size="20" fill="#EF2B2D" dx="84" dy="0">ER</text>
+  <text x="74" y="50" font-family="Arial,sans-serif" font-size="9" fill="#555" textLength="118" lengthAdjust="spacing">Office National de la Sécurité Routière</text>
+  <text x="74" y="64" font-family="Arial,sans-serif" font-weight="600" font-size="10" fill="#009A44">Burkina Faso</text>
+</svg>

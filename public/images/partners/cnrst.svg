@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" role="img" aria-label="CNRST Burkina Faso">
+  <!-- Atom / science icon -->
+  <circle cx="36" cy="40" r="6" fill="#C0392B"/>
+  <ellipse cx="36" cy="40" rx="26" ry="10" fill="none" stroke="#C0392B" stroke-width="2"/>
+  <ellipse cx="36" cy="40" rx="26" ry="10" fill="none" stroke="#C0392B" stroke-width="2" transform="rotate(60 36 40)"/>
+  <ellipse cx="36" cy="40" rx="26" ry="10" fill="none" stroke="#C0392B" stroke-width="2" transform="rotate(120 36 40)"/>
+  <!-- CNRST text -->
+  <text x="74" y="34" font-family="Arial,sans-serif" font-weight="900" font-size="22" fill="#C0392B" letter-spacing="2">CNRST</text>
+  <rect x="74" y="40" width="100" height="2" fill="#C0392B"/>
+  <text x="74" y="56" font-family="Arial,sans-serif" font-size="9" fill="#555" textLength="118" lengthAdjust="spacing">Centre National de la Recherche</text>
+  <text x="74" y="68" font-family="Arial,sans-serif" font-size="9" fill="#555">Scientifique et Technologique</text>
+</svg>
