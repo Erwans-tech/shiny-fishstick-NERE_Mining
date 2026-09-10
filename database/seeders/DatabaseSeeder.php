@@ -128,5 +128,9 @@ class DatabaseSeeder extends Seeder
             'file_path'     => '',
             'published_at'  => now(),
         ]);
+
+        // Restore the current local editorial state from the exported SQL snapshot
+        // so that deployment mirrors the admin-managed carousel/news/partners/media state.
+        $this->call(LocalContentSeeder::class);
     }
 }
