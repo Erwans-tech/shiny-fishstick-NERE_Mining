@@ -20,6 +20,10 @@ php artisan view:cache
 echo "📦 Running migrations..."
 php artisan migrate --force
 
+# Restaurer automatiquement le snapshot SQL de contenu éditorial exporté localement.
+echo "📦 Loading local editorial content snapshot..."
+php artisan db:seed --class=LocalContentSeeder --force || true
+
 # Créer le lien symbolique storage
 echo "🔗 Creating storage link..."
 php artisan storage:link || true

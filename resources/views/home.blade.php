@@ -191,32 +191,25 @@
             background:linear-gradient(to right, var(--gold), var(--gold2) 60%, transparent 100%);
         }
         .hero-copy {
-            position:absolute; z-index:3; left:50%; top:50%;
-            width:min(90vw,900px); min-height:170px; transform:translate(-50%,-50%);
-            color:#fff; text-align:left; overflow:hidden;
+            position:absolute; z-index:3; left:12%; top:50%;
+            width:min(90vw,980px); min-height:170px; transform:translateY(-50%);
+            color:#fff; text-align:left; overflow:visible;
         }
         .hero-copy-slide {
             position:absolute; inset:0; opacity:0;
             min-height:170px; width:100%;
         }
-        .hero-copy-kicker {
-            display:block; margin-bottom:8px;
-            font:500 clamp(16px,1.9vw,24px)/1.1 Inter,sans-serif;
-            color:var(--gold); letter-spacing:.02em; text-transform:uppercase;
-            text-shadow:0 2px 12px rgba(42,16,16,.8);
-            white-space:nowrap;
-        }
         .hero-copy-title {
-            display:block; max-width:min(70vw,780px);
-            font:700 clamp(40px,4vw,70px)/1.18 Inter,sans-serif;
-            letter-spacing:-.03em; text-transform:none;
+            display:block; max-width:min(80vw,940px);
+            font:700 clamp(40px,4.6vw,76px)/1.10 Inter,sans-serif;
+            letter-spacing:-.035em; text-transform:none;
             color:#fff4dc;
             background:linear-gradient(105deg,#fff4dc 0%,#ffc247 52%,#e5a72f 100%);
             -webkit-background-clip:text; background-clip:text;
             -webkit-text-fill-color:transparent;
             text-shadow:0 4px 24px rgba(42,16,16,.55);
             overflow-wrap:anywhere; word-break:break-word;
-            white-space:normal; line-height:1.2;
+            white-space:normal; line-height:1.10;
         }
         /* Content grid */
         /* Stat tiles below the hero image */
@@ -653,7 +646,6 @@
         <div class="hero-copy">
             @foreach($heroImages as $index => $heroImage)
             <div class="hero-copy-slide" style="animation:heroCopySlide{{ $index }} {{ $heroDuration }}s infinite;">
-                <span class="hero-copy-kicker">{{ $heroImage['kicker'] ?? 'Néré Mining' }}</span>
                 <span class="hero-copy-title">{{ $heroImage['copy'] ?? '' }}</span>
             </div>
             @endforeach

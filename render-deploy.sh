@@ -31,6 +31,10 @@ php artisan view:cache
 echo "🗃️ Running database migrations..."
 php artisan migrate --force
 
+# Restaurer l'état éditorial exporté localement (sans étape de migration manuelle)
+echo "🗃️ Loading local editorial snapshot..."
+php artisan db:seed --class=LocalContentSeeder --force || true
+
 # Création du lien symbolique storage
 echo "🔗 Creating storage link..."
 php artisan storage:link || true

@@ -54,13 +54,9 @@ php artisan admin:create --email="$ADMIN_EMAIL" --password="$ADMIN_PASSWORD" || 
     php artisan admin:create --email="$ADMIN_EMAIL" --password="$ADMIN_PASSWORD"
 }
 
-# Seeders (seulement si pas déjà fait)
-echo "🌱 Initialisation des données..."
-php artisan db:seed --force --class=EnrichedNewsSeeder || echo "Seeder déjà exécuté ou erreur"
-
-# Sync database from local dump (for production parity)
-echo "🔄 Synchronisation des données locales..."
-php artisan db:seed --force --class=RobustSyncSeeder || echo "Sync seeder non exécuté"
+# Restaurer l'état éditorial local exporté en SQL sans migration manuelle.
+echo "🌱 Initialisation des données locales..."
+php artisan db:seed --force --class=LocalContentSeeder || echo "Snapshot de contenu déjà appliqué ou non disponible"
 
 echo "✅ Déploiement terminé !
 🔗 Admin: ${APP_URL}/gestion-nm
