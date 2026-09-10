@@ -2,8 +2,10 @@
 -- PostgreSQL database dump
 --
 
+\restrict su263ib0C3QszhFHv8ZCF3UUyPuUlGPXoeEAkLaoj0ZDhoAd4EA5LwnqFjp5NIo
+
 -- Dumped from database version 18.4
--- Dumped by pg_dump version 18.4
+-- Dumped by pg_dump version 18.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -205,7 +207,7 @@ CREATE TABLE public.contact_messages (
     updated_at timestamp(0) without time zone,
     status character varying(255) DEFAULT 'new'::character varying NOT NULL,
     admin_notes text,
-    CONSTRAINT contact_messages_status_check CHECK (((status)::text = ANY ((ARRAY['new'::character varying, 'reviewing'::character varying, 'replied'::character varying, 'archived'::character varying])::text[])))
+    CONSTRAINT contact_messages_status_check CHECK (((status)::text = ANY (ARRAY[('new'::character varying)::text, ('reviewing'::character varying)::text, ('replied'::character varying)::text, ('archived'::character varying)::text])))
 );
 
 
@@ -321,7 +323,7 @@ CREATE TABLE public.job_applications (
     read_at timestamp(0) without time zone,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
-    CONSTRAINT job_applications_status_check CHECK (((status)::text = ANY ((ARRAY['new'::character varying, 'reviewing'::character varying, 'interview'::character varying, 'rejected'::character varying, 'accepted'::character varying])::text[])))
+    CONSTRAINT job_applications_status_check CHECK (((status)::text = ANY (ARRAY[('new'::character varying)::text, ('reviewing'::character varying)::text, ('interview'::character varying)::text, ('rejected'::character varying)::text, ('accepted'::character varying)::text])))
 );
 
 
@@ -1027,340 +1029,257 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: cache; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.cache (key, value, expiration) FROM stdin;
-\.
 
 
 --
 -- Data for Name: cache_locks; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.cache_locks (key, owner, expiration) FROM stdin;
-\.
 
 
 --
 -- Data for Name: certifications; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.certifications (id, name, description, logo_path, issued_at, expires_at, sort_order, is_active, created_at, updated_at) FROM stdin;
-\.
 
 
 --
 -- Data for Name: contact_messages; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.contact_messages (id, name, email, subject, type, message, read_at, created_at, updated_at, status, admin_notes) FROM stdin;
-\.
 
 
 --
 -- Data for Name: failed_jobs; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.failed_jobs (id, uuid, connection, queue, payload, exception, failed_at) FROM stdin;
-\.
 
 
 --
 -- Data for Name: hero_slides; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.hero_slides (id, title, caption, image_path, is_active, sort_order, created_at, updated_at, type, video_url) FROM stdin;
-8	\N	Une mine en exploitation : Riverstone Karma	hero/t2brc4J0xp78HSR95EtBfPZ75xl8oCYwE1EnPF80.jpg	t	1	2026-09-09 12:09:19	2026-09-10 10:03:15	image	\N
-9	\N	Des activités d'exploration et un portefeuille en développement	images/carousel/tyna_janoch-excavator-2781676_1920.jpg	t	2	2026-09-09 12:09:19	2026-09-10 10:15:25	image	\N
-10	\N	Une ambition fondée sur la performance, la responsabilité et la création de valeur partagée	hero/mdFX47ibl2LUh0b7PJQ7OZ4ONKC3Mnm6m2pFWg7A.jpg	t	4	2026-09-09 12:09:19	2026-09-10 10:17:47	image	\N
-11	Karma, notre mine d’or	\N	images/carousel/Video Project 1.mp4	t	5	2026-09-09 12:09:19	2026-09-09 12:09:19	video	\N
-18	\N	Une entreprise à encrage national	hero/FNY4nVuUiKDio6MhyaZfvTBLiDGFQP53tHLKMNR3.jpg	t	0	2026-09-10 09:59:29	2026-09-10 10:03:03	image	\N
-\.
 
 
 --
 -- Data for Name: job_applications; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.job_applications (id, job_offer_id, first_name, last_name, email, phone, nationality, current_position, experience_years, motivation, cv_path, cover_letter_path, status, admin_notes, read_at, created_at, updated_at) FROM stdin;
-\.
 
 
 --
 -- Data for Name: job_batches; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.job_batches (id, name, total_jobs, pending_jobs, failed_jobs, failed_job_ids, options, cancelled_at, created_at, finished_at) FROM stdin;
-\.
 
 
 --
 -- Data for Name: job_offers; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.job_offers (id, title, department, location, contract_type, description, requirements, deadline, is_published, created_at, updated_at, slug, experience_level, salary_range, is_spontaneous) FROM stdin;
-\.
 
 
 --
 -- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.jobs (id, queue, payload, attempts, reserved_at, available_at, created_at) FROM stdin;
-\.
 
 
 --
 -- Data for Name: karma_departments; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.karma_departments (id, tag_fr, tag_en, title_fr, title_en, body_fr, body_en, sort_order, is_published, created_at, updated_at) FROM stdin;
-1	Administration	Administration	Administration de la mine	Mine Administration	Planification stratégique, gestion des opérations, supervision financière et conformité réglementaire. L'administration coordonne les départements et les services techniques, HSE et ressources humaines.	Strategic planning, operations management, financial oversight and regulatory compliance. Administration coordinates the technical, HSE and human resources departments.	1	t	2026-09-09 12:09:19	2026-09-09 12:09:19
-2	Ressources humaines	Human resources	Ressources humaines	Human Resources	Les ressources humaines gèrent le personnel et contribuent à garantir un environnement de travail productif, sûr et épanouissant.	Human resources manages personnel and helps ensure a productive, safe and fulfilling working environment.	2	t	2026-09-09 12:09:19	2026-09-09 12:09:19
-3	Sûreté	Security	Département Sécurité	Security Department	Le dispositif comprend une CCTV de 44 caméras, une cellule drone, une brigade canine, une permanence des superviseurs 24h/24 et un service de transport entre Ouahigouya, Karma et Ouagadougou.	The system includes CCTV with 44 cameras, a drone unit, a canine brigade, supervisors on duty 24/7 and transport between Ouahigouya, Karma and Ouagadougou.	3	t	2026-09-09 12:09:19	2026-09-09 12:09:19
-4	Opérations	Operations	Département Mining	Mining Department	Le processus minier regroupe la planification, les études de faisabilité, l'analyse économique et les étapes techniques nécessaires à une extraction efficiente et sécurisée.	The mining process includes planning, feasibility studies, economic analysis and the technical steps required for efficient and safe extraction.	4	t	2026-09-09 12:09:19	2026-09-09 12:09:19
-5	HSE	HSE	Hygiène, Santé, Sécurité et Environnement	Health, Safety and Environment	Le département HSE vise zéro incident grâce à la formation continue, aux inspections régulières, au suivi environnemental, à la gestion de la santé et au système de management HSE.	The HSE department targets zero incidents through continuous training, regular inspections, environmental monitoring, health management and an HSE management system.	5	t	2026-09-09 12:09:19	2026-09-09 12:09:19
-6	Traitement	Processing	Département Processing	Processing Department	Le Processing est organisé en quatre sections : opérations, maintenance des équipements fixes, métallurgie et infrastructures. Il veille au traitement du minerai et à l'optimisation de la production d'or.	Processing is organised into four sections: operations, fixed equipment maintenance, metallurgy and infrastructure. It manages ore treatment and gold production optimisation.	6	t	2026-09-09 12:09:19	2026-09-09 12:09:19
-7	Approvisionnement	Supply	Chaîne d’approvisionnement (SCM)	Supply Chain Department	Le SCM comprend les Achats, la Logistique, les Contrats et le Magasin. Il est dirigé par une équipe entièrement locale et garantit les biens, services et stocks nécessaires à la production.	Supply Chain comprises Procurement, Logistics, Contracts and Stores. It is led by an entirely local team and provides the goods, services and stocks required for production.	7	t	2026-09-09 12:09:19	2026-09-09 12:09:19
-8	Technologies	Technology	Département IT	IT Department	Le département IT accompagne les équipes et les opérations de Karma grâce aux outils et services numériques nécessaires au fonctionnement du site.	The IT department supports Karma teams and operations through the digital tools and services required to run the site.	8	t	2026-09-09 12:09:19	2026-09-09 12:09:19
-9	Dialogue local	Local dialogue	Relations communautaires	Community Relations	Le département gère les impacts sociaux, entretient le dialogue avec les communautés et soutient les autorités locales, coutumières et religieuses dans une approche pragmatique.	The department manages social impacts, maintains dialogue with communities and supports local, traditional and religious authorities through a pragmatic approach.	9	t	2026-09-09 12:09:19	2026-09-09 12:09:19
-\.
 
 
 --
 -- Data for Name: leadership_members; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.leadership_members (id, name, title, department, photo_path, is_published, sort_order, created_at, updated_at, hierarchy_level) FROM stdin;
-1	Dr. Justin Elie OUEDRAOGO	Président Directeur Général	\N	leadership/9utbMgCNCBV4tUEFAgnI9LfV9FDZKglMXDI2hQEI.jpg	t	1	2026-09-09 12:09:19	2026-09-10 09:55:51	1
-2	Justin SAVADOGO	Directeur Général Adjoint	Administration & Finance	images/mining/gold-processing-01.jpg	t	1	2026-09-09 12:09:19	2026-09-09 12:09:19	2
-3	Pascal Y. OUEDRAOGO	Directeur Général Adjoint	Approvisionnements	images/mining/mining-equipment-01.jpg	t	2	2026-09-09 12:09:19	2026-09-09 12:09:19	2
-4	Laurent Michel DABIRE	Directeur Général Adjoint	Affaires Corporatives & Juridiques	images/mining/mining-site-aerial-01.jpg	t	3	2026-09-09 12:09:19	2026-09-09 12:09:19	2
-5	Augustine OBENG-FORI	DGA par intérim	Opérations	images/mining/mining-environment-01.jpg	t	4	2026-09-09 12:09:19	2026-09-09 12:09:19	2
-\.
 
 
 --
 -- Data for Name: media_assets; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.media_assets (id, title, type, file_path, caption, is_published, sort_order, created_at, updated_at, external_url, placement) FROM stdin;
-\.
 
 
 --
 -- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.migrations (id, migration, batch) FROM stdin;
-1	0001_01_01_000000_create_users_table	1
-2	0001_01_01_000001_create_cache_table	1
-3	0001_01_01_000002_create_jobs_table	1
-4	2026_08_20_165609_create_news_table	1
-5	2026_08_20_170359_create_reports_table	1
-6	2026_08_20_170400_create_job_offers_table	1
-7	2026_08_20_170401_create_contact_messages_table	1
-8	2026_08_20_170717_create_newsletter_subscribers_table	1
-9	2026_08_20_170718_create_partners_table	1
-10	2026_08_20_170719_create_media_assets_table	1
-11	2026_08_20_170720_create_press_documents_table	1
-12	2026_08_25_095550_add_content_to_news_table	1
-13	2026_08_25_121120_add_is_admin_to_users_table	1
-14	2026_08_25_133651_add_slug_to_job_offers_table	1
-15	2026_08_25_135029_add_fields_to_job_offers_table	1
-16	2026_08_25_135030_create_job_applications_table	1
-17	2026_08_25_144200_add_is_spontaneous_to_job_offers_table	1
-18	2026_08_27_084134_add_external_url_to_media_assets_table	1
-19	2026_08_27_150000_add_placement_to_media_assets_table	1
-20	2026_08_27_165117_create_hero_slides_table	1
-21	2026_08_28_081856_add_type_to_hero_slides_table	1
-22	2026_08_31_090000_create_karma_departments_table	1
-23	2026_08_31_112849_add_status_and_notes_to_contact_messages_table	1
-24	2026_08_31_113114_create_site_settings_table	1
-25	2026_08_31_113418_create_certifications_table	1
-26	2026_08_31_164742_add_mining_videos_to_hero_slides	1
-27	2026_09_01_111347_add_video_support_to_hero_slides_table	1
-28	2026_09_01_111851_add_carousel_settings_to_site_settings	1
-29	2026_09_01_112840_create_site_analytics_table	1
-30	2026_09_02_002832_add_slug_to_news_table	1
-31	2026_09_02_120000_seed_requested_news_articles	1
-32	2026_09_03_120000_add_press_contact_settings	1
-33	2026_09_03_120000_create_leadership_members_table	1
-34	2026_09_03_123000_add_hierarchy_level_to_leadership_members_table	1
-35	2026_09_03_124000_seed_initial_leadership_members	1
-36	2026_09_04_130000_expand_site_analytics_ip_hash	1
-37	2026_09_07_120000_seed_default_hero_slides	1
-38	2026_09_07_121000_ensure_default_hero_slides	1
-39	2026_09_07_130000_repair_mojibake_editorial_text	1
-40	2026_09_07_131000_repair_double_encoded_editorial_text	1
-41	2026_09_07_140000_add_gallery_images_to_news_table	1
-42	2026_09_07_150000_create_sessions_table	1
-43	2026_09_07_160000_add_public_uuid_to_users_table	1
-44	2026_09_07_161000_add_site_analytics_indexes	1
-\.
+INSERT INTO public.migrations VALUES (1, '0001_01_01_000000_create_users_table', 1);
+INSERT INTO public.migrations VALUES (2, '0001_01_01_000001_create_cache_table', 1);
+INSERT INTO public.migrations VALUES (3, '0001_01_01_000002_create_jobs_table', 1);
+INSERT INTO public.migrations VALUES (4, '2026_08_20_165609_create_news_table', 1);
+INSERT INTO public.migrations VALUES (5, '2026_08_20_170359_create_reports_table', 1);
+INSERT INTO public.migrations VALUES (6, '2026_08_20_170400_create_job_offers_table', 1);
+INSERT INTO public.migrations VALUES (7, '2026_08_20_170401_create_contact_messages_table', 1);
+INSERT INTO public.migrations VALUES (8, '2026_08_20_170717_create_newsletter_subscribers_table', 1);
+INSERT INTO public.migrations VALUES (9, '2026_08_20_170718_create_partners_table', 1);
+INSERT INTO public.migrations VALUES (10, '2026_08_20_170719_create_media_assets_table', 1);
+INSERT INTO public.migrations VALUES (11, '2026_08_20_170720_create_press_documents_table', 1);
+INSERT INTO public.migrations VALUES (12, '2026_08_25_095550_add_content_to_news_table', 1);
+INSERT INTO public.migrations VALUES (13, '2026_08_25_121120_add_is_admin_to_users_table', 1);
+INSERT INTO public.migrations VALUES (14, '2026_08_25_133651_add_slug_to_job_offers_table', 1);
+INSERT INTO public.migrations VALUES (15, '2026_08_25_135029_add_fields_to_job_offers_table', 1);
+INSERT INTO public.migrations VALUES (16, '2026_08_25_135030_create_job_applications_table', 1);
+INSERT INTO public.migrations VALUES (17, '2026_08_25_144200_add_is_spontaneous_to_job_offers_table', 1);
+INSERT INTO public.migrations VALUES (18, '2026_08_27_084134_add_external_url_to_media_assets_table', 1);
+INSERT INTO public.migrations VALUES (19, '2026_08_27_150000_add_placement_to_media_assets_table', 1);
+INSERT INTO public.migrations VALUES (20, '2026_08_27_165117_create_hero_slides_table', 1);
+INSERT INTO public.migrations VALUES (21, '2026_08_28_081856_add_type_to_hero_slides_table', 1);
+INSERT INTO public.migrations VALUES (22, '2026_08_31_090000_create_karma_departments_table', 1);
+INSERT INTO public.migrations VALUES (23, '2026_08_31_112849_add_status_and_notes_to_contact_messages_table', 1);
+INSERT INTO public.migrations VALUES (24, '2026_08_31_113114_create_site_settings_table', 1);
+INSERT INTO public.migrations VALUES (25, '2026_08_31_113418_create_certifications_table', 1);
+INSERT INTO public.migrations VALUES (26, '2026_08_31_164742_add_mining_videos_to_hero_slides', 1);
+INSERT INTO public.migrations VALUES (27, '2026_09_01_111347_add_video_support_to_hero_slides_table', 1);
+INSERT INTO public.migrations VALUES (28, '2026_09_01_111851_add_carousel_settings_to_site_settings', 1);
+INSERT INTO public.migrations VALUES (29, '2026_09_01_112840_create_site_analytics_table', 1);
+INSERT INTO public.migrations VALUES (30, '2026_09_02_002832_add_slug_to_news_table', 1);
+INSERT INTO public.migrations VALUES (31, '2026_09_02_120000_seed_requested_news_articles', 1);
+INSERT INTO public.migrations VALUES (32, '2026_09_03_120000_add_press_contact_settings', 1);
+INSERT INTO public.migrations VALUES (33, '2026_09_03_120000_create_leadership_members_table', 1);
+INSERT INTO public.migrations VALUES (34, '2026_09_03_123000_add_hierarchy_level_to_leadership_members_table', 1);
+INSERT INTO public.migrations VALUES (35, '2026_09_03_124000_seed_initial_leadership_members', 1);
+INSERT INTO public.migrations VALUES (36, '2026_09_04_130000_expand_site_analytics_ip_hash', 1);
+INSERT INTO public.migrations VALUES (37, '2026_09_07_120000_seed_default_hero_slides', 1);
+INSERT INTO public.migrations VALUES (38, '2026_09_07_121000_ensure_default_hero_slides', 1);
+INSERT INTO public.migrations VALUES (39, '2026_09_07_130000_repair_mojibake_editorial_text', 1);
+INSERT INTO public.migrations VALUES (40, '2026_09_07_131000_repair_double_encoded_editorial_text', 1);
+INSERT INTO public.migrations VALUES (41, '2026_09_07_140000_add_gallery_images_to_news_table', 1);
+INSERT INTO public.migrations VALUES (42, '2026_09_07_150000_create_sessions_table', 1);
+INSERT INTO public.migrations VALUES (43, '2026_09_07_160000_add_public_uuid_to_users_table', 1);
+INSERT INTO public.migrations VALUES (44, '2026_09_07_161000_add_site_analytics_indexes', 1);
 
 
 --
 -- Data for Name: news; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.news (id, title, category, excerpt, image_path, published_at, created_at, updated_at, content, slug, gallery_images) FROM stdin;
-1	Annulation du contrat d'achat d'or : Riverstone Karma SA salue une décision judiciaire historique	Gouvernance	Par jugement en date du 10 juin 2026, le Tribunal de commerce de Ouagadougou a statué en faveur de Riverstone Karma SA dans le différend qui l’opposait aux sociétés Franco-Nevada et Sandstorm Gold Ltd (aujourd’hui IRC).	news/gOJSCdIXI2QxxKoi0H6oG2XtS7ESyMrponCYJC8t.jpg	2026-07-20 00:00:00	2026-09-09 12:09:19	2026-09-10 10:28:58	La juridiction a prononcé l’annulation du Gold Purchase Agreement (GPA), un contrat d’achat d’or conclu en 2014, et a condamné solidairement les deux sociétés à verser à Riverstone Karma SA la somme de 5 218 224 600 francs CFA (environ 9,3 millions de dollars américains) à titre de réparation.\r\n\r\nHérité d’un montage financier mis en place plusieurs années avant la reprise de la mine de Karma en 2022, le contrat imposait des engagements de long terme particulièrement contraignants sur la commercialisation de la production aurifère. Ces dispositions limitaient la flexibilité financière de l’exploitation et réduisaient sa capacité à mobiliser les ressources nécessaires pour son développement.\r\n\r\nL’annulation de ce contrat permet aujourd’hui à Riverstone Karma SA de retrouver une plus grande autonomie dans la gestion de ses ressources et de maximiser les retombées économiques au bénéfice du Burkina Faso. Elle réaffirme également l’importance du respect du cadre juridique burkinabè et des principes économiques et financiers de l’Union économique et monétaire ouest-africaine (UEMOA).\r\n\r\nCette nouvelle dynamique favorisera notamment :\r\n\r\nLe renforcement des investissements productifs ;\r\nL’optimisation des recettes fiscales et des dividendes versés à l’État ;\r\nLa création de valeur pour les partenaires nationaux ;\r\nLe développement des opportunités économiques au profit des communautés locales ;\r\nLa consolidation d’une exploitation minière durable.\r\nRiverstone Karma SA réaffirme son engagement à promouvoir une exploitation minière responsable, fondée sur le respect des lois nationales et des meilleures pratiques internationales. La société poursuivra ses investissements afin de créer de la valeur durable pour l’ensemble de ses parties prenantes.	annulation-du-contrat-dachat-dor-riverstone-karma-sa-salue-une-decision-judiciaire-historique	\N
-2	Forum Mines 2026 : Néré Mining réaffirme son engagement en faveur des pratiques durables dans l'exploitation minière	HSE	Présente au Forum Mines 2026 à Ouagadougou, Néré Mining partage son engagement pour la santé, la sécurité et l’environnement dans le secteur minier.	news/72IP8rXFnYq0ZUerrs1pQlEP8weEL3jsser8HVEs.jpg	2026-07-16 00:00:00	2026-09-09 12:09:19	2026-09-10 10:29:55	La troisième édition du Forum Mines a officiellement ouvert ses portes le mardi 7 juillet 2026 à Ouagadougou. Organisée par la Chambre des mines du Burkina, cette rencontre s’est déroulée du 7 au 9 juillet autour du thème : « Santé, sécurité et environnement : libérer le plein potentiel minier », sous le patronage du président de l’Assemblée législative du peuple.\r\n\r\nParmi les entreprises présentes au Forum Mines 2026 figure Riverstone Karma SA, détenue par la société Néré Mining. Elle est venue réaffirmer son engagement en matière de santé, de sécurité et d’environnement (HSE). Pour elle, cette participation constitue une occasion privilégiée de partager les expériences du secteur et de renforcer les bonnes pratiques.\r\n\r\nSelon Esaie Sawadogo, chargé de santé et sécurité à Riverstone Karma, la présence de l’entreprise à cette édition s’inscrit dans une volonté de contribuer activement aux réflexions sur les enjeux du secteur. «La santé et la sécurité constituent un pilier essentiel au bon fonctionnement d’une industrie, particulièrement dans le secteur minier. Il était de notre devoir de prendre part à cette rencontre afin d’échanger sur les défis à relever et de contribuer au renforcement de la culture santé-sécurité », a-t-il expliqué.\r\n\r\nAprès avoir acquis la mine de Karma en 2022, Néré Mining se distingue comme la première société minière de droit burkinabé, détenue par des actionnaires majoritairement nationaux. En participant au forum, l’entreprise met également en lumière ses projets à travers un stand d’exposition ouvert aux visiteurs. Les représentants de Néré Mining ont également pris part à plusieurs panels consacrés aux questions de santé, de sécurité et d’environnement. Ces échanges ont permis de découvrir les expériences d’autres sociétés minières ainsi que les évolutions des textes réglementaires en vigueur dans le domaine du HSE.« Nous repartons satisfaits de ces échanges. Les expériences partagées et les conseils reçus nous permettront d’améliorer davantage nos pratiques afin de garantir un environnement de travail toujours plus sûr », a confié M. Sawadogo.\r\n\r\nÀ l’endroit des acteurs du secteur et des entreprises burkinabè, il a lancé un appel à faire de la santé et de la sécurité une priorité. « Le capital humain demeure la première richesse de toute entreprise. Il est indispensable de mettre en place un système HSE efficace afin d’offrir aux travailleurs des conditions de travail sûres et favorables à leur productivité », a-t-il conclu.\r\n\r\nÀ travers cette participation, Néré Mining confirme sa volonté de promouvoir une culture de prévention et d’amélioration continue, en cohérence avec les objectifs du Forum Mines 2026 pour un secteur minier plus performant, plus responsable et plus sûr.	forum-mines-2026-nere-mining-reaffirme-son-engagement-en-faveur-des-pratiques-durables-dans-lexploitation-miniere	\N
-3	Semaine des Activités Minières de l'Afrique de l'Ouest	Événement	Retour sur la 6e édition de la SAMAO, consacrée aux stratégies de développement liées aux minéraux critiques pour les pays africains.	news/eXgerwrrme0JCaqLIHVtWK3ukqWu7HUNtq367qVo.png	2024-11-29 00:00:00	2026-09-09 12:09:19	2026-09-10 10:32:25	MOT DU PARRAIN\r\nJe voudrais exprimer mes vifs remerciements à l’endroit du Gouvernement du Burkina Faso pour le choix porté sur ma modeste personne pour parrainer cette 6 ème édition de la SAMAO.\r\n\r\nLe thème de cette rencontre « Les minéraux critiques : Quelles stratégies de développement pour les pays africains ? » est d’un intérêt stratégique pour « réaliser l’Afrique que nous voulons, c’est à dire une Afrique qui compte et qui gagne».\r\n\r\nDes premières Journées de Promotion des activités minières (PROMIN en 1995) à la SAMAO 2024, que de chemin parcouru !!!! Quel engagement soutenu et quelle belle détermination du Gouvernement, des acteurs privés, de la société civile et des  Partenaires techniques et financiers, à faire du secteur minier, un puissant levier de développement économique et social de nos chers pays !!!\r\n\r\nNotre vision, notre ambition et notre engagement dans le secteur minier est d’en faire un véritable accélérateur de l’industrialisation de notre continent et de créer des chaines de valeurs par une approche intégrée basée sur la diversification et le développement de son incommensurable potentiel géologique, la valeur de ses ressources humaines, la création de richesses et le soutien aux petites et moyennes entreprises, en vue de leur insertion dans l’économie minière.\r\n\r\nLes thématiques abordées durant ces trois jours à l’ère de la transition énergétique constituent autant de défis qu’il nous faut relever ensemble, si nous voulons faire de l’Afrique le Continent de l’avenir. Certes, beaucoup a été fait mais beaucoup reste encore à parfaire. Et comme une termitière vivante, ajoutons toujours de la terre à la terre. Je terminerai enfin, en souhaitant plein succès à la SAMAO 2024 et en félicitant toutes les parties prenantes dans l’Organisation de cet important évènement continental qui démontre une fois de plus le rôle prépondérant de notre cher pays dans le concert des plus grandes nations minières.\r\n\r\nNAAABA BAOOGO DE GOURCY\r\n\r\nPDG de NERE MINING SA	semaine-des-activites-minieres-de-lafrique-de-louest	\N
-\.
 
 
 --
 -- Data for Name: newsletter_subscribers; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.newsletter_subscribers (id, email, subscribed_at, created_at, updated_at) FROM stdin;
-\.
 
 
 --
 -- Data for Name: partners; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.partners (id, name, logo_path, website_url, category, is_published, sort_order, created_at, updated_at) FROM stdin;
-1	NEMMBA	partners/8KWWqVppURFt8VhDpNGqn37gqaruNDtyHQQG0jEf.jpg	\N	TECHNIQUE	t	3	2026-09-10 10:24:54	2026-09-10 10:24:54
-\.
 
 
 --
 -- Data for Name: password_reset_tokens; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.password_reset_tokens (email, token, created_at) FROM stdin;
-\.
 
 
 --
 -- Data for Name: press_documents; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.press_documents (id, title, document_type, description, file_path, published_at, created_at, updated_at) FROM stdin;
-\.
 
 
 --
 -- Data for Name: reports; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.reports (id, title, category, description, file_path, cover_image, published_at, created_at, updated_at) FROM stdin;
-\.
 
 
 --
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.sessions (id, user_id, ip_address, user_agent, payload, last_activity) FROM stdin;
-\.
 
 
 --
 -- Data for Name: site_analytics; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.site_analytics (id, page_url, page_title, referrer, user_agent, device_type, country, ip_address, visited_at) FROM stdin;
-4	http://127.0.0.1:8000	\N	http://127.0.0.1:8000/developpement-durable/sante-securite	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 12:18:17
-5	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 12:21:55
-6	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 12:46:00
-7	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 14:12:07
-8	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 14:31:34
-9	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 14:32:02
-10	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 14:39:27
-11	http://127.0.0.1:8000	\N	http://127.0.0.1:8000/	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 14:41:16
-12	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 14:41:55
-13	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 14:56:06
-14	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 15:38:21
-15	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 15:45:05
-16	http://127.0.0.1:8000/karma	\N	http://127.0.0.1:8000/	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 15:47:49
-17	http://127.0.0.1:8000/karma	\N	http://127.0.0.1:8000/karma	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 15:51:17
-18	http://127.0.0.1:8000/karma/exploitation	\N	http://127.0.0.1:8000/karma	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 15:52:13
-19	http://127.0.0.1:8000/karma/organisation	\N	http://127.0.0.1:8000/karma/exploitation	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 16:02:29
-20	http://127.0.0.1:8000/karma/modele-operationnel	\N	http://127.0.0.1:8000/karma/organisation	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 16:02:36
-21	http://127.0.0.1:8000/karma/impact	\N	http://127.0.0.1:8000/karma/modele-operationnel	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 16:02:42
-22	http://127.0.0.1:8000/projets/projet-cil	\N	http://127.0.0.1:8000/karma/impact	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 16:07:21
-23	http://127.0.0.1:8000/projets	\N	http://127.0.0.1:8000/projets/projet-cil	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 16:08:14
-24	http://127.0.0.1:8000/qui-sommes-nous/mot-du-pdg	\N	http://127.0.0.1:8000/projets	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 16:29:30
-25	http://127.0.0.1:8000/projets	\N	http://127.0.0.1:8000/qui-sommes-nous/mot-du-pdg	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 16:31:05
-26	http://127.0.0.1:8000/developpement-durable/communautes	\N	http://127.0.0.1:8000/	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 16:31:41
-27	http://127.0.0.1:8000/karma	\N	http://127.0.0.1:8000/projets	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 16:35:24
-28	http://127.0.0.1:8000/karma/exploitation	\N	http://127.0.0.1:8000/karma	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 16:35:38
-29	http://127.0.0.1:8000/karma/exploitation	\N	http://127.0.0.1:8000/karma	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 17:25:25
-30	http://127.0.0.1:8000/projets/projet-cil	\N	http://127.0.0.1:8000/karma/exploitation	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-09 17:50:41
-31	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.137.0 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:25:11
-32	http://127.0.0.1:8000	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:25:52
-33	http://127.0.0.1:8000/gestion-nm	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:32:56
-34	http://127.0.0.1:8000/gestion-nm	\N	http://127.0.0.1:8000/gestion-nm	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:33:10
-35	http://127.0.0.1:8000/gestion-nm	\N	http://127.0.0.1:8000/gestion-nm	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:33:20
-36	http://127.0.0.1:8000/gestion-nm	\N	http://127.0.0.1:8000/gestion-nm	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:33:26
-37	http://127.0.0.1:8000/gestion-nm	\N	http://127.0.0.1:8000/gestion-nm	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:33:35
-38	http://127.0.0.1:8000/gestion-nm	\N	http://127.0.0.1:8000/gestion-nm	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:33:54
-39	http://127.0.0.1:8000/gestion-nm	\N	http://127.0.0.1:8000/gestion-nm	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:35:22
-40	http://127.0.0.1:8000/gestion-nm	\N	http://127.0.0.1:8000/gestion-nm	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:38:26
-41	http://127.0.0.1:8000	\N	http://127.0.0.1:8000/gestion-nm/hero-slideshow	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:59:39
-42	http://127.0.0.1:8000	\N	http://127.0.0.1:8000/gestion-nm/hero-slideshow	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 09:59:44
-43	http://127.0.0.1:8000	\N	http://127.0.0.1:8000/gestion-nm/hero-slideshow	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:02:01
-44	http://127.0.0.1:8000	\N	http://127.0.0.1:8000/gestion-nm/hero-slideshow	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:15:32
-45	http://127.0.0.1:8000	\N	http://127.0.0.1:8000/gestion-nm/hero-slideshow	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:17:56
-46	http://127.0.0.1:8000/qui-sommes-nous/mot-du-pdg	\N	http://127.0.0.1:8000/	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:19:57
-47	http://127.0.0.1:8000/qui-sommes-nous/identite	\N	http://127.0.0.1:8000/qui-sommes-nous/mot-du-pdg	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:20:06
-48	http://127.0.0.1:8000/qui-sommes-nous/histoire	\N	http://127.0.0.1:8000/qui-sommes-nous/identite	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:20:12
-49	http://127.0.0.1:8000/qui-sommes-nous/valeurs	\N	http://127.0.0.1:8000/qui-sommes-nous/histoire	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:20:22
-50	http://127.0.0.1:8000/qui-sommes-nous/gouvernance	\N	http://127.0.0.1:8000/qui-sommes-nous/valeurs	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:20:31
-51	http://127.0.0.1:8000/karma	\N	http://127.0.0.1:8000/qui-sommes-nous/gouvernance	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:20:51
-52	http://127.0.0.1:8000/karma/ressources-reserves	\N	http://127.0.0.1:8000/karma	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:21:08
-53	http://127.0.0.1:8000/karma/organisation	\N	http://127.0.0.1:8000/karma/ressources-reserves	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:21:23
-54	http://127.0.0.1:8000/karma/modele-operationnel	\N	http://127.0.0.1:8000/karma/organisation	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:21:35
-55	http://127.0.0.1:8000/karma/impact	\N	http://127.0.0.1:8000/karma/modele-operationnel	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:21:42
-56	http://127.0.0.1:8000/projets/projet-cil	\N	http://127.0.0.1:8000/karma/impact	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:21:56
-57	http://127.0.0.1:8000/projets	\N	http://127.0.0.1:8000/projets/projet-cil	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:22:03
-58	http://127.0.0.1:8000/developpement-durable/communautes	\N	http://127.0.0.1:8000/projets	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:22:27
-59	http://127.0.0.1:8000/developpement-durable/environnement	\N	http://127.0.0.1:8000/developpement-durable/communautes	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:22:48
-60	http://127.0.0.1:8000/developpement-durable/sante-securite	\N	http://127.0.0.1:8000/developpement-durable/environnement	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:22:55
-61	http://127.0.0.1:8000/developpement-durable/contenu-local	\N	http://127.0.0.1:8000/developpement-durable/sante-securite	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:23:07
-62	http://127.0.0.1:8000/actualites	\N	http://127.0.0.1:8000/developpement-durable/contenu-local	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:23:16
-63	http://127.0.0.1:8000/communiques	\N	http://127.0.0.1:8000/actualites	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:23:23
-64	http://127.0.0.1:8000/mediatheque	\N	http://127.0.0.1:8000/communiques	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:23:28
-65	http://127.0.0.1:8000/rapports	\N	http://127.0.0.1:8000/mediatheque	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:23:38
-66	http://127.0.0.1:8000/contact-presse	\N	http://127.0.0.1:8000/rapports	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:23:44
-67	http://127.0.0.1:8000/carrieres	\N	http://127.0.0.1:8000/contact-presse	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:23:52
-68	http://127.0.0.1:8000/offres-emploi	\N	http://127.0.0.1:8000/carrieres	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:24:01
-69	http://127.0.0.1:8000	\N	http://127.0.0.1:8000/offres-emploi	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:33:04
-70	http://127.0.0.1:8000	\N	http://127.0.0.1:8000/offres-emploi	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 10:35:19
-71	http://127.0.0.1:8000	\N	http://127.0.0.1:8000/	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0	desktop	\N	12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0	2026-09-10 11:12:39
-\.
+INSERT INTO public.site_analytics VALUES (4, 'http://127.0.0.1:8000', NULL, 'http://127.0.0.1:8000/developpement-durable/sante-securite', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 12:18:17');
+INSERT INTO public.site_analytics VALUES (5, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 12:21:55');
+INSERT INTO public.site_analytics VALUES (6, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 12:46:00');
+INSERT INTO public.site_analytics VALUES (7, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 14:12:07');
+INSERT INTO public.site_analytics VALUES (8, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 14:31:34');
+INSERT INTO public.site_analytics VALUES (9, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 14:32:02');
+INSERT INTO public.site_analytics VALUES (10, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 14:39:27');
+INSERT INTO public.site_analytics VALUES (11, 'http://127.0.0.1:8000', NULL, 'http://127.0.0.1:8000/', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 14:41:16');
+INSERT INTO public.site_analytics VALUES (12, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 14:41:55');
+INSERT INTO public.site_analytics VALUES (13, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 14:56:06');
+INSERT INTO public.site_analytics VALUES (14, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 15:38:21');
+INSERT INTO public.site_analytics VALUES (15, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 15:45:05');
+INSERT INTO public.site_analytics VALUES (16, 'http://127.0.0.1:8000/karma', NULL, 'http://127.0.0.1:8000/', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 15:47:49');
+INSERT INTO public.site_analytics VALUES (17, 'http://127.0.0.1:8000/karma', NULL, 'http://127.0.0.1:8000/karma', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 15:51:17');
+INSERT INTO public.site_analytics VALUES (18, 'http://127.0.0.1:8000/karma/exploitation', NULL, 'http://127.0.0.1:8000/karma', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 15:52:13');
+INSERT INTO public.site_analytics VALUES (19, 'http://127.0.0.1:8000/karma/organisation', NULL, 'http://127.0.0.1:8000/karma/exploitation', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 16:02:29');
+INSERT INTO public.site_analytics VALUES (20, 'http://127.0.0.1:8000/karma/modele-operationnel', NULL, 'http://127.0.0.1:8000/karma/organisation', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 16:02:36');
+INSERT INTO public.site_analytics VALUES (21, 'http://127.0.0.1:8000/karma/impact', NULL, 'http://127.0.0.1:8000/karma/modele-operationnel', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 16:02:42');
+INSERT INTO public.site_analytics VALUES (22, 'http://127.0.0.1:8000/projets/projet-cil', NULL, 'http://127.0.0.1:8000/karma/impact', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 16:07:21');
+INSERT INTO public.site_analytics VALUES (23, 'http://127.0.0.1:8000/projets', NULL, 'http://127.0.0.1:8000/projets/projet-cil', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 16:08:14');
+INSERT INTO public.site_analytics VALUES (24, 'http://127.0.0.1:8000/qui-sommes-nous/mot-du-pdg', NULL, 'http://127.0.0.1:8000/projets', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 16:29:30');
+INSERT INTO public.site_analytics VALUES (25, 'http://127.0.0.1:8000/projets', NULL, 'http://127.0.0.1:8000/qui-sommes-nous/mot-du-pdg', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 16:31:05');
+INSERT INTO public.site_analytics VALUES (26, 'http://127.0.0.1:8000/developpement-durable/communautes', NULL, 'http://127.0.0.1:8000/', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 16:31:41');
+INSERT INTO public.site_analytics VALUES (27, 'http://127.0.0.1:8000/karma', NULL, 'http://127.0.0.1:8000/projets', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 16:35:24');
+INSERT INTO public.site_analytics VALUES (28, 'http://127.0.0.1:8000/karma/exploitation', NULL, 'http://127.0.0.1:8000/karma', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 16:35:38');
+INSERT INTO public.site_analytics VALUES (29, 'http://127.0.0.1:8000/karma/exploitation', NULL, 'http://127.0.0.1:8000/karma', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 17:25:25');
+INSERT INTO public.site_analytics VALUES (30, 'http://127.0.0.1:8000/projets/projet-cil', NULL, 'http://127.0.0.1:8000/karma/exploitation', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.136.1 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-09 17:50:41');
+INSERT INTO public.site_analytics VALUES (31, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.137.0 Chrome/148.0.7778.280 Electron/42.10.0 Safari/537.36', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:25:11');
+INSERT INTO public.site_analytics VALUES (32, 'http://127.0.0.1:8000', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:25:52');
+INSERT INTO public.site_analytics VALUES (33, 'http://127.0.0.1:8000/gestion-nm', NULL, NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:32:56');
+INSERT INTO public.site_analytics VALUES (34, 'http://127.0.0.1:8000/gestion-nm', NULL, 'http://127.0.0.1:8000/gestion-nm', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:33:10');
+INSERT INTO public.site_analytics VALUES (35, 'http://127.0.0.1:8000/gestion-nm', NULL, 'http://127.0.0.1:8000/gestion-nm', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:33:20');
+INSERT INTO public.site_analytics VALUES (36, 'http://127.0.0.1:8000/gestion-nm', NULL, 'http://127.0.0.1:8000/gestion-nm', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:33:26');
+INSERT INTO public.site_analytics VALUES (37, 'http://127.0.0.1:8000/gestion-nm', NULL, 'http://127.0.0.1:8000/gestion-nm', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:33:35');
+INSERT INTO public.site_analytics VALUES (38, 'http://127.0.0.1:8000/gestion-nm', NULL, 'http://127.0.0.1:8000/gestion-nm', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:33:54');
+INSERT INTO public.site_analytics VALUES (39, 'http://127.0.0.1:8000/gestion-nm', NULL, 'http://127.0.0.1:8000/gestion-nm', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:35:22');
+INSERT INTO public.site_analytics VALUES (40, 'http://127.0.0.1:8000/gestion-nm', NULL, 'http://127.0.0.1:8000/gestion-nm', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:38:26');
+INSERT INTO public.site_analytics VALUES (41, 'http://127.0.0.1:8000', NULL, 'http://127.0.0.1:8000/gestion-nm/hero-slideshow', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:59:39');
+INSERT INTO public.site_analytics VALUES (42, 'http://127.0.0.1:8000', NULL, 'http://127.0.0.1:8000/gestion-nm/hero-slideshow', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 09:59:44');
+INSERT INTO public.site_analytics VALUES (43, 'http://127.0.0.1:8000', NULL, 'http://127.0.0.1:8000/gestion-nm/hero-slideshow', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:02:01');
+INSERT INTO public.site_analytics VALUES (44, 'http://127.0.0.1:8000', NULL, 'http://127.0.0.1:8000/gestion-nm/hero-slideshow', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:15:32');
+INSERT INTO public.site_analytics VALUES (45, 'http://127.0.0.1:8000', NULL, 'http://127.0.0.1:8000/gestion-nm/hero-slideshow', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:17:56');
+INSERT INTO public.site_analytics VALUES (46, 'http://127.0.0.1:8000/qui-sommes-nous/mot-du-pdg', NULL, 'http://127.0.0.1:8000/', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:19:57');
+INSERT INTO public.site_analytics VALUES (47, 'http://127.0.0.1:8000/qui-sommes-nous/identite', NULL, 'http://127.0.0.1:8000/qui-sommes-nous/mot-du-pdg', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:20:06');
+INSERT INTO public.site_analytics VALUES (48, 'http://127.0.0.1:8000/qui-sommes-nous/histoire', NULL, 'http://127.0.0.1:8000/qui-sommes-nous/identite', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:20:12');
+INSERT INTO public.site_analytics VALUES (49, 'http://127.0.0.1:8000/qui-sommes-nous/valeurs', NULL, 'http://127.0.0.1:8000/qui-sommes-nous/histoire', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:20:22');
+INSERT INTO public.site_analytics VALUES (50, 'http://127.0.0.1:8000/qui-sommes-nous/gouvernance', NULL, 'http://127.0.0.1:8000/qui-sommes-nous/valeurs', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:20:31');
+INSERT INTO public.site_analytics VALUES (51, 'http://127.0.0.1:8000/karma', NULL, 'http://127.0.0.1:8000/qui-sommes-nous/gouvernance', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:20:51');
+INSERT INTO public.site_analytics VALUES (52, 'http://127.0.0.1:8000/karma/ressources-reserves', NULL, 'http://127.0.0.1:8000/karma', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:21:08');
+INSERT INTO public.site_analytics VALUES (53, 'http://127.0.0.1:8000/karma/organisation', NULL, 'http://127.0.0.1:8000/karma/ressources-reserves', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:21:23');
+INSERT INTO public.site_analytics VALUES (54, 'http://127.0.0.1:8000/karma/modele-operationnel', NULL, 'http://127.0.0.1:8000/karma/organisation', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:21:35');
+INSERT INTO public.site_analytics VALUES (55, 'http://127.0.0.1:8000/karma/impact', NULL, 'http://127.0.0.1:8000/karma/modele-operationnel', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:21:42');
+INSERT INTO public.site_analytics VALUES (56, 'http://127.0.0.1:8000/projets/projet-cil', NULL, 'http://127.0.0.1:8000/karma/impact', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:21:56');
+INSERT INTO public.site_analytics VALUES (57, 'http://127.0.0.1:8000/projets', NULL, 'http://127.0.0.1:8000/projets/projet-cil', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:22:03');
+INSERT INTO public.site_analytics VALUES (58, 'http://127.0.0.1:8000/developpement-durable/communautes', NULL, 'http://127.0.0.1:8000/projets', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:22:27');
+INSERT INTO public.site_analytics VALUES (59, 'http://127.0.0.1:8000/developpement-durable/environnement', NULL, 'http://127.0.0.1:8000/developpement-durable/communautes', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:22:48');
+INSERT INTO public.site_analytics VALUES (60, 'http://127.0.0.1:8000/developpement-durable/sante-securite', NULL, 'http://127.0.0.1:8000/developpement-durable/environnement', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:22:55');
+INSERT INTO public.site_analytics VALUES (61, 'http://127.0.0.1:8000/developpement-durable/contenu-local', NULL, 'http://127.0.0.1:8000/developpement-durable/sante-securite', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:23:07');
+INSERT INTO public.site_analytics VALUES (62, 'http://127.0.0.1:8000/actualites', NULL, 'http://127.0.0.1:8000/developpement-durable/contenu-local', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:23:16');
+INSERT INTO public.site_analytics VALUES (63, 'http://127.0.0.1:8000/communiques', NULL, 'http://127.0.0.1:8000/actualites', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:23:23');
+INSERT INTO public.site_analytics VALUES (64, 'http://127.0.0.1:8000/mediatheque', NULL, 'http://127.0.0.1:8000/communiques', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:23:28');
+INSERT INTO public.site_analytics VALUES (65, 'http://127.0.0.1:8000/rapports', NULL, 'http://127.0.0.1:8000/mediatheque', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:23:38');
+INSERT INTO public.site_analytics VALUES (66, 'http://127.0.0.1:8000/contact-presse', NULL, 'http://127.0.0.1:8000/rapports', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:23:44');
+INSERT INTO public.site_analytics VALUES (67, 'http://127.0.0.1:8000/carrieres', NULL, 'http://127.0.0.1:8000/contact-presse', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:23:52');
+INSERT INTO public.site_analytics VALUES (68, 'http://127.0.0.1:8000/offres-emploi', NULL, 'http://127.0.0.1:8000/carrieres', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:24:01');
+INSERT INTO public.site_analytics VALUES (69, 'http://127.0.0.1:8000', NULL, 'http://127.0.0.1:8000/offres-emploi', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:33:04');
+INSERT INTO public.site_analytics VALUES (70, 'http://127.0.0.1:8000', NULL, 'http://127.0.0.1:8000/offres-emploi', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 10:35:19');
+INSERT INTO public.site_analytics VALUES (71, 'http://127.0.0.1:8000', NULL, 'http://127.0.0.1:8000/', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0', 'desktop', NULL, '12ca17b49af2289436f303e0166030a21e525d266e209267433801a8fd4071a0', '2026-09-10 11:12:39');
 
 
 --
 -- Data for Name: site_settings; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.site_settings (id, key, value, type, created_at, updated_at) FROM stdin;
-1	carousel_autoplay	true	boolean	2026-09-09 12:09:19	2026-09-09 12:09:19
-2	carousel_interval	5000	number	2026-09-09 12:09:19	2026-09-09 12:09:19
-3	carousel_transition_speed	800	number	2026-09-09 12:09:19	2026-09-09 12:09:19
-4	carousel_pause_on_hover	true	boolean	2026-09-09 12:09:19	2026-09-09 12:09:19
-5	carousel_show_indicators	true	boolean	2026-09-09 12:09:19	2026-09-09 12:09:19
-6	carousel_show_arrows	true	boolean	2026-09-09 12:09:19	2026-09-09 12:09:19
-7	press_contact_name	[Nom du Responsable Communication]	text	\N	\N
-8	press_contact_job	Responsable Communication & Relations Presse  - Néré Mining S.A.	text	\N	\N
-9	press_contact_photo		url	\N	\N
-10	press_contact_phone	+226 25 33 35 69	text	\N	\N
-11	press_contact_email	presse@nere-mining.bf	email	\N	\N
-12	press_contact_hours	Lundi – Vendredi, 8h – 17h (GMT+0)	text	\N	\N
-\.
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.users (id, name, email, email_verified_at, password, remember_token, created_at, updated_at, is_admin, public_uuid) FROM stdin;
-1	Administrateur Néré Mining Néré Mining	admin@nere-mining.bf	2026-09-10 09:37:39	$2y$12$cIsFI3U8muAjyayq3Ks/.eN3EEJsvJmH1/NLpWWpLePqj0cov1zHq	\N	2026-09-10 09:37:40	2026-09-10 09:37:40	t	e3cf0114-9047-4ca7-827b-9f734903ecf9
-\.
+INSERT INTO public.users VALUES (1, 'Administrateur Néré Mining Néré Mining', 'admin@nere-mining.bf', '2026-09-10 09:37:39', '$2y$12$cIsFI3U8muAjyayq3Ks/.eN3EEJsvJmH1/NLpWWpLePqj0cov1zHq', NULL, '2026-09-10 09:37:40', '2026-09-10 09:37:40', true, 'e3cf0114-9047-4ca7-827b-9f734903ecf9');
 
 
 --
@@ -1388,7 +1307,7 @@ SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
 -- Name: hero_slides_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.hero_slides_id_seq', 18, true);
+SELECT pg_catalog.setval('public.hero_slides_id_seq', 1, false);
 
 
 --
@@ -1416,14 +1335,14 @@ SELECT pg_catalog.setval('public.jobs_id_seq', 1, false);
 -- Name: karma_departments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.karma_departments_id_seq', 9, true);
+SELECT pg_catalog.setval('public.karma_departments_id_seq', 1, false);
 
 
 --
 -- Name: leadership_members_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.leadership_members_id_seq', 5, true);
+SELECT pg_catalog.setval('public.leadership_members_id_seq', 1, false);
 
 
 --
@@ -1444,7 +1363,7 @@ SELECT pg_catalog.setval('public.migrations_id_seq', 44, true);
 -- Name: news_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.news_id_seq', 3, true);
+SELECT pg_catalog.setval('public.news_id_seq', 1, false);
 
 
 --
@@ -1458,7 +1377,7 @@ SELECT pg_catalog.setval('public.newsletter_subscribers_id_seq', 1, false);
 -- Name: partners_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.partners_id_seq', 1, true);
+SELECT pg_catalog.setval('public.partners_id_seq', 1, false);
 
 
 --
@@ -1486,7 +1405,7 @@ SELECT pg_catalog.setval('public.site_analytics_id_seq', 71, true);
 -- Name: site_settings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.site_settings_id_seq', 12, true);
+SELECT pg_catalog.setval('public.site_settings_id_seq', 1, false);
 
 
 --
@@ -1860,4 +1779,6 @@ ALTER TABLE ONLY public.job_applications
 --
 -- PostgreSQL database dump complete
 --
+
+\unrestrict su263ib0C3QszhFHv8ZCF3UUyPuUlGPXoeEAkLaoj0ZDhoAd4EA5LwnqFjp5NIo
 
