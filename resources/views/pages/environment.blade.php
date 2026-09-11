@@ -43,47 +43,6 @@
     <div class="sa-wave-bottom"></div>
 </section>
 
-{{-- ── 2. Performance Environnementale ────────────────── --}}
-<section class="sa-sand-animated" style="padding:70px 5vw; position:relative;">
-    <div class="sa-wave-top"></div>
-    <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
-
-        <div class="sa-section-heading sa-reveal">
-            
-            <div class="sa-divider"></div>
-        </div>
-
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:20px; margin-top:48px;">
-            @php
-                $envMetrics = [
-                    ['icon'=>'☁️','count'=>32,'prefix'=>'-','suffix'=>'%','label'=>$en?'CO₂ Emissions Reduced':'Émissions CO₂ Réduites','sub'=>'2020-2024','bar'=>'32%'],
-                    ['icon'=>'💧','count'=>28,'prefix'=>'-','suffix'=>'%','label'=>$en?'Water Consumption':'Consommation Eau','sub'=>$en?'Reduction efficiency':'Amélioration efficacité','bar'=>'28%'],
-                    ['icon'=>'♻️','count'=>95,'suffix'=>'%','label'=>$en?'Waste Recycled':'Déchets Recyclés','sub'=>$en?'or reused annually':'ou réutilisés annuels','bar'=>'95%'],
-                    ['icon'=>'✨','count'=>100,'suffix'=>'%','label'=>$en?'Conflict-Free Gold':'Or Conflit-Libre','sub'=>$en?'Responsible sourcing':'Approvisionnement responsable','bar'=>'100%'],
-                ];
-            @endphp
-            @foreach($envMetrics as $k => $m)
-            <div class="sa-metric-card sa-reveal sa-delay-{{ $k+1 }}">
-                <div style="font-size:28px; margin-bottom:8px;">{{ $m['icon'] }}</div>
-                <div class="sa-metric-value sustain-metric__value"
-                     data-count="{{ $m['count'] }}"
-                     @isset($m['prefix']) data-prefix="{{ $m['prefix'] }}" @endisset
-                     data-suffix="{{ $m['suffix'] }}"
-                     data-original="{{ ($m['prefix']??'').$m['count'].$m['suffix'] }}">
-                    {{ ($m['prefix']??'').$m['count'].$m['suffix'] }}
-                </div>
-                <div style="font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-top:8px; line-height:1.4;">{{ $m['label'] }}</div>
-                <div style="font-size:11px; color:var(--muted); margin-top:4px; opacity:0.8;">{{ $m['sub'] }}</div>
-                <div class="sa-progress-bar" style="margin-top:12px;">
-                    <div class="sa-progress-fill" data-width="{{ $m['bar'] }}"></div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-    <div class="sa-wave-bottom"></div>
-</section>
-
 {{-- ── 3. Mesures de mitigation ───────────────────────── --}}
 <section class="sa-animated-section" style="padding:70px 5vw;">
     <p class="lead sa-reveal">{{ __('site.env_mitigation_lead', [], $loc) }}</p>
