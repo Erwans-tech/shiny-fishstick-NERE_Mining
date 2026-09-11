@@ -21,7 +21,7 @@ php artisan migrate --force
 # Restaurer automatiquement le snapshot éditorial exporté localement.
 # Les tables sensibles (users, sessions, candidatures) ne sont pas concernées.
 echo "🗃️  Synchronisation du contenu éditorial versionné..."
-php artisan db:seed --class=LocalContentSeeder --force
+php artisan db:seed --class=RobustSyncSeeder --force
 
 # Créer ou mettre à jour l'administrateur depuis les secrets Render
 if [ -n "$ADMIN_EMAIL" ] && [ -n "$ADMIN_PASSWORD" ]; then
