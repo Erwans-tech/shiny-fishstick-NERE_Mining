@@ -25,7 +25,7 @@
     position: relative;
     isolation: isolate;
     overflow: visible;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .site-logo {
@@ -71,15 +71,15 @@
 .site-nav {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex: 1 1 auto;
+    justify-content: flex-end;
+    flex: 0 1 auto;
     gap: 1px;
     min-width: 0;
     z-index: 10;
-    max-width: min(620px, calc(100vw - 460px));
+    max-width: calc(100% - 280px);
     flex-wrap: nowrap;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 12px;
+    margin-right: 0;
 }
 
 .site-nav__item {

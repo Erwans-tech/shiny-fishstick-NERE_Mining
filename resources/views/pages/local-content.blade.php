@@ -108,13 +108,20 @@
         <p class="lead sa-reveal sa-delay-1">{{ __('site.local_supplier_lead', [], $loc) }}</p>
 
         <div class="grid-3" style="margin-top:32px;">
-            @foreach(range(1, 3) as $i)
+            @foreach(range(1, 2) as $i)
+            @if($i != 2)
             <div class="sa-program-card sa-reveal sa-delay-{{ $i }}">
                 <div class="card-tag">{{ __('site.local_supp'.$i.'_tag', [], $loc) }}</div>
                 <h3>{{ __('site.local_supp'.$i.'_h3', [], $loc) }}</h3>
                 <p>{{ __('site.local_supp'.$i.'_p', [], $loc) }}</p>
             </div>
+            @endif
             @endforeach
+            <div class="sa-program-card sa-reveal sa-delay-3">
+                <div class="card-tag">{{ __('site.local_supp3_tag', [], $loc) }}</div>
+                <h3>{{ __('site.local_supp3_h3', [], $loc) }}</h3>
+                <p>{{ __('site.local_supp3_p', [], $loc) }}</p>
+            </div>
         </div>
     </div>
 </section>
