@@ -118,7 +118,7 @@ PDG de NERE MINING SA',
         Partner::create([
             'id' => 1,
             'name' => 'NEMMBA',
-            'logo_path' => 'partners/pMc5uaRdviLRriZMxGeV9Mg6QzLvxGDv0bnK54tW.jpg',
+            'logo_path' => 'partners/sqPw83NAqaqnNgAWob1Dy9viOh4uJAcpjPYFQzgq.jpg',
             'website_url' => null,
             'category' => 'TECHNIQUE',
             'is_published' => true,
@@ -132,12 +132,11 @@ PDG de NERE MINING SA',
         // Insert Hero Slides
         $this->command->info('🎬 Syncing Hero Slides...');
         $heroSlides = [
-            ['id' => 6, 'title' => 'Une mine de classe mondiale', 'image_path' => 'images/carousel/gyathursan-mine-5523376_1920.jpg', 'sort' => 0],
-            ['id' => 7, 'title' => 'Des opérations responsables', 'image_path' => 'images/carousel/pexels-gunshe-5125104.jpg', 'sort' => 1],
-            ['id' => 8, 'title' => 'L\'excellence industrielle', 'image_path' => 'images/carousel/shibang-mechanical-2653706_1920.jpg', 'sort' => 2],
-            ['id' => 9, 'title' => 'Des équipes engagées', 'image_path' => 'images/carousel/tyna_janoch-excavator-2781676_1920.jpg', 'sort' => 3],
-            ['id' => 10, 'title' => 'Un territoire en mouvement', 'image_path' => 'images/carousel/tyna_janoch-mine-2781686_1920.jpg', 'sort' => 4],
-            ['id' => 17, 'title' => 'Karma, notre mine d\'or', 'image_path' => 'images/carousel/Video Project 1.mp4', 'sort' => 5, 'video' => true],
+            ['id' => 6, 'title' => '', 'image_path' => 'hero/7I0F6l1lmLkgswXMdTDm4ayucFaHUgcMJcnzn0im.jpg', 'sort' => 0],
+            ['id' => 7, 'title' => '', 'image_path' => 'hero/H7eEolBtJlKwU8I1VCj8iU4g6G0cNthAfc55kopr.jpg', 'sort' => 1],
+            ['id' => 8, 'title' => '', 'image_path' => 'hero/UCrXfKr1OeYXovqWbAyM48WdKySdWoGQgpc99SGs.jpg', 'sort' => 2],
+            ['id' => 10, 'title' => '', 'image_path' => 'hero/Aqlk75ywPYBXsQWFa0Z7pRFKAdLsajbcqDPSY3FV.jpg', 'sort' => 3],
+            ['id' => 17, 'title' => 'Karma, notre mine d\'or', 'image_path' => 'images/carousel/Video Project 1.mp4', 'sort' => 4, 'video' => true],
         ];
 
         foreach ($heroSlides as $slide) {
@@ -216,10 +215,10 @@ PDG de NERE MINING SA',
         $this->command->info('👥 Syncing Leadership Members...');
         $leaders = [
             ['id' => 1, 'name' => 'Dr. Justin Elie OUEDRAOGO', 'title' => 'Président Directeur Général', 'photo' => 'leadership/FHjRCacFin5bQgJNB0dEroOLxBSmSJU3sYb516Kp.jpg', 'level' => 1, 'sort' => 1],
-            ['id' => 2, 'name' => 'Justin SAVADOGO', 'title' => 'Directeur Général Adjoint', 'dept' => 'Administration & Finance', 'photo' => 'images/mining/gold-processing-01.jpg', 'level' => 2, 'sort' => 2],
-            ['id' => 3, 'name' => 'Pascal Y. OUEDRAOGO', 'title' => 'Directeur Général Adjoint', 'dept' => 'Approvisionnements', 'photo' => 'images/mining/mining-equipment-01.jpg', 'level' => 2, 'sort' => 3],
-            ['id' => 4, 'name' => 'Laurent Michel DABIRE', 'title' => 'Directeur Général Adjoint', 'dept' => 'Affaires Corporatives & Juridiques', 'photo' => 'images/mining/mining-site-aerial-01.jpg', 'level' => 2, 'sort' => 4],
-            ['id' => 5, 'name' => 'Augustine OBENG-FORI', 'title' => 'DGA par intérim', 'dept' => 'Opérations', 'photo' => 'images/mining/mining-environment-01.jpg', 'level' => 2, 'sort' => 5],
+            ['id' => 2, 'name' => 'Justin SAVADOGO', 'title' => 'Directeur Général Adjoint', 'dept' => 'Administration & Finance', 'photo' => 'leadership/EehYFmt7iBcZxD6IjV3cjsc0zGX7mMgaYjTNWjpO.jpg', 'level' => 2, 'sort' => 2],
+            ['id' => 3, 'name' => 'Pascal Y. OUEDRAOGO', 'title' => 'Directeur Général Adjoint', 'dept' => 'Approvisionnements', 'photo' => 'leadership/JLkL1GvIx5nmutVSJOvAbWhQoUoeZh1WezFamDbS.jpg', 'level' => 2, 'sort' => 3],
+            ['id' => 4, 'name' => 'Laurent Michel DABIRE', 'title' => 'Directeur Général Adjoint', 'dept' => 'Affaires Corporatives & Juridiques', 'photo' => 'leadership/AqXRPQ0vFviFTGACz2r95XvL4O8qYyEmiD4LJIuS.jpg', 'level' => 2, 'sort' => 4],
+            ['id' => 5, 'name' => 'Augustine OBENG-FORI', 'title' => 'DGA par intérim', 'dept' => 'Opérations', 'photo' => 'leadership/zFQPCwKXBz8sG4YTxcumFiogf17CfX1Ed6cjSQhJ.jpg', 'level' => 2, 'sort' => 5],
         ];
 
         foreach ($leaders as $leader) {
@@ -240,6 +239,6 @@ PDG de NERE MINING SA',
         $this->command->info('   ✓ Leadership members synced (5 records)');
 
         $this->command->info('\n✅ Database sync completed successfully!');
-        $this->command->info('📊 Synced: 3 news + 1 partner + 6 hero_slides + 9 departments + 12 settings + 5 leaders');
+        $this->command->info('📊 Synced: 3 news + 1 partner + 5 hero_slides + 9 departments + 12 settings + 5 leaders');
     }
 }
