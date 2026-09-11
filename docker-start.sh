@@ -2,13 +2,28 @@
 
 echo "🚀 Démarrage des services Laravel..."
 
-# Load .env.render if it exists
+# Debug: Check if .env.render exists and show its content
 if [ -f ".env.render" ]; then
-    echo "📋 Chargement .env.render..."
+    echo "📋 Fichier .env.render trouvé, chargement..."
+    echo "🔍 Contenu .env.render (premières lignes):"
+    head -10 .env.render
     set -a
     . .env.render
     set +a
+    echo "✅ Variables chargées depuis .env.render"
+else
+    echo "⚠️  Fichier .env.render non trouvé"
+    echo "🔍 Fichiers présents dans le répertoire:"
+    ls -la | head -10
 fi
+
+# Set default values if not set by Render environment
+export DB_CONNECTION=${DB_CONNECTION:-pgsql}
+export DB_HOST=${DB_HOST:-dpg-da83n4ou81pc73cnbd8g-a}
+export DB_PORT=${DB_PORT:-5432}
+export DB_DATABASE=${DB_DATABASE:-nere_mining_qhh0}
+export DB_USERNAME=${DB_USERNAME:-nereminingdbex3a_phhw_user}
+export DB_PASSWORD=${DB_PASSWORD:-O4nDPT1WKpUFy5fhnYEKsjy41Vyhn8cA}
 
 # Clear any cached config from build time
 echo "🗑️  Nettoyage du cache de configuration..."
