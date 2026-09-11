@@ -105,6 +105,23 @@ $page = function (string $locale, string $section, array $extra = []) {
 */
 Route::get('/', fn() => $homeHandler('fr'))->name('home');
 
+// Diagnostic route - À SUPPRIMER APRÈS DEBUG
+Route::get('/debug-db', function () {
+    return response()->json([
+        'counts' => [
+            'hero_slides' => \App\Models\HeroSlide::count(),
+            'leadership' => \App\Models\LeadershipMember::count(),
+            'partners' => \App\Models\Partner::count(),
+            'news' => \App\Models\News::count(),
+            'departments' => \App\Models\KarmaDepartment::count(),
+            'settings' => \App\Models\SiteSetting::count(),
+        ],
+        'hero_slides' => \App\Models\HeroSlide::select('id', 'title', 'image_path', 'type')->orderBy('sort_order')->get(),
+        'partners' => \App\Models\Partner::select('id', 'name', 'logo_path')->get(),
+        'leadership' => \App\Models\LeadershipMember::select('id', 'name', 'title', 'photo_path')->orderBy('sort_order')->get(),
+    ]);
+});
+
 Route::get('/qui-sommes-nous',              fn() => $page('fr', 'company'))->name('company');
 Route::get('/qui-sommes-nous/mot-du-pdg',  fn() => $page('fr', 'company-ceo'))->name('company.ceo');
 Route::get('/qui-sommes-nous/identite',    fn() => $page('fr', 'company-identity'))->name('company.identity');
