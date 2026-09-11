@@ -19,11 +19,12 @@ fi
 
 # Set default values if not set by Render environment
 export DB_CONNECTION=${DB_CONNECTION:-pgsql}
-export DB_HOST=${DB_HOST:-dpg-da83n4ou81pc73cnbd8g-a}
+export DB_HOST=${DB_HOST:-dpg-da83n4ou01pc73chbd8g-a}
 export DB_PORT=${DB_PORT:-5432}
-export DB_DATABASE=${DB_DATABASE:-nere_mining_qhh0}
+export DB_DATABASE=${DB_DATABASE:-nere_mining_q6h0}
 export DB_USERNAME=${DB_USERNAME:-nereminingdbex3a_phhw_user}
-export DB_PASSWORD=${DB_PASSWORD:-O4nDPT1WKpUFy5fhnYEKsjy41Vyhn8cA}
+export DB_PASSWORD=${DB_PASSWORD:-Q4nDPT1WKpUFy5fhnYEKSjy4iVyhd8cA}
+export DATABASE_URL=${DATABASE_URL:-postgresql://nereminingdbex3a_phhw_user:Q4nDPT1WKpUFy5fhnYEKSjy4iVyhd8cA@dpg-da83n4ou01pc73chbd8g-a:5432/nere_mining_q6h0}
 
 # Clear any cached config from build time
 echo "🗑️  Nettoyage du cache de configuration..."
