@@ -8,27 +8,30 @@ php artisan config:clear || true
 php artisan route:clear || true
 php artisan view:clear || true
 
+# Copy production database if using SQLite
+if [ "$DB_CONNECTION" = "sqlite" ]; then
+    echo "📦 Utilisation de la base SQLite embarquée..."
+    # Database is already in the image, just ensure it's writable
+    chmod 664 "$DB_DATABASE" 2>/dev/null || true
+fi
+
 # Cache config with runtime environment variables
 echo "💾 Mise en cache de la configuration..."
 php artisan config:cache
-# NOTE: route:cache disabled because routes use closures (not serializable)
 php artisan view:cache
 
-# Exécuter les migrations sur la base configurée par l'environnement
-echo "📊 Exécution des migrations..."
-php artisan migrate --force
+# Only run migrations if using external database (not SQLite)
+if [ "$DB_CONNECTION" != "sqlite" ]; then
+    echo "📊 Exécution des migrations..."
+    php artisan migrate --force
+    echo "🗃️  Synchronisation du contenu éditorial..."
+    php artisan db:seed --class=ProductionSeeder --force
+fi
 
-# Restaurer automatiquement le snapshot éditorial exporté localement.
-# Les tables sensibles (users, sessions, candidatures) ne sont pas concernées.
-echo "🗃️  Synchronisation du contenu éditorial versionné..."
-php artisan db:seed --class=ProductionSeeder --force
-
-# Créer ou mettre à jour l'administrateur depuis les secrets Render
+# Créer ou mettre à jour l'administrateur
 if [ -n "$ADMIN_EMAIL" ] && [ -n "$ADMIN_PASSWORD" ]; then
 	echo "👤 Initialisation du compte administrateur..."
 	php artisan db:seed --class=AdminSeeder --force
-else
-	echo "⚠️ ADMIN_EMAIL/ADMIN_PASSWORD absents : aucun compte administrateur initialisé."
 fi
 
 # Créer le lien symbolique storage
