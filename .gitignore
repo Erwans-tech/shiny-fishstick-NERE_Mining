@@ -30,9 +30,14 @@ Homestead.yaml
 Thumbs.db
 
 # Les médias publics uploadés font partie du déploiement Git.
-public/uploads/*
-!public/uploads/
-!public/uploads/**
+# Include essential uploads for production
+!/public/uploads/
+!/public/uploads/**/*.jpg
+!/public/uploads/**/*.jpeg  
+!/public/uploads/**/*.png
+!/public/uploads/**/*.gif
+!/public/uploads/**/*.webp
+!/public/uploads/**/*.svg
 /bootstrap/cache
 
 # Render specific
