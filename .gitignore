@@ -3,6 +3,7 @@
 .env
 .env.*
 !.env.example
+!.env.render
 .env.backup
 .env.production
 .phpactor.json
@@ -35,5 +36,8 @@ public/uploads/*
 /bootstrap/cache
 
 # Render specific
-.env.render
+# .env.render is versioned
 render.yaml.local
+
+# Production database (SQLite - versioned in Git)
+!database/production.sqlite
