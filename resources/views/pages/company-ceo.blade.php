@@ -69,6 +69,11 @@
             <div class="pdg-photo">
                     <img src="{{ asset('images/company/pdg.jpg') }}" alt="{{ $en ? 'President and CEO of Néré Mining' : 'Président-Directeur Général de Néré Mining' }}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
             </div>
+            <div style="margin-top: 16px; text-align: center;">
+                <div class="pdg-name">Dr. Justin Elie OUEDRAOGO</div>
+                <div class="pdg-title">{{ $en ? 'President and Chief Executive Officer' : 'Président-Directeur Général' }}</div>
+                <div style="margin-top: 8px; font-size: 14px; font-weight: 600; color: var(--gold); letter-spacing: 0.05em;">NAAABA BAOOGO DE GOURCY</div>
+            </div>
         </div>
         <div>
                 @if($en)
@@ -96,7 +101,6 @@
                         <p class="pdg-signature">Le Président-Directeur Général</p>
                     </div>
                 @endif
-                <div class="pdg-title">{{ __('site.company_pdg_company', [], $loc) }}</div>
         </div>
     </div>
 </section>
