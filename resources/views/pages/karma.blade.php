@@ -104,7 +104,7 @@
         
         <div class="grid-3" style="margin-top:40px;">
             <div class="sa-program-card sa-reveal sa-delay-1 karma-production-card karma-production-card--open-pit" style="padding:0; overflow:hidden;">
-                <img class="card-img" style="width:100%; height:200px; object-fit:cover;" src="{{ asset('images/mining/karma-05.jpg') }}" alt="{{ $en ? 'Open-pit mining' : 'Extraction à ciel ouvert' }}">
+                <img class="card-img" style="width:100%; height:200px; object-fit:cover;" src="{{ asset('images/mining/open-pit-mining.jpg') }}" alt="{{ $en ? 'Open-pit mining' : 'Extraction à ciel ouvert' }}">
                 <div style="padding:24px;">
                     <h3 style="color:var(--green); margin-bottom:12px; text-align:left;">{{ __('site.karma_card1_h3', [], $loc) }}</h3>
                     <p>{{ __('site.karma_card1_p', [], $loc) }}</p>
