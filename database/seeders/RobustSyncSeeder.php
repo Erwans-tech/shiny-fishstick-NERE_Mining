@@ -20,14 +20,22 @@ class RobustSyncSeeder extends Seeder
     {
         $this->command->info('🔄 Starting robust database sync...');
 
-        // Truncate all tables
-        $this->command->info('🗑️  Clearing existing data...');
-        News::truncate();
-        Partner::truncate();
-        HeroSlide::truncate();
-        KarmaDepartment::truncate();
-        SiteSetting::truncate();
-        LeadershipMember::truncate();
+        try {
+            // Disable foreign key checks for PostgreSQL
+            \DB::statement('SET session_replication_role = replica;');
+
+            // Truncate all tables
+            $this->command->info('🗑️  Clearing existing data...');
+            try {
+                News::truncate();
+                Partner::truncate();
+                HeroSlide::truncate();
+                KarmaDepartment::truncate();
+                SiteSetting::truncate();
+                LeadershipMember::truncate();
+            } catch (\Exception $e) {
+                $this->command->error('Error truncating tables: ' . $e->getMessage());
+            }
 
         // Insert News
         $this->command->info('📰 Syncing News articles...');
@@ -238,7 +246,18 @@ PDG de NERE MINING SA',
 
         $this->command->info('   ✓ Leadership members synced (5 records)');
 
-        $this->command->info('\n✅ Database sync completed successfully!');
-        $this->command->info('📊 Synced: 3 news + 1 partner + 5 hero_slides + 9 departments + 12 settings + 5 leaders');
+            // Re-enable foreign key checks
+            \DB::statement('SET session_replication_role = DEFAULT;');
+
+            $this->command->info('\n✅ Database sync completed successfully!');
+            $this->command->info('📊 Synced: 3 news + 1 partner + 5 hero_slides + 9 departments + 12 settings + 5 leaders');
+            
+        } catch (\Exception $e) {
+            $this->command->error('❌ Seeder failed: ' . $e->getMessage());
+            $this->command->error('Stack trace: ' . $e->getTraceAsString());
+            // Re-enable constraints even on error
+            \DB::statement('SET session_replication_role = DEFAULT;');
+            throw $e;
+        }
     }
 }
