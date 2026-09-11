@@ -24,8 +24,12 @@ php artisan view:cache
 if [ "$DB_CONNECTION" != "sqlite" ]; then
     echo "📊 Exécution des migrations..."
     php artisan migrate --force
-    echo "🗃️  Synchronisation du contenu éditorial..."
-    php artisan db:seed --class=ProductionSeeder --force
+    
+    echo "📥 Import des données de production..."
+    php artisan data:import-production || {
+        echo "⚠️  Avertissement: Import des données échoué, utilisation des seeders de base"
+        php artisan db:seed --class=ProductionSeeder --force
+    }
 fi
 
 # Créer ou mettre à jour l'administrateur
