@@ -122,6 +122,33 @@ Route::get('/debug-db', function () {
     ]);
 });
 
+// Force seed route - À SUPPRIMER APRÈS DEBUG
+Route::get('/force-seed', function () {
+    try {
+        \Artisan::call('db:seed', ['--class' => 'ProductionSeeder', '--force' => true]);
+        $output = \Artisan::output();
+        return response()->json([
+            'success' => true,
+            'output' => $output,
+            'counts' => [
+                'hero_slides' => \App\Models\HeroSlide::count(),
+                'leadership' => \App\Models\LeadershipMember::count(),
+                'partners' => \App\Models\Partner::count(),
+                'departments' => \App\Models\KarmaDepartment::count(),
+                'settings' => \App\Models\SiteSetting::count(),
+            ],
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'error' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+            'trace' => explode("\n", $e->getTraceAsString()),
+        ], 500);
+    }
+});
+
 Route::get('/qui-sommes-nous',              fn() => $page('fr', 'company'))->name('company');
 Route::get('/qui-sommes-nous/mot-du-pdg',  fn() => $page('fr', 'company-ceo'))->name('company.ceo');
 Route::get('/qui-sommes-nous/identite',    fn() => $page('fr', 'company-identity'))->name('company.identity');
