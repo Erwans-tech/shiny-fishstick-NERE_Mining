@@ -67,7 +67,7 @@
     <div class="pdg-block sr">
         <div>
             <div class="pdg-photo">
-                    <img src="{{ asset('images/company/pdg.jpg') }}" alt="{{ $en ? 'President and CEO of Néré Mining' : 'Président-Directeur Général de Néré Mining' }}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+                    <img src="{{ asset('images/company/pdg-traditional.jpg') }}" alt="{{ $en ? 'President and CEO of Néré Mining' : 'Président-Directeur Général de Néré Mining' }}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <div style="margin-top: 16px; text-align: center;">
                 <div class="pdg-name">Dr. Justin Elie OUEDRAOGO</div>
