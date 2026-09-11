@@ -241,17 +241,7 @@
         <figcaption>{{ $en ? 'CIL plant site layout and arrangement at Karma' : 'Aménagement du site de l\'usine CIL à Karma' }}</figcaption>
     </figure>
 
-    <div class="grid-2" style="margin-top:28px;">
-        <div class="cil-content-card">
-            <h3>{{ $en ? 'Processing Infrastructure' : 'Infrastructure de Traitement' }}</h3>
-            <p>{{ $en ? 'CIL tanks, ball mills, thickeners, and carbon screen facilities integrated with existing heap leach operations.' : 'Réservoirs CIL, broyeurs à boulets, épaississeurs et installations de criblage du carbone intégrés aux opérations de lixiviation existantes.' }}</p>
-        </div>
 
-        <div class="cil-content-card">
-            <h3>{{ $en ? 'Existing Integration' : 'Intégration Existante' }}</h3>
-            <p>{{ $en ? 'Leverages existing heap leach infrastructure, tailings areas, and mining operations for seamless project integration.' : 'Utilise l\'infrastructure de lixiviation existante, les zones de résidus et les opérations minières pour une intégration transparente du projet.' }}</p>
-        </div>
-    </div>
 </section>
 
 <section>
