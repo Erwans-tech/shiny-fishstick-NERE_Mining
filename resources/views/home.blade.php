@@ -1,53 +1,54 @@
 @php
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
-    $slides = $slides ?? collect();
-    $defaultHeroImages = collect([
-        ['type' => 'image', 'filename' => 'gyathursan-mine-5523376_1920.jpg', 'kicker' => 'Néré Mining', 'copy' => 'Une entreprise minière à ancrage national', 'kicker_en' => 'Néré Mining', 'copy_en' => 'A mining company rooted in the national economy'],
-        ['type' => 'image', 'filename' => 'pexels-gunshe-5125104.jpg', 'kicker' => 'Néré Mining', 'copy' => 'Une mine en exploitation : Riverstone Karma', 'kicker_en' => 'Néré Mining', 'copy_en' => 'An operating mine: Riverstone Karma'],
-        ['type' => 'image', 'filename' => 'shibang-mechanical-2653706_1920.jpg', 'kicker' => 'Néré Mining', 'copy' => 'Des activités d’exploration et un portefeuille en développement', 'kicker_en' => 'Néré Mining', 'copy_en' => 'Exploration activities and a development portfolio'],
-        ['type' => 'image', 'filename' => 'tyna_janoch-mine-2781686_1920.jpg', 'kicker' => 'Néré Mining', 'copy' => 'Une ambition fondée sur la performance, la responsabilité et la création de valeur partagée.', 'kicker_en' => 'Néré Mining', 'copy_en' => 'An ambition based on performance, responsibility and shared value creation'],
-    ])->map(fn($slide) => [
-        'type'      => $slide['type'],
-        'url'       => asset('images/carousel/'.$slide['filename']),
-        'embed_url' => null,
-        'is_local_video' => $slide['type'] === 'video',
-        'title'     => 'Néré Mining',
-        'caption'   => null,
-        'kicker'    => $en ? $slide['kicker_en'] : $slide['kicker'],
-        'copy'      => $en ? $slide['copy_en'] : $slide['copy'],
+    
+    // HARDCODED HERO IMAGES - No database dependency
+    $heroImages = collect([
+        [
+            'type' => 'image', 
+            'url' => asset('images/hero/7I0F6l1lmLkgswXMdTDm4ayucFaHUgcMJcnzn0im.jpg'),
+            'embed_url' => null,
+            'is_local_video' => false,
+            'title' => 'Néré Mining',
+            'caption' => null,
+            'kicker' => 'Néré Mining',
+            'copy' => $en ? 'A mining company rooted in the national economy' : 'Une entreprise minière à ancrage national'
+        ],
+        [
+            'type' => 'image', 
+            'url' => asset('images/hero/H7eEolBtJlKwU8I1VCj8iU4g6G0cNthAfc55kopr.jpg'),
+            'embed_url' => null,
+            'is_local_video' => false,
+            'title' => 'Néré Mining',
+            'caption' => null,
+            'kicker' => 'Néré Mining',
+            'copy' => $en ? 'An operating mine: Riverstone Karma' : 'Une mine en exploitation : Riverstone Karma'
+        ],
+        [
+            'type' => 'image', 
+            'url' => asset('images/hero/UCrXfKr1OeYXovqWbAyM48WdKySdWoGQgpc99SGs.jpg'),
+            'embed_url' => null,
+            'is_local_video' => false,
+            'title' => 'Néré Mining',
+            'caption' => null,
+            'kicker' => 'Néré Mining',
+            'copy' => $en ? 'Exploration activities and a development portfolio' : 'Des activités d\'exploration et un portefeuille en développement'
+        ],
+        [
+            'type' => 'image', 
+            'url' => asset('images/hero/Aqlk75ywPYBXsQWFa0Z7pRFKAdLsajbcqDPSY3FV.jpg'),
+            'embed_url' => null,
+            'is_local_video' => false,
+            'title' => 'Néré Mining',
+            'caption' => null,
+            'kicker' => 'Néré Mining',
+            'copy' => $en ? 'An ambition based on performance, responsibility and shared value creation' : 'Une ambition fondée sur la performance, la responsabilité et la création de valeur partagée'
+        ],
     ]);
-
-    $defaultText = [
-        'gyathursan-mine-5523376_1920.jpg' => ['Néré Mining', 'Une entreprise minière à ancrage national', 'Néré Mining', 'A mining company rooted in the national economy'],
-        'pexels-gunshe-5125104.jpg' => ['Néré Mining', 'Une mine en exploitation : Riverstone Karma', 'Néré Mining', 'An operating mine: Riverstone Karma'],
-        'shibang-mechanical-2653706_1920.jpg' => ['Néré Mining', 'Des activités d’exploration et un portefeuille en développement', 'Néré Mining', 'Exploration activities and a development portfolio'],
-        'tyna_janoch-mine-2781686_1920.jpg' => ['Néré Mining', 'Une ambition fondée sur la performance, la responsabilité et la création de valeur partagée.', 'Néré Mining', 'An ambition based on performance, responsibility and shared value creation'],
-    ];
-    $databaseHeroImages = $slides->map(function ($slide) use ($defaultText, $en) {
-            $filename = basename((string) ($slide->image_path ?? ''));
-            $default = $defaultText[$filename] ?? null;
-            return [
-                'type'      => $slide->type ?? 'image',
-                'url'       => $slide->url ?? '',
-                'video_url' => $slide->video_url ?? null,
-                'embed_url' => $slide->embed_url ?? null,
-                'is_local_video' => ($slide->type ?? 'image') === 'video' && empty($slide->embed_url),
-                'title'     => $slide->title ?? '',
-                'caption'   => $slide->caption ?? null,
-                'kicker'    => $default ? ($en ? $default[2] : $default[0]) : ($slide->title ?? 'Néré Mining'),
-                'copy'      => $default ? ($en ? $default[3] : $default[1]) : ($slide->caption ?: ($slide->title ?? 'Néré Mining')),
-            ];
-        })->filter(fn($slide) => !empty($slide['url']))->values();
-    $heroImages = $databaseHeroImages->isNotEmpty() ? $databaseHeroImages : $defaultHeroImages;
+    
     $heroDuration = count($heroImages) * 5;
     $heroSlot = 100 / max(count($heroImages), 1);
 @endphp
-<!DOCTYPE html>
-<html lang="{{ $loc }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <title>Néré Mining  - {{ $en ? 'Gold with lasting value' : "L'or d'une valeur durable" }}</title>
     <meta name="description" content="{{ $en
@@ -948,3 +949,4 @@
     </script>
 </body>
 </html>
+
