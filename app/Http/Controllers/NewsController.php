@@ -34,15 +34,15 @@ Cette nouvelle dynamique favorisera notamment :
 - La consolidation d\'une exploitation minière durable.
 
 Riverstone Karma SA réaffirme son engagement à promouvoir une exploitation minière responsable, fondée sur le respect des lois nationales et des meilleures pratiques internationales. La société poursuivra ses investissements afin de créer de la valeur durable pour l\'ensemble de ses parties prenantes.',
-                'category' => 'Juridique',
-                'image_path' => 'images/news/actualite1.jpeg',
-                'published_at' => now()->setDate(2026, 7, 20),
+                'category' => 'Actualités',
+                'image_path' => 'images/news/ZJ58L6cbb9z6C4qPwArMnxzy0A4RQW4doJDfc7SV.jpg',
+                'published_at' => now()->setDate(2026, 8, 12),
                 'slug' => 'annulation-contrat-achat-or-riverstone-karma',
             ],
             (object) [
                 'id' => 2,
                 'title' => 'Forum Mines 2026 : Néré Mining réaffirme son engagement en faveur des pratiques durables dans l\'exploitation minière',
-                'excerpt' => 'La troisième édition du Forum Mines a officiellement ouvert ses portes le mardi 7 juillet 2026 à Ouagadougou. Riverstone Karma SA est venue réaffirmer son engagement en matière de santé, de sécurité et d\'environnement.',
+                'excerpt' => 'La troisième édition du Forum Mines a officiellement ouvert ses portes le mardi 7 juillet 2026 à Ouagadougou.',
                 'content' => 'La troisième édition du Forum Mines a officiellement ouvert ses portes le mardi 7 juillet 2026 à Ouagadougou. Organisée par la Chambre des mines du Burkina, cette rencontre s\'est déroulée du 7 au 9 juillet autour du thème : « Santé, sécurité et environnement : libérer le plein potentiel minier », sous le patronage du président de l\'Assemblée législative du peuple.
 
 Parmi les entreprises présentes au Forum Mines 2026 figure Riverstone Karma SA, détenue par la société Néré Mining. Elle est venue réaffirmer son engagement en matière de santé, de sécurité et d\'environnement (HSE). Pour elle, cette participation constitue une occasion privilégiée de partager les expériences du secteur et de renforcer les bonnes pratiques.
@@ -57,14 +57,14 @@ Après avoir acquis la mine de Karma en 2022, Néré Mining se distingue comme l
 
 À travers cette participation, Néré Mining confirme sa volonté de promouvoir une culture de prévention et d\'amélioration continue, en cohérence avec les objectifs du Forum Mines 2026 pour un secteur minier plus performant, plus responsable et plus sûr.',
                 'category' => 'Événement',
-                'image_path' => 'images/news/actualite2.jpg',
-                'published_at' => now()->setDate(2026, 7, 16),
+                'image_path' => 'images/news/g4XciRGY5t48TKSsjdneCu5APzh3g673Q30YMnpr.jpg',
+                'published_at' => now()->setDate(2026, 8, 22),
                 'slug' => 'forum-mines-2026-nere-mining-pratiques-durables',
             ],
             (object) [
                 'id' => 3,
-                'title' => 'Semaine des Activités Minières de l\'Afrique de l\'Ouest – Mot du Parrain',
-                'excerpt' => 'Le PDG de Néré Mining, Dr. Justin Elie OUEDRAOGO, parrain de la 6ème édition de la SAMAO 2024, partage sa vision pour faire du secteur minier un véritable accélérateur de l\'industrialisation du continent.',
+                'title' => '6ème édition de la SAMAO.',
+                'excerpt' => 'Nous renforçons nos partenariats avec les entreprises et organisations locales pour créer de la valeur partagée.',
                 'content' => 'MOT DU PARRAIN
 
 Je voudrais exprimer mes vifs remerciements à l\'endroit du Gouvernement du Burkina Faso pour le choix porté sur ma modeste personne pour parrainer cette 6ème édition de la SAMAO.
@@ -79,8 +79,8 @@ Les thématiques abordées durant ces trois jours à l\'ère de la transition é
 
 NAAABA BAOOGO DE GOURCY
 PDG de NERE MINING SA',
-                'category' => 'Événement',
-                'image_path' => 'images/news/actualite3.png',
+                'category' => 'Partenariats',
+                'image_path' => 'images/news/F6nUuFafpUqWZu1MKDcY5PzQbQsDXsFMXmEOVNuX.png',
                 'published_at' => now()->setDate(2024, 11, 29),
                 'slug' => 'samao-2024-mot-du-parrain',
             ],
