@@ -91,9 +91,8 @@ PDG de NERE MINING SA',
     {
         App::setLocale('fr');
         
-        // Try to get news from database, otherwise use hardcoded defaults
-        $dbNews = News::published()->latest('published_at')->get();
-        $newsItems = $dbNews->isEmpty() ? $this->getDefaultNews('fr') : $dbNews;
+        // FORCE hardcoded news (no database dependency)
+        $newsItems = $this->getDefaultNews('fr');
         
         // Manual pagination
         $perPage = 9;
@@ -123,9 +122,8 @@ PDG de NERE MINING SA',
     {
         App::setLocale('en');
         
-        // Try to get news from database, otherwise use hardcoded defaults
-        $dbNews = News::published()->latest('published_at')->get();
-        $newsItems = $dbNews->isEmpty() ? $this->getDefaultNews('en') : $dbNews;
+        // FORCE hardcoded news (no database dependency)
+        $newsItems = $this->getDefaultNews('en');
         
         // Manual pagination
         $perPage = 9;

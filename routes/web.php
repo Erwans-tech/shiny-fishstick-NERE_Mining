@@ -208,8 +208,8 @@ Route::get('/partenaires', function () {
     App::setLocale('fr');
     $descriptions = config('seo.descriptions')['fr'] ?? [];
     
-    // Hardcoded partners - no database dependency
-    $hardcodedPartners = collect([
+    // FORCE hardcoded partners (no database dependency)
+    $partners = collect([
         (object) [
             'id' => 1,
             'name' => 'NEEMBA',
@@ -219,10 +219,6 @@ Route::get('/partenaires', function () {
             'is_published' => true,
         ],
     ]);
-    
-    // Try database first, fallback to hardcoded
-    $dbPartners = Partner::where('is_published', true)->orderBy('sort_order')->get();
-    $partners = $dbPartners->isEmpty() ? $hardcodedPartners : $dbPartners;
     
     return view('resources', [
         'locale'    => 'fr',
@@ -297,8 +293,8 @@ Route::get('/en/partners', function () {
     App::setLocale('en');
     $descriptions = config('seo.descriptions')['en'] ?? [];
     
-    // Hardcoded partners - no database dependency
-    $hardcodedPartners = collect([
+    // FORCE hardcoded partners (no database dependency)
+    $partners = collect([
         (object) [
             'id' => 1,
             'name' => 'NEEMBA',
@@ -308,10 +304,6 @@ Route::get('/en/partners', function () {
             'is_published' => true,
         ],
     ]);
-    
-    // Try database first, fallback to hardcoded
-    $dbPartners = Partner::where('is_published', true)->orderBy('sort_order')->get();
-    $partners = $dbPartners->isEmpty() ? $hardcodedPartners : $dbPartners;
     
     return view('resources', [
         'locale'    => 'en',
