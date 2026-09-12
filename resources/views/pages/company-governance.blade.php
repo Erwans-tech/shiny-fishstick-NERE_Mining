@@ -37,15 +37,15 @@
     <section class="governance-page">
 
     @php
-        $fallbackLeadership = [
-            ['name' => 'Dr. Justin Elie OUEDRAOGO', 'title' => $en ? 'Chief Executive Officer' : 'Président Directeur Général', 'department' => '', 'hierarchy_level' => 1, 'photo_path' => 'images/mining/mining-workers-01.jpg'],
-            ['name' => 'Justin SAVADOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => 'Administration & Finance', 'hierarchy_level' => 2, 'photo_path' => 'images/mining/gold-processing-01.jpg'],
-            ['name' => 'Pascal Y. OUEDRAOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Supply & Procurement' : 'Approvisionnements', 'hierarchy_level' => 2, 'photo_path' => 'images/mining/mining-equipment-01.jpg'],
-            ['name' => 'Laurent Michel DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'hierarchy_level' => 2, 'photo_path' => 'images/mining/mining-site-aerial-01.jpg'],
-            ['name' => 'Augustine OBENG-FORI', 'title' => $en ? 'Deputy CEO (interim)' : 'DGA par intérim', 'department' => $en ? 'Operations' : 'Opérations', 'hierarchy_level' => 2, 'photo_path' => 'images/mining/mining-environment-01.jpg'],
-        ];
-        $leadershipMembers = $leadership->isNotEmpty() ? $leadership : collect($fallbackLeadership);
-        $leadershipLevels = $leadershipMembers->groupBy(fn($member) => is_array($member) ? $member['hierarchy_level'] : $member->hierarchy_level);
+        // HARDCODED LEADERSHIP - No database dependency
+        $leadershipMembers = collect([
+            ['name' => 'Dr. Justin Elie OUEDRAOGO', 'title' => $en ? 'Chief Executive Officer' : 'Président Directeur Général', 'department' => '', 'hierarchy_level' => 1, 'photo_path' => 'images/leadership/pdg-traditional.jpg'],
+            ['name' => 'Justin SAVADOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => 'Administration & Finance', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/placeholder.jpg'],
+            ['name' => 'Pascal Y. OUEDRAOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Supply & Procurement' : 'Approvisionnements', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/placeholder.jpg'],
+            ['name' => 'Laurent Michel DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/placeholder.jpg'],
+            ['name' => 'Augustine OBENG-FORI', 'title' => $en ? 'Deputy CEO (interim)' : 'DGA par intérim', 'department' => $en ? 'Operations' : 'Opérations', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/placeholder.jpg'],
+        ]);
+        $leadershipLevels = $leadershipMembers->groupBy('hierarchy_level');
         $levelLabels = [1 => $en ? 'Executive leadership' : 'Direction générale', 2 => $en ? 'Deputy executive leadership' : 'Direction générale adjointe', 3 => $en ? 'Management' : 'Directions et responsables'];
     @endphp
 
@@ -60,20 +60,16 @@
             <div class="leadership-grid">
             @foreach($levelMembers as $member)
             @php
-                $name = is_array($member) ? $member['name'] : $member->name;
-                $title = is_array($member) ? $member['title'] : $member->title;
-                $department = is_array($member) ? $member['department'] : $member->department;
-                $photoPath = is_array($member) ? $member['photo_path'] : $member->photo_path;
-                $memberLevel = is_array($member) ? $member['hierarchy_level'] : $member->hierarchy_level;
-                $photoUrl = $photoPath ? \App\Helpers\StorageHelper::uploadUrl($photoPath) : null;
+                $name = $member['name'];
+                $title = $member['title'];
+                $department = $member['department'];
+                $photoPath = $member['photo_path'];
+                $memberLevel = $member['hierarchy_level'];
+                $photoUrl = asset($photoPath);
                 $initials = collect(preg_split('/\s+/', trim($name)))->filter()->map(fn($part) => strtoupper(substr($part, 0, 1)))->take(2)->implode('');
             @endphp
             <article class="leadership-card {{ $memberLevel === 1 ? 'leadership-card--lead' : '' }}">
-                @if($photoUrl)
                 <img class="leadership-photo" src="{{ $photoUrl }}" alt="{{ $name }}" loading="lazy">
-                @else
-                <div class="leadership-photo leadership-initials" aria-hidden="true">{{ $initials }}</div>
-                @endif
                 <div>
                     <h3 class="leadership-name">{{ $name }}</h3>
                     <p class="leadership-title">{{ $title }}</p>
