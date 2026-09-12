@@ -94,17 +94,20 @@
                 <div class="news-grid">
                     @foreach($news as $index => $item)
                     <article class="news-card sa-reveal sa-delay-{{ $index % 3 + 1 }}">
-                        @if($item->image_path)
-                            <img class="news-img" src="{{ \App\Helpers\StorageHelper::uploadUrl($item->image_path) }}" alt="Image : {{ $item->title }}" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-                            <img class="news-img news-img-placeholder" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}" style="display:none;">
+                        @if(isset($item->image_path) && $item->image_path)
+                            <img class="news-img" src="{{ asset($item->image_path) }}" alt="Image : {{ $item->title }}" loading="lazy">
                         @else
-                            <img class="news-img news-img-placeholder" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}">
+                            <div class="news-img-placeholder">{{ __('site.news_img_placeholder') }}</div>
                         @endif
                         <div class="news-body">
                             <div class="news-meta">{{ $item->category }} · {{ $item->published_at?->translatedFormat('d M Y') }}</div>
-                            
-                            @if($item->excerpt)<p>{{ $item->excerpt }}</p>@endif
-                            <a class="news-link" href="{{ $en ? route('english.news.show', $item) : route('news.show', $item) }}">{{ __('site.read_more') }} <span style="display:inline-block; transition:transform .2s; font-size:14px; margin-left:4px;" class="sa-arrow-hover">→</span></a>
+                            <h2>{{ $item->title }}</h2>
+                            @if(isset($item->excerpt) && $item->excerpt)<p>{{ $item->excerpt }}</p>@endif
+                            @if(isset($item->slug))
+                                <a class="news-link" href="{{ $en ? url('/en/news/' . $item->slug) : url('/actualites/' . $item->slug) }}">{{ __('site.read_more') }} <span style="display:inline-block; transition:transform .2s; font-size:14px; margin-left:4px;" class="sa-arrow-hover">→</span></a>
+                            @else
+                                <a class="news-link" href="{{ $en ? route('english.news.show', $item) : route('news.show', $item) }}">{{ __('site.read_more') }} <span style="display:inline-block; transition:transform .2s; font-size:14px; margin-left:4px;" class="sa-arrow-hover">→</span></a>
+                            @endif
                         </div>
                     </article>
                     @endforeach
