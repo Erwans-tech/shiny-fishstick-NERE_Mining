@@ -2,6 +2,34 @@
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
     
+    // HARDCODED NEWS - No database dependency
+    $news = [
+        [
+            'id' => 1,
+            'title' => 'Annulation du contrat d\'achat d\'or: Riverstone Karma SA salue une décision judiciaire historique du Tribunal de commerce de Ouagadougou',
+            'category' => 'Actualités',
+            'date' => '12 août 2026',
+            'image' => asset('images/news/ZJ58L6cbb9z6C4qPwArMnxzy0A4RQW4doJDfc7SV.jpg'),
+            'slug' => 'annulation-contrat-achat-or',
+        ],
+        [
+            'id' => 2,
+            'title' => 'Forum Mines 2026 : Néré Mining réaffirme son engagement en faveur des pratiques durables dans l\'exploitation minière',
+            'category' => 'Événement',
+            'date' => '22 août 2026',
+            'image' => asset('images/news/g4XciRGY5t48TKSsjdneCu5APzh3g673Q30YMnpr.jpg'),
+            'slug' => 'forum-mines-2026',
+        ],
+        [
+            'id' => 3,
+            'title' => '6ème édition de la SAMAO.',
+            'category' => 'Partenariats',
+            'date' => '29 novembre 2024',
+            'image' => asset('images/news/F6nUuFafpUqWZu1MKDcY5PzQbQsDXsFMXmEOVNuX.png'),
+            'slug' => 'samao-2024',
+        ],
+    ];
+    
     // HARDCODED HERO IMAGES - No database dependency
     $heroImages = collect([
         [
@@ -759,6 +787,12 @@
 
         @php
             $defaultPartners = [
+                [
+                    'img'  => asset('images/partners/neemba-logo.jpeg'),
+                    'name' => 'NEEMBA',
+                    'cat'  => $en ? 'Institutional Partner' : 'Partenaire Institutionnel',
+                    'url'  => null,
+                ],
                 [
                     'img'  => asset('images/partners/armoiries-burkina-faso.jpg'),
                     'name' => $en ? 'Government of Burkina Faso' : 'État burkinabè',
