@@ -179,10 +179,13 @@
             <div class="grid-3">
                 @forelse($partners as $partner)
                 <article class="card">
+                    @if(isset($partner->logo_path) && $partner->logo_path)
+                        <img class="card-img" src="{{ asset($partner->logo_path) }}" alt="Logo {{ $partner->name }}" loading="lazy" style="object-fit:contain; background:#fff; padding:20px;">
+                    @endif
                     <div class="card-tag">{{ $partner->category ?? ($en ? 'Partner' : 'Partenaire') }}</div>
                     <h3>{{ $partner->name }}</h3>
                     <p>{{ $en ? 'Institutional partner of Néré Mining.' : 'Partenaire institutionnel de Néré Mining.' }}</p>
-                    @if($partner->website_url)
+                    @if(isset($partner->website_url) && $partner->website_url)
                         <a class="btn btn-gold" style="margin-top:16px;" href="{{ $partner->website_url }}" target="_blank" rel="noopener">{{ $en ? 'Visit website' : 'Voir le site' }}</a>
                     @endif
                 </article>

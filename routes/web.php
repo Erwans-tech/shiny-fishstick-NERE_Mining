@@ -207,11 +207,28 @@ Route::get('/rapports',       fn() => $page('fr', 'reports'))->name('reports');
 Route::get('/partenaires', function () {
     App::setLocale('fr');
     $descriptions = config('seo.descriptions')['fr'] ?? [];
+    
+    // Hardcoded partners - no database dependency
+    $hardcodedPartners = collect([
+        (object) [
+            'id' => 1,
+            'name' => 'NEEMBA',
+            'category' => 'Partenaire Institutionnel',
+            'logo_path' => 'images/partners/neemba-logo.jpeg',
+            'website_url' => null,
+            'is_published' => true,
+        ],
+    ]);
+    
+    // Try database first, fallback to hardcoded
+    $dbPartners = Partner::where('is_published', true)->orderBy('sort_order')->get();
+    $partners = $dbPartners->isEmpty() ? $hardcodedPartners : $dbPartners;
+    
     return view('resources', [
         'locale'    => 'fr',
         'section'   => 'partners',
         'description' => $descriptions['partners'] ?? '',
-        'partners'  => Partner::where('is_published', true)->orderBy('sort_order')->get(),
+        'partners'  => $partners,
         'media'     => collect(),
         'documents' => collect(),
     ]);
@@ -279,11 +296,28 @@ Route::get('/en/media', function () {
 Route::get('/en/partners', function () {
     App::setLocale('en');
     $descriptions = config('seo.descriptions')['en'] ?? [];
+    
+    // Hardcoded partners - no database dependency
+    $hardcodedPartners = collect([
+        (object) [
+            'id' => 1,
+            'name' => 'NEEMBA',
+            'category' => 'Institutional Partner',
+            'logo_path' => 'images/partners/neemba-logo.jpeg',
+            'website_url' => null,
+            'is_published' => true,
+        ],
+    ]);
+    
+    // Try database first, fallback to hardcoded
+    $dbPartners = Partner::where('is_published', true)->orderBy('sort_order')->get();
+    $partners = $dbPartners->isEmpty() ? $hardcodedPartners : $dbPartners;
+    
     return view('resources', [
         'locale'    => 'en',
         'section'   => 'partners',
         'description' => $descriptions['partners'] ?? '',
-        'partners'  => Partner::where('is_published', true)->orderBy('sort_order')->get(),
+        'partners'  => $partners,
         'media'     => collect(),
         'documents' => collect(),
     ]);

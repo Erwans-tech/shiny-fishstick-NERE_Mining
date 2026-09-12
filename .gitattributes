@@ -13,3 +13,5 @@ public/images/news/*.jpg filter=lfs diff=lfs merge=lfs -text
 public/images/news/*.png filter=lfs diff=lfs merge=lfs -text
 public/images/partners/*.jpg filter=lfs diff=lfs merge=lfs -text
 public/images/news/*.jpeg filter=lfs diff=lfs merge=lfs -text
+public/images/partners/*.jpeg filter=lfs diff=lfs merge=lfs -text
+public/images/partners/*.png filter=lfs diff=lfs merge=lfs -text
