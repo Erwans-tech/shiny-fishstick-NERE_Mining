@@ -38,13 +38,13 @@
     position: relative;
     z-index: 13;
     transition: opacity 280ms ease, transform 280ms ease;
-    max-width: min(260px, 22vw);
+    max-width: 340px;
 }
 
 .site-logo img {
     height: 90px;
     width: auto;
-    max-width: 340px;
+    max-width: 100%;
     object-fit: contain;
     display: block;
 }
@@ -499,7 +499,7 @@
 
 @media (max-width: 1280px) {
     .site-logo img {
-        max-width: min(260px, 30vw);
+        max-width: 100%;
     }
 
     .site-nav__link {
@@ -549,7 +549,7 @@
     }
 
     .site-logo {
-        max-width: min(210px, 42vw);
+        max-width: 280px;
     }
 
     .site-nav {
@@ -571,7 +571,7 @@
 
     .site-logo img {
         height: 58px;
-        max-width: min(62vw, 205px);
+        max-width: 240px;
     }
 
     .site-menu-btn {
@@ -637,7 +637,7 @@
 
     .site-logo img {
         height: 54px;
-        max-width: min(58vw, 180px);
+        max-width: 210px;
     }
 
     .site-menu-btn {
