@@ -26,9 +26,9 @@
     .leadership-card--lead .leadership-initials { color:#fff; background:rgba(255,255,255,.12); }
     .leadership-name { margin:0 0 8px; color:var(--green); font-size:18px; font-weight:700; line-height:1.25; }
     .leadership-card > div:last-child { width:100%; min-width:0; text-align:center; }
-    .leadership-name, .leadership-title, .leadership-department { overflow-wrap:break-word; word-break:normal; }
+    .leadership-name, .leadership-title, .leadership-department { overflow-wrap:break-word; word-break:normal; text-align:center; }
     .leadership-title { margin:0 0 8px; color:var(--gold2); font-size:12px; font-weight:700; line-height:1.4; text-transform:uppercase; letter-spacing:.02em; text-align:center; text-wrap:balance; }
-    .leadership-department { margin:0; color:var(--muted); font-size:14px; line-height:1.5; word-break:normal; }
+    .leadership-department { margin:0; color:var(--muted); font-size:14px; line-height:1.5; word-break:normal; text-align:center; }
     @media(max-width:900px) { .leadership-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media(max-width:540px) { .leadership-grid { grid-template-columns:1fr; } .leadership-card--lead { flex-direction:column; text-align:center; } }
 </style>
@@ -40,9 +40,9 @@
         // HARDCODED LEADERSHIP - No database dependency
         $leadershipMembers = collect([
             ['name' => 'Dr. Justin Elie OUEDRAOGO', 'title' => $en ? 'Chief Executive Officer' : 'Président Directeur Général', 'department' => '', 'hierarchy_level' => 1, 'photo_path' => 'images/leadership/pdg-traditional.jpg'],
-            ['name' => 'Justin SAVADOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => 'Administration & Finance', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/placeholder.jpg'],
-            ['name' => 'Pascal Y. OUEDRAOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Supply & Procurement' : 'Approvisionnements', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/placeholder.jpg'],
-            ['name' => 'Laurent Michel DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/placeholder.jpg'],
+            ['name' => 'Justin SAVADOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => 'Administration & Finance', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/justin-savadogo.jpeg'],
+            ['name' => 'Pascal Y. OUEDRAOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Supply & Procurement' : 'Approvisionnements', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/pascal-ouedraogo.jpeg'],
+            ['name' => 'Laurent Michel DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/laurent-dabire.jpeg'],
             ['name' => 'Augustine OBENG-FORI', 'title' => $en ? 'Deputy CEO (interim)' : 'DGA par intérim', 'department' => $en ? 'Operations' : 'Opérations', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/placeholder.jpg'],
         ]);
         $leadershipLevels = $leadershipMembers->groupBy('hierarchy_level');
