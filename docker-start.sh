@@ -32,6 +32,10 @@ php artisan config:clear || true
 php artisan route:clear || true
 php artisan view:clear || true
 
+# Force delete compiled views
+echo "🗑️  Suppression des vues compilées..."
+rm -rf storage/framework/views/*.php || true
+
 # IMPORTANT: Debug database configuration
 echo "🔍 Configuration base de données détectée :"
 echo "  DB_CONNECTION: $DB_CONNECTION"
