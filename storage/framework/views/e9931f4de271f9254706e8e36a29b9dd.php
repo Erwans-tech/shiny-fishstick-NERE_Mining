@@ -7,6 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="<?php echo e(asset('favicon.svg')); ?>" type="image/svg+xml">
+    <link rel="canonical" href="<?php echo e($en ? url('/en/news') : url('/actualites')); ?>">
     <title><?php echo e(__('site.news_h1')); ?> | Néré Mining</title>
     <meta name="description" content="<?php echo e($en ? 'Latest news from Néré Mining and the Karma mine.' : 'Toute l\'actualité de Néré Mining et de la mine de Karma.'); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,12 +82,6 @@
 
     <div class="masthead">
         <h1><?php echo e(__('site.news_h1')); ?></h1>
-        <div class="breadcrumb">
-            <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link')); ?></a> ›
-            <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.nav_news')); ?></a>
-            › <?php echo e(__('site.news_breadcrumb')); ?>
-
-        </div>
     </div>
 
     <main>
@@ -98,17 +94,20 @@
                 <div class="news-grid">
                     <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <article class="news-card sa-reveal sa-delay-<?php echo e($index % 3 + 1); ?>">
-                        <?php if($item->image_path): ?>
-                            <img class="news-img" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($item->image_path)); ?>" alt="<?php echo e($item->title); ?>" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-                            <img class="news-img news-img-placeholder" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(__('site.news_img_placeholder')); ?>" style="display:none;">
+                        <?php if(isset($item->image_path) && $item->image_path): ?>
+                            <img class="news-img" src="<?php echo e(asset($item->image_path)); ?>" alt="Image : <?php echo e($item->title); ?>" loading="lazy">
                         <?php else: ?>
-                            <img class="news-img news-img-placeholder" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(__('site.news_img_placeholder')); ?>">
+                            <div class="news-img-placeholder"><?php echo e(__('site.news_img_placeholder')); ?></div>
                         <?php endif; ?>
                         <div class="news-body">
                             <div class="news-meta"><?php echo e($item->category); ?> · <?php echo e($item->published_at?->translatedFormat('d M Y')); ?></div>
                             <h2><?php echo e($item->title); ?></h2>
-                            <?php if($item->excerpt): ?><p><?php echo e($item->excerpt); ?></p><?php endif; ?>
-                            <a class="news-link" href="<?php echo e($en ? route('english.news.show', $item) : route('news.show', $item)); ?>"><?php echo e(__('site.read_more')); ?> <span style="display:inline-block; transition:transform .2s; font-size:14px; margin-left:4px;" class="sa-arrow-hover">→</span></a>
+                            <?php if(isset($item->excerpt) && $item->excerpt): ?><p><?php echo e($item->excerpt); ?></p><?php endif; ?>
+                            <?php if(isset($item->slug)): ?>
+                                <a class="news-link" href="<?php echo e($en ? url('/en/news/' . $item->slug) : url('/actualites/' . $item->slug)); ?>"><?php echo e(__('site.read_more')); ?> <span style="display:inline-block; transition:transform .2s; font-size:14px; margin-left:4px;" class="sa-arrow-hover">→</span></a>
+                            <?php else: ?>
+                                <a class="news-link" href="<?php echo e($en ? route('english.news.show', $item) : route('news.show', $item)); ?>"><?php echo e(__('site.read_more')); ?> <span style="display:inline-block; transition:transform .2s; font-size:14px; margin-left:4px;" class="sa-arrow-hover">→</span></a>
+                            <?php endif; ?>
                         </div>
                     </article>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
