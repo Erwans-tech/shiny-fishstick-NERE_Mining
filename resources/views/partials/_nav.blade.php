@@ -45,8 +45,6 @@
                        class="{{ $sec === 'company-ceo' ? 'is-current' : '' }}">{{ __('site.nav_company_ceo') }}</a>
                     <a href="{{ $en ? route('english.company.identity') : route('company.identity') }}"
                        class="{{ $sec === 'company-identity' ? 'is-current' : '' }}">{{ __('site.nav_company_identity') }}</a>
-                    <a href="{{ $en ? route('english.company.history') : route('company.history') }}"
-                       class="{{ $sec === 'company-history' ? 'is-current' : '' }}">{{ __('site.nav_company_history') }}</a>
                     <a href="{{ $en ? route('english.company.values') : route('company.values') }}"
                        class="{{ $sec === 'company-values' ? 'is-current' : '' }}">{{ __('site.nav_company_values') }}</a>
                     <a href="{{ $en ? route('english.company.governance') : route('company.governance') }}"
@@ -63,6 +61,8 @@
                 <div class="site-nav__menu" role="menu">
                           <a href="{{ $en ? route('english.karma') : route('karma') }}"
                               class="{{ $sec === 'karma' ? 'is-current' : '' }}">{{ $en ? 'Overview' : 'Présentation' }}</a>
+                          <a href="{{ $en ? route('english.company.history') : route('company.history') }}"
+                              class="{{ $sec === 'company-history' ? 'is-current' : '' }}">{{ __('site.nav_company_history') }}</a>
                           <a href="{{ $en ? route('english.karma.exploitation') : route('karma.exploitation') }}"
                               class="{{ $sec === 'karma-exploitation' ? 'is-current' : '' }}">{{ $en ? 'Operations' : 'Exploitation' }}</a>
                         <a href="{{ $en ? route('english.karma.resources') : route('karma.resources') }}"
