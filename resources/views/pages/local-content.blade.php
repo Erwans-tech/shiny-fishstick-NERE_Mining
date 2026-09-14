@@ -138,7 +138,7 @@
             ];
         @endphp
 
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; margin-top:48px;">
+        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:48px;">
             @foreach($categories as $k => $cat)
             <div class="sa-achievement-card sa-reveal sa-delay-{{ $k+1 }}">
                 <div class="sa-category-icon">{{ $cat['icon'] }}</div>
