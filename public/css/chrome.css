@@ -17,7 +17,7 @@
 .site-header__bar {
     max-width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 0 32px 0 0;
     min-height: 100px;
     display: flex;
     align-items: center;
@@ -79,7 +79,7 @@
     max-width: calc(100% - 280px);
     flex-wrap: nowrap;
     margin-left: 12px;
-    margin-right: 0;
+    margin-right: 20px;
 }
 
 .site-nav__item {
@@ -349,7 +349,7 @@
 
     .site-header__bar {
         min-height: 82px;
-        padding: 0 18px;
+        padding: 0 24px;
         flex-wrap: nowrap;
         position: relative;
         overflow: visible;
@@ -560,7 +560,7 @@
 @media (max-width: 640px) {
     .site-header__bar {
         min-height: 68px;
-        padding: 0 12px;
+        padding: 0 18px;
         gap: 8px;
     }
 
@@ -628,7 +628,7 @@
 @media (max-width: 360px) {
     .site-header__bar {
         min-height: 72px;
-        padding: 0 10px;
+        padding: 0 14px;
     }
 
     .site-logo {
