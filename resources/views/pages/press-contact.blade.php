@@ -3,12 +3,12 @@
 
 @section('content')
 @php
-    // Informations de contact presse - DABIRE Laurent
-    $pressName = 'DABIRE Laurent';
-    $pressJob = $en ? 'Press Relations Manager' : 'Responsable Relations Presse';
-    $pressPhoto = ''; // Photo à ajouter si disponible
-    $pressPhone = '+226 25 33 35 69';
-    $pressEmail = 'presse@nere-mining.bf';
+    // Informations de contact presse - Laurent Michel Coubarnibet DABIRE
+    $pressName = 'Laurent Michel Coubarnibet DABIRE';
+    $pressJob = $en ? 'Deputy CEO - Corporate & Legal Affairs' : 'DGA Affaires Corporatives et Juridiques';
+    $pressPhoto = asset('images/leadership/laurent-dabire.jpeg');
+    $pressPhone = '+226 70 20 34 34';
+    $pressEmail = 'laurent.dabire@nere-mining.com';
     $pressHours = $en ? 'Monday to Friday, 8am - 5pm' : 'Lundi au Vendredi, 8h - 17h';
 @endphp
 
@@ -21,10 +21,15 @@
     <div class="pdg-block" style="margin-bottom:48px;">
         <div>
             <div class="pdg-photo"
-                 style="height:280px; border-radius:6px; display:flex; align-items:center; justify-content:center; background:#5a2020;">
+                 style="height:340px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:#5a2020; position:relative;">
                 @if($pressPhoto)
-                    <img src="{{ $pressPhoto }}" alt="{{ $pressName }}" style="width:100%; height:100%; object-fit:cover; border-radius:6px;" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <span style="display:none;color:rgba(255,255,255,.35);font-size:13px;text-align:center;">{{ $en ? 'Photo coming soon' : 'Photo à venir' }}</span>
+                    <img src="{{ $pressPhoto }}" 
+                         alt="{{ $pressName }}" 
+                         style="width:100%; height:100%; object-fit:cover; object-position:center 30%; filter:grayscale(0.15) contrast(1.05);" 
+                         onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div style="display:none; color:rgba(255,255,255,.35); font-size:13px; text-align:center; position:absolute; inset:0; align-items:center; justify-content:center;">
+                        {{ $en ? 'Photo coming soon' : 'Photo à venir' }}
+                    </div>
                 @else
                     <span style="color:rgba(255,255,255,.35); font-size:13px; text-align:center;">
                         {{ $en ? 'Photo coming soon' : 'Photo à venir' }}
