@@ -20,8 +20,8 @@
     .leadership-card--lead { grid-column:1 / -1; width:min(700px,100%); justify-self:center; max-width:700px; margin:0 auto; flex-direction:row; gap:24px; align-items:center; text-align:left; background:linear-gradient(135deg,#4b1716,#2d0d10); color:#fff; border-top-color:var(--gold); }
     .leadership-card--lead .leadership-name,.leadership-card--lead .leadership-title { color:#fff; }
     .leadership-card--lead .leadership-department { color:rgba(255,255,255,.7); }
-    .leadership-photo { width:184px; height:184px; flex:0 0 184px; object-fit:cover; object-position:center 25%; border-radius:50%; border:5px solid rgba(255,194,71,.75); background:var(--sand); }
-    .leadership-card:not(.leadership-card--lead) .leadership-photo { width:160px; height:160px; flex-basis:160px; margin-bottom:20px; object-position:center 30%; }
+    .leadership-photo { width:220px; height:220px; flex:0 0 220px; object-fit:cover; object-position:center 28%; border-radius:50%; border:5px solid rgba(255,194,71,.75); background:var(--sand); image-rendering:auto; image-rendering:-webkit-optimize-contrast; }
+    .leadership-card:not(.leadership-card--lead) .leadership-photo { width:200px; height:200px; flex-basis:200px; margin-bottom:20px; object-position:center 32%; }
     .leadership-initials { display:grid; place-items:center; font-size:48px; font-weight:700; color:var(--green); }
     .leadership-card--lead .leadership-initials { color:#fff; background:rgba(255,255,255,.12); }
     .leadership-name { margin:0 0 8px; color:var(--green); font-size:18px; font-weight:700; line-height:1.25; }
