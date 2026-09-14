@@ -290,32 +290,81 @@
         <section>
             <p class="lead">{{ __('site.gallery_lead') }}</p>
             <div class="gallery-grid" id="gallery-grid">
-                @php
-                    $images = [
-                        '/uploads/gallery/image-8-min-scaled.jpg',
-                        '/uploads/gallery/img1.jpeg',
-                        '/uploads/gallery/img2.jpeg',
-                        '/uploads/gallery/img3.jpeg',
-                        '/uploads/gallery/IMG_5184-1.jpg',
-                        '/uploads/gallery/IMG_5187.jpg',
-                        '/uploads/gallery/IMG_5188.jpg',
-                        '/uploads/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp',
-                        '/uploads/gallery/karma1.jpg',
-                        '/uploads/gallery/karma123-min-1.jpg',
-                        '/uploads/gallery/karma2-min.jpg',
-                        '/uploads/gallery/karmareboi.jpg',
-                        '/uploads/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg',
-                        '/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg',
-                        '/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg',
-                    ];
-                @endphp
-                @foreach($images as $index => $image)
                 <figure class="gallery-item">
-                    <a class="gallery-media" href="{{ $image }}" data-lightbox-src="{{ $image }}" aria-label="{{ $en ? 'View image' : 'Voir image' }}">
-                        <img src="{{ $image }}" alt="Gallery image {{ $index + 1 }}" loading="lazy">
+                    <a class="gallery-media" href="/uploads/gallery/image-8-min-scaled.jpg" data-lightbox-src="/uploads/gallery/image-8-min-scaled.jpg">
+                        <img src="/uploads/gallery/image-8-min-scaled.jpg" alt="Gallery image">
                     </a>
                 </figure>
-                @endforeach
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/img1.jpeg" data-lightbox-src="/uploads/gallery/img1.jpeg">
+                        <img src="/uploads/gallery/img1.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/img2.jpeg" data-lightbox-src="/uploads/gallery/img2.jpeg">
+                        <img src="/uploads/gallery/img2.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/img3.jpeg" data-lightbox-src="/uploads/gallery/img3.jpeg">
+                        <img src="/uploads/gallery/img3.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/IMG_5184-1.jpg" data-lightbox-src="/uploads/gallery/IMG_5184-1.jpg">
+                        <img src="/uploads/gallery/IMG_5184-1.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/IMG_5187.jpg" data-lightbox-src="/uploads/gallery/IMG_5187.jpg">
+                        <img src="/uploads/gallery/IMG_5187.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/IMG_5188.jpg" data-lightbox-src="/uploads/gallery/IMG_5188.jpg">
+                        <img src="/uploads/gallery/IMG_5188.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp" data-lightbox-src="/uploads/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp">
+                        <img src="/uploads/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/karma1.jpg" data-lightbox-src="/uploads/gallery/karma1.jpg">
+                        <img src="/uploads/gallery/karma1.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/karma123-min-1.jpg" data-lightbox-src="/uploads/gallery/karma123-min-1.jpg">
+                        <img src="/uploads/gallery/karma123-min-1.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/karma2-min.jpg" data-lightbox-src="/uploads/gallery/karma2-min.jpg">
+                        <img src="/uploads/gallery/karma2-min.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/karmareboi.jpg" data-lightbox-src="/uploads/gallery/karmareboi.jpg">
+                        <img src="/uploads/gallery/karmareboi.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg" data-lightbox-src="/uploads/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg">
+                        <img src="/uploads/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg" data-lightbox-src="/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg">
+                        <img src="/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg" data-lightbox-src="/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg">
+                        <img src="/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
             </div>
         </section>
 
