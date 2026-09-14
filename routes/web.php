@@ -211,7 +211,7 @@ Route::get('/mediatheque', function () {
         'section'   => 'gallery',
         'description' => $descriptions['gallery'] ?? '',
         'partners'  => collect(),
-        'media'     => MediaAsset::gallery()->get(),
+        'media'     => collect(), // Hardcoded in view, no DB dependency
         'documents' => collect(),
     ]);
 })->name('gallery');
@@ -313,7 +313,7 @@ Route::get('/en/media', function () {
         'section'   => 'gallery',
         'description' => $descriptions['gallery'] ?? '',
         'partners'  => collect(),
-        'media'     => MediaAsset::gallery()->get(),
+        'media'     => collect(), // Hardcoded in view, no DB dependency
         'documents' => collect(),
     ]);
 })->name('english.gallery');
