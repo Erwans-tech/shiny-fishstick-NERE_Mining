@@ -598,7 +598,7 @@ return [
 
     /* ══ HSE  - chiffres + cartes ══ */
     'hse_stat1_val'  => '0',
-    'hse_stat1_label' => 'Objectif accident et préjudice',
+    'hse_stat1_label' => 'Objectif zero accident et préjudice',
     'hse_stat2_val'  => '100%',
     'hse_stat2_label' => 'Droit de signaler ou refuser un travail dangereux',
     'hse_stat3_val'  => 'HSE',

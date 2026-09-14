@@ -47,32 +47,77 @@
 <section class="sa-animated-section" style="padding:70px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
 
-        {{-- Stat Band Escalier/Progression --}}
-        <div class="hse-progression-scale sa-reveal" style="margin-top:0; margin-bottom:40px; background:linear-gradient(135deg,#4b1716,#2d0d10); border-radius:16px; padding:32px 24px; position:relative; overflow:hidden;">
-            <!-- Ligne de progression diagonale -->
-            <div style="position:absolute; top:0; right:0; width:200%; height:120%; background:linear-gradient(135deg,transparent 48%,rgba(255,194,71,0.1) 49%,rgba(255,194,71,0.1) 51%,transparent 52%); pointer-events:none;"></div>
+        {{-- Stat Band Escalier/Progression Premium --}}
+        <div class="hse-progression-scale sa-reveal" style="margin-top:0; margin-bottom:40px; background:linear-gradient(135deg,#4b1716,#2d0d10); border-radius:20px; padding:48px 32px; position:relative; overflow:hidden; box-shadow:0 20px 60px rgba(40,29,24,0.3);">
             
-            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; position:relative; z-index:1;">
+            <!-- Animated background gradient -->
+            <div style="position:absolute; inset:0; background:radial-gradient(circle at 20% 50%, rgba(255,194,71,0.05), transparent 50%); animation:pulse 4s ease-in-out infinite; pointer-events:none;"></div>
+            
+            <!-- Connecting line with animated glow -->
+            <svg style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:rgba(255,194,71,0);stop-opacity:0" />
+                        <stop offset="50%" style="stop-color:rgba(255,194,71,0.6);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgba(255,194,71,0);stop-opacity:0" />
+                    </linearGradient>
+                </defs>
+                <polyline points="12%,80% 37%,60% 62%,40% 87%,20%" fill="none" stroke="url(#lineGrad)" stroke-width="3" stroke-linecap="round" style="filter:drop-shadow(0 0 8px rgba(255,194,71,0.4)); animation:drawLine 2s ease-out forwards;"/>
+            </svg>
+            
+            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px; position:relative; z-index:1;">
                 @foreach(range(1, 4) as $i)
-                <div class="hse-step-item sa-reveal sa-delay-{{ $i }}" style="text-align:center; padding:{{ 24 + ($i-1)*8 }}px 16px; background:rgba(255,255,255,{{ 0.04 + ($i-1)*0.03 }}); border-left:4px solid rgba(255,194,71,{{ 0.5 + ($i-1)*0.2 }}); border-radius:12px; transition:all .3s; position:relative; top:{{ ($i-1)*12 }}px;">
+                <div class="hse-step-item sa-reveal sa-delay-{{ $i }}" style="text-align:center; padding:{{ 28 + ($i-1)*6 }}px 20px; background:linear-gradient(135deg,rgba(255,255,255,{{ 0.05 + ($i-1)*0.03 }}),rgba(255,194,71,{{ 0.01 + ($i-1)*0.02 }})); border:1px solid rgba(255,194,71,{{ 0.3 + ($i-1)*0.15 }}); border-radius:16px; transition:all .4s cubic-bezier(0.34,1.56,0.64,1); position:relative; top:{{ ($i-1)*10 }}px; cursor:pointer; overflow:hidden;"
+                     onmouseover="this.style.background='linear-gradient(135deg,rgba(255,194,71,0.15),rgba(255,194,71,0.08))'; this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='0 12px 40px rgba(255,194,71,0.2)';"
+                     onmouseout="this.style.background='linear-gradient(135deg,rgba(255,255,255,{{ 0.05 + ($i-1)*0.03 }}),rgba(255,194,71,{{ 0.01 + ($i-1)*0.02 }}))'; this.style.transform=''; this.style.boxShadow='none';">
                     
-                    <!-- Numéro de l'étape grand et visible -->
-                    <div style="font-size:48px; font-weight:700; color:rgba(255,194,71,{{ 0.6 + ($i-1)*0.2 }}); margin-bottom:12px; line-height:1;">{{ $i }}</div>
+                    <!-- Shine effect background -->
+                    <div style="position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent); animation:shine 3s ease-in-out infinite; pointer-events:none;"></div>
                     
-                    <!-- Valeur/Label principal -->
-                    <div class="hse-step-value" style="color:#fff; font-size:{{ 16 + ($i-1)*2 }}px; font-weight:600; margin-bottom:8px;">{{ __('site.hse_stat'.$i.'_val', [], $loc) }}</div>
+                    <!-- Main value/Label -->
+                    <div class="hse-step-value" style="color:rgba(255,194,71,{{ 0.8 + ($i-1)*0.15 }}); font-size:{{ 22 + ($i-1)*3 }}px; font-weight:700; margin-bottom:10px; letter-spacing:.02em; position:relative; z-index:1; animation:fadeInUp 0.8s ease-out {{ $i * 0.15 }}s both;">{{ __('site.hse_stat'.$i.'_val', [], $loc) }}</div>
                     
-                    <!-- Description -->
-                    <div style="color:rgba(255,255,255,0.8); font-size:12px; line-height:1.5; text-align:center;">{{ __('site.hse_stat'.$i.'_label', [], $loc) }}</div>
+                    <!-- Description with better readability -->
+                    <div style="color:rgba(255,255,255,{{ 0.75 + ($i-1)*0.1 }}); font-size:13px; line-height:1.6; text-align:center; font-weight:500; position:relative; z-index:1; animation:fadeInUp 0.8s ease-out {{ $i * 0.15 + 0.1 }}s both;">{{ __('site.hse_stat'.$i.'_label', [], $loc) }}</div>
                     
-                    <!-- Barre de progression -->
-                    <div style="margin-top:12px; height:3px; background:rgba(255,255,255,0.2); border-radius:2px; overflow:hidden;">
-                        <div style="height:100%; background:linear-gradient(90deg,rgba(255,194,71,0.6),rgba(255,194,71,1)); width:{{ $i * 25 }}%; border-radius:2px;"></div>
+                    <!-- Progress indicator bars -->
+                    <div style="margin-top:16px; display:flex; justify-content:center; gap:3px; position:relative; z-index:1;">
+                        @for($j = 1; $j <= 4; $j++)
+                        <div style="width:4px; height:16px; background:rgba(255,194,71,{{ $j <= $i ? 0.8 : 0.2 }}); border-radius:2px; transition:all .3s ease; animation:barPulse 1.5s ease-in-out infinite {{ $j * 0.1 }}s;">
+                        </div>
+                        @endfor
                     </div>
                 </div>
                 @endforeach
             </div>
         </div>
+        
+        <style>
+            @keyframes pulse {
+                0%, 100% { opacity: 0.5; }
+                50% { opacity: 1; }
+            }
+            @keyframes shine {
+                0% { transform: translateX(-100%); }
+                50% { transform: translateX(100%); }
+                100% { transform: translateX(100%); }
+            }
+            @keyframes drawLine {
+                from { stroke-dasharray: 300; stroke-dashoffset: 300; }
+                to { stroke-dasharray: 300; stroke-dashoffset: 0; }
+            }
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes barPulse {
+                0%, 100% { height: 16px; }
+                50% { height: 22px; }
+            }
+            .hse-step-item:hover {
+                box-shadow: 0 16px 48px rgba(255,194,71,0.25) !important;
+            }
+        </style>
 
         <div class="grid-3">
             @foreach(range(1, 3) as $i)

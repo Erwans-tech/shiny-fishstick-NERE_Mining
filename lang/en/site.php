@@ -598,7 +598,7 @@ return [
 
     /* ══ HSE  - figures + cards ══ */
     'hse_stat1_val'  => '0',
-    'hse_stat1_label' => 'Fatal accident target',
+    'hse_stat1_label' => 'Zero accident & injury target',
     'hse_stat2_val'  => '100%',
     'hse_stat2_label' => 'Employees safety-trained',
     'hse_stat3_val'  => 'HSE',
