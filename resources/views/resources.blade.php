@@ -309,15 +309,13 @@
                         '/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg',
                     ];
                 @endphp
-                @forelse($images as $index => $image)
+                @foreach($images as $index => $image)
                 <figure class="gallery-item">
                     <a class="gallery-media" href="{{ $image }}" data-lightbox-src="{{ $image }}" aria-label="{{ $en ? 'View image' : 'Voir image' }}">
-                        <img src="{{ $image }}" alt="Gallery image {{ $index + 1 }}" loading="lazy" onerror="this.style.display='none'">
+                        <img src="{{ $image }}" alt="Gallery image {{ $index + 1 }}" loading="lazy">
                     </a>
                 </figure>
-                @empty
-                <p class="lead">{{ __('site.gallery_empty') }}</p>
-                @endforelse
+                @endforeach
             </div>
         </section>
 
