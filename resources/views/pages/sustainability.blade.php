@@ -62,7 +62,7 @@
             </p>
         </div>
 
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(165px,1fr)); gap:20px; margin-top:48px;">
+        <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:20px; margin-top:48px;">
 
             @php
                 $esgData = [

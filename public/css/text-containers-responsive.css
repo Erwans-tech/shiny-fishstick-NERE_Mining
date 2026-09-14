@@ -169,7 +169,7 @@
 .text-container .grid-2,
 .text-container-standard .grid-2 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--gap-md);
 }
 
@@ -177,7 +177,7 @@
 .text-container .grid-3,
 .text-container-standard .grid-3 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--gap-md);
 }
 
@@ -185,8 +185,68 @@
 .text-container .grid-4,
 .text-container-standard .grid-4 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--gap-sm);
+}
+
+/* Projects grid - 3 colonnes symétriques */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* Grille métriques sustainability - 5 colonnes */
+.sa-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE GRIDS
+   ══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+    .text-container .grid-2,
+    .text-container-standard .grid-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .text-container .grid-3,
+    .text-container-standard .grid-3,
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .text-container .grid-4,
+    .text-container-standard .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .sa-metrics-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .text-container .grid-3,
+    .text-container-standard .grid-3,
+    .text-container .grid-4,
+    .text-container-standard .grid-4,
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sa-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 400px) {
+    .sa-metrics-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ══════════════════════════════════════════════════════════════
