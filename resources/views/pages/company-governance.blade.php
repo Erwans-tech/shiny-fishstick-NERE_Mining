@@ -39,11 +39,11 @@
     @php
         // HARDCODED LEADERSHIP - No database dependency
         $leadershipMembers = collect([
-            ['name' => 'Dr. Justin Elie OUEDRAOGO', 'title' => $en ? 'Chief Executive Officer' : 'Président Directeur Général', 'department' => '', 'hierarchy_level' => 1, 'photo_path' => 'images/leadership/pdg-traditional.jpg'],
+            ['name' => 'Dr. Elie Justin OUEDRAOGO', 'title' => 'NAAABA BAOOGO DE GOURCY', 'department' => 'Président Directeur Général', 'hierarchy_level' => 1, 'photo_path' => 'images/leadership/pdg-traditional.jpg'],
             ['name' => 'Justin SAVADOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => 'Administration & Finance', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/justin-savadogo.jpeg'],
-            ['name' => 'Pascal Y. OUEDRAOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Supply & Procurement' : 'Approvisionnements', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/pascal-ouedraogo.jpeg'],
+            ['name' => 'Pascal Y. OUEDRAOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Supply Chain Planning & Optimization' : 'Planification et optimisation des Approvisionnements', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/pascal-ouedraogo.jpeg'],
             ['name' => 'Laurent Michel DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/laurent-dabire.jpeg'],
-            ['name' => 'Augustine OBENG-FORI', 'title' => $en ? 'Deputy CEO (interim)' : 'DGA par intérim', 'department' => $en ? 'Operations' : 'Opérations', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/placeholder.jpg'],
+            ['name' => 'Augustine OBENG-FORI', 'title' => $en ? 'Mining Director' : 'Directeur de l\'exploitation', 'department' => '', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/placeholder.jpg'],
         ]);
         $leadershipLevels = $leadershipMembers->groupBy('hierarchy_level');
         $levelLabels = [1 => $en ? 'Executive leadership' : 'Direction générale', 2 => $en ? 'Deputy executive leadership' : 'Direction générale adjointe', 3 => $en ? 'Management' : 'Directions et responsables'];

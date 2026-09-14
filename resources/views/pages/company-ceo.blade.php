@@ -69,6 +69,9 @@
             <div class="pdg-photo">
                     <img src="{{ asset('images/company/pdg-traditional.jpg') }}" alt="{{ $en ? 'President and CEO of Néré Mining' : 'Président-Directeur Général de Néré Mining' }}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
             </div>
+            <div style="margin-top: 16px; text-align: center;">
+                <div style="font-size: 14px; font-weight: 600; color: var(--gold); letter-spacing: 0.05em;">NAAABA BAOOGO DE GOURCY</div>
+            </div>
         </div>
         <div>
                 @if($en)
