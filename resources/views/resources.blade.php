@@ -292,21 +292,21 @@
             <div class="gallery-grid" id="gallery-grid">
                 @php
                     $images = [
-                        '/uploads/gallery/image-8-min-scaled.jpg',
-                        '/uploads/gallery/img1.jpeg',
-                        '/uploads/gallery/img2.jpeg',
-                        '/uploads/gallery/img3.jpeg',
-                        '/uploads/gallery/IMG_5184-1.jpg',
-                        '/uploads/gallery/IMG_5187.jpg',
-                        '/uploads/gallery/IMG_5188.jpg',
-                        '/uploads/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp',
-                        '/uploads/gallery/karma1.jpg',
-                        '/uploads/gallery/karma123-min-1.jpg',
-                        '/uploads/gallery/karma2-min.jpg',
-                        '/uploads/gallery/karmareboi.jpg',
-                        '/uploads/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg',
-                        '/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg',
-                        '/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg',
+                        asset('images/gallery/image-8-min-scaled.jpg'),
+                        asset('images/gallery/img1.jpeg'),
+                        asset('images/gallery/img2.jpeg'),
+                        asset('images/gallery/img3.jpeg'),
+                        asset('images/gallery/IMG_5184-1.jpg'),
+                        asset('images/gallery/IMG_5187.jpg'),
+                        asset('images/gallery/IMG_5188.jpg'),
+                        asset('images/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp'),
+                        asset('images/gallery/karma1.jpg'),
+                        asset('images/gallery/karma123-min-1.jpg'),
+                        asset('images/gallery/karma2-min.jpg'),
+                        asset('images/gallery/karmareboi.jpg'),
+                        asset('images/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg'),
+                        asset('images/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg'),
+                        asset('images/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg'),
                     ];
                 @endphp
                 @forelse($images as $index => $image)
