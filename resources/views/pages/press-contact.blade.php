@@ -3,12 +3,13 @@
 
 @section('content')
 @php
-    $pressName = \App\Models\SiteSetting::get('press_contact_name', __('site.press_contact_name', [], $loc));
-    $pressJob = \App\Models\SiteSetting::get('press_contact_job', __('site.press_contact_job', [], $loc));
-    $pressPhoto = \App\Models\SiteSetting::get('press_contact_photo', '');
-    $pressPhone = \App\Models\SiteSetting::get('press_contact_phone', '+226 25 33 35 69');
-    $pressEmail = \App\Models\SiteSetting::get('press_contact_email', 'presse@nere-mining.bf');
-    $pressHours = \App\Models\SiteSetting::get('press_contact_hours', __('site.press_contact_hours', [], $loc));
+    // Informations de contact presse - DABIRE Laurent
+    $pressName = 'DABIRE Laurent';
+    $pressJob = $en ? 'Press Relations Manager' : 'Responsable Relations Presse';
+    $pressPhoto = ''; // Photo à ajouter si disponible
+    $pressPhone = '+226 25 33 35 69';
+    $pressEmail = 'presse@nere-mining.bf';
+    $pressHours = $en ? 'Monday to Friday, 8am - 5pm' : 'Lundi au Vendredi, 8h - 17h';
 @endphp
 
 <section>
@@ -37,7 +38,11 @@
                 {{ __('site.press_contact_role_label', [], $loc) }}
             </div>
             
-            <div style="color:rgba(255,255,255,.7); font:13px Inter,sans-serif; margin-bottom:28px;">
+            <h2 style="color:#fff; font-size:32px; font-weight:600; margin-bottom:8px; line-height:1.2;">
+                {{ $pressName }}
+            </h2>
+            
+            <div style="color:rgba(255,255,255,.7); font:15px Inter,sans-serif; margin-bottom:28px;">
                 {{ $pressJob }}
             </div>
             <ul style="list-style:none; display:flex; flex-direction:column; gap:14px;">
