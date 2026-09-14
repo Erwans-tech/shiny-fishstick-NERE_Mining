@@ -3,6 +3,14 @@ set -e
 
 echo "🎯 Deploying Néré Mining to Render..."
 
+# Télécharger les fichiers Git LFS (images de la galerie)
+echo "📥 Downloading Git LFS files..."
+if command -v git-lfs &> /dev/null; then
+    git lfs pull || echo "⚠️ Git LFS pull failed (may not be available)"
+else
+    echo "⚠️ Git LFS not installed, skipping LFS pull"
+fi
+
 # Installation des dépendances
 echo "📦 Installing dependencies..."
 composer install --no-dev --optimize-autoloader --no-interaction

@@ -31,6 +31,18 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 /**
  * Serve uploaded files from public/uploads directory
  */
+Route::get('/uploads/gallery/{file}', function ($file) {
+    $path = public_path("uploads/gallery/{$file}");
+    
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    
+    return response()->file($path, [
+        'Cache-Control' => 'public, max-age=31536000',
+    ]);
+})->where('file', '.*')->name('upload.gallery');
+
 Route::get('/uploads/{file}', function ($file) {
     $path = public_path("uploads/{$file}");
     
