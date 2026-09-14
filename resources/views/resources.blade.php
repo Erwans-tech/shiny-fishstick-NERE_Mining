@@ -83,19 +83,58 @@
         .btn-dark:hover { background:#3a100f; }
 
         /* ── Gallery grid ── */
-        .gallery-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:16px; }
-        .gallery-item { grid-column:span 4; border-radius:6px; overflow:hidden; background:var(--sand); border:1px solid var(--line); }
-        .gallery-item:nth-child(1) { grid-column:span 7; grid-row:span 2; }
-        .gallery-item:nth-child(2) { grid-column:span 5; }
-        .gallery-item:nth-child(3) { grid-column:span 5; }
-        .gallery-media { position:relative; display:block; height:280px; overflow:hidden; background:#17110f; cursor:zoom-in; }
-        .gallery-item:nth-child(1) .gallery-media { height:520px; }
-        .gallery-media img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .35s ease; }
-        .gallery-media:hover img { transform:scale(1.04); }
-        .gallery-play { position:absolute; left:50%; top:50%; width:56px; height:56px; transform:translate(-50%,-50%); display:grid; place-items:center; border-radius:50%; background:rgba(255,194,71,.95); color:var(--ink); font-size:22px; padding-left:3px; box-shadow:0 4px 16px rgba(0,0,0,.25); }
-        .gallery-caption { padding:14px 16px; }
-        .gallery-caption h3 { font:600 15px Inter,sans-serif; color:var(--green); margin-bottom:4px; }
-        .gallery-caption p { font:13px Inter,sans-serif; color:var(--muted); margin:0; }
+        .gallery-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .gallery-item { 
+            position: relative;
+            border-radius: 12px; 
+            overflow: hidden; 
+            background: var(--sand); 
+            border: 1px solid var(--line);
+            aspect-ratio: 4/3;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+            border-color: var(--gold);
+        }
+        .gallery-media { 
+            position: relative; 
+            display: block; 
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background: #17110f; 
+        }
+        .gallery-media img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block; 
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .gallery-media:hover img { 
+            transform: scale(1.12);
+        }
+        .gallery-item:nth-child(1) { 
+            grid-column: span 2;
+        }
+        .gallery-item:nth-child(5) { 
+            grid-column: span 2;
+        }
+        .gallery-item:nth-child(10) { 
+            grid-column: span 2;
+        }
+        .gallery-caption { 
+            display: none;
+        }
 
         /* ── Sand ── */
         .sand { background:var(--sand); }
@@ -127,10 +166,61 @@
         footer { padding:32px 5vw; background:#351312; color:#eadcca; display:flex; justify-content:space-between; align-items:center; font:12px Inter,sans-serif; }
         .footer-links { display:flex; gap:20px; }
         .footer-links a:hover { color:var(--gold); }
-        .lightbox { position:fixed; inset:0; z-index:300; display:grid; place-items:center; padding:30px; background:rgba(20,12,10,.92); opacity:0; pointer-events:none; transition:opacity .2s ease; }
+        .lightbox { 
+            position:fixed; inset:0; z-index:300; display:grid; place-items:center; padding:30px; 
+            background:rgba(20,12,10,.95); backdrop-filter:blur(4px);
+            opacity:0; pointer-events:none; transition:opacity .3s ease; 
+        }
         .lightbox.is-open { opacity:1; pointer-events:auto; }
-        .lightbox img { max-width:min(1200px, 92vw); max-height:84vh; object-fit:contain; box-shadow:0 10px 40px rgba(0,0,0,.4); }
-        .lightbox-close { position:absolute; top:20px; right:24px; border:0; background:none; color:#fff; font-size:36px; line-height:1; cursor:pointer; }
+        .lightbox img { 
+            max-width:min(1200px, 92vw); max-height:84vh; object-fit:contain; 
+            box-shadow:0 10px 40px rgba(0,0,0,.4);
+            animation: zoomIn 0.3s ease;
+        }
+        @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .lightbox-close { 
+            position:absolute; top:20px; right:24px; border:0; background:none; 
+            color:#fff; font-size:36px; line-height:1; cursor:pointer;
+            transition: all 0.2s;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        .lightbox-close:hover { 
+            background: rgba(255,255,255,0.1);
+            transform: rotate(90deg);
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 32px;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+            z-index: 301;
+        }
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            font-weight: 600;
+            background: rgba(0,0,0,0.4);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
 
         /* ── Responsive ── */
         @media(max-width:900px) {
@@ -140,9 +230,10 @@
             .menu-btn { display:block; }
             nav.open { display:flex; flex-direction:column; align-items:flex-start; width:100%; gap:4px; }
             .nav-dropdown .dropdown-menu { position:static; box-shadow:none; border:0; padding:0 0 0 16px; }
-            .grid-3, .gallery-grid { grid-template-columns:1fr; }
-            .gallery-item, .gallery-item:nth-child(1), .gallery-item:nth-child(2), .gallery-item:nth-child(3) { grid-column:span 1; grid-row:auto; }
-            .gallery-media, .gallery-item:nth-child(1) .gallery-media { height:280px; }
+            .grid-3 { grid-template-columns:1fr; }
+            .gallery-grid { grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px; }
+            .gallery-item, .gallery-item:nth-child(1), .gallery-item:nth-child(5), .gallery-item:nth-child(10) { grid-column:span 1; }
+            .gallery-media, .gallery-item:nth-child(1) .gallery-media { height:auto; }
             .newsletter-inner { grid-template-columns:1fr; gap:28px; }
             .newsletter-form { max-width:none; }
             footer { flex-direction:column; gap:12px; text-align:center; }
@@ -198,27 +289,36 @@
         @elseif($section === 'gallery')
         <section>
             <p class="lead">{{ __('site.gallery_lead') }}</p>
-            @if($media->isEmpty())
+            <div class="gallery-grid" id="gallery-grid">
+                @php
+                    $images = [
+                        'uploads/gallery/image-8-min-scaled.jpg',
+                        'uploads/gallery/img1.jpeg',
+                        'uploads/gallery/img2.jpeg',
+                        'uploads/gallery/img3.jpeg',
+                        'uploads/gallery/IMG_5184-1.jpg',
+                        'uploads/gallery/IMG_5187.jpg',
+                        'uploads/gallery/IMG_5188.jpg',
+                        'uploads/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp',
+                        'uploads/gallery/karma1.jpg',
+                        'uploads/gallery/karma123-min-1.jpg',
+                        'uploads/gallery/karma2-min.jpg',
+                        'uploads/gallery/karmareboi.jpg',
+                        'uploads/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg',
+                        'uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg',
+                        'uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg',
+                    ];
+                @endphp
+                @forelse($images as $index => $image)
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="{{ asset($image) }}" data-lightbox-src="{{ asset($image) }}" aria-label="{{ $en ? 'View image' : 'Voir image' }}">
+                        <img src="{{ asset($image) }}" alt="Gallery image {{ $index + 1 }}" loading="lazy">
+                    </a>
+                </figure>
+                @empty
                 <p class="lead">{{ __('site.gallery_empty') }}</p>
-            @else
-                <div class="gallery-grid">
-                    @foreach($media as $item)
-                    <figure class="gallery-item">
-                        @if($item->type === 'youtube')
-                            <a class="gallery-media" href="{{ $item->external_url }}" target="_blank" rel="noopener" aria-label="{{ $en ? 'View' : 'Voir' }} {{ $item->title }}"><img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}"><span class="gallery-play" aria-hidden="true">▶</span></a>
-                        @elseif($item->type === 'google_drive')
-                            <a class="gallery-media" href="{{ $item->external_url }}" target="_blank" rel="noopener" aria-label="Ouvrir {{ $item->title }}"><div style="height:100%;display:grid;place-items:center;color:#fff;font:600 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;">Google Drive ↗</div></a>
-                        @elseif($item->url)
-                            <a class="gallery-media" href="{{ $item->url }}" data-lightbox-src="{{ $item->url }}" data-lightbox-alt="{{ $item->title }}" aria-label="Agrandir {{ $item->title }}"><img src="{{ $item->url }}" alt="{{ $item->title }}"></a>
-                        @endif
-                        <figcaption class="gallery-caption">
-                            <h3>{{ $item->title }}</h3>
-                            @if($item->caption)<p>{{ $item->caption }}</p>@endif
-                        </figcaption>
-                    </figure>
-                    @endforeach
-                </div>
-            @endif
+                @endforelse
+            </div>
         </section>
 
         @elseif($section === 'press')
@@ -262,7 +362,12 @@
 
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie">
         <button class="lightbox-close" type="button" aria-label="{{ $en ? 'Close' : 'Fermer' }}">&times;</button>
+        <button class="lightbox-nav lightbox-prev" type="button" aria-label="{{ $en ? 'Previous' : 'Précédent' }}">&#8249;</button>
         <img src="" alt="">
+        <button class="lightbox-nav lightbox-next" type="button" aria-label="{{ $en ? 'Next' : 'Suivant' }}">&#8250;</button>
+        <div class="lightbox-counter">
+            <span id="lightbox-current">1</span> / <span id="lightbox-total">1</span>
+        </div>
     </div>
 
     <script>
@@ -272,26 +377,67 @@
 
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = lightbox?.querySelector('img');
+        const lightboxClose = lightbox?.querySelector('.lightbox-close');
+        const lightboxPrev = lightbox?.querySelector('.lightbox-prev');
+        const lightboxNext = lightbox?.querySelector('.lightbox-next');
+        const lightboxCurrent = document.getElementById('lightbox-current');
+        const lightboxTotal = document.getElementById('lightbox-total');
+        
+        let allImages = [];
+        let currentImageIndex = 0;
+
         const closeLightbox = () => {
             lightbox?.classList.remove('is-open');
             if (lightboxImage) lightboxImage.src = '';
+            document.body.style.overflow = '';
         };
 
-        document.querySelectorAll('[data-lightbox-src]').forEach(function (trigger) {
+        const openLightbox = () => {
+            if (!lightbox || !lightboxImage) return;
+            lightboxImage.src = allImages[currentImageIndex];
+            lightboxCurrent.textContent = currentImageIndex + 1;
+            lightboxTotal.textContent = allImages.length;
+            lightbox.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const nextImage = () => {
+            currentImageIndex = (currentImageIndex + 1) % allImages.length;
+            openLightbox();
+        };
+
+        const prevImage = () => {
+            currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
+            openLightbox();
+        };
+
+        // Collect all gallery images
+        document.querySelectorAll('[data-lightbox-src]').forEach((trigger, index) => {
+            allImages.push(trigger.dataset.lightboxSrc);
+            
             trigger.addEventListener('click', function (event) {
                 event.preventDefault();
-                if (!lightbox || !lightboxImage) return;
-                lightboxImage.src = this.dataset.lightboxSrc;
-                lightboxImage.alt = this.dataset.lightboxAlt || '';
-                lightbox.classList.add('is-open');
+                currentImageIndex = index;
+                openLightbox();
             });
         });
-        lightbox?.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
+
+        lightboxCurrent.textContent = allImages.length > 0 ? 1 : 0;
+        lightboxTotal.textContent = allImages.length;
+
+        lightboxClose?.addEventListener('click', closeLightbox);
+        lightboxPrev?.addEventListener('click', prevImage);
+        lightboxNext?.addEventListener('click', nextImage);
+        
         lightbox?.addEventListener('click', function (event) {
             if (event.target === lightbox) closeLightbox();
         });
+
         document.addEventListener('keydown', function (event) {
+            if (!lightbox?.classList.contains('is-open')) return;
             if (event.key === 'Escape') closeLightbox();
+            if (event.key === 'ArrowRight') nextImage();
+            if (event.key === 'ArrowLeft') prevImage();
         });
     </script>
 </body>
