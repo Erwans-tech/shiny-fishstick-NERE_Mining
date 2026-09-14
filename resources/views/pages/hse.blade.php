@@ -47,14 +47,31 @@
 <section class="sa-animated-section" style="padding:70px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
 
-        {{-- Stat Band Améliorée --}}
-        <div class="stat-band sa-reveal" style="margin-top:0; margin-bottom:40px;">
-            @foreach(range(1, 4) as $i)
-            <div class="stat-item sa-stat-item-enhanced">
-                <span class="stat-value" data-count="{{ $i }}" data-original="{{ __('site.hse_stat'.$i.'_val', [], $loc) }}">{{ __('site.hse_stat'.$i.'_val', [], $loc) }}</span>
-                <span class="stat-label">{{ __('site.hse_stat'.$i.'_label', [], $loc) }}</span>
+        {{-- Stat Band Escalier/Progression --}}
+        <div class="hse-progression-scale sa-reveal" style="margin-top:0; margin-bottom:40px; background:linear-gradient(135deg,#4b1716,#2d0d10); border-radius:16px; padding:32px 24px; position:relative; overflow:hidden;">
+            <!-- Ligne de progression diagonale -->
+            <div style="position:absolute; top:0; right:0; width:200%; height:120%; background:linear-gradient(135deg,transparent 48%,rgba(255,194,71,0.1) 49%,rgba(255,194,71,0.1) 51%,transparent 52%); pointer-events:none;"></div>
+            
+            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; position:relative; z-index:1;">
+                @foreach(range(1, 4) as $i)
+                <div class="hse-step-item sa-reveal sa-delay-{{ $i }}" style="text-align:center; padding:{{ 24 + ($i-1)*8 }}px 16px; background:rgba(255,255,255,{{ 0.04 + ($i-1)*0.03 }}); border-left:4px solid rgba(255,194,71,{{ 0.5 + ($i-1)*0.2 }}); border-radius:12px; transition:all .3s; position:relative; top:{{ ($i-1)*12 }}px;">
+                    
+                    <!-- Numéro de l'étape grand et visible -->
+                    <div style="font-size:48px; font-weight:700; color:rgba(255,194,71,{{ 0.6 + ($i-1)*0.2 }}); margin-bottom:12px; line-height:1;">{{ $i }}</div>
+                    
+                    <!-- Valeur/Label principal -->
+                    <div class="hse-step-value" style="color:#fff; font-size:{{ 16 + ($i-1)*2 }}px; font-weight:600; margin-bottom:8px;">{{ __('site.hse_stat'.$i.'_val', [], $loc) }}</div>
+                    
+                    <!-- Description -->
+                    <div style="color:rgba(255,255,255,0.8); font-size:12px; line-height:1.5; text-align:center;">{{ __('site.hse_stat'.$i.'_label', [], $loc) }}</div>
+                    
+                    <!-- Barre de progression -->
+                    <div style="margin-top:12px; height:3px; background:rgba(255,255,255,0.2); border-radius:2px; overflow:hidden;">
+                        <div style="height:100%; background:linear-gradient(90deg,rgba(255,194,71,0.6),rgba(255,194,71,1)); width:{{ $i * 25 }}%; border-radius:2px;"></div>
+                    </div>
+                </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
 
         <div class="grid-3">
