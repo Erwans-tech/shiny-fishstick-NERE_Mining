@@ -74,16 +74,11 @@
                     <!-- Shine effect background -->
                     <div style="position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent); animation:shine 3s ease-in-out infinite; pointer-events:none;"></div>
                     
-                    <!-- Description with larger font -->
-                    <div style="color:rgba(255,255,255,{{ 0.75 + ($i-1)*0.1 }}); font-size:{{ 18 + ($i-1)*2 }}px; line-height:1.7; text-align:center; font-weight:600; position:relative; z-index:1; animation:fadeInUp 0.8s ease-out {{ $i * 0.15 }}s both;">{{ __('site.hse_stat'.$i.'_label', [], $loc) }}</div>
+                    <!-- Stat value -->
+                    <div class="hse-step-value" style="color:rgba(255,194,71,{{ 0.8 + ($i-1)*0.15 }}); font-size:{{ 28 + ($i-1)*2 }}px; font-weight:700; margin-bottom:12px; letter-spacing:.02em; position:relative; z-index:1; animation:fadeInUp 0.8s ease-out {{ $i * 0.15 }}s both;">{{ __('site.hse_stat'.$i.'_val', [], $loc) }}</div>
                     
-                    <!-- Progress indicator bars -->
-                    <div style="margin-top:20px; display:flex; justify-content:center; gap:4px; position:relative; z-index:1;">
-                        @for($j = 1; $j <= 4; $j++)
-                        <div style="width:5px; height:20px; background:rgba(255,194,71,{{ $j <= $i ? 0.8 : 0.2 }}); border-radius:2px; transition:all .3s ease; animation:barGrow 1.5s ease-in-out infinite {{ $j * 0.1 }}s;">
-                        </div>
-                        @endfor
-                    </div>
+                    <!-- Description with larger font -->
+                    <div style="color:rgba(255,255,255,{{ 0.75 + ($i-1)*0.1 }}); font-size:{{ 14 + ($i-1)*1 }}px; line-height:1.6; text-align:center; font-weight:500; position:relative; z-index:1; animation:fadeInUp 0.8s ease-out {{ $i * 0.15 + 0.1 }}s both;">{{ __('site.hse_stat'.$i.'_label', [], $loc) }}</div>
                 </div>
                 @endforeach
             </div>
@@ -102,10 +97,6 @@
             @keyframes fadeInUp {
                 from { opacity: 0; transform: translateY(10px); }
                 to { opacity: 1; transform: translateY(0); }
-            }
-            @keyframes barGrow {
-                0%, 100% { height: 20px; }
-                50% { height: 28px; }
             }
             .hse-step-item:hover {
                 box-shadow: 0 16px 48px rgba(255,194,71,0.25) !important;
