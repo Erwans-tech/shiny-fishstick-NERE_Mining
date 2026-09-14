@@ -86,12 +86,11 @@
         </div>
 
         {{-- Piliers de conformité --}}
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-top:16px;">
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:16px;">
             @foreach([
                 ['icon'=>'📋','label'=>$en?'Internal Controls':'Contrôles Internes'],
                 ['icon'=>'🔍','label'=>$en?'Independent Audits':'Audits Indépendants'],
                 ['icon'=>'📈','label'=>$en?'Continuous Improvement':'Amélioration Continue'],
-                ['icon'=>'🏆','label'=>$en?'ISO Certifications':'Certifications ISO'],
             ] as $k => $pilier)
             <div class="sa-reveal sa-delay-{{ $k+1 }}" style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:24px 16px; text-align:center; transition:background .3s, transform .3s; cursor:default;"
                  onmouseover="this.style.background='rgba(255,194,71,0.12)'; this.style.transform='translateY(-4px)'"
