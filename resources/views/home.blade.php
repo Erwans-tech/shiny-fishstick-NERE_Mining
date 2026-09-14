@@ -4,6 +4,16 @@
     
     // HARDCODED NEWS - No database dependency
     $news = [
+        // Nouvelle actualité - Dr Elie Justin OUEDRAOGO
+        [
+            'id' => 4,
+            'title' => 'Zoom sur le Dr Elie Justin OUEDRAOGO, Premier promoteur burkinabè dans les mines',
+            'category' => 'Portrait',
+            'date' => '14 septembre 2026',
+            'image' => asset('images/news/ouedraogo-ceo-interview.jpeg'),
+            'excerpt' => 'Dr Elie Justin OUEDRAOGO, Naaba Baaôgo de Gourcy est le dirigeant burkinabè qui possède la plus grande expérience et l\'expertise minière au Burkina Faso et en Afrique de l\'Ouest.',
+            'slug' => 'dr-ouedraogo-premier-promoteur-burkinabe',
+        ],
         [
             'id' => 1,
             'title' => 'Annulation du contrat d\'achat d\'or: Riverstone Karma SA salue une décision judiciaire historique du Tribunal de commerce de Ouagadougou',

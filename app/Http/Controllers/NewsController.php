@@ -17,6 +17,16 @@ class NewsController extends Controller
         
         return collect([
             (object) [
+                'id' => 4,
+                'title' => 'Zoom sur le Dr Elie Justin OUEDRAOGO, Premier promoteur burkinabè dans les mines',
+                'excerpt' => 'Dr Elie Justin OUEDRAOGO, Naaba Baaôgo de Gourcy est le dirigeant burkinabè qui possède la plus grande expérience et l\'expertise minière au Burkina Faso et en Afrique de l\'Ouest.',
+                'content' => 'Dr Elie Justin OUEDRAOGO, Naaba Baaôgo de Gourcy est le dirigeant burkinabè qui possède la plus grande expérience et l\'expertise minière au Burkina Faso et en Afrique de l\'Ouest. C\'est grâce à cette expérience que la mine de Riverstone Karma SA, dont il est le PDG, fait preuve de résilience et poursuit son exploitation, malgré les crises.',
+                'category' => 'Portrait',
+                'image_path' => 'images/news/ouedraogo-ceo-interview.jpeg',
+                'published_at' => now()->setDate(2026, 9, 14),
+                'slug' => 'dr-ouedraogo-premier-promoteur-burkinabe',
+            ],
+            (object) [
                 'id' => 1,
                 'title' => 'Annulation du contrat d\'achat d\'or: Riverstone Karma SA salue une décision judiciaire historique du Tribunal de commerce de Ouagadougou',
                 'excerpt' => 'Par jugement en date du 10 juin 2026, le Tribunal de commerce de Ouagadougou a statué en faveur de Riverstone Karma SA dans le différend qui l\'opposait aux sociétés Franco-Nevada et Sandstorm Gold Ltd.',
@@ -111,11 +121,24 @@ PDG de NERE MINING SA',
         ]);
     }
 
-    public function show(News $news)
+    public function show($news)
     {
-        abort_unless($news->published_at && $news->published_at->isPast(), 404);
         App::setLocale('fr');
-        return view('news.show', ['locale' => 'fr', 'news' => $news]);
+        
+        // Handle hardcoded news by slug
+        if ($news === 'dr-ouedraogo-premier-promoteur-burkinabe' || $news == 4) {
+            return view('news.dr-ouedraogo-premier-promoteur-burkinabe', ['locale' => 'fr']);
+        }
+        
+        // Try to load from database for other news
+        $newsModel = is_numeric($news) ? News::find($news) : News::where('slug', $news)->first();
+        
+        if (!$newsModel) {
+            abort(404);
+        }
+        
+        abort_unless($newsModel->published_at && $newsModel->published_at->isPast(), 404);
+        return view('news.show', ['locale' => 'fr', 'news' => $newsModel]);
     }
 
     public function indexEn()
@@ -142,10 +165,23 @@ PDG de NERE MINING SA',
         ]);
     }
 
-    public function showEn(News $news)
+    public function showEn($news)
     {
-        abort_unless($news->published_at && $news->published_at->isPast(), 404);
         App::setLocale('en');
-        return view('news.show', ['locale' => 'en', 'news' => $news]);
+        
+        // Handle hardcoded news by slug
+        if ($news === 'dr-ouedraogo-premier-promoteur-burkinabe' || $news == 4) {
+            return view('news.dr-ouedraogo-premier-promoteur-burkinabe', ['locale' => 'en']);
+        }
+        
+        // Try to load from database for other news
+        $newsModel = is_numeric($news) ? News::find($news) : News::where('slug', $news)->first();
+        
+        if (!$newsModel) {
+            abort(404);
+        }
+        
+        abort_unless($newsModel->published_at && $newsModel->published_at->isPast(), 404);
+        return view('news.show', ['locale' => 'en', 'news' => $newsModel]);
     }
 }
