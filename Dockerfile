@@ -89,16 +89,19 @@ RUN mkdir -p \
     public/uploads/press \
     public/uploads/reports/covers \
     public/uploads/hero \
+    public/images/gallery \
     && chown -R www-data:www-data \
     storage \
     bootstrap/cache \
     database \
     public/uploads \
+    public/images \
     && chmod -R 775 \
     storage \
     bootstrap/cache \
     database \
-    public/uploads
+    public/uploads \
+    public/images
 
 # ── Config nginx ──────────────────────────────────────────────
 COPY docker-nginx.conf /etc/nginx/nginx.conf
