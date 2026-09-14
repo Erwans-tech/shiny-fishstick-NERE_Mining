@@ -19,12 +19,29 @@ use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /*
 |--------------------------------------------------------------------------
 | Helpers
 |--------------------------------------------------------------------------
 */
+
+/**
+ * Serve uploaded files from public/uploads directory
+ */
+Route::get('/uploads/{file}', function ($file) {
+    $path = public_path("uploads/{$file}");
+    
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    
+    return response()->file($path, [
+        'Cache-Control' => 'public, max-age=31536000',
+    ]);
+})->where('file', '.*')->name('upload.show');
 
 /**
  * Set locale then render the home view with fresh data.
