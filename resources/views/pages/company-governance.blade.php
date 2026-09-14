@@ -20,7 +20,7 @@
     .leadership-card--lead { grid-column:1 / -1; width:min(700px,100%); justify-self:center; max-width:700px; margin:0 auto; flex-direction:row; gap:24px; align-items:center; text-align:left; background:linear-gradient(135deg,#4b1716,#2d0d10); color:#fff; border-top-color:var(--gold); }
     .leadership-card--lead .leadership-name,.leadership-card--lead .leadership-title { color:#fff; }
     .leadership-card--lead .leadership-department { color:rgba(255,255,255,.7); }
-    .leadership-photo { width:220px; height:220px; flex:0 0 220px; object-fit:cover; object-position:center 28%; border-radius:50%; border:5px solid rgba(255,194,71,.75); background:var(--sand); image-rendering:auto; image-rendering:-webkit-optimize-contrast; }
+    .leadership-photo { width:220px; height:220px; flex:0 0 220px; object-fit:cover; object-position:center 28%; border-radius:50%; border:5px solid rgba(255,194,71,.75); background:var(--sand); image-rendering:auto; filter:contrast(1.1) brightness(1.05) saturate(1.05); }
     .leadership-card:not(.leadership-card--lead) .leadership-photo { width:200px; height:200px; flex-basis:200px; margin-bottom:20px; object-position:center 32%; }
     .leadership-initials { display:grid; place-items:center; font-size:48px; font-weight:700; color:var(--green); }
     .leadership-card--lead .leadership-initials { color:#fff; background:rgba(255,255,255,.12); }
@@ -29,6 +29,14 @@
     .leadership-name, .leadership-title, .leadership-department { overflow-wrap:break-word; word-break:normal; text-align:center; }
     .leadership-title { margin:0 0 8px; color:var(--gold2); font-size:12px; font-weight:700; line-height:1.4; text-transform:uppercase; letter-spacing:.02em; text-align:center; text-wrap:balance; }
     .leadership-department { margin:0; color:var(--muted); font-size:14px; line-height:1.5; word-break:normal; text-align:center; }
+    
+    /* Centrage personnalisé par leader */
+    [data-member="dr-elie-justin-ouedraogo"] .leadership-photo { object-position:center 20%; }
+    [data-member="justin-savadogo"] .leadership-photo { object-position:center 35%; }
+    [data-member="pascal-y-ouedraogo"] .leadership-photo { object-position:center 32%; }
+    [data-member="laurent-michel-dabire"] .leadership-photo { object-position:center 30%; }
+    [data-member="augustine-obeng-fori"] .leadership-photo { object-position:center 25%; }
+    
     @media(max-width:900px) { .leadership-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media(max-width:540px) { .leadership-grid { grid-template-columns:1fr; } .leadership-card--lead { flex-direction:column; text-align:center; } }
 </style>
@@ -68,7 +76,7 @@
                 $photoUrl = asset($photoPath);
                 $initials = collect(preg_split('/\s+/', trim($name)))->filter()->map(fn($part) => strtoupper(substr($part, 0, 1)))->take(2)->implode('');
             @endphp
-            <article class="leadership-card {{ $memberLevel === 1 ? 'leadership-card--lead' : '' }}">
+            <article class="leadership-card {{ $memberLevel === 1 ? 'leadership-card--lead' : '' }}" data-member="{{ str_replace(' ', '-', strtolower($name)) }}">
                 <img class="leadership-photo" src="{{ $photoUrl }}" alt="{{ $name }}" loading="lazy">
                 <div>
                     <h3 class="leadership-name">{{ $name }}</h3>
