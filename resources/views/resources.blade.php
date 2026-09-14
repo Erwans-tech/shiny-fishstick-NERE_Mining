@@ -292,27 +292,27 @@
             <div class="gallery-grid" id="gallery-grid">
                 @php
                     $images = [
-                        'uploads/gallery/image-8-min-scaled.jpg',
-                        'uploads/gallery/img1.jpeg',
-                        'uploads/gallery/img2.jpeg',
-                        'uploads/gallery/img3.jpeg',
-                        'uploads/gallery/IMG_5184-1.jpg',
-                        'uploads/gallery/IMG_5187.jpg',
-                        'uploads/gallery/IMG_5188.jpg',
-                        'uploads/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp',
-                        'uploads/gallery/karma1.jpg',
-                        'uploads/gallery/karma123-min-1.jpg',
-                        'uploads/gallery/karma2-min.jpg',
-                        'uploads/gallery/karmareboi.jpg',
-                        'uploads/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg',
-                        'uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg',
-                        'uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg',
+                        '/uploads/gallery/image-8-min-scaled.jpg',
+                        '/uploads/gallery/img1.jpeg',
+                        '/uploads/gallery/img2.jpeg',
+                        '/uploads/gallery/img3.jpeg',
+                        '/uploads/gallery/IMG_5184-1.jpg',
+                        '/uploads/gallery/IMG_5187.jpg',
+                        '/uploads/gallery/IMG_5188.jpg',
+                        '/uploads/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp',
+                        '/uploads/gallery/karma1.jpg',
+                        '/uploads/gallery/karma123-min-1.jpg',
+                        '/uploads/gallery/karma2-min.jpg',
+                        '/uploads/gallery/karmareboi.jpg',
+                        '/uploads/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg',
+                        '/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg',
+                        '/uploads/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg',
                     ];
                 @endphp
                 @forelse($images as $index => $image)
                 <figure class="gallery-item">
-                    <a class="gallery-media" href="{{ asset($image) }}" data-lightbox-src="{{ asset($image) }}" aria-label="{{ $en ? 'View image' : 'Voir image' }}">
-                        <img src="{{ asset($image) }}" alt="Gallery image {{ $index + 1 }}" loading="lazy">
+                    <a class="gallery-media" href="{{ $image }}" data-lightbox-src="{{ $image }}" aria-label="{{ $en ? 'View image' : 'Voir image' }}">
+                        <img src="{{ $image }}" alt="Gallery image {{ $index + 1 }}" loading="lazy">
                     </a>
                 </figure>
                 @empty
