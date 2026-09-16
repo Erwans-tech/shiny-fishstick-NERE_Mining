@@ -493,6 +493,8 @@
         .news-img-wrap { overflow:hidden; border-radius:16px 16px 0 0; }
         .news-img { width:100%; height:170px; object-fit:cover; transition:transform .5s ease; display:block; }
         .news-grid .news-card:first-child .news-img { height:170px; }
+        /* Center face in Dr OUEDRAOGO article */
+        .news-card[data-news-id="4"] .news-img { object-position: center 20%; }
         .news-card-link:hover .news-img { transform:scale(1.04); }
         .news-img-ph {
             width:100%; height:170px;
@@ -749,7 +751,7 @@
         <div class="news-grid">
             @forelse($news as $i => $item)
             <a class="news-card-link sa-reveal sa-delay-{{ $i % 3 + 1 }}" href="{{ $en ? route('english.news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) : route('news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) }}" aria-label="{{ __('site.read_more', [], $loc) }} : {{ e($item['title']) }}">
-                <article class="news-card sr">
+                <article class="news-card sr" data-news-id="{{ $item['id'] ?? '' }}">
                     <div class="news-img-wrap">
                         @if(!empty($item['image']) && !str_contains((string)$item['image'], 'null'))
                             <img class="news-img"

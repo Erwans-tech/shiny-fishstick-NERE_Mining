@@ -52,6 +52,7 @@
         .news-card{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;transition:transform .3s,box-shadow .3s;}
         .news-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.06);}
         .news-img{width:100%;height:220px;object-fit:cover;display:block;}
+        .news-card[data-news-id="4"] .news-img { object-position: center 20%; }
         .news-img-placeholder{width:100%;height:220px;background:var(--sand);display:flex;align-items:center;justify-content:center;color:var(--muted);font:13px Inter,sans-serif;}
         .news-body{padding:24px;}
         .news-meta{color:var(--gold);font:600 11px Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
@@ -96,7 +97,7 @@
             @else
                 <div class="news-grid">
                     @foreach($news as $index => $item)
-                    <article class="news-card sa-reveal sa-delay-{{ $index % 3 + 1 }}">
+                    <article class="news-card sa-reveal sa-delay-{{ $index % 3 + 1 }}" data-news-id="{{ $item->id ?? '' }}">
                         @if(isset($item->image_path) && $item->image_path)
                             <img class="news-img" src="{{ asset($item->image_path) }}" alt="Image : {{ $item->title }}" loading="lazy">
                         @else
