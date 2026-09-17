@@ -3,6 +3,7 @@
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/sustainability-animations.css') }}">
+<link rel="stylesheet" href="{{ asset('css/image-optimization.css') }}">
 @endpush
 
 @section('content')
@@ -151,7 +152,10 @@
                     <source srcset="{{ asset('images/communaute/session-comite-suivi-liaison-ouahigouya-2026.webp') }}" type="image/webp">
                     <img src="{{ asset('images/communaute/session-comite-suivi-liaison-ouahigouya-2026.jpg') }}"
                          alt="{{ $en ? 'CSL session in Ouahigouya February 2026' : 'Session CSL à Ouahigouya février 2026' }}"
-                         loading="lazy" />
+                         loading="lazy"
+                         width="800"
+                         height="450"
+                         decoding="async" />
                 </picture>
                 <figcaption>
                     {{ $en ? 'CSL session in Ouahigouya - February 2026' : 'Session du CSL à Ouahigouya - Février 2026' }}
@@ -167,7 +171,10 @@
                 <source srcset="{{ asset('images/communaute/forage-chateau-eau-solaire-namissiguima.webp') }}" type="image/webp">
                 <img src="{{ asset('images/communaute/forage-chateau-eau-solaire-namissiguima.png') }}"
                      alt="{{ $en ? 'Solar water tower in Namissiguima' : 'Château d\'eau solaire à Namissiguima' }}"
-                     loading="lazy" />
+                     loading="lazy"
+                     width="800"
+                     height="450"
+                     decoding="async" />
             </picture>
             <figcaption>
                 {{ $en ? 'Solar water tower in Namissiguima' : 'Château d\'eau solaire à Namissiguima' }}
@@ -382,6 +389,7 @@
 
 @push('scripts')
 <script src="{{ asset('js/sustainability-animations.js') }}"></script>
+<script src="{{ asset('js/image-optimization.js') }}"></script>
 @endpush
 
 @endsection

@@ -1,0 +1,186 @@
+/**
+ * IMAGE OPTIMIZATION & LAZY LOADING
+ * Optimisations pour chargement rapide des images
+ */
+
+/* ========================================
+   LAZY LOADING STYLES
+   ======================================== */
+
+/* Images en chargement - flou pour effet progressif */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* Images chargées */
+img[loading="lazy"].loaded {
+    opacity: 1;
+}
+
+/* Placeholder pendant le chargement */
+img[loading="lazy"]:not(.loaded) {
+    background: linear-gradient(
+        110deg, 
+        #f0f0f0 8%, 
+        #f8f8f8 18%, 
+        #f0f0f0 33%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* ========================================
+   RESPONSIVE IMAGES
+   ======================================== */
+
+/* Toutes les images responsive par défaut */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* WebP support avec fallback automatique */
+picture {
+    display: block;
+    width: 100%;
+}
+
+picture img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* ========================================
+   PERFORMANCE HINTS
+   ======================================== */
+
+/* Force GPU acceleration pour les images */
+.community-image-card img,
+.community-image-card--panel img {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Optimisation du rendu */
+.community-images-grid,
+.achievements-grid {
+    contain: layout style paint;
+}
+
+/* ========================================
+   PROGRESSIVE IMAGE LOADING
+   ======================================== */
+
+/* Container avec aspect ratio pour éviter layout shift */
+.img-container {
+    position: relative;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+/* Aspect ratios prédéfinis */
+.img-container--16-9 {
+    aspect-ratio: 16 / 9;
+}
+
+.img-container--4-3 {
+    aspect-ratio: 4 / 3;
+}
+
+.img-container--1-1 {
+    aspect-ratio: 1 / 1;
+}
+
+.img-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========================================
+   BLUR-UP TECHNIQUE
+   ======================================== */
+
+/* Image floue en basse résolution (placeholder) */
+.blur-load {
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px);
+    transition: filter 0.3s ease-out;
+}
+
+.blur-load.loaded {
+    filter: blur(0);
+}
+
+/* Image haute résolution par-dessus */
+.blur-load img {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+.blur-load.loaded img {
+    opacity: 1;
+}
+
+/* ========================================
+   PRINT OPTIMIZATION
+   ======================================== */
+
+@media print {
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+    
+    /* Désactiver les animations en impression */
+    .community-image-card img,
+    .community-image-card--panel img {
+        animation: none !important;
+        transform: none !important;
+    }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    img[loading="lazy"],
+    .blur-load,
+    .blur-load img {
+        transition: none;
+        animation: none;
+    }
+    
+    .community-image-card img,
+    .community-image-card--panel img {
+        animation: none;
+    }
+}
+
+/* ========================================
+   CONNECTION SPEED ADAPTATIONS
+   ======================================== */
+
+/* Pour connexions lentes - réduire animations */
+@media (prefers-reduced-data: reduce) {
+    .community-image-card img,
+    .community-image-card--panel img {
+        animation: none;
+        will-change: auto;
+    }
+}

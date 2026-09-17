@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Optimisation Images - Nos Communautés</title>
+    <link rel="stylesheet" href="/css/image-optimization.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .test-section {
+            background: white;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .image-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+        }
+        .image-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .image-info {
+            padding: 15px;
+            font-size: 14px;
+            background: #f9f9f9;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 5px 5px 5px 0;
+        }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.loading { background: #fff3cd; color: #856404; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        .metrics {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+        }
+        .metric-item {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .metric-value {
+            font-weight: bold;
+            color: #3498db;
+        }
+        .spacer {
+            height: 1500px;
+            background: linear-gradient(180deg, #fff 0%, #f0f0f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test d'Optimisation des Images - Nos Communautés</h1>
+
+    <div class="test-section">
+        <h2>✅ Images Above the Fold (chargement immédiat)</h2>
+        <div class="test-grid">
+            <div class="image-card">
+                <picture>
+                    <source srcset="/images/communaute/session-comite-suivi-liaison-ouahigouya-2026.webp" type="image/webp">
+                    <img src="/images/communaute/session-comite-suivi-liaison-ouahigouya-2026.jpg"
+                         alt="Session CSL à Ouahigouya"
+                         width="800"
+                         height="450"
+                         decoding="async"
+                         onload="this.parentElement.parentElement.querySelector('.status').className='status success'; this.parentElement.parentElement.querySelector('.status').textContent='✓ Chargée'"
+                         onerror="this.parentElement.parentElement.querySelector('.status').className='status error'; this.parentElement.parentElement.querySelector('.status').textContent='✗ Erreur'" />
+                </picture>
+                <div class="image-info">
+                    <strong>Session CSL Ouahigouya 2026</strong><br>
+                    <span class="status loading">⏳ Chargement...</span><br>
+                    <small>Format: WebP + JPG fallback</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="spacer">
+        <div style="text-align:center; color:#666;">
+            <h3>⬇️ Scrollez pour tester le Lazy Loading ⬇️</h3>
+            <p>Les images ci-dessous ne devraient charger<br>que quand elles deviennent visibles</p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>⚡ Images Below the Fold (lazy loading)</h2>
+        <div class="test-grid">
+            <div class="image-card">
+                <picture>
+                    <source srcset="/images/communaute/forage-chateau-eau-solaire-namissiguima.webp" type="image/webp">
+                    <img src="/images/communaute/forage-chateau-eau-solaire-namissiguima.png"
+                         alt="Château d'eau solaire Namissiguima"
+                         loading="lazy"
+                         width="800"
+                         height="450"
+                         decoding="async"
+                         onload="this.parentElement.parentElement.querySelector('.status').className='status success'; this.parentElement.parentElement.querySelector('.status').textContent='✓ Chargée'; updateMetrics();"
+                         onerror="this.parentElement.parentElement.querySelector('.status').className='status error'; this.parentElement.parentElement.querySelector('.status').textContent='✗ Erreur'" />
+                </picture>
+                <div class="image-info">
+                    <strong>Château d'eau solaire Namissiguima</strong><br>
+                    <span class="status loading">⏳ En attente...</span><br>
+                    <small>Chargement lazy (200px avant visibilité)</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="metrics">
+        <h3>📊 Métriques de Performance</h3>
+        <div class="metric-item">
+            <strong>Support WebP:</strong> 
+            <span class="metric-value" id="webp-support">Détection...</span>
+        </div>
+        <div class="metric-item">
+            <strong>Type de connexion:</strong> 
+            <span class="metric-value" id="connection-type">Détection...</span>
+        </div>
+        <div class="metric-item">
+            <strong>Images chargées:</strong> 
+            <span class="metric-value" id="images-loaded">0</span>
+        </div>
+        <div class="metric-item">
+            <strong>Lazy loading actif:</strong> 
+            <span class="metric-value" id="lazy-status">Vérification...</span>
+        </div>
+    </div>
+
+    <script src="/js/image-optimization.js"></script>
+    <script>
+        // Détection WebP
+        setTimeout(() => {
+            const hasWebP = document.documentElement.classList.contains('webp-supported');
+            document.getElementById('webp-support').textContent = hasWebP ? '✓ Activé' : '✗ Non supporté';
+            document.getElementById('webp-support').style.color = hasWebP ? '#27ae60' : '#e74c3c';
+        }, 500);
+
+        // Type de connexion
+        if ('connection' in navigator) {
+            const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            if (conn) {
+                document.getElementById('connection-type').textContent = conn.effectiveType || 'Inconnu';
+            } else {
+                document.getElementById('connection-type').textContent = 'Non détectable';
+            }
+        } else {
+            document.getElementById('connection-type').textContent = 'Non supporté';
+        }
+
+        // Lazy loading
+        if ('IntersectionObserver' in window) {
+            document.getElementById('lazy-status').textContent = '✓ Supporté';
+            document.getElementById('lazy-status').style.color = '#27ae60';
+        } else {
+            document.getElementById('lazy-status').textContent = '✗ Non supporté (fallback actif)';
+            document.getElementById('lazy-status').style.color = '#e67e22';
+        }
+
+        // Compter images chargées
+        function updateMetrics() {
+            const loaded = document.querySelectorAll('img.loaded, img[onload]').length;
+            document.getElementById('images-loaded').textContent = loaded;
+        }
+
+        // Logs console
+        console.log('%c✓ Test d\'optimisation images chargé', 'color: #27ae60; font-weight: bold; font-size: 14px;');
+        console.log('Ouvrez l\'onglet Network pour voir:');
+        console.log('- Format WebP chargé (si supporté)');
+        console.log('- Headers Cache-Control');
+        console.log('- Compression GZIP');
+        console.log('- Lazy loading au scroll');
+    </script>
+</body>
+</html>
