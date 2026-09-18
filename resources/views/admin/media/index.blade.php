@@ -41,7 +41,7 @@
                 <td class="td-muted">{{ $a->type }}</td>
                 <td><span class="badge {{ $a->placement === 'homepage_slideshow' ? 'badge-green' : 'badge-gray' }}">{{ $a->placement === 'homepage_slideshow' ? 'Accueil' : 'Médiathèque' }}</span></td>
                 <td>
-                    @if($a->album)
+                    @if(method_exists($a, 'album') && $a->album)
                         <a href="{{ route('admin.albums.show', $a->album) }}" class="badge badge-blue" style="text-decoration:none;">
                             📁 {{ Str::limit($a->album->title, 20) }}
                         </a>

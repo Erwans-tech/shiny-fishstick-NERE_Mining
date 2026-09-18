@@ -3,7 +3,12 @@
 @section('page-title', $asset->exists ? 'Modifier' : 'Nouveau média')
 
 @php
-    $albums = \App\Models\PhotoAlbum::withCount('media')->orderBy('title')->get();
+    try {
+        $albums = \App\Models\PhotoAlbum::withCount('media')->orderBy('title')->get();
+    } catch (\Exception $e) {
+        // Table pas encore migrée
+        $albums = collect();
+    }
 @endphp
 
 @section('content')
@@ -45,6 +50,7 @@
                 </div>
                 <div class="form-group">
                     <label>Album (optionnel)</label>
+                    @if($albums->isNotEmpty())
                     <select name="album_id">
                         <option value="">Aucun album</option>
                         @foreach($albums as $album)
@@ -54,6 +60,12 @@
                         @endforeach
                     </select>
                     <small style="display:block;margin-top:6px;color:var(--muted);">Associez cette photo à un album</small>
+                    @else
+                    <input type="hidden" name="album_id" value="">
+                    <p style="padding:12px;background:var(--sand);border-radius:6px;font-size:13px;color:var(--muted);">
+                        ℹ️ Aucun album créé. <a href="{{ route('admin.albums.create') }}" style="color:var(--green);text-decoration:underline;">Créer un album</a>
+                    </p>
+                    @endif
                 </div>
                 <div class="form-group full">
                     <label>Légende</label>

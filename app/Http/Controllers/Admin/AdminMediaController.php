@@ -11,7 +11,15 @@ class AdminMediaController extends Controller
 {
     public function index(Request $request)
     {
-        $query = MediaAsset::with('album');
+        $query = MediaAsset::query();
+        
+        // Charger la relation album seulement si la table existe
+        try {
+            $query->with('album');
+        } catch (\Exception $e) {
+            // Table photo_albums pas encore migrée
+        }
+        
         if ($search = trim((string) $request->input('q'))) {
             $query->where(function ($query) use ($search) {
                 $query->where('title', 'like', "%{$search}%")
