@@ -12,6 +12,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    @if($section === 'gallery')
+    <link rel="stylesheet" href="{{ asset('css/album-carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/image-optimization.css') }}">
+    @endif
+    
     <style>
         :root {
             --ink:#281d18; --green:#4b1716; --red:#d72f2f; --gold:#ffc247;
@@ -555,5 +561,10 @@
             if (event.key === 'ArrowLeft') prevImage();
         });
     </script>
+    
+    @if($section === 'gallery')
+    <script src="{{ asset('js/album-carousel.js') }}"></script>
+    <script src="{{ asset('js/image-optimization.js') }}"></script>
+    @endif
 </body>
 </html>

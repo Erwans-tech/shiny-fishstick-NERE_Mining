@@ -206,15 +206,39 @@ Route::get('/actualites/{news}',  [NewsController::class, 'show'])->name('news.s
 Route::get('/mediatheque', function () {
     App::setLocale('fr');
     $descriptions = config('seo.descriptions')['fr'] ?? [];
+    
+    // Récupérer les albums publiés avec le nombre de photos
+    $albums = \App\Models\PhotoAlbum::published()
+        ->withCount('publishedMedia')
+        ->orderBy('sort_order')
+        ->orderBy('created_at', 'desc')
+        ->get();
+    
     return view('resources', [
         'locale'    => 'fr',
         'section'   => 'gallery',
         'description' => $descriptions['gallery'] ?? '',
         'partners'  => collect(),
         'media'     => collect(), // Hardcoded in view, no DB dependency
+        'albums'    => $albums,
         'documents' => collect(),
     ]);
 })->name('gallery');
+
+Route::get('/mediatheque/album/{album}', function (\App\Models\PhotoAlbum $album) {
+    App::setLocale('fr');
+    
+    // Charger les médias de l'album
+    $album->load(['publishedMedia' => function ($query) {
+        $query->orderBy('sort_order')->orderBy('created_at', 'desc');
+    }]);
+    
+    return view('gallery.album', [
+        'locale' => 'fr',
+        'album'  => $album,
+        'en'     => false,
+    ]);
+})->name('gallery.album');
 
 Route::get('/communiques', function () {
     App::setLocale('fr');
@@ -308,15 +332,39 @@ Route::get('/en/news/{news}', [NewsController::class, 'showEn'])->name('english.
 Route::get('/en/media', function () {
     App::setLocale('en');
     $descriptions = config('seo.descriptions')['en'] ?? [];
+    
+    // Récupérer les albums publiés avec le nombre de photos
+    $albums = \App\Models\PhotoAlbum::published()
+        ->withCount('publishedMedia')
+        ->orderBy('sort_order')
+        ->orderBy('created_at', 'desc')
+        ->get();
+    
     return view('resources', [
         'locale'    => 'en',
         'section'   => 'gallery',
         'description' => $descriptions['gallery'] ?? '',
         'partners'  => collect(),
         'media'     => collect(), // Hardcoded in view, no DB dependency
+        'albums'    => $albums,
         'documents' => collect(),
     ]);
 })->name('english.gallery');
+
+Route::get('/en/media/album/{album}', function (\App\Models\PhotoAlbum $album) {
+    App::setLocale('en');
+    
+    // Charger les médias de l'album
+    $album->load(['publishedMedia' => function ($query) {
+        $query->orderBy('sort_order')->orderBy('created_at', 'desc');
+    }]);
+    
+    return view('gallery.album', [
+        'locale' => 'en',
+        'album'  => $album,
+        'en'     => true,
+    ]);
+})->name('english.gallery.album');
 
 Route::get('/en/partners', function () {
     App::setLocale('en');
@@ -479,6 +527,7 @@ use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\Admin\AdminPartnerController;
 use App\Http\Controllers\Admin\AdminPressController;
 use App\Http\Controllers\Admin\AdminMediaController;
+use App\Http\Controllers\Admin\AdminPhotoAlbumController;
 use App\Http\Controllers\Admin\AdminMessageController;
 
 // Login / logout
@@ -554,6 +603,15 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         Route::get('/media/{media}/modifier', [AdminMediaController::class, 'edit'])->name('media.edit');
         Route::put('/media/{media}',          [AdminMediaController::class, 'update'])->name('media.update');
         Route::delete('/media/{media}',       [AdminMediaController::class, 'destroy'])->name('media.destroy');
+
+        // Albums Photo
+        Route::get('/albums',                  [AdminPhotoAlbumController::class, 'index'])->name('albums.index');
+        Route::get('/albums/creer',            [AdminPhotoAlbumController::class, 'create'])->name('albums.create');
+        Route::post('/albums',                 [AdminPhotoAlbumController::class, 'store'])->name('albums.store');
+        Route::get('/albums/{album}',          [AdminPhotoAlbumController::class, 'show'])->name('albums.show');
+        Route::get('/albums/{album}/modifier', [AdminPhotoAlbumController::class, 'edit'])->name('albums.edit');
+        Route::put('/albums/{album}',          [AdminPhotoAlbumController::class, 'update'])->name('albums.update');
+        Route::delete('/albums/{album}',       [AdminPhotoAlbumController::class, 'destroy'])->name('albums.destroy');
 
         // Certifications (ISO, EITI, ESG)
         Route::get('/certifications', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'index'])->name('certifications.index');

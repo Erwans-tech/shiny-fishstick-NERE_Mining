@@ -24,7 +24,7 @@
     </div>
     <div class="table-wrap">
         <table>
-            <thead><tr><th>Aperçu</th><th>Titre</th><th>Type</th><th>Emplacement</th><th>Ordre</th><th>Statut</th><th>Actions</th></tr></thead>
+            <thead><tr><th>Aperçu</th><th>Titre</th><th>Type</th><th>Emplacement</th><th>Album</th><th>Ordre</th><th>Statut</th><th>Actions</th></tr></thead>
             <tbody>
             @forelse($assets as $a)
             <tr>
@@ -40,6 +40,15 @@
                 <td>{{ $a->title }}</td>
                 <td class="td-muted">{{ $a->type }}</td>
                 <td><span class="badge {{ $a->placement === 'homepage_slideshow' ? 'badge-green' : 'badge-gray' }}">{{ $a->placement === 'homepage_slideshow' ? 'Accueil' : 'Médiathèque' }}</span></td>
+                <td>
+                    @if($a->album)
+                        <a href="{{ route('admin.albums.show', $a->album) }}" class="badge badge-blue" style="text-decoration:none;">
+                            📁 {{ Str::limit($a->album->title, 20) }}
+                        </a>
+                    @else
+                        <span class="badge badge-gray">Aucun</span>
+                    @endif
+                </td>
                 <td class="td-muted">{{ $a->sort_order }}</td>
                 <td><span class="badge {{ $a->is_published ? 'badge-green' : 'badge-gray' }}">{{ $a->is_published ? 'Visible' : 'Masqué' }}</span></td>
                 <td>
@@ -51,7 +60,7 @@
                 </td>
             </tr>
             @empty
-            <tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted);">Aucun média.</td></tr>
+            <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">Aucun média.</td></tr>
             @endforelse
             </tbody>
         </table>

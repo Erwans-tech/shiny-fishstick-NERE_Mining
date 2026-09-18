@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MediaAsset extends Model
 {
-    protected $fillable = ['title', 'type', 'placement', 'file_path', 'external_url', 'caption', 'is_published', 'sort_order'];
+    protected $fillable = ['title', 'type', 'placement', 'album_id', 'file_path', 'external_url', 'caption', 'is_published', 'sort_order'];
 
     protected $attributes = [
         'type'         => 'image',
@@ -29,6 +30,14 @@ class MediaAsset extends Model
     public function scopeGallery($query)
     {
         return $query->published()->where('placement', 'gallery')->orderBy('sort_order');
+    }
+
+    /**
+     * Relation : Un média appartient à un album (optionnel)
+     */
+    public function album(): BelongsTo
+    {
+        return $this->belongsTo(PhotoAlbum::class, 'album_id');
     }
 
     public function scopeHomepageSlideshow($query)

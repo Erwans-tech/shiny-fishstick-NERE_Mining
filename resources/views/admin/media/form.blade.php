@@ -2,6 +2,10 @@
 @section('title', $asset->exists ? 'Modifier le média' : 'Nouveau média')
 @section('page-title', $asset->exists ? 'Modifier' : 'Nouveau média')
 
+@php
+    $albums = \App\Models\PhotoAlbum::withCount('media')->orderBy('title')->get();
+@endphp
+
 @section('content')
 <form method="POST"
       action="{{ $asset->exists ? route('admin.media.update', $asset) : route('admin.media.store') }}"
@@ -38,6 +42,18 @@
                 <div class="form-group">
                     <label>Ordre d'affichage</label>
                     <input type="number" name="sort_order" value="{{ old('sort_order', $asset->sort_order ?? 0) }}" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Album (optionnel)</label>
+                    <select name="album_id">
+                        <option value="">Aucun album</option>
+                        @foreach($albums as $album)
+                            <option value="{{ $album->id }}" {{ old('album_id', $asset->album_id) == $album->id ? 'selected' : '' }}>
+                                {{ $album->title }} ({{ $album->media_count }} {{ $album->media_count > 1 ? 'photos' : 'photo' }})
+                            </option>
+                        @endforeach
+                    </select>
+                    <small style="display:block;margin-top:6px;color:var(--muted);">Associez cette photo à un album</small>
                 </div>
                 <div class="form-group full">
                     <label>Légende</label>

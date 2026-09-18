@@ -11,7 +11,7 @@ class AdminMediaController extends Controller
 {
     public function index(Request $request)
     {
-        $query = MediaAsset::query();
+        $query = MediaAsset::with('album');
         if ($search = trim((string) $request->input('q'))) {
             $query->where(function ($query) use ($search) {
                 $query->where('title', 'like', "%{$search}%")
@@ -110,6 +110,7 @@ class AdminMediaController extends Controller
                 ? ['required', 'in:image']
                 : ['required', 'in:image,video,document,youtube,google_drive'],
             'placement'  => ['required', 'in:gallery,homepage_slideshow'],
+            'album_id'   => ['nullable', 'exists:photo_albums,id'],
             'caption'    => ['nullable', 'string'],
             'external_url' => [
                 $isSlideshow ? 'prohibited' : 'nullable',

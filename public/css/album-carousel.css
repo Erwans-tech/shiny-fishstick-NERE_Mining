@@ -1,0 +1,358 @@
+/**
+ * ALBUM CAROUSEL STYLES
+ * Styles pour les albums avec images défilantes automatiques
+ */
+
+/* ========================================
+   ALBUMS GRID
+   ======================================== */
+
+.albums-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+    margin-bottom: 48px;
+}
+
+@media (max-width: 768px) {
+    .albums-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .albums-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* ========================================
+   ALBUM CARD
+   ======================================== */
+
+.album-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 4px 12px rgba(40, 29, 24, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.album-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(40, 29, 24, 0.16);
+}
+
+.album-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ========================================
+   ALBUM CAROUSEL
+   ======================================== */
+
+.album-carousel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--sand);
+}
+
+.album-carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    pointer-events: none;
+}
+
+.album-carousel-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+.album-carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Placeholder for empty albums */
+.album-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--sand) 0%, #f0e8d8 100%);
+    font-size: 64px;
+    color: var(--muted);
+}
+
+/* ========================================
+   CAROUSEL DOTS
+   ======================================== */
+
+.album-carousel-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+}
+
+.album-carousel-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: background 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.album-carousel-dots .dot.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+.album-carousel-dots .dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* ========================================
+   ALBUM INFO
+   ======================================== */
+
+.album-info {
+    padding: 20px;
+}
+
+.album-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--green);
+    margin-bottom: 8px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.album-description {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.album-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+}
+
+.album-count {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+}
+
+.album-count svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.album-view-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    transition: color 0.2s ease;
+}
+
+.album-card:hover .album-view-link {
+    color: var(--red);
+}
+
+/* ========================================
+   HOVER EFFECTS
+   ======================================== */
+
+/* Pause carousel on hover */
+.album-card:hover .album-carousel-slide {
+    animation-play-state: paused !important;
+}
+
+/* Zoom effect on carousel hover */
+.album-carousel-slide img {
+    transition: transform 0.6s ease;
+}
+
+.album-card:hover .album-carousel-slide.active img {
+    transform: scale(1.05);
+}
+
+/* ========================================
+   LOADING STATE
+   ======================================== */
+
+.album-card.loading .album-carousel {
+    background: linear-gradient(
+        110deg,
+        var(--sand) 8%,
+        #f8f4eb 18%,
+        var(--sand) 33%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+.album-link:focus {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+}
+
+.album-link:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .album-card,
+    .album-carousel-slide,
+    .album-carousel-slide img,
+    .album-carousel-dots .dot {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+    .album-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+    
+    .album-carousel-dots {
+        display: none;
+    }
+    
+    .album-card:hover {
+        transform: none;
+    }
+}
+
+/* ========================================
+   DARK MODE SUPPORT (Optional)
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+    .album-card {
+        background: #1a1410;
+        border-color: #3a342c;
+    }
+    
+    .album-title {
+        color: #ffc247;
+    }
+    
+    .album-description,
+    .album-count {
+        color: #b8aca0;
+    }
+    
+    .album-meta {
+        border-color: #3a342c;
+    }
+}
+
+/* ========================================
+   ANIMATION CLASSES
+   ======================================== */
+
+/* Fade in animation for albums on load */
+.album-card {
+    animation: albumFadeIn 0.6s ease-out both;
+}
+
+.album-card:nth-child(1) { animation-delay: 0.1s; }
+.album-card:nth-child(2) { animation-delay: 0.2s; }
+.album-card:nth-child(3) { animation-delay: 0.3s; }
+.album-card:nth-child(4) { animation-delay: 0.4s; }
+.album-card:nth-child(5) { animation-delay: 0.5s; }
+.album-card:nth-child(6) { animation-delay: 0.6s; }
+.album-card:nth-child(n+7) { animation-delay: 0.7s; }
+
+@keyframes albumFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   RESPONSIVE TOUCH TARGETS
+   ======================================== */
+
+@media (hover: none) and (pointer: coarse) {
+    /* Mobile/touch devices */
+    .album-card {
+        /* Ensure touch targets are at least 44x44px */
+        min-height: 44px;
+    }
+    
+    .album-carousel-dots .dot {
+        width: 12px;
+        height: 12px;
+        /* Larger touch targets */
+    }
+}
