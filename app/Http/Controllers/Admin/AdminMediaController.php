@@ -52,10 +52,17 @@ class AdminMediaController extends Controller
         try {
             $albums = \App\Models\PhotoAlbum::orderBy('title')->get();
         } catch (\Exception $e) {
+            \Log::warning('PhotoAlbum table not found in bulk upload form: ' . $e->getMessage());
             $albums = collect();
         }
         
-        return view('admin.media.bulk-upload', compact('albums'));
+        try {
+            return view('admin.media.bulk-upload', compact('albums'));
+        } catch (\Exception $e) {
+            \Log::error('Error loading bulk upload view: ' . $e->getMessage());
+            return redirect()->route('admin.media.index')
+                ->with('error', 'Erreur lors du chargement de la page d\'upload multiple.');
+        }
     }
 
     /**
@@ -228,13 +235,22 @@ class AdminMediaController extends Controller
         $isSlideshow = $request->input('placement') === 'homepage_slideshow';
         $needsFile = $isSlideshow && ! ($existing instanceof MediaAsset && $existing->file_path);
 
+        // Vérifier si la table photo_albums existe
+        $albumValidation = ['nullable'];
+        try {
+            \DB::table('photo_albums')->limit(1)->count();
+            $albumValidation[] = 'exists:photo_albums,id';
+        } catch (\Exception $e) {
+            // Table pas encore migrée
+        }
+
         return [
             'title'      => ['required', 'string', 'max:255'],
             'type'       => $isSlideshow
                 ? ['required', 'in:image']
                 : ['required', 'in:image,video,document,youtube,google_drive'],
             'placement'  => ['required', 'in:gallery,homepage_slideshow'],
-            'album_id'   => ['nullable', 'exists:photo_albums,id'],
+            'album_id'   => $albumValidation,
             'caption'    => ['nullable', 'string'],
             'external_url' => [
                 $isSlideshow ? 'prohibited' : 'nullable',

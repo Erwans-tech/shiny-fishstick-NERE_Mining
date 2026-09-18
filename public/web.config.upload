@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <!-- Configuration supplémentaire pour uploads massifs -->
+        <security>
+            <requestFiltering>
+                <!-- 1GB max pour être sûr -->
+                <requestLimits maxAllowedContentLength="1073741824" maxQueryString="8192" />
+            </requestFiltering>
+        </security>
+        
+        <!-- Configuration FastCGI pour PHP -->
+        <handlers>
+            <remove name="PHP_via_FastCGI" />
+            <add name="PHP_via_FastCGI" 
+                 path="*.php" 
+                 verb="GET,HEAD,POST,PUT,DELETE,OPTIONS" 
+                 modules="FastCgiModule" 
+                 scriptProcessor="C:\Program Files\PHP\php-cgi.exe" 
+                 resourceType="Either" 
+                 requireAccess="Script" />
+        </handlers>
+        
+        <fastCgi>
+            <application fullPath="C:\Program Files\PHP\php-cgi.exe">
+                <environmentVariables>
+                    <environmentVariable name="PHP_FCGI_MAX_REQUESTS" value="10000" />
+                    <environmentVariable name="PHPRC" value="C:\Program Files\PHP" />
+                </environmentVariables>
+            </application>
+        </fastCgi>
+    </system.webServer>
+</configuration>
