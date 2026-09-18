@@ -3,6 +3,80 @@
 @section('page-title', $album->title)
 
 @section('content')
+<style>
+    .bulk-actions-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--green);
+        color: white;
+        padding: 16px 24px;
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+        z-index: 1000;
+    }
+    .bulk-actions-bar.active { display: flex; }
+    .bulk-info { font-size: 14px; font-weight: 600; }
+    .bulk-btns { display: flex; gap: 12px; }
+    .bulk-btns button { 
+        padding: 8px 16px;
+        border-radius: 6px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .btn-delete-bulk { background: var(--red); color: white; }
+    .btn-delete-bulk:hover { background: #c13030; }
+    .btn-cancel-bulk { background: white; color: var(--green); }
+    .btn-cancel-bulk:hover { opacity: 0.9; }
+    .photo-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+        position: relative;
+        transition: all 0.2s;
+    }
+    .photo-card.selected {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 2px rgba(255, 194, 71, 0.2);
+    }
+    .photo-checkbox {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+    .photo-card:hover .photo-checkbox,
+    .photo-checkbox:checked {
+        opacity: 1;
+    }
+    .select-all-photos {
+        padding: 12px;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .select-all-photos input {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+</style>
+
 <div class="card">
     <div class="card-header">
         <div>
@@ -39,9 +113,17 @@
                 <a href="{{ route('admin.media.create') }}" class="btn btn-primary">+ Ajouter une photo</a>
             </div>
         @else
+            <div class="select-all-photos">
+                <input type="checkbox" id="select-all-album" title="Tout sélectionner">
+                <label for="select-all-album" style="cursor:pointer;user-select:none;font-weight:500;font-size:13px;">
+                    Sélectionner toutes les photos
+                </label>
+            </div>
+
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;">
                 @foreach($album->media as $media)
-                    <div style="border:1px solid var(--line);border-radius:8px;overflow:hidden;background:white;">
+                    <div class="photo-card" data-id="{{ $media->id }}">
+                        <input type="checkbox" class="photo-checkbox" value="{{ $media->id }}">
                         <div style="aspect-ratio:4/3;overflow:hidden;background:var(--sand);">
                             @if($media->type === 'image' && $media->url)
                                 <img src="{{ $media->url }}" alt="{{ $media->title }}" 
@@ -73,13 +155,115 @@
     </div>
 </div>
 
+<!-- Bulk Actions Bar -->
+<div class="bulk-actions-bar" id="bulk-actions-bar">
+    <div class="bulk-info">
+        <span id="selected-count">0</span> photo(s) sélectionnée(s)
+    </div>
+    <div class="bulk-btns">
+        <button type="button" class="btn-cancel-bulk" id="cancel-selection">Annuler</button>
+        <button type="button" class="btn-delete-bulk" id="delete-selected">🗑️ Supprimer la sélection</button>
+    </div>
+</div>
+
+<form id="bulk-delete-form" method="POST" action="{{ route('admin.media.bulk.delete') }}" style="display:none;">
+    @csrf @method('DELETE')
+    <input type="hidden" name="ids" id="bulk-delete-ids">
+</form>
+
 <div class="card" style="margin-top:24px;background:var(--sand);">
     <div class="card-body">
         <h3 style="margin-bottom:12px;font-size:16px;">💡 Astuce</h3>
         <p style="line-height:1.6;color:var(--muted);">
             Pour réorganiser l'ordre des photos, modifiez le champ "Ordre d'affichage" de chaque photo. 
-            Les photos sont affichées du plus petit au plus grand numéro.
+            Les photos sont affichées du plus petit au plus grand numéro. Utilisez les cases à cocher pour supprimer plusieurs photos à la fois.
         </p>
     </div>
 </div>
+
+<script>
+(function() {
+    'use strict';
+
+    const selectAll = document.getElementById('select-all-album');
+    const checkboxes = document.querySelectorAll('.photo-checkbox');
+    const bulkBar = document.getElementById('bulk-actions-bar');
+    const selectedCount = document.getElementById('selected-count');
+    const cancelBtn = document.getElementById('cancel-selection');
+    const deleteBtn = document.getElementById('delete-selected');
+    const bulkForm = document.getElementById('bulk-delete-form');
+    const bulkIdsInput = document.getElementById('bulk-delete-ids');
+
+    if (checkboxes.length === 0) return; // Pas de photos
+
+    function updateBulkBar() {
+        const selected = Array.from(checkboxes).filter(cb => cb.checked);
+        const count = selected.length;
+
+        if (count > 0) {
+            bulkBar.classList.add('active');
+            selectedCount.textContent = count;
+        } else {
+            bulkBar.classList.remove('active');
+        }
+
+        // Update card highlighting
+        checkboxes.forEach(cb => {
+            const card = cb.closest('.photo-card');
+            if (cb.checked) {
+                card.classList.add('selected');
+            } else {
+                card.classList.remove('selected');
+            }
+        });
+
+        // Update select all checkbox
+        if (selectAll) {
+            selectAll.checked = count === checkboxes.length && count > 0;
+            selectAll.indeterminate = count > 0 && count < checkboxes.length;
+        }
+    }
+
+    // Select all toggle
+    if (selectAll) {
+        selectAll.addEventListener('change', function() {
+            checkboxes.forEach(cb => cb.checked = this.checked);
+            updateBulkBar();
+        });
+    }
+
+    // Individual checkbox change
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', updateBulkBar);
+    });
+
+    // Cancel selection
+    cancelBtn.addEventListener('click', function() {
+        checkboxes.forEach(cb => cb.checked = false);
+        if (selectAll) selectAll.checked = false;
+        updateBulkBar();
+    });
+
+    // Delete selected
+    deleteBtn.addEventListener('click', function() {
+        const selected = Array.from(checkboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        if (selected.length === 0) return;
+
+        const confirmed = confirm(
+            `Voulez-vous vraiment supprimer ${selected.length} photo(s) de cet album ?\n\n` +
+            `⚠️ Cette action est irréversible.`
+        );
+
+        if (confirmed) {
+            bulkIdsInput.value = selected.join(',');
+            bulkForm.submit();
+        }
+    });
+
+    console.log('✓ Album bulk selection initialized');
+})();
+</script>
 @endsection

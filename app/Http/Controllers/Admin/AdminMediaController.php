@@ -180,6 +180,48 @@ class AdminMediaController extends Controller
             ->with('success', 'Média supprimé.');
     }
 
+    /**
+     * Suppression en masse
+     */
+    public function bulkDelete(Request $request)
+    {
+        $request->validate([
+            'ids' => ['required', 'string'],
+        ]);
+
+        $ids = array_filter(explode(',', $request->input('ids')));
+        
+        if (empty($ids)) {
+            return redirect()->route('admin.media.index')->with('error', 'Aucun média sélectionné.');
+        }
+
+        $deleted = 0;
+        $errors = [];
+
+        foreach ($ids as $id) {
+            try {
+                $media = MediaAsset::find($id);
+                if ($media) {
+                    // Supprimer le fichier physique
+                    if ($media->file_path && ! str_starts_with($media->file_path, 'images/')) {
+                        Storage::disk(config('filesystems.default'))->delete($media->file_path);
+                    }
+                    $media->delete();
+                    $deleted++;
+                }
+            } catch (\Exception $e) {
+                $errors[] = "Erreur ID {$id}: " . $e->getMessage();
+            }
+        }
+
+        $message = "{$deleted} média(s) supprimé(s).";
+        if (count($errors) > 0) {
+            $message .= " " . count($errors) . " erreur(s).";
+        }
+
+        return redirect()->route('admin.media.index')->with('success', $message);
+    }
+
     private function mediaRules(Request $request): array
     {
         $existing = $request->route('media');
