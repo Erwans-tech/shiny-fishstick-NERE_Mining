@@ -63,13 +63,25 @@ class AdminMediaController extends Controller
      */
     public function storeBulk(Request $request)
     {
-        $data = $request->validate([
+        // Validation de base
+        $request->validate([
             'files' => ['required', 'array', 'min:1', 'max:50'],
             'files.*' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
-            'album_id' => ['nullable', 'exists:photo_albums,id'],
             'placement' => ['required', 'in:gallery,homepage_slideshow'],
-            'is_published' => ['boolean'],
         ]);
+
+        // Valider album_id seulement si la table existe
+        $albumId = null;
+        if ($request->filled('album_id')) {
+            try {
+                $album = \App\Models\PhotoAlbum::find($request->input('album_id'));
+                if ($album) {
+                    $albumId = $album->id;
+                }
+            } catch (\Exception $e) {
+                // Table photo_albums pas encore migrée
+            }
+        }
 
         $uploaded = 0;
         $errors = [];
@@ -82,10 +94,10 @@ class AdminMediaController extends Controller
                 MediaAsset::create([
                     'title' => pathinfo($fileName, PATHINFO_FILENAME),
                     'type' => 'image',
-                    'placement' => $data['placement'],
-                    'album_id' => $data['album_id'] ?? null,
+                    'placement' => $request->input('placement'),
+                    'album_id' => $albumId,
                     'file_path' => $filePath,
-                    'is_published' => $request->boolean('is_published'),
+                    'is_published' => $request->boolean('is_published', true),
                     'sort_order' => 0,
                 ]);
                 
