@@ -207,12 +207,35 @@ Route::get('/mediatheque', function () {
     App::setLocale('fr');
     $descriptions = config('seo.descriptions')['fr'] ?? [];
     
-    // Récupérer les albums publiés avec le nombre de photos
-    $albums = \App\Models\PhotoAlbum::published()
-        ->withCount('publishedMedia')
-        ->orderBy('sort_order')
-        ->orderBy('created_at', 'desc')
-        ->get();
+    // Récupérer les albums publiés avec leurs images
+    try {
+        $albums = \App\Models\PhotoAlbum::published()
+            ->with(['media' => function ($query) {
+                $query->where('is_published', true)
+                    ->where('type', 'image')
+                    ->orderBy('sort_order')
+                    ->limit(4);
+            }])
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        // Ajouter les compteurs et preview manuellement
+        $albums->each(function ($album) {
+            // Compter toutes les photos publiées
+            $allMedia = \App\Models\MediaAsset::where('album_id', $album->id)
+                ->where('is_published', true)
+                ->where('type', 'image')
+                ->count();
+            
+            $album->photo_count = $allMedia;
+            $album->preview_images = $album->media;
+        });
+    } catch (\Exception $e) {
+        // Table pas encore migrée
+        \Log::warning('PhotoAlbum not available: ' . $e->getMessage());
+        $albums = collect();
+    }
     
     return view('resources', [
         'locale'    => 'fr',
@@ -333,12 +356,35 @@ Route::get('/en/media', function () {
     App::setLocale('en');
     $descriptions = config('seo.descriptions')['en'] ?? [];
     
-    // Récupérer les albums publiés avec le nombre de photos
-    $albums = \App\Models\PhotoAlbum::published()
-        ->withCount('publishedMedia')
-        ->orderBy('sort_order')
-        ->orderBy('created_at', 'desc')
-        ->get();
+    // Récupérer les albums publiés avec leurs images
+    try {
+        $albums = \App\Models\PhotoAlbum::published()
+            ->with(['media' => function ($query) {
+                $query->where('is_published', true)
+                    ->where('type', 'image')
+                    ->orderBy('sort_order')
+                    ->limit(4);
+            }])
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        // Ajouter les compteurs et preview manuellement
+        $albums->each(function ($album) {
+            // Compter toutes les photos publiées
+            $allMedia = \App\Models\MediaAsset::where('album_id', $album->id)
+                ->where('is_published', true)
+                ->where('type', 'image')
+                ->count();
+            
+            $album->photo_count = $allMedia;
+            $album->preview_images = $album->media;
+        });
+    } catch (\Exception $e) {
+        // Table pas encore migrée
+        \Log::warning('PhotoAlbum not available: ' . $e->getMessage());
+        $albums = collect();
+    }
     
     return view('resources', [
         'locale'    => 'en',

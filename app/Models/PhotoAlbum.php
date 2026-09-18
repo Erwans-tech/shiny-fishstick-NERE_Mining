@@ -67,6 +67,12 @@ class PhotoAlbum extends Model
      */
     public function getPhotoCountAttribute(): int
     {
+        // Si la relation est déjà chargée, utiliser ça
+        if ($this->relationLoaded('publishedMedia')) {
+            return $this->publishedMedia->count();
+        }
+        
+        // Sinon faire une requête count
         return $this->publishedMedia()->count();
     }
 
@@ -75,6 +81,12 @@ class PhotoAlbum extends Model
      */
     public function getPreviewImagesAttribute()
     {
+        // Si la relation est déjà chargée, utiliser ça
+        if ($this->relationLoaded('publishedMedia')) {
+            return $this->publishedMedia->where('type', 'image')->take(4);
+        }
+        
+        // Sinon faire une requête
         return $this->publishedMedia()
             ->where('type', 'image')
             ->limit(4)
