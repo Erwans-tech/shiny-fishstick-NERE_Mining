@@ -599,6 +599,8 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         // Médiathèque
         Route::get('/media',                  [AdminMediaController::class, 'index'])->name('media.index');
         Route::get('/media/creer',            [AdminMediaController::class, 'create'])->name('media.create');
+        Route::get('/media/upload-multiple',  [AdminMediaController::class, 'createBulk'])->name('media.bulk');
+        Route::post('/media/upload-multiple', [AdminMediaController::class, 'storeBulk'])->name('media.bulk.store');
         Route::post('/media',                 [AdminMediaController::class, 'store'])->name('media.store');
         Route::get('/media/{media}/modifier', [AdminMediaController::class, 'edit'])->name('media.edit');
         Route::put('/media/{media}',          [AdminMediaController::class, 'update'])->name('media.update');

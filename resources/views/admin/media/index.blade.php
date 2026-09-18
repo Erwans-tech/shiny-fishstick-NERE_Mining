@@ -18,8 +18,9 @@
     <div class="card-header">
         <h2>Médias ({{ $assets->total() }})</h2>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="{{ route('admin.media.bulk') }}" class="btn btn-primary">📸 Upload Multiple</a>
             <a href="{{ route('admin.media.create', ['placement' => 'homepage_slideshow']) }}" class="btn btn-ghost">+ Image du diaporama</a>
-            <a href="{{ route('admin.media.create') }}" class="btn btn-primary">+ Ajouter un média</a>
+            <a href="{{ route('admin.media.create') }}" class="btn btn-ghost">+ Ajouter un média</a>
         </div>
     </div>
     <div class="table-wrap">

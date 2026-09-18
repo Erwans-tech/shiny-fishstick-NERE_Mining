@@ -44,6 +44,68 @@ class AdminMediaController extends Controller
         return view('admin.media.form', ['asset' => $asset]);
     }
 
+    /**
+     * Formulaire d'upload multiple
+     */
+    public function createBulk()
+    {
+        try {
+            $albums = \App\Models\PhotoAlbum::orderBy('title')->get();
+        } catch (\Exception $e) {
+            $albums = collect();
+        }
+        
+        return view('admin.media.bulk-upload', compact('albums'));
+    }
+
+    /**
+     * Upload multiple d'images
+     */
+    public function storeBulk(Request $request)
+    {
+        $data = $request->validate([
+            'files' => ['required', 'array', 'min:1', 'max:50'],
+            'files.*' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
+            'album_id' => ['nullable', 'exists:photo_albums,id'],
+            'placement' => ['required', 'in:gallery,homepage_slideshow'],
+            'is_published' => ['boolean'],
+        ]);
+
+        $uploaded = 0;
+        $errors = [];
+
+        foreach ($request->file('files') as $index => $file) {
+            try {
+                $filePath = $file->store('media', config('filesystems.default'));
+                $fileName = $file->getClientOriginalName();
+                
+                MediaAsset::create([
+                    'title' => pathinfo($fileName, PATHINFO_FILENAME),
+                    'type' => 'image',
+                    'placement' => $data['placement'],
+                    'album_id' => $data['album_id'] ?? null,
+                    'file_path' => $filePath,
+                    'is_published' => $request->boolean('is_published'),
+                    'sort_order' => 0,
+                ]);
+                
+                $uploaded++;
+            } catch (\Exception $e) {
+                $errors[] = "Erreur pour {$file->getClientOriginalName()}: " . $e->getMessage();
+            }
+        }
+
+        if ($uploaded > 0) {
+            $message = "{$uploaded} image(s) ajoutée(s) avec succès.";
+            if (count($errors) > 0) {
+                $message .= " " . count($errors) . " erreur(s).";
+            }
+            return redirect()->route('admin.media.index')->with('success', $message);
+        }
+
+        return redirect()->back()->withErrors($errors)->withInput();
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate($this->mediaRules($request));
