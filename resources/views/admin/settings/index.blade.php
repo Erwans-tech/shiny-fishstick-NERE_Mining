@@ -135,6 +135,24 @@
                             <span class="form-hint">{{ $descriptions[$setting->key] }}</span>
                             @endif
 
+                        @elseif($setting->type === 'album_select')
+                            {{-- Dropdown pour sélectionner un album --}}
+                            <label for="settings[{{ $setting->key }}]">
+                                📸 Album mis en avant sur la page d'accueil
+                            </label>
+                            <select name="settings[{{ $setting->key }}]" id="settings[{{ $setting->key }}]" 
+                                    style="width:100%; padding:8px 12px; border:1px solid var(--line); border-radius:4px; font:13px Inter,sans-serif;">
+                                <option value="">-- Aucun album (afficher les actualités) --</option>
+                                @foreach($albums as $album)
+                                    <option value="{{ $album->id }}" {{ $setting->value == $album->id ? 'selected' : '' }}>
+                                        {{ $album->title }} ({{ $album->media()->where('is_published', true)->count() }} photos)
+                                    </option>
+                                @endforeach
+                            </select>
+                            <span class="form-hint">
+                                Si un album est sélectionné, il remplacera la section des actualités sur la page d'accueil avec un carrousel d'images animé.
+                            </span>
+
                         @elseif($setting->type === 'url')
                             <label for="settings[{{ $setting->key }}]">
                                 {{ ucfirst($labelText) }}

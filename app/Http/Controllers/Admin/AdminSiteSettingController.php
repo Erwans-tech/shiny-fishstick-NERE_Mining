@@ -18,7 +18,15 @@ class AdminSiteSettingController extends Controller
             return explode('_', $s->key)[0];
         });
 
-        return view('admin.settings.index', compact('settings', 'grouped'));
+        // Charger les albums pour le dropdown
+        $albums = [];
+        try {
+            $albums = \App\Models\PhotoAlbum::orderBy('title')->get();
+        } catch (\Exception $e) {
+            // Table pas encore migrée
+        }
+
+        return view('admin.settings.index', compact('settings', 'grouped', 'albums'));
     }
 
     /**
