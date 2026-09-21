@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div class="sa-program-card sa-reveal sa-delay-2 karma-production-card karma-production-card--processing" style="padding:0; overflow:hidden;">
-                <img class="card-img" style="width:100%; height:200px; object-fit:cover;" src="{{ asset('images/mining/karma-04.jpg') }}" alt="{{ $en ? 'Gold processing plant' : "Usine de traitement de l'or" }}">
+                <img class="card-img" style="width:100%; height:200px; object-fit:cover;" src="{{ asset('images/mining/gold-extraction-plant.jpg') }}" alt="{{ $en ? 'Gold processing plant' : "Usine de traitement de l'or" }}">
                 <div style="padding:24px;">
                     <h3 style="color:var(--green); margin-bottom:12px; text-align:left;">{{ __('site.karma_card2_h3', [], $loc) }}</h3>
                     <p>{{ __('site.karma_card2_p', [], $loc) }}</p>
