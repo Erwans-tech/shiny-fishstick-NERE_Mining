@@ -84,22 +84,12 @@
         </div>
 
         <div class="stat-band sa-reveal sa-delay-1" style="margin-top:40px;">
+            @foreach($karmaStats as $stat)
             <div class="stat-item sa-stat-item-enhanced">
-                <span class="stat-value" data-count="97" data-suffix=" koz">97 koz</span>
-                <span class="stat-label">{{ $en ? 'Annual average (2019-2021)' : "Production annuelle moyenne (2019-2021)" }}</span>
+                <span class="stat-value" data-count="{{ $stat->localized('value', $loc) }}" data-suffix="{{ $stat->suffix }}">{{ $stat->localized('value', $loc) }}{{ $stat->suffix }}</span>
+                <span class="stat-label">{{ $stat->localized('label', $loc) }}</span>
             </div>
-            <div class="stat-item sa-stat-item-enhanced">
-                <span class="stat-value" data-count="949" data-suffix=" koz">949 koz</span>
-                <span class="stat-label">{{ $en ? 'Total gold reserves' : 'Réserves or totales' }}</span>
-            </div>
-            <div class="stat-item sa-stat-item-enhanced">
-                <span class="stat-value" data-count="33.2" data-suffix=" Mt">33.2 Mt</span>
-                <span class="stat-label">{{ $en ? 'Ore reserves' : 'Réserves minerai' }}</span>
-            </div>
-            <div class="stat-item sa-stat-item-enhanced">
-                <span class="stat-value" data-count="11" data-suffix=" yrs">11 yrs</span>
-                <span class="stat-label">{{ $en ? 'Extended mine life' : 'Durée mine étendue' }}</span>
-            </div>
+            @endforeach
         </div>
         
         <div class="grid-3" style="margin-top:40px;">
@@ -129,7 +119,6 @@
     <div class="sa-wave-bottom"></div>
 </section>
 
-@if(false)
 {{-- Production Timeline --}}
 <section id="production-timeline" class="sa-animated-section" style="padding:70px 5vw;">
     <div class="sa-section-heading sa-reveal">
@@ -139,30 +128,12 @@
     <p class="lead sa-reveal" style="text-align:center; margin-bottom:48px;">{{ $en ? 'Karma mine history from 2007 to present' : 'Historique de la mine de Karma de 2007 à nos jours' }}</p>
     
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:16px; margin-bottom:40px;">
-        <div class="sa-step-card sa-reveal sa-delay-1" data-step="07">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2007</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;">{{ $en ? 'Acquisition by True Gold Mining' : 'Acquisition par True Gold Mining' }}</div>
+        @foreach($karmaHistoryEvents as $event)
+        <div class="sa-step-card sa-reveal" data-step="{{ $event->sort_order }}">
+            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">{{ $event->localized('label', $loc) }}</div>
+            <div style="font-size:13px; color:var(--muted); line-height:1.6;">{{ $event->localized('value', $loc) }}</div>
         </div>
-        <div class="sa-step-card sa-reveal sa-delay-2" data-step="12">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2012-2016</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;">{{ $en ? 'Exploration & development' : 'Exploration & développement' }}</div>
-        </div>
-        <div class="sa-step-card sa-reveal sa-delay-3" data-step="17">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2017-2018</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;">{{ $en ? 'Construction phase' : 'Phase de construction' }}</div>
-        </div>
-        <div class="sa-step-card sa-reveal sa-delay-4" data-step="19">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2019</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;">{{ $en ? 'First production' : 'Première production' }}</div>
-        </div>
-        <div class="sa-step-card sa-reveal sa-delay-5" data-step="24">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2024</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;">{{ $en ? 'Néré Mining transition' : 'Transition Néré Mining' }}</div>
-        </div>
-        <div class="sa-step-card sa-reveal sa-delay-6" data-step="26">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2026+</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;">{{ $en ? 'CIL plant & expansion' : 'Usine CIL & expansion' }}</div>
-        </div>
+        @endforeach
     </div>
 
     <div class="sa-program-card sa-reveal" style="max-width:800px; margin:0 auto;">
@@ -261,7 +232,6 @@
 </section>
 
 {{-- Organisation --}}
-@endif
 <section id="organisation" class="sa-animated-section" style="padding:70px 5vw;">
     <div class="sa-section-heading sa-reveal">
         

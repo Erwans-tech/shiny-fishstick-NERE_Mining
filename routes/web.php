@@ -11,6 +11,8 @@ use App\Models\Partner;
 use App\Models\LeadershipMember;
 use App\Models\PressDocument;
 use App\Models\Report;
+use App\Models\SiteContent;
+use App\Models\SiteSetting;
 use App\Http\Controllers\JobOfferController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ReportController;
@@ -33,11 +35,11 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 Route::get('/uploads/gallery/{file}', function ($file) {
     $path = public_path("uploads/gallery/{$file}");
-    
+
     if (!file_exists($path)) {
         abort(404);
     }
-    
+
     return response()->file($path, [
         'Cache-Control' => 'public, max-age=31536000',
     ]);
@@ -45,11 +47,11 @@ Route::get('/uploads/gallery/{file}', function ($file) {
 
 Route::get('/uploads/{file}', function ($file) {
     $path = public_path("uploads/{$file}");
-    
+
     if (!file_exists($path)) {
         abort(404);
     }
-    
+
     return response()->file($path, [
         'Cache-Control' => 'public, max-age=31536000',
     ]);
@@ -93,7 +95,7 @@ $homeHandler = function (string $locale) {
                         ->limit(4);
                 }])
                 ->find($featuredAlbumId);
-            
+
             if ($featuredAlbum && $featuredAlbum->media->isNotEmpty()) {
                 $featuredAlbum->photo_count = $featuredAlbum->media->count();
                 $featuredAlbum->preview_images = $featuredAlbum->media->take(4);
@@ -109,15 +111,21 @@ $homeHandler = function (string $locale) {
     $descriptions = config('seo.descriptions')[$locale] ?? [];
     $description = $descriptions['home'] ?? '';
 
+    $homeContents = SiteContent::published()->where('section', 'home_stats')->get();
+    $stats = $homeContents->isNotEmpty() ? $homeContents->map(fn($item) => [
+        'value' => $item->localized('value', $locale),
+        'suffix' => $item->suffix,
+        'label' => $item->localized('label', $locale),
+        'icon' => $item->icon,
+    ])->all() : [
+        ['value' => '409', 'suffix' => '', 'label' => $locale === 'en' ? 'Direct employees' : 'Emplois directs', 'icon' => '👥'],
+    ];
+
     return view('home', [
         'locale'   => $locale,
         'description' => $description,
-        'stats'    => [
-            ['value' => '409',  'suffix' => '',  'label' => $locale === 'en' ? 'Direct employees' : 'Emplois directs', 'icon' => '👥'],
-            ['value' => '1500', 'suffix' => '',  'label' => $locale === 'en' ? 'Subcontracted workers' : 'Travailleurs sous-traitants', 'icon' => '🧰'],
-            ['value' => '60',   'suffix' => '%', 'label' => $locale === 'en' ? 'Local & regional employment' : 'Emploi local et régional', 'icon' => '📍'],
-            ['value' => '99',   'suffix' => '%', 'label' => $locale === 'en' ? 'Burkinabe workers' : 'Travailleurs burkinabè', 'icon' => '🇧🇫'],
-        ],
+        'stats'    => $stats,
+        'homeDescription' => SiteSetting::get('home_description'),
         'news'     => $news,
         'partners' => $partners,
         'slides'   => $slides,
@@ -150,6 +158,11 @@ $page = function (string $locale, string $section, array $extra = []) {
         'leadership' => $section === 'company-governance'
             ? LeadershipMember::where('is_published', true)->orderBy('hierarchy_level')->orderBy('sort_order')->get()
             : collect(),
+        'historyEvents' => $section === 'company-history' ? SiteContent::published()->where('section', 'history')->get() : collect(),
+        'karmaStats' => $section === 'karma' ? SiteContent::published()->where('section', 'karma_stats')->get() : collect(),
+        'karmaHistoryEvents' => $section === 'karma' ? SiteContent::published()->where('section', 'karma_history')->get() : collect(),
+        'sustainabilityStats' => $section === 'sustainability' ? SiteContent::published()->where('section', 'sustainability_stats')->get() : collect(),
+        'ceoMessage' => SiteSetting::get('ceo_message_' . $locale),
     ], $extra));
 };
 
@@ -232,7 +245,7 @@ Route::get('/actualites/{news}',  [NewsController::class, 'show'])->name('news.s
 Route::get('/mediatheque', function () {
     App::setLocale('fr');
     $descriptions = config('seo.descriptions')['fr'] ?? [];
-    
+
     // Récupérer les albums publiés avec leurs images
     try {
         $albums = \App\Models\PhotoAlbum::published()
@@ -245,7 +258,7 @@ Route::get('/mediatheque', function () {
             ->orderBy('sort_order')
             ->orderBy('created_at', 'desc')
             ->get();
-        
+
         // Ajouter les compteurs et preview manuellement
         $albums->each(function ($album) {
             // Compter toutes les photos publiées
@@ -253,7 +266,7 @@ Route::get('/mediatheque', function () {
                 ->where('is_published', true)
                 ->where('type', 'image')
                 ->count();
-            
+
             $album->photo_count = $allMedia;
             $album->preview_images = $album->media;
         });
@@ -262,7 +275,7 @@ Route::get('/mediatheque', function () {
         \Log::warning('PhotoAlbum not available: ' . $e->getMessage());
         $albums = collect();
     }
-    
+
     return view('resources', [
         'locale'    => 'fr',
         'section'   => 'gallery',
@@ -276,12 +289,12 @@ Route::get('/mediatheque', function () {
 
 Route::get('/mediatheque/album/{album}', function (\App\Models\PhotoAlbum $album) {
     App::setLocale('fr');
-    
+
     // Charger les médias de l'album
     $album->load(['publishedMedia' => function ($query) {
         $query->orderBy('sort_order')->orderBy('created_at', 'desc');
     }]);
-    
+
     return view('gallery.album', [
         'locale' => 'fr',
         'album'  => $album,
@@ -309,7 +322,7 @@ Route::get('/rapports',       fn() => $page('fr', 'reports'))->name('reports');
 Route::get('/partenaires', function () {
     App::setLocale('fr');
     $descriptions = config('seo.descriptions')['fr'] ?? [];
-    
+
     // FORCE hardcoded partners (no database dependency)
     $partners = collect([
         (object) [
@@ -321,7 +334,7 @@ Route::get('/partenaires', function () {
             'is_published' => true,
         ],
     ]);
-    
+
     return view('resources', [
         'locale'    => 'fr',
         'section'   => 'partners',
@@ -381,7 +394,7 @@ Route::get('/en/news/{news}', [NewsController::class, 'showEn'])->name('english.
 Route::get('/en/media', function () {
     App::setLocale('en');
     $descriptions = config('seo.descriptions')['en'] ?? [];
-    
+
     // Récupérer les albums publiés avec leurs images
     try {
         $albums = \App\Models\PhotoAlbum::published()
@@ -394,7 +407,7 @@ Route::get('/en/media', function () {
             ->orderBy('sort_order')
             ->orderBy('created_at', 'desc')
             ->get();
-        
+
         // Ajouter les compteurs et preview manuellement
         $albums->each(function ($album) {
             // Compter toutes les photos publiées
@@ -402,7 +415,7 @@ Route::get('/en/media', function () {
                 ->where('is_published', true)
                 ->where('type', 'image')
                 ->count();
-            
+
             $album->photo_count = $allMedia;
             $album->preview_images = $album->media;
         });
@@ -411,7 +424,7 @@ Route::get('/en/media', function () {
         \Log::warning('PhotoAlbum not available: ' . $e->getMessage());
         $albums = collect();
     }
-    
+
     return view('resources', [
         'locale'    => 'en',
         'section'   => 'gallery',
@@ -425,12 +438,12 @@ Route::get('/en/media', function () {
 
 Route::get('/en/media/album/{album}', function (\App\Models\PhotoAlbum $album) {
     App::setLocale('en');
-    
+
     // Charger les médias de l'album
     $album->load(['publishedMedia' => function ($query) {
         $query->orderBy('sort_order')->orderBy('created_at', 'desc');
     }]);
-    
+
     return view('gallery.album', [
         'locale' => 'en',
         'album'  => $album,
@@ -441,7 +454,7 @@ Route::get('/en/media/album/{album}', function (\App\Models\PhotoAlbum $album) {
 Route::get('/en/partners', function () {
     App::setLocale('en');
     $descriptions = config('seo.descriptions')['en'] ?? [];
-    
+
     // FORCE hardcoded partners (no database dependency)
     $partners = collect([
         (object) [
@@ -453,7 +466,7 @@ Route::get('/en/partners', function () {
             'is_published' => true,
         ],
     ]);
-    
+
     return view('resources', [
         'locale'    => 'en',
         'section'   => 'partners',
@@ -700,6 +713,10 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         // Paramètres du site
         Route::get('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'index'])->name('settings.index');
         Route::post('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'update'])->name('settings.update');
+        Route::get('/contenu', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'index'])->name('site-content.index');
+        Route::post('/contenu', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'store'])->name('site-content.store');
+        Route::put('/contenu/{siteContent}', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'update'])->name('site-content.update');
+        Route::delete('/contenu/{siteContent}', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'destroy'])->name('site-content.destroy');
 
         // Messages de contact
         Route::get('/messages',                   [AdminMessageController::class, 'index'])->name('messages.index');

@@ -23,6 +23,7 @@ class SiteSettingsSeeder extends Seeder
 
             // Album mis en avant sur la page d'accueil
             ['key' => 'home_featured_album_id', 'value' => '', 'type' => 'album_select'],
+            ['key' => 'home_description', 'value' => 'Néré Mining SA est une entreprise minière aurifère majoritairement détenue par des capitaux burkinabè. À travers l’exploitation de sa mine de Karma et ses activités d’exploration, Néré Mining ambitionne de contribuer au développement d’un secteur minier national performant, responsable et créateur de valeur pour le Burkina Faso.', 'type' => 'textarea'],
 
             // Company info
             ['key' => 'company_address', 'value' => 'Ouagadougou, Burkina Faso', 'type' => 'text'],
@@ -41,6 +42,8 @@ class SiteSettingsSeeder extends Seeder
             // Footer
             ['key' => 'footer_copyright', 'value' => '© ' . date('Y') . ' Néré Mining. Tous droits réservés.', 'type' => 'text'],
             ['key' => 'footer_description', 'value' => 'Néré Mining est une société minière burkinabè engagée dans une exploitation responsable et durable de l\'or à la mine Karma.', 'type' => 'textarea'],
+            ['key' => 'ceo_message_fr', 'value' => 'Bienvenue sur le site officiel de Néré Mining.\n\nÀ travers ces pages, vous découvrirez nos activités de prospection, d’extraction, de production et de commercialisation de l’or, menées depuis notre site de Karma.', 'type' => 'textarea'],
+            ['key' => 'ceo_message_en', 'value' => 'Welcome to the official website of Néré Mining.\n\nThrough these pages, you will discover our gold exploration, extraction, production and marketing activities, carried out from our Karma site.', 'type' => 'textarea'],
 
             // Social media
             ['key' => 'social_linkedin', 'value' => '', 'type' => 'url'],

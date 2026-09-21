@@ -2,44 +2,6 @@
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
     
-    // HARDCODED NEWS - No database dependency
-    $news = [
-        // Nouvelle actualité - Dr Elie Justin OUEDRAOGO
-        [
-            'id' => 4,
-            'title' => 'Zoom sur le Dr Elie Justin OUEDRAOGO, Premier promoteur burkinabè dans les mines',
-            'category' => 'Portrait',
-            'date' => '14 septembre 2026',
-            'image' => asset('images/news/ouedraogo-ceo-interview.jpeg'),
-            'excerpt' => 'Dr Elie Justin OUEDRAOGO, Naaba Baaôgo de Gourcy est le dirigeant burkinabè qui possède la plus grande expérience et l\'expertise minière au Burkina Faso et en Afrique de l\'Ouest.',
-            'slug' => 'dr-ouedraogo-premier-promoteur-burkinabe',
-        ],
-        [
-            'id' => 1,
-            'title' => 'Annulation du contrat d\'achat d\'or: Riverstone Karma SA salue une décision judiciaire historique du Tribunal de commerce de Ouagadougou',
-            'category' => 'Actualités',
-            'date' => '12 août 2026',
-            'image' => asset('images/news/ZJ58L6cbb9z6C4qPwArMnxzy0A4RQW4doJDfc7SV.jpg'),
-            'slug' => 'annulation-contrat-achat-or',
-        ],
-        [
-            'id' => 2,
-            'title' => 'Forum Mines 2026 : Néré Mining réaffirme son engagement en faveur des pratiques durables dans l\'exploitation minière',
-            'category' => 'Événement',
-            'date' => '22 août 2026',
-            'image' => asset('images/news/g4XciRGY5t48TKSsjdneCu5APzh3g673Q30YMnpr.jpg'),
-            'slug' => 'forum-mines-2026',
-        ],
-        [
-            'id' => 3,
-            'title' => '6ème édition de la SAMAO.',
-            'category' => 'Partenariats',
-            'date' => '29 novembre 2024',
-            'image' => asset('images/news/F6nUuFafpUqWZu1MKDcY5PzQbQsDXsFMXmEOVNuX.png'),
-            'slug' => 'samao-2024',
-        ],
-    ];
-    
     // HARDCODED HERO IMAGES - No database dependency
     $heroImages = collect([
         [
@@ -724,7 +686,7 @@
             <div class="intro-copy sa-reveal sa-delay-1">
                 
                 <p class="sec-lead">
-                    Néré Mining SA est une entreprise minière aurifère majoritairement détenue par des capitaux burkinabè. À travers l’exploitation de sa mine de Karma et ses activités d’exploration, Néré Mining ambitionne de contribuer au développement d’un secteur minier national performant, responsable et créateur de valeur pour le Burkina Faso. Notre ambition est de transformer le potentiel minier national en une valeur durable et partagée, au bénéfice des communautés, des travailleurs, de l’État et de nos partenaires.
+                    {{ $homeDescription ?: 'Néré Mining SA est une entreprise minière aurifère majoritairement détenue par des capitaux burkinabè. À travers l’exploitation de sa mine de Karma et ses activités d’exploration, Néré Mining ambitionne de contribuer au développement d’un secteur minier national performant, responsable et créateur de valeur pour le Burkina Faso.' }}
                 </p>
             </div>
             <div class="intro-points">

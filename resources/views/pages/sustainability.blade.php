@@ -65,13 +65,9 @@
         <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:20px; margin-top:48px;">
 
             @php
-                $esgData = [
-                    ['count'=>11,'suffix'=>'','label'=>$en?'Villages directly impacted':'Villages impactés directement','bar'=>'25%','icon'=>'🏘️'],
-                    ['count'=>23,'suffix'=>'','label'=>$en?'Villages indirectly impacted':'Villages impactés indirectement','bar'=>'52%','icon'=>'🗺️'],
-                    ['count'=>44,'suffix'=>'','label'=>$en?'Localities in the area of influence':'Localités dans le rayon d’influence','bar'=>'100%','icon'=>'📍'],
-                    ['count'=>'1.419','suffix'=>' Md','label'=>$en?'Community investment (FCFA)':'Investissement communautaire (FCFA)','bar'=>'100%','icon'=>'🤝'],
-                    ['count'=>'7.5','suffix'=>' km','label'=>$en?'RD149 paved':'RD149 bitumée','bar'=>'100%','icon'=>'🛣️'],
-                ];
+                $esgData = $sustainabilityStats->isNotEmpty() ? $sustainabilityStats->values()->map(function ($item, $index) use ($en) {
+                    return ['count' => $item->localized('value', $en ? 'en' : 'fr'), 'suffix' => $item->suffix ?? '', 'label' => $item->localized('label', $en ? 'en' : 'fr'), 'bar' => $index < 2 ? ($index === 0 ? '25%' : '52%') : '100%', 'icon' => $item->icon ?? '📊'];
+                })->all() : [];
             @endphp
 
             @foreach($esgData as $j => $metric)

@@ -389,17 +389,17 @@
     </div>
 
     @php
-        $historyYears = $en
-            ? ['2003', '2016', '2022', 'Today']
-            : ['2003', '2016', '2022', "Aujourd'hui"];
+        $historyEvents = ($historyEvents ?? collect())->isNotEmpty() ? $historyEvents : collect(range(1, 4))->map(function ($i) use ($en, $loc) {
+            return new \App\Models\SiteContent(['label_fr' => ['2003', '2016', '2022', "Aujourd'hui"][$i - 1], 'label_en' => ['2003', '2016', '2022', 'Today'][$i - 1], 'value_fr' => __('site.company_hist'.$i.'_p', [], $loc), 'value_en' => __('site.company_hist'.$i.'_p', [], $loc), 'key' => __('site.company_hist'.$i.'_title', [], $loc)]);
+        });
     @endphp
 
     <div class="timeline-wrapper">
-        @foreach(range(1, 4) as $i)
+        @foreach($historyEvents as $event)
         <article class="timeline-event">
             <div class="event-year">
                 <div class="year-badge">
-                    <span class="year-text">{{ $historyYears[$i - 1] }}</span>
+                    <span class="year-text">{{ $event->localized('label', $loc) }}</span>
                     <span class="year-label">{{ $en ? 'Year' : 'Année' }}</span>
                 </div>
             </div>
@@ -409,8 +409,8 @@
             </div>
             
             <div class="event-content">
-                <h3 class="event-title">{{ __('site.company_hist'.$i.'_title', [], $loc) }}</h3>
-                <p class="event-text">{{ __('site.company_hist'.$i.'_p', [], $loc) }}</p>
+                <h3 class="event-title">{{ $event->key }}</h3>
+                <p class="event-text">{{ $event->localized('value', $loc) }}</p>
             </div>
         </article>
         @endforeach

@@ -552,6 +552,10 @@
            class="nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
             <span class="nav-icon">⚙️</span> Paramètres
         </a>
+        <a href="{{ route('admin.site-content.index') }}"
+           class="nav-item {{ request()->routeIs('admin.site-content.*') ? 'active' : '' }}">
+            <span class="nav-icon">📝</span> Contenu éditable
+        </a>
 
         <div class="nav-section">Administration</div>
         <a href="{{ route('admin.users.index') }}"
