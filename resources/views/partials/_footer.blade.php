@@ -14,7 +14,10 @@
         ['name' => 'LinkedIn', 'key' => 'social_linkedin', 'icon' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8v10M6 5.5v.1M10 18v-6a3 3 0 0 1 6 0v6M10 12V8"/><path d="M4 4h16v16H4z"/></svg>'],
         ['name' => 'Instagram', 'key' => 'social_instagram', 'icon' => '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>'],
         ['name' => 'YouTube', 'key' => 'social_youtube', 'icon' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 7.5a2.5 2.5 0 0 0-1.8-1.8C17.1 5.3 12 5.3 12 5.3s-5.1 0-6.7.4a2.5 2.5 0 0 0-1.8 1.8C3.1 9.1 3.1 12 3.1 12s0 2.9.4 4.5a2.5 2.5 0 0 0 1.8 1.8c1.6.4 6.7.4 6.7.4s5.1 0 6.7-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.5.4-4.5s0-2.9-.4-4.5Z"/><path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none"/></svg>'],
-    ])->filter(fn ($social) => filled(SiteSetting::get($social['key'])));
+    ])->map(function ($social) {
+        $social['url'] = trim((string) SiteSetting::get($social['key'], ''));
+        return $social;
+    })->filter(fn ($social) => filter_var($social['url'], FILTER_VALIDATE_URL));
 @endphp
 
 @once
@@ -73,8 +76,9 @@
         <div class="site-footer__social" aria-label="{{ $en ? 'Social networks' : 'Réseaux sociaux' }}">
             <span class="site-footer__social-label">{{ $en ? 'Follow us' : 'Suivez-nous' }}</span>
             @foreach($socialLinks as $social)
-                <a class="site-footer__social-link" href="{{ SiteSetting::get($social['key']) }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $social['name'] }}" title="{{ $social['name'] }}">
+                <a class="site-footer__social-link" href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $social['name'] }}" title="{{ $social['name'] }}">
                     {!! $social['icon'] !!}
+                    <span>{{ $social['name'] }}</span>
                 </a>
             @endforeach
         </div>
