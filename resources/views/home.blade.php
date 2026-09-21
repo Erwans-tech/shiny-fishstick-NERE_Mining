@@ -740,84 +740,64 @@
     ════════════════════════════════════════ --}}
 
     {{-- ════════════════════════════════════════
-         4a · ALBUM PHOTO MIS EN AVANT (si configuré)
-    ════════════════════════════════════════ --}}
-    @if(isset($featuredAlbum) && $featuredAlbum)
-    <section class="sec album-featured-sec sa-animated-section" id="album-featured" aria-labelledby="album-h" style="background:var(--sand);padding:80px 0;">
-        <div class="sa-particles-container" data-count="3"></div>
-        <div class="container">
-            <div class="news-head sa-reveal" style="text-align:center;max-width:800px;margin:0 auto 48px;">
-                <span class="sec-tag">{{ $en ? 'Photo Album' : 'Album Photo' }}</span>
-                <h2 id="album-h" class="sec-h">{{ $featuredAlbum->title }}</h2>
-                @if($featuredAlbum->description)
-                    <p class="sec-lead">{{ $featuredAlbum->description }}</p>
-                @endif
-            </div>
-            
-            <div style="max-width:900px;margin:0 auto;">
-                <article class="album-card sa-reveal sa-delay-1" data-album-id="{{ $featuredAlbum->id }}" style="box-shadow:0 10px 40px rgba(0,0,0,0.12);">
-                    <a href="{{ $en ? route('english.gallery.album', $featuredAlbum) : route('gallery.album', $featuredAlbum) }}" class="album-link">
-                        <div class="album-carousel">
-                            @php
-                                $previewImages = $featuredAlbum->preview_images;
-                            @endphp
-                            @if($previewImages->isNotEmpty())
-                                @foreach($previewImages as $index => $media)
-                                    <div class="album-carousel-slide {{ $index === 0 ? 'active' : '' }}">
-                                        <img src="{{ $media->url }}" alt="{{ $media->title }}" loading="lazy">
-                                    </div>
-                                @endforeach
-                                @if($previewImages->count() > 1)
-                                    <div class="album-carousel-dots">
-                                        @foreach($previewImages as $index => $media)
-                                            <span class="dot {{ $index === 0 ? 'active' : '' }}"></span>
-                                        @endforeach
-                                    </div>
-                                @endif
-                            @endif
-                        </div>
-                        <div class="album-info">
-                            <h3 class="album-title" style="font-size:20px;">{{ $featuredAlbum->title }}</h3>
-                            @if($featuredAlbum->description)
-                                <p class="album-description">{{ Str::limit($featuredAlbum->description, 120) }}</p>
-                            @endif
-                            <div class="album-meta">
-                                <span class="album-count">
-                                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                                        <circle cx="8.5" cy="8.5" r="1.5"/>
-                                        <path d="M21 15l-5-5L5 21"/>
-                                    </svg>
-                                    {{ $featuredAlbum->photo_count }} {{ $featuredAlbum->photo_count > 1 ? ($en ? 'photos' : 'photos') : ($en ? 'photo' : 'photo') }}
-                                </span>
-                                <span class="album-view-link">{{ $en ? 'View album' : 'Voir l\'album' }} →</span>
-                            </div>
-                        </div>
-                    </a>
-                </article>
-            </div>
-            
-            <div style="display:flex; justify-content:center; margin-top:40px;">
-                <a class="btn btn-dark" href="{{ $en ? route('english.gallery') : route('gallery') }}">
-                    {{ $en ? 'All albums' : 'Tous les albums' }}
-                </a>
-            </div>
-        </div>
-    </section>
-    @endif
-
-    {{-- ════════════════════════════════════════
-         4b · DERNIÈRES ACTUALITÉS
+         4 · ACTUALITÉS ET ALBUM PHOTO
     ════════════════════════════════════════ --}}
     <section class="sec news-sec sa-animated-section" id="actualites" aria-labelledby="news-h">
         <div class="sa-particles-container" data-count="3"></div>
         <div class="news-head sa-reveal">
             <div>
-                <span class="sec-tag">{{ $en ? 'News' : 'Actualités' }}</span>
+                <span class="sec-tag">{{ $en ? 'News & Gallery' : 'Actualités & Galerie' }}</span>
                 <h2 id="news-h" class="sec-h">{{ $en ? 'Latest News' : 'Dernières actualités' }}</h2>
             </div>
         </div>
         <div class="news-grid">
+            {{-- Album mis en avant (première position) --}}
+            @if(isset($featuredAlbum) && $featuredAlbum)
+            <a class="news-card-link sa-reveal sa-delay-1" href="{{ $en ? route('english.gallery.album', $featuredAlbum) : route('gallery.album', $featuredAlbum) }}" aria-label="{{ $en ? 'View album' : 'Voir l\'album' }} : {{ e($featuredAlbum->title) }}">
+                <article class="news-card sr album-as-news-card" data-album-id="{{ $featuredAlbum->id }}">
+                    <div class="news-img-wrap">
+                        @php
+                            $previewImages = $featuredAlbum->preview_images;
+                        @endphp
+                        @if($previewImages->isNotEmpty())
+                            <div class="album-carousel-mini">
+                                @foreach($previewImages->take(4) as $index => $media)
+                                    <div class="album-carousel-slide {{ $index === 0 ? 'active' : '' }}">
+                                        <img class="news-img" src="{{ $media->url }}" alt="{{ $media->title }}" loading="lazy">
+                                    </div>
+                                @endforeach
+                                @if($previewImages->count() > 1)
+                                    <div class="album-carousel-dots">
+                                        @foreach($previewImages->take(4) as $index => $media)
+                                            <span class="dot {{ $index === 0 ? 'active' : '' }}"></span>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        @else
+                            <img class="news-img news-img-ph" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ e($featuredAlbum->title) }}" loading="lazy">
+                        @endif
+                    </div>
+                    <div class="news-body">
+                        <div class="news-meta">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px;">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <path d="M21 15l-5-5L5 21"/>
+                            </svg>
+                            {{ $en ? 'Album' : 'Album' }} · {{ $featuredAlbum->photo_count }} {{ $featuredAlbum->photo_count > 1 ? 'photos' : 'photo' }}
+                        </div>
+                        <h3>{{ $featuredAlbum->title }}</h3>
+                        <span class="news-read">
+                            {{ $en ? 'View album' : 'Voir l\'album' }}
+                            <span class="news-read-arr">→</span>
+                        </span>
+                    </div>
+                </article>
+            </a>
+            @endif
+            
+            {{-- Actualités --}}
             @forelse($news as $i => $item)
             <a class="news-card-link sa-reveal sa-delay-{{ $i % 3 + 1 }}" href="{{ $en ? route('english.news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) : route('news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) }}" aria-label="{{ __('site.read_more', [], $loc) }} : {{ e($item['title']) }}">
                 <article class="news-card sr" data-news-id="{{ $item['id'] ?? '' }}">

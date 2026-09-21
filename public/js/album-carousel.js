@@ -415,3 +415,89 @@
     }
 
 })();
+
+
+// ══════════════════════════════════════════════════════════════
+// MINI CAROUSEL POUR ALBUM DANS GRILLE NEWS
+// ══════════════════════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialiser tous les mini carousels dans la grille news
+    const miniCarousels = document.querySelectorAll('.album-carousel-mini');
+    
+    miniCarousels.forEach(carousel => {
+        const slides = carousel.querySelectorAll('.album-carousel-slide');
+        const dots = carousel.querySelectorAll('.dot');
+        
+        if (slides.length <= 1) return; // Pas de carousel si une seule image
+        
+        let currentSlide = 0;
+        let autoplayInterval;
+        let isHovered = false;
+        
+        function showSlide(index) {
+            // Retirer active de tous
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Ajouter active au slide courant
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        function startAutoplay() {
+            if (autoplayInterval) clearInterval(autoplayInterval);
+            autoplayInterval = setInterval(() => {
+                if (!isHovered) {
+                    nextSlide();
+                }
+            }, 3000);
+        }
+        
+        function stopAutoplay() {
+            if (autoplayInterval) {
+                clearInterval(autoplayInterval);
+                autoplayInterval = null;
+            }
+        }
+        
+        // Navigation par dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                currentSlide = index;
+                showSlide(currentSlide);
+                stopAutoplay();
+                setTimeout(startAutoplay, 5000); // Redémarre après 5s
+            });
+        });
+        
+        // Pause au survol
+        carousel.addEventListener('mouseenter', () => {
+            isHovered = true;
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+            isHovered = false;
+        });
+        
+        // Observer pour démarrer seulement quand visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startAutoplay();
+                } else {
+                    stopAutoplay();
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(carousel);
+    });
+});
