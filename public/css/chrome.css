@@ -342,6 +342,33 @@
     font: 12px Inter, sans-serif;
 }
 
+.site-footer__social {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.site-footer__social-label {
+    color: rgba(255, 194, 71, 0.85);
+    font: 700 11px Inter, sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.site-footer__social a {
+    color: rgba(255, 255, 255, 0.62);
+    font: 500 13px Inter, sans-serif;
+    text-decoration: none;
+}
+
+.site-footer__social a:hover {
+    color: #ffc247;
+}
+
 @media (max-width: 1080px) {
     .site-header {
         position: sticky;

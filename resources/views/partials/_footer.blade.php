@@ -9,6 +9,12 @@
     $companyEmail = SiteSetting::get('company_email', 'contact@nere-mining.bf');
     $copyright = SiteSetting::get('footer_copyright', '© '.date('Y').' Néré Mining. Tous droits réservés.');
     $footerDescription = SiteSetting::get('footer_description', 'Groupe aurifère burkinabè exploitant la mine de Karma dans le nord du Burkina Faso.');
+    $socialLinks = collect([
+        'Facebook' => SiteSetting::get('social_facebook'),
+        'LinkedIn' => SiteSetting::get('social_linkedin'),
+        'Instagram' => SiteSetting::get('social_instagram'),
+        'YouTube' => SiteSetting::get('social_youtube'),
+    ])->filter(fn ($url) => filled($url));
 @endphp
 
 @once
@@ -62,6 +68,15 @@
             <span>{{ $copyright }}</span>
             <span>Ouagadougou, Burkina Faso</span>
         </div>
+
+        @if($socialLinks->isNotEmpty())
+        <div class="site-footer__social" aria-label="{{ $en ? 'Social networks' : 'Réseaux sociaux' }}">
+            <span class="site-footer__social-label">{{ $en ? 'Follow us' : 'Suivez-nous' }}</span>
+            @foreach($socialLinks as $network => $url)
+                <a href="{{ $url }}" target="_blank" rel="noopener noreferrer">{{ $network }}</a>
+            @endforeach
+        </div>
+        @endif
 
         <div class="site-footer__legal">
             <a href="{{ $en ? route('english.cookies.policy') : route('cookies.policy') }}">{{ $en ? 'Cookies policy' : 'Politique cookies' }}</a>
