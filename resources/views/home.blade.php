@@ -740,77 +740,81 @@
     ════════════════════════════════════════ --}}
 
     {{-- ════════════════════════════════════════
-         4 · ALBUM PHOTO MIS EN AVANT
+         4a · ALBUM PHOTO MIS EN AVANT (si configuré)
     ════════════════════════════════════════ --}}
     @if(isset($featuredAlbum) && $featuredAlbum)
-    <section class="sec news-sec sa-animated-section" id="album-featured" aria-labelledby="album-h">
+    <section class="sec album-featured-sec sa-animated-section" id="album-featured" aria-labelledby="album-h" style="background:var(--sand);padding:80px 0;">
         <div class="sa-particles-container" data-count="3"></div>
-        <div class="news-head sa-reveal">
-            <div>
+        <div class="container">
+            <div class="news-head sa-reveal" style="text-align:center;max-width:800px;margin:0 auto 48px;">
                 <span class="sec-tag">{{ $en ? 'Photo Album' : 'Album Photo' }}</span>
                 <h2 id="album-h" class="sec-h">{{ $featuredAlbum->title }}</h2>
                 @if($featuredAlbum->description)
                     <p class="sec-lead">{{ $featuredAlbum->description }}</p>
                 @endif
             </div>
-        </div>
-        
-        <div style="max-width:800px;margin:0 auto;">
-            <article class="album-card sa-reveal sa-delay-1" data-album-id="{{ $featuredAlbum->id }}" style="box-shadow:0 10px 40px rgba(0,0,0,0.15);">
-                <a href="{{ $en ? route('english.gallery.album', $featuredAlbum) : route('gallery.album', $featuredAlbum) }}" class="album-link">
-                    <div class="album-carousel">
-                        @php
-                            $previewImages = $featuredAlbum->preview_images;
-                        @endphp
-                        @if($previewImages->isNotEmpty())
-                            @foreach($previewImages as $index => $media)
-                                <div class="album-carousel-slide {{ $index === 0 ? 'active' : '' }}">
-                                    <img src="{{ $media->url }}" alt="{{ $media->title }}" loading="lazy">
-                                </div>
-                            @endforeach
-                            @if($previewImages->count() > 1)
-                                <div class="album-carousel-dots">
-                                    @foreach($previewImages as $index => $media)
-                                        <span class="dot {{ $index === 0 ? 'active' : '' }}"></span>
-                                    @endforeach
-                                </div>
+            
+            <div style="max-width:900px;margin:0 auto;">
+                <article class="album-card sa-reveal sa-delay-1" data-album-id="{{ $featuredAlbum->id }}" style="box-shadow:0 10px 40px rgba(0,0,0,0.12);">
+                    <a href="{{ $en ? route('english.gallery.album', $featuredAlbum) : route('gallery.album', $featuredAlbum) }}" class="album-link">
+                        <div class="album-carousel">
+                            @php
+                                $previewImages = $featuredAlbum->preview_images;
+                            @endphp
+                            @if($previewImages->isNotEmpty())
+                                @foreach($previewImages as $index => $media)
+                                    <div class="album-carousel-slide {{ $index === 0 ? 'active' : '' }}">
+                                        <img src="{{ $media->url }}" alt="{{ $media->title }}" loading="lazy">
+                                    </div>
+                                @endforeach
+                                @if($previewImages->count() > 1)
+                                    <div class="album-carousel-dots">
+                                        @foreach($previewImages as $index => $media)
+                                            <span class="dot {{ $index === 0 ? 'active' : '' }}"></span>
+                                        @endforeach
+                                    </div>
+                                @endif
                             @endif
-                        @endif
-                    </div>
-                    <div class="album-info">
-                        <h3 class="album-title" style="font-size:20px;">{{ $featuredAlbum->title }}</h3>
-                        @if($featuredAlbum->description)
-                            <p class="album-description">{{ Str::limit($featuredAlbum->description, 120) }}</p>
-                        @endif
-                        <div class="album-meta">
-                            <span class="album-count">
-                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                                    <circle cx="8.5" cy="8.5" r="1.5"/>
-                                    <path d="M21 15l-5-5L5 21"/>
-                                </svg>
-                                {{ $featuredAlbum->photo_count }} {{ $featuredAlbum->photo_count > 1 ? ($en ? 'photos' : 'photos') : ($en ? 'photo' : 'photo') }}
-                            </span>
-                            <span class="album-view-link">{{ $en ? 'View album' : 'Voir l\'album' }} →</span>
                         </div>
-                    </div>
+                        <div class="album-info">
+                            <h3 class="album-title" style="font-size:20px;">{{ $featuredAlbum->title }}</h3>
+                            @if($featuredAlbum->description)
+                                <p class="album-description">{{ Str::limit($featuredAlbum->description, 120) }}</p>
+                            @endif
+                            <div class="album-meta">
+                                <span class="album-count">
+                                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                                        <path d="M21 15l-5-5L5 21"/>
+                                    </svg>
+                                    {{ $featuredAlbum->photo_count }} {{ $featuredAlbum->photo_count > 1 ? ($en ? 'photos' : 'photos') : ($en ? 'photo' : 'photo') }}
+                                </span>
+                                <span class="album-view-link">{{ $en ? 'View album' : 'Voir l\'album' }} →</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            </div>
+            
+            <div style="display:flex; justify-content:center; margin-top:40px;">
+                <a class="btn btn-dark" href="{{ $en ? route('english.gallery') : route('gallery') }}">
+                    {{ $en ? 'All albums' : 'Tous les albums' }}
                 </a>
-            </article>
-        </div>
-        
-        <div style="display:flex; justify-content:center; margin-top:32px;">
-            <a class="btn btn-dark" href="{{ $en ? route('english.gallery') : route('gallery') }}">
-                {{ $en ? 'All albums' : 'Tous les albums' }}
-            </a>
+            </div>
         </div>
     </section>
-    @else
-    {{-- Fallback: Actualités si pas d'album --}}
+    @endif
+
+    {{-- ════════════════════════════════════════
+         4b · DERNIÈRES ACTUALITÉS
+    ════════════════════════════════════════ --}}
     <section class="sec news-sec sa-animated-section" id="actualites" aria-labelledby="news-h">
         <div class="sa-particles-container" data-count="3"></div>
         <div class="news-head sa-reveal">
             <div>
-                
+                <span class="sec-tag">{{ $en ? 'News' : 'Actualités' }}</span>
+                <h2 id="news-h" class="sec-h">{{ $en ? 'Latest News' : 'Dernières actualités' }}</h2>
             </div>
         </div>
         <div class="news-grid">
@@ -853,7 +857,6 @@
             </a>
         </div>
     </section>
-    @endif
 
     {{-- ════════════════════════════════════════
          5 · PARTENAIRES INSTITUTIONNELS
