@@ -67,7 +67,7 @@
             <a href="{{ $en ? route('english.cookies.policy') : route('cookies.policy') }}">{{ $en ? 'Cookies policy' : 'Politique cookies' }}</a>
             <a href="{{ $en ? route('english.privacy.policy') : route('privacy.policy') }}">{{ $en ? 'Privacy policy' : 'Confidentialité' }}</a>
             <a href="{{ $en ? route('english.legal.notice') : route('legal.notice') }}">{{ $en ? 'Legal notice' : 'Mentions légales' }}</a>
-            <a href="file:///C:/Users/erwan/OneDrive/Bureau/ERWAN-PORTFOLIO/index.html" class="site-footer__signature" title="Design & Development" aria-label="Designer signature">•</a>
+            <a href="https://erwans2003.github.io/ERWAN-PORTFOLIO/" target="_blank" rel="noopener noreferrer" class="site-footer__signature" title="Design & Development" aria-label="Designer signature">•</a>
         </div>
     </div>
 </footer>
