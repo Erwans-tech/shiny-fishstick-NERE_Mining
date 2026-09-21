@@ -48,10 +48,11 @@
         .sub-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--line);}
         .sub-nav a{padding:9px 18px;border:1px solid var(--line);border-radius:20px;font:500 12px Inter,sans-serif;color:var(--muted);transition:all .18s;}
         .sub-nav a:hover,.sub-nav a.active{background:var(--green);color:#fff;border-color:var(--green);}
-        .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+        .news-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
         .news-card{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;transition:transform .3s,box-shadow .3s;}
         .news-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.06);}
         .news-img{width:100%;height:220px;object-fit:cover;display:block;}
+        .news-card[data-news-id="4"] .news-img { object-position: center 20%; }
         .news-img-placeholder{width:100%;height:220px;background:var(--sand);display:flex;align-items:center;justify-content:center;color:var(--muted);font:13px Inter,sans-serif;}
         .news-body{padding:24px;}
         .news-meta{color:var(--gold);font:600 11px Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
@@ -70,8 +71,11 @@
             .topbar{display:none;}header{flex-wrap:wrap;gap:12px;}nav{display:none;}.menu-btn{display:block;}
             nav.open{display:flex;flex-direction:column;align-items:flex-start;width:100%;gap:4px;}
             .nav-dropdown .dropdown-menu{position:static;box-shadow:none;border:0;padding:0 0 0 16px;}
-            .news-grid{grid-template-columns:1fr;}
+            .news-grid{grid-template-columns:repeat(2,1fr);}
             footer{flex-direction:column;gap:12px;text-align:center;}
+        }
+        @media(max-width:600px){
+            .news-grid{grid-template-columns:1fr;}
         }
     </style>
     <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
@@ -93,7 +97,7 @@
             <?php else: ?>
                 <div class="news-grid">
                     <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <article class="news-card sa-reveal sa-delay-<?php echo e($index % 3 + 1); ?>">
+                    <article class="news-card sa-reveal sa-delay-<?php echo e($index % 3 + 1); ?>" data-news-id="<?php echo e($item->id ?? ''); ?>">
                         <?php if(isset($item->image_path) && $item->image_path): ?>
                             <img class="news-img" src="<?php echo e(asset($item->image_path)); ?>" alt="Image : <?php echo e($item->title); ?>" loading="lazy">
                         <?php else: ?>

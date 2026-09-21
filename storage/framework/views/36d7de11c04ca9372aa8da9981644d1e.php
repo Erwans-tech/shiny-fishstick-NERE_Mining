@@ -2,6 +2,44 @@
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
     
+    // HARDCODED NEWS - No database dependency
+    $news = [
+        // Nouvelle actualité - Dr Elie Justin OUEDRAOGO
+        [
+            'id' => 4,
+            'title' => 'Zoom sur le Dr Elie Justin OUEDRAOGO, Premier promoteur burkinabè dans les mines',
+            'category' => 'Portrait',
+            'date' => '14 septembre 2026',
+            'image' => asset('images/news/ouedraogo-ceo-interview.jpeg'),
+            'excerpt' => 'Dr Elie Justin OUEDRAOGO, Naaba Baaôgo de Gourcy est le dirigeant burkinabè qui possède la plus grande expérience et l\'expertise minière au Burkina Faso et en Afrique de l\'Ouest.',
+            'slug' => 'dr-ouedraogo-premier-promoteur-burkinabe',
+        ],
+        [
+            'id' => 1,
+            'title' => 'Annulation du contrat d\'achat d\'or: Riverstone Karma SA salue une décision judiciaire historique du Tribunal de commerce de Ouagadougou',
+            'category' => 'Actualités',
+            'date' => '12 août 2026',
+            'image' => asset('images/news/ZJ58L6cbb9z6C4qPwArMnxzy0A4RQW4doJDfc7SV.jpg'),
+            'slug' => 'annulation-contrat-achat-or',
+        ],
+        [
+            'id' => 2,
+            'title' => 'Forum Mines 2026 : Néré Mining réaffirme son engagement en faveur des pratiques durables dans l\'exploitation minière',
+            'category' => 'Événement',
+            'date' => '22 août 2026',
+            'image' => asset('images/news/g4XciRGY5t48TKSsjdneCu5APzh3g673Q30YMnpr.jpg'),
+            'slug' => 'forum-mines-2026',
+        ],
+        [
+            'id' => 3,
+            'title' => '6ème édition de la SAMAO.',
+            'category' => 'Partenariats',
+            'date' => '29 novembre 2024',
+            'image' => asset('images/news/F6nUuFafpUqWZu1MKDcY5PzQbQsDXsFMXmEOVNuX.png'),
+            'slug' => 'samao-2024',
+        ],
+    ];
+    
     // HARDCODED HERO IMAGES - No database dependency
     $heroImages = collect([
         [
@@ -61,6 +99,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/album-carousel.css')); ?>?v=<?php echo e(filemtime(public_path('css/album-carousel.css'))); ?>">
     <style>
         :root {
             --ink:   #281d18;
@@ -418,7 +457,7 @@
             width:90px; height:3px; border-radius:999px;
             background:linear-gradient(90deg, transparent, var(--gold2), transparent);
         }
-        .news-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+        .news-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
         .news-sec .btn-dark {
             margin-top:18px;
             align-self:flex-end;
@@ -428,8 +467,8 @@
             color:inherit;
             text-decoration:none;
         }
-        /* Featured first card */
-        .news-grid .news-card:first-child { grid-column:span 2; }
+        /* All cards same size - 4 per row */
+        .news-grid .news-card:first-child { grid-column:span 1; }
         .news-card {
             display:flex; flex-direction:column;
             background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(248,244,240,1));
@@ -455,7 +494,9 @@
         .news-card-link:hover .news-card::before { transform:scaleX(1); }
         .news-img-wrap { overflow:hidden; border-radius:16px 16px 0 0; }
         .news-img { width:100%; height:170px; object-fit:cover; transition:transform .5s ease; display:block; }
-        .news-grid .news-card:first-child .news-img { height:220px; }
+        .news-grid .news-card:first-child .news-img { height:170px; }
+        /* Center face in Dr OUEDRAOGO article */
+        .news-card[data-news-id="4"] .news-img { object-position: center 20%; }
         .news-card-link:hover .news-img { transform:scale(1.04); }
         .news-img-ph {
             width:100%; height:170px;
@@ -463,7 +504,7 @@
             display:flex; align-items:center; justify-content:center;
             font:700 38px Inter,sans-serif; color:rgba(255,255,255,.2); letter-spacing:.1em;
         }
-        .news-grid .news-card:first-child .news-img-ph { height:220px; }
+        .news-grid .news-card:first-child .news-img-ph { height:170px; }
         .news-body { padding:20px 24px; display:flex; flex-direction:column; flex:1; position:relative; z-index:2; background:#fff; }
         .news-meta {
             font:700 11px Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase;
@@ -474,7 +515,7 @@
             font-size:18px; font-weight:600; color:var(--ink); line-height:1.3;
             margin-bottom:14px; letter-spacing:-.01em; transition:color .2s;
         }
-        .news-grid .news-card:first-child h3 { font-size:26px; }
+        .news-grid .news-card:first-child h3 { font-size:18px; }
         .news-card-link:hover h3 { color:var(--green); }
         .news-read {
             margin-top:auto; font:700 11px Inter,sans-serif; letter-spacing:.14em;
@@ -586,8 +627,11 @@
             .topbar { display:none; }
             .hero { min-height:100svh; }
             .hero-stats { grid-template-columns:repeat(2,1fr); }
-            .news-grid  { grid-template-columns:1fr; }
+            .news-grid  { grid-template-columns:repeat(2,1fr); }
             .news-grid .news-card:first-child { grid-column:span 1; }
+        }
+        @media(max-width:600px) {
+            .news-grid  { grid-template-columns:1fr; }
         }
         @media(max-width:600px) {
             .partners-sec { padding:34px 5vw 30px; }
@@ -691,6 +735,72 @@
     
 
     
+    <?php if(isset($featuredAlbum) && $featuredAlbum): ?>
+    <section class="sec news-sec sa-animated-section" id="album-featured" aria-labelledby="album-h">
+        <div class="sa-particles-container" data-count="3"></div>
+        <div class="news-head sa-reveal">
+            <div>
+                <span class="sec-tag"><?php echo e($en ? 'Photo Album' : 'Album Photo'); ?></span>
+                <h2 id="album-h" class="sec-h"><?php echo e($featuredAlbum->title); ?></h2>
+                <?php if($featuredAlbum->description): ?>
+                    <p class="sec-lead"><?php echo e($featuredAlbum->description); ?></p>
+                <?php endif; ?>
+            </div>
+        </div>
+        
+        <div style="max-width:800px;margin:0 auto;">
+            <article class="album-card sa-reveal sa-delay-1" data-album-id="<?php echo e($featuredAlbum->id); ?>" style="box-shadow:0 10px 40px rgba(0,0,0,0.15);">
+                <a href="<?php echo e($en ? route('english.gallery.album', $featuredAlbum) : route('gallery.album', $featuredAlbum)); ?>" class="album-link">
+                    <div class="album-carousel">
+                        <?php
+                            $previewImages = $featuredAlbum->preview_images;
+                        ?>
+                        <?php if($previewImages->isNotEmpty()): ?>
+                            <?php $__currentLoopData = $previewImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="album-carousel-slide <?php echo e($index === 0 ? 'active' : ''); ?>">
+                                    <img src="<?php echo e($media->url); ?>" alt="<?php echo e($media->title); ?>" loading="lazy">
+                                </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php if($previewImages->count() > 1): ?>
+                                <div class="album-carousel-dots">
+                                    <?php $__currentLoopData = $previewImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <span class="dot <?php echo e($index === 0 ? 'active' : ''); ?>"></span>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+                    <div class="album-info">
+                        <h3 class="album-title" style="font-size:20px;"><?php echo e($featuredAlbum->title); ?></h3>
+                        <?php if($featuredAlbum->description): ?>
+                            <p class="album-description"><?php echo e(Str::limit($featuredAlbum->description, 120)); ?></p>
+                        <?php endif; ?>
+                        <div class="album-meta">
+                            <span class="album-count">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                                    <path d="M21 15l-5-5L5 21"/>
+                                </svg>
+                                <?php echo e($featuredAlbum->photo_count); ?> <?php echo e($featuredAlbum->photo_count > 1 ? ($en ? 'photos' : 'photos') : ($en ? 'photo' : 'photo')); ?>
+
+                            </span>
+                            <span class="album-view-link"><?php echo e($en ? 'View album' : 'Voir l\'album'); ?> →</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+        
+        <div style="display:flex; justify-content:center; margin-top:32px;">
+            <a class="btn btn-dark" href="<?php echo e($en ? route('english.gallery') : route('gallery')); ?>">
+                <?php echo e($en ? 'All albums' : 'Tous les albums'); ?>
+
+            </a>
+        </div>
+    </section>
+    <?php else: ?>
+    
     <section class="sec news-sec sa-animated-section" id="actualites" aria-labelledby="news-h">
         <div class="sa-particles-container" data-count="3"></div>
         <div class="news-head sa-reveal">
@@ -701,7 +811,7 @@
         <div class="news-grid">
             <?php $__empty_1 = true; $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
             <a class="news-card-link sa-reveal sa-delay-<?php echo e($i % 3 + 1); ?>" href="<?php echo e($en ? route('english.news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) : route('news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i])); ?>" aria-label="<?php echo e(__('site.read_more', [], $loc)); ?> : <?php echo e(e($item['title'])); ?>">
-                <article class="news-card sr">
+                <article class="news-card sr" data-news-id="<?php echo e($item['id'] ?? ''); ?>">
                     <div class="news-img-wrap">
                         <?php if(!empty($item['image']) && !str_contains((string)$item['image'], 'null')): ?>
                             <img class="news-img"
@@ -740,6 +850,7 @@
             </a>
         </div>
     </section>
+    <?php endif; ?>
 
     
     <section class="sec partners-sec sa-animated-section" id="partenaires" aria-labelledby="partners-h">
@@ -752,6 +863,12 @@
 
         <?php
             $defaultPartners = [
+                [
+                    'img'  => asset('images/partners/neemba-logo.jpeg'),
+                    'name' => 'NEEMBA',
+                    'cat'  => $en ? 'Institutional Partner' : 'Partenaire Institutionnel',
+                    'url'  => null,
+                ],
                 [
                     'img'  => asset('images/partners/armoiries-burkina-faso.jpg'),
                     'name' => $en ? 'Government of Burkina Faso' : 'État burkinabè',
@@ -941,6 +1058,9 @@
         }
     })();
     </script>
+    
+    <!-- Album Carousel JS -->
+    <script src="<?php echo e(asset('js/album-carousel.js')); ?>"></script>
 </body>
 </html>
 

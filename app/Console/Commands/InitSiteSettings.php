@@ -1,17 +1,33 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Console\Commands;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
+use Illuminate\Console\Command;
+use App\Models\SiteSetting;
 
-class SiteSettingsSeeder extends Seeder
+class InitSiteSettings extends Command
 {
     /**
-     * Run the database seeds.
+     * The name and signature of the console command.
+     *
+     * @var string
      */
-    public function run(): void
+    protected $signature = 'settings:init {--force : Force overwrite existing settings}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Initialize site settings with default values';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle()
     {
+        $this->info('🔧 Initializing site settings...');
+
         $settings = [
             // Carrousel Hero
             ['key' => 'carousel_autoplay', 'value' => 'true', 'type' => 'boolean'],
@@ -21,7 +37,7 @@ class SiteSettingsSeeder extends Seeder
             ['key' => 'carousel_show_indicators', 'value' => 'true', 'type' => 'boolean'],
             ['key' => 'carousel_show_arrows', 'value' => 'true', 'type' => 'boolean'],
 
-            // Album mis en avant sur la page d'accueil
+            // Album mis en avant
             ['key' => 'home_featured_album_id', 'value' => '', 'type' => 'album_select'],
 
             // Company info
@@ -52,14 +68,43 @@ class SiteSettingsSeeder extends Seeder
             ['key' => 'seo_description', 'value' => 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma. Exploitation durable et création de valeur partagée.', 'type' => 'textarea'],
         ];
 
+        $created = 0;
+        $updated = 0;
+        $skipped = 0;
+
         foreach ($settings as $setting) {
-            \App\Models\SiteSetting::updateOrCreate(
-                ['key' => $setting['key']],
-                [
+            $exists = SiteSetting::where('key', $setting['key'])->first();
+
+            if ($exists && !$this->option('force')) {
+                $skipped++;
+                continue;
+            }
+
+            if ($exists) {
+                $exists->update([
                     'value' => $setting['value'],
                     'type' => $setting['type']
-                ]
-            );
+                ]);
+                $updated++;
+                $this->line("  ✓ Updated: {$setting['key']}");
+            } else {
+                SiteSetting::create($setting);
+                $created++;
+                $this->line("  + Created: {$setting['key']}");
+            }
         }
+
+        $this->newLine();
+        $this->info("✅ Done!");
+        $this->line("  Created: {$created}");
+        $this->line("  Updated: {$updated}");
+        $this->line("  Skipped: {$skipped}");
+
+        if ($skipped > 0 && !$this->option('force')) {
+            $this->newLine();
+            $this->comment("💡 Use --force to overwrite existing settings");
+        }
+
+        return 0;
     }
 }
