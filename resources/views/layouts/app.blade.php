@@ -104,6 +104,9 @@
     <link rel="stylesheet" href="{{ asset('css/text-fixes.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive-global.css') }}">
     <link rel="stylesheet" href="{{ asset('css/text-containers-responsive.css') }}">
+    @production
+    <link rel="stylesheet" href="{{ asset('css/image-protection.css') }}">
+    @endproduction
     <style>
         /* ══ Variables ══════════════════════════════════════════ */
         :root {
@@ -852,6 +855,9 @@
     <script src="{{ asset('js/page-animations.js') }}?v={{ filemtime(public_path('js/page-animations.js')) }}"></script>
     <script src="{{ asset('js/sustainability-animations.js') }}"></script>
     <script src="{{ asset('js/cookie-consent.js') }}"></script>
+    @production
+    <script src="{{ asset('js/image-protection.js') }}"></script>
+    @endproduction
     <script>
         // Initialisation supplémentaire si nécessaire
         document.addEventListener('DOMContentLoaded', () => {

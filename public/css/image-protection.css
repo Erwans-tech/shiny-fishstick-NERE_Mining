@@ -1,0 +1,10 @@
+/* Protection contre les actions de téléchargement les plus courantes. */
+img,
+[style*="background-image"] {
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+img {
+    -webkit-touch-callout: none;
+}
