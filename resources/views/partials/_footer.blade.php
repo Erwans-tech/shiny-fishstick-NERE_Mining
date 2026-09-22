@@ -31,7 +31,7 @@
                 <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining">
             </a>
             @if($socialLinks->isNotEmpty())
-        <div style="display:flex; align-items:center; gap:16px;">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
             <span style="font:600 12px Inter,sans-serif; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,194,71,.8);">{{ $en ? 'Follow us:' : 'Suivez-nous :' }}</span>
             <div class="site-footer__social" aria-label="{{ $en ? 'Social networks' : 'Réseaux sociaux' }}">
             @foreach($socialLinks as $social)

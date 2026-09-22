@@ -372,7 +372,8 @@
     transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
 }
 
-.site-footer__social-link svg {
+.site-footer__social-link svg,
+.site-footer__social-link img {
     width: 22px;
     height: 22px;
     fill: none;
