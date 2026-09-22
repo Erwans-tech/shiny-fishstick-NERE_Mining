@@ -11,7 +11,7 @@ class NewsController extends Controller
     /**
      * Get hardcoded default news (no database dependency)
      */
-    private function getDefaultNews($locale = 'fr')
+    public static function defaultNews($locale = 'fr')
     {
         $en = $locale === 'en';
         
@@ -102,7 +102,7 @@ PDG de NERE MINING SA',
         App::setLocale('fr');
         
         // FORCE hardcoded news (no database dependency)
-        $newsItems = $this->getDefaultNews('fr');
+        $newsItems = self::defaultNews('fr');
         
         // Manual pagination
         $perPage = 9;
@@ -125,13 +125,18 @@ PDG de NERE MINING SA',
     {
         App::setLocale('fr');
         
-        // Handle hardcoded news by slug
-        if ($news === 'dr-ouedraogo-premier-promoteur-burkinabe' || $news == 4) {
-            return view('news.dr-ouedraogo-premier-promoteur-burkinabe', ['locale' => 'fr']);
-        }
-        
         // Try to load from database for other news
         $newsModel = is_numeric($news) ? News::find($news) : News::where('slug', $news)->first();
+
+        if (!$newsModel) {
+            if ($news === 'dr-ouedraogo-premier-promoteur-burkinabe' || $news == 4) {
+                return view('news.dr-ouedraogo-premier-promoteur-burkinabe', ['locale' => 'fr']);
+            }
+
+            $newsModel = self::defaultNews('fr')->first(function ($item) use ($news) {
+                return (string) $item->id === (string) $news || $item->slug === $news;
+            });
+        }
         
         if (!$newsModel) {
             abort(404);
@@ -146,7 +151,7 @@ PDG de NERE MINING SA',
         App::setLocale('en');
         
         // FORCE hardcoded news (no database dependency)
-        $newsItems = $this->getDefaultNews('en');
+        $newsItems = self::defaultNews('en');
         
         // Manual pagination
         $perPage = 9;
@@ -169,13 +174,18 @@ PDG de NERE MINING SA',
     {
         App::setLocale('en');
         
-        // Handle hardcoded news by slug
-        if ($news === 'dr-ouedraogo-premier-promoteur-burkinabe' || $news == 4) {
-            return view('news.dr-ouedraogo-premier-promoteur-burkinabe', ['locale' => 'en']);
-        }
-        
         // Try to load from database for other news
         $newsModel = is_numeric($news) ? News::find($news) : News::where('slug', $news)->first();
+
+        if (!$newsModel) {
+            if ($news === 'dr-ouedraogo-premier-promoteur-burkinabe' || $news == 4) {
+                return view('news.dr-ouedraogo-premier-promoteur-burkinabe', ['locale' => 'en']);
+            }
+
+            $newsModel = self::defaultNews('en')->first(function ($item) use ($news) {
+                return (string) $item->id === (string) $news || $item->slug === $news;
+            });
+        }
         
         if (!$newsModel) {
             abort(404);

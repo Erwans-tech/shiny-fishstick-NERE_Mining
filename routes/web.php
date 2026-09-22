@@ -63,12 +63,19 @@ Route::get('/uploads/{file}', function ($file) {
 $homeHandler = function (string $locale) {
     App::setLocale($locale);
 
-    $news = News::published()
+    $newsItems = News::published()
         ->latest('published_at')
         ->take(3)
-        ->get()
-        ->map(fn(News $item) => [
+        ->get();
+
+    if ($newsItems->isEmpty()) {
+        $newsItems = \App\Http\Controllers\NewsController::defaultNews($locale);
+    }
+
+    $news = $newsItems
+        ->map(fn($item) => [
             'id'       => $item->id,
+            'slug'     => $item->slug ?? null,
             'date'     => $item->published_at->translatedFormat('d M Y'),
             'category' => $item->category,
             'title'    => $item->title,
