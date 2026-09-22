@@ -384,10 +384,6 @@
 
 <section class="history-page">
     
-    <div class="history-header">
-        <h1>{{ $en ? 'Our History' : 'Notre Histoire' }}</h1>
-    </div>
-
     @php
         $historyEvents = ($historyEvents ?? collect())->isNotEmpty() ? $historyEvents : collect(range(1, 4))->map(function ($i) use ($en, $loc) {
             return new \App\Models\SiteContent(['label_fr' => ['2003', '2016', '2022', "Aujourd'hui"][$i - 1], 'label_en' => ['2003', '2016', '2022', 'Today'][$i - 1], 'value_fr' => __('site.company_hist'.$i.'_p', [], $loc), 'value_en' => __('site.company_hist'.$i.'_p', [], $loc), 'key' => __('site.company_hist'.$i.'_title', [], $loc)]);
