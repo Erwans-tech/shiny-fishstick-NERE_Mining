@@ -75,20 +75,11 @@
     <p class="lead sa-reveal sa-delay-1">
         {{ $en
             ? 'The Community Relations Department is an essential link in the management system of the Karma mine. It is responsible for implementing the company\'s community relations policy. As such, it acts as an interface between the mine and neighboring communities.'
-            : 'Le Département des relations communautaires constitue un maillon essentiel dans le dispositif managérial de la mine de Karma. Il est chargé de la mise en œuvre de la politique des relations communautaires de la société. À ce titre, il joue le rôle d\'interface entre la mine et les communautés riveraines.'
+            : 'Le Département des relations communautaires constitue un maillon essentiel dans le dispositif managérial de la mine de Karma. Il est chargé de la mise en œuvre de la politique des relations communautaires de la société. À ce titre, il joue le rôle d\'interface entre la mine et les communautés riveraines.La mine de Karma impacte directement 11 villages et indirectement 23 villages, soit un total de 44 localités dans son rayon d\'influence.'
         }}
     </p>
 
-    {{-- Impact géographique --}}
-    <div class="sa-step-card sa-reveal" data-step="44" style="margin-top:24px; margin-bottom:32px; background:var(--sand);">
-        <h4 style="color:var(--green); margin-bottom:10px;">{{ $en ? 'Geographic Impact' : 'Impact Géographique' }}</h4>
-        <p style="font-size:14px; margin:0;">
-            {{ $en
-                ? 'The Karma mine directly impacts 11 villages and indirectly affects 23 villages, for a total of 44 localities in its area of influence.'
-                : 'La mine de Karma impacte directement 11 villages et indirectement 23 villages, soit un total de 44 localités dans son rayon d\'influence.'
-            }}
-        </p>
-    </div>
+   
 
     <div class="grid-2 community-grid" style="align-items:stretch; gap:32px;">
         <div class="community-panel sa-reveal sa-delay-2">

@@ -92,10 +92,7 @@
             <button type="button" data-exploration-image="{{ asset('images/exploration/equipe-instrumentation.jpg') }}" data-exploration-alt="{{ $en ? 'Exploration team working with technical equipment' : 'Équipe d’exploration travaillant avec un équipement technique' }}" data-exploration-caption="{{ $en ? 'Field team and technical instrumentation.' : 'Équipe terrain et instrumentation technique.' }}"><img src="{{ asset('images/exploration/equipe-instrumentation.jpg') }}" alt="{{ $en ? 'Exploration team working with technical equipment' : 'Équipe d’exploration travaillant avec un équipement technique' }}" loading="lazy"></button>
             <figcaption>{{ $en ? 'Field teams and technical instrumentation support data collection and target assessment.' : 'Les équipes et l’instrumentation terrain soutiennent la collecte des données et l’évaluation des cibles.' }}</figcaption>
         </figure>
-        <figure class="sa-reveal sa-delay-3">
-            <button type="button" data-exploration-image="{{ asset('images/exploration/permis-tableau.png') }}" data-exploration-alt="{{ $en ? 'Exploration permits validity table' : 'Tableau de validité des permis d’exploration' }}" data-exploration-caption="{{ $en ? 'Exploration permit register and validity dates.' : 'Registre des permis d’exploration et dates de validité.' }}"><img src="{{ asset('images/exploration/permis-tableau.png') }}" alt="{{ $en ? 'Exploration permits validity table' : 'Tableau de validité des permis d’exploration' }}" loading="lazy"></button>
-            <figcaption>{{ $en ? 'Permit register: Dassoui, Basnere Est and Ouest, Lougouri, Ronga, Rigui and Zanna are shown with their holders and validity years.' : 'Registre des permis : Dassoui, Basnere Est et Ouest, Lougouri, Ronga, Rigui et Zanna sont présentés avec leurs détenteurs et années de validité.' }}</figcaption>
-        </figure>
+        
     </div>
 </section>
 
