@@ -851,12 +851,12 @@
     @include('partials._footer', ['loc' => $loc, 'en' => $en])
     @include('partials.cookie-banner')
 
-    <script src="{{ asset('js/animations.js') }}"></script>
-    <script src="{{ asset('js/page-animations.js') }}?v={{ filemtime(public_path('js/page-animations.js')) }}"></script>
-    <script src="{{ asset('js/sustainability-animations.js') }}"></script>
-    <script src="{{ asset('js/cookie-consent.js') }}"></script>
+    <script defer src="{{ asset('js/animations.js') }}"></script>
+    <script defer src="{{ asset('js/page-animations.js') }}?v={{ filemtime(public_path('js/page-animations.js')) }}"></script>
+    <script defer src="{{ asset('js/sustainability-animations.js') }}"></script>
+    <script defer src="{{ asset('js/cookie-consent.js') }}"></script>
     @production
-    <script src="{{ asset('js/image-protection.js') }}"></script>
+    <script defer src="{{ asset('js/image-protection.js') }}"></script>
     @endproduction
     <script>
         // Initialisation supplémentaire si nécessaire

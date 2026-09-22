@@ -151,7 +151,7 @@
         }
         @foreach($heroImages as $index => $heroImage)
         @php $bgUrl = is_array($heroImage) ? ($heroImage['url'] ?? '') : $heroImage; @endphp
-        .hero-slide:nth-child({{ $index + 1 }}) { background-image:url('{{ $bgUrl }}'); animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
+        .hero-slide:nth-child({{ $index + 1 }}) { @if($index === 0) background-image:url('{{ $bgUrl }}'); @endif animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
         .hero-slide-video:nth-child({{ $index + 1 }}) { animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
         @keyframes heroSlide{{ $index }} {
             0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:scale(1.08); }
@@ -612,7 +612,7 @@
         }
     </style>
     <link rel="stylesheet" href="{{ asset('css/sustainability-animations.css') }}">
-    <script src="{{ asset('js/sustainability-animations.js') }}"></script>
+    <script defer src="{{ asset('js/sustainability-animations.js') }}"></script>
 </head>
 <body>
 
@@ -649,7 +649,7 @@
                     </div>
                 @else
                     {{-- Slide image classique --}}
-                    <div class="hero-slide" style="background-image:url('{{ $heroImage['url'] ?? ($heroImage['image'] ?? '') }}'); background-size:cover; background-position:center;"></div>
+                    <div class="hero-slide" data-hero-bg="{{ $heroImage['url'] ?? ($heroImage['image'] ?? '') }}" style="background-size:cover; background-position:center;"></div>
                 @endif
             @endforeach
         </div>
@@ -1016,7 +1016,21 @@
     </script>
     
     <!-- Album Carousel JS -->
-    <script src="{{ asset('js/album-carousel.js') }}"></script>
+    <script defer src="{{ asset('js/album-carousel.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = Array.from(document.querySelectorAll('.hero-slide[data-hero-bg]'));
+            slides.slice(1).forEach(function (slide, index) {
+                window.setTimeout(function () {
+                    const image = new Image();
+                    image.onload = function () {
+                        slide.style.backgroundImage = "url('" + slide.dataset.heroBg + "')";
+                    };
+                    image.src = slide.dataset.heroBg;
+                }, (index + 1) * 1500);
+            });
+        });
+    </script>
 </body>
 </html>
 
