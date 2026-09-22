@@ -123,6 +123,7 @@
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
+            object-position: center 35%;
             display: block; 
             transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s;
         }

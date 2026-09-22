@@ -73,7 +73,7 @@ $homeHandler = function (string $locale) {
             'category' => $item->category,
             'title'    => $item->title,
             'image'    => $item->image_path
-                ? asset('uploads/' . $item->image_path)
+                ? \App\Helpers\StorageHelper::uploadUrl($item->image_path)
                 : null,
         ]);
 

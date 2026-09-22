@@ -1,10 +1,28 @@
-/* Protection contre les actions de téléchargement les plus courantes. */
+/* Protection dissuasive uniquement : les images restent recuperables via les outils du navigateur. */
 img,
-[style*="background-image"] {
+[style*="background-image"],
+.protected-image {
     -webkit-user-drag: none;
     user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    pointer-events: none;
 }
 
 img {
     -webkit-touch-callout: none;
+}
+
+/* Calque transparent optionnel pour les conteneurs d'images. */
+.protected-media {
+    position: relative;
+}
+
+.protected-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: transparent;
+    pointer-events: auto;
 }

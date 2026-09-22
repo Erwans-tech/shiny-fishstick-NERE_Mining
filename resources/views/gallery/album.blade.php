@@ -60,7 +60,7 @@
         .photo-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:24px; }
         .photo-item { cursor:pointer; border-radius:12px; overflow:hidden; background:white; border:1px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.06); transition:transform .3s ease,box-shadow .3s ease; }
         .photo-item:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(0,0,0,.12); }
-        .photo-img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+        .photo-img { width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center 35%; display:block; }
         .photo-caption { padding:12px 16px; font-size:13px; color:var(--muted); }
 
         /* ── Lightbox ── */

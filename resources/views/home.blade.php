@@ -6,7 +6,7 @@
     $heroImages = collect([
         [
             'type' => 'image', 
-            'url' => asset('images/hero/7I0F6l1lmLkgswXMdTDm4ayucFaHUgcMJcnzn0im.jpg'),
+            'url' => asset('images/hero/7I0F6l1lmLkgswXMdTDm4ayucFaHUgcMJcnzn0im.webp'),
             'embed_url' => null,
             'is_local_video' => false,
             'title' => 'Néré Mining',
@@ -16,7 +16,7 @@
         ],
         [
             'type' => 'image', 
-            'url' => asset('images/hero/H7eEolBtJlKwU8I1VCj8iU4g6G0cNthAfc55kopr.jpg'),
+            'url' => asset('images/hero/H7eEolBtJlKwU8I1VCj8iU4g6G0cNthAfc55kopr.webp'),
             'embed_url' => null,
             'is_local_video' => false,
             'title' => 'Néré Mining',
@@ -26,7 +26,7 @@
         ],
         [
             'type' => 'image', 
-            'url' => asset('images/hero/UCrXfKr1OeYXovqWbAyM48WdKySdWoGQgpc99SGs.jpg'),
+            'url' => asset('images/hero/UCrXfKr1OeYXovqWbAyM48WdKySdWoGQgpc99SGs.webp'),
             'embed_url' => null,
             'is_local_video' => false,
             'title' => 'Néré Mining',
@@ -36,7 +36,7 @@
         ],
         [
             'type' => 'image', 
-            'url' => asset('images/hero/Aqlk75ywPYBXsQWFa0Z7pRFKAdLsajbcqDPSY3FV.jpg'),
+            'url' => asset('images/hero/Aqlk75ywPYBXsQWFa0Z7pRFKAdLsajbcqDPSY3FV.webp'),
             'embed_url' => null,
             'is_local_video' => false,
             'title' => 'Néré Mining',
@@ -769,13 +769,20 @@
                                  src="{{ $item['image'] }}"
                                  alt="{{ e($item['title']) }}"
                                  loading="{{ $i === 0 ? 'eager' : 'lazy' }}"
+                                   decoding="async"
+                                   fetchpriority="{{ $i === 0 ? 'high' : 'auto' }}"
+                                   width="640"
+                                   height="360"
                                  onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-                            <img class="news-img news-img-ph" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ e($item['title']) }}" loading="lazy" style="display:none;">
+                               <img class="news-img news-img-ph" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ e($item['title']) }}" loading="lazy" decoding="async" width="640" height="360" style="display:none;">
                         @else
                             <img class="news-img news-img-ph"
                                  src="{{ asset('images/placeholders/default-image.svg') }}"
                                  alt="{{ e($item['title']) }}"
-                                 loading="lazy">
+                                   loading="lazy"
+                                   decoding="async"
+                                   width="640"
+                                   height="360">
                         @endif
                     </div>
                     <div class="news-body">

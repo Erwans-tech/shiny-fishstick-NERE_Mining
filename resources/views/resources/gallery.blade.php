@@ -1,4 +1,12 @@
 <section>
+    <style>
+        .album-carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 35%;
+        }
+    </style>
     <p class="lead">{{ __('site.gallery_lead') }}</p>
     
     {{-- Albums --}}
