@@ -27,8 +27,8 @@ img {
     pointer-events: auto;
 }
 
-/* Marquage dissuasif visible sur les copies d'ecran et les impressions. */
-body::after {
+/* Marquage dissuasif désactivé */
+/* body::after {
     content: 'Nere Mining';
     position: fixed;
     inset: 0;
@@ -48,4 +48,4 @@ body::after {
     body::after {
         display: grid;
     }
-}
+} */
