@@ -32,11 +32,9 @@
             </a>
             @if($socialLinks->isNotEmpty())
         <div class="site-footer__social" aria-label="{{ $en ? 'Social networks' : 'Réseaux sociaux' }}">
-            <span class="site-footer__social-label">{{ $en ? 'Follow us' : 'Suivez-nous' }}</span>
             @foreach($socialLinks as $social)
                 <a class="site-footer__social-link" href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $social['name'] }}" title="{{ $social['name'] }}">
                     {!! $social['icon'] !!}
-                    <span>{{ $social['name'] }}</span>
                 </a>
             @endforeach
         </div>

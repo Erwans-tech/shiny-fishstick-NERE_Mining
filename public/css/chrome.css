@@ -345,6 +345,7 @@
 .site-footer__social {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 14px;
     flex-wrap: wrap;
 }
@@ -360,7 +361,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 44px;
+    width: 44px;
     height: 44px;
     border: 1px solid rgba(255, 194, 71, 0.38);
     border-radius: 22px;
@@ -378,11 +379,6 @@
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 1.8;
-}
-
-.site-footer__social-link span {
-    margin-left: 7px;
-    font: 600 11px Inter, sans-serif;
 }
 
 .site-footer__social-link:hover,
