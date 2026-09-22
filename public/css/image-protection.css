@@ -26,3 +26,26 @@ img {
     background: transparent;
     pointer-events: auto;
 }
+
+/* Marquage dissuasif visible sur les copies d'ecran et les impressions. */
+body::after {
+    content: 'Nere Mining';
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: rgba(75, 23, 22, .16);
+    font: 700 clamp(28px, 6vw, 72px)/1 Inter, sans-serif;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    transform: rotate(-24deg);
+    pointer-events: none;
+    user-select: none;
+    z-index: 2147483647;
+}
+
+@media print {
+    body::after {
+        display: grid;
+    }
+}

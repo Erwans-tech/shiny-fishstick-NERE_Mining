@@ -61,6 +61,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/chrome.css') }}?v={{ filemtime(public_path('css/chrome.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/album-carousel.css') }}?v={{ filemtime(public_path('css/album-carousel.css')) }}">
+    @production
+    <link rel="stylesheet" href="{{ asset('css/image-protection.css') }}?v={{ filemtime(public_path('css/image-protection.css')) }}">
+    @endproduction
     <style>
         :root {
             --ink:   #281d18;
@@ -1017,6 +1020,9 @@
     
     <!-- Album Carousel JS -->
     <script defer src="{{ asset('js/album-carousel.js') }}"></script>
+    @production
+    <script defer src="{{ asset('js/image-protection.js') }}"></script>
+    @endproduction
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const slides = Array.from(document.querySelectorAll('.hero-slide[data-hero-bg]'));
