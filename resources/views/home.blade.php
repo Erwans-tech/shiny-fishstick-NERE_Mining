@@ -750,7 +750,7 @@
                                 <circle cx="8.5" cy="8.5" r="1.5"/>
                                 <path d="M21 15l-5-5L5 21"/>
                             </svg>
-                            {{ $en ? 'Album' : 'Album' }} · {{ $featuredAlbum->photo_count }} {{ $featuredAlbum->photo_count > 1 ? 'photos' : 'photo' }}
+                            {{ $en ? 'Album' : 'Album' }} · {{ $featuredAlbum->photo_count ?? 0 }} {{ ($featuredAlbum->photo_count ?? 0) > 1 ? 'photos' : 'photo' }}
                         </div>
                         <h3>{{ $featuredAlbum->title }}</h3>
                         <span class="news-read">
