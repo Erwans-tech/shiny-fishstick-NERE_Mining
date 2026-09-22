@@ -192,11 +192,11 @@
 
         @php
             $achievements = [
-                ['icon'=>'education','title'=>$en?'Education':'Éducation','amount'=>$en?'Nearly 150M FCFA':'Près de 150M FCFA','items'=>$en?['Construction and rehabilitation of schools','Solar electrification','Provision of school furniture','Promotion of excellence','Improvement of learning conditions']:['Construction et réhabilitation d\'écoles','Électrification solaire','Dotation en mobilier scolaire','Promotion de l\'excellence','Amélioration des conditions d\'apprentissage']],
-                ['icon'=>'health','title'=>$en?'Health':'Santé','amount'=>$en?'More than 160M FCFA':'Plus de 160M FCFA','items'=>$en?['Construction and equipment of Namissiguima CSPS','Provision of ambulances','Rehabilitation of Kononga CSPS']:['Construction et équipement du CSPS de Namissiguima','Mise à disposition d\'ambulances','Réhabilitation du CSPS de Kononga']],
-                ['icon'=>'water','title'=>$en?'Access to Water':'Accès à l\'Eau','amount'=>$en?'More than 240M FCFA':'Plus de 240M FCFA','items'=>$en?['Construction of wells and boreholes','Pastoral boreholes','Water reservoirs','Water towers and potable water supply systems']:['Réalisation de puits et forages','Forages pastoraux','Retenues d\'eau','Châteaux d\'eau et systèmes d\'adduction d\'eau potable']],
-                ['icon'=>'livelihoods','title'=>$en?'Livelihoods & Economic Development':'Moyens de Subsistance & Développement Économique','amount'=>$en?'More than 350M FCFA':'Plus de 350M FCFA','items'=>$en?['Support to Project Affected Persons (PAP)','Agricultural inputs','Professional training','Market gardening and livestock','Income generating activities']:['Appui aux Personnes Affectées par le Projet','Intrants agricoles','Formations professionnelles','Maraîchage et élevage','Activités génératrices de revenus']],
-                ['icon'=>'infrastructure','title'=>$en?'Infrastructure & Accessibility':'Infrastructures & Désenclavement','amount'=>$en?'More than 519M FCFA':'Plus de 519M FCFA','items'=>$en?['Paving of 7.5 km of RD149 road','Associated sanitation works','Improved mobility and reduced dust nuisances']:['Bitumage de 7,5 km de la RD149','Travaux d\'assainissement associés','Forte amélioration de la mobilité et réduction des nuisances de poussière']],
+                ['icon'=>'education','title'=>$en?'Education':'Éducation','items'=>$en?['Construction and rehabilitation of schools','Solar electrification','Provision of school furniture','Promotion of excellence','Improvement of learning conditions']:['Construction et réhabilitation d\'écoles','Électrification solaire','Dotation en mobilier scolaire','Promotion de l\'excellence','Amélioration des conditions d\'apprentissage']],
+                ['icon'=>'health','title'=>$en?'Health':'Santé','items'=>$en?['Construction and equipment of Namissiguima CSPS','Provision of ambulances','Rehabilitation of Kononga CSPS']:['Construction et équipement du CSPS de Namissiguima','Mise à disposition d\'ambulances','Réhabilitation du CSPS de Kononga']],
+                ['icon'=>'water','title'=>$en?'Access to Water':'Accès à l\'Eau','items'=>$en?['Construction of wells and boreholes','Pastoral boreholes','Water reservoirs','Water towers and potable water supply systems']:['Réalisation de puits et forages','Forages pastoraux','Retenues d\'eau','Châteaux d\'eau et systèmes d\'adduction d\'eau potable']],
+                ['icon'=>'livelihoods','title'=>$en?'Livelihoods & Economic Development':'Moyens de Subsistance & Développement Économique','items'=>$en?['Support to Project Affected Persons (PAP)','Agricultural inputs','Professional training','Market gardening and livestock','Income generating activities']:['Appui aux Personnes Affectées par le Projet','Intrants agricoles','Formations professionnelles','Maraîchage et élevage','Activités génératrices de revenus']],
+                ['icon'=>'infrastructure','title'=>$en?'Infrastructure & Accessibility':'Infrastructures & Désenclavement','items'=>$en?['Paving of 7.5 km of RD149 road','Associated sanitation works','Improved mobility and reduced dust nuisances']:['Bitumage de 7,5 km de la RD149','Travaux d\'assainissement associés','Forte amélioration de la mobilité et réduction des nuisances de poussière']],
             ];
         @endphp
 
@@ -205,7 +205,6 @@
             <div class="sa-achievement-card sa-reveal sa-delay-{{ $k+1 }}">
                 <div class="community-index-icon" aria-hidden="true"><svg><use href="#community-icon-{{ $ach['icon'] }}"></use></svg></div>
                 <h3 style="color:var(--green); font-size:18px; margin-bottom:12px;">{{ $ach['title'] }}</h3>
-                <div class="sa-achievement-amount">{{ $ach['amount'] }}</div>
                 <ul class="sa-animated-list" style="margin-top:12px;">
                     @foreach($ach['items'] as $item)
                     <li>
