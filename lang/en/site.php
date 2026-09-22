@@ -709,13 +709,13 @@ return [
     'nav_company_ceo'        => 'CEO message',
     'nav_company_identity'   => 'Our identity',
     'nav_company_history'    => 'Our history',
-    'nav_company_values'     => 'Vision & Values',
+    'nav_company_values'     => 'Values',
     'nav_company_governance' => 'Governance',
 
     'subnav_company_ceo'        => 'CEO message',
     'subnav_company_identity'   => 'Our identity',
     'subnav_company_history'    => 'Our history',
-    'subnav_company_values'     => 'Vision & Values',
+    'subnav_company_values'     => 'Values',
     'subnav_company_governance' => 'Governance',
 
     /* company-ceo */
@@ -742,10 +742,10 @@ return [
     'company_history_breadcrumb'    => 'Our history',
 
     /* company-values */
-    'company_values_eyebrow'       => 'About us · Vision & Values',
-    'company_values_eyebrow_short' => 'Vision & Values',
-    'company_values_h1'            => 'Our vision and values.',
-    'company_values_breadcrumb'    => 'Vision & Values',
+    'company_values_eyebrow'       => 'About us · Values',
+    'company_values_eyebrow_short' => 'Values',
+    'company_values_h1'            => 'Our values.',
+    'company_values_breadcrumb'    => 'Values',
 
     /* company-governance */
     'company_governance_eyebrow'       => 'About us · Governance',
