@@ -50,7 +50,7 @@
             ['name' => 'Dr. Elie Justin OUEDRAOGO', 'title' => 'NAAABA BAOOGO DE GOURCY', 'department' => 'Président Directeur Général', 'hierarchy_level' => 1, 'photo_path' => 'images/leadership/pdg-traditional.jpg'],
             ['name' => 'Justin SAVADOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => 'Administration & Finance', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/justin-savadogo.jpeg'],
             ['name' => 'Pascal Y. OUEDRAOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Supply Chain Planning & Optimization' : 'Planification et optimisation des Approvisionnements', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/pascal-ouedraogo.jpeg'],
-            ['name' => 'Laurent Michel DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/laurent-dabire.jpeg'],
+            ['name' => 'Laurent Michel Coubarnibet DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/laurent-dabire.jpeg'],
         ]);
         $leadershipLevels = $leadershipMembers->groupBy('hierarchy_level');
         $levelLabels = [1 => '', 2 => '', 3 => $en ? 'Management' : 'Directions et responsables'];
@@ -59,7 +59,7 @@
     <div class="leadership-section">
         <div class="leadership-intro">
             
-            <p>{{ $en ? 'Meet the leaders who guide Néré Mining and its commitments to the territory.' : 'Découvrez les dirigeants qui portent la vision de Néré Mining et ses engagements pour le territoire.' }}</p>
+            <p>{{ $en ? 'Meet the leaders who guide RIVERSTONE KARMA and its commitments to the territory.' : 'Découvrez les dirigeants qui portent la vision de RIVERSTONE KARMA et ses engagements pour le territoire.' }}</p>
         </div>
         @foreach($leadershipLevels as $level => $levelMembers)
         <section class="leadership-level" aria-labelledby="leadership-level-{{ $level }}">
