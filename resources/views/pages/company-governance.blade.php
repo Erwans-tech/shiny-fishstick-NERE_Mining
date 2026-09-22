@@ -53,7 +53,7 @@
             ['name' => 'Laurent Michel DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/laurent-dabire.jpeg'],
         ]);
         $leadershipLevels = $leadershipMembers->groupBy('hierarchy_level');
-        $levelLabels = [1 => $en ? 'Executive leadership' : 'Direction générale', 2 => $en ? 'Deputy executive leadership' : 'Direction générale adjointe', 3 => $en ? 'Management' : 'Directions et responsables'];
+        $levelLabels = [1 => '', 2 => '', 3 => $en ? 'Management' : 'Directions et responsables'];
     @endphp
 
     <div class="leadership-section">
@@ -63,7 +63,9 @@
         </div>
         @foreach($leadershipLevels as $level => $levelMembers)
         <section class="leadership-level" aria-labelledby="leadership-level-{{ $level }}">
+            @if(!empty($levelLabels[$level] ?? $levelLabels[3]))
             <h3 class="leadership-level-heading" id="leadership-level-{{ $level }}">{{ $levelLabels[$level] ?? $levelLabels[3] }}</h3>
+            @endif
             <div class="leadership-grid">
             @foreach($levelMembers as $member)
             @php
