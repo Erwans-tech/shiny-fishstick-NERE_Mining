@@ -348,7 +348,6 @@
     justify-content: center;
     gap: 14px;
     flex-wrap: wrap;
-    flex: 1;
 }
 
 .site-footer__social-label {
