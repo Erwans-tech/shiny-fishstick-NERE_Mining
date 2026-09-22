@@ -57,7 +57,7 @@
             <div class="exploration-card__body">
                 <div class="card-tag">{{ $en ? 'Dassoui permit' : 'Permis de Dassoui' }}</div>
                 <h3>{{ $en ? 'Regional geological exploration' : 'Exploration géologique régionale' }}</h3>
-                <p>{{ $en ? 'The Dassoui permit is positioned in a regional geological corridor near Boulsa, Zorgho, Koupela and Tenkodogo. The map highlights the licence perimeter, major structures and the surrounding geological context used to guide target generation.' : 'Le permis de Dassoui s’inscrit dans un corridor géologique régional proche de Boulsa, Zorgho, Koupela et Tenkodogo. La carte met en évidence le périmètre du titre, les grandes structures et le contexte géologique utilisé pour définir les cibles.' }}</p>
+                <p>{{ $en ? 'The Dassoui permit is positioned in a regional geological corridor near Boulsa, Zorgho, Koupela and Tenkodogo. The map highlights the licence perimeter, major structures and the surrounding geological context used to guide target generation.' : 'Le permis de Dassoui dont les recherches sont avancées, s’inscrit dans un corridor géologique régional proche de Boulsa, Zorgho, Koupela et Tenkodogo. La carte met en évidence le périmètre du titre, les grandes structures et le contexte géologique utilisé pour définir les cibles.' }}</p>
                 <div class="exploration-card__meta"><span><strong>{{ $en ? 'Focus:' : 'Objectif :' }}</strong> {{ $en ? 'regional targets and structures' : 'cibles et structures régionales' }}</span><span><strong>{{ $en ? 'Method:' : 'Méthode :' }}</strong> {{ $en ? 'geological mapping' : 'cartographie géologique' }}</span></div>
             </div>
         </article>
