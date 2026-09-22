@@ -1,3 +1,6 @@
+
+
+
 <?php $__env->startSection('content'); ?>
 
 
@@ -5,7 +8,7 @@
     <div class="sa-particles-container" data-count="3"></div>
     <div style="max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'Our Locations' : 'Nos Localisations'); ?></h2>
+            
             <div class="sa-divider"></div>
         </div>
         
@@ -144,7 +147,7 @@
     <div class="sa-wave-top"></div>
     <div style="position:relative; z-index:1; max-width:1000px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e(__('site.contact_form_h2', [], $loc)); ?></h2>
+            
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;"><?php echo e(__('site.contact_form_lead', [], $loc)); ?></p>
         </div>
@@ -246,7 +249,7 @@
 <section class="sa-animated-section" style="padding:80px 5vw; background:#fff;">
     <div style="max-width:900px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'Frequently Asked Questions' : 'Questions Fréquemment Posées'); ?></h2>
+            
             <div class="sa-divider"></div>
         </div>
         

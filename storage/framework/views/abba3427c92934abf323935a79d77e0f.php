@@ -2,10 +2,38 @@
 <?php $__env->startSection('page-title', 'Paramètres du site'); ?>
 
 <?php $__env->startSection('content'); ?>
-<div class="card">
+<div class="card settings-page">
     <div class="card-header">
         <h2>⚙️ Paramètres du site</h2>
         <span class="card-header-sub">Configurer les paramètres généraux du site</span>
+    </div>
+
+    <div class="settings-overview">
+        <div class="settings-overview-item">
+            <span class="settings-overview-icon">⚙</span>
+            <span><strong><?php echo e($settings->count()); ?></strong><small>paramètres</small></span>
+        </div>
+        <div class="settings-overview-item">
+            <span class="settings-overview-icon">◈</span>
+            <span><strong><?php echo e($grouped->count()); ?></strong><small>catégories</small></span>
+        </div>
+        <div class="settings-overview-item">
+            <span class="settings-overview-icon">✓</span>
+            <span><strong><?php echo e($settings->where('value', '!=', '')->count()); ?></strong><small>valeurs configurées</small></span>
+        </div>
+    </div>
+
+    <div class="settings-toolbar">
+        <label class="settings-search">
+            <span aria-hidden="true">⌕</span>
+            <input type="search" id="settings-search" placeholder="Rechercher un paramètre…" autocomplete="off">
+        </label>
+        <div class="settings-tabs" role="tablist" aria-label="Catégories de paramètres">
+            <button type="button" class="settings-tab is-active" data-settings-filter="all">Tous</button>
+            <?php $__currentLoopData = $grouped; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category => $categorySettings): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <button type="button" class="settings-tab" data-settings-filter="<?php echo e($category); ?>"><?php echo e(ucfirst($category)); ?></button>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
     </div>
 
     <?php if(session('success')): ?>
@@ -16,7 +44,7 @@
         <?php echo csrf_field(); ?>
 
         <?php $__empty_1 = true; $__currentLoopData = $grouped; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category => $categorySettings): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-            <fieldset style="margin-bottom:32px;">
+            <fieldset class="settings-section" data-settings-category="<?php echo e($category); ?>" style="margin-bottom:32px;">
                 <legend style="font:600 16px Inter,sans-serif; color:var(--green); text-transform:capitalize; margin-bottom:16px; border-bottom:2px solid var(--line); padding-bottom:12px;">
                     <?php if($category === 'carousel'): ?>
                         🎬 Carrousel héro
@@ -47,7 +75,7 @@
                         ];
                     ?>
 
-                    <div class="form-group" style="margin-bottom:20px;">
+                    <div class="form-group settings-field" data-setting-search="<?php echo e(strtolower($setting->key . ' ' . $labelText)); ?>" style="margin-bottom:20px;">
                         <?php if($setting->type === 'boolean'): ?>
                             
                             <div class="toggle-wrap">
@@ -113,6 +141,24 @@
                             <span class="form-hint"><?php echo e($descriptions[$setting->key]); ?></span>
                             <?php endif; ?>
 
+                        <?php elseif($setting->type === 'album_select'): ?>
+                            
+                            <label for="settings[<?php echo e($setting->key); ?>]">
+                                📸 Album mis en avant sur la page d'accueil
+                            </label>
+                            <select name="settings[<?php echo e($setting->key); ?>]" id="settings[<?php echo e($setting->key); ?>]" 
+                                    style="width:100%; padding:8px 12px; border:1px solid var(--line); border-radius:4px; font:13px Inter,sans-serif;">
+                                <option value="">-- Aucun album mis en avant --</option>
+                                <?php $__currentLoopData = $albums; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $album): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($album->id); ?>" <?php echo e($setting->value == $album->id ? 'selected' : ''); ?>>
+                                        <?php echo e($album->title); ?> (<?php echo e($album->media()->where('is_published', true)->count()); ?> photos)
+                                    </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                            <span class="form-hint">
+                                Si un album est sélectionné, il s'affichera <strong>avant la section actualités</strong> sur la page d'accueil avec un carrousel d'images animé. Les actualités resteront visibles en dessous.
+                            </span>
+
                         <?php elseif($setting->type === 'url'): ?>
                             <label for="settings[<?php echo e($setting->key); ?>]">
                                 <?php echo e(ucfirst($labelText)); ?>
@@ -144,12 +190,38 @@
             <p style="color:var(--muted); text-align:center; padding:40px;">Aucun paramètre à afficher.</p>
         <?php endif; ?>
 
-        <div style="display:flex; gap:12px; margin-top:28px; padding-top:20px; border-top:2px solid var(--line);">
-            <button type="submit" class="btn btn-primary">💾 Enregistrer les paramètres</button>
+        <div class="settings-actions">
+            <button type="submit" class="btn btn-primary" id="settings-save">💾 Enregistrer les paramètres</button>
             <a href="<?php echo e(route('admin.dashboard')); ?>" class="btn btn-ghost">Annuler</a>
+            <span class="settings-save-state" id="settings-save-state" role="status" aria-live="polite"></span>
         </div>
     </form>
 </div>
+
+<style>
+    .settings-page { overflow:hidden; }
+    .settings-overview { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1px; background:var(--line); border-bottom:1px solid var(--line); }
+    .settings-overview-item { display:flex; align-items:center; gap:10px; padding:16px 20px; background:#fff; }
+    .settings-overview-icon { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:8px; background:var(--sand); color:var(--gold2); font-weight:700; }
+    .settings-overview-item strong, .settings-overview-item small { display:block; }
+    .settings-overview-item strong { color:var(--green); font-size:20px; line-height:1; }
+    .settings-overview-item small { margin-top:3px; color:var(--muted); font-size:11px; }
+    .settings-toolbar { padding: 20px; background: #fffaf1; border-bottom: 1px solid var(--line); }
+    .settings-search { display:flex; align-items:center; gap:10px; max-width:520px; padding:0 13px; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--muted); }
+    .settings-search span { font-size:22px; line-height:1; }
+    .settings-search input { width:100%; padding:11px 0; border:0; outline:0; background:transparent; color:var(--ink); font:14px Inter,sans-serif; }
+    .settings-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+    .settings-tab { border:1px solid var(--line); border-radius:999px; padding:7px 12px; background:#fff; color:var(--muted); font:600 11px Inter,sans-serif; cursor:pointer; text-transform:capitalize; }
+    .settings-tab:hover, .settings-tab.is-active { border-color:var(--green); background:var(--green); color:#fff; }
+    .settings-section { margin:0 0 22px !important; padding:20px; border:1px solid var(--line); border-radius:10px; background:rgba(255,255,255,.62); transition:opacity .2s, border-color .2s; }
+    .settings-section:hover { border-color:rgba(229,167,47,.7); }
+    .settings-section legend { width:100%; padding:0 0 12px !important; margin:0 0 20px !important; }
+    .settings-section .settings-field + .settings-field { padding-top:18px; border-top:1px solid #f0ebe3; }
+    .settings-section.is-hidden, .settings-field.is-hidden { display:none; }
+    .settings-actions { display:flex; align-items:center; gap:12px; margin-top:28px; padding-top:20px; border-top:2px solid var(--line); }
+    .settings-save-state { color:#16803c; font-size:12px; }
+    @media (max-width:700px) { .settings-overview { grid-template-columns:1fr; } .settings-actions { align-items:stretch; flex-direction:column; } .settings-actions .btn { text-align:center; } }
+</style>
 
 
 <?php if($grouped->has('carousel')): ?>
@@ -181,6 +253,42 @@
 <script>
 // Update preview live
 document.addEventListener('DOMContentLoaded', function() {
+    var search = document.getElementById('settings-search');
+    var tabs = document.querySelectorAll('[data-settings-filter]');
+    var sections = document.querySelectorAll('[data-settings-category]');
+    var fields = document.querySelectorAll('[data-setting-search]');
+    var activeCategory = 'all';
+
+    function filterSettings() {
+        var term = (search ? search.value : '').toLowerCase().trim();
+        sections.forEach(function(section) {
+            var categoryMatch = activeCategory === 'all' || section.dataset.settingsCategory === activeCategory;
+            var visibleFields = 0;
+            section.querySelectorAll('[data-setting-search]').forEach(function(field) {
+                var matches = categoryMatch && (!term || field.dataset.settingSearch.indexOf(term) !== -1);
+                field.classList.toggle('is-hidden', !matches);
+                if (matches) visibleFields++;
+            });
+            section.classList.toggle('is-hidden', visibleFields === 0);
+        });
+    }
+
+    if (search) search.addEventListener('input', filterSettings);
+    tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            activeCategory = tab.dataset.settingsFilter;
+            tabs.forEach(function(item) { item.classList.toggle('is-active', item === tab); });
+            filterSettings();
+        });
+    });
+
+    var settingsForm = document.querySelector('form[action="<?php echo e(route('admin.settings.update')); ?>"]');
+    var saveState = document.getElementById('settings-save-state');
+    if (settingsForm && saveState) {
+        settingsForm.addEventListener('input', function() { saveState.textContent = 'Modifications non enregistrées'; saveState.style.color = 'var(--red)'; });
+        settingsForm.addEventListener('submit', function() { saveState.textContent = 'Enregistrement…'; saveState.style.color = '#16803c'; });
+    }
+
     var intervalInput = document.getElementById('settings[carousel_interval]');
     var speedInput = document.getElementById('settings[carousel_transition_speed]');
     var autoplayInput = document.getElementById('settings_carousel_autoplay');

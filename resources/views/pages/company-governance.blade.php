@@ -35,7 +35,7 @@
     [data-member="justin-savadogo"] .leadership-photo { object-position:center 35%; }
     [data-member="pascal-y-ouedraogo"] .leadership-photo { object-position:center 32%; }
     [data-member="laurent-michel-dabire"] .leadership-photo { object-position:center 30%; }
-    [data-member="augustine-obeng-fori"] .leadership-photo { object-position:center 25%; }
+  
     
     @media(max-width:900px) { .leadership-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media(max-width:540px) { .leadership-grid { grid-template-columns:1fr; } .leadership-card--lead { flex-direction:column; text-align:center; } }
@@ -51,7 +51,6 @@
             ['name' => 'Justin SAVADOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => 'Administration & Finance', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/justin-savadogo.jpeg'],
             ['name' => 'Pascal Y. OUEDRAOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Supply Chain Planning & Optimization' : 'Planification et optimisation des Approvisionnements', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/pascal-ouedraogo.jpeg'],
             ['name' => 'Laurent Michel DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/laurent-dabire.jpeg'],
-            ['name' => 'Augustine OBENG-FORI', 'title' => $en ? 'Mining Director' : 'Directeur de l\'exploitation', 'department' => '', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/augustine-obeng-fori.jpeg'],
         ]);
         $leadershipLevels = $leadershipMembers->groupBy('hierarchy_level');
         $levelLabels = [1 => $en ? 'Executive leadership' : 'Direction générale', 2 => $en ? 'Deputy executive leadership' : 'Direction générale adjointe', 3 => $en ? 'Management' : 'Directions et responsables'];

@@ -1,3 +1,6 @@
+
+
+
 <?php $__env->startSection('content'); ?>
 
 <style>
@@ -37,7 +40,7 @@
     <div class="sa-particles-container" data-count="5"></div>
 
     <div class="sa-section-heading sa-reveal" style="text-align:left; max-width:none; margin-bottom:24px;">
-        <h2 style="text-align:left;"><?php echo e(__('site.karma_pres_h2', [], $loc)); ?></h2>
+        
         <div class="sa-divider" style="margin: 0;"></div>
     </div>
     
@@ -76,39 +79,29 @@
     <div class="sa-wave-top"></div>
     <div style="position:relative; z-index:1; max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e(__('site.karma_prod_h2', [], $loc)); ?></h2>
+            
             <div class="sa-divider"></div>
         </div>
 
         <div class="stat-band sa-reveal sa-delay-1" style="margin-top:40px;">
+            <?php $__currentLoopData = $karmaStats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="stat-item sa-stat-item-enhanced">
-                <span class="stat-value" data-count="97" data-suffix=" koz">97 koz</span>
-                <span class="stat-label"><?php echo e($en ? 'Annual average (2019-2021)' : "Production annuelle moyenne (2019-2021)"); ?></span>
+                <span class="stat-value" data-count="<?php echo e($stat->localized('value', $loc)); ?>" data-suffix="<?php echo e($stat->suffix); ?>"><?php echo e($stat->localized('value', $loc)); ?><?php echo e($stat->suffix); ?></span>
+                <span class="stat-label"><?php echo e($stat->localized('label', $loc)); ?></span>
             </div>
-            <div class="stat-item sa-stat-item-enhanced">
-                <span class="stat-value" data-count="949" data-suffix=" koz">949 koz</span>
-                <span class="stat-label"><?php echo e($en ? 'Total gold reserves' : 'Réserves or totales'); ?></span>
-            </div>
-            <div class="stat-item sa-stat-item-enhanced">
-                <span class="stat-value" data-count="33.2" data-suffix=" Mt">33.2 Mt</span>
-                <span class="stat-label"><?php echo e($en ? 'Ore reserves' : 'Réserves minerai'); ?></span>
-            </div>
-            <div class="stat-item sa-stat-item-enhanced">
-                <span class="stat-value" data-count="11" data-suffix=" yrs">11 yrs</span>
-                <span class="stat-label"><?php echo e($en ? 'Extended mine life' : 'Durée mine étendue'); ?></span>
-            </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         
         <div class="grid-3" style="margin-top:40px;">
             <div class="sa-program-card sa-reveal sa-delay-1 karma-production-card karma-production-card--open-pit" style="padding:0; overflow:hidden;">
-                <img class="card-img" style="width:100%; height:200px; object-fit:cover;" src="<?php echo e(asset('images/mining/karma-05.jpg')); ?>" alt="<?php echo e($en ? 'Open-pit mining' : 'Extraction à ciel ouvert'); ?>">
+                <img class="card-img" style="width:100%; height:200px; object-fit:cover;" src="<?php echo e(asset('images/mining/open-pit-mining.jpg')); ?>" alt="<?php echo e($en ? 'Open-pit mining' : 'Extraction à ciel ouvert'); ?>">
                 <div style="padding:24px;">
                     <h3 style="color:var(--green); margin-bottom:12px; text-align:left;"><?php echo e(__('site.karma_card1_h3', [], $loc)); ?></h3>
                     <p><?php echo e(__('site.karma_card1_p', [], $loc)); ?></p>
                 </div>
             </div>
             <div class="sa-program-card sa-reveal sa-delay-2 karma-production-card karma-production-card--processing" style="padding:0; overflow:hidden;">
-                <img class="card-img" style="width:100%; height:200px; object-fit:cover;" src="<?php echo e(asset('images/mining/karma-04.jpg')); ?>" alt="<?php echo e($en ? 'Gold processing plant' : "Usine de traitement de l'or"); ?>">
+                <img class="card-img" style="width:100%; height:200px; object-fit:cover;" src="<?php echo e(asset('images/mining/gold-extraction-plant.jpg')); ?>" alt="<?php echo e($en ? 'Gold processing plant' : "Usine de traitement de l'or"); ?>">
                 <div style="padding:24px;">
                     <h3 style="color:var(--green); margin-bottom:12px; text-align:left;"><?php echo e(__('site.karma_card2_h3', [], $loc)); ?></h3>
                     <p><?php echo e(__('site.karma_card2_p', [], $loc)); ?></p>
@@ -126,40 +119,21 @@
     <div class="sa-wave-bottom"></div>
 </section>
 
-<?php if(false): ?>
 
 <section id="production-timeline" class="sa-animated-section" style="padding:70px 5vw;">
     <div class="sa-section-heading sa-reveal">
-        <h2><?php echo e($en ? 'Production & Development Timeline' : 'Timeline de Production & Développement'); ?></h2>
+        
         <div class="sa-divider"></div>
     </div>
     <p class="lead sa-reveal" style="text-align:center; margin-bottom:48px;"><?php echo e($en ? 'Karma mine history from 2007 to present' : 'Historique de la mine de Karma de 2007 à nos jours'); ?></p>
     
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:16px; margin-bottom:40px;">
-        <div class="sa-step-card sa-reveal sa-delay-1" data-step="07">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2007</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;"><?php echo e($en ? 'Acquisition by True Gold Mining' : 'Acquisition par True Gold Mining'); ?></div>
+        <?php $__currentLoopData = $karmaHistoryEvents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="sa-step-card sa-reveal" data-step="<?php echo e($event->sort_order); ?>">
+            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;"><?php echo e($event->localized('label', $loc)); ?></div>
+            <div style="font-size:13px; color:var(--muted); line-height:1.6;"><?php echo e($event->localized('value', $loc)); ?></div>
         </div>
-        <div class="sa-step-card sa-reveal sa-delay-2" data-step="12">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2012-2016</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;"><?php echo e($en ? 'Exploration & development' : 'Exploration & développement'); ?></div>
-        </div>
-        <div class="sa-step-card sa-reveal sa-delay-3" data-step="17">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2017-2018</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;"><?php echo e($en ? 'Construction phase' : 'Phase de construction'); ?></div>
-        </div>
-        <div class="sa-step-card sa-reveal sa-delay-4" data-step="19">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2019</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;"><?php echo e($en ? 'First production' : 'Première production'); ?></div>
-        </div>
-        <div class="sa-step-card sa-reveal sa-delay-5" data-step="24">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2024</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;"><?php echo e($en ? 'Néré Mining transition' : 'Transition Néré Mining'); ?></div>
-        </div>
-        <div class="sa-step-card sa-reveal sa-delay-6" data-step="26">
-            <div style="font-size:24px; font-weight:700; color:var(--green); margin-bottom:4px;">2026+</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.6;"><?php echo e($en ? 'CIL plant & expansion' : 'Usine CIL & expansion'); ?></div>
-        </div>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 
     <div class="sa-program-card sa-reveal" style="max-width:800px; margin:0 auto;">
@@ -178,7 +152,7 @@
     <div class="sa-wave-top"></div>
     <div style="position:relative; z-index:1; max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'Mineral Resources & Reserves' : 'Ressources & Réserves Minérales'); ?></h2>
+            
             <div class="sa-divider"></div>
         </div>
         <p class="lead sa-reveal" style="text-align:center; margin-bottom:48px;"><?php echo e($en ? 'JORC-classified mineral resources across five major deposits at Karma' : 'Ressources minérales classifiées JORC dans cinq gisements majeurs'); ?></p>
@@ -258,10 +232,9 @@
 </section>
 
 
-<?php endif; ?>
 <section id="organisation" class="sa-animated-section" style="padding:70px 5vw;">
     <div class="sa-section-heading sa-reveal">
-        <h2><?php echo e(__('site.karma_org_h2', [], $loc)); ?></h2>
+        
         <div class="sa-divider"></div>
     </div>
     <p class="lead sa-reveal" style="text-align:center; margin-bottom:40px;"><?php echo e(__('site.karma_org_lead', [], $loc)); ?></p>
@@ -294,7 +267,7 @@
     <div class="sa-wave-top"></div>
     <div style="position:relative; z-index:1; max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e(__('site.karma_model_h2', [], $loc)); ?></h2>
+            
             <div class="sa-divider"></div>
         </div>
         <p class="lead sa-reveal" style="text-align:center; margin-bottom:48px;"><?php echo e(__('site.karma_model_lead', [], $loc)); ?></p>
@@ -313,7 +286,7 @@
 
 <section id="impact" class="sa-animated-section" style="padding:70px 5vw;">
     <div class="sa-section-heading sa-reveal">
-        <h2><?php echo e(__('site.karma_impact_h2', [], $loc)); ?></h2>
+        
         <div class="sa-divider"></div>
     </div>
     <p class="lead sa-reveal" style="text-align:center; margin-bottom:48px;"><?php echo e(__('site.karma_impact_lead', [], $loc)); ?></p>

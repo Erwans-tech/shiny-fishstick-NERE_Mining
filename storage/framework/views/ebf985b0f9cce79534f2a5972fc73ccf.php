@@ -120,11 +120,6 @@
 
 <div class="masthead">
     <h1><?php echo e($showJobsOnly ? __('site.careers_jobs_h2', [], $loc) : __('site.careers_h1', [], $loc)); ?></h1>
-    <div class="breadcrumb">
-        <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link', [], $loc)); ?></a>
-        › <?php echo e(__('site.careers_breadcrumb', [], $loc)); ?>
-
-    </div>
 </div>
 
 <main>
@@ -142,10 +137,7 @@
             <?php echo e(__('site.careers_why_h2', [], $loc)); ?>
 
         </p>
-        <h2 style="color:var(--green);font:400 clamp(28px,3.5vw,44px) Inter,sans-serif;line-height:1.05;margin-bottom:14px;">
-            <?php echo e(__('site.careers_why_lead', [], $loc)); ?>
-
-        </h2>
+        
         <div class="why-grid">
             <?php $__currentLoopData = range(1,3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="why-card">
@@ -214,10 +206,7 @@
 
 <main>
     <div class="jobs-section" id="offres-emploi">
-        <h2 style="color:var(--green);font:400 clamp(28px,3.5vw,44px) Inter,sans-serif;margin-bottom:32px;">
-            <?php echo e(__('site.careers_jobs_h2', [], $loc)); ?>
-
-        </h2>
+        
 
         <?php if($jobs->isEmpty()): ?>
         <div class="empty-state">

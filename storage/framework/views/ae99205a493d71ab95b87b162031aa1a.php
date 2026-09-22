@@ -386,17 +386,17 @@
     </div>
 
     <?php
-        $historyYears = $en
-            ? ['2003', '2016', '2022', 'Today']
-            : ['2003', '2016', '2022', "Aujourd'hui"];
+        $historyEvents = ($historyEvents ?? collect())->isNotEmpty() ? $historyEvents : collect(range(1, 4))->map(function ($i) use ($en, $loc) {
+            return new \App\Models\SiteContent(['label_fr' => ['2003', '2016', '2022', "Aujourd'hui"][$i - 1], 'label_en' => ['2003', '2016', '2022', 'Today'][$i - 1], 'value_fr' => __('site.company_hist'.$i.'_p', [], $loc), 'value_en' => __('site.company_hist'.$i.'_p', [], $loc), 'key' => __('site.company_hist'.$i.'_title', [], $loc)]);
+        });
     ?>
 
     <div class="timeline-wrapper">
-        <?php $__currentLoopData = range(1, 4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php $__currentLoopData = $historyEvents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <article class="timeline-event">
             <div class="event-year">
                 <div class="year-badge">
-                    <span class="year-text"><?php echo e($historyYears[$i - 1]); ?></span>
+                    <span class="year-text"><?php echo e($event->localized('label', $loc)); ?></span>
                     <span class="year-label"><?php echo e($en ? 'Year' : 'Année'); ?></span>
                 </div>
             </div>
@@ -406,8 +406,8 @@
             </div>
             
             <div class="event-content">
-                <h3 class="event-title"><?php echo e(__('site.company_hist'.$i.'_title', [], $loc)); ?></h3>
-                <p class="event-text"><?php echo e(__('site.company_hist'.$i.'_p', [], $loc)); ?></p>
+                <h3 class="event-title"><?php echo e($event->key); ?></h3>
+                <p class="event-text"><?php echo e($event->localized('value', $loc)); ?></p>
             </div>
         </article>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

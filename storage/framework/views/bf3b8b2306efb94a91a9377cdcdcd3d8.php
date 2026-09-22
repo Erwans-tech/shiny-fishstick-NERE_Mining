@@ -2,6 +2,7 @@
 <?php
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
+    $section = $section ?? 'home'; // Default section if not provided
 
     $isCompany = in_array($section, [
         'company','company-ceo','company-identity',
@@ -61,8 +62,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="<?php echo e(asset('favicon.svg')); ?>" type="image/svg+xml">
     <title><?php echo e($title ?? __('site.'.$mastheadSection.'_h1', [], $loc)); ?> | Néré Mining</title>
     <meta name="description" content="<?php echo e($description ?? ''); ?>">
+    <script type="application/ld+json">
+    <?php echo json_encode([
+        '<?php $__contextArgs = [];
+if (context()->has($__contextArgs[0])) :
+if (isset($value)) { $__contextPrevious[] = $value; }
+$value = context()->get($__contextArgs[0]); ?>' => 'https://schema.org',
+        '@type' => 'MiningCompany',
+        'name' => 'Néré Mining',
+        'url' => config('app.url'),
+        'logo' => asset('images/logo-nere.png'),
+        'description' => $description ?? 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.',
+        'address' => ['@type' => 'PostalAddress', 'addressCountry' => 'BF'],
+        'sameAs' => array_values(array_filter([config('app.url') . '/en'])),
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP); ?>
+
+    </script>
     <?php echo App\Helpers\CanonicalHelper::render($section, $loc); ?>
 
     <?php echo App\Helpers\CanonicalHelper::renderHreflang($section, $loc); ?>
@@ -81,6 +99,9 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/text-fixes.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/responsive-global.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/text-containers-responsive.css')); ?>">
+    <?php if(app()->environment('production')): ?>
+    <link rel="stylesheet" href="<?php echo e(asset('css/image-protection.css')); ?>">
+    <?php endif; ?>
     <style>
         /* ══ Variables ══════════════════════════════════════════ */
         :root {
@@ -811,18 +832,6 @@
     <?php else: ?>
     <div class="masthead">
         <h1><?php echo e(__('site.'.$mastheadSection.'_h1', [], $loc)); ?></h1>
-        
-        <div class="breadcrumb">
-            <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link', [], $loc)); ?></a>
-            <?php if($isCompany && $section !== 'company'): ?>
-                › <a href="<?php echo e($en ? route('english.company') : route('company')); ?>"><?php echo e(__('site.nav_company', [], $loc)); ?></a>
-            <?php endif; ?>
-            <?php if($isSustain && !in_array($section, ['sustainability'])): ?>
-                › <a href="<?php echo e($en ? route('english.sustainability') : route('sustainability')); ?>"><?php echo e(__('site.nav_sustainability', [], $loc)); ?></a>
-            <?php endif; ?>
-            › <?php echo e(__('site.'.$mastheadSection.'_breadcrumb', [], $loc)); ?>
-
-        </div>
     </div>
     <?php endif; ?>
 
@@ -841,6 +850,9 @@
     <script src="<?php echo e(asset('js/page-animations.js')); ?>?v=<?php echo e(filemtime(public_path('js/page-animations.js'))); ?>"></script>
     <script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
     <script src="<?php echo e(asset('js/cookie-consent.js')); ?>"></script>
+    <?php if(app()->environment('production')): ?>
+    <script src="<?php echo e(asset('js/image-protection.js')); ?>"></script>
+    <?php endif; ?>
     <script>
         // Initialisation supplémentaire si nécessaire
         document.addEventListener('DOMContentLoaded', () => {

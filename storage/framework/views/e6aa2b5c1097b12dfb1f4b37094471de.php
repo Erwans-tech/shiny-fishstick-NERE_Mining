@@ -128,12 +128,6 @@
             </span>
         <?php endif; ?>
     </div>
-    <div class="breadcrumb">
-        <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link', [], $loc)); ?></a> ›
-        <a href="<?php echo e($listRoute); ?>"><?php echo e(__('site.nav_careers', [], $loc)); ?></a> ›
-        <?php echo e(Str::limit($job->title, 50)); ?>
-
-    </div>
 </div>
 
 
@@ -148,14 +142,14 @@
 
         
         <div class="section-block">
-            <h2><?php echo e($en ? 'Job description' : 'Description du poste'); ?></h2>
+            
             <div class="job-description"><?php echo e($job->description); ?></div>
         </div>
 
         
         <?php if($job->requirements): ?>
         <div class="section-block">
-            <h2><?php echo e(__('site.careers_requirements_h3', [], $loc)); ?></h2>
+            
             <ul class="requirements-list">
                 <?php $__currentLoopData = preg_split('/\r?\n/', trim($job->requirements)); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $line): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php if(trim($line)): ?><li><?php echo e($line); ?></li><?php endif; ?>
@@ -166,7 +160,7 @@
 
         
         <div class="apply-section" id="apply">
-            <h2><?php echo e(__('site.careers_apply_title', [], $loc)); ?></h2>
+            
             <p class="apply-lead"><?php echo e(__('site.careers_apply_lead', [], $loc)); ?></p>
 
             <?php if($errors->any()): ?>

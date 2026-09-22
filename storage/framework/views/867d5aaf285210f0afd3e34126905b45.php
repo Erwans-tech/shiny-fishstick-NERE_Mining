@@ -1,3 +1,6 @@
+
+
+
 <?php $__env->startPush('styles'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
 <?php $__env->stopPush(); ?>
@@ -53,25 +56,20 @@
     <div class="sa-wave-top"></div>
     <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'ESG Performance' : 'Performance ESG'); ?></h2>
+            
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;">
-                <?php echo e($en ? 'Our commitment to Environmental, Social, and Governance excellence drives sustainable value creation.' : 'Notre engagement pour excellence Environnementale, Sociale et Gouvernance crée de la valeur durable.'); ?>
+                <?php echo e($en ? 'Verified figures from Karma mine community relations and development actions, covering 2014-2025.' : 'Données documentées sur les relations communautaires et les actions de développement de la mine de Karma, de 2014 à 2025.'); ?>
 
             </p>
         </div>
 
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(165px,1fr)); gap:20px; margin-top:48px;">
+        <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:20px; margin-top:48px;">
 
             <?php
-                $esgData = [
-                    ['count'=>32,'prefix'=>'-','suffix'=>'%','label'=>$en?'CO₂ Reduction (2020-2024)':'Réduction CO₂ (2020-2024)','bar'=>'32%','icon'=>'🌱'],
-                    ['count'=>28,'prefix'=>'-','suffix'=>'%','label'=>$en?'Water Consumption Reduced':'Consommation Eau Réduite','bar'=>'28%','icon'=>'💧'],
-                    ['count'=>95,'suffix'=>'%','label'=>$en?'Waste Recycled/Reused':'Déchets Recyclés/Réutilisés','bar'=>'95%','icon'=>'♻️'],
-                    ['count'=>80,'suffix'=>'%+','label'=>$en?'Local Hiring Rate':'Taux Recrutement Local','bar'=>'80%','icon'=>'👷'],
-                    ['count'=>100,'suffix'=>'%','label'=>$en?'Safety Culture':'Culture sécurité','bar'=>'100%','icon'=>'🛡️'],
-                    ['count'=>100,'suffix'=>'%','label'=>$en?'Conflict-Free Gold':'Or Conflit-Libre','bar'=>'100%','icon'=>'✨'],
-                ];
+                $esgData = $sustainabilityStats->isNotEmpty() ? $sustainabilityStats->values()->map(function ($item, $index) use ($en) {
+                    return ['count' => $item->localized('value', $en ? 'en' : 'fr'), 'suffix' => $item->suffix ?? '', 'label' => $item->localized('label', $en ? 'en' : 'fr'), 'bar' => $index < 2 ? ($index === 0 ? '25%' : '52%') : '100%', 'icon' => $item->icon ?? '📊'];
+                })->all() : [];
             ?>
 
             <?php $__currentLoopData = $esgData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $j => $metric): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -100,7 +98,7 @@
 <section class="sa-animated-section" style="padding:70px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'Our Initiatives' : 'Nos Initiatives'); ?></h2>
+            
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;">
                 <?php echo e($en ? 'Strategic programs addressing environmental, social and economic priorities.' : 'Programmes stratégiques adressant priorités environnementales, sociales et économiques.'); ?>

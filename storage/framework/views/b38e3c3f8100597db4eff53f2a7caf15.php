@@ -1,3 +1,6 @@
+
+
+
 <?php $__env->startSection('content'); ?>
 <?php $companyBase = $en ? route('english.company') : route('company'); ?>
 
@@ -17,15 +20,23 @@
     .leadership-card--lead { grid-column:1 / -1; width:min(700px,100%); justify-self:center; max-width:700px; margin:0 auto; flex-direction:row; gap:24px; align-items:center; text-align:left; background:linear-gradient(135deg,#4b1716,#2d0d10); color:#fff; border-top-color:var(--gold); }
     .leadership-card--lead .leadership-name,.leadership-card--lead .leadership-title { color:#fff; }
     .leadership-card--lead .leadership-department { color:rgba(255,255,255,.7); }
-    .leadership-photo { width:184px; height:184px; flex:0 0 184px; object-fit:cover; border-radius:50%; border:5px solid rgba(255,194,71,.75); background:var(--sand); }
-    .leadership-card:not(.leadership-card--lead) .leadership-photo { width:150px; height:150px; flex-basis:150px; margin-bottom:20px; }
+    .leadership-photo { width:220px; height:220px; flex:0 0 220px; object-fit:cover; object-position:center 28%; border-radius:50%; border:5px solid rgba(255,194,71,.75); background:var(--sand); image-rendering:auto; filter:contrast(1.1) brightness(1.05) saturate(1.05); }
+    .leadership-card:not(.leadership-card--lead) .leadership-photo { width:200px; height:200px; flex-basis:200px; margin-bottom:20px; object-position:center 32%; }
     .leadership-initials { display:grid; place-items:center; font-size:48px; font-weight:700; color:var(--green); }
     .leadership-card--lead .leadership-initials { color:#fff; background:rgba(255,255,255,.12); }
     .leadership-name { margin:0 0 8px; color:var(--green); font-size:18px; font-weight:700; line-height:1.25; }
     .leadership-card > div:last-child { width:100%; min-width:0; text-align:center; }
-    .leadership-name, .leadership-title, .leadership-department { overflow-wrap:break-word; word-break:normal; }
+    .leadership-name, .leadership-title, .leadership-department { overflow-wrap:break-word; word-break:normal; text-align:center; }
     .leadership-title { margin:0 0 8px; color:var(--gold2); font-size:12px; font-weight:700; line-height:1.4; text-transform:uppercase; letter-spacing:.02em; text-align:center; text-wrap:balance; }
-    .leadership-department { margin:0; color:var(--muted); font-size:14px; line-height:1.5; word-break:normal; }
+    .leadership-department { margin:0; color:var(--muted); font-size:14px; line-height:1.5; word-break:normal; text-align:center; }
+    
+    /* Centrage personnalisé par leader */
+    [data-member="dr-elie-justin-ouedraogo"] .leadership-photo { object-position:center 20%; }
+    [data-member="justin-savadogo"] .leadership-photo { object-position:center 35%; }
+    [data-member="pascal-y-ouedraogo"] .leadership-photo { object-position:center 32%; }
+    [data-member="laurent-michel-dabire"] .leadership-photo { object-position:center 30%; }
+    [data-member="augustine-obeng-fori"] .leadership-photo { object-position:center 25%; }
+    
     @media(max-width:900px) { .leadership-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media(max-width:540px) { .leadership-grid { grid-template-columns:1fr; } .leadership-card--lead { flex-direction:column; text-align:center; } }
 </style>
@@ -34,21 +45,21 @@
     <section class="governance-page">
 
     <?php
-        $fallbackLeadership = [
-            ['name' => 'Dr. Justin Elie OUEDRAOGO', 'title' => $en ? 'Chief Executive Officer' : 'Président Directeur Général', 'department' => '', 'hierarchy_level' => 1, 'photo_path' => 'images/mining/mining-workers-01.jpg'],
-            ['name' => 'Justin SAVADOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => 'Administration & Finance', 'hierarchy_level' => 2, 'photo_path' => 'images/mining/gold-processing-01.jpg'],
-            ['name' => 'Pascal Y. OUEDRAOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Supply & Procurement' : 'Approvisionnements', 'hierarchy_level' => 2, 'photo_path' => 'images/mining/mining-equipment-01.jpg'],
-            ['name' => 'Laurent Michel DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'hierarchy_level' => 2, 'photo_path' => 'images/mining/mining-site-aerial-01.jpg'],
-            ['name' => 'Augustine OBENG-FORI', 'title' => $en ? 'Deputy CEO (interim)' : 'DGA par intérim', 'department' => $en ? 'Operations' : 'Opérations', 'hierarchy_level' => 2, 'photo_path' => 'images/mining/mining-environment-01.jpg'],
-        ];
-        $leadershipMembers = $leadership->isNotEmpty() ? $leadership : collect($fallbackLeadership);
-        $leadershipLevels = $leadershipMembers->groupBy(fn($member) => is_array($member) ? $member['hierarchy_level'] : $member->hierarchy_level);
+        // HARDCODED LEADERSHIP - No database dependency
+        $leadershipMembers = collect([
+            ['name' => 'Dr. Elie Justin OUEDRAOGO', 'title' => 'NAAABA BAOOGO DE GOURCY', 'department' => 'Président Directeur Général', 'hierarchy_level' => 1, 'photo_path' => 'images/leadership/pdg-traditional.jpg'],
+            ['name' => 'Justin SAVADOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => 'Administration & Finance', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/justin-savadogo.jpeg'],
+            ['name' => 'Pascal Y. OUEDRAOGO', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Supply Chain Planning & Optimization' : 'Planification et optimisation des Approvisionnements', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/pascal-ouedraogo.jpeg'],
+            ['name' => 'Laurent Michel DABIRE', 'title' => $en ? 'Deputy CEO' : 'Directeur Général Adjoint', 'department' => $en ? 'Corporate & Legal Affairs' : 'Affaires Corporatives & Juridiques', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/laurent-dabire.jpeg'],
+            ['name' => 'Augustine OBENG-FORI', 'title' => $en ? 'Mining Director' : 'Directeur de l\'exploitation', 'department' => '', 'hierarchy_level' => 2, 'photo_path' => 'images/leadership/augustine-obeng-fori.jpeg'],
+        ]);
+        $leadershipLevels = $leadershipMembers->groupBy('hierarchy_level');
         $levelLabels = [1 => $en ? 'Executive leadership' : 'Direction générale', 2 => $en ? 'Deputy executive leadership' : 'Direction générale adjointe', 3 => $en ? 'Management' : 'Directions et responsables'];
     ?>
 
     <div class="leadership-section">
         <div class="leadership-intro">
-            <h2><?php echo e($en ? 'Our leadership team' : 'Notre équipe de direction'); ?></h2>
+            
             <p><?php echo e($en ? 'Meet the leaders who guide Néré Mining and its commitments to the territory.' : 'Découvrez les dirigeants qui portent la vision de Néré Mining et ses engagements pour le territoire.'); ?></p>
         </div>
         <?php $__currentLoopData = $leadershipLevels; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $level => $levelMembers): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -57,20 +68,16 @@
             <div class="leadership-grid">
             <?php $__currentLoopData = $levelMembers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $member): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <?php
-                $name = is_array($member) ? $member['name'] : $member->name;
-                $title = is_array($member) ? $member['title'] : $member->title;
-                $department = is_array($member) ? $member['department'] : $member->department;
-                $photoPath = is_array($member) ? $member['photo_path'] : $member->photo_path;
-                $memberLevel = is_array($member) ? $member['hierarchy_level'] : $member->hierarchy_level;
-                $photoUrl = $photoPath ? \App\Helpers\StorageHelper::uploadUrl($photoPath) : null;
+                $name = $member['name'];
+                $title = $member['title'];
+                $department = $member['department'];
+                $photoPath = $member['photo_path'];
+                $memberLevel = $member['hierarchy_level'];
+                $photoUrl = asset($photoPath);
                 $initials = collect(preg_split('/\s+/', trim($name)))->filter()->map(fn($part) => strtoupper(substr($part, 0, 1)))->take(2)->implode('');
             ?>
-            <article class="leadership-card <?php echo e($memberLevel === 1 ? 'leadership-card--lead' : ''); ?>">
-                <?php if($photoUrl): ?>
+            <article class="leadership-card <?php echo e($memberLevel === 1 ? 'leadership-card--lead' : ''); ?>" data-member="<?php echo e(str_replace(' ', '-', strtolower($name))); ?>">
                 <img class="leadership-photo" src="<?php echo e($photoUrl); ?>" alt="<?php echo e($name); ?>" loading="lazy">
-                <?php else: ?>
-                <div class="leadership-photo leadership-initials" aria-hidden="true"><?php echo e($initials); ?></div>
-                <?php endif; ?>
                 <div>
                     <h3 class="leadership-name"><?php echo e($name); ?></h3>
                     <p class="leadership-title"><?php echo e($title); ?></p>

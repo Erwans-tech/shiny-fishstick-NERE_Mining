@@ -1,3 +1,6 @@
+
+
+
 <?php $__env->startSection('content'); ?>
 
 <style>
@@ -9,7 +12,7 @@
 </style>
 
 <section>
-    <h2 style="color:var(--green); margin:0 0 18px; font-size:28px; font-weight:600;"><?php echo e($en ? 'All Reports & Documents' : 'Tous les Rapports & Documents'); ?></h2>
+    
     <p class="lead"><?php echo e(__('site.reports_lead', [], $loc)); ?></p>
 
     <div class="grid-3">

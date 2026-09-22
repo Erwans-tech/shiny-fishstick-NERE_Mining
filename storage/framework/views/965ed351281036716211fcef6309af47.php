@@ -1,65 +1,67 @@
 <?php
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
-    $slides = $slides ?? collect();
-    $defaultHeroImages = collect([
-        ['type' => 'image', 'filename' => 'gyathursan-mine-5523376_1920.jpg', 'kicker' => 'Une mine de', 'copy' => 'classe mondiale', 'kicker_en' => 'A mine of', 'copy_en' => 'world-class'],
-        ['type' => 'image', 'filename' => 'pexels-gunshe-5125104.jpg', 'kicker' => 'Des opérations', 'copy' => 'responsables', 'kicker_en' => 'Responsible', 'copy_en' => 'operations'],
-        ['type' => 'image', 'filename' => 'shibang-mechanical-2653706_1920.jpg', 'kicker' => 'L’excellence', 'copy' => 'industrielle', 'kicker_en' => 'Industrial', 'copy_en' => 'excellence'],
-        ['type' => 'image', 'filename' => 'tyna_janoch-excavator-2781676_1920.jpg', 'kicker' => 'Des équipes', 'copy' => 'engagées', 'kicker_en' => 'Committed', 'copy_en' => 'teams'],
-        ['type' => 'image', 'filename' => 'tyna_janoch-mine-2781686_1920.jpg', 'kicker' => 'Un territoire', 'copy' => 'en mouvement', 'kicker_en' => 'A region', 'copy_en' => 'in motion'],
-        ['type' => 'video', 'filename' => 'Video Project 1.mp4', 'kicker' => 'Karma', 'copy' => 'notre mine d’or', 'kicker_en' => 'Karma', 'copy_en' => 'our gold mine'],
-    ])->map(fn($slide) => [
-        'type'      => $slide['type'],
-        'url'       => asset('images/carousel/'.$slide['filename']),
-        'embed_url' => null,
-        'is_local_video' => $slide['type'] === 'video',
-        'title'     => 'Néré Mining',
-        'caption'   => null,
-        'kicker'    => $en ? $slide['kicker_en'] : $slide['kicker'],
-        'copy'      => $en ? $slide['copy_en'] : $slide['copy'],
+    
+    // HARDCODED HERO IMAGES - No database dependency
+    $heroImages = collect([
+        [
+            'type' => 'image', 
+            'url' => asset('images/hero/7I0F6l1lmLkgswXMdTDm4ayucFaHUgcMJcnzn0im.jpg'),
+            'embed_url' => null,
+            'is_local_video' => false,
+            'title' => 'Néré Mining',
+            'caption' => null,
+            'kicker' => 'Néré Mining',
+            'copy' => $en ? 'A mining company rooted in the national economy' : 'Une entreprise minière à ancrage national'
+        ],
+        [
+            'type' => 'image', 
+            'url' => asset('images/hero/H7eEolBtJlKwU8I1VCj8iU4g6G0cNthAfc55kopr.jpg'),
+            'embed_url' => null,
+            'is_local_video' => false,
+            'title' => 'Néré Mining',
+            'caption' => null,
+            'kicker' => 'Néré Mining',
+            'copy' => $en ? 'An operating mine: Riverstone Karma' : 'Une mine en exploitation : Riverstone Karma'
+        ],
+        [
+            'type' => 'image', 
+            'url' => asset('images/hero/UCrXfKr1OeYXovqWbAyM48WdKySdWoGQgpc99SGs.jpg'),
+            'embed_url' => null,
+            'is_local_video' => false,
+            'title' => 'Néré Mining',
+            'caption' => null,
+            'kicker' => 'Néré Mining',
+            'copy' => $en ? 'Exploration activities and a development portfolio' : 'Des activités d\'exploration et un portefeuille en développement'
+        ],
+        [
+            'type' => 'image', 
+            'url' => asset('images/hero/Aqlk75ywPYBXsQWFa0Z7pRFKAdLsajbcqDPSY3FV.jpg'),
+            'embed_url' => null,
+            'is_local_video' => false,
+            'title' => 'Néré Mining',
+            'caption' => null,
+            'kicker' => 'Néré Mining',
+            'copy' => $en ? 'An ambition based on performance, responsibility and shared value creation' : 'Une ambition fondée sur la performance, la responsabilité et la création de valeur partagée'
+        ],
     ]);
-
-    $defaultText = [
-        'gyathursan-mine-5523376_1920.jpg' => ['Une mine de', 'classe mondiale', 'A mine of', 'world-class'],
-        'pexels-gunshe-5125104.jpg' => ['Des opérations', 'responsables', 'Responsible', 'operations'],
-        'shibang-mechanical-2653706_1920.jpg' => ['L’excellence', 'industrielle', 'Industrial', 'excellence'],
-        'tyna_janoch-excavator-2781676_1920.jpg' => ['Des équipes', 'engagées', 'Committed', 'teams'],
-        'tyna_janoch-mine-2781686_1920.jpg' => ['Un territoire', 'en mouvement', 'A region', 'in motion'],
-        'Video Project 1.mp4' => ['Karma', 'notre mine d’or', 'Karma', 'our gold mine'],
-    ];
-    $databaseHeroImages = $slides->map(function ($slide) use ($defaultText, $en) {
-            $filename = basename((string) ($slide->image_path ?? ''));
-            $default = $defaultText[$filename] ?? null;
-            return [
-                'type'      => $slide->type ?? 'image',
-                'url'       => $slide->url ?? '',
-                'video_url' => $slide->video_url ?? null,
-                'embed_url' => $slide->embed_url ?? null,
-                'is_local_video' => ($slide->type ?? 'image') === 'video' && empty($slide->embed_url),
-                'title'     => $slide->title ?? '',
-                'caption'   => $slide->caption ?? null,
-                'kicker'    => $default ? ($en ? $default[2] : $default[0]) : ($slide->title ?? 'Néré Mining'),
-                'copy'      => $default ? ($en ? $default[3] : $default[1]) : ($slide->caption ?: ($slide->title ?? 'Néré Mining')),
-            ];
-        })->filter(fn($slide) => !empty($slide['url']))->values();
-    $heroImages = $databaseHeroImages->isNotEmpty() ? $databaseHeroImages : $defaultHeroImages;
+    
     $heroDuration = count($heroImages) * 5;
     $heroSlot = 100 / max(count($heroImages), 1);
 ?>
-<!DOCTYPE html>
-<html lang="<?php echo e($loc); ?>">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="<?php echo e(asset('favicon.svg')); ?>" type="image/svg+xml">
     <title>Néré Mining  - <?php echo e($en ? 'Gold with lasting value' : "L'or d'une valeur durable"); ?></title>
     <meta name="description" content="<?php echo e($en
         ? 'Néré Mining, Burkinabe gold mining group committed to responsible mining at Karma.'
         : 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.'); ?>">
+    <link rel="canonical" href="<?php echo e($en ? url('/en') : url('/')); ?>">
+    <?php echo \App\Helpers\OpenGraphHelper::render('home', $loc, $en ? 'Néré Mining, Burkinabe gold mining group committed to responsible mining at Karma.' : 'Néré Mining, groupe aurifère burkinabè engagé pour une mine responsable à Karma.'); ?>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/album-carousel.css')); ?>?v=<?php echo e(filemtime(public_path('css/album-carousel.css'))); ?>">
     <style>
         :root {
             --ink:   #281d18;
@@ -110,12 +112,14 @@
             overflow:hidden; color:#fff;
         }
         /* Slideshow */
-        .hero-bg { position:absolute; inset:0; z-index:0; background:#1a0505; }
+        .hero-bg { position:absolute; inset:0; z-index:0; background:#1a0505; overflow:hidden; }
         .hero-slide {
             position:absolute; inset:0;
             background-size:cover; background-position:center;
             opacity:0; transform:scale(1.07);
-            will-change:opacity,transform;
+            filter:saturate(1.03) contrast(1.04) brightness(.9);
+            will-change:opacity,transform,filter;
+            transition:opacity 900ms ease-in-out, transform 1600ms cubic-bezier(.2,.8,.2,1), filter 900ms ease-in-out;
         }
         .hero-slide:nth-child(even), .hero-slide-video:nth-child(even) { transform-origin:right center; }
         .hero-slide:nth-child(odd), .hero-slide-video:nth-child(odd) { transform-origin:left center; }
@@ -124,7 +128,8 @@
             position:absolute; inset:0;
             opacity:0;
             pointer-events:none;
-            will-change:opacity;
+            will-change:opacity,transform;
+            transition:opacity 900ms ease-in-out, transform 1800ms cubic-bezier(.2,.8,.2,1), filter 900ms ease-in-out;
         }
         .hero-slide-video iframe {
             position:absolute;
@@ -152,12 +157,12 @@
         @keyframes heroSlide<?php echo e($index); ?> {
             0%,<?php echo e(max(0, $index * $heroSlot - 5)); ?>% { opacity:0; transform:scale(1.08); }
             <?php echo e(max(0, $index * $heroSlot - 1)); ?>%,<?php echo e(min(100, ($index + 1) * $heroSlot - 5)); ?>% { opacity:1; transform:scale(1.02); }
-            <?php echo e(min(100, ($index + 1) * $heroSlot - 1)); ?>%,100% { opacity:0; transform:scale(1); }
+            <?php echo e(min(100, ($index + 1) * $heroSlot - 1)); ?>%,100% { opacity:0; transform:scale(1.05); }
         }
         @keyframes heroCopySlide<?php echo e($index); ?> {
             <?php if($index % 3 === 0): ?>
             0%,<?php echo e(max(0, $index * $heroSlot - 5)); ?>% { opacity:0; transform:translateY(16px) scale(.98); }
-            <?php echo e(max(0, $index * $heroSlot - 1)); ?>%,<?php echo e(min(100, ($index + 1) * $heroSlot - 5)); ?>% { opacity:1; transform:translateY(0); }
+            <?php echo e(max(0, $index * $heroSlot - 1)); ?>%,<?php echo e(min(100, ($index + 1) * $heroSlot - 5)); ?>% { opacity:1; transform:translateY(0) scale(1); }
             <?php echo e(min(100, ($index + 1) * $heroSlot - 1)); ?>%,100% { opacity:0; transform:translateY(-8px) scale(1.01); }
             <?php elseif($index % 3 === 1): ?>
             0%,<?php echo e(max(0, $index * $heroSlot - 5)); ?>% { opacity:0; transform:translateX(-24px) rotate(-1deg); }
@@ -189,28 +194,29 @@
             background:linear-gradient(to right, var(--gold), var(--gold2) 60%, transparent 100%);
         }
         .hero-copy {
-            position:absolute; z-index:3; left:50%; top:50%;
-            width:min(90vw,900px); min-height:140px; transform:translate(-50%,-50%);
-            color:#fff; text-align:left;
+            position:absolute; z-index:3; left:12%; top:50%;
+            width:min(90vw,980px); min-height:200px; transform:translateY(-50%);
+            color:#fff; text-align:left; overflow:visible;
+            display:flex; align-items:center; justify-content:flex-start;
         }
         .hero-copy-slide {
             position:absolute; inset:0; opacity:0;
-        }
-        .hero-copy-kicker {
-            display:block; margin-bottom:8px;
-            font:500 clamp(18px,2vw,28px)/1.1 Inter,sans-serif;
-            color:var(--gold); letter-spacing:.02em; text-transform:uppercase;
-            text-shadow:0 2px 12px rgba(42,16,16,.8);
+            min-height:200px; width:100%;
+            display:flex; align-items:center;
+            padding:20px 0;
         }
         .hero-copy-title {
-            display:block; max-width:780px;
-            font:700 clamp(48px,7vw,96px)/1.15 Inter,sans-serif;
-            letter-spacing:-.03em; text-transform:lowercase;
+            display:block; max-width:min(68vw,680px);
+            font:700 clamp(40px,4.4vw,70px)/1.15 Inter,sans-serif;
+            letter-spacing:-.035em; text-transform:none;
             color:#fff4dc;
             background:linear-gradient(105deg,#fff4dc 0%,#ffc247 52%,#e5a72f 100%);
             -webkit-background-clip:text; background-clip:text;
             -webkit-text-fill-color:transparent;
             text-shadow:0 4px 24px rgba(42,16,16,.55);
+            overflow-wrap:anywhere; word-break:break-word;
+            white-space:normal;
+            overflow:visible;
         }
         /* Content grid */
         /* Stat tiles below the hero image */
@@ -413,7 +419,7 @@
             width:90px; height:3px; border-radius:999px;
             background:linear-gradient(90deg, transparent, var(--gold2), transparent);
         }
-        .news-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+        .news-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
         .news-sec .btn-dark {
             margin-top:18px;
             align-self:flex-end;
@@ -423,8 +429,8 @@
             color:inherit;
             text-decoration:none;
         }
-        /* Featured first card */
-        .news-grid .news-card:first-child { grid-column:span 2; }
+        /* All cards same size - 4 per row */
+        .news-grid .news-card:first-child { grid-column:span 1; }
         .news-card {
             display:flex; flex-direction:column;
             background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(248,244,240,1));
@@ -450,7 +456,9 @@
         .news-card-link:hover .news-card::before { transform:scaleX(1); }
         .news-img-wrap { overflow:hidden; border-radius:16px 16px 0 0; }
         .news-img { width:100%; height:170px; object-fit:cover; transition:transform .5s ease; display:block; }
-        .news-grid .news-card:first-child .news-img { height:220px; }
+        .news-grid .news-card:first-child .news-img { height:170px; }
+        /* Center face in Dr OUEDRAOGO article */
+        .news-card[data-news-id="4"] .news-img { object-position: center 20%; }
         .news-card-link:hover .news-img { transform:scale(1.04); }
         .news-img-ph {
             width:100%; height:170px;
@@ -458,7 +466,7 @@
             display:flex; align-items:center; justify-content:center;
             font:700 38px Inter,sans-serif; color:rgba(255,255,255,.2); letter-spacing:.1em;
         }
-        .news-grid .news-card:first-child .news-img-ph { height:220px; }
+        .news-grid .news-card:first-child .news-img-ph { height:170px; }
         .news-body { padding:20px 24px; display:flex; flex-direction:column; flex:1; position:relative; z-index:2; background:#fff; }
         .news-meta {
             font:700 11px Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase;
@@ -469,7 +477,7 @@
             font-size:18px; font-weight:600; color:var(--ink); line-height:1.3;
             margin-bottom:14px; letter-spacing:-.01em; transition:color .2s;
         }
-        .news-grid .news-card:first-child h3 { font-size:26px; }
+        .news-grid .news-card:first-child h3 { font-size:18px; }
         .news-card-link:hover h3 { color:var(--green); }
         .news-read {
             margin-top:auto; font:700 11px Inter,sans-serif; letter-spacing:.14em;
@@ -581,8 +589,11 @@
             .topbar { display:none; }
             .hero { min-height:100svh; }
             .hero-stats { grid-template-columns:repeat(2,1fr); }
-            .news-grid  { grid-template-columns:1fr; }
+            .news-grid  { grid-template-columns:repeat(2,1fr); }
             .news-grid .news-card:first-child { grid-column:span 1; }
+        }
+        @media(max-width:600px) {
+            .news-grid  { grid-template-columns:1fr; }
         }
         @media(max-width:600px) {
             .partners-sec { padding:34px 5vw 30px; }
@@ -645,7 +656,6 @@
         <div class="hero-copy">
             <?php $__currentLoopData = $heroImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $heroImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="hero-copy-slide" style="animation:heroCopySlide<?php echo e($index); ?> <?php echo e($heroDuration); ?>s infinite;">
-                <span class="hero-copy-kicker"><?php echo e($heroImage['kicker'] ?? 'Néré Mining'); ?></span>
                 <span class="hero-copy-title"><?php echo e($heroImage['copy'] ?? ''); ?></span>
             </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -671,9 +681,10 @@
         <div class="sa-particles-container" data-count="5"></div>
         <div class="intro-inner">
             <div class="intro-copy sa-reveal sa-delay-1">
-                <h2 class="sec-h2" id="intro-nere-h">Une filière aurifère durable, ancrée dans le développement local.</h2>
+                
                 <p class="sec-lead">
-                    Néré Mining est un groupe aurifère ancré au Burkina Faso, détenu majoritairement par des actionnaires burkinabè. Nous contribuons au développement local et créons de la valeur pour les communautés autour de notre mine d'or de Karma, en menant nos activités avec transparence, responsabilité et respect de l'environnement.
+                    <?php echo e($homeDescription ?: 'Néré Mining SA est une entreprise minière aurifère majoritairement détenue par des capitaux burkinabè. À travers l’exploitation de sa mine de Karma et ses activités d’exploration, Néré Mining ambitionne de contribuer au développement d’un secteur minier national performant, responsable et créateur de valeur pour le Burkina Faso.'); ?>
+
                 </p>
             </div>
             <div class="intro-points">
@@ -691,13 +702,63 @@
         <div class="sa-particles-container" data-count="3"></div>
         <div class="news-head sa-reveal">
             <div>
-                <h2 class="sec-h2" id="news-h"><?php echo e(__('site.home_news_h2', [], $loc)); ?></h2>
+                <span class="sec-tag"><?php echo e($en ? 'News & Gallery' : 'Actualités & Galerie'); ?></span>
+                <h2 id="news-h" class="sec-h"><?php echo e($en ? 'Latest News' : 'Dernières actualités'); ?></h2>
             </div>
         </div>
         <div class="news-grid">
+            
+            <?php if(isset($featuredAlbum) && $featuredAlbum): ?>
+            <a class="news-card-link sa-reveal sa-delay-1" href="<?php echo e($en ? route('english.gallery.album', $featuredAlbum) : route('gallery.album', $featuredAlbum)); ?>" aria-label="<?php echo e($en ? 'View album' : 'Voir l\'album'); ?> : <?php echo e(e($featuredAlbum->title)); ?>">
+                <article class="news-card sr album-as-news-card" data-album-id="<?php echo e($featuredAlbum->id); ?>">
+                    <div class="news-img-wrap">
+                        <?php
+                            $previewImages = $featuredAlbum->preview_images;
+                        ?>
+                        <?php if($previewImages->isNotEmpty()): ?>
+                            <div class="album-carousel-mini">
+                                <?php $__currentLoopData = $previewImages->take(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="album-carousel-slide <?php echo e($index === 0 ? 'active' : ''); ?>">
+                                        <img class="news-img" src="<?php echo e($media->url); ?>" alt="<?php echo e($media->title); ?>" loading="lazy">
+                                    </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($previewImages->count() > 1): ?>
+                                    <div class="album-carousel-dots">
+                                        <?php $__currentLoopData = $previewImages->take(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <span class="dot <?php echo e($index === 0 ? 'active' : ''); ?>"></span>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php else: ?>
+                            <img class="news-img news-img-ph" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(e($featuredAlbum->title)); ?>" loading="lazy">
+                        <?php endif; ?>
+                    </div>
+                    <div class="news-body">
+                        <div class="news-meta">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px;">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <path d="M21 15l-5-5L5 21"/>
+                            </svg>
+                            <?php echo e($en ? 'Album' : 'Album'); ?> · <?php echo e($featuredAlbum->photo_count); ?> <?php echo e($featuredAlbum->photo_count > 1 ? 'photos' : 'photo'); ?>
+
+                        </div>
+                        <h3><?php echo e($featuredAlbum->title); ?></h3>
+                        <span class="news-read">
+                            <?php echo e($en ? 'View album' : 'Voir l\'album'); ?>
+
+                            <span class="news-read-arr">→</span>
+                        </span>
+                    </div>
+                </article>
+            </a>
+            <?php endif; ?>
+            
+            
             <?php $__empty_1 = true; $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
             <a class="news-card-link sa-reveal sa-delay-<?php echo e($i % 3 + 1); ?>" href="<?php echo e($en ? route('english.news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) : route('news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i])); ?>" aria-label="<?php echo e(__('site.read_more', [], $loc)); ?> : <?php echo e(e($item['title'])); ?>">
-                <article class="news-card sr">
+                <article class="news-card sr" data-news-id="<?php echo e($item['id'] ?? ''); ?>">
                     <div class="news-img-wrap">
                         <?php if(!empty($item['image']) && !str_contains((string)$item['image'], 'null')): ?>
                             <img class="news-img"
@@ -742,12 +803,18 @@
         <div class="sa-particles-container" data-count="4"></div>
         <div class="partners-head sa-reveal">
             <span class="sec-tag"><?php echo e(__('site.home_partners_label', [], $loc)); ?></span>
-            <h2 class="sec-h2" id="partners-h"><?php echo e(__('site.home_partners_h2', [], $loc)); ?></h2>
+            
             <p class="sec-lead"><?php echo e(__('site.home_partners_intro', [], $loc)); ?></p>
         </div>
 
         <?php
             $defaultPartners = [
+                [
+                    'img'  => asset('images/partners/neemba-logo.jpeg'),
+                    'name' => 'NEEMBA',
+                    'cat'  => $en ? 'Institutional Partner' : 'Partenaire Institutionnel',
+                    'url'  => null,
+                ],
                 [
                     'img'  => asset('images/partners/armoiries-burkina-faso.jpg'),
                     'name' => $en ? 'Government of Burkina Faso' : 'État burkinabè',
@@ -937,6 +1004,10 @@
         }
     })();
     </script>
+    
+    <!-- Album Carousel JS -->
+    <script src="<?php echo e(asset('js/album-carousel.js')); ?>"></script>
 </body>
 </html>
+
 <?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views\home.blade.php ENDPATH**/ ?>

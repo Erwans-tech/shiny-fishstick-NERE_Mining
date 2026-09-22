@@ -39,6 +39,8 @@ class AdminDashboardController extends Controller
             'newsletter'       => NewsletterSubscriber::count(),
             'certifications'   => Certification::active()->count(),
             'hero_slides'      => HeroSlide::where('is_active', true)->count(),
+            'leadership'       => \App\Models\LeadershipMember::count(),
+            'karma_departments'=> \App\Models\KarmaDepartment::count(),
         ];
 
         // Activité des 7 derniers jours (pour graphique)

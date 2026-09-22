@@ -99,6 +99,9 @@ $value = context()->get($__contextArgs[0]); ?>' => 'https://schema.org',
     <link rel="stylesheet" href="<?php echo e(asset('css/text-fixes.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/responsive-global.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/text-containers-responsive.css')); ?>">
+    <?php if(app()->environment('production')): ?>
+    <link rel="stylesheet" href="<?php echo e(asset('css/image-protection.css')); ?>">
+    <?php endif; ?>
     <style>
         /* ══ Variables ══════════════════════════════════════════ */
         :root {
@@ -847,6 +850,9 @@ $value = context()->get($__contextArgs[0]); ?>' => 'https://schema.org',
     <script src="<?php echo e(asset('js/page-animations.js')); ?>?v=<?php echo e(filemtime(public_path('js/page-animations.js'))); ?>"></script>
     <script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
     <script src="<?php echo e(asset('js/cookie-consent.js')); ?>"></script>
+    <?php if(app()->environment('production')): ?>
+    <script src="<?php echo e(asset('js/image-protection.js')); ?>"></script>
+    <?php endif; ?>
     <script>
         // Initialisation supplémentaire si nécessaire
         document.addEventListener('DOMContentLoaded', () => {

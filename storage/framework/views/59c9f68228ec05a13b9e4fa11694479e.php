@@ -1,3 +1,6 @@
+
+
+
 <?php $__env->startSection('content'); ?>
 <?php $companyBase = $en ? route('english.company') : route('company'); ?>
 
@@ -64,7 +67,10 @@
     <div class="pdg-block sr">
         <div>
             <div class="pdg-photo">
-                    <img src="<?php echo e(asset('images/company/pdg.jpg')); ?>" alt="<?php echo e($en ? 'President and CEO of Néré Mining' : 'Président-Directeur Général de Néré Mining'); ?>" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+                    <img src="<?php echo e(asset('images/company/pdg-traditional.jpg')); ?>" alt="<?php echo e($en ? 'President and CEO of Néré Mining' : 'Président-Directeur Général de Néré Mining'); ?>" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div style="margin-top: 16px; text-align: center;">
+                <div style="font-size: 14px; font-weight: 600; color: var(--green); letter-spacing: 0.05em;">NAAABA BAOOGO DE GOURCY</div>
             </div>
         </div>
         <div>
@@ -83,17 +89,18 @@
                 <?php else: ?>
                     <p class="pdg-quote">Chers partenaires, chers visiteurs,</p>
                     <div class="pdg-letter">
-                        <p>Bienvenue sur le site officiel de Néré Mining.</p>
-                        <p>À travers ces pages, vous découvrirez nos activités de prospection, d’extraction, de production et de commercialisation de l’or, menées depuis notre site de Karma, situé dans la région du Nord du Burkina Faso.</p>
-                        <p>Notre mission s’inscrit pleinement dans la dynamique de développement économique du pays. Nous œuvrons à créer de la valeur durable, au bénéfice de la région, du Burkina Faso dans son ensemble, et des communautés locales qui nous entourent.</p>
+                        <?php $__currentLoopData = preg_split('/\R\R/', $ceoMessage ?: "Bienvenue sur le site officiel de Néré Mining.\n\nÀ travers ces pages, vous découvrirez nos activités de prospection, d’extraction, de production et de commercialisation de l’or."); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $paragraph): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <p><?php echo e($paragraph); ?></p>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php if(!$ceoMessage): ?>
                         <p>Ce site se veut un espace d’échange et d’information avec nos partenaires, nos collaborateurs et tous ceux qui s’intéressent à notre démarche. Il reflète les valeurs cardinales qui nous animent au quotidien : <strong>Intégrité, Professionnalisme, Respect et Esprit d’équipe.</strong></p>
                         <p>Vous y trouverez également des informations sur nos projets en cours, notamment nos engagements en matière de protection de l’environnement et de développement communautaire dans nos zones d’intervention.</p>
                         <p>Nous vous invitons à consulter régulièrement ce site et à nous faire part de vos suggestions, idées ou remarques pour continuer à progresser ensemble.</p>
                         <p>Au nom de toute l’équipe de Néré Mining, je vous souhaite une excellente visite.</p>
+                        <?php endif; ?>
                         <p class="pdg-signature">Le Président-Directeur Général</p>
                     </div>
                 <?php endif; ?>
-                <div class="pdg-title"><?php echo e(__('site.company_pdg_company', [], $loc)); ?></div>
         </div>
     </div>
 </section>

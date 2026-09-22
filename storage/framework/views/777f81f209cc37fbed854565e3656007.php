@@ -32,7 +32,7 @@
 </style>
 <div class="karma-page">
 <section id="organisation">
-    <h2><?php echo e(__('site.karma_org_h2', [], $loc)); ?></h2>
+    
     <p class="lead"><?php echo e(__('site.karma_org_lead', [], $loc)); ?></p>
     <div class="organisation-grid">
         <?php $__empty_1 = true; $__currentLoopData = $karmaDepartments ?? collect(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>

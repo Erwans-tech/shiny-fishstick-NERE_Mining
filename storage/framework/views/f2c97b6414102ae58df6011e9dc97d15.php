@@ -12,6 +12,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <?php if($section === 'gallery'): ?>
+    <link rel="stylesheet" href="<?php echo e(asset('css/album-carousel.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/image-optimization.css')); ?>">
+    <?php endif; ?>
+    
     <style>
         :root {
             --ink:#281d18; --green:#4b1716; --red:#d72f2f; --gold:#ffc247;
@@ -83,19 +89,111 @@
         .btn-dark:hover { background:#3a100f; }
 
         /* ── Gallery grid ── */
-        .gallery-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:16px; }
-        .gallery-item { grid-column:span 4; border-radius:6px; overflow:hidden; background:var(--sand); border:1px solid var(--line); }
-        .gallery-item:nth-child(1) { grid-column:span 7; grid-row:span 2; }
-        .gallery-item:nth-child(2) { grid-column:span 5; }
-        .gallery-item:nth-child(3) { grid-column:span 5; }
-        .gallery-media { position:relative; display:block; height:280px; overflow:hidden; background:#17110f; cursor:zoom-in; }
-        .gallery-item:nth-child(1) .gallery-media { height:520px; }
-        .gallery-media img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .35s ease; }
-        .gallery-media:hover img { transform:scale(1.04); }
-        .gallery-play { position:absolute; left:50%; top:50%; width:56px; height:56px; transform:translate(-50%,-50%); display:grid; place-items:center; border-radius:50%; background:rgba(255,194,71,.95); color:var(--ink); font-size:22px; padding-left:3px; box-shadow:0 4px 16px rgba(0,0,0,.25); }
-        .gallery-caption { padding:14px 16px; }
-        .gallery-caption h3 { font:600 15px Inter,sans-serif; color:var(--green); margin-bottom:4px; }
-        .gallery-caption p { font:13px Inter,sans-serif; color:var(--muted); margin:0; }
+        .gallery-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .gallery-item { 
+            position: relative;
+            border-radius: 8px; 
+            overflow: hidden; 
+            background: #17110f; 
+            border: 1px solid var(--line);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .gallery-item:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.18);
+            border-color: var(--gold);
+            z-index: 10;
+        }
+        .gallery-media { 
+            position: relative; 
+            display: block; 
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background: #17110f; 
+        }
+        .gallery-media img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block; 
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s;
+        }
+        .gallery-media:hover img { 
+            transform: scale(1.08);
+            filter: brightness(1.05);
+        }
+        /* Layout dynamique avec tailles variées */
+        .gallery-item:nth-child(1) { 
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        .gallery-item:nth-child(2) { 
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        .gallery-item:nth-child(3) { 
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        .gallery-item:nth-child(4) { 
+            grid-column: span 1;
+            grid-row: span 2;
+        }
+        .gallery-item:nth-child(5) { 
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        .gallery-item:nth-child(6) { 
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+        .gallery-item:nth-child(7) { 
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        .gallery-item:nth-child(8) { 
+            grid-column: span 1;
+            grid-row: span 2;
+        }
+        .gallery-item:nth-child(9) { 
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        .gallery-item:nth-child(10) { 
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+        .gallery-item:nth-child(11) { 
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        .gallery-item:nth-child(12) { 
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        .gallery-item:nth-child(13) { 
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        .gallery-item:nth-child(14) { 
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        .gallery-item:nth-child(15) { 
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+        .gallery-caption { 
+            display: none;
+        }
 
         /* ── Sand ── */
         .sand { background:var(--sand); }
@@ -127,10 +225,61 @@
         footer { padding:32px 5vw; background:#351312; color:#eadcca; display:flex; justify-content:space-between; align-items:center; font:12px Inter,sans-serif; }
         .footer-links { display:flex; gap:20px; }
         .footer-links a:hover { color:var(--gold); }
-        .lightbox { position:fixed; inset:0; z-index:300; display:grid; place-items:center; padding:30px; background:rgba(20,12,10,.92); opacity:0; pointer-events:none; transition:opacity .2s ease; }
+        .lightbox { 
+            position:fixed; inset:0; z-index:300; display:grid; place-items:center; padding:30px; 
+            background:rgba(20,12,10,.95); backdrop-filter:blur(4px);
+            opacity:0; pointer-events:none; transition:opacity .3s ease; 
+        }
         .lightbox.is-open { opacity:1; pointer-events:auto; }
-        .lightbox img { max-width:min(1200px, 92vw); max-height:84vh; object-fit:contain; box-shadow:0 10px 40px rgba(0,0,0,.4); }
-        .lightbox-close { position:absolute; top:20px; right:24px; border:0; background:none; color:#fff; font-size:36px; line-height:1; cursor:pointer; }
+        .lightbox img { 
+            max-width:min(1200px, 92vw); max-height:84vh; object-fit:contain; 
+            box-shadow:0 10px 40px rgba(0,0,0,.4);
+            animation: zoomIn 0.3s ease;
+        }
+        @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .lightbox-close { 
+            position:absolute; top:20px; right:24px; border:0; background:none; 
+            color:#fff; font-size:36px; line-height:1; cursor:pointer;
+            transition: all 0.2s;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        .lightbox-close:hover { 
+            background: rgba(255,255,255,0.1);
+            transform: rotate(90deg);
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 32px;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+            z-index: 301;
+        }
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            font-weight: 600;
+            background: rgba(0,0,0,0.4);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
 
         /* ── Responsive ── */
         @media(max-width:900px) {
@@ -140,14 +289,30 @@
             .menu-btn { display:block; }
             nav.open { display:flex; flex-direction:column; align-items:flex-start; width:100%; gap:4px; }
             .nav-dropdown .dropdown-menu { position:static; box-shadow:none; border:0; padding:0 0 0 16px; }
-            .grid-3, .gallery-grid { grid-template-columns:1fr; }
-            .gallery-item, .gallery-item:nth-child(1), .gallery-item:nth-child(2), .gallery-item:nth-child(3) { grid-column:span 1; grid-row:auto; }
-            .gallery-media, .gallery-item:nth-child(1) .gallery-media { height:280px; }
+            .grid-3 { grid-template-columns:1fr; }
+            .gallery-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap:12px; 
+            }
+            .gallery-item,
+            .gallery-item:nth-child(1),
+            .gallery-item:nth-child(4),
+            .gallery-item:nth-child(6),
+            .gallery-item:nth-child(8),
+            .gallery-item:nth-child(10),
+            .gallery-item:nth-child(13) { 
+                grid-column: span 1; 
+                grid-row: span 1;
+            }
+            .gallery-media, .gallery-item:nth-child(1) .gallery-media { height:auto; min-height:200px; }
             .newsletter-inner { grid-template-columns:1fr; gap:28px; }
             .newsletter-form { max-width:none; }
             footer { flex-direction:column; gap:12px; text-align:center; }
         }
         @media(max-width:520px) {
+            .gallery-grid { 
+                grid-template-columns: 1fr;
+            }
             .newsletter-section { padding:48px 5vw 52px; }
             .newsletter-form { flex-direction:column; }
             .newsletter-form button { width:100%; }
@@ -159,12 +324,6 @@
 
     <div class="masthead">
         <h1><?php echo e(__('site.'.$section.'_h1')); ?></h1>
-        <div class="breadcrumb">
-            <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link')); ?></a> ›
-            <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.nav_news')); ?></a>
-            › <?php echo e(__('site.'.$section.'_breadcrumb')); ?>
-
-        </div>
     </div>
 
     <main>
@@ -185,10 +344,13 @@
             <div class="grid-3">
                 <?php $__empty_1 = true; $__currentLoopData = $partners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $partner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                 <article class="card">
+                    <?php if(isset($partner->logo_path) && $partner->logo_path): ?>
+                        <img class="card-img" src="<?php echo e(asset($partner->logo_path)); ?>" alt="Logo <?php echo e($partner->name); ?>" loading="lazy" style="object-fit:contain; background:#fff; padding:20px;">
+                    <?php endif; ?>
                     <div class="card-tag"><?php echo e($partner->category ?? ($en ? 'Partner' : 'Partenaire')); ?></div>
                     <h3><?php echo e($partner->name); ?></h3>
                     <p><?php echo e($en ? 'Institutional partner of Néré Mining.' : 'Partenaire institutionnel de Néré Mining.'); ?></p>
-                    <?php if($partner->website_url): ?>
+                    <?php if(isset($partner->website_url) && $partner->website_url): ?>
                         <a class="btn btn-gold" style="margin-top:16px;" href="<?php echo e($partner->website_url); ?>" target="_blank" rel="noopener"><?php echo e($en ? 'Visit website' : 'Voir le site'); ?></a>
                     <?php endif; ?>
                 </article>
@@ -201,27 +363,83 @@
         <?php elseif($section === 'gallery'): ?>
         <section>
             <p class="lead"><?php echo e(__('site.gallery_lead')); ?></p>
-            <?php if($media->isEmpty()): ?>
-                <p class="lead"><?php echo e(__('site.gallery_empty')); ?></p>
-            <?php else: ?>
-                <div class="gallery-grid">
-                    <?php $__currentLoopData = $media; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <figure class="gallery-item">
-                        <?php if($item->type === 'youtube'): ?>
-                            <a class="gallery-media" href="<?php echo e($item->external_url); ?>" target="_blank" rel="noopener" aria-label="<?php echo e($en ? 'View' : 'Voir'); ?> <?php echo e($item->title); ?>"><img src="<?php echo e($item->thumbnail_url); ?>" alt="<?php echo e($item->title); ?>"><span class="gallery-play" aria-hidden="true">▶</span></a>
-                        <?php elseif($item->type === 'google_drive'): ?>
-                            <a class="gallery-media" href="<?php echo e($item->external_url); ?>" target="_blank" rel="noopener" aria-label="Ouvrir <?php echo e($item->title); ?>"><div style="height:100%;display:grid;place-items:center;color:#fff;font:600 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;">Google Drive ↗</div></a>
-                        <?php elseif($item->url): ?>
-                            <a class="gallery-media" href="<?php echo e($item->url); ?>" data-lightbox-src="<?php echo e($item->url); ?>" data-lightbox-alt="<?php echo e($item->title); ?>" aria-label="Agrandir <?php echo e($item->title); ?>"><img src="<?php echo e($item->url); ?>" alt="<?php echo e($item->title); ?>"></a>
-                        <?php endif; ?>
-                        <figcaption class="gallery-caption">
-                            <h3><?php echo e($item->title); ?></h3>
-                            <?php if($item->caption): ?><p><?php echo e($item->caption); ?></p><?php endif; ?>
-                        </figcaption>
-                    </figure>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </div>
-            <?php endif; ?>
+            <div class="gallery-grid" id="gallery-grid">
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/image-8-min-scaled.jpg" data-lightbox-src="/images/gallery/image-8-min-scaled.jpg">
+                        <img src="/images/gallery/image-8-min-scaled.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/img1.jpeg" data-lightbox-src="/images/gallery/img1.jpeg">
+                        <img src="/images/gallery/img1.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/img2.jpeg" data-lightbox-src="/images/gallery/img2.jpeg">
+                        <img src="/images/gallery/img2.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/img3.jpeg" data-lightbox-src="/images/gallery/img3.jpeg">
+                        <img src="/images/gallery/img3.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/IMG_5184-1.jpg" data-lightbox-src="/images/gallery/IMG_5184-1.jpg">
+                        <img src="/images/gallery/IMG_5184-1.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/IMG_5187.jpg" data-lightbox-src="/images/gallery/IMG_5187.jpg">
+                        <img src="/images/gallery/IMG_5187.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/IMG_5188.jpg" data-lightbox-src="/images/gallery/IMG_5188.jpg">
+                        <img src="/images/gallery/IMG_5188.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp" data-lightbox-src="/images/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp">
+                        <img src="/images/gallery/Impact-positif-sur-lenvironnemnet-min-scaled-e1730914496421.webp" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/karma1.jpg" data-lightbox-src="/images/gallery/karma1.jpg">
+                        <img src="/images/gallery/karma1.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/karma123-min-1.jpg" data-lightbox-src="/images/gallery/karma123-min-1.jpg">
+                        <img src="/images/gallery/karma123-min-1.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/karma2-min.jpg" data-lightbox-src="/images/gallery/karma2-min.jpg">
+                        <img src="/images/gallery/karma2-min.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/karmareboi.jpg" data-lightbox-src="/images/gallery/karmareboi.jpg">
+                        <img src="/images/gallery/karmareboi.jpg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg" data-lightbox-src="/images/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg">
+                        <img src="/images/gallery/WhatsApp-Image-2024-07-11-at-04.22.32-2.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg" data-lightbox-src="/images/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg">
+                        <img src="/images/gallery/WhatsApp-Image-2024-07-12-at-12.51.26.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="gallery-media" href="/images/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg" data-lightbox-src="/images/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg">
+                        <img src="/images/gallery/WhatsApp-Image-2024-07-12-at-12.51.27.jpeg" alt="Gallery image">
+                    </a>
+                </figure>
+            </div>
         </section>
 
         <?php elseif($section === 'press'): ?>
@@ -249,7 +467,7 @@
         <section class="newsletter-section">
             <div class="newsletter-inner">
                 <div class="newsletter-copy">
-                    <h2><?php echo e(__('site.newsletter_h2')); ?></h2>
+                    
                     <p class="lead"><?php echo e(__('site.newsletter_lead')); ?></p>
                 </div>
                 <form class="newsletter-form" method="POST" action="<?php echo e($en ? route('english.newsletter.store') : route('newsletter.store')); ?>">
@@ -265,7 +483,12 @@
 
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie">
         <button class="lightbox-close" type="button" aria-label="<?php echo e($en ? 'Close' : 'Fermer'); ?>">&times;</button>
+        <button class="lightbox-nav lightbox-prev" type="button" aria-label="<?php echo e($en ? 'Previous' : 'Précédent'); ?>">&#8249;</button>
         <img src="" alt="">
+        <button class="lightbox-nav lightbox-next" type="button" aria-label="<?php echo e($en ? 'Next' : 'Suivant'); ?>">&#8250;</button>
+        <div class="lightbox-counter">
+            <span id="lightbox-current">1</span> / <span id="lightbox-total">1</span>
+        </div>
     </div>
 
     <script>
@@ -275,28 +498,74 @@
 
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = lightbox?.querySelector('img');
+        const lightboxClose = lightbox?.querySelector('.lightbox-close');
+        const lightboxPrev = lightbox?.querySelector('.lightbox-prev');
+        const lightboxNext = lightbox?.querySelector('.lightbox-next');
+        const lightboxCurrent = document.getElementById('lightbox-current');
+        const lightboxTotal = document.getElementById('lightbox-total');
+        
+        let allImages = [];
+        let currentImageIndex = 0;
+
         const closeLightbox = () => {
             lightbox?.classList.remove('is-open');
             if (lightboxImage) lightboxImage.src = '';
+            document.body.style.overflow = '';
         };
 
-        document.querySelectorAll('[data-lightbox-src]').forEach(function (trigger) {
+        const openLightbox = () => {
+            if (!lightbox || !lightboxImage) return;
+            lightboxImage.src = allImages[currentImageIndex];
+            lightboxCurrent.textContent = currentImageIndex + 1;
+            lightboxTotal.textContent = allImages.length;
+            lightbox.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const nextImage = () => {
+            currentImageIndex = (currentImageIndex + 1) % allImages.length;
+            openLightbox();
+        };
+
+        const prevImage = () => {
+            currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
+            openLightbox();
+        };
+
+        // Collect all gallery images
+        document.querySelectorAll('[data-lightbox-src]').forEach((trigger, index) => {
+            allImages.push(trigger.dataset.lightboxSrc);
+            
             trigger.addEventListener('click', function (event) {
                 event.preventDefault();
-                if (!lightbox || !lightboxImage) return;
-                lightboxImage.src = this.dataset.lightboxSrc;
-                lightboxImage.alt = this.dataset.lightboxAlt || '';
-                lightbox.classList.add('is-open');
+                currentImageIndex = index;
+                openLightbox();
             });
         });
-        lightbox?.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
+
+        lightboxCurrent.textContent = allImages.length > 0 ? 1 : 0;
+        lightboxTotal.textContent = allImages.length;
+
+        lightboxClose?.addEventListener('click', closeLightbox);
+        lightboxPrev?.addEventListener('click', prevImage);
+        lightboxNext?.addEventListener('click', nextImage);
+        
         lightbox?.addEventListener('click', function (event) {
             if (event.target === lightbox) closeLightbox();
         });
+
         document.addEventListener('keydown', function (event) {
+            if (!lightbox?.classList.contains('is-open')) return;
             if (event.key === 'Escape') closeLightbox();
+            if (event.key === 'ArrowRight') nextImage();
+            if (event.key === 'ArrowLeft') prevImage();
         });
     </script>
+    
+    <?php if($section === 'gallery'): ?>
+    <script src="<?php echo e(asset('js/album-carousel.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/image-optimization.js')); ?>"></script>
+    <?php endif; ?>
 </body>
 </html>
 <?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views\resources.blade.php ENDPATH**/ ?>

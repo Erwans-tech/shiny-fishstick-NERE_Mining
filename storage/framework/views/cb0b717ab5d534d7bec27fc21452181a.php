@@ -1,3 +1,6 @@
+
+
+
 <?php $__env->startSection('content'); ?>
 <?php $companyBase = $en ? route('english.company') : route('company'); ?>
 
@@ -11,12 +14,6 @@
     <div class="identity-masthead__veil"></div>
     <div class="identity-masthead__content">
         <h1><?php echo e(__('site.company_identity_h1', [], $loc)); ?></h1>
-        <div class="breadcrumb">
-            <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link', [], $loc)); ?></a>
-            › <a href="<?php echo e($en ? route('english.company') : route('company')); ?>"><?php echo e(__('site.nav_company', [], $loc)); ?></a>
-            › <?php echo e(__('site.company_identity_breadcrumb', [], $loc)); ?>
-
-        </div>
     </div>
 </div>
 <?php $__env->stopSection(); ?>
@@ -61,7 +58,7 @@
     </div>
 
     <div class="identity-description">
-        <h2><?php echo e(__('site.company_identity_symbols_h2', [], $loc)); ?></h2>
+        
         <p><?php echo e(__('site.company_identity_symbols_p1', [], $loc)); ?></p>
         <p><?php echo e(__('site.company_identity_symbols_p2', [], $loc)); ?></p>
         <p><?php echo e(__('site.company_identity_symbols_p3', [], $loc)); ?></p>

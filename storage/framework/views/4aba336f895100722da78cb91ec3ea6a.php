@@ -21,7 +21,7 @@
 </style>
 <div class="karma-page">
 <section id="modele-operationnel" class="sand">
-    <h2><?php echo e(__('site.karma_model_h2', [], $loc)); ?></h2>
+    
     <p class="lead"><?php echo e(__('site.karma_model_lead', [], $loc)); ?></p>
     <div class="future-steps" role="list">
         <div class="future-crawler" aria-hidden="true" data-machine="excavation"

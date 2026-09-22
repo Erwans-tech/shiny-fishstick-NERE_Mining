@@ -2,49 +2,11 @@
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
     
-    // HARDCODED NEWS - No database dependency
-    $news = [
-        // Nouvelle actualité - Dr Elie Justin OUEDRAOGO
-        [
-            'id' => 4,
-            'title' => 'Zoom sur le Dr Elie Justin OUEDRAOGO, Premier promoteur burkinabè dans les mines',
-            'category' => 'Portrait',
-            'date' => '14 septembre 2026',
-            'image' => asset('images/news/ouedraogo-ceo-interview.jpeg'),
-            'excerpt' => 'Dr Elie Justin OUEDRAOGO, Naaba Baaôgo de Gourcy est le dirigeant burkinabè qui possède la plus grande expérience et l\'expertise minière au Burkina Faso et en Afrique de l\'Ouest.',
-            'slug' => 'dr-ouedraogo-premier-promoteur-burkinabe',
-        ],
-        [
-            'id' => 1,
-            'title' => 'Annulation du contrat d\'achat d\'or: Riverstone Karma SA salue une décision judiciaire historique du Tribunal de commerce de Ouagadougou',
-            'category' => 'Actualités',
-            'date' => '12 août 2026',
-            'image' => asset('images/news/ZJ58L6cbb9z6C4qPwArMnxzy0A4RQW4doJDfc7SV.jpg'),
-            'slug' => 'annulation-contrat-achat-or',
-        ],
-        [
-            'id' => 2,
-            'title' => 'Forum Mines 2026 : Néré Mining réaffirme son engagement en faveur des pratiques durables dans l\'exploitation minière',
-            'category' => 'Événement',
-            'date' => '22 août 2026',
-            'image' => asset('images/news/g4XciRGY5t48TKSsjdneCu5APzh3g673Q30YMnpr.jpg'),
-            'slug' => 'forum-mines-2026',
-        ],
-        [
-            'id' => 3,
-            'title' => '6ème édition de la SAMAO.',
-            'category' => 'Partenariats',
-            'date' => '29 novembre 2024',
-            'image' => asset('images/news/F6nUuFafpUqWZu1MKDcY5PzQbQsDXsFMXmEOVNuX.png'),
-            'slug' => 'samao-2024',
-        ],
-    ];
-    
     // HARDCODED HERO IMAGES - No database dependency
     $heroImages = collect([
         [
             'type' => 'image', 
-            'url' => asset('images/hero/7I0F6l1lmLkgswXMdTDm4ayucFaHUgcMJcnzn0im.jpg'),
+            'url' => asset('images/hero/7I0F6l1lmLkgswXMdTDm4ayucFaHUgcMJcnzn0im.webp'),
             'embed_url' => null,
             'is_local_video' => false,
             'title' => 'Néré Mining',
@@ -54,7 +16,7 @@
         ],
         [
             'type' => 'image', 
-            'url' => asset('images/hero/H7eEolBtJlKwU8I1VCj8iU4g6G0cNthAfc55kopr.jpg'),
+            'url' => asset('images/hero/H7eEolBtJlKwU8I1VCj8iU4g6G0cNthAfc55kopr.webp'),
             'embed_url' => null,
             'is_local_video' => false,
             'title' => 'Néré Mining',
@@ -64,7 +26,7 @@
         ],
         [
             'type' => 'image', 
-            'url' => asset('images/hero/UCrXfKr1OeYXovqWbAyM48WdKySdWoGQgpc99SGs.jpg'),
+            'url' => asset('images/hero/UCrXfKr1OeYXovqWbAyM48WdKySdWoGQgpc99SGs.webp'),
             'embed_url' => null,
             'is_local_video' => false,
             'title' => 'Néré Mining',
@@ -74,7 +36,7 @@
         ],
         [
             'type' => 'image', 
-            'url' => asset('images/hero/Aqlk75ywPYBXsQWFa0Z7pRFKAdLsajbcqDPSY3FV.jpg'),
+            'url' => asset('images/hero/Aqlk75ywPYBXsQWFa0Z7pRFKAdLsajbcqDPSY3FV.webp'),
             'embed_url' => null,
             'is_local_video' => false,
             'title' => 'Néré Mining',
@@ -100,6 +62,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/album-carousel.css')); ?>?v=<?php echo e(filemtime(public_path('css/album-carousel.css'))); ?>">
+    <?php if(app()->environment('production')): ?>
+    <link rel="stylesheet" href="<?php echo e(asset('css/image-protection.css')); ?>?v=<?php echo e(filemtime(public_path('css/image-protection.css'))); ?>">
+    <?php endif; ?>
     <style>
         :root {
             --ink:   #281d18;
@@ -190,7 +155,7 @@
         }
         <?php $__currentLoopData = $heroImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $heroImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <?php $bgUrl = is_array($heroImage) ? ($heroImage['url'] ?? '') : $heroImage; ?>
-        .hero-slide:nth-child(<?php echo e($index + 1); ?>) { background-image:url('<?php echo e($bgUrl); ?>'); animation:heroSlide<?php echo e($index); ?> <?php echo e($heroDuration); ?>s infinite; }
+        .hero-slide:nth-child(<?php echo e($index + 1); ?>) { <?php if($index === 0): ?> background-image:url('<?php echo e($bgUrl); ?>'); <?php endif; ?> animation:heroSlide<?php echo e($index); ?> <?php echo e($heroDuration); ?>s infinite; }
         .hero-slide-video:nth-child(<?php echo e($index + 1); ?>) { animation:heroSlide<?php echo e($index); ?> <?php echo e($heroDuration); ?>s infinite; }
         @keyframes heroSlide<?php echo e($index); ?> {
             0%,<?php echo e(max(0, $index * $heroSlot - 5)); ?>% { opacity:0; transform:scale(1.08); }
@@ -651,7 +616,7 @@
         }
     </style>
     <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
-    <script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
+    <script defer src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
 </head>
 <body>
 
@@ -686,7 +651,7 @@
                     </div>
                 <?php else: ?>
                     
-                    <div class="hero-slide" style="background-image:url('<?php echo e($heroImage['url'] ?? ($heroImage['image'] ?? '')); ?>'); background-size:cover; background-position:center;"></div>
+                    <div class="hero-slide" data-hero-bg="<?php echo e($heroImage['url'] ?? ($heroImage['image'] ?? '')); ?>" style="background-size:cover; background-position:center;"></div>
                 <?php endif; ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
@@ -721,7 +686,8 @@
             <div class="intro-copy sa-reveal sa-delay-1">
                 
                 <p class="sec-lead">
-                    Néré Mining SA est une entreprise minière aurifère majoritairement détenue par des capitaux burkinabè. À travers l’exploitation de sa mine de Karma et ses activités d’exploration, Néré Mining ambitionne de contribuer au développement d’un secteur minier national performant, responsable et créateur de valeur pour le Burkina Faso. Notre ambition est de transformer le potentiel minier national en une valeur durable et partagée, au bénéfice des communautés, des travailleurs, de l’État et de nos partenaires.
+                    <?php echo e($homeDescription ?: 'Néré Mining SA est une entreprise minière aurifère majoritairement détenue par des capitaux burkinabè. À travers l’exploitation de sa mine de Karma et ses activités d’exploration, Néré Mining ambitionne de contribuer au développement d’un secteur minier national performant, responsable et créateur de valeur pour le Burkina Faso.'); ?>
+
                 </p>
             </div>
             <div class="intro-points">
@@ -735,80 +701,64 @@
     
 
     
-    <?php if(isset($featuredAlbum) && $featuredAlbum): ?>
-    <section class="sec news-sec sa-animated-section" id="album-featured" aria-labelledby="album-h">
-        <div class="sa-particles-container" data-count="3"></div>
-        <div class="news-head sa-reveal">
-            <div>
-                <span class="sec-tag"><?php echo e($en ? 'Photo Album' : 'Album Photo'); ?></span>
-                <h2 id="album-h" class="sec-h"><?php echo e($featuredAlbum->title); ?></h2>
-                <?php if($featuredAlbum->description): ?>
-                    <p class="sec-lead"><?php echo e($featuredAlbum->description); ?></p>
-                <?php endif; ?>
-            </div>
-        </div>
-        
-        <div style="max-width:800px;margin:0 auto;">
-            <article class="album-card sa-reveal sa-delay-1" data-album-id="<?php echo e($featuredAlbum->id); ?>" style="box-shadow:0 10px 40px rgba(0,0,0,0.15);">
-                <a href="<?php echo e($en ? route('english.gallery.album', $featuredAlbum) : route('gallery.album', $featuredAlbum)); ?>" class="album-link">
-                    <div class="album-carousel">
-                        <?php
-                            $previewImages = $featuredAlbum->preview_images;
-                        ?>
-                        <?php if($previewImages->isNotEmpty()): ?>
-                            <?php $__currentLoopData = $previewImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="album-carousel-slide <?php echo e($index === 0 ? 'active' : ''); ?>">
-                                    <img src="<?php echo e($media->url); ?>" alt="<?php echo e($media->title); ?>" loading="lazy">
-                                </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <?php if($previewImages->count() > 1): ?>
-                                <div class="album-carousel-dots">
-                                    <?php $__currentLoopData = $previewImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <span class="dot <?php echo e($index === 0 ? 'active' : ''); ?>"></span>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </div>
-                            <?php endif; ?>
-                        <?php endif; ?>
-                    </div>
-                    <div class="album-info">
-                        <h3 class="album-title" style="font-size:20px;"><?php echo e($featuredAlbum->title); ?></h3>
-                        <?php if($featuredAlbum->description): ?>
-                            <p class="album-description"><?php echo e(Str::limit($featuredAlbum->description, 120)); ?></p>
-                        <?php endif; ?>
-                        <div class="album-meta">
-                            <span class="album-count">
-                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                                    <circle cx="8.5" cy="8.5" r="1.5"/>
-                                    <path d="M21 15l-5-5L5 21"/>
-                                </svg>
-                                <?php echo e($featuredAlbum->photo_count); ?> <?php echo e($featuredAlbum->photo_count > 1 ? ($en ? 'photos' : 'photos') : ($en ? 'photo' : 'photo')); ?>
-
-                            </span>
-                            <span class="album-view-link"><?php echo e($en ? 'View album' : 'Voir l\'album'); ?> →</span>
-                        </div>
-                    </div>
-                </a>
-            </article>
-        </div>
-        
-        <div style="display:flex; justify-content:center; margin-top:32px;">
-            <a class="btn btn-dark" href="<?php echo e($en ? route('english.gallery') : route('gallery')); ?>">
-                <?php echo e($en ? 'All albums' : 'Tous les albums'); ?>
-
-            </a>
-        </div>
-    </section>
-    <?php else: ?>
-    
     <section class="sec news-sec sa-animated-section" id="actualites" aria-labelledby="news-h">
         <div class="sa-particles-container" data-count="3"></div>
         <div class="news-head sa-reveal">
             <div>
-                
+                <span class="sec-tag"><?php echo e($en ? 'News & Gallery' : 'Actualités & Galerie'); ?></span>
+                <h2 id="news-h" class="sec-h"><?php echo e($en ? 'Latest News' : 'Dernières actualités'); ?></h2>
             </div>
         </div>
         <div class="news-grid">
+            
+            <?php if(isset($featuredAlbum) && $featuredAlbum): ?>
+            <a class="news-card-link sa-reveal sa-delay-1" href="<?php echo e($en ? route('english.gallery.album', $featuredAlbum) : route('gallery.album', $featuredAlbum)); ?>" aria-label="<?php echo e($en ? 'View album' : 'Voir l\'album'); ?> : <?php echo e(e($featuredAlbum->title)); ?>">
+                <article class="news-card sr album-as-news-card" data-album-id="<?php echo e($featuredAlbum->id); ?>">
+                    <div class="news-img-wrap">
+                        <?php
+                            $previewImages = $featuredAlbum->preview_images;
+                        ?>
+                        <?php if($previewImages->isNotEmpty()): ?>
+                            <div class="album-carousel-mini">
+                                <?php $__currentLoopData = $previewImages->take(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="album-carousel-slide <?php echo e($index === 0 ? 'active' : ''); ?>">
+                                        <img class="news-img" src="<?php echo e($media->url); ?>" alt="<?php echo e($media->title); ?>" loading="lazy">
+                                    </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($previewImages->count() > 1): ?>
+                                    <div class="album-carousel-dots">
+                                        <?php $__currentLoopData = $previewImages->take(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <span class="dot <?php echo e($index === 0 ? 'active' : ''); ?>"></span>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php else: ?>
+                            <img class="news-img news-img-ph" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(e($featuredAlbum->title)); ?>" loading="lazy">
+                        <?php endif; ?>
+                    </div>
+                    <div class="news-body">
+                        <div class="news-meta">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px;">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <path d="M21 15l-5-5L5 21"/>
+                            </svg>
+                            <?php echo e($en ? 'Album' : 'Album'); ?> · <?php echo e($featuredAlbum->photo_count); ?> <?php echo e($featuredAlbum->photo_count > 1 ? 'photos' : 'photo'); ?>
+
+                        </div>
+                        <h3><?php echo e($featuredAlbum->title); ?></h3>
+                        <span class="news-read">
+                            <?php echo e($en ? 'View album' : 'Voir l\'album'); ?>
+
+                            <span class="news-read-arr">→</span>
+                        </span>
+                    </div>
+                </article>
+            </a>
+            <?php endif; ?>
+            
+            
             <?php $__empty_1 = true; $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
             <a class="news-card-link sa-reveal sa-delay-<?php echo e($i % 3 + 1); ?>" href="<?php echo e($en ? route('english.news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i]) : route('news.show', ['news' => $item['id'] ?? $item['slug'] ?? $i])); ?>" aria-label="<?php echo e(__('site.read_more', [], $loc)); ?> : <?php echo e(e($item['title'])); ?>">
                 <article class="news-card sr" data-news-id="<?php echo e($item['id'] ?? ''); ?>">
@@ -818,13 +768,20 @@
                                  src="<?php echo e($item['image']); ?>"
                                  alt="<?php echo e(e($item['title'])); ?>"
                                  loading="<?php echo e($i === 0 ? 'eager' : 'lazy'); ?>"
+                                   decoding="async"
+                                   fetchpriority="<?php echo e($i === 0 ? 'high' : 'auto'); ?>"
+                                   width="640"
+                                   height="360"
                                  onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-                            <img class="news-img news-img-ph" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(e($item['title'])); ?>" loading="lazy" style="display:none;">
+                               <img class="news-img news-img-ph" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(e($item['title'])); ?>" loading="lazy" decoding="async" width="640" height="360" style="display:none;">
                         <?php else: ?>
                             <img class="news-img news-img-ph"
                                  src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>"
                                  alt="<?php echo e(e($item['title'])); ?>"
-                                 loading="lazy">
+                                   loading="lazy"
+                                   decoding="async"
+                                   width="640"
+                                   height="360">
                         <?php endif; ?>
                     </div>
                     <div class="news-body">
@@ -850,7 +807,6 @@
             </a>
         </div>
     </section>
-    <?php endif; ?>
 
     
     <section class="sec partners-sec sa-animated-section" id="partenaires" aria-labelledby="partners-h">
@@ -1060,7 +1016,24 @@
     </script>
     
     <!-- Album Carousel JS -->
-    <script src="<?php echo e(asset('js/album-carousel.js')); ?>"></script>
+    <script defer src="<?php echo e(asset('js/album-carousel.js')); ?>"></script>
+    <?php if(app()->environment('production')): ?>
+    <script defer src="<?php echo e(asset('js/image-protection.js')); ?>"></script>
+    <?php endif; ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = Array.from(document.querySelectorAll('.hero-slide[data-hero-bg]'));
+            slides.slice(1).forEach(function (slide, index) {
+                window.setTimeout(function () {
+                    const image = new Image();
+                    image.onload = function () {
+                        slide.style.backgroundImage = "url('" + slide.dataset.heroBg + "')";
+                    };
+                    image.src = slide.dataset.heroBg;
+                }, (index + 1) * 1500);
+            });
+        });
+    </script>
 </body>
 </html>
 

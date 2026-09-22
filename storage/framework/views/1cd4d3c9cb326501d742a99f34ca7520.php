@@ -7,6 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="<?php echo e(asset('favicon.svg')); ?>" type="image/svg+xml">
+    <link rel="canonical" href="<?php echo e($en ? route('english.news.show', $news) : route('news.show', $news)); ?>">
     <title><?php echo e($news->title); ?> | Néré Mining</title>
     <meta name="description" content="<?php echo e($news->excerpt ?? $news->title); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,6 +47,8 @@
         .article-body h3{color:var(--green);font-size:20px;font-weight:500;margin:28px 0 10px;}
         .article-body img{max-width:100%;border-radius:6px;margin:24px 0;}
         .article-cover{width:100%;max-height:480px;object-fit:cover;border-radius:8px;margin-bottom:40px;}
+        .article-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:36px;}
+        .article-gallery img{width:100%;height:260px;object-fit:cover;border-radius:8px;margin:0;}
         .back-link{display:inline-flex;align-items:center;gap:8px;color:var(--red);font:600 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;margin-bottom:32px;}
         .back-link:hover{color:var(--green);}
         footer{padding:32px 5vw;background:#351312;color:#eadcca;display:flex;justify-content:space-between;align-items:center;font:12px Inter,sans-serif;}
@@ -55,6 +59,7 @@
             nav.open{display:flex;flex-direction:column;align-items:flex-start;width:100%;gap:4px;}
             .nav-dropdown .dropdown-menu{position:static;box-shadow:none;border:0;padding:0 0 0 16px;}
             footer{flex-direction:column;gap:12px;text-align:center;}
+            .article-gallery{grid-template-columns:1fr;}
         }
     </style>
     <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
@@ -65,13 +70,6 @@
 
     <div class="masthead">
         <h1><?php echo e($news->title); ?></h1>
-        <div class="breadcrumb">
-            <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link')); ?></a> ›
-            <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.nav_news')); ?></a> ›
-            <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.subnav_news')); ?></a> ›
-            <?php echo e(Str::limit($news->title, 40)); ?>
-
-        </div>
     </div>
 
     <div class="article-wrap sa-animated-section">
@@ -98,6 +96,14 @@
                 <p><?php echo e($news->excerpt); ?></p>
             <?php else: ?>
                 <p><?php echo e($en ? 'Article content coming soon.' : 'Contenu de l\'article à venir.'); ?></p>
+            <?php endif; ?>
+
+            <?php if($news->gallery_images): ?>
+                <div class="article-gallery" aria-label="<?php echo e($en ? 'Article images' : 'Images de l\'article'); ?>">
+                    <?php $__currentLoopData = $news->gallery_images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $galleryImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <img src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($galleryImage)); ?>" alt="<?php echo e($news->title); ?>" loading="lazy">
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
             <?php endif; ?>
         </div>
     </div>

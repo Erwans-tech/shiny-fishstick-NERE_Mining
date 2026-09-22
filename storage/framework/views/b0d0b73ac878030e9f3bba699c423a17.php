@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo e(asset('css/admin-animations.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/text-fixes.css')); ?>?v=<?php echo e(filemtime(public_path('css/text-fixes.css'))); ?>">
+    <?php echo $__env->yieldPushContent('styles'); ?>
     <style>
         /* ══ Variables ════════════════════════════════════════════ */
         :root {
@@ -549,6 +551,10 @@
         <a href="<?php echo e(route('admin.settings.index')); ?>"
            class="nav-item <?php echo e(request()->routeIs('admin.settings.*') ? 'active' : ''); ?>">
             <span class="nav-icon">⚙️</span> Paramètres
+        </a>
+        <a href="<?php echo e(route('admin.site-content.index')); ?>"
+           class="nav-item <?php echo e(request()->routeIs('admin.site-content.*') ? 'active' : ''); ?>">
+            <span class="nav-icon">📝</span> Contenu éditable
         </a>
 
         <div class="nav-section">Administration</div>

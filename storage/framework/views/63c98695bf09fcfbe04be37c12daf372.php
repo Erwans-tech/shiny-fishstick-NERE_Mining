@@ -101,12 +101,6 @@
     <a href="<?php echo e($listRoute); ?>" class="back-link">← <?php echo e(__('site.careers_back', [], $loc)); ?></a>
     <h1><?php echo e(__('site.careers_spontaneous_title', [], $loc)); ?></h1>
     <p class="masthead-lead"><?php echo e(__('site.careers_spontaneous_lead', [], $loc)); ?></p>
-    <div class="breadcrumb">
-        <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link', [], $loc)); ?></a> ›
-        <a href="<?php echo e($listRoute); ?>"><?php echo e(__('site.nav_careers', [], $loc)); ?></a> ›
-        <?php echo e(__('site.careers_spontaneous_title', [], $loc)); ?>
-
-    </div>
 </div>
 
 <div class="page-body">
@@ -136,7 +130,7 @@
 
     
     <div class="form-section">
-        <h2><?php echo e($en ? 'Submit your unsolicited application' : 'Déposer votre candidature spontanée'); ?></h2>
+        
         <p class="form-lead"><?php echo e(__('site.careers_apply_lead', [], $loc)); ?></p>
 
         <?php if(!empty($errors) && $errors->isNotEmpty()): ?>

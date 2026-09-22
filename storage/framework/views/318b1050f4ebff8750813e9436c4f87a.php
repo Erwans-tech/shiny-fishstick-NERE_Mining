@@ -1,3 +1,6 @@
+
+
+
 <?php $__env->startPush('styles'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
 <?php $__env->stopPush(); ?>
@@ -9,7 +12,7 @@
     <div class="sa-particles-container" data-count="5"></div>
 
     <div class="sa-section-heading sa-reveal" style="margin:0 auto 24px; text-align:center;">
-        <h2 style="text-align:center;"><?php echo e(__('site.local_policy_h2', [], $loc)); ?></h2>
+        
     </div>
     <p class="lead sa-reveal sa-delay-1"><?php echo e(__('site.local_policy_lead', [], $loc)); ?></p>
 
@@ -57,7 +60,7 @@
     <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
 
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'Local Spending Impact' : 'Impact Dépenses Locales'); ?></h2>
+            
             <div class="sa-divider"></div>
         </div>
 
@@ -100,12 +103,12 @@
 <section class="sa-animated-section" style="padding:70px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal" style="text-align:left; max-width:none;">
-            <h2 style="text-align:left;"><?php echo e(__('site.local_supplier_h2', [], $loc)); ?></h2>
+            
         </div>
         <p class="lead sa-reveal sa-delay-1"><?php echo e(__('site.local_supplier_lead', [], $loc)); ?></p>
 
-        <div class="grid-3" style="margin-top:32px;">
-            <?php $__currentLoopData = range(1, 3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="grid-2" style="margin-top:32px;">
+            <?php $__currentLoopData = range(1, 2); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="sa-program-card sa-reveal sa-delay-<?php echo e($i); ?>">
                 <div class="card-tag"><?php echo e(__('site.local_supp'.$i.'_tag', [], $loc)); ?></div>
                 <h3><?php echo e(__('site.local_supp'.$i.'_h3', [], $loc)); ?></h3>
@@ -122,7 +125,7 @@
     <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
 
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'Categories of Local Sourcing' : 'Catégories d\'Approvisionnement Local'); ?></h2>
+            
             <div class="sa-divider"></div>
         </div>
 
@@ -135,7 +138,7 @@
             ];
         ?>
 
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; margin-top:48px;">
+        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:48px;">
             <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="sa-achievement-card sa-reveal sa-delay-<?php echo e($k+1); ?>">
                 <div class="sa-category-icon"><?php echo e($cat['icon']); ?></div>

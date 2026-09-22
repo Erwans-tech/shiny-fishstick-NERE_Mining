@@ -1,5 +1,9 @@
+
+
+
 <?php $__env->startPush('styles'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/sustainability-animations.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/image-optimization.css')); ?>">
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -65,10 +69,7 @@
     <div class="sa-particles-container" data-count="5"></div>
 
     <div class="sa-section-heading sa-reveal" style="text-align:left; max-width:none; margin-bottom:32px;">
-        <h2 style="color:var(--green); font-size:clamp(26px,4vw,42px); text-align:left;">
-            <?php echo e($en ? 'Community Relations Department: The Showcase of Karma' : 'Le Département des Relations Communautaires : La Vitrine de Karma'); ?>
-
-        </h2>
+        
     </div>
 
     <p class="lead sa-reveal sa-delay-1">
@@ -152,7 +153,10 @@
                     <source srcset="<?php echo e(asset('images/communaute/session-comite-suivi-liaison-ouahigouya-2026.webp')); ?>" type="image/webp">
                     <img src="<?php echo e(asset('images/communaute/session-comite-suivi-liaison-ouahigouya-2026.jpg')); ?>"
                          alt="<?php echo e($en ? 'CSL session in Ouahigouya February 2026' : 'Session CSL à Ouahigouya février 2026'); ?>"
-                         loading="lazy" />
+                         loading="lazy"
+                         width="800"
+                         height="450"
+                         decoding="async" />
                 </picture>
                 <figcaption>
                     <?php echo e($en ? 'CSL session in Ouahigouya - February 2026' : 'Session du CSL à Ouahigouya - Février 2026'); ?>
@@ -169,7 +173,10 @@
                 <source srcset="<?php echo e(asset('images/communaute/forage-chateau-eau-solaire-namissiguima.webp')); ?>" type="image/webp">
                 <img src="<?php echo e(asset('images/communaute/forage-chateau-eau-solaire-namissiguima.png')); ?>"
                      alt="<?php echo e($en ? 'Solar water tower in Namissiguima' : 'Château d\'eau solaire à Namissiguima'); ?>"
-                     loading="lazy" />
+                     loading="lazy"
+                     width="800"
+                     height="450"
+                     decoding="async" />
             </picture>
             <figcaption>
                 <?php echo e($en ? 'Solar water tower in Namissiguima' : 'Château d\'eau solaire à Namissiguima'); ?>
@@ -185,7 +192,7 @@
     <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
 
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'Main Achievements 2014-2025' : 'Principales Réalisations 2014-2025'); ?></h2>
+            
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;">
                 <?php echo e($en
@@ -237,17 +244,18 @@
 <section class="sa-animated-section" style="padding:70px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'Community Impact 2024' : 'Impact Communautaire 2024'); ?></h2>
+            
             <div class="sa-divider"></div>
         </div>
 
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:20px; margin-top:40px;">
             <?php
                 $impacts = [
-                    ['icon'=>'students','val'=>'850','count'=>850,'suffix'=>'','label'=>$en?'Students in Programs':'Étudiants en Programmes','bar'=>'85%'],
-                    ['icon'=>'clinic','val'=>'12','count'=>12,'suffix'=>'','label'=>$en?'Healthcare Clinics':'Cliniques Santé','bar'=>'60%'],
-                    ['icon'=>'dialogue','val'=>'85%','count'=>85,'suffix'=>'%','label'=>$en?'Grievances Resolved':'Griefs Résolus','bar'=>'85%'],
-                    ['icon'=>'road','val'=>'42km','count'=>42,'suffix'=>'km','label'=>$en?'Roads Built/Maintained':'Routes Construites/Entretenues','bar'=>'70%'],
+                    ['icon'=>'education','val'=>'150M','count'=>'150','suffix'=>'M','label'=>$en?'Education investment (FCFA)':'Investissement éducation (FCFA)','bar'=>'29%'],
+                    ['icon'=>'health','val'=>'160M','count'=>'160','suffix'=>'M','label'=>$en?'Health investment (FCFA)':'Investissement santé (FCFA)','bar'=>'31%'],
+                    ['icon'=>'water','val'=>'240M','count'=>'240','suffix'=>'M','label'=>$en?'Water access investment (FCFA)':'Investissement accès à l’eau (FCFA)','bar'=>'46%'],
+                    ['icon'=>'livelihoods','val'=>'350M','count'=>'350','suffix'=>'M','label'=>$en?'Livelihoods investment (FCFA)':'Investissement moyens de subsistance (FCFA)','bar'=>'67%'],
+                    ['icon'=>'infrastructure','val'=>'519M','count'=>'519','suffix'=>'M','label'=>$en?'Infrastructure investment (FCFA)':'Investissement infrastructures (FCFA)','bar'=>'100%'],
                 ];
             ?>
             <?php $__currentLoopData = $impacts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $imp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -288,7 +296,7 @@
 <section class="sa-animated-section" style="padding:70px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'Our Programs' : 'Nos Programmes'); ?></h2>
+            
             <div class="sa-divider"></div>
         </div>
         <div class="grid-3" style="margin-top:48px;">
@@ -321,7 +329,7 @@
 <section class="sa-sand-animated" style="padding:70px 5vw; position:relative;">
     <div class="sa-wave-top"></div>
     <div class="sa-section-heading sa-reveal" style="margin-bottom:32px;">
-        <h2><?php echo e($en ? 'Grievance and Conflict Management' : 'Mécanisme de Gestion des Plaintes et des Conflits'); ?></h2>
+        
         <div class="sa-divider"></div>
     </div>
     <p class="lead sa-reveal sa-delay-1">
@@ -385,6 +393,7 @@
 
 <?php $__env->startPush('scripts'); ?>
 <script src="<?php echo e(asset('js/sustainability-animations.js')); ?>"></script>
+<script src="<?php echo e(asset('js/image-optimization.js')); ?>"></script>
 <?php $__env->stopPush(); ?>
 
 <?php $__env->stopSection(); ?>

@@ -51,7 +51,7 @@
 <div class="rr-page">
     <section class="rr-intro">
         <div>
-            <h2><?php echo e($en ? 'Karma mineral resources and reserves' : 'Ressources et réserves minérales de Karma'); ?></h2>
+            
             <p class="lead"><?php echo e($en ? 'A consolidated view of the deposits, resources and reserves that support the development of the Karma mining complex.' : 'Une vue consolidée des gisements, ressources et réserves qui soutiennent le développement du complexe minier de Karma.'); ?></p>
             <p class="rr-note"><?php echo e($en ? 'The figures presented follow the available project documentation and the JORC reporting framework. They are provided for information and remain subject to technical updates.' : 'Les chiffres présentés suivent la documentation disponible du projet et le référentiel de déclaration JORC. Ils sont communiqués à titre informatif et restent susceptibles d’être actualisés selon les études techniques.'); ?></p>
         </div>
@@ -61,7 +61,7 @@
     </section>
 
     <section class="rr-section rr-section--sand">
-        <div class="rr-heading"><h2><?php echo e($en ? 'Key figures' : 'Chiffres clés'); ?></h2><p><?php echo e($en ? 'Main resource and reserve indicators for the Karma project.' : 'Principaux indicateurs de ressources et de réserves du projet Karma.'); ?></p></div>
+        <div class="rr-heading"><p><?php echo e($en ? 'Main resource and reserve indicators for the Karma project.' : 'Principaux indicateurs de ressources et de réserves du projet Karma.'); ?></p></div>
         <div class="rr-kpis">
             <div class="rr-kpi"><strong>6 638 Koz</strong><span><?php echo e($en ? 'P&P resources · 0.97 g/t Au' : 'Ressources P&P · 0,97 g/t Au'); ?></span></div>
             <div class="rr-kpi"><strong>87 528 Koz</strong><span><?php echo e($en ? 'M&I resources · 0.93 g/t Au' : 'Ressources M&I · 0,93 g/t Au'); ?></span></div>
@@ -71,7 +71,7 @@
     </section>
 
     <section class="rr-section">
-        <div class="rr-heading"><h2><?php echo e($en ? 'Resources by deposit' : 'Ressources par gisement'); ?></h2><p><?php echo e($en ? 'Classification according to the JORC reporting framework.' : 'Classification selon le référentiel de déclaration JORC.'); ?></p></div>
+        <div class="rr-heading"><p><?php echo e($en ? 'Classification according to the JORC reporting framework.' : 'Classification selon le référentiel de déclaration JORC.'); ?></p></div>
         <div class="rr-table-wrap"><table class="rr-table"><thead><tr><th><?php echo e($en ? 'Deposit' : 'Gisement'); ?></th><th><?php echo e($en ? 'Type' : 'Type'); ?></th><th><?php echo e($en ? 'Tonnage (Kt)' : 'Tonnage (Kt)'); ?></th><th><?php echo e($en ? 'Grade (g/t)' : 'Teneur (g/t)'); ?></th><th><?php echo e($en ? 'Gold (Koz)' : 'Or (Koz)'); ?></th></tr></thead><tbody>
             <?php $__currentLoopData = [
                 ['Nami',$en?'Oxide':'Oxydé','1,633','0.82','15.2'],['GG1',$en?'Mixed':'Mixte','5,888','1.00','36.3'],['GG2',$en?'Sulfide':'Sulfuré','5,320','1.65','59.8'],['Kao',$en?'Mixed':'Mixte','3,156','0.95','27.1'],['Goulagou',$en?'Oxide':'Oxydé','1,641','0.78','11.2']
@@ -84,7 +84,7 @@
     </section>
 
     <section class="rr-section rr-section--sand">
-        <div class="rr-heading"><h2><?php echo e($en ? 'Probable reserves' : 'Réserves probables'); ?></h2><p><?php echo e($en ? 'Economically extractable reserves with proven mining viability.' : 'Réserves économiquement exploitables avec une viabilité minière établie.'); ?></p></div>
+        <div class="rr-heading"><p><?php echo e($en ? 'Economically extractable reserves with proven mining viability.' : 'Réserves économiquement exploitables avec une viabilité minière établie.'); ?></p></div>
         <div class="rr-columns">
             <div class="rr-card"><h3><?php echo e($en ? 'By deposit' : 'Par gisement'); ?></h3><ul><li>GG1 : 662 Kt, 0.70 g/t, 15 Koz</li><li>Kao Nord : 4 031 Kt, 1.14 g/t, 148 Koz</li><li>Yabonsgo : 297 Kt, 1.57 g/t, 15 Koz</li><li>Nami : 896 Kt, 0.76 g/t, 22 Koz</li><li><strong>Total : 5 886 Kt, 1.06 g/t, 200 Koz</strong></li></ul></div>
             <figure class="rr-card"><button class="rr-zoom-button" type="button" data-rr-image="<?php echo e(asset('images/mining/reserves-table.jpg')); ?>" data-rr-alt="<?php echo e($en ? 'Probable reserves table' : 'Tableau des réserves probables'); ?>" data-rr-caption="<?php echo e($en ? 'Probable reserves by deposit, split by oxide, transition and sulphide material.' : 'Réserves probables par gisement, ventilées entre minerai oxydé, de transition et sulfuré.'); ?>"><img src="<?php echo e(asset('images/mining/reserves-table.jpg')); ?>" alt="<?php echo e($en ? 'Probable reserves table' : 'Tableau des réserves probables'); ?>" loading="lazy" style="display:block;width:100%;max-height:300px;object-fit:contain;"></button><p style="margin-top:12px;text-align:center;"><?php echo e($en ? 'Probable reserves by deposit.' : 'Réserves probables par gisement.'); ?></p></figure>
@@ -92,7 +92,7 @@
     </section>
 
     <section class="rr-section">
-        <div class="rr-heading"><h2><?php echo e($en ? 'Measured, indicated and inferred resources' : 'Ressources mesurées, indiquées et inférées'); ?></h2><p><?php echo e($en ? 'The geological confidence level guides how each resource category is interpreted and developed.' : 'Le niveau de confiance géologique guide l’interprétation et le développement de chaque catégorie de ressources.'); ?></p></div>
+        <div class="rr-heading"><p><?php echo e($en ? 'The geological confidence level guides how each resource category is interpreted and developed.' : 'Le niveau de confiance géologique guide l’interprétation et le développement de chaque catégorie de ressources.'); ?></p></div>
         <div class="rr-columns">
             <div class="rr-card"><h3><?php echo e($en ? 'Measured and indicated' : 'Mesurées et indiquées'); ?></h3><p><?php echo e($en ? 'These resources benefit from established geological continuity and drilling data across the principal deposits.' : 'Ces ressources bénéficient d’une continuité géologique établie et de données de forage sur les principaux gisements.'); ?></p><ul><li>Kao Main : 26 901 Kt à 0,84 g/t</li><li>GG2 : 14 316 Kt à 1,31 g/t</li><li>Kao Nord : 12 024 Kt à 1,16 g/t</li><li>GG1 : 4 971 Kt à 0,72 g/t</li></ul></div>
             <div class="rr-card"><h3><?php echo e($en ? 'Inferred resources' : 'Ressources inférées'); ?></h3><p><?php echo e($en ? 'Estimated from more limited geological evidence, these resources may evolve as exploration and development continue.' : 'Estimées à partir de données géologiques plus limitées, ces ressources peuvent évoluer avec la poursuite de l’exploration et du développement.'); ?></p><div class="rr-kpis" style="margin-top:18px;grid-template-columns:repeat(3,1fr);"><div class="rr-kpi"><strong>18 103</strong><span>Kt</span></div><div class="rr-kpi"><strong>1.25</strong><span>g/t</span></div><div class="rr-kpi"><strong>725</strong><span>Koz</span></div></div></div>
@@ -100,7 +100,7 @@
     </section>
 
     <section class="rr-section rr-section--sand">
-        <div class="rr-heading"><h2><?php echo e($en ? 'Technical overview' : 'Aperçu technique'); ?></h2><p><?php echo e($en ? 'Maps and reference documents supporting the resource and reserve overview.' : 'Cartes et documents de référence qui accompagnent la synthèse des ressources et réserves.'); ?></p></div>
+        <div class="rr-heading"><p><?php echo e($en ? 'Maps and reference documents supporting the resource and reserve overview.' : 'Cartes et documents de référence qui accompagnent la synthèse des ressources et réserves.'); ?></p></div>
         <div class="rr-gallery"><figure><button class="rr-zoom-button" type="button" data-rr-image="<?php echo e(asset('images/resources/resources-reserves-2025.jpg')); ?>" data-rr-alt="<?php echo e($en ? 'Karma resources and reserves' : 'Ressources et réserves de Karma'); ?>" data-rr-caption="<?php echo e($en ? 'Consolidated resources and reserves map dated 25 April 2025, with deposit-level P&P, M&I and inferred figures.' : 'Carte consolidée des ressources et réserves datée du 25 avril 2025, avec les chiffres P&P, M&I et inférés par gisement.'); ?>"><img src="<?php echo e(asset('images/resources/resources-reserves-2025.jpg')); ?>" alt="<?php echo e($en ? 'Karma resources and reserves' : 'Ressources et réserves de Karma'); ?>" loading="lazy"></button><figcaption><?php echo e($en ? 'Resources and reserves overview' : 'Vue d’ensemble des ressources et réserves'); ?></figcaption></figure><figure><button class="rr-zoom-button" type="button" data-rr-image="<?php echo e(asset('images/mining/reserves-chart.jpg')); ?>" data-rr-alt="<?php echo e($en ? 'Measured and indicated resources' : 'Ressources mesurées et indiquées'); ?>" data-rr-caption="<?php echo e($en ? 'The table totals 96,320 Kt at 0.92 g/t Au and 2,841 Koz for measured and indicated resources.' : 'Le tableau totalise 96 320 Kt à 0,92 g/t Au et 2 841 Koz pour les ressources mesurées et indiquées.'); ?>"><img src="<?php echo e(asset('images/mining/reserves-chart.jpg')); ?>" alt="<?php echo e($en ? 'Measured and indicated resources' : 'Ressources mesurées et indiquées'); ?>" loading="lazy"></button><figcaption><?php echo e($en ? 'Measured and indicated resources' : 'Ressources mesurées et indiquées'); ?></figcaption></figure><figure><button class="rr-zoom-button" type="button" data-rr-image="<?php echo e(asset('images/resources/licenses-map.jpg')); ?>" data-rr-alt="<?php echo e($en ? 'Karma licenses map' : 'Carte des permis de Karma'); ?>" data-rr-caption="<?php echo e($en ? 'License map showing the Karma exploitation permit and surrounding exploration holdings and deposits.' : 'Carte des permis montrant le permis d’exploitation de Karma, les titres d’exploration voisins et les gisements.'); ?>"><img src="<?php echo e(asset('images/resources/licenses-map.jpg')); ?>" alt="<?php echo e($en ? 'Karma licenses map' : 'Carte des permis de Karma'); ?>" loading="lazy"></button><figcaption><?php echo e($en ? 'Licenses and exploration area' : 'Permis et zone d’exploration'); ?></figcaption></figure></div>
     </section>
 

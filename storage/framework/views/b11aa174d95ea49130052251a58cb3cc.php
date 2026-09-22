@@ -1,3 +1,6 @@
+
+
+
 <?php $__env->startSection('content'); ?>
 <?php $companyBase = $en ? route('english.company') : route('company'); ?>
 
@@ -12,7 +15,7 @@
     <div class="sa-particles-container" data-count="6"></div>
 
     <div class="sa-section-heading sa-reveal" style="margin-bottom:32px;">
-        <h2 style="text-align:left;"><?php echo e(__('site.nav_company', [], $loc)); ?></h2>
+        
         <div class="sa-divider" style="margin: 0;"></div>
     </div>
 
@@ -72,7 +75,7 @@
     <div class="sa-wave-top"></div>
     <div style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'Our Mission & Vision' : 'Notre Mission & Vision'); ?></h2>
+            
             <div class="sa-divider"></div>
         </div>
         
@@ -94,7 +97,7 @@
 <section class="sa-animated-section" style="padding:70px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
         <div class="sa-section-heading sa-reveal">
-            <h2><?php echo e($en ? 'Our Core Values' : 'Nos Valeurs Fondamentales'); ?></h2>
+            
             <div class="sa-divider"></div>
             <p style="color:var(--muted); font-size:15px; line-height:1.8; margin:0;">
                 <?php echo e($en ? 'These values guide every decision and action at Néré Mining' : 'Ces valeurs guident chaque décision et action chez Néré Mining'); ?>

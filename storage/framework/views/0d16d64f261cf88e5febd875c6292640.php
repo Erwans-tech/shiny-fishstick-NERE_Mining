@@ -1,6 +1,15 @@
 <?php $__env->startSection('title', $asset->exists ? 'Modifier le média' : 'Nouveau média'); ?>
 <?php $__env->startSection('page-title', $asset->exists ? 'Modifier' : 'Nouveau média'); ?>
 
+<?php
+    try {
+        $albums = \App\Models\PhotoAlbum::withCount('media')->orderBy('title')->get();
+    } catch (\Exception $e) {
+        // Table pas encore migrée
+        $albums = collect();
+    }
+?>
+
 <?php $__env->startSection('content'); ?>
 <form method="POST"
       action="<?php echo e($asset->exists ? route('admin.media.update', $asset) : route('admin.media.store')); ?>"
@@ -37,6 +46,25 @@
                 <div class="form-group">
                     <label>Ordre d'affichage</label>
                     <input type="number" name="sort_order" value="<?php echo e(old('sort_order', $asset->sort_order ?? 0)); ?>" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Album (optionnel)</label>
+                    <?php if($albums->isNotEmpty()): ?>
+                    <select name="album_id">
+                        <option value="">Aucun album</option>
+                        <?php $__currentLoopData = $albums; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $album): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($album->id); ?>" <?php echo e(old('album_id', $asset->album_id) == $album->id ? 'selected' : ''); ?>>
+                                <?php echo e($album->title); ?> (<?php echo e($album->media_count); ?> <?php echo e($album->media_count > 1 ? 'photos' : 'photo'); ?>)
+                            </option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </select>
+                    <small style="display:block;margin-top:6px;color:var(--muted);">Associez cette photo à un album</small>
+                    <?php else: ?>
+                    <input type="hidden" name="album_id" value="">
+                    <p style="padding:12px;background:var(--sand);border-radius:6px;font-size:13px;color:var(--muted);">
+                        ℹ️ Aucun album créé. <a href="<?php echo e(route('admin.albums.create')); ?>" style="color:var(--green);text-decoration:underline;">Créer un album</a>
+                    </p>
+                    <?php endif; ?>
                 </div>
                 <div class="form-group full">
                     <label>Légende</label>

@@ -1,12 +1,17 @@
 <?php
     $loc = $locale ?? 'fr';
     $en = $loc === 'en';
+    $newsRouteKey = $news->slug ?: $news->id;
+    $newsImagePath = $news->image_path ?? null;
+    $newsGalleryImages = $news->gallery_images ?? [];
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo e($loc); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="<?php echo e(asset('favicon.svg')); ?>" type="image/svg+xml">
+    <link rel="canonical" href="<?php echo e($en ? route('english.news.show', ['news' => $newsRouteKey]) : route('news.show', ['news' => $newsRouteKey])); ?>">
     <title><?php echo e($news->title); ?> | Néré Mining</title>
     <meta name="description" content="<?php echo e($news->excerpt ?? $news->title); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +36,7 @@
         .dropdown-menu a:hover{background:var(--sand);}
         .nav-lang{margin-left:12px;border:1px solid rgba(255,255,255,.3);border-radius:4px;}
         .menu-btn{display:none;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;padding:8px 14px;font:600 11px Inter,sans-serif;letter-spacing:.08em;cursor:pointer;border-radius:4px;}
-        .masthead{padding:100px 5vw 80px;color:white;background:linear-gradient(100deg,rgba(75,23,22,.96) 45%,rgba(75,23,22,.55)),url('<?php echo e($news->image_path ? \App\Helpers\StorageHelper::uploadUrl($news->image_path) : asset('images/mining/karma-01.jpg')); ?>') center/cover;}
+        .masthead{padding:100px 5vw 80px;color:white;background:linear-gradient(100deg,rgba(75,23,22,.96) 45%,rgba(75,23,22,.55)),url('<?php echo e($newsImagePath ? \App\Helpers\StorageHelper::uploadUrl($newsImagePath) : asset('images/mining/karma-01.jpg')); ?>') center/cover;}
         .eyebrow{color:var(--gold);font:600 11px Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;}
         h1{max-width:860px;font-size:clamp(32px,5vw,64px);line-height:1.05;font-weight:400;color:#fff;}
         .breadcrumb{margin-top:20px;font:12px Inter,sans-serif;color:rgba(255,255,255,.6);}
@@ -68,13 +73,6 @@
 
     <div class="masthead">
         <h1><?php echo e($news->title); ?></h1>
-        <div class="breadcrumb">
-            <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link')); ?></a> ›
-            <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.nav_news')); ?></a> ›
-            <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.subnav_news')); ?></a> ›
-            <?php echo e(Str::limit($news->title, 40)); ?>
-
-        </div>
     </div>
 
     <div class="article-wrap sa-animated-section">
@@ -86,8 +84,8 @@
             <span><?php echo e($news->category); ?></span>
         </div>
 
-        <?php if($news->image_path): ?>
-            <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($news->image_path)); ?>" alt="<?php echo e($news->title); ?>" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <?php if($newsImagePath): ?>
+            <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($newsImagePath)); ?>" alt="<?php echo e($news->title); ?>" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
             <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(__('site.news_img_placeholder')); ?>" style="display:none;">
         <?php else: ?>
             <img class="article-cover sa-reveal sa-delay-1" src="<?php echo e(asset('images/placeholders/default-image.svg')); ?>" alt="<?php echo e(__('site.news_img_placeholder')); ?>">
@@ -103,9 +101,9 @@
                 <p><?php echo e($en ? 'Article content coming soon.' : 'Contenu de l\'article à venir.'); ?></p>
             <?php endif; ?>
 
-            <?php if($news->gallery_images): ?>
+            <?php if(!empty($newsGalleryImages)): ?>
                 <div class="article-gallery" aria-label="<?php echo e($en ? 'Article images' : 'Images de l\'article'); ?>">
-                    <?php $__currentLoopData = $news->gallery_images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $galleryImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $newsGalleryImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $galleryImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <img src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($galleryImage)); ?>" alt="<?php echo e($news->title); ?>" loading="lazy">
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>

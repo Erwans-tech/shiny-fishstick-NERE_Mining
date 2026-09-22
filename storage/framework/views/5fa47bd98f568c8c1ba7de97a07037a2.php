@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="<?php echo e(asset('favicon.svg')); ?>" type="image/svg+xml">
     <title><?php echo e(__('site.reports_h1')); ?> | Néré Mining</title>
     <meta name="description" content="<?php echo e(__('site.reports_lead')); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,12 +68,7 @@
 
     <div class="masthead">
         <h1><?php echo e(__('site.reports_h1')); ?></h1>
-        <div class="breadcrumb">
-            <a href="<?php echo e($en ? route('english') : url('/')); ?>"><?php echo e(__('site.home_link')); ?></a> ›
-            <a href="<?php echo e($en ? route('english.news') : route('news.index')); ?>"><?php echo e(__('site.nav_news')); ?></a>
-            › <?php echo e(__('site.reports_breadcrumb')); ?>
 
-        </div>
     </div>
 
     <main>

@@ -63,6 +63,35 @@ unset($__errorArgs, $__bag); ?>
                     <input id="image" type="file" name="image" accept="image/*">
                     <span class="form-hint">PNG, JPG  - max 8 Mo. En local, la limite PHP doit être configurée à 8 Mo minimum.</span>
                 </div>
+                <div class="form-group full">
+                    <label for="gallery_images">Images dans l'article</label>
+                    <?php if($news->gallery_images): ?>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+                        <?php $__currentLoopData = $news->gallery_images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $galleryImage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <img src="<?php echo e(\App\Helpers\StorageHelper::uploadUrl($galleryImage)); ?>" alt="" style="width:110px;height:75px;border-radius:6px;object-fit:cover;">
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                    <span class="form-hint" style="display:block;margin-bottom:8px;">Sélectionner de nouvelles images remplacera la galerie actuelle.</span>
+                    <?php endif; ?>
+                    <input id="gallery_images" type="file" name="gallery_images[]" accept="image/*" multiple>
+                    <span class="form-hint">Jusqu'à 12 images, PNG ou JPG, 4 Mo maximum par image.</span>
+                    <?php $__errorArgs = ['gallery_images'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><div class="form-error"><?php echo e($message); ?></div><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    <?php $__errorArgs = ['gallery_images.*'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><div class="form-error"><?php echo e($message); ?></div><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
                 <div class="form-actions full">
                     <button type="submit" class="btn btn-primary">
                         <?php echo e($news->exists ? '✓ Enregistrer' : '+ Créer l\'article'); ?>

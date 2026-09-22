@@ -1,11 +1,15 @@
+
+
+
 <?php $__env->startSection('content'); ?>
 <?php
-    $pressName = \App\Models\SiteSetting::get('press_contact_name', __('site.press_contact_name', [], $loc));
-    $pressJob = \App\Models\SiteSetting::get('press_contact_job', __('site.press_contact_job', [], $loc));
-    $pressPhoto = \App\Models\SiteSetting::get('press_contact_photo', '');
-    $pressPhone = \App\Models\SiteSetting::get('press_contact_phone', '+226 25 33 35 69');
-    $pressEmail = \App\Models\SiteSetting::get('press_contact_email', 'presse@nere-mining.bf');
-    $pressHours = \App\Models\SiteSetting::get('press_contact_hours', __('site.press_contact_hours', [], $loc));
+    // Informations de contact presse - Laurent Michel Coubarnibet DABIRE
+    $pressName = 'Laurent Michel Coubarnibet DABIRE';
+    $pressJob = $en ? 'Deputy CEO - Corporate & Legal Affairs' : 'DGA Affaires Corporatives et Juridiques';
+    $pressPhoto = asset('images/leadership/laurent-dabire.jpeg');
+    $pressPhone = '+226 70 20 34 34';
+    $pressEmail = 'laurent.dabire@nere-mining.com';
+    $pressHours = $en ? 'Monday to Friday, 8am - 5pm' : 'Lundi au Vendredi, 8h - 17h';
 ?>
 
 <section>
@@ -17,10 +21,16 @@
     <div class="pdg-block" style="margin-bottom:48px;">
         <div>
             <div class="pdg-photo"
-                 style="height:280px; border-radius:6px; display:flex; align-items:center; justify-content:center; background:#5a2020;">
+                 style="height:340px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:#5a2020; position:relative;">
                 <?php if($pressPhoto): ?>
-                    <img src="<?php echo e($pressPhoto); ?>" alt="<?php echo e($pressName); ?>" style="width:100%; height:100%; object-fit:cover; border-radius:6px;" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <span style="display:none;color:rgba(255,255,255,.35);font-size:13px;text-align:center;"><?php echo e($en ? 'Photo coming soon' : 'Photo à venir'); ?></span>
+                    <img src="<?php echo e($pressPhoto); ?>" 
+                         alt="<?php echo e($pressName); ?>" 
+                         style="width:100%; height:100%; object-fit:cover; object-position:center 30%; filter:grayscale(0.15) contrast(1.05);" 
+                         onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div style="display:none; color:rgba(255,255,255,.35); font-size:13px; text-align:center; position:absolute; inset:0; align-items:center; justify-content:center;">
+                        <?php echo e($en ? 'Photo coming soon' : 'Photo à venir'); ?>
+
+                    </div>
                 <?php else: ?>
                     <span style="color:rgba(255,255,255,.35); font-size:13px; text-align:center;">
                         <?php echo e($en ? 'Photo coming soon' : 'Photo à venir'); ?>
@@ -35,11 +45,13 @@
                 <?php echo e(__('site.press_contact_role_label', [], $loc)); ?>
 
             </div>
-            <h2 style="color:#fff; font-size:clamp(26px,3vw,40px); margin-bottom:8px;">
+            
+            <h2 style="color:#fff; font-size:32px; font-weight:600; margin-bottom:8px; line-height:1.2;">
                 <?php echo e($pressName); ?>
 
             </h2>
-            <div style="color:rgba(255,255,255,.7); font:13px Inter,sans-serif; margin-bottom:28px;">
+            
+            <div style="color:rgba(255,255,255,.7); font:15px Inter,sans-serif; margin-bottom:28px;">
                 <?php echo e($pressJob); ?>
 
             </div>
@@ -87,7 +99,7 @@
 
 <section class="sand" style="padding:60px 5vw;">
     <div style="max-width:1180px; margin:0 auto;">
-        <h2 style="text-align:center; color:var(--green); margin-bottom:12px; font-size:36px; font-weight:600;"><?php echo e($en ? 'Press Kit & Resources' : 'Kit Presse & Ressources'); ?></h2>
+        
         <p style="text-align:center; color:var(--muted); font-size:15px; margin-bottom:40px;"><?php echo e($en ? 'Download company information, logos, and media assets.' : 'Télécharger informations entreprise, logos et ressources média.'); ?></p>
         
         <div class="grid-3">
@@ -137,7 +149,7 @@
     <div class="press-form-inner">
         <div class="press-form-heading">
             <span class="press-form-kicker"><?php echo e($en ? 'Media relations' : 'Relations médias'); ?></span>
-            <h2><?php echo e(__('site.press_contact_form_h2', [], $loc)); ?></h2>
+            
             <p class="lead"><?php echo e(__('site.press_contact_form_lead', [], $loc)); ?></p>
         </div>
 

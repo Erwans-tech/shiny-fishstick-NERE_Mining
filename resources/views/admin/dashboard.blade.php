@@ -268,6 +268,20 @@
             <div class="stat-tile-lbl" style="font-size:11px;">Médias</div>
         </div>
     </a>
+    <a href="{{ route('admin.leadership.index') }}" class="stat-tile stat-tile--compact" style="text-decoration:none;">
+        <div class="stat-tile-icon" style="font-size:20px;">👥</div>
+        <div class="stat-tile-body">
+            <div class="stat-tile-num" style="font-size:20px;">{{ $counts['leadership'] ?? 0 }}</div>
+            <div class="stat-tile-lbl" style="font-size:11px;">Équipe direction</div>
+        </div>
+    </a>
+    <a href="{{ route('admin.karma-departments.index') }}" class="stat-tile stat-tile--compact" style="text-decoration:none;">
+        <div class="stat-tile-icon" style="font-size:20px;">🗂️</div>
+        <div class="stat-tile-body">
+            <div class="stat-tile-num" style="font-size:20px;">{{ $counts['karma_departments'] ?? 0 }}</div>
+            <div class="stat-tile-lbl" style="font-size:11px;">Organigramme</div>
+        </div>
+    </a>
     <a href="{{ route('admin.newsletter.index') }}" class="stat-tile stat-tile--compact" style="text-decoration:none;">
         <div class="stat-tile-icon" style="font-size:20px;">📧</div>
         <div class="stat-tile-body">
