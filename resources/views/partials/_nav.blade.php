@@ -59,6 +59,8 @@
                 <div class="site-nav__menu" role="menu">
                           <a href="{{ $en ? route('english.karma') : route('karma') }}"
                               class="{{ $sec === 'karma' ? 'is-current' : '' }}">{{ $en ? 'Overview' : 'Présentation' }}</a>
+                          <a href="{{ $en ? route('english.company.governance') : route('company.governance') }}"
+                              class="{{ $sec === 'company-governance' ? 'is-current' : '' }}">{{ __('site.nav_company_governance') }}</a>
                           <a href="{{ $en ? route('english.company.history') : route('company.history') }}"
                               class="{{ $sec === 'company-history' ? 'is-current' : '' }}">{{ __('site.nav_company_history') }}</a>
                           <a href="{{ $en ? route('english.karma.exploitation') : route('karma.exploitation') }}"
@@ -71,8 +73,6 @@
                               class="{{ $sec === 'karma-modele' ? 'is-current' : '' }}">{{ $en ? 'Operating model' : 'Modèle opérationnel' }}</a>
                           <a href="{{ $en ? route('english.karma.impact') : route('karma.impact') }}"
                               class="{{ $sec === 'karma-impact' ? 'is-current' : '' }}">{{ $en ? 'Impact' : 'Impact' }}</a>
-                          <a href="{{ $en ? route('english.company.governance') : route('company.governance') }}"
-                              class="{{ $sec === 'company-governance' ? 'is-current' : '' }}">{{ __('site.nav_company_governance') }}</a>
                 </div>
             </span>
 
