@@ -229,30 +229,7 @@
             <div class="sa-divider"></div>
         </div>
 
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:20px; margin-top:40px;">
-            @php
-                $impacts = [
-                    ['icon'=>'education','label'=>$en?'Education investment (FCFA)':'Investissement éducation (FCFA)'],
-                    ['icon'=>'health','label'=>$en?'Health investment (FCFA)':'Investissement santé (FCFA)'],
-                    ['icon'=>'water','label'=>$en?'Water access investment (FCFA)':'Investissement accès à l’eau (FCFA)'],
-                    ['icon'=>'livelihoods','label'=>$en?'Livelihoods investment (FCFA)':'Investissement moyens de subsistance (FCFA)'],
-                    ['icon'=>'infrastructure','label'=>$en?'Infrastructure investment (FCFA)':'Investissement infrastructures (FCFA)'],
-                ];
-            @endphp
-            @foreach($impacts as $k => $imp)
-            <div class="sa-metric-card sa-reveal sa-delay-{{ $k+1 }}">
-                <div class="community-index-icon" aria-hidden="true"><svg><use href="#community-icon-{{ $imp['icon'] }}"></use></svg></div>
-                <div class="sa-metric-value sustain-metric__value community-stat"
-                     data-count="{{ $imp['count'] }}"
-                     data-suffix="{{ $imp['suffix'] }}"
-                     data-original="{{ $imp['val'] }}">{{ $imp['val'] }}</div>
-                <div style="font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-top:8px; line-height:1.4;">{{ $imp['label'] }}</div>
-                <div class="sa-progress-bar" style="margin-top:12px;">
-                    <div class="sa-progress-fill" data-width="{{ $imp['bar'] }}"></div>
-                </div>
-            </div>
-            @endforeach
-        </div>
+        
     </div>
 </section>
 
