@@ -14,10 +14,10 @@
     .leadership-level + .leadership-level { margin-top:42px; }
     .leadership-level-heading { display:flex; align-items:center; gap:14px; margin:0 0 18px; color:var(--green); font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
     .leadership-level-heading::after { content:""; height:1px; flex:1; background:linear-gradient(90deg,var(--gold),transparent); }
-    .leadership-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:22px; }
-    .leadership-card { min-height:350px; display:flex; flex-direction:column; align-items:center; padding:28px 20px 24px; text-align:center; background:rgba(255,255,255,.9); border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:14px; box-shadow:0 8px 24px rgba(40,29,24,.07); transition:transform .25s,box-shadow .25s,border-color .25s; }
+    .leadership-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:22px; }
+    .leadership-card { flex:0 1 calc(25% - 17px); min-width:240px; max-width:320px; min-height:350px; display:flex; flex-direction:column; align-items:center; padding:28px 20px 24px; text-align:center; background:rgba(255,255,255,.9); border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:14px; box-shadow:0 8px 24px rgba(40,29,24,.07); transition:transform .25s,box-shadow .25s,border-color .25s; }
     .leadership-card:hover { transform:translateY(-5px); border-color:var(--gold); box-shadow:0 16px 30px rgba(40,29,24,.12); }
-    .leadership-card--lead { grid-column:1 / -1; width:min(700px,100%); justify-self:center; max-width:700px; margin:0 auto; flex-direction:row; gap:24px; align-items:center; text-align:left; background:linear-gradient(135deg,#4b1716,#2d0d10); color:#fff; border-top-color:var(--gold); }
+    .leadership-card--lead { flex:0 1 100%; width:min(700px,100%); justify-self:center; max-width:700px; margin:0 auto; flex-direction:row; gap:24px; align-items:center; text-align:left; background:linear-gradient(135deg,#4b1716,#2d0d10); color:#fff; border-top-color:var(--gold); }
     .leadership-card--lead .leadership-name,.leadership-card--lead .leadership-title { color:#fff; }
     .leadership-card--lead .leadership-department { color:rgba(255,255,255,.7); }
     .leadership-photo { width:220px; height:220px; flex:0 0 220px; object-fit:cover; object-position:center 28%; border-radius:50%; border:5px solid rgba(255,194,71,.75); background:var(--sand); image-rendering:auto; filter:contrast(1.1) brightness(1.05) saturate(1.05); }
