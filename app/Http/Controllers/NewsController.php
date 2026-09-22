@@ -14,7 +14,7 @@ class NewsController extends Controller
     public static function defaultNews($locale = 'fr')
     {
         $en = $locale === 'en';
-        
+
         return collect([
             (object) [
                 'id' => 4,
@@ -100,10 +100,10 @@ PDG de NERE MINING SA',
     public function index()
     {
         App::setLocale('fr');
-        
+
         // FORCE hardcoded news (no database dependency)
         $newsItems = self::defaultNews('fr');
-        
+
         // Manual pagination
         $perPage = 9;
         $currentPage = request()->get('page', 1);
@@ -114,7 +114,7 @@ PDG de NERE MINING SA',
             $currentPage,
             ['path' => request()->url(), 'query' => request()->query()]
         );
-        
+
         return view('news.index', [
             'locale' => 'fr',
             'news'   => $paginator,
@@ -124,7 +124,7 @@ PDG de NERE MINING SA',
     public function show($news)
     {
         App::setLocale('fr');
-        
+
         // Try to load from database for other news
         $newsModel = is_numeric($news) ? News::find($news) : News::where('slug', $news)->first();
 
@@ -137,11 +137,11 @@ PDG de NERE MINING SA',
                 return (string) $item->id === (string) $news || $item->slug === $news;
             });
         }
-        
+
         if (!$newsModel) {
             abort(404);
         }
-        
+
         abort_unless($newsModel->published_at && $newsModel->published_at->isPast(), 404);
         return view('news.show', ['locale' => 'fr', 'news' => $newsModel]);
     }
@@ -149,10 +149,10 @@ PDG de NERE MINING SA',
     public function indexEn()
     {
         App::setLocale('en');
-        
+
         // FORCE hardcoded news (no database dependency)
         $newsItems = self::defaultNews('en');
-        
+
         // Manual pagination
         $perPage = 9;
         $currentPage = request()->get('page', 1);
@@ -163,7 +163,7 @@ PDG de NERE MINING SA',
             $currentPage,
             ['path' => request()->url(), 'query' => request()->query()]
         );
-        
+
         return view('news.index', [
             'locale' => 'en',
             'news'   => $paginator,
@@ -173,7 +173,7 @@ PDG de NERE MINING SA',
     public function showEn($news)
     {
         App::setLocale('en');
-        
+
         // Try to load from database for other news
         $newsModel = is_numeric($news) ? News::find($news) : News::where('slug', $news)->first();
 
@@ -186,11 +186,11 @@ PDG de NERE MINING SA',
                 return (string) $item->id === (string) $news || $item->slug === $news;
             });
         }
-        
+
         if (!$newsModel) {
             abort(404);
         }
-        
+
         abort_unless($newsModel->published_at && $newsModel->published_at->isPast(), 404);
         return view('news.show', ['locale' => 'en', 'news' => $newsModel]);
     }

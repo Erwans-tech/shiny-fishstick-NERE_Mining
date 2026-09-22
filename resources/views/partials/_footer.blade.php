@@ -30,6 +30,17 @@
             <a class="site-footer__brand" href="{{ $en ? route('english') : url('/') }}">
                 <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining">
             </a>
+            @if($socialLinks->isNotEmpty())
+        <div class="site-footer__social" aria-label="{{ $en ? 'Social networks' : 'Réseaux sociaux' }}">
+            <span class="site-footer__social-label">{{ $en ? 'Follow us' : 'Suivez-nous' }}</span>
+            @foreach($socialLinks as $social)
+                <a class="site-footer__social-link" href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $social['name'] }}" title="{{ $social['name'] }}">
+                    {!! $social['icon'] !!}
+                    <span>{{ $social['name'] }}</span>
+                </a>
+            @endforeach
+        </div>
+        @endif
             <a class="site-btn site-footer__cta" href="{{ $contactUrl }}">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -72,17 +83,7 @@
             <span>Ouagadougou, Burkina Faso</span>
         </div>
 
-        @if($socialLinks->isNotEmpty())
-        <div class="site-footer__social" aria-label="{{ $en ? 'Social networks' : 'Réseaux sociaux' }}">
-            <span class="site-footer__social-label">{{ $en ? 'Follow us' : 'Suivez-nous' }}</span>
-            @foreach($socialLinks as $social)
-                <a class="site-footer__social-link" href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $social['name'] }}" title="{{ $social['name'] }}">
-                    {!! $social['icon'] !!}
-                    <span>{{ $social['name'] }}</span>
-                </a>
-            @endforeach
-        </div>
-        @endif
+        
 
         <div class="site-footer__legal">
             <a href="{{ $en ? route('english.cookies.policy') : route('cookies.policy') }}">{{ $en ? 'Cookies policy' : 'Politique cookies' }}</a>
