@@ -2,6 +2,10 @@
 @section('title', 'Paramètres du site')
 @section('page-title', 'Paramètres du site')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/admin-settings.css') }}?v={{ filemtime(public_path('css/admin-settings.css')) }}">
+@endpush
+
 @section('content')
 <div class="card settings-page">
     <div class="card-header">
@@ -190,31 +194,6 @@
     </form>
 </div>
 
-<style>
-    .settings-page { overflow:hidden; }
-    .settings-overview { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1px; background:var(--line); border-bottom:1px solid var(--line); }
-    .settings-overview-item { display:flex; align-items:center; gap:10px; padding:16px 20px; background:#fff; }
-    .settings-overview-icon { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:8px; background:var(--sand); color:var(--gold2); font-weight:700; }
-    .settings-overview-item strong, .settings-overview-item small { display:block; }
-    .settings-overview-item strong { color:var(--green); font-size:20px; line-height:1; }
-    .settings-overview-item small { margin-top:3px; color:var(--muted); font-size:11px; }
-    .settings-toolbar { padding: 20px; background: #fffaf1; border-bottom: 1px solid var(--line); }
-    .settings-search { display:flex; align-items:center; gap:10px; max-width:520px; padding:0 13px; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--muted); }
-    .settings-search span { font-size:22px; line-height:1; }
-    .settings-search input { width:100%; padding:11px 0; border:0; outline:0; background:transparent; color:var(--ink); font:14px Inter,sans-serif; }
-    .settings-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
-    .settings-tab { border:1px solid var(--line); border-radius:999px; padding:7px 12px; background:#fff; color:var(--muted); font:600 11px Inter,sans-serif; cursor:pointer; text-transform:capitalize; }
-    .settings-tab:hover, .settings-tab.is-active { border-color:var(--green); background:var(--green); color:#fff; }
-    .settings-section { margin:0 0 22px !important; padding:20px; border:1px solid var(--line); border-radius:10px; background:rgba(255,255,255,.62); transition:opacity .2s, border-color .2s; }
-    .settings-section:hover { border-color:rgba(229,167,47,.7); }
-    .settings-section legend { width:100%; padding:0 0 12px !important; margin:0 0 20px !important; }
-    .settings-section .settings-field + .settings-field { padding-top:18px; border-top:1px solid #f0ebe3; }
-    .settings-section.is-hidden, .settings-field.is-hidden { display:none; }
-    .settings-actions { display:flex; align-items:center; gap:12px; margin-top:28px; padding-top:20px; border-top:2px solid var(--line); }
-    .settings-save-state { color:#16803c; font-size:12px; }
-    @media (max-width:700px) { .settings-overview { grid-template-columns:1fr; } .settings-actions { align-items:stretch; flex-direction:column; } .settings-actions .btn { text-align:center; } }
-</style>
-
 {{-- Preview live du carrousel --}}
 @if($grouped->has('carousel'))
 <div class="card" style="margin-top:20px;">
@@ -223,18 +202,18 @@
         <span class="card-header-sub">Les paramètres seront appliqués au carrousel du site</span>
     </div>
     <div class="card-body">
-        <div style="background:#faf8f4; padding:20px; border-radius:8px; border:1px solid var(--line);">
-            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; font:13px Inter,sans-serif;">
-                <div>
-                    <strong style="color:var(--green); display:block; margin-bottom:6px;">Durée par slide</strong>
+        <div class="settings-preview">
+            <div class="settings-preview-grid">
+                <div class="settings-preview-item">
+                    <strong>Durée par slide</strong>
                     <span id="preview-interval">5 secondes</span>
                 </div>
-                <div>
-                    <strong style="color:var(--green); display:block; margin-bottom:6px;">Vitesse transition</strong>
+                <div class="settings-preview-item">
+                    <strong>Vitesse transition</strong>
                     <span id="preview-speed">0.8 secondes</span>
                 </div>
-                <div>
-                    <strong style="color:var(--green); display:block; margin-bottom:6px;">Lecture automatique</strong>
+                <div class="settings-preview-item">
+                    <strong>Lecture automatique</strong>
                     <span id="preview-autoplay">Activée</span>
                 </div>
             </div>
