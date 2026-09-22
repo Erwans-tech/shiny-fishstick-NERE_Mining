@@ -399,7 +399,7 @@ return [
     'contact_hq_phone'        => 'Phone',
     'contact_hq_phone_v'      => '+226 25 33 35 69',
     'contact_hq_email'        => 'Email',
-    'contact_hq_email_v'      => 'contact@nere-mining.bf',
+    'contact_hq_email_v'      => 'info@nere-mining.bf',
     'contact_hq_hours'        => 'Opening hours',
     'contact_hq_hours_v'      => 'Mon–Fri, 8 am–3:30 pm',
 
@@ -414,7 +414,7 @@ return [
     'contact_mine_hse'            => 'HSE emergency',
     'contact_mine_hse_v'          => '+226 25 33 35 69',
     'contact_mine_community'      => 'Community relations',
-    'contact_mine_community_v'    => 'contact@nere-mining.bf',
+    'contact_mine_community_v'    => 'info@nere-mining.bf',
 
     'contact_office_h3'           => 'Liaison office  - Ouahigouya',
     'contact_office_role'         => 'Role',
@@ -424,7 +424,7 @@ return [
     'contact_office_phone'        => 'Phone',
     'contact_office_phone_v'      => '+226 25 33 35 69',
     'contact_office_email'        => 'Email',
-    'contact_office_email_v'      => 'contact@nere-mining.bf',
+    'contact_office_email_v'      => 'info@nere-mining.bf',
     'contact_office_press'        => 'Press contact',
     'contact_form_h2'    => 'Contact form',
     'contact_form_lead'  => "General enquiry, partnership request, job application or community message? Write to us.",
@@ -709,13 +709,13 @@ return [
     'nav_company_ceo'        => 'CEO message',
     'nav_company_identity'   => 'Our identity',
     'nav_company_history'    => 'Our history',
-    'nav_company_values'     => 'Values',
+    'nav_company_values'     => 'Our values',
     'nav_company_governance' => 'Governance',
 
     'subnav_company_ceo'        => 'CEO message',
     'subnav_company_identity'   => 'Our identity',
     'subnav_company_history'    => 'Our history',
-    'subnav_company_values'     => 'Values',
+    'subnav_company_values'     => 'Our values',
     'subnav_company_governance' => 'Governance',
 
     /* company-ceo */

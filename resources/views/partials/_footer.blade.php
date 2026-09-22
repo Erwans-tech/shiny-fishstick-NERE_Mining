@@ -6,7 +6,7 @@
     // Récupérer les settings depuis la BD
     use App\Models\SiteSetting;
     $companyPhone = SiteSetting::get('company_phone', '+226 25 33 35 69');
-    $companyEmail = SiteSetting::get('company_email', 'contact@nere-mining.bf');
+    $companyEmail = SiteSetting::get('company_email', 'info@nere-mining.bf');
     $copyright = SiteSetting::get('footer_copyright', '© '.date('Y').' Néré Mining. Tous droits réservés.');
     $footerDescription = SiteSetting::get('footer_description', 'Groupe aurifère burkinabè exploitant la mine de Karma dans le nord du Burkina Faso.');
     $socialLinks = collect([

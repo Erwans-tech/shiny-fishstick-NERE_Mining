@@ -399,7 +399,7 @@ return [
     'contact_hq_phone'        => 'Tél.',
     'contact_hq_phone_v'      => '+226 25 33 35 69',
     'contact_hq_email'        => 'Email',
-    'contact_hq_email_v'      => 'contact@nere-mining.bf',
+    'contact_hq_email_v'      => 'info@nere-mining.bf',
     'contact_hq_hours'        => 'Horaires',
     'contact_hq_hours_v'      => 'Lun–Ven, 8h–15h30',
 
@@ -414,7 +414,7 @@ return [
     'contact_mine_hse'            => 'Urgences HSE',
     'contact_mine_hse_v'          => '+226 25 33 35 69',
     'contact_mine_community'      => 'Relations communautaires',
-    'contact_mine_community_v'    => 'contact@nere-mining.bf',
+    'contact_mine_community_v'    => 'info@nere-mining.bf',
 
     'contact_office_h3'           => 'Bureau de liaison  - Ouahigouya',
     'contact_office_role'         => 'Rôle',
@@ -424,7 +424,7 @@ return [
     'contact_office_phone'        => 'Tél.',
     'contact_office_phone_v'      => '+226 25 33 35 69',
     'contact_office_email'        => 'Email',
-    'contact_office_email_v'      => 'contact@nere-mining.bf',
+    'contact_office_email_v'      => 'info@nere-mining.bf',
     'contact_office_press'        => 'Contact presse',
     'contact_form_h2'    => 'Formulaire de contact',
     'contact_form_lead'  => "Une question générale, une demande de partenariat, une candidature ou un message pour les communautés ? Écrivez-nous.",
@@ -709,13 +709,13 @@ return [
     'nav_company_ceo'        => 'Mot du PDG',
     'nav_company_identity'   => 'Notre identité',
     'nav_company_history'    => 'Notre histoire',
-    'nav_company_values'     => 'Valeurs',
+    'nav_company_values'     => 'Nos valeurs',
     'nav_company_governance' => 'Gouvernance',
 
     'subnav_company_ceo'        => 'Mot du PDG',
     'subnav_company_identity'   => 'Notre identité',
     'subnav_company_history'    => 'Notre histoire',
-    'subnav_company_values'     => 'Valeurs',
+    'subnav_company_values'     => 'Nos valeurs',
     'subnav_company_governance' => 'Gouvernance',
 
     /* company-ceo */

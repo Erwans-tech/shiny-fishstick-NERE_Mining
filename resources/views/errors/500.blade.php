@@ -34,7 +34,7 @@
         <!-- Support info -->
         <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(239,68,68,0.2);">
             <p style="color: #7a8190; font-size: 14px; margin-bottom: 16px;">If this problem persists, please contact us:</p>
-            <a href="mailto:contact@nere-mining.bf" style="color: #ef4444; text-decoration: none; font-weight: 600; transition: color 0.3s;">contact@nere-mining.bf</a>
+            <a href="mailto:info@nere-mining.bf" style="color: #ef4444; text-decoration: none; font-weight: 600; transition: color 0.3s;">info@nere-mining.bf</a>
         </div>
     </div>
 </div>
