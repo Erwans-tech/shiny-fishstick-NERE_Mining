@@ -6,7 +6,7 @@
     // Récupérer les settings depuis la BD
     use App\Models\SiteSetting;
     $companyPhone = SiteSetting::get('company_phone', '+226 25 33 35 69');
-    $companyEmail = SiteSetting::get('company_email', 'contact@nere-mining.bf');
+    $companyEmail = SiteSetting::get('company_email', 'info@nere-mining.bf');
     $copyright = SiteSetting::get('footer_copyright', '© '.date('Y').' Néré Mining. Tous droits réservés.');
     $footerDescription = SiteSetting::get('footer_description', 'Groupe aurifère burkinabè exploitant la mine de Karma dans le nord du Burkina Faso.');
     $socialLinks = collect([
@@ -20,7 +20,7 @@
     })->filter(fn ($social) => filter_var($social['url'], FILTER_VALIDATE_URL));
 ?>
 
-<?php if (! $__env->hasRenderedOnce('45d68a4b-a441-4b50-9eb2-58766ddee5dc')): $__env->markAsRenderedOnce('45d68a4b-a441-4b50-9eb2-58766ddee5dc'); ?>
+<?php if (! $__env->hasRenderedOnce('a48d1af2-9fb0-486e-b1a1-7d86644342b8')): $__env->markAsRenderedOnce('a48d1af2-9fb0-486e-b1a1-7d86644342b8'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
 <?php endif; ?>
 
@@ -32,12 +32,10 @@
             </a>
             <?php if($socialLinks->isNotEmpty()): ?>
         <div class="site-footer__social" aria-label="<?php echo e($en ? 'Social networks' : 'Réseaux sociaux'); ?>">
-            <span class="site-footer__social-label"><?php echo e($en ? 'Follow us' : 'Suivez-nous'); ?></span>
             <?php $__currentLoopData = $socialLinks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <a class="site-footer__social-link" href="<?php echo e($social['url']); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo e($social['name']); ?>" title="<?php echo e($social['name']); ?>">
                     <?php echo $social['icon']; ?>
 
-                    <span><?php echo e($social['name']); ?></span>
                 </a>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>

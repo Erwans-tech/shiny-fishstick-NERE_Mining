@@ -744,7 +744,7 @@
                                 <circle cx="8.5" cy="8.5" r="1.5"/>
                                 <path d="M21 15l-5-5L5 21"/>
                             </svg>
-                            <?php echo e($en ? 'Album' : 'Album'); ?> · <?php echo e($featuredAlbum->photo_count); ?> <?php echo e($featuredAlbum->photo_count > 1 ? 'photos' : 'photo'); ?>
+                            <?php echo e($en ? 'Album' : 'Album'); ?> · <?php echo e($featuredAlbum->photo_count ?? 0); ?> <?php echo e(($featuredAlbum->photo_count ?? 0) > 1 ? 'photos' : 'photo'); ?>
 
                         </div>
                         <h3><?php echo e($featuredAlbum->title); ?></h3>

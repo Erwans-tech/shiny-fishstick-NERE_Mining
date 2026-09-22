@@ -79,6 +79,17 @@
         }}
     </p>
 
+    {{-- Impact géographique --}}
+    <div class="sa-step-card sa-reveal" data-step="44" style="margin-top:24px; margin-bottom:32px; background:var(--sand);">
+        <h4 style="color:var(--green); margin-bottom:10px;">{{ $en ? 'Geographic Impact' : 'Impact Géographique' }}</h4>
+        <p style="font-size:14px; margin:0;">
+            {{ $en
+                ? 'The Karma mine directly impacts 11 villages and indirectly affects 23 villages, for a total of 44 localities in its area of influence.'
+                : 'La mine de Karma impacte directement 11 villages et indirectement 23 villages, soit un total de 44 localités dans son rayon d\'influence.'
+            }}
+        </p>
+    </div>
+
     <div class="grid-2 community-grid" style="align-items:stretch; gap:32px;">
         <div class="community-panel sa-reveal sa-delay-2">
             <h3>{{ $en ? 'Our Relational Strategy' : 'Notre Stratégie Relationnelle' }}</h3>
@@ -94,17 +105,6 @@
                     <span>{{ $en ? 'Permanent dialogue: regular consultations with all stakeholders' : 'Le dialogue permanent : concertations régulières avec l\'ensemble des parties prenantes' }}</span>
                 </li>
             </ul>
-
-            {{-- Impact géographique --}}
-            <div class="sa-step-card sa-reveal" data-step="44" style="margin-top:24px; background:var(--sand);">
-                <h4 style="color:var(--green); margin-bottom:10px;">{{ $en ? 'Geographic Impact' : 'Impact Géographique' }}</h4>
-                <p style="font-size:14px; margin:0;">
-                    {{ $en
-                        ? 'The Karma mine directly impacts 11 villages and indirectly affects 23 villages, for a total of 44 localities in its area of influence.'
-                        : 'La mine de Karma impacte directement 11 villages et indirectement 23 villages, soit un total de 44 localités dans son rayon d\'influence.'
-                    }}
-                </p>
-            </div>
 
             <div class="card sa-glow-hover" style="background:#fff; border:1px solid var(--line); margin-top:24px;">
                 <h4 style="color:var(--green); margin-bottom:12px;">{{ $en ? 'Intervention Areas' : 'Domaines d\'Intervention' }}</h4>

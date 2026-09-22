@@ -8,7 +8,7 @@
     $contactUrl = $en ? route('english.contact') : route('contact');
 ?>
 
-<?php if (! $__env->hasRenderedOnce('c3a1159d-1bf1-42e4-b0c3-73e3cd426f87')): $__env->markAsRenderedOnce('c3a1159d-1bf1-42e4-b0c3-73e3cd426f87'); ?>
+<?php if (! $__env->hasRenderedOnce('d3ac195a-4b44-4dfa-8bf1-7c0c14a47c70')): $__env->markAsRenderedOnce('d3ac195a-4b44-4dfa-8bf1-7c0c14a47c70'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('css/text-fixes.css')); ?>?v=<?php echo e(filemtime(public_path('css/text-fixes.css'))); ?>">
 <?php endif; ?>
@@ -62,6 +62,8 @@
                 <div class="site-nav__menu" role="menu">
                           <a href="<?php echo e($en ? route('english.karma') : route('karma')); ?>"
                               class="<?php echo e($sec === 'karma' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Overview' : 'Présentation'); ?></a>
+                          <a href="<?php echo e($en ? route('english.company.governance') : route('company.governance')); ?>"
+                              class="<?php echo e($sec === 'company-governance' ? 'is-current' : ''); ?>"><?php echo e(__('site.nav_company_governance')); ?></a>
                           <a href="<?php echo e($en ? route('english.company.history') : route('company.history')); ?>"
                               class="<?php echo e($sec === 'company-history' ? 'is-current' : ''); ?>"><?php echo e(__('site.nav_company_history')); ?></a>
                           <a href="<?php echo e($en ? route('english.karma.exploitation') : route('karma.exploitation')); ?>"
@@ -74,8 +76,6 @@
                               class="<?php echo e($sec === 'karma-modele' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Operating model' : 'Modèle opérationnel'); ?></a>
                           <a href="<?php echo e($en ? route('english.karma.impact') : route('karma.impact')); ?>"
                               class="<?php echo e($sec === 'karma-impact' ? 'is-current' : ''); ?>"><?php echo e($en ? 'Impact' : 'Impact'); ?></a>
-                          <a href="<?php echo e($en ? route('english.company.governance') : route('company.governance')); ?>"
-                              class="<?php echo e($sec === 'company-governance' ? 'is-current' : ''); ?>"><?php echo e(__('site.nav_company_governance')); ?></a>
                 </div>
             </span>
 
