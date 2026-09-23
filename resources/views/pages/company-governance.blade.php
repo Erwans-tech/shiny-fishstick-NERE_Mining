@@ -108,6 +108,28 @@
         background: rgba(255, 255, 255, 1);
     }
 
+    /* Hover spécifique pour la carte PDG - effet plus subtil */
+    .leadership-card--lead:hover { 
+        background: linear-gradient(135deg, #4b1716 0%, #2d0d10 100%);
+        box-shadow: 0 25px 60px rgba(40, 29, 24, 0.25);
+        transform: translateY(-6px);
+    }
+
+    /* S'assurer que le texte reste parfaitement lisible */
+    .leadership-card--lead .leadership-name,
+    .leadership-card--lead .leadership-title,
+    .leadership-card--lead:hover .leadership-name,
+    .leadership-card--lead:hover .leadership-title { 
+        color: #ffffff !important; 
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .leadership-card--lead .leadership-department,
+    .leadership-card--lead:hover .leadership-department { 
+        color: rgba(255, 255, 255, 0.85) !important; 
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
     /* Carte PDG spéciale agrandie */
     .leadership-card--lead { 
         flex: 0 1 100%; 
