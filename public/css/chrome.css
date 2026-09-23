@@ -371,8 +371,7 @@
     transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
 }
 
-.site-footer__social-link svg,
-.site-footer__social-link img {
+.site-footer__social-link svg {
     width: 22px;
     height: 22px;
     fill: none;
@@ -380,6 +379,12 @@
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 1.8;
+}
+
+.site-footer__social-link img {
+    width: 22px;
+    height: 22px;
+    display: block;
 }
 
 .site-footer__social-link:hover,
