@@ -824,12 +824,6 @@
         @php
             $defaultPartners = [
                 [
-                    'img'  => asset('images/partners/neemba-logo.jpeg'),
-                    'name' => 'NEEMBA',
-                    'cat'  => $en ? 'Institutional Partner' : 'Partenaire Institutionnel',
-                    'url'  => null,
-                ],
-                [
                     'img'  => asset('images/partners/armoiries-burkina-faso.jpg'),
                     'name' => $en ? 'Government of Burkina Faso' : 'État burkinabè',
                     'cat'  => $en ? 'State · Mining Ministry' : 'Ministère des Mines',
