@@ -101,19 +101,42 @@ PDG de NERE MINING SA',
     {
         App::setLocale('fr');
 
-        // FORCE hardcoded news (no database dependency)
-        $newsItems = self::defaultNews('fr');
-
-        // Manual pagination
-        $perPage = 9;
-        $currentPage = request()->get('page', 1);
-        $paginator = new LengthAwarePaginator(
-            $newsItems->forPage($currentPage, $perPage),
-            $newsItems->count(),
-            $perPage,
-            $currentPage,
-            ['path' => request()->url(), 'query' => request()->query()]
-        );
+        // Récupérer les actualités depuis la base de données avec pagination
+        $newsQuery = News::published()->latest('published_at');
+        
+        // Essayer d'abord la pagination depuis la base de données
+        try {
+            $paginator = $newsQuery->paginate(9);
+            
+            // Si aucune actualité en base, utiliser les actualités par défaut
+            if ($paginator->isEmpty()) {
+                $newsItems = self::defaultNews('fr');
+                
+                // Manual pagination pour les actualités hardcodées
+                $perPage = 9;
+                $currentPage = request()->get('page', 1);
+                $paginator = new LengthAwarePaginator(
+                    $newsItems->forPage($currentPage, $perPage),
+                    $newsItems->count(),
+                    $perPage,
+                    $currentPage,
+                    ['path' => request()->url(), 'query' => request()->query()]
+                );
+            }
+        } catch (\Exception $e) {
+            // En cas d'erreur base de données, utiliser les actualités hardcodées
+            $newsItems = self::defaultNews('fr');
+            
+            $perPage = 9;
+            $currentPage = request()->get('page', 1);
+            $paginator = new LengthAwarePaginator(
+                $newsItems->forPage($currentPage, $perPage),
+                $newsItems->count(),
+                $perPage,
+                $currentPage,
+                ['path' => request()->url(), 'query' => request()->query()]
+            );
+        }
 
         return view('news.index', [
             'locale' => 'fr',
@@ -150,19 +173,42 @@ PDG de NERE MINING SA',
     {
         App::setLocale('en');
 
-        // FORCE hardcoded news (no database dependency)
-        $newsItems = self::defaultNews('en');
-
-        // Manual pagination
-        $perPage = 9;
-        $currentPage = request()->get('page', 1);
-        $paginator = new LengthAwarePaginator(
-            $newsItems->forPage($currentPage, $perPage),
-            $newsItems->count(),
-            $perPage,
-            $currentPage,
-            ['path' => request()->url(), 'query' => request()->query()]
-        );
+        // Récupérer les actualités depuis la base de données avec pagination
+        $newsQuery = News::published()->latest('published_at');
+        
+        // Essayer d'abord la pagination depuis la base de données
+        try {
+            $paginator = $newsQuery->paginate(9);
+            
+            // Si aucune actualité en base, utiliser les actualités par défaut
+            if ($paginator->isEmpty()) {
+                $newsItems = self::defaultNews('en');
+                
+                // Manual pagination pour les actualités hardcodées
+                $perPage = 9;
+                $currentPage = request()->get('page', 1);
+                $paginator = new LengthAwarePaginator(
+                    $newsItems->forPage($currentPage, $perPage),
+                    $newsItems->count(),
+                    $perPage,
+                    $currentPage,
+                    ['path' => request()->url(), 'query' => request()->query()]
+                );
+            }
+        } catch (\Exception $e) {
+            // En cas d'erreur base de données, utiliser les actualités hardcodées
+            $newsItems = self::defaultNews('en');
+            
+            $perPage = 9;
+            $currentPage = request()->get('page', 1);
+            $paginator = new LengthAwarePaginator(
+                $newsItems->forPage($currentPage, $perPage),
+                $newsItems->count(),
+                $perPage,
+                $currentPage,
+                ['path' => request()->url(), 'query' => request()->query()]
+            );
+        }
 
         return view('news.index', [
             'locale' => 'en',
