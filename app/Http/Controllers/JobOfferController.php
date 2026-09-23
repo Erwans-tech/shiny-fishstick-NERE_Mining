@@ -134,7 +134,21 @@ class JobOfferController extends Controller
 
         unset($data['cv'], $data['cover_letter_file'], $data['locale']);
 
-        JobApplication::create($data);
+        $application = JobApplication::create($data);
+        
+        // Envoi automatique vers RH si activé
+        $hrEmail = \App\Models\SiteSetting::get('hr_email_address');
+        $autoForward = \App\Models\SiteSetting::get('hr_auto_forward_applications', 'true') === 'true';
+        
+        if ($hrEmail && $autoForward) {
+            try {
+                // Recharger l'application avec la relation jobOffer
+                $application->load('jobOffer');
+                \Mail::to($hrEmail)->send(new \App\Mail\JobApplicationNotification($application));
+            } catch (\Exception $e) {
+                \Log::error('Erreur envoi e-mail candidature: ' . $e->getMessage());
+            }
+        }
 
         // Redirection après candidature spontanée → retour sur la page dédiée
         if ($job->is_spontaneous) {

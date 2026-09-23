@@ -549,7 +549,21 @@ Route::post('/contact', function (Request $request) {
         'message' => ['required', 'string', 'max:5000'],
         'type'    => ['required', 'string', 'max:60'],
     ]);
-    ContactMessage::create($data);
+    
+    $contactMessage = ContactMessage::create($data);
+    
+    // Envoi automatique vers RH si activé
+    $hrEmail = \App\Models\SiteSetting::get('hr_email_address');
+    $autoForward = \App\Models\SiteSetting::get('hr_auto_forward_messages', 'true') === 'true';
+    
+    if ($hrEmail && $autoForward) {
+        try {
+            \Mail::to($hrEmail)->send(new \App\Mail\ContactMessageNotification($contactMessage));
+        } catch (\Exception $e) {
+            \Log::error('Erreur envoi e-mail contact: ' . $e->getMessage());
+        }
+    }
+    
     $msg = App::getLocale() === 'en'
         ? 'Your message has been received. Our team will reply shortly.'
         : 'Votre message a bien été enregistré. Notre équipe vous répondra prochainement.';
@@ -565,7 +579,21 @@ Route::post('/en/contact', function (Request $request) {
         'message' => ['required', 'string', 'max:5000'],
         'type'    => ['required', 'string', 'max:60'],
     ]);
-    ContactMessage::create($data);
+    
+    $contactMessage = ContactMessage::create($data);
+    
+    // Envoi automatique vers RH si activé
+    $hrEmail = \App\Models\SiteSetting::get('hr_email_address');
+    $autoForward = \App\Models\SiteSetting::get('hr_auto_forward_messages', 'true') === 'true';
+    
+    if ($hrEmail && $autoForward) {
+        try {
+            \Mail::to($hrEmail)->send(new \App\Mail\ContactMessageNotification($contactMessage));
+        } catch (\Exception $e) {
+            \Log::error('Erreur envoi e-mail contact: ' . $e->getMessage());
+        }
+    }
+    
     return redirect()->route('english.contact')->with('success', 'Your message has been received. Our team will reply shortly.');
 })->name('english.contact.store')->middleware('throttle:contact-form');
 

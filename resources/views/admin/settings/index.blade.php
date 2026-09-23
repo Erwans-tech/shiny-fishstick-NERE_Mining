@@ -76,6 +76,9 @@
                             'carousel_pause_on_hover' => 'Mettre en pause le carrousel au survol de la souris',
                             'carousel_show_indicators' => 'Afficher les points indicateurs en bas',
                             'carousel_show_arrows' => 'Afficher les flèches de navigation',
+                            'hr_email_address' => 'Adresse e-mail RH qui recevra automatiquement les messages de contact et candidatures',
+                            'hr_auto_forward_messages' => 'Transférer automatiquement tous les messages de contact vers l\'e-mail RH',
+                            'hr_auto_forward_applications' => 'Transférer automatiquement toutes les candidatures vers l\'e-mail RH avec les fichiers joints',
                         ];
                     @endphp
 
