@@ -1,0 +1,71 @@
+# ═══════════════════════════════════════════════════════════════════════════
+#  NÉRÉ MINING  - Configuration d'environnement PRODUCTION (serveurs de la mine)
+#  Copier en .env et remplir TOUTES les valeurs [REQUIRED]
+#  ⚠  NE JAMAIS versionner le fichier .env
+#  ⚠  Générer une APP_KEY unique : php artisan key:generate --show
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ── Application ──────────────────────────────────────────────────────────────
+APP_NAME="Nere Mining"
+APP_ENV=production
+APP_KEY=base64:94Pj32zaWfACkDUY5e37eYB0P9D8FDkxJkuidcIHTbY=
+APP_DEBUG=false
+APP_URL=https://www.nere-mining.bf
+APP_TIMEZONE=Africa/Ouagadougou
+ASSET_URL=https://www.nere-mining.bf
+
+APP_LOCALE=fr
+APP_FALLBACK_LOCALE=fr
+APP_FAKER_LOCALE=fr_FR
+
+FORCE_HTTPS=true
+CORS_ALLOWED_ORIGINS=https://nere-mining.bf
+
+# ── Base de données PostgreSQL locale ───────────────────────────────────────
+DB_CONNECTION=pgsql
+DB_HOST=localhost
+DB_PORT=5432
+DB_DATABASE=nere_website_db
+DB_USERNAME=postgres
+DB_PASSWORD=/NereMINING/
+DB_CHARSET=utf8
+
+# ── Session ───────────────────────────────────────────────────────────────────
+SESSION_DRIVER=database
+SESSION_LIFETIME=120
+SESSION_ENCRYPT=false
+SESSION_SECURE_COOKIE=true
+SESSION_SAME_SITE=lax
+SESSION_COOKIE=nm_session_v2
+
+# ── Cache & Queue ─────────────────────────────────────────────────────────────
+CACHE_DRIVER=file
+CACHE_STORE=file
+QUEUE_CONNECTION=sync
+
+# ── Filesystem uploads ────────────────────────────────────────────────────────
+FILESYSTEM_DISK=public
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+LOG_CHANNEL=daily
+LOG_LEVEL=warning
+LOG_DAILY_DAYS=30
+
+# ── Email ─────────────────────────────────────────────────────────────────────
+MAIL_MAILER=smtp
+MAIL_HOST=
+MAIL_PORT=587
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="noreply@nere-mining.bf"
+MAIL_FROM_NAME="Nere Mining"
+
+# ── Analytics / consentement ────────────────────────────────────────────────
+GA_MEASUREMENT_ID="G-XXXXXXXXXX"
+GA_ENABLED=true
+
+# ── Sécurité supplémentaire ───────────────────────────────────────────────────
+APP_MAINTENANCE_DRIVER=file
+ADMIN_EMAIL=admin@nere-mining.bf
+ADMIN_PASSWORD=NereMining2026!

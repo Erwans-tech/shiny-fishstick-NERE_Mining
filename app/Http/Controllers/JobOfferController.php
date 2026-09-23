@@ -136,8 +136,7 @@ class JobOfferController extends Controller
 
         $application = JobApplication::create($data);
         
-        // Envoi automatique vers RH si activé - TEMPORAIREMENT DÉSACTIVÉ  
-        /*
+        // Envoi automatique vers RH si activé
         $hrEmail = \App\Models\SiteSetting::get('hr_email_address');
         $autoForward = \App\Models\SiteSetting::get('hr_auto_forward_applications', 'true') === 'true';
         
@@ -150,7 +149,6 @@ class JobOfferController extends Controller
                 \Log::error('Erreur envoi e-mail candidature: ' . $e->getMessage());
             }
         }
-        */
 
         // Redirection après candidature spontanée → retour sur la page dédiée
         if ($job->is_spontaneous) {
