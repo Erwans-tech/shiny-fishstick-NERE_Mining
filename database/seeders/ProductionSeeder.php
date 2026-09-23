@@ -32,7 +32,6 @@ class ProductionSeeder extends Seeder
             DB::table('job_offers')->truncate();
             DB::table('press_documents')->truncate();
             DB::table('reports')->truncate();
-            DB::table('site_contents')->truncate();
 
             // Reset sequences
             $this->command->info('🔄 Resetting sequences...');
@@ -46,7 +45,6 @@ class ProductionSeeder extends Seeder
             DB::statement("SELECT setval('job_offers_id_seq', 1, false);");
             DB::statement("SELECT setval('press_documents_id_seq', 1, false);");
             DB::statement("SELECT setval('reports_id_seq', 1, false);");
-            DB::statement("SELECT setval('site_contents_id_seq', 1, false);");
 
             // ============================================
             // 1. HERO SLIDES (Carousel accueil)
@@ -179,23 +177,23 @@ class ProductionSeeder extends Seeder
             $this->command->info('📜 Syncing Certifications...');
             DB::table('certifications')->insert([
                 [
-                    'name_fr' => 'ISO 14001:2015',
-                    'name_en' => 'ISO 14001:2015',
-                    'description_fr' => 'Système de management environnemental',
-                    'description_en' => 'Environmental management system',
+                    'name' => 'ISO 14001:2015',
+                    'description' => 'Système de management environnemental',
                     'logo_path' => 'certifications/iso-14001.png',
-                    'is_published' => true,
+                    'issued_at' => Carbon::parse('2020-01-15'),
+                    'expires_at' => null,
+                    'is_active' => true,
                     'sort_order' => 1,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
                 [
-                    'name_fr' => 'ISO 45001:2018',
-                    'name_en' => 'ISO 45001:2018',
-                    'description_fr' => 'Système de management de la santé et sécurité au travail',
-                    'description_en' => 'Occupational health and safety management system',
+                    'name' => 'ISO 45001:2018',
+                    'description' => 'Système de management de la santé et sécurité au travail',
                     'logo_path' => 'certifications/iso-45001.png',
-                    'is_published' => true,
+                    'issued_at' => Carbon::parse('2021-06-20'),
+                    'expires_at' => null,
+                    'is_active' => true,
                     'sort_order' => 2,
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -209,13 +207,13 @@ class ProductionSeeder extends Seeder
             $this->command->info('💼 Syncing Job Offers...');
             DB::table('job_offers')->insert([
                 [
-                    'title_fr' => 'Ingénieur Minier Senior',
-                    'title_en' => 'Senior Mining Engineer',
-                    'description_fr' => 'Nous recrutons un ingénieur minier expérimenté pour rejoindre notre équipe.',
-                    'description_en' => 'We are recruiting an experienced mining engineer to join our team.',
+                    'title' => 'Ingénieur Minier Senior',
+                    'department' => 'Opérations',
                     'location' => 'Karma, Burkina Faso',
-                    'salary_range' => 'À négocier',
-                    'type' => 'CDI',
+                    'contract_type' => 'CDI',
+                    'description' => 'Nous recrutons un ingénieur minier expérimenté pour rejoindre notre équipe.',
+                    'requirements' => 'Bac+5 en génie minier, 5+ ans d\'expérience',
+                    'deadline' => Carbon::parse('2026-10-31'),
                     'is_published' => true,
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -229,13 +227,11 @@ class ProductionSeeder extends Seeder
             $this->command->info('📄 Syncing Press Documents...');
             DB::table('press_documents')->insert([
                 [
-                    'title_fr' => 'Communiqué de presse - 2026',
-                    'title_en' => 'Press Release - 2026',
-                    'type' => 'communique',
+                    'title' => 'Communiqué de presse - 2026',
+                    'document_type' => 'communique',
+                    'description' => 'Communiqué officiel de Néré Mining',
                     'file_path' => 'press/communique-2026.pdf',
                     'published_at' => now(),
-                    'is_published' => true,
-                    'sort_order' => 1,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
@@ -248,14 +244,12 @@ class ProductionSeeder extends Seeder
             $this->command->info('📊 Syncing Reports...');
             DB::table('reports')->insert([
                 [
-                    'title_fr' => 'Rapport de durabilité 2025',
-                    'title_en' => 'Sustainability Report 2025',
-                    'description_fr' => 'Rapport annuel sur les performances de durabilité',
-                    'description_en' => 'Annual sustainability performance report',
+                    'title' => 'Rapport de durabilité 2025',
+                    'category' => 'Durabilité',
+                    'description' => 'Rapport annuel sur les performances de durabilité de Néré Mining',
                     'file_path' => 'reports/sustainability-2025.pdf',
-                    'report_year' => 2025,
-                    'is_published' => true,
-                    'sort_order' => 1,
+                    'cover_image' => 'reports/cover-2025.jpg',
+                    'published_at' => now(),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
@@ -265,28 +259,8 @@ class ProductionSeeder extends Seeder
             // ============================================
             // 11. SITE CONTENTS (Contenus statiques)
             // ============================================
-            $this->command->info('📝 Syncing Site Contents...');
-            DB::table('site_contents')->insert([
-                [
-                    'page' => 'home',
-                    'section' => 'hero',
-                    'content_fr' => 'Bienvenue chez Néré Mining',
-                    'content_en' => 'Welcome to Néré Mining',
-                    'is_active' => true,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ],
-                [
-                    'page' => 'home',
-                    'section' => 'about',
-                    'content_fr' => 'Découvrez notre entreprise',
-                    'content_en' => 'Discover our company',
-                    'is_active' => true,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ],
-            ]);
-            $this->command->info('   ✓ Site Contents synced (2 records)');
+            // NOTE: site_contents est géré par la migration 2026_09_21_120000_create_site_contents_table.php
+            $this->command->info('📝 Site contents already populated by migration');
 
             // Re-enable constraints
             DB::statement('SET session_replication_role = DEFAULT;');
@@ -303,7 +277,7 @@ class ProductionSeeder extends Seeder
             $this->command->info('   - 1 job offer');
             $this->command->info('   - 1 press document');
             $this->command->info('   - 1 report');
-            $this->command->info('   - 2 site contents');
+            $this->command->info('   - Site contents populated by migration');
 
         } catch (\Exception $e) {
             $this->command->error('❌ Seeder failed: ' . $e->getMessage());
