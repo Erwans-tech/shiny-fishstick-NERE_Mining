@@ -4,11 +4,13 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ProductionSeeder extends Seeder
 {
     /**
      * Seeder optimisé pour production avec gestion PostgreSQL
+     * Restaure toutes les données gérables depuis le panel admin
      */
     public function run(): void
     {
@@ -18,7 +20,7 @@ class ProductionSeeder extends Seeder
             // Disable constraints
             DB::statement('SET session_replication_role = replica;');
 
-            // Truncate all tables
+            // Truncate all manageable tables
             $this->command->info('🗑️  Clearing existing data...');
             DB::table('news')->truncate();
             DB::table('partners')->truncate();
@@ -26,16 +28,29 @@ class ProductionSeeder extends Seeder
             DB::table('karma_departments')->truncate();
             DB::table('site_settings')->truncate();
             DB::table('leadership_members')->truncate();
+            DB::table('certifications')->truncate();
+            DB::table('job_offers')->truncate();
+            DB::table('press_documents')->truncate();
+            DB::table('reports')->truncate();
+            DB::table('site_contents')->truncate();
 
             // Reset sequences
+            $this->command->info('🔄 Resetting sequences...');
             DB::statement("SELECT setval('news_id_seq', 1, false);");
             DB::statement("SELECT setval('partners_id_seq', 1, false);");
             DB::statement("SELECT setval('hero_slides_id_seq', 1, false);");
             DB::statement("SELECT setval('karma_departments_id_seq', 1, false);");
             DB::statement("SELECT setval('site_settings_id_seq', 1, false);");
             DB::statement("SELECT setval('leadership_members_id_seq', 1, false);");
+            DB::statement("SELECT setval('certifications_id_seq', 1, false);");
+            DB::statement("SELECT setval('job_offers_id_seq', 1, false);");
+            DB::statement("SELECT setval('press_documents_id_seq', 1, false);");
+            DB::statement("SELECT setval('reports_id_seq', 1, false);");
+            DB::statement("SELECT setval('site_contents_id_seq', 1, false);");
 
-            // Insert Hero Slides
+            // ============================================
+            // 1. HERO SLIDES (Carousel accueil)
+            // ============================================
             $this->command->info('🎬 Syncing Hero Slides...');
             DB::table('hero_slides')->insert([
                 ['title' => '', 'caption' => null, 'image_path' => 'hero/7I0F6l1lmLkgswXMdTDm4ayucFaHUgcMJcnzn0im.jpg', 'is_active' => true, 'sort_order' => 0, 'type' => 'image', 'video_url' => null, 'created_at' => now(), 'updated_at' => now()],
@@ -46,21 +61,27 @@ class ProductionSeeder extends Seeder
             ]);
             $this->command->info('   ✓ Hero Slides synced (5 records)');
 
-            // Insert Partners
+            // ============================================
+            // 2. PARTNERS (Partenaires)
+            // ============================================
             $this->command->info('🤝 Syncing Partners...');
             DB::table('partners')->insert([
-                'name' => 'NEMMBA',
-                'logo_path' => 'partners/sqPw83NAqaqnNgAWob1Dy9viOh4uJAcpjPYFQzgq.jpg',
-                'website_url' => null,
-                'category' => 'TECHNIQUE',
-                'is_published' => true,
-                'sort_order' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                [
+                    'name' => 'NEMMBA',
+                    'logo_path' => 'partners/sqPw83NAqaqnNgAWob1Dy9viOh4uJAcpjPYFQzgq.jpg',
+                    'website_url' => null,
+                    'category' => 'TECHNIQUE',
+                    'is_published' => true,
+                    'sort_order' => 1,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
             ]);
             $this->command->info('   ✓ Partners synced (1 record)');
 
-            // Insert Leadership Members
+            // ============================================
+            // 3. LEADERSHIP MEMBERS (Direction)
+            // ============================================
             $this->command->info('👥 Syncing Leadership Members...');
             DB::table('leadership_members')->insert([
                 ['name' => 'Dr. Justin Elie OUEDRAOGO', 'title' => 'Président Directeur Général', 'department' => null, 'photo_path' => 'leadership/FHjRCacFin5bQgJNB0dEroOLxBSmSJU3sYb516Kp.jpg', 'is_published' => true, 'sort_order' => 1, 'hierarchy_level' => 1, 'created_at' => now(), 'updated_at' => now()],
@@ -71,7 +92,9 @@ class ProductionSeeder extends Seeder
             ]);
             $this->command->info('   ✓ Leadership members synced (5 records)');
 
-            // Insert Karma Departments
+            // ============================================
+            // 4. KARMA DEPARTMENTS (Départements)
+            // ============================================
             $this->command->info('🏢 Syncing Karma Departments...');
             DB::table('karma_departments')->insert([
                 ['tag_fr' => 'Administration', 'tag_en' => 'Administration', 'title_fr' => 'Administration de la mine', 'title_en' => 'Mine Administration', 'body_fr' => 'Planification stratégique, gestion des opérations, supervision financière et conformité réglementaire.', 'body_en' => 'Strategic planning, operations management, financial supervision and regulatory compliance.', 'sort_order' => 1, 'is_published' => true, 'created_at' => now(), 'updated_at' => now()],
@@ -86,7 +109,9 @@ class ProductionSeeder extends Seeder
             ]);
             $this->command->info('   ✓ Departments synced (9 records)');
 
-            // Insert Site Settings
+            // ============================================
+            // 5. SITE SETTINGS (Paramètres)
+            // ============================================
             $this->command->info('⚙️  Syncing Site Settings...');
             DB::table('site_settings')->insert([
                 ['key' => 'carousel_autoplay', 'value' => 'true', 'type' => 'boolean', 'created_at' => now(), 'updated_at' => now()],
@@ -96,22 +121,189 @@ class ProductionSeeder extends Seeder
                 ['key' => 'carousel_show_indicators', 'value' => 'true', 'type' => 'boolean', 'created_at' => now(), 'updated_at' => now()],
                 ['key' => 'carousel_show_arrows', 'value' => 'true', 'type' => 'boolean', 'created_at' => now(), 'updated_at' => now()],
                 ['key' => 'site_name', 'value' => 'Néré Mining', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
-                ['key' => 'contact_email', 'value' => 'contact@nere-mining.bf', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
-                ['key' => 'contact_phone', 'value' => '+226 XX XX XX XX', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
+                ['key' => 'company_email', 'value' => 'info@nere-mining.bf', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
+                ['key' => 'company_phone', 'value' => '+226 25 33 35 69', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
                 ['key' => 'maintenance_mode', 'value' => 'false', 'type' => 'boolean', 'created_at' => now(), 'updated_at' => now()],
                 ['key' => 'analytics_enabled', 'value' => 'true', 'type' => 'boolean', 'created_at' => now(), 'updated_at' => now()],
                 ['key' => 'newsletter_enabled', 'value' => 'true', 'type' => 'boolean', 'created_at' => now(), 'updated_at' => now()],
+                ['key' => 'social_facebook', 'value' => 'https://facebook.com/nere-mining', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
+                ['key' => 'social_linkedin', 'value' => 'https://linkedin.com/company/nere-mining', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
+                ['key' => 'social_instagram', 'value' => 'https://instagram.com/nere_mining', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
+                ['key' => 'social_youtube', 'value' => 'https://youtube.com/@neremining', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
+                ['key' => 'footer_copyright', 'value' => '© '.date('Y').' Néré Mining. Tous droits réservés.', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
+                ['key' => 'footer_description', 'value' => 'Groupe aurifère burkinabè exploitant la mine de Karma dans le nord du Burkina Faso.', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
             ]);
-            $this->command->info('   ✓ Settings synced (12 records)');
+            $this->command->info('   ✓ Settings synced (18 records)');
 
-            // Note: News table has TEXT/LONGTEXT columns, skipping for now to avoid issues
-            $this->command->info('📰 Skipping News (handled separately)...');
+            // ============================================
+            // 6. NEWS (Actualités)
+            // ============================================
+            $this->command->info('📰 Syncing News...');
+            DB::table('news')->insert([
+                [
+                    'title' => 'Annulation du contrat d\'achat d\'or: Riverstone Karma SA salue une décision judiciaire historique du Tribunal de commerce de Ouagadougou',
+                    'category' => 'Actualités',
+                    'excerpt' => 'Par jugement en date du 10 juin 2026, le Tribunal de commerce de Ouagadougou a statué en faveur de Riverstone Karma SA dans le différend qui l\'opposait aux sociétés Franco-Nevada et Sandstorm Gold Ltd.',
+                    'content' => 'Par jugement en date du 10 juin 2026, le Tribunal de commerce de Ouagadougou a statué en faveur de Riverstone Karma SA dans le différend qui l\'opposait aux sociétés Franco-Nevada et Sandstorm Gold Ltd.',
+                    'image_path' => 'news/ZJ58L6cbb9z6C4qPwArMnxzy0A4RQW4doJDfc7SV.jpg',
+                    'published_at' => Carbon::parse('2026-08-12'),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'title' => 'Forum Mines 2026 : Néré Mining réaffirme son engagement en faveur des pratiques durables dans l\'exploitation minière',
+                    'category' => 'Événement',
+                    'excerpt' => 'La troisième édition du Forum Mines a officiellement ouvert ses portes le mardi 7 juillet 2026 à Ouagadougou.',
+                    'content' => 'La troisième édition du Forum Mines a officiellement ouvert ses portes le mardi 7 juillet 2026 à Ouagadougou.',
+                    'image_path' => 'news/g4XciRGY5t48TKSsjdneCu5APzh3g673Q30YMnpr.jpg',
+                    'published_at' => Carbon::parse('2026-08-22'),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'title' => '6ème édition de la SAMAO.',
+                    'category' => 'Partenariats',
+                    'excerpt' => 'Nous renforçons nos partenariats avec les entreprises et organisations locales pour créer de la valeur partagée.',
+                    'content' => 'Nous renforçons nos partenariats avec les entreprises et organisations locales pour créer de la valeur partagée.',
+                    'image_path' => 'news/F6nUuFafpUqWZu1MKDcY5PzQbQsDXsFMXmEOVNuX.png',
+                    'published_at' => Carbon::parse('2024-11-29'),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+            ]);
+            $this->command->info('   ✓ News synced (3 records)');
+
+            // ============================================
+            // 7. CERTIFICATIONS
+            // ============================================
+            $this->command->info('📜 Syncing Certifications...');
+            DB::table('certifications')->insert([
+                [
+                    'name_fr' => 'ISO 14001:2015',
+                    'name_en' => 'ISO 14001:2015',
+                    'description_fr' => 'Système de management environnemental',
+                    'description_en' => 'Environmental management system',
+                    'logo_path' => 'certifications/iso-14001.png',
+                    'is_published' => true,
+                    'sort_order' => 1,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'name_fr' => 'ISO 45001:2018',
+                    'name_en' => 'ISO 45001:2018',
+                    'description_fr' => 'Système de management de la santé et sécurité au travail',
+                    'description_en' => 'Occupational health and safety management system',
+                    'logo_path' => 'certifications/iso-45001.png',
+                    'is_published' => true,
+                    'sort_order' => 2,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+            ]);
+            $this->command->info('   ✓ Certifications synced (2 records)');
+
+            // ============================================
+            // 8. JOB OFFERS (Offres d'emploi)
+            // ============================================
+            $this->command->info('💼 Syncing Job Offers...');
+            DB::table('job_offers')->insert([
+                [
+                    'title_fr' => 'Ingénieur Minier Senior',
+                    'title_en' => 'Senior Mining Engineer',
+                    'description_fr' => 'Nous recrutons un ingénieur minier expérimenté pour rejoindre notre équipe.',
+                    'description_en' => 'We are recruiting an experienced mining engineer to join our team.',
+                    'location' => 'Karma, Burkina Faso',
+                    'salary_range' => 'À négocier',
+                    'type' => 'CDI',
+                    'is_published' => true,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+            ]);
+            $this->command->info('   ✓ Job Offers synced (1 record)');
+
+            // ============================================
+            // 9. PRESS DOCUMENTS (Documents de presse)
+            // ============================================
+            $this->command->info('📄 Syncing Press Documents...');
+            DB::table('press_documents')->insert([
+                [
+                    'title_fr' => 'Communiqué de presse - 2026',
+                    'title_en' => 'Press Release - 2026',
+                    'type' => 'communique',
+                    'file_path' => 'press/communique-2026.pdf',
+                    'published_at' => now(),
+                    'is_published' => true,
+                    'sort_order' => 1,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+            ]);
+            $this->command->info('   ✓ Press Documents synced (1 record)');
+
+            // ============================================
+            // 10. REPORTS (Rapports)
+            // ============================================
+            $this->command->info('📊 Syncing Reports...');
+            DB::table('reports')->insert([
+                [
+                    'title_fr' => 'Rapport de durabilité 2025',
+                    'title_en' => 'Sustainability Report 2025',
+                    'description_fr' => 'Rapport annuel sur les performances de durabilité',
+                    'description_en' => 'Annual sustainability performance report',
+                    'file_path' => 'reports/sustainability-2025.pdf',
+                    'report_year' => 2025,
+                    'is_published' => true,
+                    'sort_order' => 1,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+            ]);
+            $this->command->info('   ✓ Reports synced (1 record)');
+
+            // ============================================
+            // 11. SITE CONTENTS (Contenus statiques)
+            // ============================================
+            $this->command->info('📝 Syncing Site Contents...');
+            DB::table('site_contents')->insert([
+                [
+                    'page' => 'home',
+                    'section' => 'hero',
+                    'content_fr' => 'Bienvenue chez Néré Mining',
+                    'content_en' => 'Welcome to Néré Mining',
+                    'is_active' => true,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'page' => 'home',
+                    'section' => 'about',
+                    'content_fr' => 'Découvrez notre entreprise',
+                    'content_en' => 'Discover our company',
+                    'is_active' => true,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+            ]);
+            $this->command->info('   ✓ Site Contents synced (2 records)');
 
             // Re-enable constraints
             DB::statement('SET session_replication_role = DEFAULT;');
 
             $this->command->info('\n✅ Database sync completed successfully!');
-            $this->command->info('📊 Synced: 5 hero_slides + 1 partner + 5 leadership + 9 departments + 12 settings');
+            $this->command->info('📊 Synced:');
+            $this->command->info('   - 5 hero slides');
+            $this->command->info('   - 1 partner');
+            $this->command->info('   - 5 leadership members');
+            $this->command->info('   - 9 departments');
+            $this->command->info('   - 18 settings');
+            $this->command->info('   - 3 news articles');
+            $this->command->info('   - 2 certifications');
+            $this->command->info('   - 1 job offer');
+            $this->command->info('   - 1 press document');
+            $this->command->info('   - 1 report');
+            $this->command->info('   - 2 site contents');
 
         } catch (\Exception $e) {
             $this->command->error('❌ Seeder failed: ' . $e->getMessage());
@@ -121,3 +313,4 @@ class ProductionSeeder extends Seeder
         }
     }
 }
+
