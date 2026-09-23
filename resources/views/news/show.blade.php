@@ -44,7 +44,7 @@
         .article-wrap{max-width:820px;margin:0 auto;padding:80px 5vw;}
         .article-meta{color:var(--gold);font:600 11px Inter,sans-serif;text-transform:uppercase;letter-spacing:.1em;margin-bottom:28px;display:flex;gap:16px;flex-wrap:wrap;}
         .article-meta span{color:var(--muted);font-weight:400;}
-        .article-body{font:17px/1.85 Inter,sans-serif;color:var(--ink);}
+        .article-body{font:17px/1.85 Inter,sans-serif;color:var(--ink);text-align:justify;}
         .article-body p{margin-bottom:20px;}
         .article-body h2{color:var(--green);font-size:26px;font-weight:500;margin:36px 0 14px;}
         .article-body h3{color:var(--green);font-size:20px;font-weight:500;margin:28px 0 10px;}

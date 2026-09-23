@@ -63,16 +63,25 @@ Route::get('/uploads/{file}', function ($file) {
 $homeHandler = function (string $locale) {
     App::setLocale($locale);
 
-    // Album mis en avant sur la page d'accueil (nouveau système)
+    // Album mis en avant sur la page d'accueil (via SiteSetting)
     $featuredAlbum = null;
     try {
-        $featuredAlbum = \App\Models\PhotoAlbum::forHomepage()->first();
-        
-        if ($featuredAlbum && $featuredAlbum->publishedMedia->isNotEmpty()) {
-            $featuredAlbum->photo_count = $featuredAlbum->publishedMedia->count();
-            $featuredAlbum->preview_images = $featuredAlbum->publishedMedia->where('type', 'image')->take(4);
-        } else {
-            $featuredAlbum = null;
+        $featuredAlbumId = \App\Models\SiteSetting::get('home_featured_album_id');
+        if ($featuredAlbumId) {
+            $featuredAlbum = \App\Models\PhotoAlbum::published()
+                ->with(['publishedMedia' => function ($query) {
+                    $query->where('type', 'image')
+                        ->orderBy('sort_order')
+                        ->limit(4);
+                }])
+                ->find($featuredAlbumId);
+            
+            if ($featuredAlbum && $featuredAlbum->publishedMedia->isNotEmpty()) {
+                $featuredAlbum->photo_count = $featuredAlbum->publishedMedia->count();
+                $featuredAlbum->preview_images = $featuredAlbum->publishedMedia->where('type', 'image')->take(4);
+            } else {
+                $featuredAlbum = null;
+            }
         }
     } catch (\Exception $e) {
         \Log::warning('Featured album not available: ' . $e->getMessage());

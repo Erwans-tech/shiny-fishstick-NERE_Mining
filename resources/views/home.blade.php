@@ -469,7 +469,7 @@
             font:700 38px Inter,sans-serif; color:rgba(255,255,255,.2); letter-spacing:.1em;
         }
         .news-grid .news-card:first-child .news-img-ph { height:170px; }
-        .news-body { padding:20px 24px; display:flex; flex-direction:column; flex:1; position:relative; z-index:2; background:#fff; }
+        .news-body { padding:20px 24px; display:flex; flex-direction:column; flex:1; position:relative; z-index:2; background:#fff; text-align:justify; }
         .news-meta {
             font:700 11px Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase;
             color:var(--gold2); margin-bottom:14px; display:inline-block;

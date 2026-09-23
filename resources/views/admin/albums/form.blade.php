@@ -77,21 +77,6 @@
                     </small>
                 </div>
 
-                <div class="form-group full">
-                    <div class="toggle-wrap">
-                        <input type="hidden" name="show_on_homepage" value="0">
-                        <input type="checkbox" id="show_on_homepage" name="show_on_homepage" value="1"
-                               {{ old('show_on_homepage', $album->show_on_homepage ?? false) ? 'checked' : '' }}>
-                        <label for="show_on_homepage" style="text-transform:none;font-size:14px;font-weight:500;color:var(--ink);">
-                            ⭐ Afficher sur la page d'accueil
-                        </label>
-                    </div>
-                    <small style="display:block;margin-top:6px;color:var(--muted);">
-                        L'album sera affiché en première position dans la section "Actualités & Galerie". 
-                        <strong>Un seul album peut être affiché à la fois</strong> (les autres seront automatiquement désactivés).
-                    </small>
-                </div>
-
                 <div class="form-actions full">
                     <button type="submit" class="btn btn-primary">
                         {{ $album->exists ? '✓ Enregistrer' : '+ Créer l\'album' }}

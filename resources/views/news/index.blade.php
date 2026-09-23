@@ -54,7 +54,7 @@
         .news-img{width:100%;height:220px;object-fit:cover;display:block;}
         .news-card[data-news-id="4"] .news-img { object-position: center 20%; }
         .news-img-placeholder{width:100%;height:220px;background:var(--sand);display:flex;align-items:center;justify-content:center;color:var(--muted);font:13px Inter,sans-serif;}
-        .news-body{padding:24px;}
+        .news-body{padding:24px;text-align:justify;}
         .news-meta{color:var(--gold);font:600 11px Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
         .news-body h2{color:var(--green);font-size:19px;font-weight:500;line-height:1.3;margin-bottom:10px;}
         .news-body p{color:var(--muted);font:14px/1.6 Inter,sans-serif;margin-bottom:16px;}

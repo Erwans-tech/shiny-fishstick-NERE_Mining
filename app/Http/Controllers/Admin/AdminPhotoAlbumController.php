@@ -45,12 +45,6 @@ class AdminPhotoAlbumController extends Controller
     {
         $data = $request->validate($this->rules());
         $data['is_published'] = $request->boolean('is_published');
-        $data['show_on_homepage'] = $request->boolean('show_on_homepage');
-
-        // Si cet album doit être affiché sur la page d'accueil, désactiver les autres
-        if ($data['show_on_homepage']) {
-            PhotoAlbum::where('show_on_homepage', true)->update(['show_on_homepage' => false]);
-        }
 
         // Upload de l'image de couverture
         if ($request->hasFile('cover_image_file')) {
@@ -80,14 +74,6 @@ class AdminPhotoAlbumController extends Controller
     {
         $data = $request->validate($this->rules());
         $data['is_published'] = $request->boolean('is_published');
-        $data['show_on_homepage'] = $request->boolean('show_on_homepage');
-
-        // Si cet album doit être affiché sur la page d'accueil, désactiver les autres
-        if ($data['show_on_homepage']) {
-            PhotoAlbum::where('id', '!=', $album->id)
-                      ->where('show_on_homepage', true)
-                      ->update(['show_on_homepage' => false]);
-        }
 
         // Upload de la nouvelle image de couverture
         if ($request->hasFile('cover_image_file')) {
@@ -146,7 +132,6 @@ class AdminPhotoAlbumController extends Controller
             'description' => ['nullable', 'string', 'max:1000'],
             'cover_image_file' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'is_published' => ['boolean'],
-            'show_on_homepage' => ['boolean'],
             'sort_order' => ['integer', 'min:0'],
         ];
     }
