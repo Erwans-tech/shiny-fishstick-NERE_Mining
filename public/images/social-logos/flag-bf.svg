@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" fill="none">
+  <!-- Red -->
+  <rect width="900" height="300" fill="#CE1126"/>
+  <!-- Green -->
+  <rect y="300" width="900" height="300" fill="#007A5E"/>
+  <!-- Gold star -->
+  <polygon points="450,150 460,190 502,190 470,220 480,260 450,230 420,260 430,220 398,190 440,190" fill="#FCD116"/>
+</svg>
