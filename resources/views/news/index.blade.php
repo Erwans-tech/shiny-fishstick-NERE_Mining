@@ -1,6 +1,7 @@
 @php
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
+    use Illuminate\Support\Str;
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $loc }}">
@@ -48,25 +49,74 @@
         .sub-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--line);}
         .sub-nav a{padding:9px 18px;border:1px solid var(--line);border-radius:20px;font:500 12px Inter,sans-serif;color:var(--muted);transition:all .18s;}
         .sub-nav a:hover,.sub-nav a.active{background:var(--green);color:#fff;border-color:var(--green);}
-        .news-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
-        .news-card{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;transition:transform .3s,box-shadow .3s;}
-        .news-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.06);}
-        .news-img{width:100%;height:220px;object-fit:cover;display:block;}
+        .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+        .news-card-link { display:block; color:inherit; text-decoration:none; }
+        .news-card {
+            display:flex; flex-direction:column;
+            background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(248,244,240,1));
+            border:1px solid rgba(234,220,197,.7);
+            border-radius:16px;
+            overflow:hidden;
+            transition:all .3s cubic-bezier(0.2, 1, 0.36, 1);
+            box-shadow:0 4px 12px rgba(40,29,24,.06);
+            position:relative;
+        }
+        .news-card::before {
+            content:'';
+            position:absolute;
+            top:0; left:0; right:0;
+            height:4px;
+            background:linear-gradient(90deg, var(--gold), #f4a261);
+            transform:scaleX(0);
+            transition:transform .3s ease;
+            z-index:10;
+        }
+        .news-card-link:hover .news-card {
+            transform:translateY(-6px);
+            box-shadow:0 18px 36px rgba(40,29,24,.12);
+            border-color:rgba(255,194,71,.4);
+        }
+        .news-card-link:hover .news-card::before { transform:scaleX(1); }
+        .news-img-wrap { overflow:hidden; border-radius:16px 16px 0 0; position:relative; }
+        .news-img { width:100%; height:220px; object-fit:cover; transition:transform .5s ease; display:block; }
         .news-card[data-news-id="4"] .news-img { object-position: center 20%; }
-        .news-img-placeholder{width:100%;height:220px;background:var(--sand);display:flex;align-items:center;justify-content:center;color:var(--muted);font:13px Inter,sans-serif;}
-        .news-body{padding:24px;text-align:justify;}
-        .news-meta{color:var(--gold);font:600 11px Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
-        .news-body h2{color:var(--green);font-size:19px;font-weight:500;line-height:1.3;margin-bottom:10px;}
-        .news-body p{color:var(--muted);font:14px/1.6 Inter,sans-serif;margin-bottom:16px;}
-        .news-link{font:600 12px Inter,sans-serif;color:var(--red);text-transform:uppercase;letter-spacing:.05em;}
+        .news-card-link:hover .news-img { transform:scale(1.04); }
+        .news-img-placeholder{
+            width:100%; height:220px;
+            background:linear-gradient(135deg, var(--green) 0%, #7a2a29 100%);
+            display:flex; align-items:center; justify-content:center;
+            font:700 24px Inter,sans-serif; color:rgba(255,255,255,.3); letter-spacing:.1em;
+        }
+        .news-body { padding:24px; display:flex; flex-direction:column; flex:1; position:relative; z-index:2; background:#fff; text-align:left; }
+        .news-meta {
+            font:700 11px Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase;
+            color:var(--gold2); margin-bottom:14px; display:inline-block;
+            background:rgba(255,194,71,.1); padding:4px 10px; border-radius:4px;
+        }
+        .news-card h2 {
+            font-size:18px; font-weight:600; color:var(--ink); line-height:1.3;
+            margin-bottom:14px; letter-spacing:-.01em; transition:color .2s;
+        }
+        .news-card-link:hover h2 { color:var(--green); }
+        .news-card p {
+            color:var(--muted); font-size:14px; line-height:1.5;
+            margin-bottom:16px; text-align:justify;
+        }
+        .news-link {
+            margin-top:auto; font:700 11px Inter,sans-serif; letter-spacing:.14em;
+            text-transform:uppercase; color:var(--red);
+            display:flex; align-items:center; gap:8px;
+            padding-top:10px;
+        }
+        .sa-arrow-hover {
+            display:inline-block; transition:transform .2s;
+            font-size:17px; line-height:1;
+        }
+        .news-card-link:hover .sa-arrow-hover { transform:translateX(5px); }
         .pagination{display:flex;gap:8px;justify-content:center;margin-top:48px;}
-        .pagination a,.pagination span{padding:10px 16px;border:1px solid var(--line);border-radius:4px;font:500 13px Inter,sans-serif;color:var(--muted);}
-        .pagination a:hover{background:var(--green);color:#fff;border-color:var(--green);}
+        .pagination a,.pagination span{padding:12px 18px;border:1px solid var(--line);border-radius:6px;font:500 13px Inter,sans-serif;color:var(--muted);transition:all .2s;}
+        .pagination a:hover{background:var(--green);color:#fff;border-color:var(--green);transform:translateY(-1px);}
         .pagination .active span{background:var(--green);color:#fff;border-color:var(--green);}
-        .news-link:hover .sa-arrow-hover { transform: translateX(4px); }
-        footer{padding:32px 5vw;background:#351312;color:#eadcca;display:flex;justify-content:space-between;align-items:center;font:12px Inter,sans-serif;}
-        .footer-links{display:flex;gap:20px;}
-        .footer-links a:hover{color:var(--gold);}
         @media(max-width:900px){
             .topbar{display:none;}header{flex-wrap:wrap;gap:12px;}nav{display:none;}.menu-btn{display:block;}
             nav.open{display:flex;flex-direction:column;align-items:flex-start;width:100%;gap:4px;}
@@ -76,6 +126,8 @@
         }
         @media(max-width:600px){
             .news-grid{grid-template-columns:1fr;}
+            .masthead{padding:60px 5vw 40px;}
+            h1{font-size:clamp(32px,8vw,48px);}
         }
     </style>
     <link rel="stylesheet" href="{{ asset('css/sustainability-animations.css') }}">
@@ -97,23 +149,49 @@
             @else
                 <div class="news-grid">
                     @foreach($news as $index => $item)
-                    <article class="news-card sa-reveal sa-delay-{{ $index % 3 + 1 }}" data-news-id="{{ $item->id ?? '' }}">
-                        @if(isset($item->image_path) && $item->image_path)
-                            <img class="news-img" src="{{ asset($item->image_path) }}" alt="Image : {{ $item->title }}" loading="lazy">
-                        @else
-                            <div class="news-img-placeholder">{{ __('site.news_img_placeholder') }}</div>
-                        @endif
-                        <div class="news-body">
-                            <div class="news-meta">{{ $item->category }} · {{ $item->published_at?->translatedFormat('d M Y') }}</div>
-                            <h2>{{ $item->title }}</h2>
-                            @if(isset($item->excerpt) && $item->excerpt)<p>{{ $item->excerpt }}</p>@endif
-                            @if(isset($item->slug))
-                                <a class="news-link" href="{{ $en ? url('/en/news/' . $item->slug) : url('/actualites/' . $item->slug) }}">{{ __('site.read_more') }} <span style="display:inline-block; transition:transform .2s; font-size:14px; margin-left:4px;" class="sa-arrow-hover">→</span></a>
-                            @else
-                                <a class="news-link" href="{{ $en ? route('english.news.show', $item) : route('news.show', $item) }}">{{ __('site.read_more') }} <span style="display:inline-block; transition:transform .2s; font-size:14px; margin-left:4px;" class="sa-arrow-hover">→</span></a>
-                            @endif
-                        </div>
-                    </article>
+                    <a class="news-card-link sa-reveal sa-delay-{{ $index % 3 + 1 }}" href="{{ isset($item->slug) ? ($en ? url('/en/news/' . $item->slug) : url('/actualites/' . $item->slug)) : ($en ? route('english.news.show', $item) : route('news.show', $item)) }}" aria-label="{{ __('site.read_more') }} : {{ e($item->title) }}">
+                        <article class="news-card" data-news-id="{{ $item->id ?? '' }}">
+                            <div class="news-img-wrap">
+                                @php
+                                    $imageUrl = null;
+                                    if (isset($item->image_path) && $item->image_path) {
+                                        $imageUrl = \App\Helpers\StorageHelper::uploadUrl($item->image_path);
+                                    } elseif (isset($item->image) && $item->image) {
+                                        $imageUrl = $item->image;
+                                    }
+                                @endphp
+                                @if($imageUrl)
+                                    <img class="news-img"
+                                         src="{{ $imageUrl }}"
+                                         alt="{{ e($item->title) }}"
+                                         loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
+                                         decoding="async"
+                                         fetchpriority="{{ $index === 0 ? 'high' : 'auto' }}"
+                                         width="640"
+                                         height="480"
+                                         onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="news-img-placeholder" style="display:none;">
+                                        Actualités
+                                    </div>
+                                @else
+                                    <div class="news-img-placeholder">
+                                        Actualités
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="news-body">
+                                <div class="news-meta">{{ $item->category }} · {{ $item->published_at?->translatedFormat('d M Y') }}</div>
+                                <h2>{{ $item->title }}</h2>
+                                @if(isset($item->excerpt) && $item->excerpt)
+                                    <p>{{ Str::limit($item->excerpt, 120) }}</p>
+                                @endif
+                                <span class="news-link">
+                                    {{ __('site.read_more') }} 
+                                    <span class="sa-arrow-hover">→</span>
+                                </span>
+                            </div>
+                        </article>
+                    </a>
                     @endforeach
                 </div>
 
