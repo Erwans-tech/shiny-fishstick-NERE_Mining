@@ -12,11 +12,13 @@ class PhotoAlbum extends Model
         'description',
         'cover_image',
         'is_published',
+        'show_on_homepage',
         'sort_order'
     ];
 
     protected $casts = [
         'is_published' => 'boolean',
+        'show_on_homepage' => 'boolean',
         'sort_order' => 'integer'
     ];
 
@@ -42,6 +44,18 @@ class PhotoAlbum extends Model
     public function scopePublished($query)
     {
         return $query->where('is_published', true);
+    }
+
+    /**
+     * Scope : Album à afficher sur la page d'accueil
+     */
+    public function scopeForHomepage($query)
+    {
+        return $query->where('is_published', true)
+                     ->where('show_on_homepage', true)
+                     ->with('publishedMedia')
+                     ->orderBy('sort_order')
+                     ->orderBy('created_at', 'desc');
     }
 
     /**

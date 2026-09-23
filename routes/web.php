@@ -63,9 +63,27 @@ Route::get('/uploads/{file}', function ($file) {
 $homeHandler = function (string $locale) {
     App::setLocale($locale);
 
+    // Album mis en avant sur la page d'accueil (nouveau système)
+    $featuredAlbum = null;
+    try {
+        $featuredAlbum = \App\Models\PhotoAlbum::forHomepage()->first();
+        
+        if ($featuredAlbum && $featuredAlbum->publishedMedia->isNotEmpty()) {
+            $featuredAlbum->photo_count = $featuredAlbum->publishedMedia->count();
+            $featuredAlbum->preview_images = $featuredAlbum->publishedMedia->where('type', 'image')->take(4);
+        } else {
+            $featuredAlbum = null;
+        }
+    } catch (\Exception $e) {
+        \Log::warning('Featured album not available: ' . $e->getMessage());
+    }
+
+    // Limiter les actualités : 3 si album présent, 4 sinon
+    $newsLimit = $featuredAlbum ? 3 : 4;
+    
     $newsItems = News::published()
         ->latest('published_at')
-        ->take(3)
+        ->take($newsLimit)
         ->get();
 
     if ($newsItems->isEmpty()) {
@@ -88,31 +106,6 @@ $homeHandler = function (string $locale) {
 
     // Slides du carrousel hero  - fallback sur les images statiques si table vide
     $slides = \App\Models\HeroSlide::active()->get();
-
-    // Album mis en avant sur la page d'accueil
-    $featuredAlbum = null;
-    try {
-        $featuredAlbumId = \App\Models\SiteSetting::get('home_featured_album_id');
-        if ($featuredAlbumId) {
-            $featuredAlbum = \App\Models\PhotoAlbum::published()
-                ->with(['media' => function ($query) {
-                    $query->where('is_published', true)
-                        ->where('type', 'image')
-                        ->orderBy('sort_order')
-                        ->limit(4);
-                }])
-                ->find($featuredAlbumId);
-
-            if ($featuredAlbum && $featuredAlbum->media->isNotEmpty()) {
-                $featuredAlbum->photo_count = $featuredAlbum->media->count();
-                $featuredAlbum->preview_images = $featuredAlbum->media->take(4);
-            } else {
-                $featuredAlbum = null;
-            }
-        }
-    } catch (\Exception $e) {
-        \Log::warning('Featured album not available: ' . $e->getMessage());
-    }
 
     // Récupère la description SEO pour la page d'accueil
     $descriptions = config('seo.descriptions')[$locale] ?? [];
