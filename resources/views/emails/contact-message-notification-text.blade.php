@@ -1,25 +1,25 @@
 NOUVEAU MESSAGE DE CONTACT - NÉRÉ MINING
 ========================================
 
-Message reçu sur le site web le {{ $message->created_at->format('d/m/Y à H:i') }}
+Message reçu sur le site web le {{ $contactMessage->created_at->format('d/m/Y à H:i') }}
 
 INFORMATIONS DU CONTACT :
 -------------------------
-Nom : {{ $message->name }}
-E-mail : {{ $message->email }}
-@if($message->subject)
-Sujet : {{ $message->subject }}
+Nom : {{ $contactMessage->name }}
+E-mail : {{ $contactMessage->email }}
+@if($contactMessage->subject)
+Sujet : {{ $contactMessage->subject }}
 @endif
-Type de demande : {{ $message->type }}
+Type de demande : {{ $contactMessage->type }}
 
 MESSAGE :
 ---------
-{{ $message->message }}
+{{ $contactMessage->message }}
 
 ACTIONS :
 ---------
 • Répondre : Répondez directement à cet e-mail
-• Consulter dans l'admin : {{ config('app.url') }}/admin/messages/{{ $message->id }}
+• Consulter dans l'admin : {{ config('app.url') }}/admin/messages/{{ $contactMessage->id }}
 
 ---
 Néré Mining - Notification automatique

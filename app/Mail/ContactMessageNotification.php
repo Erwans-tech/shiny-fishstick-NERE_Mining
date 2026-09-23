@@ -30,8 +30,8 @@ class ContactMessageNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[Néré Mining] Nouveau message de contact - ' . $this->contactMessage->subject,
-            replyTo: [$this->contactMessage->email => $this->contactMessage->name],
+            subject: '[Néré Mining] Nouveau message de contact - ' . ($this->contactMessage->subject ?: 'Sans sujet'),
+            replyTo: $this->contactMessage->email,
         );
     }
 
@@ -44,7 +44,7 @@ class ContactMessageNotification extends Mailable
             html: 'emails.contact-message-notification',
             text: 'emails.contact-message-notification-text',
             with: [
-                'message' => $this->contactMessage,
+                'contactMessage' => $this->contactMessage,
             ]
         );
     }

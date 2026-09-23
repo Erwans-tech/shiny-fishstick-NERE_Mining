@@ -34,7 +34,7 @@ class JobApplicationNotification extends Mailable
         
         return new Envelope(
             subject: '[Néré Mining] Nouvelle candidature - ' . $jobTitle,
-            replyTo: [$this->jobApplication->email => $this->jobApplication->full_name],
+            replyTo: $this->jobApplication->email,
         );
     }
 

@@ -113,46 +113,47 @@
         <div class="content">
             <div class="field-group">
                 <div class="field-label">Nom du contact</div>
-                <div class="field-value">{{ $contactMessage->name }}</div>
+                <div class="field-value"><?php echo e($contactMessage->name); ?></div>
             </div>
             
             <div class="field-group">
                 <div class="field-label">Adresse e-mail</div>
                 <div class="field-value">
-                    <a href="mailto:{{ $contactMessage->email }}" style="color: #d72f2f; text-decoration: none;">
-                        {{ $contactMessage->email }}
+                    <a href="mailto:<?php echo e($contactMessage->email); ?>" style="color: #d72f2f; text-decoration: none;">
+                        <?php echo e($contactMessage->email); ?>
+
                     </a>
                 </div>
             </div>
             
-            @if($contactMessage->subject)
+            <?php if($contactMessage->subject): ?>
             <div class="field-group">
                 <div class="field-label">Sujet</div>
-                <div class="field-value">{{ $contactMessage->subject }}</div>
+                <div class="field-value"><?php echo e($contactMessage->subject); ?></div>
             </div>
-            @endif
+            <?php endif; ?>
             
             <div class="field-group">
                 <div class="field-label">Type de demande</div>
-                <div class="field-value">{{ $contactMessage->type }}</div>
+                <div class="field-value"><?php echo e($contactMessage->type); ?></div>
             </div>
             
             <div class="field-group">
                 <div class="field-label">Date de réception</div>
-                <div class="field-value">{{ $contactMessage->created_at->format('d/m/Y à H:i') }}</div>
+                <div class="field-value"><?php echo e($contactMessage->created_at->format('d/m/Y à H:i')); ?></div>
             </div>
             
             <div class="field-group">
                 <div class="field-label">Message</div>
-                <div class="message-content">{{ $contactMessage->message }}</div>
+                <div class="message-content"><?php echo e($contactMessage->message); ?></div>
             </div>
             
             <div class="reply-info">
-                <strong>💡 Pour répondre :</strong> Répondez directement à cet e-mail, votre réponse sera envoyée à {{ $contactMessage->name }} ({{ $contactMessage->email }}).
+                <strong>💡 Pour répondre :</strong> Répondez directement à cet e-mail, votre réponse sera envoyée à <?php echo e($contactMessage->name); ?> (<?php echo e($contactMessage->email); ?>).
             </div>
             
             <div style="text-align: center;">
-                <a href="{{ config('app.url') }}/admin/messages/{{ $contactMessage->id }}" class="admin-link">
+                <a href="<?php echo e(config('app.url')); ?>/admin/messages/<?php echo e($contactMessage->id); ?>" class="admin-link">
                     👁️ Voir dans l'admin
                 </a>
             </div>
@@ -162,9 +163,10 @@
             <p>
                 <strong>Néré Mining</strong><br>
                 Notification automatique - Ne pas répondre à cette adresse<br>
-                Généré le {{ now()->format('d/m/Y à H:i') }}
+                Généré le <?php echo e(now()->format('d/m/Y à H:i')); ?>
+
             </p>
         </div>
     </div>
 </body>
-</html>
+</html><?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views/emails/contact-message-notification.blade.php ENDPATH**/ ?>
