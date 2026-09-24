@@ -1,0 +1,17 @@
+{{-- Google Analytics - À ajouter après <head> dans layouts/app.blade.php --}}
+@if(env('GA_ENABLED', true) && env('GA_MEASUREMENT_ID'))
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GA_MEASUREMENT_ID') }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  
+  gtag('config', '{{ env('GA_MEASUREMENT_ID') }}', {
+    page_title: '{{ $title ?? __('site.'.$mastheadSection.'_h1', [], $loc) }} | Néré Mining',
+    page_location: window.location.href,
+    content_group1: '{{ ucfirst($section) }}',
+    content_group2: '{{ $loc }}'
+  });
+</script>
+@endif
