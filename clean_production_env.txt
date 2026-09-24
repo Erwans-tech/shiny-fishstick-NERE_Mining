@@ -62,7 +62,7 @@ MAIL_FROM_ADDRESS="noreply@nere-mining.bf"
 MAIL_FROM_NAME="Nere Mining"
 
 # ── Analytics / consentement ────────────────────────────────────────────────
-GA_MEASUREMENT_ID="G-XXXXXXXXXX"
+GA_MEASUREMENT_ID="G-01ZT389C0B"
 GA_ENABLED=true
 
 # ── Sécurité supplémentaire ───────────────────────────────────────────────────
