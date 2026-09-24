@@ -76,60 +76,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     {{-- Google Analytics --}}
-    @if(env('GA_ENABLED', true) && env('GA_MEASUREMENT_ID'))
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GA_MEASUREMENT_ID') }}"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-01ZT389C0B"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      
-      // Configuration principale
-      gtag('config', '{{ env('GA_MEASUREMENT_ID') }}', {
-        page_title: '{{ $title ?? __('site.'.$mastheadSection.'_h1', [], $loc) }} | Néré Mining',
-        page_location: window.location.href,
-        content_group1: '{{ ucfirst($section) }}', // Section du site
-        content_group2: '{{ $loc }}', // Langue
-        custom_parameter: 'nere_mining_site'
-      });
-      
-      // Tracking d'événements personnalisés pour Néré Mining
-      document.addEventListener('DOMContentLoaded', function() {
-        // Tracking des clics sur liens externes
-        document.querySelectorAll('a[href^="http"]:not([href*="{{ parse_url(config('app.url'), PHP_URL_HOST) }}"])').forEach(function(link) {
-          link.addEventListener('click', function() {
-            gtag('event', 'click', {
-              event_category: 'external_link',
-              event_label: this.href,
-              page_section: '{{ $section }}'
-            });
-          });
-        });
-        
-        // Tracking des téléchargements de fichiers
-        document.querySelectorAll('a[href$=".pdf"], a[href$=".doc"], a[href$=".docx"], a[href$=".xls"], a[href$=".xlsx"]').forEach(function(link) {
-          link.addEventListener('click', function() {
-            gtag('event', 'file_download', {
-              event_category: 'download',
-              event_label: this.href.split('/').pop(),
-              page_section: '{{ $section }}'
-            });
-          });
-        });
-        
-        // Tracking des interactions avec les actualités
-        document.querySelectorAll('.news-card-link, .news-link').forEach(function(link) {
-          link.addEventListener('click', function() {
-            gtag('event', 'news_click', {
-              event_category: 'engagement',
-              event_label: this.getAttribute('aria-label') || 'news_article',
-              page_section: '{{ $section }}'
-            });
-          });
-        });
-      });
+
+      gtag('config', 'G-01ZT389C0B');
     </script>
-    @endif
     
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <title>{{ $title ?? __('site.'.$mastheadSection.'_h1', [], $loc) }} | Néré Mining</title>
