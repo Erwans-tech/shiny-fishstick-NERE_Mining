@@ -83,7 +83,82 @@ services:
       - key: CACHE_STORE
         value: file
       - key: QUEUE_CONNECTION
-        value: sync
+        value: database
+
+      # ── SMTP (OVH) ────────────────────────────────────────────
+      # Les valeurs se saisissent dans le dashboard Render (jamais dans Git).
+      # Destinataire des messages de contact / candidatures : à régler dans
+      # Admin > Paramètres du site > « hr email address », PAS ici.
+      - key: MAIL_MAILER
+        value: smtp
+      - key: MAIL_HOST
+        sync: false
+      - key: MAIL_PORT
+        sync: false
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_ENCRYPTION
+        sync: false
+      - key: MAIL_FROM_ADDRESS
+        sync: false
+      - key: MAIL_FROM_NAME
+        value: "Nere Mining"
+      - key: MAIL_SMTP_TIMEOUT
+        value: "10"
+
+jobs:
+  # ── Worker de file d'attente ─────────────────────────────────
+  # Sur le plan gratuit, un Background Worker dédié n'est pas disponible.
+  # Ce cron vide la file une fois par minute : les e-mails partent avec au
+  # plus ~1 min de retard, mais le formulaire ne peut plus.timeout.
+  # Passer à un vrai `type: worker` dès le passage au plan payant.
+  - name: nere-mining-queue
+    type: cron
+    schedule: "* * * * *"
+    command: php artisan queue:work --stop-when-empty --tries=1 --timeout=30
+    envVars:
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: nere-mining-db
+          property: host
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        fromDatabase:
+          name: nere-mining-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: nere-mining-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: nere-mining-db
+          property: password
+      - key: MAIL_MAILER
+        value: smtp
+      - key: MAIL_HOST
+        sync: false
+      - key: MAIL_PORT
+        sync: false
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_ENCRYPTION
+        sync: false
+      - key: MAIL_FROM_ADDRESS
+        sync: false
+      - key: MAIL_FROM_NAME
+        value: "Nere Mining"
+      - key: MAIL_SMTP_TIMEOUT
+        value: "10"
 
 databases:
   - name: nere-mining-db

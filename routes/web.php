@@ -706,6 +706,7 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
         // Paramètres du site
         Route::get('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'index'])->name('settings.index');
         Route::post('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'update'])->name('settings.update');
+        Route::post('/parametres/test-email', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'sendTestEmail'])->name('settings.test-email');
         Route::get('/contenu', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'index'])->name('site-content.index');
         Route::post('/contenu', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'store'])->name('site-content.store');
         Route::put('/contenu/{siteContent}', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'update'])->name('site-content.update');

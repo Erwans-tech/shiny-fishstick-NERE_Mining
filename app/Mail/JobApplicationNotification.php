@@ -12,9 +12,17 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 
-class JobApplicationNotification extends Mailable
+class JobApplicationNotification extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+
+    /**
+     * Le mail part en tâche de fond : un serveur SMTP lent ou injoignable
+     * ne peut plus faire expirer la soumission de la candidature (erreur 502).
+     */
+    public int $tries = 3;
+
+    public int $backoff = 60;
 
     /**
      * Create a new message instance.
@@ -22,7 +30,9 @@ class JobApplicationNotification extends Mailable
     public function __construct(
         public JobApplication $jobApplication
     ) {
-        //
+        // Ne dispatcher qu'une fois la transaction validée, sinon le worker
+        // pourrait charger le modèle avant qu'il n'existe en base.
+        $this->afterCommit();
     }
 
     /**

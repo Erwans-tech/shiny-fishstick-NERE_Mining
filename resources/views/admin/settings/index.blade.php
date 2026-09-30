@@ -45,6 +45,10 @@
         <div class="alert alert-success" style="margin:0 20px 16px;">{{ session('success') }}</div>
     @endif
 
+    @if(session('error'))
+        <div class="alert alert-danger" style="margin:0 20px 16px;">{{ session('error') }}</div>
+    @endif
+
     <form method="POST" action="{{ route('admin.settings.update') }}" class="card-body">
         @csrf
 
@@ -139,7 +143,23 @@
                                    value="{{ $setting->value }}" 
                                    style="width:100%; padding:8px 12px; border:1px solid var(--line); border-radius:4px; font:13px Inter,sans-serif;">
                             @if(isset($descriptions[$setting->key]))
-                            <span class="form-hint">{{ $descriptions[$setting->key] }}</span>
+                            <span class="form-hint">
+                                {{ $descriptions[$setting->key] }}
+                            </span>
+                            @endif
+
+                            @if($setting->key === 'hr_email_address')
+                                <div style="margin-top:10px;">
+                                    <button type="submit"
+                                            form="settings-test-email-form"
+                                            style="padding:8px 16px; border:1px solid var(--ink); border-radius:4px; background:var(--ink); color:#fff; font:13px Inter,sans-serif; cursor:pointer;">
+                                        Envoyer un e-mail de test
+                                    </button>
+                                    <span class="form-hint" style="display:block; margin-top:6px;">
+                                        Vérifie immédiatement que le serveur SMTP est correctement configuré.
+                                        Envoi immédiat, indépendant de la file d'attente.
+                                    </span>
+                                </div>
                             @endif
 
                         @elseif($setting->type === 'album_select')
@@ -194,6 +214,11 @@
             <a href="{{ route('admin.dashboard') }}" class="btn btn-ghost">Annuler</a>
             <span class="settings-save-state" id="settings-save-state" role="status" aria-live="polite"></span>
         </div>
+    </form>
+
+    {{-- Formulaire séparé pour le test e-mail : ne doit pas soumettre les paramètres. --}}
+    <form id="settings-test-email-form" method="POST" action="{{ route('admin.settings.test-email') }}" style="display:none;">
+        @csrf
     </form>
 </div>
 
