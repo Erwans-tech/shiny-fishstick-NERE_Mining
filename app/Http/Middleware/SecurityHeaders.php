@@ -48,14 +48,22 @@ class SecurityHeaders
             $r2Domain = $host ? ' https://' . $host : '';
         }
 
+        // Origines Google Analytics 4. Sans ces entrées, gtag.js est refusé par
+        // script-src et les hits sont refusés par connect-src : la tag est bien
+        // présente dans le HTML mais le navigateur refuse de l'exécuter, et
+        // Analytics reste muet sans le moindre message dans la console du visiteur.
+        $gaScript  = ' https://www.googletagmanager.com';
+        $gaConnect = ' https://www.google-analytics.com https://region1.google-analytics.com'
+                   . ' https://www.googletagmanager.com';
+
         $csp = implode('; ', array_filter([
             "default-src 'self'",
-            "script-src 'self' 'unsafe-inline'",           // unsafe-inline nécessaire pour JS inline existant
+            "script-src 'self' 'unsafe-inline'" . $gaScript,  // unsafe-inline nécessaire pour JS inline existant
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src 'self' https://fonts.gstatic.com",
-            "img-src 'self' data: https:" . $r2Domain,     // https: pour R2 et Google Maps
+            "img-src 'self' data: https:" . $r2Domain,     // https: pour R2, Google Maps et les pixels GA
             "frame-src https://www.google.com https://www.youtube.com https://player.vimeo.com",
-            "connect-src 'self'",
+            "connect-src 'self'" . $gaConnect,
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self'",

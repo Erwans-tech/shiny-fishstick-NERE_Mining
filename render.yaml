@@ -85,6 +85,14 @@ services:
       - key: QUEUE_CONNECTION
         value: database
 
+      # ── Analytics ──────────────────────────────────────────────
+      # L'ID de mesure est public (il sort dans le HTML), pas de sync: false.
+      # Le tag est chargé seulement après consentement, via config/analytics.php.
+      - key: GA_MEASUREMENT_ID
+        value: G-K1QQ6E195H
+      - key: GA_ENABLED
+        value: "true"
+
       # ── SMTP (OVH) ────────────────────────────────────────────
       # Les valeurs se saisissent dans le dashboard Render (jamais dans Git).
       # Destinataire des messages de contact / candidatures : à régler dans

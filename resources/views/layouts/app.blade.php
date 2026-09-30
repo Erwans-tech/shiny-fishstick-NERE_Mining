@@ -75,16 +75,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    {{-- Google Analytics --}}
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-01ZT389C0B"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    {{-- Google Analytics 4 --}}
+    {{-- L'ID vient de config/analytics.php (donc de GA_MEASUREMENT_ID), pas d'une
+         valeur en dur : un nouvel ID ne demande pas de redéploiement. --}}
+    @if(config('analytics.enabled') && config('analytics.measurement_id'))
+        @php($gaId = config('analytics.measurement_id'))
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaId }}"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
 
-      gtag('config', 'G-01ZT389C0B');
-    </script>
+          {{-- Consent Mode v2 : par défaut REFUSÉ, le temps que le visiteur tranche
+               dans le bandeau cookies. Sans ce 'default', le 'config' ci-dessous
+               envoie la pagevue immédiatement, avant tout consentement, alors que la
+               politique cookies du site annonce l'inverse. Les 4 clés sont celles
+               que public/js/cookie-consent.js met à jour. --}}
+          gtag('consent', 'default', {
+            'analytics_storage': 'denied',
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'wait_for_update': 500
+          });
+
+          gtag('js', new Date());
+          gtag('config', '{{ $gaId }}');
+        </script>
+    @endif
     
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <title>{{ $title ?? __('site.'.$mastheadSection.'_h1', [], $loc) }} | Néré Mining</title>
