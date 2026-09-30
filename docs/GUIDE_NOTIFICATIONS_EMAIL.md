@@ -39,12 +39,12 @@ espace client.
 
 ```dotenv
 MAIL_MAILER=smtp
-MAIL_HOST=ssl0.ovh.net          # ou mail.tonweb.ovh.net / mail.ovh.net
-MAIL_PORT=465                   # 465 = SSL direct, 587 = STARTTLS
-MAIL_USERNAME=rh@tonsiteweb.com  # l'adresse complète de la boîte expéditrice
+MAIL_HOST=ssl0.ovh.net          # ⚠ à confirmer dans ton panel OVH
+MAIL_PORT=465                   # 465 = TLS implicite, 587 = STARTTLS
+MAIL_USERNAME=boite@votre-domaine.bf   # la VRAIE boîte OVH expéditrice
 MAIL_PASSWORD=le-mot-de-passe-de-cette-boite
-MAIL_ENCRYPTION=ssl             # 'ssl' sur 465, 'tls' sur 587
-MAIL_FROM_ADDRESS=rh@tonsiteweb.com
+MAIL_SCHEME=smtps               # 'smtps' sur 465, 'smtp' sur 587
+MAIL_FROM_ADDRESS=boite@votre-domaine.bf
 MAIL_FROM_NAME="Néré Mining"
 MAIL_SMTP_TIMEOUT=10
 ```
@@ -55,14 +55,22 @@ Puis :
 php artisan config:clear
 ```
 
+> ⚠ **`MAIL_SCHEME`, pas `MAIL_ENCRYPTION`.** Cette clé est celle que Laravel
+> lit réellement (`config/mail.php`). Si tu mets `MAIL_ENCRYPTION` dans ton
+> `.env`, elle sera **silencieusement ignorée** et le chiffrement ne sera pas
+> appliqué — l'envoi échouera sur une erreur de certificat, ou pire, partira
+> en clair.
+
 **Règles à respecter, sinon tes mails partent en spam ou sont rejetés :**
 
-1. `MAIL_FROM_ADDRESS` doit être une adresse **du domaine** (ex. `@tonsiteweb.com`).
+1. `MAIL_FROM_ADDRESS` doit être une adresse **du domaine** (ex. `@votre-domaine.bf`).
    Un `MAIL_FROM_ADDRESS` qui ne correspond pas à `MAIL_USERNAME` sera refusé.
 2. Utilise la **vraie boîte** de ton hébergement, pas un Gmail. OVH rejette les
    envois usurpant un expéditeur qui n'est pas le sien.
-3. Si tu es en port 587, mets `MAIL_ENCRYPTION=tls`. Si le test échoue avec
-   « connection timed out », essaie le 465 en `ssl`.
+3. L'expéditeur (`MAIL_USERNAME`) et le destinataire (`hr email address` dans
+   l'admin) n'ont **pas besoin d'être la même boîte**.
+4. Si tu es en port 587, mets `MAIL_SCHEME=smtp`. Si le test échoue avec
+   « connection timed out », essaie le 465 en `smtps`.
 
 ### Alternative selon l'hébergeur
 
@@ -87,7 +95,7 @@ Le résultat s'affiche en haut de la page :
 |---|---|
 | ✅ *E-mail de test envoyé à…* | Le SMTP fonctionne. |
 | ❌ *MAIL_MAILER vaut « log »* | Le transport n'est pas configuré — passe à `MAIL_MAILER=smtp`. |
-| ❌ *Échec de l'envoi : <message>* | Regarde le message : `authentication failed` = mauvais identifiants, `connection refused` = mauvais hôte/port, `certificate` = mauvais `MAIL_ENCRYPTION`. |
+| ❌ *Échec de l'envoi : <message>* | Regarde le message : `authentication failed` = mauvais identifiants, `connection refused` = mauvais hôte/port, `certificate` = mauvais `MAIL_SCHEME` (ou clé mal nommée). |
 
 Le bouton envoie **immédiatement**, sans passer par la file d'attente : tu vois
 donc l'erreur réelle tout de suite. Pense à regarder le dossier « indésirables ».
@@ -171,7 +179,7 @@ Si `config('mail.default')` renvoie encore `log` après avoir modifié `.env` :
 | Rien ne part, aucun message d'erreur | `MAIL_MAILER=log` | Passe à `smtp` + `config:clear` |
 | `authentication failed` | Mauvais user/mot de passe | Reprends l'identifiant exact de la boîte OVH |
 | `connection refused` / `timed out` | Mauvais hôte ou port | Essaie `ssl0.ovh.net` puis `mail.tonweb.ovh.net`, ports 465 puis 587 |
-| `certificate verify failed` | Mauvais chiffrement | Aligne `MAIL_ENCRYPTION` avec le port (465→`ssl`, 587→`tls`) |
+| `certificate verify failed` | Mauvais chiffrement | Aligne `MAIL_SCHEME` avec le port (465→`smtps`, 587→`smtp`). Vérifie que tu n'as pas écrit `MAIL_ENCRYPTION`, qui est ignoré |
 | Le mail arrive en « indésirables » | SPF/DKIM non alignés | `MAIL_FROM_ADDRESS` doit être sur le domaine de la boîte |
 | Les messages arrivent mais pas les candidatures | Toggle applications désactivé | Admin → Paramètres → cocher « Transférer toutes les candidatures » |
 | `queue:failed` non vide | SMTP KO au moment de l'envoi | `php artisan queue:failed-table` pour lire l'erreur, puis `queue:retry` |
