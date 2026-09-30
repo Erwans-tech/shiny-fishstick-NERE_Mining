@@ -85,7 +85,7 @@ APP_NAME=Néré Mining
 APP_ENV=production
 DB_CONNECTION=pgsql
 DB_HOST=db.plibklblcykfhnoboqum.supabase.co
-DB_PASSWORD=4kuAbwAFxDb1nD03
+DB_PASSWORD=<SUPABASE_PASSWORD>
 # ... (toutes les autres variables)
 ```
 

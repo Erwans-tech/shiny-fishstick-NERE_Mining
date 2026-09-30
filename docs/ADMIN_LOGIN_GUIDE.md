@@ -8,7 +8,7 @@
 ## 🎯 CREDENTIALS ADMIN PAR DÉFAUT
 
 **Email**: `admin@nere-mining.bf`  
-**Mot de passe**: `AdminNereMining2026!`  
+**Mot de passe**: `Admin<ADMIN_PASSWORD_C_ROTATER>`  
 **Rôle**: Administrateur système
 
 ---
@@ -41,7 +41,7 @@ https://nere-mining-ex3a.onrender.com/gestion-nm/connexion
 - [x] `.env` local configuré ✅
 - [x] Variables d'environnement ✅
   - `ADMIN_EMAIL=admin@nere-mining.bf`
-  - `ADMIN_PASSWORD=AdminNereMining2026!`
+  - `ADMIN_PASSWORD=Admin<ADMIN_PASSWORD_C_ROTATER>`
 - [x] Session driver: `file` ✅
 - [x] Middlewares appliqués: `admin.auth` ✅
 
@@ -85,7 +85,7 @@ Call to undefined method AdminUserController::middleware()
 
 3. **Entrer les credentials**
    - Email: `admin@nere-mining.bf`
-   - Mot de passe: `AdminNereMining2026!`
+   - Mot de passe: `Admin<ADMIN_PASSWORD_C_ROTATER>`
 
 4. **Cliquer "Se connecter"**
 
@@ -151,7 +151,7 @@ $user = User::firstOrCreate(
     ['email' => 'admin@nere-mining.bf'],
     [
         'name' => 'Administrateur Néré Mining',
-        'password' => Hash::make('AdminNereMining2026!'),
+        'password' => Hash::make('Admin<ADMIN_PASSWORD_C_ROTATER>'),
         'is_admin' => true,
     ]
 );
@@ -256,7 +256,7 @@ php artisan db:table users
 
 ```
 ✅ Email: admin@nere-mining.bf
-✅ Password: AdminNereMining2026!
+✅ Password: Admin<ADMIN_PASSWORD_C_ROTATER>
 ✅ Access: /gestion-nm/connexion
 ✅ Dashboard: /gestion-nm/tableau-de-bord
 ```

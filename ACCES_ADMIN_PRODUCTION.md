@@ -18,7 +18,7 @@ http://192.168.10.202/gestion-nm/connexion
 ### Identifiants par défaut
 ```
 Email    : admin@nere-mining.bf
-Password : AdminNereMining2026!
+Password : Admin<ADMIN_PASSWORD_C_ROTATER>
 ```
 
 ---
@@ -68,7 +68,7 @@ $user = User::updateOrCreate(
     ['email' => 'admin@nere-mining.bf'],
     [
         'name' => 'Administrateur Néré Mining',
-        'password' => Hash::make('AdminNereMining2026!'),
+        'password' => Hash::make('Admin<ADMIN_PASSWORD_C_ROTATER>'),
         'is_admin' => true,
     ]
 );

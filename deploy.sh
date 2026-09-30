@@ -61,4 +61,4 @@ php artisan db:seed --force --class=LocalContentSeeder || echo "Snapshot de cont
 echo "✅ Déploiement terminé !
 🔗 Admin: ${APP_URL}/gestion-nm
 📧 Email: ${ADMIN_EMAIL}
-🔑 Mot de passe: ${ADMIN_PASSWORD}"
+🔑 Mot de passe admin défini (non affiché dans les logs)"

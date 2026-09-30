@@ -258,7 +258,7 @@ PATCH  /gestion-nm/utilisateurs/{id}     → AdminUserController@update
 ```
 1. Go to: http://localhost:8000/gestion-nm/connexion
 2. Email: admin@nere-mining.bf
-3. Pass: AdminNereMining2026!
+3. Pass: Admin<ADMIN_PASSWORD_C_ROTATER>
 → See: ADMIN_LOGIN_GUIDE.md
 ```
 

@@ -10,13 +10,15 @@ INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES 
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (5, 'carousel_show_indicators', 'true', 'boolean', NOW(), NOW());
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (6, 'carousel_show_arrows', 'true', 'boolean', NOW(), NOW());
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (7, 'site_name', 'Néré Mining', 'string', NOW(), NOW());
-INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (8, 'contact_email', 'contact@nere-mining.bf', 'string', NOW(), NOW());
+INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (8, 'contact_email', 'info@nere-mining.bf', 'string', NOW(), NOW());
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (9, 'contact_phone', '+226 XX XX XX XX', 'string', NOW(), NOW());
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (10, 'maintenance_mode', 'false', 'boolean', NOW(), NOW());
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (11, 'analytics_enabled', 'true', 'boolean', NOW(), NOW());
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (12, 'newsletter_enabled', 'true', 'boolean', NOW(), NOW());
 
-INSERT INTO users (id, name, email, password, is_admin, public_uuid, created_at, updated_at) VALUES (1, 'Administrateur Néré Mining', 'admin@nere-mining.bf', '$2y$12$7pzHFoElOUCEtLfM4hvz0eOgrTPZJXqiDq15uj2dSteujIY7NvJfa', true, '17696c08-88aa-4156-9116-5b757cfbbb4c', NOW(), NOW());
+-- Admin user should be created via: php artisan admin:create
+-- This seeder no longer includes a default admin for security reasons
+-- Run the artisan command on first deployment to create a secure admin account
 
 INSERT INTO hero_slides (id, title, caption, image_path, is_active, sort_order, type, created_at, updated_at) VALUES (1, '', 'Une entreprise minière à ancrage national', 'images/hero/7I0F6l1lmLkgswXMdTDm4ayucFaHUgcMJcnzn0im.jpg', true, 0, 'image', NOW(), NOW());
 INSERT INTO hero_slides (id, title, caption, image_path, is_active, sort_order, type, created_at, updated_at) VALUES (2, '', 'Une mine en exploitation : Riverstone Karma', 'images/hero/H7eEolBtJlKwU8I1VCj8iU4g6G0cNthAfc55kopr.jpg', true, 1, 'image', NOW(), NOW());

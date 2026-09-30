@@ -201,7 +201,7 @@ Cliquez **"Save Changes"** → Render redémarre automatiquement
 
 ```env
 # Base Laravel (déjà configurées dans render.yaml)
-APP_KEY=base64:qcylKTaFwKDy5DrKZ75qSxfUZ0LO3jqNwd6JRsSJwpA=
+APP_KEY=base64:<APP_KEY_C_A_GENERER>
 APP_ENV=production
 APP_DEBUG=false
 

@@ -46,7 +46,7 @@ Dans Render Dashboard → `nere-mining` → Environment:
 
 **À vérifier/remplir:**
 ```
-APP_KEY = base64:7UZXohTuPEpD8/s9/ILFmz8kYqFX28WXzaeAFwnQ0jQ=
+APP_KEY = base64:<APP_KEY_A_GENERER>
 APP_DEBUG = false
 FORCE_HTTPS = true
 LOG_CHANNEL = stderr

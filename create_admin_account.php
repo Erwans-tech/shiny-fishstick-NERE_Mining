@@ -25,9 +25,17 @@ echo "    CRÉATION/RÉINITIALISATION COMPTE ADMIN\n";
 echo "═══════════════════════════════════════════════════════════\n";
 echo "\n";
 
-// Credentials par défaut
+// Credentials : le mot de passe doit venir de l'environnement, jamais d'un défaut codé en dur
 $email = env('ADMIN_EMAIL', 'admin@nere-mining.bf');
-$password = env('ADMIN_PASSWORD', 'AdminNereMining2026!');
+$password = env('ADMIN_PASSWORD');
+
+if (empty($password)) {
+    fwrite(STDERR, "\n❌ ADMIN_PASSWORD non défini.\n");
+    fwrite(STDERR, "   Définir ADMIN_PASSWORD dans le .env du serveur, ou :\n");
+    fwrite(STDERR, "   export ADMIN_PASSWORD=\"\$(openssl rand -base64 24)\"\n\n");
+    exit(1);
+}
+
 $name = 'Administrateur Néré Mining';
 
 echo "Email    : {$email}\n";

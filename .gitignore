@@ -1,11 +1,5 @@
 *.log
 .DS_Store
-.env
-.env.*
-!.env.example
-!.env.render
-.env.backup
-.env.production
 .phpactor.json
 .phpunit.result.cache
 /.codex
@@ -41,8 +35,25 @@ Thumbs.db
 /bootstrap/cache
 
 # Render specific
-# .env.render is versioned
 render.yaml.local
 
 # Production database (SQLite - versioned in Git)
 !database/production.sqlite
+
+# ── Secrets : ne jamais commiter ─────────────────────────
+# Fichiers d'environnement réels (APP_KEY, mots de passe de BDD, admin)
+.env
+.env.*
+!.env.example
+!.env.render.example
+
+# Dumps d'environnement d'infrastructure
+/clean_production_env.txt
+/env_windows_server.txt
+
+# Sauvegardes d'environnement
+*.env.backup
+*.env.bak
+*_env_backup*
+credentials*.txt
+secrets*.txt

@@ -12,7 +12,7 @@
 
 ### 🌐 **Configuration production Render + Supabase**  
 - [x] ✅ Projet Supabase créé (`plibklblcykfhnoboqum`)
-- [x] ✅ Mot de passe Supabase récupéré (`4kuAbwAFxDb1nD03`)
+- [x] ✅ Mot de passe Supabase récupéré (`<SUPABASE_PASSWORD>`)
 - [x] ✅ `render.yaml` configuré
 - [x] ✅ `.env.render` avec vraies infos PostgreSQL
 - [x] ✅ Variables d'environnement préparées (`RENDER_ENV_VARIABLES.txt`)

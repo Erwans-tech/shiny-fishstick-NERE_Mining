@@ -45,7 +45,7 @@ Vous devez importer les données de votre base locale vers Supabase.
 Si vous préférez utiliser la ligne de commande :
 
 ```powershell
-$env:PGPASSWORD="4kuAbwAFxDb1nD03"
+$env:PGPASSWORD="<SUPABASE_PASSWORD>"
 psql -h aws-0-eu-central-1.pooler.supabase.com -p 6543 -U postgres.plibklblcykfhnoboqum -d postgres -f import_production_data.sql
 ```
 

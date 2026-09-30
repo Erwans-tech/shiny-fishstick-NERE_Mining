@@ -26,7 +26,7 @@
 - [ ] Navigate to: `https://nere-mining-ex3a.onrender.com/gestion-nm/connexion`
 - [ ] Enter credentials:
   - Email: `admin@nere-mining.com` (from `ADMIN_EMAIL` env var)
-  - Password: `NereAdmin2024!` (from `ADMIN_PASSWORD` env var)
+  - Password: `<ADMIN_PASSWORD_B_ROTATER>` (from `ADMIN_PASSWORD` env var)
 - [ ] Click **Connexion**
 - [ ] Expected result:
   - ✅ Redirected to `/gestion-nm/tableau-de-bord` (dashboard)
@@ -168,7 +168,7 @@ These are set in Render dashboard and used in `.env.render`:
 | `DB_USERNAME` | `nere_user` | Render managed database |
 | `DB_PASSWORD` | `[generated]` | Render managed database |
 | `ADMIN_EMAIL` | `admin@nere-mining.com` | Set manually (first admin) |
-| `ADMIN_PASSWORD` | `NereAdmin2024!` | Set manually (should be changed) |
+| `ADMIN_PASSWORD` | `<ADMIN_PASSWORD_B_ROTATER>` | Set manually (should be changed) |
 | `SESSION_DRIVER` | `database` | .env.render |
 | `LOG_CHANNEL` | `stderr` | .env.render (for Render logs) |
 

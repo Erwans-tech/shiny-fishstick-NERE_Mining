@@ -2,19 +2,15 @@
 
 echo "🚀 Démarrage des services Laravel..."
 
-# Debug: Check if .env.render exists and show its content
+# Chargement optionnel de .env.render (jamais versionné — secrets via dashboard Render)
 if [ -f ".env.render" ]; then
     echo "📋 Fichier .env.render trouvé, chargement..."
-    echo "🔍 Contenu .env.render (premières lignes):"
-    head -10 .env.render
     set -a
     . .env.render
     set +a
     echo "✅ Variables chargées depuis .env.render"
 else
-    echo "⚠️  Fichier .env.render non trouvé"
-    echo "🔍 Fichiers présents dans le répertoire:"
-    ls -la | head -10
+    echo "⚠️  Fichier .env.render non trouvé (attendu : secrets via dashboard Render)"
 fi
 
 # Set default values if not set by Render environment
@@ -23,8 +19,15 @@ export DB_HOST=${DB_HOST:-dpg-da83n4ou01pc73chbd8g-a}
 export DB_PORT=${DB_PORT:-5432}
 export DB_DATABASE=${DB_DATABASE:-nere_mining_q6h0}
 export DB_USERNAME=${DB_USERNAME:-nereminingdbex3a_phhw_user}
-export DB_PASSWORD=${DB_PASSWORD:-Q4nDPT1WKpUFy5fhnYEKSjy4iVyhd8cA}
-export DATABASE_URL=${DATABASE_URL:-postgresql://nereminingdbex3a_phhw_user:Q4nDPT1WKpUFy5fhnYEKSjy4iVyhd8cA@dpg-da83n4ou01pc73chbd8g-a:5432/nere_mining_q6h0}
+
+# Mot de passe : AUCUNE valeur par défaut. Doit venir de l'environnement Render.
+if [ -z "$DB_PASSWORD" ]; then
+    echo "❌ DB_PASSWORD non défini. Configurer la variable dans le dashboard Render."
+    exit 1
+fi
+
+# DATABASE_URL doit être fourni via l'environnement (contient le mot de passe)
+: "${DATABASE_URL:?DATABASE_URL non défini (obligatoire sur Render)}"
 
 # Clear any cached config from build time
 echo "🗑️  Nettoyage du cache de configuration..."

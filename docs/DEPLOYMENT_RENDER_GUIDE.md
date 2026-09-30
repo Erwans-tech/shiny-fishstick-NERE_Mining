@@ -66,7 +66,7 @@ DB_HOST=db.plibklblcykfhnoboqum.supabase.co
 DB_PORT=5432
 DB_DATABASE=postgres
 DB_USERNAME=postgres
-DB_PASSWORD=4kuAbwAFxDb1nD03
+DB_PASSWORD=<SUPABASE_PASSWORD>
 ```
 
 ### Session & Sécurité

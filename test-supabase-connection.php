@@ -12,7 +12,7 @@ $host = 'db.plibklblcykfhnoboqum.supabase.co';
 $port = '5432';
 $database = 'postgres';
 $username = 'postgres';
-$password = '4kuAbwAFxDb1nD03'; // ✅ TON MOT DE PASSE SUPABASE
+$password = '<SUPABASE_PASSWORD>'; // ✅ TON MOT DE PASSE SUPABASE
 
 echo "🔗 Tentative de connexion à : $host:$port\n";
 echo "👤 Utilisateur : $username\n";

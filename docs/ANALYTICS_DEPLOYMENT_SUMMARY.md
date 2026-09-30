@@ -287,7 +287,7 @@ Browser Rendering
 ```bash
 ✅ Started: php artisan serve --host=127.0.0.1 --port=8000
 ✅ URL: http://localhost:8000/gestion-nm/statistiques
-✅ Login: admin@nere-mining.bf / AdminNereMining2026!
+✅ Login: admin@nere-mining.bf / Admin<ADMIN_PASSWORD_C_ROTATER>
 ```
 
 ### Production (Render)
@@ -332,7 +332,7 @@ Browser Rendering
    ```
    URL: http://localhost:8000/gestion-nm/connexion
    Email: admin@nere-mining.bf
-   Password: AdminNereMining2026!
+   Password: Admin<ADMIN_PASSWORD_C_ROTATER>
    ```
 
 2. **Navigate to Analytics**

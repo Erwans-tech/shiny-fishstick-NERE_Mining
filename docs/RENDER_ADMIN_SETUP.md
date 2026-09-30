@@ -6,7 +6,7 @@ Dans le dashboard Render, allez dans **Environment Variables** et ajoutez :
 
 ```
 ADMIN_EMAIL=admin@nere-mining.com
-ADMIN_PASSWORD=NereAdmin2024!
+ADMIN_PASSWORD=<ADMIN_PASSWORD_B_ROTATER>
 ```
 
 ## Après le déploiement
@@ -15,7 +15,7 @@ ADMIN_PASSWORD=NereAdmin2024!
 
 2. **Se connecter avec** :
    - Email : `admin@nere-mining.com`
-   - Mot de passe : `NereAdmin2024!`
+   - Mot de passe : `<ADMIN_PASSWORD_B_ROTATER>`
 
 3. **Changer le mot de passe** immédiatement dans les paramètres admin
 
@@ -31,7 +31,7 @@ php artisan tinker --execute="dd(App\Models\User::where('email','admin@nere-mini
 php artisan db:seed --class=AdminSeeder
 
 # Réinitialiser le mot de passe
-php artisan tinker --execute="App\Models\User::where('email','admin@nere-mining.com')->first()->update(['password'=>bcrypt('NereAdmin2024!')])"
+php artisan tinker --execute="App\Models\User::where('email','admin@nere-mining.com')->first()->update(['password'=>bcrypt('<ADMIN_PASSWORD_B_ROTATER>')])"
 ```
 
 ## Sécurité

@@ -21,7 +21,7 @@ $cleanEnv = @"
 # NÉRÉ MINING - Configuration PRODUCTION Windows Server
 APP_NAME="Nere Mining"
 APP_ENV=production
-APP_KEY=base64:94Pj32zaWfACkDUY5e37eYB0P9D8FDkxJkuidcIHTbY=
+APP_KEY=base64:<APP_KEY_B_A_GENERER>
 APP_DEBUG=false
 APP_URL=https://www.nere-mining.bf
 APP_TIMEZONE=Africa/Ouagadougou
@@ -35,7 +35,7 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_DATABASE=nere_website_db
 DB_USERNAME=postgres
-DB_PASSWORD=/NereMINING/
+DB_PASSWORD=<MOT_DE_PASSE_PG_A_DEFINIR>
 
 # Session & Cache
 SESSION_DRIVER=file
@@ -54,7 +54,7 @@ MAIL_FROM_NAME="Nere Mining"
 
 # Admin
 ADMIN_EMAIL=admin@nere-mining.bf
-ADMIN_PASSWORD=NereMining2026!
+ADMIN_PASSWORD=<ADMIN_PASSWORD_C_ROTATER>
 "@
 
 $cleanEnv | Out-File -FilePath ".env" -Encoding UTF8 -NoNewline

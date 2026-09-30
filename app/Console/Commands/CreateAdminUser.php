@@ -11,7 +11,7 @@ class CreateAdminUser extends Command
     /**
      * The name and signature of the console command.
      */
-    protected $signature = 'admin:create {--email=admin@nere-mining.com} {--password=NereAdmin2024!} {--name=Administrateur}';
+    protected $signature = 'admin:create {--email=admin@nere-mining.com} {--password=} {--name=Administrateur}';
 
     /**
      * The console command description.
@@ -26,6 +26,20 @@ class CreateAdminUser extends Command
         $email = $this->option('email');
         $password = $this->option('password');
         $name = $this->option('name') . ' Néré Mining';
+
+        if (empty($password)) {
+            $this->error('❌ Mot de passe requis.');
+            $this->info('   php artisan admin:create --email=' . $email . ' --password="<mot-de-passe>"');
+            $this->info('   Ou définir ADMIN_PASSWORD dans l\'environnement.');
+
+            return Command::FAILURE;
+        }
+
+        if (strlen($password) < 12) {
+            $this->error('❌ Mot de passe trop court (12 caractères minimum).');
+
+            return Command::FAILURE;
+        }
 
         try {
             $user = User::updateOrCreate(
@@ -42,7 +56,7 @@ class CreateAdminUser extends Command
             $this->info('📧 Email: ' . $user->email);
             $this->info('🆔 ID: ' . $user->id);
             $this->info('👤 Name: ' . $user->name);
-            $this->info('🔑 Password: ' . $password);
+            $this->info('🔑 Mot de passe défini avec succès.');
 
             return Command::SUCCESS;
 

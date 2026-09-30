@@ -86,7 +86,7 @@ echo "\n🚀 Informations de déploiement :\n";
 echo "🔗 Host Supabase : db.plibklblcykfhnoboqum.supabase.co\n";
 echo "🗃️ Base de données : postgres\n";
 echo "👤 Utilisateur : postgres\n";
-echo "🔑 Mot de passe : 4kuAbwAFxDb1nD03\n";
+echo "🔑 Mot de passe : <SUPABASE_PASSWORD>\n";
 echo "📋 Variables d'environnement : voir RENDER_ENV_VARIABLES.txt\n";
 
 echo "\n✅ PRÊT POUR LE DÉPLOIEMENT !\n";

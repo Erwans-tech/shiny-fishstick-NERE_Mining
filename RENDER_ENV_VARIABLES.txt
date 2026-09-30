@@ -2,6 +2,7 @@
 ========================================================
 
 Copie-colle ces variables exactement dans ton dashboard Render :
+https://dashboard.render.com → ton service → Environment
 
 # Application
 APP_NAME=Néré Mining
@@ -11,12 +12,14 @@ APP_URL=https://nere-mining.onrender.com
 FORCE_HTTPS=true
 
 # Base de données Supabase (PostgreSQL)
+# ⚠️  Valeurs réelles dans le dashboard Render / dashboard Supabase.
+#     Jamais dans le dépôt Git.
 DB_CONNECTION=pgsql
-DB_HOST=db.plibklblcykfhnoboqum.supabase.co
+DB_HOST=<votre-hote-supabase>
 DB_PORT=5432
 DB_DATABASE=postgres
-DB_USERNAME=postgres
-DB_PASSWORD=4kuAbwAFxDb1nD03
+DB_USERNAME=<votre-user-supabase>
+DB_PASSWORD=<mot-de-passe-supabase>
 
 # Session & Sécurité
 SESSION_DRIVER=file

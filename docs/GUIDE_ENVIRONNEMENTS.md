@@ -21,7 +21,7 @@ DB_HOST=db.plibklblcykfhnoboqum.supabase.co
 DB_PORT=5432
 DB_DATABASE=postgres
 DB_USERNAME=postgres
-DB_PASSWORD=4kuAbwAFxDb1nD03
+DB_PASSWORD=<SUPABASE_PASSWORD>
 ```
 
 ## 🔧 Avantages de cette approche
@@ -67,7 +67,7 @@ mysqldump -u root -p nere_mining > backup_mysql.sql
 
 #### Import dans Supabase :
 ```bash
-psql "postgresql://postgres:4kuAbwAFxDb1nD03@db.plibklblcykfhnoboqum.supabase.co:5432/postgres" < backup_postgresql.sql
+psql "postgresql://postgres:<SUPABASE_PASSWORD>@db.plibklblcykfhnoboqum.supabase.co:5432/postgres" < backup_postgresql.sql
 ```
 
 ## 🔄 Fichiers de configuration
@@ -89,7 +89,7 @@ DB_HOST=db.plibklblcykfhnoboqum.supabase.co
 DB_PORT=5432
 DB_DATABASE=postgres
 DB_USERNAME=postgres
-DB_PASSWORD=4kuAbwAFxDb1nD03
+DB_PASSWORD=<SUPABASE_PASSWORD>
 ```
 
 ### `.env.supabase` (Test local avec Supabase)
@@ -100,7 +100,7 @@ DB_HOST=db.plibklblcykfhnoboqum.supabase.co
 DB_PORT=5432
 DB_DATABASE=postgres
 DB_USERNAME=postgres
-DB_PASSWORD=4kuAbwAFxDb1nD03
+DB_PASSWORD=<SUPABASE_PASSWORD>
 ```
 
 ## 🚀 Workflow de développement
@@ -154,7 +154,7 @@ php artisan db:backup  # si package installé
 
 # PostgreSQL Supabase (via interface web)
 # Ou commande directe :
-pg_dump "postgresql://postgres:4kuAbwAFxDb1nD03@db.plibklblcykfhnoboqum.supabase.co:5432/postgres" > backup.sql
+pg_dump "postgresql://postgres:<SUPABASE_PASSWORD>@db.plibklblcykfhnoboqum.supabase.co:5432/postgres" > backup.sql
 ```
 
 ## 💡 Conseils

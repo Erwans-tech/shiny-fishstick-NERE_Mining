@@ -8,7 +8,7 @@
 **Requirements**:
 - ✅ Admin login required
 - ✅ Email: `admin@nere-mining.bf`
-- ✅ Password: `AdminNereMining2026!`
+- ✅ Password: `Admin<ADMIN_PASSWORD_C_ROTATER>`
 
 ---
 
