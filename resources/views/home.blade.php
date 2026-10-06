@@ -709,15 +709,13 @@
                         </video>
                         
                         {{-- Couverture avec image personnalisée et bouton play --}}
-                        <div id="play-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; background-image: url('{{ asset('images/video-cover-nere-samao-2026.png') }}'); background-size: cover; background-position: center;" onclick="playVideo()">
+                        <div id="play-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; background-image: url('{{ asset('images/video-cover-nere-samao-2026.png') }}'); background-size: cover; background-position: center;">
                             
                             {{-- Overlay semi-transparent pour améliorer la visibilité du bouton --}}
-                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2);"></div>
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2); pointer-events: none;"></div>
                             
                             {{-- Gros bouton Play --}}
-                            <div class="play-button" style="width: 90px; height: 90px; background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 48px rgba(212, 175, 55, 0.5); transition: all 0.3s ease; position: relative; z-index: 10;" 
-                                 onmouseover="this.style.transform='scale(1.15)'; this.style.boxShadow='0 16px 64px rgba(212, 175, 55, 0.7)';" 
-                                 onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 12px 48px rgba(212, 175, 55, 0.5)';">
+                            <div class="play-button" style="width: 90px; height: 90px; background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 48px rgba(212, 175, 55, 0.5); transition: all 0.3s ease; position: relative; z-index: 10; pointer-events: none;">
                                 
                                 {{-- Icône Play --}}
                                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" style="margin-left: 4px;">
@@ -734,26 +732,44 @@
                                     50% { transform: scale(1.15); opacity: 0.7; }
                                     100% { transform: scale(1.3); opacity: 0; }
                                 }
+                                #play-overlay:hover .play-button {
+                                    transform: scale(1.15);
+                                    box-shadow: 0 16px 64px rgba(212, 175, 55, 0.7);
+                                }
                             </style>
                         </div>
                     </div>
                     
                     <script>
-                        function playVideo() {
+                        (function() {
                             const video = document.getElementById('nere-video');
                             const overlay = document.getElementById('play-overlay');
                             
-                            video.setAttribute('controls', 'controls');
-                            video.play();
-                            overlay.style.opacity = '0';
-                            setTimeout(() => overlay.style.display = 'none', 300);
-                            
-                            video.addEventListener('ended', function() {
-                                overlay.style.display = 'flex';
-                                overlay.style.opacity = '1';
-                                video.removeAttribute('controls');
-                            });
-                        }
+                            if (video && overlay) {
+                                overlay.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    
+                                    video.setAttribute('controls', 'controls');
+                                    video.play().then(function() {
+                                        overlay.style.opacity = '0';
+                                        setTimeout(function() {
+                                            overlay.style.display = 'none';
+                                        }, 300);
+                                    }).catch(function(error) {
+                                        console.error('Erreur lecture vidéo:', error);
+                                    });
+                                });
+                                
+                                video.addEventListener('ended', function() {
+                                    overlay.style.display = 'flex';
+                                    setTimeout(function() {
+                                        overlay.style.opacity = '1';
+                                    }, 10);
+                                    video.removeAttribute('controls');
+                                });
+                            }
+                        })();
                     </script>
                     
                     <p style="margin-top: 12px; font-size: 0.85rem; color: rgba(255,255,255,0.75); font-style: italic; text-align: center; letter-spacing: 0.02em;">
