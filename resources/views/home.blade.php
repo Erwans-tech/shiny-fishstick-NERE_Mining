@@ -698,84 +698,32 @@
             {{-- Vidéo de présentation --}}
             <div class="intro-video sa-reveal sa-delay-2">
                 <div style="background: rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
-                    <div style="position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden;">
+                    <div id="video-container" style="position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; cursor: pointer;" onclick="document.getElementById('nere-video').play(); document.getElementById('nere-video').setAttribute('controls', 'controls'); this.style.cursor='default'; document.getElementById('play-btn-overlay').style.display='none';">
+                        
                         <video 
                             id="nere-video"
                             playsinline
-                            style="width: 100%; height: 100%; object-fit: cover; background: #000;"
+                            poster="{{ asset('images/video-cover-nere-samao-2026.png') }}"
+                            style="width: 100%; height: 100%; object-fit: cover; background: #000; display: block;"
                             preload="metadata">
                             <source src="{{ asset('videos/presentation-nere-mining.mp4') }}" type="video/mp4">
                             Votre navigateur ne supporte pas la lecture de vidéos HTML5.
                         </video>
                         
-                        {{-- Couverture avec image personnalisée et bouton play --}}
-                        <div id="play-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.3s ease; background-image: url('{{ asset('images/video-cover-nere-samao-2026.png') }}'); background-size: cover; background-position: center;">
-                            
-                            {{-- Overlay semi-transparent --}}
-                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.25);"></div>
-                            
-                            {{-- Gros bouton Play --}}
-                            <div id="play-button" style="width: 100px; height: 100px; background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 48px rgba(212, 175, 55, 0.6); transition: all 0.3s ease; position: relative; z-index: 10;">
-                                
-                                {{-- Icône Play --}}
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-left: 4px;">
-                                    <path d="M8 5v14l11-7z" fill="#1a1a1a"/>
-                                </svg>
-                                
-                                {{-- Animation pulse --}}
-                                <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 3px solid rgba(212, 175, 55, 0.6); animation: pulse-effect 2s infinite;"></div>
-                            </div>
+                        {{-- Bouton Play superposé --}}
+                        <div id="play-btn-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 48px rgba(212, 175, 55, 0.6); pointer-events: none; transition: transform 0.3s ease;">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-left: 4px;">
+                                <path d="M8 5v14l11-7z" fill="#1a1a1a"/>
+                            </svg>
                         </div>
                     </div>
                     
                     <style>
-                        @keyframes pulse-effect {
-                            0% { transform: scale(1); opacity: 1; }
-                            50% { transform: scale(1.15); opacity: 0.7; }
-                            100% { transform: scale(1.3); opacity: 0; }
-                        }
-                        #play-overlay:hover #play-button {
-                            transform: scale(1.1);
+                        #video-container:hover #play-btn-overlay {
+                            transform: translate(-50%, -50%) scale(1.1);
                             box-shadow: 0 16px 64px rgba(212, 175, 55, 0.8);
                         }
                     </style>
-                    
-                    <script>
-                        (function() {
-                            const video = document.getElementById('nere-video');
-                            const overlay = document.getElementById('play-overlay');
-                            
-                            if (video && overlay) {
-                                overlay.addEventListener('click', function(e) {
-                                    console.log('Click détecté sur overlay');
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    
-                                    video.setAttribute('controls', 'controls');
-                                    video.play().then(function() {
-                                        console.log('Vidéo lancée avec succès');
-                                        overlay.style.opacity = '0';
-                                        setTimeout(function() {
-                                            overlay.style.display = 'none';
-                                        }, 300);
-                                    }).catch(function(error) {
-                                        console.error('Erreur lecture vidéo:', error);
-                                        alert('Erreur lors du lancement de la vidéo');
-                                    });
-                                });
-                                
-                                video.addEventListener('ended', function() {
-                                    overlay.style.display = 'flex';
-                                    setTimeout(function() {
-                                        overlay.style.opacity = '1';
-                                    }, 10);
-                                    video.removeAttribute('controls');
-                                });
-                            } else {
-                                console.error('Vidéo ou overlay non trouvé');
-                            }
-                        })();
-                    </script>
                     
                     <p style="margin-top: 12px; font-size: 1rem; color: #C8102E; font-weight: 700; text-align: center; letter-spacing: 0.03em; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
                         {{ $en ? 'Discover Néré Mining in video' : 'Découvrez Néré Mining en vidéo' }}
