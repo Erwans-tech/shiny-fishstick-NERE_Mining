@@ -772,7 +772,7 @@
                         })();
                     </script>
                     
-                    <p style="margin-top: 12px; font-size: 0.85rem; color: rgba(255,255,255,0.75); font-style: italic; text-align: center; letter-spacing: 0.02em;">
+                    <p style="margin-top: 12px; font-size: 1rem; color: #C8102E; font-weight: 700; text-align: center; letter-spacing: 0.03em; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
                         {{ $en ? 'Discover Néré Mining in video' : 'Découvrez Néré Mining en vidéo' }}
                     </p>
                 </div>
