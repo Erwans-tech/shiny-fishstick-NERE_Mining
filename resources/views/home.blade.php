@@ -709,36 +709,36 @@
                         </video>
                         
                         {{-- Couverture avec image personnalisée et bouton play --}}
-                        <div id="play-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; background-image: url('{{ asset('images/video-cover-nere-samao-2026.png') }}'); background-size: cover; background-position: center;">
+                        <div id="play-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.3s ease; background-image: url('{{ asset('images/video-cover-nere-samao-2026.png') }}'); background-size: cover; background-position: center;">
                             
-                            {{-- Overlay semi-transparent pour améliorer la visibilité du bouton --}}
-                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2); pointer-events: none;"></div>
+                            {{-- Overlay semi-transparent --}}
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.25);"></div>
                             
                             {{-- Gros bouton Play --}}
-                            <div class="play-button" style="width: 90px; height: 90px; background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 48px rgba(212, 175, 55, 0.5); transition: all 0.3s ease; position: relative; z-index: 10; pointer-events: none;">
+                            <div id="play-button" style="width: 100px; height: 100px; background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 48px rgba(212, 175, 55, 0.6); transition: all 0.3s ease; position: relative; z-index: 10;">
                                 
                                 {{-- Icône Play --}}
-                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" style="margin-left: 4px;">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-left: 4px;">
                                     <path d="M8 5v14l11-7z" fill="#1a1a1a"/>
                                 </svg>
                                 
                                 {{-- Animation pulse --}}
-                                <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 3px solid rgba(212, 175, 55, 0.6); animation: pulse 2s infinite;"></div>
+                                <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 3px solid rgba(212, 175, 55, 0.6); animation: pulse-effect 2s infinite;"></div>
                             </div>
-                            
-                            <style>
-                                @keyframes pulse {
-                                    0% { transform: scale(1); opacity: 1; }
-                                    50% { transform: scale(1.15); opacity: 0.7; }
-                                    100% { transform: scale(1.3); opacity: 0; }
-                                }
-                                #play-overlay:hover .play-button {
-                                    transform: scale(1.15);
-                                    box-shadow: 0 16px 64px rgba(212, 175, 55, 0.7);
-                                }
-                            </style>
                         </div>
                     </div>
+                    
+                    <style>
+                        @keyframes pulse-effect {
+                            0% { transform: scale(1); opacity: 1; }
+                            50% { transform: scale(1.15); opacity: 0.7; }
+                            100% { transform: scale(1.3); opacity: 0; }
+                        }
+                        #play-overlay:hover #play-button {
+                            transform: scale(1.1);
+                            box-shadow: 0 16px 64px rgba(212, 175, 55, 0.8);
+                        }
+                    </style>
                     
                     <script>
                         (function() {
@@ -747,17 +747,20 @@
                             
                             if (video && overlay) {
                                 overlay.addEventListener('click', function(e) {
+                                    console.log('Click détecté sur overlay');
                                     e.preventDefault();
                                     e.stopPropagation();
                                     
                                     video.setAttribute('controls', 'controls');
                                     video.play().then(function() {
+                                        console.log('Vidéo lancée avec succès');
                                         overlay.style.opacity = '0';
                                         setTimeout(function() {
                                             overlay.style.display = 'none';
                                         }, 300);
                                     }).catch(function(error) {
                                         console.error('Erreur lecture vidéo:', error);
+                                        alert('Erreur lors du lancement de la vidéo');
                                     });
                                 });
                                 
@@ -768,6 +771,8 @@
                                     }, 10);
                                     video.removeAttribute('controls');
                                 });
+                            } else {
+                                console.error('Vidéo ou overlay non trouvé');
                             }
                         })();
                     </script>
