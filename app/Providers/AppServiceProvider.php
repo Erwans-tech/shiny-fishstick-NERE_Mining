@@ -14,7 +14,10 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+        // Enregistrer le service Mail
+        $this->app->singleton('mail-service', function ($app) {
+            return new \App\Services\MailService();
+        });
     }
 
     public function boot(): void
