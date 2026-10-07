@@ -3,69 +3,53 @@
 namespace App\Mail;
 
 use App\Models\ContactMessage;
+use App\Services\MailService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Attachment;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ContactMessageNotification extends Mailable implements ShouldQueue
+class ContactMessageNotification extends Mailable
 {
     use Queueable, SerializesModels;
-
-    /**
-     * Le mail part en tâche de fond : un serveur SMTP lent ou injoignable
-     * ne peut plus faire expirer la soumission du formulaire (erreur 502).
-     */
-    public int $tries = 3;
-
-    public int $backoff = 60;
 
     /**
      * Create a new message instance.
      */
     public function __construct(
-        public ContactMessage $contactMessage
+        public ContactMessage $message
     ) {
-        // Ne dispatcher qu'une fois la transaction validée, sinon le worker
-        // pourrait charger le modèle avant qu'il n'existe en base.
-        $this->afterCommit();
     }
 
     /**
-     * Get the message envelope.
+     * Send the message using PHPMailer
      */
-    public function envelope(): Envelope
+    public function send()
     {
-        return new Envelope(
-            subject: '[Néré Mining] Nouveau message de contact - ' . ($this->contactMessage->subject ?: 'Sans sujet'),
-            replyTo: $this->contactMessage->email,
-        );
+        try {
+            $mailService = new MailService();
+            
+            // Préparer le corps du mail HTML
+            $body = $this->buildEmailBody();
+            
+            $mailService->send(
+                to: $this->to[0]['address'] ?? config('mail.from.address'),
+                subject: 'Nouveau message de contact: ' . ($this->message->subject ?? $this->message->type),
+                body: $body,
+                from: config('mail.from.address'),
+                fromName: config('mail.from.name')
+            );
+        } catch (\Exception $e) {
+            \Log::error('Erreur envoi notification contact: ' . $e->getMessage());
+        }
     }
 
     /**
-     * Get the message content definition.
+     * Construire le corps du mail HTML
      */
-    public function content(): Content
+    private function buildEmailBody(): string
     {
-        return new Content(
-            html: 'emails.contact-message-notification',
-            text: 'emails.contact-message-notification-text',
-            with: [
-                'contactMessage' => $this->contactMessage,
-            ]
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return view('emails.contact-message', [
+            'message' => $this->message,
+        ])->render();
     }
 }

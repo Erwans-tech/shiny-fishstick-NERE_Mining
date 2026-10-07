@@ -3,89 +3,89 @@
 namespace App\Mail;
 
 use App\Models\JobApplication;
+use App\Services\MailService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Attachment;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
 
-class JobApplicationNotification extends Mailable implements ShouldQueue
+class JobApplicationNotification extends Mailable
 {
     use Queueable, SerializesModels;
-
-    /**
-     * Le mail part en tâche de fond : un serveur SMTP lent ou injoignable
-     * ne peut plus faire expirer la soumission de la candidature (erreur 502).
-     */
-    public int $tries = 3;
-
-    public int $backoff = 60;
 
     /**
      * Create a new message instance.
      */
     public function __construct(
-        public JobApplication $jobApplication
+        public JobApplication $application
     ) {
-        // Ne dispatcher qu'une fois la transaction validée, sinon le worker
-        // pourrait charger le modèle avant qu'il n'existe en base.
-        $this->afterCommit();
     }
 
     /**
-     * Get the message envelope.
+     * Send the message using PHPMailer
      */
-    public function envelope(): Envelope
+    public function send()
     {
-        $jobTitle = $this->jobApplication->jobOffer->title ?? 'Candidature spontanée';
-        
-        return new Envelope(
-            subject: '[Néré Mining] Nouvelle candidature - ' . $jobTitle,
-            replyTo: $this->jobApplication->email,
-        );
+        try {
+            $mailService = new MailService();
+            
+            // Préparer le corps du mail HTML
+            $body = $this->buildEmailBody();
+            
+            // Envoyer avec pièce jointe si présente
+            if ($this->application->cv_path) {
+                $cvPath = storage_path('app/' . $this->application->cv_path);
+                $mailService->sendWithAttachment(
+                    to: $this->to[0]['address'] ?? config('mail.from.address'),
+                    subject: 'Nouvelle candidature - ' . $this->application->first_name . ' ' . $this->application->last_name,
+                    body: $body,
+                    attachmentPath: $cvPath,
+                    from: config('mail.from.address'),
+                    fromName: config('mail.from.name')
+                );
+            } else {
+                $mailService->send(
+                    to: $this->to[0]['address'] ?? config('mail.from.address'),
+                    subject: 'Nouvelle candidature - ' . $this->application->first_name . ' ' . $this->application->last_name,
+                    body: $body,
+                    from: config('mail.from.address'),
+                    fromName: config('mail.from.name')
+                );
+            }
+        } catch (\Exception $e) {
+            \Log::error('Erreur envoi notification candidature: ' . $e->getMessage());
+        }
     }
 
     /**
-     * Get the message content definition.
+     * Construire le corps du mail HTML
      */
-    public function content(): Content
+    private function buildEmailBody(): string
     {
-        return new Content(
-            html: 'emails.job-application-notification',
-            text: 'emails.job-application-notification-text',
-            with: [
-                'application' => $this->jobApplication,
-                'jobOffer' => $this->jobApplication->jobOffer,
-            ]
-        );
+        return view('emails.job-application', [
+            'application' => $this->application,
+            'job' => $this->application->jobOffer,
+        ])->render();
     }
 
     /**
      * Get the attachments for the message.
-     *
-     * @return array<int, Attachment>
      */
     public function attachments(): array
     {
         $attachments = [];
 
-        // Ajouter le CV s'il existe
-        if ($this->jobApplication->cv_path && Storage::disk(config('filesystems.default'))->exists($this->jobApplication->cv_path)) {
-            $attachments[] = Attachment::fromStorageDisk(
-                config('filesystems.default'),
-                $this->jobApplication->cv_path
-            )->as('CV_' . $this->jobApplication->full_name . '.pdf');
+        if ($this->application->cv_path && file_exists(storage_path('app/' . $this->application->cv_path))) {
+            $attachments[] = [
+                'path' => storage_path('app/' . $this->application->cv_path),
+                'name' => 'CV_' . $this->application->first_name . '_' . $this->application->last_name . '.pdf',
+            ];
         }
 
-        // Ajouter la lettre de motivation s'elle existe
-        if ($this->jobApplication->cover_letter_path && Storage::disk(config('filesystems.default'))->exists($this->jobApplication->cover_letter_path)) {
-            $attachments[] = Attachment::fromStorageDisk(
-                config('filesystems.default'),
-                $this->jobApplication->cover_letter_path
-            )->as('Lettre_motivation_' . $this->jobApplication->full_name . '.pdf');
+        if ($this->application->cover_letter_path && file_exists(storage_path('app/' . $this->application->cover_letter_path))) {
+            $attachments[] = [
+                'path' => storage_path('app/' . $this->application->cover_letter_path),
+                'name' => 'CoverLetter_' . $this->application->first_name . '_' . $this->application->last_name . '.pdf',
+            ];
         }
 
         return $attachments;
