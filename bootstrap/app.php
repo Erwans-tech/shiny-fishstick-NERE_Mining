@@ -17,6 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // ── Alias personnalisés ──────────────────────────────────────
         $middleware->alias([
             'admin.auth' => \App\Http\Middleware\AdminAuth::class,
+            'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'permission' => \App\Http\Middleware\PermissionMiddleware::class,
         ]);
 
         // ── En-têtes de sécurité sur toutes les réponses web ────────

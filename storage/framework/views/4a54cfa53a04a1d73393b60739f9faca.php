@@ -20,7 +20,7 @@
     })->filter(fn ($social) => filter_var($social['url'], FILTER_VALIDATE_URL));
 ?>
 
-<?php if (! $__env->hasRenderedOnce('d55ed97e-e6a2-45aa-aa7a-21c9f52447ca')): $__env->markAsRenderedOnce('d55ed97e-e6a2-45aa-aa7a-21c9f52447ca'); ?>
+<?php if (! $__env->hasRenderedOnce('8b476f3a-1104-4cb4-993a-33a72daf3d54')): $__env->markAsRenderedOnce('8b476f3a-1104-4cb4-993a-33a72daf3d54'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('css/chrome.css')); ?>?v=<?php echo e(filemtime(public_path('css/chrome.css'))); ?>">
 <?php endif; ?>
 

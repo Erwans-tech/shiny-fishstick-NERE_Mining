@@ -44,7 +44,7 @@ class AdminLoginController extends Controller
         }
 
         $user = User::where('email', $request->input('email'))
-            ->where('is_admin', true)
+            ->whereIn('role', ['admin', 'hr', 'site_manager'])
             ->first();
 
         if (! $user || ! Hash::check($request->input('password'), $user->password)) {
@@ -72,6 +72,7 @@ class AdminLoginController extends Controller
             'admin_logged_in'     => true,
             'admin_id'            => $user->id,
             'admin_name'          => $user->name,
+            'admin_role'          => $user->role,
             'admin_session_renewed' => false,
             'admin_login_at'      => now()->timestamp,
         ]);

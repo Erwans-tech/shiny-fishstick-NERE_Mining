@@ -39,7 +39,7 @@ class AdminAuth
         $adminId = session('admin_id');
         if ($adminId) {
             $still = \App\Models\User::where('id', $adminId)
-                ->where('is_admin', true)
+                ->whereIn('role', ['admin', 'hr', 'site_manager'])
                 ->exists();
             if (! $still) {
                 $request->session()->flush();

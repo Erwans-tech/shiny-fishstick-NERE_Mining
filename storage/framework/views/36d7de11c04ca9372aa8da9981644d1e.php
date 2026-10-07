@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     $en  = ($locale ?? 'fr') === 'en';
     $loc = $locale ?? 'fr';
     
@@ -682,18 +682,60 @@
     
     <section class="sec intro-sec sa-animated-section" aria-labelledby="intro-nere-h">
         <div class="sa-particles-container" data-count="5"></div>
-        <div class="intro-inner">
-            <div class="intro-copy sa-reveal sa-delay-1">
-                
-                <p class="sec-lead">
+        <div class="intro-inner" style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:2.5rem; align-items:start; max-width:1280px; margin:0 auto; position:relative; z-index:2;">
+            
+            
+            <div class="intro-left">
+                <div class="intro-copy sa-reveal sa-delay-1" style="margin-bottom: 1.5rem;">
+                    <p class="sec-lead" style="font-size: 1.05rem; line-height: 1.7;">
                     <?php echo e($homeDescription ?: 'Néré Mining SA est une entreprise minière aurifère majoritairement détenue par des capitaux burkinabè. À travers l’exploitation de sa mine de Karma et ses activités d’exploration, Néré Mining ambitionne de contribuer au développement d’un secteur minier national performant, responsable et créateur de valeur pour le Burkina Faso.'); ?>
 
                 </p>
             </div>
-            <div class="intro-points">
-                <div class="intro-point sa-reveal sa-delay-1"><span>Nous développons une mine responsable, avec des standards de sécurité et de qualité élevés.</span></div>
-                <div class="intro-point sa-reveal sa-delay-2"><span>Nous créons de la valeur pour les populations locales en favorisant l’emploi, les partenariats et la transparence.</span></div>
-                <div class="intro-point sa-reveal sa-delay-3"><span>Nous accompagnons une croissance minière tournée vers le long terme, la sobriété environnementale et la confiance.</span></div>
+
+            
+            <div class="intro-video sa-reveal sa-delay-2">
+                <div style="background: rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
+                    <div id="video-container" style="position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; cursor: pointer;" onclick="document.getElementById('nere-video').play(); document.getElementById('nere-video').setAttribute('controls', 'controls'); this.style.cursor='default'; document.getElementById('play-btn-overlay').style.display='none';">
+                        
+                        <video 
+                            id="nere-video"
+                            playsinline
+                            poster="<?php echo e(asset('images/video-cover-nere-samao-2026.png')); ?>"
+                            style="width: 100%; height: 100%; object-fit: cover; background: #000; display: block;"
+                            preload="metadata">
+                            <source src="<?php echo e(asset('videos/presentation-nere-mining.mp4')); ?>" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+                        </video>
+                        
+                        
+                        <div id="play-btn-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 48px rgba(212, 175, 55, 0.6); pointer-events: none; transition: transform 0.3s ease;">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-left: 4px;">
+                                <path d="M8 5v14l11-7z" fill="#1a1a1a"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <style>
+                        #video-container:hover #play-btn-overlay {
+                            transform: translate(-50%, -50%) scale(1.1);
+                            box-shadow: 0 16px 64px rgba(212, 175, 55, 0.8);
+                        }
+                    </style>
+                    
+                    <p style="margin-top: 12px; font-size: 1rem; color: #C8102E; font-weight: 700; text-align: center; letter-spacing: 0.03em; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                        <?php echo e($en ? 'Discover Néré Mining in video' : 'Découvrez Néré Mining en vidéo'); ?>
+
+                    </p>
+                </div>
+            </div>
+            </div>
+
+            
+            <div class="intro-points" style="display: flex; flex-direction: column; gap: 1.5rem; height: 100%; justify-content: center;">
+                <div class="intro-point sa-reveal sa-delay-1" style="padding: 2.25rem 2rem; min-height: auto;"><span style="font-size: 1.05rem; line-height: 1.7;">Nous développons une mine responsable, avec des standards de sécurité et de qualité élevés.</span></div>
+                <div class="intro-point sa-reveal sa-delay-2" style="padding: 2.25rem 2rem; min-height: auto;"><span style="font-size: 1.05rem; line-height: 1.7;">Nous créons de la valeur pour les populations locales en favorisant l’emploi, les partenariats et la transparence.</span></div>
+                <div class="intro-point sa-reveal sa-delay-3" style="padding: 2.25rem 2rem; min-height: auto;"><span style="font-size: 1.05rem; line-height: 1.7;">Nous accompagnons une croissance minière tournée vers le long terme, la sobriété environnementale et la confiance.</span></div>
             </div>
         </div>
     </section>
@@ -1030,5 +1072,9 @@
     </script>
 </body>
 </html>
+
+
+
+
 
 <?php /**PATH C:\Users\erwan\OneDrive\Bureau\REFONTESITE\resources\views/home.blade.php ENDPATH**/ ?>

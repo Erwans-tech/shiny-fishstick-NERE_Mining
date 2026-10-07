@@ -48,7 +48,7 @@ return [
     */
 
     'encrypt' => env('APP_ENV') === 'production'
-        ? false
+        ? true
         : env('SESSION_ENCRYPT', true),
 
     /*
