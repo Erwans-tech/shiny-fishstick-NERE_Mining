@@ -10,13 +10,31 @@ if (-not (Test-Path -LiteralPath $ProjectPath -PathType Container)) {
     throw "Le dossier du site IIS n'existe pas : $ProjectPath"
 }
 
-$changes = git -C $ProjectPath status --porcelain
+$trackedChanges = @()
+$trackedChanges += git -C $ProjectPath diff --name-only
 if ($LASTEXITCODE -ne 0) {
-    throw 'Impossible de vérifier l’état du dépôt sur le serveur IIS.'
+    throw 'Impossible de vérifier les modifications non indexées du dépôt IIS.'
 }
 
-if ($changes) {
-    throw 'Le dépôt du site contient des changements locaux. Aucun fichier ne sera écrasé.'
+$trackedChanges += git -C $ProjectPath diff --cached --name-only
+if ($LASTEXITCODE -ne 0) {
+    throw 'Impossible de vérifier les modifications indexées du dépôt IIS.'
+}
+
+if ($trackedChanges) {
+    Write-Host 'Fichiers suivis modifiés :'
+    $trackedChanges | Sort-Object -Unique | ForEach-Object { Write-Host "  $_" }
+    throw 'Le déploiement est arrêté pour protéger les modifications locales suivies.'
+}
+
+$untrackedFiles = @(git -C $ProjectPath ls-files --others --exclude-standard)
+if ($LASTEXITCODE -ne 0) {
+    throw 'Impossible de vérifier les fichiers non suivis du dépôt IIS.'
+}
+
+if ($untrackedFiles) {
+    Write-Warning 'Fichiers non suivis présents. Ils ne seront pas supprimés par le script :'
+    $untrackedFiles | ForEach-Object { Write-Warning "  $_" }
 }
 
 Write-Host 'Récupération de la version production-stable...'
@@ -27,7 +45,7 @@ if ($LASTEXITCODE -ne 0) {
 
 git -C $ProjectPath checkout --detach refs/remotes/origin/production-stable
 if ($LASTEXITCODE -ne 0) {
-    throw 'Impossible de passer sur la version récupérée de production-stable.'
+    throw "Impossible de passer sur production-stable. Si Git signale un conflit avec un fichier non suivi, sauvegardez ou déplacez uniquement le fichier indiqué puis relancez. Vérifiez avec : git -C `"$ProjectPath`" status --short --untracked-files=all"
 }
 
 Push-Location $ProjectPath
