@@ -1,7 +1,7 @@
 param(
     [string] $ProjectPath = $PSScriptRoot,
 
-    [string] $AppPoolName = 'NereMining'
+    [string] $AppPoolName = 'nere-website-pool'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -79,7 +79,7 @@ finally {
 }
 
 if ([string]::IsNullOrWhiteSpace($AppPoolName)) {
-    $AppPoolName = 'NereMining'
+    $AppPoolName = 'nere-website-pool'
 }
 
 Import-Module WebAdministration -ErrorAction Stop

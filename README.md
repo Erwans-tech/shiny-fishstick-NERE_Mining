@@ -222,7 +222,7 @@ Configuration initiale :
 
 1. Installez un runner GitHub Actions **self-hosted Windows** sur le serveur IIS et ajoutez-lui le label `nere-iis`.
 2. Exécutez le service du runner avec un compte dédié autorisé à lire le dépôt, modifier le dossier du site, exécuter PHP/Composer et recycler le pool IIS. Restreignez les droits d'écriture sur `production-stable`.
-3. Dans les variables Actions du dépôt (Settings → Secrets and variables → Actions → Variables), définissez `IIS_PROJECT_PATH` avec le dossier du clone de production, par exemple `C:\inetpub\wwwroot\nere-mining`, et `IIS_APP_POOL_NAME` avec le nom du pool IIS (par défaut `NereMining`).
+3. Dans les variables Actions du dépôt (Settings → Secrets and variables → Actions → Variables), définissez `IIS_PROJECT_PATH` avec le dossier du clone de production, par exemple `C:\inetpub\wwwroot\nere-mining`, et `IIS_APP_POOL_NAME` avec le nom du pool IIS (par défaut `nere-website-pool`).
 4. Vérifiez que le clone du serveur est propre et que son remote `origin` permet au compte du runner de faire `git fetch`. Le script prend en charge un HEAD détaché et sélectionne la référence distante `production-stable`.
 5. Les déploiements sont ensuite déclenchés automatiquement après chaque push sur `production-stable`. N'exécutez le script manuellement qu'après avoir vérifié les tests.
 
