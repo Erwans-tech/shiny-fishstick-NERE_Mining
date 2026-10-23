@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $job->title }} | {{ __('site.nav_careers', [], $loc) }} | Néré Mining</title>
-    <meta name="description" content="{{ Str::limit($job->description, 160) }}">
+    <meta name="description" content="{{ Str::limit($job->description ?: $job->title, 160) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -111,8 +111,12 @@
     <a href="{{ $listRoute }}" class="back-link">← {{ __('site.careers_back', [], $loc) }}</a>
     <h1>{{ $job->title }}</h1>
     <div class="meta-badges">
-        <span class="badge b-white">{{ $job->contract_type }}</span>
-                <span class="badge b-white"><span class="inline-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg></span> {{ $job->location }}</span>
+        @if($job->contract_type)
+            <span class="badge b-white">{{ $job->contract_type }}</span>
+        @endif
+        @if($job->location)
+            <span class="badge b-white"><span class="inline-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg></span> {{ $job->location }}</span>
+        @endif
         @if($job->experience_level)
             <span class="badge b-white">{{ $en ? $job->experienceLabelEn() : $job->experienceLabelFr() }}</span>
         @endif
@@ -139,11 +143,21 @@
             <div class="alert-success">✓ {{ session('apply_success') }}</div>
         @endif
 
-        {{-- Description --}}
-        <div class="section-block">
-            
-            <div class="job-description">{{ $job->description }}</div>
-        </div>
+        @if($job->description)
+            <div class="section-block">
+                <div class="job-description">{{ $job->description }}</div>
+            </div>
+        @endif
+
+        @if($job->offer_file_path)
+            <div class="section-block">
+                <a href="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($job->offer_file_path) }}"
+                   target="_blank" rel="noopener"
+                   style="display:inline-flex;align-items:center;gap:8px;padding:12px 18px;background:var(--green);color:#fff;border-radius:6px;font:600 13px Inter,sans-serif;">
+                    {{ $en ? 'View the full job description' : 'Consulter le document complet de l’offre' }}
+                </a>
+            </div>
+        @endif
 
         {{-- Profil recherché --}}
         @if($job->requirements)
@@ -263,17 +277,21 @@
         <div class="sidebar-card">
             <div class="sidebar-head">
                 <h3>{{ $job->title }}</h3>
-                <p>{{ $job->department }} · Néré Mining S.A.</p>
+                <p>{{ $job->department ?: 'Néré Mining S.A.' }}</p>
             </div>
             <div class="sidebar-meta">
+                @if($job->contract_type)
                 <div class="meta-row">
                     <span class="meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4h12v17H6zM9 2h6v4H9M9 10h6M9 14h6M9 18h4"/></svg></span>
                     <div><div class="meta-label">{{ $en ? 'Contract' : 'Contrat' }}</div><div class="meta-value">{{ $job->contract_type }}</div></div>
                 </div>
+                @endif
+                @if($job->location)
                 <div class="meta-row">
                     <span class="meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg></span>
                     <div><div class="meta-label">{{ $en ? 'Location' : 'Lieu' }}</div><div class="meta-value">{{ $job->location }}</div></div>
                 </div>
+                @endif
                 @if($job->experience_level)
                 <div class="meta-row">
                     <span class="meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 11v5c3 2 7 2 10 0v-5M21 10v6"/></svg></span>
@@ -333,7 +351,7 @@
             @endphp
             <a href="{{ $oRoute }}" style="display:block;padding:14px 20px;border-bottom:1px solid var(--line);transition:background .15s;">
                 <div style="font:600 13px Inter,sans-serif;color:var(--green);margin-bottom:3px;">{{ $other->title }}</div>
-                <div style="font:12px Inter,sans-serif;color:var(--muted);">{{ $other->department }} · {{ $other->contract_type }}</div>
+                <div style="font:12px Inter,sans-serif;color:var(--muted);">{{ collect([$other->department, $other->contract_type])->filter()->join(' · ') }}</div>
             </a>
             @endforeach
         </div>

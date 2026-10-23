@@ -12,6 +12,7 @@ class JobOffer extends Model
     protected $fillable = [
         'title',
         'slug',
+        'offer_file_path',
         'department',
         'location',
         'contract_type',

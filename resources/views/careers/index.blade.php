@@ -229,7 +229,9 @@
             <article class="job-card">
                 <div class="job-left">
                     <div class="job-dept-row">
-                        <span class="job-dept-tag">{{ $job->department }}</span>
+                        @if($job->department)
+                            <span class="job-dept-tag">{{ $job->department }}</span>
+                        @endif
                         @if($isUrgent)
                             <span class="job-urgent">{{ $daysLeft === 0 ? __('site.careers_alert_urgent', [], $loc) : str_replace(':n', $daysLeft, __('site.careers_alert_deadline', [], $loc)) }}</span>
                         @endif
@@ -239,8 +241,12 @@
                         <p class="job-excerpt">{{ Str::limit($job->description, 160) }}</p>
                     @endif
                     <div class="job-badges">
-                        <span class="badge b-type">{{ $job->contract_type }}</span>
-                        <span class="badge b-loc">📍 {{ $job->location }}</span>
+                        @if($job->contract_type)
+                            <span class="badge b-type">{{ $job->contract_type }}</span>
+                        @endif
+                        @if($job->location)
+                            <span class="badge b-loc">📍 {{ $job->location }}</span>
+                        @endif
                         @if($job->experience_level)
                             <span class="badge b-level">{{ $en ? $job->experienceLabelEn() : $job->experienceLabelFr() }}</span>
                         @endif

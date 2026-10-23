@@ -131,6 +131,7 @@ Accessible via `/gestion-nm` (authentification requise)
 3. **Ressources Humaines**
    - ✅ Offres d'emploi (CRUD, départements, statut)
    - ✅ Candidatures reçues (consultation, export, archivage)
+   - ✅ Les candidatures spontanées sont envoyées à l'adresse RH avant leur enregistrement dans l'administration.
 
 4. **Partenaires & Certifications**
    - ✅ Partenaires institutionnels (logos, catégories, URLs)
@@ -215,12 +216,24 @@ git pull origin production-stable
 # Migrations & cache
 php artisan migrate --force
 php artisan config:cache
-php artisan route:cache
-php artisan view:cache
 
 # Redémarrer IIS
 iisreset
 ```
+
+### Déploiement automatique Windows IIS
+
+Un push vers `production-stable` lance les tests ciblés dans GitHub Actions, puis déploie sur IIS uniquement s'ils réussissent.
+
+Configuration initiale :
+
+1. Installez un runner GitHub Actions **self-hosted Windows** sur le serveur IIS et ajoutez-lui le label `nere-iis`.
+2. Exécutez le service du runner avec un compte dédié autorisé à lire le dépôt, modifier le dossier du site, exécuter PHP/Composer et recycler le pool IIS. Restreignez les droits d'écriture sur `production-stable`.
+3. Dans les variables Actions du dépôt (Settings → Secrets and variables → Actions → Variables), définissez `IIS_PROJECT_PATH` avec le dossier du clone de production, par exemple `C:\inetpub\wwwroot\nere-mining`, et `IIS_APP_POOL_NAME` avec le nom du pool IIS (par défaut `NereMining`).
+4. Vérifiez que le clone du serveur est propre, sur `production-stable`, et que son remote `origin` permet au compte du runner de faire `git fetch`.
+5. Les déploiements sont ensuite déclenchés automatiquement après chaque push sur `production-stable`. N'exécutez le script manuellement qu'après avoir vérifié les tests.
+
+Le script refuse d'écraser des modifications locales et arrête le déploiement si une étape échoue. Les paramètres SMTP, dont `HR_EMAIL_ADDRESS`, doivent être configurés pour envoyer les candidatures spontanées aux RH.
 
 ### Configuration IIS
 - Document root : `public/`

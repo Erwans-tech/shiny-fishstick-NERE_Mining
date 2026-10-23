@@ -146,17 +146,22 @@
             <div class="section">
                 <div class="section-title">⏰ Détails de soumission</div>
                 <div class="section-content">
-                    <p><strong>Date de soumission :</strong> {{ $application->created_at->format('d/m/Y à H:i') }}<br>
-                    <strong>ID candidature :</strong> #{{ $application->id }}</p>
+                    <p><strong>Date de soumission :</strong> {{ ($application->created_at ?? now())->format('d/m/Y à H:i') }}
+                    @if($application->id)
+                        <br><strong>ID candidature :</strong> #{{ $application->id }}
+                    @endif
+                    </p>
                 </div>
             </div>
 
             <!-- Appel à action -->
+            @if($application->id)
             <p style="text-align: center; margin-top: 30px;">
                 <a href="{{ route('admin.job-applications.show', $application->id) }}" style="background-color: #C8102E; color: white; padding: 10px 20px; border-radius: 5px; display: inline-block; text-decoration: none;">
                     Consulter la candidature
                 </a>
             </p>
+            @endif
 
             <p>Cordialement,<br>
             <strong>Système de gestion Néré Mining</strong></p>

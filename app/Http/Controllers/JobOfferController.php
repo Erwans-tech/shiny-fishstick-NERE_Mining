@@ -6,6 +6,10 @@ use App\Models\JobApplication;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class JobOfferController extends Controller
 {
@@ -124,15 +128,62 @@ class JobOfferController extends Controller
 
         $data['job_offer_id'] = $job->id;
 
+        $uploadedPaths = [];
         if ($request->hasFile('cv')) {
             $data['cv_path'] = $request->file('cv')->store('applications/cv', 'local');
+            if (! $data['cv_path']) {
+                throw new \RuntimeException('Impossible d’enregistrer le CV de candidature.');
+            }
+            $uploadedPaths[] = $data['cv_path'];
         }
         if ($request->hasFile('cover_letter_file')) {
             $data['cover_letter_path'] = $request->file('cover_letter_file')
                 ->store('applications/cover', 'local');
+            if (! $data['cover_letter_path']) {
+                Storage::disk('local')->delete($uploadedPaths);
+                throw new \RuntimeException('Impossible d’enregistrer la lettre de motivation.');
+            }
+            $uploadedPaths[] = $data['cover_letter_path'];
         }
 
         unset($data['cv'], $data['cover_letter_file'], $data['locale']);
+
+        if ($job->is_spontaneous) {
+            $application = new JobApplication($data);
+            $application->created_at = now();
+            $application->updated_at = now();
+            $application->setRelation('jobOffer', $job);
+
+            try {
+                Mail::to(config('mail.hr_address'))
+                    ->send(new \App\Mail\JobApplicationNotification($application));
+            } catch (Throwable $e) {
+                Storage::disk('local')->delete($uploadedPaths);
+                Log::error('Échec de l’envoi de la candidature spontanée aux RH.', [
+                    'recipient' => config('mail.hr_address'),
+                    'exception' => $e->getMessage(),
+                ]);
+
+                return back()->withInput()->withErrors([
+                    'mail' => 'Votre candidature n’a pas pu être envoyée aux RH. Veuillez réessayer plus tard.',
+                ]);
+            }
+
+            try {
+                $application->save();
+            } catch (Throwable $e) {
+                Storage::disk('local')->delete($uploadedPaths);
+                Log::critical('La candidature spontanée a été envoyée aux RH mais n’a pas pu être enregistrée.', [
+                    'recipient' => config('mail.hr_address'),
+                    'exception' => $e->getMessage(),
+                ]);
+
+                throw $e;
+            }
+
+            return redirect($locale === 'en' ? route('english.spontaneous') : route('spontaneous'))
+                ->with('apply_success', __('site.careers_apply_success'));
+        }
 
         $application = JobApplication::create($data);
         

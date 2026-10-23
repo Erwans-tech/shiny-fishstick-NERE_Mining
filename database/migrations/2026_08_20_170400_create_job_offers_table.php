@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('job_offers', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('department', 120);
+            $table->string('department', 120)->nullable();
             $table->string('location', 120)->default('Karma, Burkina Faso');
-            $table->string('contract_type', 80);
-            $table->text('description');
+            $table->string('contract_type', 80)->nullable();
+            $table->text('description')->nullable();
             $table->text('requirements')->nullable();
             $table->date('deadline')->nullable();
             $table->boolean('is_published')->default(false);

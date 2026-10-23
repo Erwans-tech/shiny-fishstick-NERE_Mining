@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminJobController extends Controller
 {
@@ -31,22 +32,20 @@ class AdminJobController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title'            => ['required', 'string', 'max:255'],
-            'department'       => ['required', 'string', 'max:120'],
-            'location'         => ['required', 'string', 'max:120'],
-            'contract_type'    => ['required', 'string', 'max:80'],
-            'experience_level' => ['nullable', 'string', 'max:80'],
-            'salary_range'     => ['nullable', 'string', 'max:120'],
-            'description'      => ['required', 'string'],
-            'requirements'     => ['nullable', 'string'],
-            'deadline'         => ['nullable', 'date'],
-            'is_published'     => ['boolean'],
-            'is_spontaneous'   => ['boolean'],
+            'title'      => ['required', 'string', 'max:255'],
+            'offer_file' => ['required', 'file', 'mimes:pdf,doc,docx', 'max:10240'],
         ]);
-        $data['is_published']   = $request->boolean('is_published');
-        $data['is_spontaneous'] = $request->boolean('is_spontaneous');
 
-        JobOffer::create($data);
+        $filePath = $request->file('offer_file')->store('job-offers', 'public');
+        if ($filePath === false) {
+            throw new \RuntimeException('Impossible d’enregistrer le document de l’offre d’emploi.');
+        }
+
+        JobOffer::create([
+            'title'           => $data['title'],
+            'offer_file_path' => $filePath,
+            'is_published'    => true,
+        ]);
 
         return redirect()->route('admin.jobs.index')
             ->with('success', 'Offre créée.');
@@ -60,22 +59,27 @@ class AdminJobController extends Controller
     public function update(Request $request, JobOffer $job)
     {
         $data = $request->validate([
-            'title'            => ['required', 'string', 'max:255'],
-            'department'       => ['required', 'string', 'max:120'],
-            'location'         => ['required', 'string', 'max:120'],
-            'contract_type'    => ['required', 'string', 'max:80'],
-            'experience_level' => ['nullable', 'string', 'max:80'],
-            'salary_range'     => ['nullable', 'string', 'max:120'],
-            'description'      => ['required', 'string'],
-            'requirements'     => ['nullable', 'string'],
-            'deadline'         => ['nullable', 'date'],
-            'is_published'     => ['boolean'],
-            'is_spontaneous'   => ['boolean'],
+            'title'      => ['required', 'string', 'max:255'],
+            'offer_file' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:10240'],
         ]);
-        $data['is_published']   = $request->boolean('is_published');
-        $data['is_spontaneous'] = $request->boolean('is_spontaneous');
 
-        $job->update($data);
+        $oldFilePath = $job->offer_file_path;
+        $job->title = $data['title'];
+
+        if ($request->hasFile('offer_file')) {
+            $filePath = $request->file('offer_file')->store('job-offers', 'public');
+            if ($filePath === false) {
+                throw new \RuntimeException('Impossible d’enregistrer le document de l’offre d’emploi.');
+            }
+
+            $job->offer_file_path = $filePath;
+        }
+
+        $job->save();
+
+        if ($job->offer_file_path !== $oldFilePath && $oldFilePath) {
+            Storage::disk('public')->delete($oldFilePath);
+        }
 
         return redirect()->route('admin.jobs.index')
             ->with('success', 'Offre mise à jour.');
@@ -83,7 +87,13 @@ class AdminJobController extends Controller
 
     public function destroy(JobOffer $job)
     {
+        $filePath = $job->offer_file_path;
         $job->delete();
+
+        if ($filePath) {
+            Storage::disk('public')->delete($filePath);
+        }
+
         return redirect()->route('admin.jobs.index')
             ->with('success', 'Offre supprimée.');
     }

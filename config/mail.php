@@ -103,4 +103,6 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'hr_address' => env('HR_EMAIL_ADDRESS', 'Kar_hr@nere-mining.com'),
+
 ];
