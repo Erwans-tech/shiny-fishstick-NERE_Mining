@@ -12,10 +12,16 @@
             <h2>{{ $job->exists ? $job->title : "Nouvelle offre d'emploi" }}</h2>
             <div style="display:flex;gap:8px;align-items:center;">
                 @if($job->exists)
+                    @unless($job->isExpired() || $job->is_spontaneous)
                     <a href="{{ route('jobs.show', $job) }}" target="_blank" class="btn btn-ghost btn-sm">Voir sur le site ↗</a>
-                    <span class="badge {{ $job->is_published ? 'badge-green' : 'badge-gray' }}">
-                        {{ $job->is_published ? 'Publié' : 'Brouillon' }}
-                    </span>
+                    @endunless
+                    @if($job->isExpired())
+                        <span class="badge badge-gray">Archivée</span>
+                    @else
+                        <span class="badge {{ $job->is_published ? 'badge-green' : 'badge-gray' }}">
+                            {{ $job->is_published ? 'Publié' : 'Brouillon' }}
+                        </span>
+                    @endif
                 @endif
                 <a href="{{ route('admin.jobs.index') }}" class="btn btn-ghost btn-sm">← Retour</a>
             </div>
@@ -28,6 +34,20 @@
                            placeholder="Ex : Ingénieur minier senior">
                     @error('title')<div class="form-error">{{ $message }}</div>@enderror
                 </div>
+
+                @unless($job->is_spontaneous)
+                <div class="form-group full">
+                    <label for="deadline">Date limite de candidature *</label>
+                    <input id="deadline" type="date" name="deadline" required
+                           value="{{ old('deadline', $job->deadline?->format('Y-m-d')) }}"
+                           @unless($job->exists) min="{{ today()->format('Y-m-d') }}" @endunless>
+                    <span class="form-hint">
+                        L'offre reste visible sur le site jusqu'à cette date incluse, puis passe automatiquement
+                        dans les offres archivées. Repousser la date la remet en ligne.
+                    </span>
+                    @error('deadline')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
+                @endunless
 
                 <div class="form-group full">
                     <label for="offer_file">Document de l'offre d'emploi {{ $job->exists ? '' : '*' }}</label>

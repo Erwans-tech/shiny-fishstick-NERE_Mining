@@ -79,11 +79,29 @@ class JobOffer extends Model
             ->when(Schema::hasColumn($this->getTable(), 'is_spontaneous'), function ($query) {
                 $query->where('is_spontaneous', false);
             })
-            ->where(function ($q) {
-                $q->whereNull('deadline')->orWhere('deadline', '>=', today());
-            });
+            ->notArchived();
 
         return $query;
+    }
+
+    /** Scope : offres dont la date limite est passée, conservées en archive. */
+    public function scopeArchived($query)
+    {
+        return $query->whereNotNull('deadline')->where('deadline', '<', today());
+    }
+
+    /** Scope : offres non archivées (sans date limite ou date limite à venir). */
+    public function scopeNotArchived($query)
+    {
+        return $query->where(function ($q) {
+            $q->whereNull('deadline')->orWhere('deadline', '>=', today());
+        });
+    }
+
+    /** La date limite est passée : l'offre n'est plus visible sur le site. */
+    public function isExpired(): bool
+    {
+        return $this->deadline !== null && $this->deadline->lt(today());
     }
 
     /** Scope : récupère l'offre de candidature spontanée active. */

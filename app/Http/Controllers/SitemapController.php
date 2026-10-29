@@ -99,7 +99,7 @@ class SitemapController extends Controller
         }
 
         // Job offers - FR & EN
-        $jobs = JobOffer::where('is_published', true)->latest()->get();
+        $jobs = JobOffer::open()->latest()->get();
         foreach ($jobs as $job) {
             $urls[] = [
                 'url' => '/offres-emploi/' . $job->slug,

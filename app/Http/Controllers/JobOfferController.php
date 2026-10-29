@@ -43,7 +43,7 @@ class JobOfferController extends Controller
     public function show(JobOffer $job)
     {
         // Bloquer l'accès direct à la page détail d'une offre spontanée
-        abort_if($job->is_spontaneous || ! $job->is_published, 404);
+        abort_if($job->is_spontaneous || ! $job->is_published || $job->isExpired(), 404);
         App::setLocale('fr');
         return view('careers.show', ['locale' => 'fr', 'job' => $job]);
     }
@@ -51,7 +51,7 @@ class JobOfferController extends Controller
     /* ── Détail d'une offre normale (EN) ── */
     public function showEn(JobOffer $job)
     {
-        abort_if($job->is_spontaneous || ! $job->is_published, 404);
+        abort_if($job->is_spontaneous || ! $job->is_published || $job->isExpired(), 404);
         App::setLocale('en');
         return view('careers.show', ['locale' => 'en', 'job' => $job]);
     }
@@ -75,7 +75,7 @@ class JobOfferController extends Controller
     /* ── Soumettre une candidature pour une offre normale ── */
     public function apply(Request $request, JobOffer $job)
     {
-        abort_if($job->is_spontaneous || ! $job->is_published, 404);
+        abort_if($job->is_spontaneous || ! $job->is_published || $job->isExpired(), 404);
         $locale = $request->input('locale', 'fr');
         App::setLocale($locale);
         return $this->storeApplication($request, $job, $locale);

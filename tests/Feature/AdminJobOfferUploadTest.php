@@ -25,6 +25,7 @@ class AdminJobOfferUploadTest extends TestCase
             ->assertOk()
             ->assertSee('name="title"', false)
             ->assertSee('name="offer_file"', false)
+            ->assertSee('name="deadline"', false)
             ->assertSee('enctype="multipart/form-data"', false)
             ->assertDontSee('name="department"', false);
 
@@ -35,6 +36,7 @@ class AdminJobOfferUploadTest extends TestCase
             ])
             ->post(route('admin.jobs.store'), [
                 'title' => 'Ingénieur minier',
+                'deadline' => now()->addMonth()->format('Y-m-d'),
                 'offer_file' => UploadedFile::fake()->create('offre.pdf', 128, 'application/pdf'),
             ]);
 

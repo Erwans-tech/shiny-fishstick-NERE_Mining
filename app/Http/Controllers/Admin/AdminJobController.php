@@ -11,7 +11,8 @@ class AdminJobController extends Controller
 {
     public function index(Request $request)
     {
-        $query = JobOffer::query();
+        $status = $request->input('status') === 'archived' ? 'archived' : 'current';
+        $query  = $status === 'archived' ? JobOffer::archived() : JobOffer::notArchived();
         if ($search = trim((string) $request->input('q'))) {
             $query->where(function ($query) use ($search) {
                 $query->where('title', 'like', "%{$search}%")
@@ -21,7 +22,11 @@ class AdminJobController extends Controller
             });
         }
         $jobs = $query->latest()->paginate(15)->withQueryString();
-        return view('admin.jobs.index', compact('jobs'));
+        $counts = [
+            'current'  => JobOffer::notArchived()->count(),
+            'archived' => JobOffer::archived()->count(),
+        ];
+        return view('admin.jobs.index', compact('jobs', 'status', 'counts'));
     }
 
     public function create()
@@ -33,6 +38,7 @@ class AdminJobController extends Controller
     {
         $data = $request->validate([
             'title'      => ['required', 'string', 'max:255'],
+            'deadline'   => ['required', 'date', 'after_or_equal:today'],
             'offer_file' => ['required', 'file', 'mimes:pdf,doc,docx', 'max:10240'],
         ]);
 
@@ -44,6 +50,7 @@ class AdminJobController extends Controller
         JobOffer::create([
             'title'           => $data['title'],
             'offer_file_path' => $filePath,
+            'deadline'        => $data['deadline'],
             'is_published'    => true,
         ]);
 
@@ -60,11 +67,14 @@ class AdminJobController extends Controller
     {
         $data = $request->validate([
             'title'      => ['required', 'string', 'max:255'],
+            // L'offre de candidature spontanée reste permanente, sans date limite
+            'deadline'   => [$job->is_spontaneous ? 'nullable' : 'required', 'date'],
             'offer_file' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:10240'],
         ]);
 
         $oldFilePath = $job->offer_file_path;
-        $job->title = $data['title'];
+        $job->title    = $data['title'];
+        $job->deadline = $data['deadline'] ?? null;
 
         if ($request->hasFile('offer_file')) {
             $filePath = $request->file('offer_file')->store('job-offers', 'public');
