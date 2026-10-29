@@ -57,3 +57,7 @@ render.yaml.local
 *_env_backup*
 credentials*.txt
 secrets*.txt
+
+# Candidatures : données personnelles, jamais versionnées
+/public/uploads/applications/**
+!/public/uploads/applications/**/.gitkeep
