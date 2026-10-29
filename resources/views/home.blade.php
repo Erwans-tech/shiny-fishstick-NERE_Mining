@@ -49,6 +49,11 @@
     $heroDuration = count($heroImages) * 5;
     $heroSlot = 100 / max(count($heroImages), 1);
 @endphp
+<!DOCTYPE html>
+<html lang="{{ $loc }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <title>Néré Mining  - {{ $en ? 'Gold with lasting value' : "L'or d'une valeur durable" }}</title>
     <meta name="description" content="{{ $en
@@ -616,6 +621,7 @@
     </style>
     <link rel="stylesheet" href="{{ asset('css/sustainability-animations.css') }}">
     <script defer src="{{ asset('js/sustainability-animations.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/responsive-fixes.css') }}?v={{ filemtime(public_path('css/responsive-fixes.css')) }}">
 </head>
 <body>
 

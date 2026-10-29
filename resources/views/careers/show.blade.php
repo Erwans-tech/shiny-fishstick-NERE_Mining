@@ -102,6 +102,7 @@
             .form-group.full{grid-column:span 1;}
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('css/responsive-fixes.css') }}?v={{ filemtime(public_path('css/responsive-fixes.css')) }}">
 </head>
 <body>
 @include('partials._nav', ['locale' => $loc, 'section' => 'careers'])

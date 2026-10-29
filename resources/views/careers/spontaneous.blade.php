@@ -92,6 +92,7 @@
             .info-grid{grid-template-columns:1fr;}
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('css/responsive-fixes.css') }}?v={{ filemtime(public_path('css/responsive-fixes.css')) }}">
 </head>
 <body>
 @include('partials._nav', ['locale' => $loc, 'section' => 'careers'])

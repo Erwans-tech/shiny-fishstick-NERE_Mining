@@ -132,6 +132,7 @@
     </style>
     <link rel="stylesheet" href="{{ asset('css/sustainability-animations.css') }}">
     <script src="{{ asset('js/sustainability-animations.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/responsive-fixes.css') }}?v={{ filemtime(public_path('css/responsive-fixes.css')) }}">
 </head>
 <body>
     @include('partials._nav', ['locale' => $locale ?? 'fr', 'section' => 'news'])

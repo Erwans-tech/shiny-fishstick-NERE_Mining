@@ -273,13 +273,17 @@ img, picture, video, canvas, svg {
 }
 
 /* ── Accessibility Enhancements ─────────────────────────────── */
-/* Larger touch targets on mobile */
+/* Larger touch targets on mobile (controls only: inline links and
+   checkboxes must keep their natural size) */
 @media (max-width: 768px) {
-    a, button, input, select, textarea {
+    button,
+    select,
+    textarea,
+    input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]) {
         min-height: 44px;
-        min-width: 44px;
     }
 }
+
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) and (min-width: 99999px) {

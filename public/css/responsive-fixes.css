@@ -1,0 +1,51 @@
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE FIXES - Néré Mining
+   Chargé par le layout principal et les pages autonomes.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Inline grids ───────────────────────────────────────────── */
+/* Many pages declare their columns in a style attribute, which page
+   media queries cannot override: collapse them here. */
+html, body {
+    overflow-x: clip;
+}
+
+[style*="grid-template-columns"] > * {
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+    [style*="grid-template-columns:repeat(3"],
+    [style*="grid-template-columns:repeat(4"],
+    [style*="grid-template-columns:repeat(5"],
+    [style*="grid-template-columns: repeat(3"],
+    [style*="grid-template-columns: repeat(4"],
+    [style*="grid-template-columns: repeat(5"] {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    [style*="grid-template-columns:1fr 1fr"][style*="gap:28px"],
+    [style*="grid-template-columns:1fr 1fr"][style*="gap:40px"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 640px) {
+    [style*="grid-template-columns:1fr 1fr"],
+    [style*="grid-template-columns: 1fr 1fr"],
+    [style*="grid-template-columns:repeat(2"],
+    [style*="grid-template-columns: repeat(2"],
+    [style*="grid-template-columns:repeat(3"]:not([style*="gap:1px"]),
+    [style*="grid-template-columns:repeat(4"]:not([style*="gap:1px"]),
+    [style*="grid-template-columns:repeat(5"]:not([style*="gap:1px"]),
+    [style*="grid-template-columns: repeat(3"],
+    [style*="grid-template-columns: repeat(4"],
+    [style*="grid-template-columns: repeat(5"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    [style*="grid-column:span 2"],
+    [style*="grid-column: span 2"] {
+        grid-column: auto !important;
+    }
+}

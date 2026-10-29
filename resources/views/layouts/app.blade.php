@@ -134,6 +134,7 @@
     <link rel="stylesheet" href="{{ asset('css/text-fixes.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive-global.css') }}">
     <link rel="stylesheet" href="{{ asset('css/text-containers-responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive-fixes.css') }}?v={{ filemtime(public_path('css/responsive-fixes.css')) }}">
     @production
     <link rel="stylesheet" href="{{ asset('css/image-protection.css') }}">
     @endproduction
