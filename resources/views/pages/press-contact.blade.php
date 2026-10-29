@@ -8,7 +8,7 @@
     $pressJob = $en ? 'Deputy CEO - Corporate & Legal Affairs' : 'DGA Affaires Corporatives et Juridiques';
     $pressPhoto = asset('images/leadership/laurent-dabire.jpeg');
     $pressPhone = '+226 70 20 34 34';
-    $pressEmail = 'laurent.dabire@nere-mining.com';
+    $pressEmail = 'infos@nere-mining.com';
     $pressHours = $en ? 'Monday to Friday, 8am - 5pm' : 'Lundi au Vendredi, 8h - 17h';
 @endphp
 

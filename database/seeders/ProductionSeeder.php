@@ -119,7 +119,7 @@ class ProductionSeeder extends Seeder
                 ['key' => 'carousel_show_indicators', 'value' => 'true', 'type' => 'boolean', 'created_at' => now(), 'updated_at' => now()],
                 ['key' => 'carousel_show_arrows', 'value' => 'true', 'type' => 'boolean', 'created_at' => now(), 'updated_at' => now()],
                 ['key' => 'site_name', 'value' => 'Néré Mining', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
-                ['key' => 'company_email', 'value' => 'info@nere-mining.bf', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
+                ['key' => 'company_email', 'value' => 'infos@nere-mining.com', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
                 ['key' => 'company_phone', 'value' => '+226 25 33 35 69', 'type' => 'string', 'created_at' => now(), 'updated_at' => now()],
                 ['key' => 'maintenance_mode', 'value' => 'false', 'type' => 'boolean', 'created_at' => now(), 'updated_at' => now()],
                 ['key' => 'analytics_enabled', 'value' => 'true', 'type' => 'boolean', 'created_at' => now(), 'updated_at' => now()],

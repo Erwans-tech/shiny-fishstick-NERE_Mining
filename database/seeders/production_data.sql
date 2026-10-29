@@ -10,7 +10,7 @@ INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES 
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (5, 'carousel_show_indicators', 'true', 'boolean', NOW(), NOW());
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (6, 'carousel_show_arrows', 'true', 'boolean', NOW(), NOW());
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (7, 'site_name', 'Néré Mining', 'string', NOW(), NOW());
-INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (8, 'contact_email', 'info@nere-mining.bf', 'string', NOW(), NOW());
+INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (8, 'contact_email', 'infos@nere-mining.com', 'string', NOW(), NOW());
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (9, 'contact_phone', '+226 XX XX XX XX', 'string', NOW(), NOW());
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (10, 'maintenance_mode', 'false', 'boolean', NOW(), NOW());
 INSERT INTO site_settings (id, key, value, type, created_at, updated_at) VALUES (11, 'analytics_enabled', 'true', 'boolean', NOW(), NOW());

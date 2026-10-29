@@ -32,7 +32,7 @@ class SpontaneousApplicationMailTest extends TestCase
 
         Mail::shouldReceive('to')
             ->once()
-            ->with('Kar_hr@nere-mining.com')
+            ->with('infos@nere-mining.com')
             ->andReturn($pendingMail);
 
         $this->from(route('spontaneous'))
@@ -56,7 +56,7 @@ class SpontaneousApplicationMailTest extends TestCase
 
         Mail::shouldReceive('to')
             ->once()
-            ->with('Kar_hr@nere-mining.com')
+            ->with('infos@nere-mining.com')
             ->andThrow(new RuntimeException('SMTP indisponible.'));
 
         $this->from(route('spontaneous'))

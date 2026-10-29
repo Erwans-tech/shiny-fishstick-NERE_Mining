@@ -17,7 +17,7 @@ class MailExample
             to: 'recipient@example.com',
             subject: 'Bienvenue chez Néré Mining',
             body: '<h1>Bienvenue!</h1><p>Merci de nous avoir contacté.</p>',
-            from: 'contact@nere-mining.bf',
+            from: 'infos@nere-mining.com',
             fromName: 'Néré Mining'
         );
 

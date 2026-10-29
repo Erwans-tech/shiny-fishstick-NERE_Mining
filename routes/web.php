@@ -508,13 +508,13 @@ Route::post('/contact', function (Request $request) {
     
     $contactMessage = ContactMessage::create($data);
     
-    // Envoi automatique vers RH si activé
-    $hrEmail = \App\Models\SiteSetting::get('hr_email_address');
+    // Envoi automatique vers l'adresse de contact si activé
+    $contactEmail = config('mail.contact_address');
     $autoForward = \App\Models\SiteSetting::get('hr_auto_forward_messages', 'true') === 'true';
     
-    if ($hrEmail && $autoForward) {
+    if ($contactEmail && $autoForward) {
         try {
-            \Mail::to($hrEmail)->send(new \App\Mail\ContactMessageNotification($contactMessage));
+            \Mail::to($contactEmail)->send(new \App\Mail\ContactMessageNotification($contactMessage));
         } catch (\Exception $e) {
             \Log::error('Erreur envoi e-mail contact: ' . $e->getMessage());
         }
@@ -538,13 +538,13 @@ Route::post('/en/contact', function (Request $request) {
     
     $contactMessage = ContactMessage::create($data);
     
-    // Envoi automatique vers RH si activé
-    $hrEmail = \App\Models\SiteSetting::get('hr_email_address');
+    // Envoi automatique vers l'adresse de contact si activé
+    $contactEmail = config('mail.contact_address');
     $autoForward = \App\Models\SiteSetting::get('hr_auto_forward_messages', 'true') === 'true';
     
-    if ($hrEmail && $autoForward) {
+    if ($contactEmail && $autoForward) {
         try {
-            \Mail::to($hrEmail)->send(new \App\Mail\ContactMessageNotification($contactMessage));
+            \Mail::to($contactEmail)->send(new \App\Mail\ContactMessageNotification($contactMessage));
         } catch (\Exception $e) {
             \Log::error('Erreur envoi e-mail contact: ' . $e->getMessage());
         }

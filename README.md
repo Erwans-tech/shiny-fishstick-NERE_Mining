@@ -446,7 +446,7 @@ Un point discret dans le footer renvoie vers le portfolio du créateur du site :
 ## 📞 Support & Maintenance
 
 ### Contact Technique
-- **Email :** contact@nere-mining.bf
+- **Email :** infos@nere-mining.com
 - **Téléphone :** +226 25 33 35 69
 
 ### Mise à Jour du Site

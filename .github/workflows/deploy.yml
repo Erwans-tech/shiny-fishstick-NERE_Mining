@@ -34,6 +34,7 @@ jobs:
           tests/Feature/AdminJobOfferUploadTest.php
           tests/Feature/JobOfferLegacyCompatibilityTest.php
           tests/Feature/SpontaneousApplicationMailTest.php
+          tests/Feature/MailRecipientsTest.php
 
   deploy:
     name: Deploy to Windows IIS

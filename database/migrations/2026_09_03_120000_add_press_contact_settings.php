@@ -12,7 +12,7 @@ return new class extends Migration
             ['key' => 'press_contact_job', 'value' => 'Responsable Communication & Relations Presse  - Néré Mining S.A.', 'type' => 'text'],
             ['key' => 'press_contact_photo', 'value' => '', 'type' => 'url'],
             ['key' => 'press_contact_phone', 'value' => '+226 25 33 35 69', 'type' => 'text'],
-            ['key' => 'press_contact_email', 'value' => 'presse@nere-mining.bf', 'type' => 'email'],
+            ['key' => 'press_contact_email', 'value' => 'infos@nere-mining.com', 'type' => 'email'],
             ['key' => 'press_contact_hours', 'value' => 'Lundi – Vendredi, 8h – 17h (GMT+0)', 'type' => 'text'],
         ];
 

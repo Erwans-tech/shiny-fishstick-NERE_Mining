@@ -80,9 +80,9 @@
                             'carousel_pause_on_hover' => 'Mettre en pause le carrousel au survol de la souris',
                             'carousel_show_indicators' => 'Afficher les points indicateurs en bas',
                             'carousel_show_arrows' => 'Afficher les flèches de navigation',
-                            'hr_email_address' => 'Adresse e-mail RH qui recevra automatiquement les messages de contact et candidatures',
-                            'hr_auto_forward_messages' => 'Transférer automatiquement tous les messages de contact vers l\'e-mail RH',
-                            'hr_auto_forward_applications' => 'Transférer automatiquement toutes les candidatures vers l\'e-mail RH avec les fichiers joints',
+                            'hr_email_address' => 'Adresse e-mail qui reçoit l\'e-mail de test SMTP. Messages et candidatures spontanées : infos@nere-mining.com ; candidatures à une offre : karmarecrutement@nere-mining.com',
+                            'hr_auto_forward_messages' => 'Transférer automatiquement tous les messages de contact vers infos@nere-mining.com',
+                            'hr_auto_forward_applications' => 'Transférer automatiquement les candidatures à une offre vers karmarecrutement@nere-mining.com avec les fichiers joints',
                         ];
                     @endphp
 

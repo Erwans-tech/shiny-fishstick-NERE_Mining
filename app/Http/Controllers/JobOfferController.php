@@ -155,12 +155,12 @@ class JobOfferController extends Controller
             $application->setRelation('jobOffer', $job);
 
             try {
-                Mail::to(config('mail.hr_address'))
+                Mail::to(config('mail.contact_address'))
                     ->send(new \App\Mail\JobApplicationNotification($application));
             } catch (Throwable $e) {
                 Storage::disk('local')->delete($uploadedPaths);
                 Log::error('Échec de l’envoi de la candidature spontanée aux RH.', [
-                    'recipient' => config('mail.hr_address'),
+                    'recipient' => config('mail.contact_address'),
                     'exception' => $e->getMessage(),
                 ]);
 
@@ -174,7 +174,7 @@ class JobOfferController extends Controller
             } catch (Throwable $e) {
                 Storage::disk('local')->delete($uploadedPaths);
                 Log::critical('La candidature spontanée a été envoyée aux RH mais n’a pas pu être enregistrée.', [
-                    'recipient' => config('mail.hr_address'),
+                    'recipient' => config('mail.contact_address'),
                     'exception' => $e->getMessage(),
                 ]);
 
@@ -187,15 +187,15 @@ class JobOfferController extends Controller
 
         $application = JobApplication::create($data);
         
-        // Envoi automatique vers RH si activé
-        $hrEmail = \App\Models\SiteSetting::get('hr_email_address');
+        // Envoi automatique vers le recrutement si activé
+        $recruitmentEmail = config('mail.recruitment_address');
         $autoForward = \App\Models\SiteSetting::get('hr_auto_forward_applications', 'true') === 'true';
         
-        if ($hrEmail && $autoForward) {
+        if ($recruitmentEmail && $autoForward) {
             try {
                 // Recharger l'application avec la relation jobOffer
                 $application->load('jobOffer');
-                \Mail::to($hrEmail)->send(new \App\Mail\JobApplicationNotification($application));
+                \Mail::to($recruitmentEmail)->send(new \App\Mail\JobApplicationNotification($application));
             } catch (\Exception $e) {
                 \Log::error('Erreur envoi e-mail candidature: ' . $e->getMessage());
             }

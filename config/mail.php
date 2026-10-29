@@ -103,6 +103,10 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
-    'hr_address' => env('HR_EMAIL_ADDRESS', 'Kar_hr@nere-mining.com'),
+    // Messages de contact et candidatures spontanées
+    'contact_address' => env('CONTACT_EMAIL_ADDRESS', 'infos@nere-mining.com'),
+
+    // Candidatures à une offre d'emploi publiée
+    'recruitment_address' => env('RECRUITMENT_EMAIL_ADDRESS', 'karmarecrutement@nere-mining.com'),
 
 ];
