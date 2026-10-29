@@ -78,7 +78,7 @@
                     </li>
                     <li>
                         <span class="ci-label">{{ __('site.contact_mine_hse', [], $loc) }}</span>
-                        <a href="tel:+22625333569" class="ci-value ci-link ci-urgent">
+                        <a href="tel:+22607772025" class="ci-value ci-link ci-urgent">
                             {{ __('site.contact_mine_hse_v', [], $loc) }}
                         </a>
                     </li>

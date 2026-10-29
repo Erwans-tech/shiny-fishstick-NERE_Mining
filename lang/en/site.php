@@ -401,7 +401,7 @@ return [
     'contact_hq_email'        => 'Email',
     'contact_hq_email_v'      => 'infos@nere-mining.com',
     'contact_hq_hours'        => 'Opening hours',
-    'contact_hq_hours_v'      => 'Mon–Fri, 8 am–3:30 pm',
+    'contact_hq_hours_v'      => 'Mon–Fri, 8 am–5 pm',
 
     'contact_mine_h3'             => 'Karma mining site',
     'contact_mine_location'       => 'Location',
@@ -412,9 +412,9 @@ return [
     'contact_mine_phone'          => 'Site phone',
     'contact_mine_phone_v'        => '+226 25 33 35 69',
     'contact_mine_hse'            => 'HSE emergency',
-    'contact_mine_hse_v'          => '+226 25 33 35 69',
+    'contact_mine_hse_v'          => '+226 07 77 20 25',
     'contact_mine_community'      => 'Community relations',
-    'contact_mine_community_v'    => 'infos@nere-mining.com',
+    'contact_mine_community_v'    => 'karmacsr@nere-mining.com',
 
     'contact_office_h3'           => 'Liaison office  - Ouahigouya',
     'contact_office_role'         => 'Role',
