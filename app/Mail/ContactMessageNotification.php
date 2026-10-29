@@ -3,9 +3,11 @@
 namespace App\Mail;
 
 use App\Models\ContactMessage;
-use App\Services\MailService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class ContactMessageNotification extends Mailable
@@ -16,40 +18,29 @@ class ContactMessageNotification extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public ContactMessage $message
+        public ContactMessage $contactMessage
     ) {
     }
 
     /**
-     * Send the message using PHPMailer
+     * Get the message envelope.
      */
-    public function send()
+    public function envelope(): Envelope
     {
-        try {
-            $mailService = new MailService();
-            
-            // Préparer le corps du mail HTML
-            $body = $this->buildEmailBody();
-            
-            $mailService->send(
-                to: $this->to[0]['address'] ?? config('mail.from.address'),
-                subject: 'Nouveau message de contact: ' . ($this->message->subject ?? $this->message->type),
-                body: $body,
-                from: config('mail.from.address'),
-                fromName: config('mail.from.name')
-            );
-        } catch (\Exception $e) {
-            \Log::error('Erreur envoi notification contact: ' . $e->getMessage());
-        }
+        return new Envelope(
+            subject: '[Néré Mining] Nouveau message de contact - ' . ($this->contactMessage->subject ?: 'Sans sujet'),
+            replyTo: [new Address($this->contactMessage->email, $this->contactMessage->name)],
+        );
     }
 
     /**
-     * Construire le corps du mail HTML
+     * Get the message content definition.
      */
-    private function buildEmailBody(): string
+    public function content(): Content
     {
-        return view('emails.contact-message', [
-            'message' => $this->message,
-        ])->render();
+        return new Content(
+            html: 'emails.contact-message-notification',
+            text: 'emails.contact-message-notification-text',
+        );
     }
 }
