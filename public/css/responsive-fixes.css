@@ -3,6 +3,23 @@
    Chargé par le layout principal et les pages autonomes.
    ══════════════════════════════════════════════════════════════ */
 
+/* ── Page zoom ──────────────────────────────────────────────── */
+/* Sizes are almost all in px, so the desktop display is scaled down
+   with zoom. Full-bleed rules divide vw by --page-zoom to stay full width. */
+:root {
+    --page-zoom: 1;
+}
+
+@media (min-width: 1024px) {
+    :root {
+        --page-zoom: 0.9;
+    }
+
+    html {
+        zoom: var(--page-zoom);
+    }
+}
+
 /* ── Inline grids ───────────────────────────────────────────── */
 /* Many pages declare their columns in a style attribute, which page
    media queries cannot override: collapse them here. */

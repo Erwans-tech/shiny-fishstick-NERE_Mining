@@ -8,9 +8,9 @@
 <style>
     /* Page governance avec design harmonisé */
     .governance-page { 
-        width: 100vw; 
+        width: calc(100vw / var(--page-zoom, 1)); 
         max-width: none; 
-        margin-left: calc(50% - 50vw); 
+        margin-left: calc(50% - 50vw / var(--page-zoom, 1)); 
         padding: clamp(40px, 8vw, 120px) clamp(24px, 5vw, 88px); 
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 244, 220, 0.6));
         min-height: 100vh;

@@ -11,7 +11,7 @@
     .rr-note { margin-top:18px; color:var(--muted); font-size:13px; line-height:1.7; }
     .rr-section { padding:46px 0; }
     .rr-section + .rr-section { border-top:1px solid var(--line); }
-    .rr-section--sand { margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw); padding-left:clamp(24px,5vw,88px); padding-right:clamp(24px,5vw,88px); background:linear-gradient(180deg,#fff8e8,#fff4dc); }
+    .rr-section--sand { margin-left:calc(50% - 50vw / var(--page-zoom, 1)); margin-right:calc(50% - 50vw / var(--page-zoom, 1)); padding-left:clamp(24px,5vw,88px); padding-right:clamp(24px,5vw,88px); background:linear-gradient(180deg,#fff8e8,#fff4dc); }
     .rr-heading { max-width:760px; margin:0 auto 26px; text-align:center; }
     .rr-heading h2 { margin-bottom:10px; }
     .rr-heading p { margin:0; text-align:center; font-size:15px; }
