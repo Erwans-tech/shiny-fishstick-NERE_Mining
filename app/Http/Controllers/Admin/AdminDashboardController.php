@@ -147,7 +147,7 @@ class AdminDashboardController extends Controller
     {
         $stats = [
             'users_count' => \App\Models\User::count(),
-            'admin_count' => \App\Models\User::where('is_admin', true)->count(),
+            'admin_count' => \App\Models\User::where('role', 'admin')->count(),
             'news_count' => News::count(),
             'jobs_count' => JobOffer::count(),
             'messages_count' => ContactMessage::count(),

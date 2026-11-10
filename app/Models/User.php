@@ -96,6 +96,51 @@ class User extends Authenticatable
         return in_array($this->role, $rolesArray);
     }
 
+    /**
+     * Libellés des rôles (config/admin_roles.php)
+     *
+     * @return array<string, string>
+     */
+    public static function roleLabels(): array
+    {
+        return config('admin_roles.labels', []);
+    }
+
+    /**
+     * Libellé lisible d'un rôle
+     */
+    public static function roleLabel(?string $role): string
+    {
+        return static::roleLabels()[$role] ?? 'Inconnu';
+    }
+
+    /**
+     * Le rôle donne-t-il accès à au moins une des sections admin ?
+     * Source unique utilisée par le middleware, le menu et le tableau de bord.
+     */
+    public static function roleCanAccess(?string $role, string ...$sections): bool
+    {
+        if ($role === null) {
+            return false;
+        }
+
+        $allowed = config("admin_roles.sections.{$role}", []);
+
+        if (in_array('*', $allowed, true)) {
+            return true;
+        }
+
+        return array_intersect($sections, $allowed) !== [];
+    }
+
+    /**
+     * L'utilisateur a-t-il accès à au moins une des sections admin ?
+     */
+    public function canAccessSection(string ...$sections): bool
+    {
+        return static::roleCanAccess($this->role, ...$sections);
+    }
+
     /** Scope : only admin users */
     public function scopeAdmin($query)
     {

@@ -466,6 +466,7 @@
         <img src="{{ asset('images/logo-nere.png') }}" alt="Néré Mining">
     </div>
 
+    @php $adminRole = session('admin_role', 'admin'); @endphp
     <nav class="sidebar-nav">
 
         <div class="nav-section">Tableau de bord</div>
@@ -473,12 +474,14 @@
            class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
             <span class="nav-icon">📊</span> Vue d'ensemble
         </a>
+        @if(in_array($adminRole, ['admin', 'site_manager']))
         <a href="{{ route('admin.analytics.index') }}"
            class="nav-item {{ request()->routeIs('admin.analytics.*') ? 'active' : '' }}">
             <span class="nav-icon">📈</span> Statistiques
-            <span class="nav-badge nav-badge-gold">NEW</span>
         </a>
+        @endif
 
+        @if(in_array($adminRole, ['admin', 'site_manager']))
         <div class="nav-section">Contenu</div>
         <a href="{{ route('admin.news.index') }}"
            class="nav-item {{ request()->routeIs('admin.news.*') ? 'active' : '' }}">
@@ -496,6 +499,7 @@
            class="nav-item {{ request()->routeIs('admin.media.*') ? 'active' : '' }}">
             <span class="nav-icon">🖼️</span> Médiathèque
         </a>
+        @endif
 
         <div class="nav-section">Recrutement</div>
         <a href="{{ route('admin.jobs.index') }}"
@@ -511,6 +515,7 @@
             @endif
         </a>
 
+        @if(in_array($adminRole, ['admin', 'site_manager']))
         <div class="nav-section">Relations</div>
         <a href="{{ route('admin.partners.index') }}"
            class="nav-item {{ request()->routeIs('admin.partners.*') ? 'active' : '' }}">
@@ -520,6 +525,8 @@
            class="nav-item {{ request()->routeIs('admin.leadership.*') ? 'active' : '' }}">
             <span class="nav-icon">👥</span> Équipe de direction
         </a>
+        @endif
+
         @php $unread = \App\Models\ContactMessage::whereNull('read_at')->count(); @endphp
         <a href="{{ route('admin.messages.index') }}"
            class="nav-item {{ request()->routeIs('admin.messages.*') ? 'active' : '' }}">
@@ -533,6 +540,7 @@
             <span class="nav-icon">📧</span> Newsletter
         </a>
 
+        @if(in_array($adminRole, ['admin', 'site_manager']))
         <div class="nav-section">Karma</div>
         <a href="{{ route('admin.karma-departments.index') }}"
            class="nav-item {{ request()->routeIs('admin.karma-departments.*') ? 'active' : '' }}">
@@ -548,20 +556,23 @@
            class="nav-item {{ request()->routeIs('admin.certifications.*') ? 'active' : '' }}">
             <span class="nav-icon">🏆</span> Certifications
         </a>
-        <a href="{{ route('admin.settings.index') }}"
-           class="nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
-            <span class="nav-icon">⚙️</span> Paramètres
-        </a>
         <a href="{{ route('admin.site-content.index') }}"
            class="nav-item {{ request()->routeIs('admin.site-content.*') ? 'active' : '' }}">
             <span class="nav-icon">📝</span> Contenu éditable
         </a>
+        @endif
 
+        @if($adminRole === 'admin')
         <div class="nav-section">Administration</div>
+        <a href="{{ route('admin.settings.index') }}"
+           class="nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+            <span class="nav-icon">⚙️</span> Paramètres
+        </a>
         <a href="{{ route('admin.users.index') }}"
            class="nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-            <span class="nav-icon">👥</span> Utilisateurs Admin
+            <span class="nav-icon">👤</span> Utilisateurs
         </a>
+        @endif
 
         <div class="nav-section">Accès rapide</div>
         <a href="{{ url('/') }}" target="_blank" class="nav-item">
@@ -577,7 +588,7 @@
             </div>
             <div>
                 <div class="sidebar-user-name">{{ session('admin_name', 'Admin') }}</div>
-                <div class="sidebar-user-role">Administrateur</div>
+                <div class="sidebar-user-role">{{ ['admin'=>'Administrateur','hr'=>'RH','site_manager'=>'Gérant du site'][session('admin_role','admin')] ?? 'Administrateur' }}</div>
             </div>
         </div>
         <form method="POST" action="{{ route('admin.logout') }}">

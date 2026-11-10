@@ -620,143 +620,156 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
     Route::middleware('admin.auth')->group(function () {
 
         Route::get('/tableau-de-bord', [AdminDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/tableau-de-bord-alt', [AdminDashboardController::class, 'dashboardAlt'])->name('dashboard.alt');
 
-        // Statistiques et analytics
-        Route::get('/statistiques', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'index'])->name('analytics.index');
-        Route::get('/statistiques/export', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'export'])->name('analytics.export');
+        // ── Admin uniquement ─────────────────────────────────────────────
+        Route::middleware('role:admin')->group(function () {
+            Route::get('/tableau-de-bord-alt', [AdminDashboardController::class, 'dashboardAlt'])->name('dashboard.alt');
 
-        // Actualités
-        Route::get('/actualites',               [AdminNewsController::class, 'index'])->name('news.index');
-        Route::get('/actualites/creer',         [AdminNewsController::class, 'create'])->name('news.create');
-        Route::post('/actualites',              [AdminNewsController::class, 'store'])->name('news.store');
-        Route::get('/actualites/{news}/modifier', [AdminNewsController::class, 'edit'])->name('news.edit');
-        Route::put('/actualites/{news}',        [AdminNewsController::class, 'update'])->name('news.update');
-        Route::delete('/actualites/{news}',     [AdminNewsController::class, 'destroy'])->name('news.destroy');
+            // Paramètres du site
+            Route::get('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'index'])->name('settings.index');
+            Route::post('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'update'])->name('settings.update');
+            Route::post('/parametres/test-email', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'sendTestEmail'])->name('settings.test-email');
 
-        // Publications
-        Route::get('/publications',                    [AdminReportController::class, 'index'])->name('reports.index');
-        Route::get('/publications/creer',              [AdminReportController::class, 'create'])->name('reports.create');
-        Route::post('/publications',                   [AdminReportController::class, 'store'])->name('reports.store');
-        Route::get('/publications/{report}/modifier',  [AdminReportController::class, 'edit'])->name('reports.edit');
-        Route::put('/publications/{report}',           [AdminReportController::class, 'update'])->name('reports.update');
-        Route::delete('/publications/{report}',        [AdminReportController::class, 'destroy'])->name('reports.destroy');
+            // Gestion des utilisateurs
+            Route::get('/utilisateurs',                  [\App\Http\Controllers\Admin\AdminUserController::class, 'index'])->name('users.index');
+            Route::get('/utilisateurs/creer',            [\App\Http\Controllers\Admin\AdminUserController::class, 'create'])->name('users.create');
+            Route::post('/utilisateurs',                 [\App\Http\Controllers\Admin\AdminUserController::class, 'store'])->name('users.store');
+            Route::get('/utilisateurs/{user}',           [\App\Http\Controllers\Admin\AdminUserController::class, 'show'])->name('users.show');
+            Route::get('/utilisateurs/{user}/modifier',  [\App\Http\Controllers\Admin\AdminUserController::class, 'edit'])->name('users.edit');
+            Route::put('/utilisateurs/{user}',           [\App\Http\Controllers\Admin\AdminUserController::class, 'update'])->name('users.update');
+            Route::delete('/utilisateurs/{user}',        [\App\Http\Controllers\Admin\AdminUserController::class, 'destroy'])->name('users.destroy');
+        });
 
-        // Offres d'emploi
-        Route::get('/emploi',                  [AdminJobController::class, 'index'])->name('jobs.index');
-        Route::get('/emploi/creer',            [AdminJobController::class, 'create'])->name('jobs.create');
-        Route::post('/emploi',                 [AdminJobController::class, 'store'])->name('jobs.store');
-        Route::get('/emploi/{job}/modifier',   [AdminJobController::class, 'edit'])->name('jobs.edit');
-        Route::put('/emploi/{job}',            [AdminJobController::class, 'update'])->name('jobs.update');
-        Route::delete('/emploi/{job}',         [AdminJobController::class, 'destroy'])->name('jobs.destroy');
+        // ── Admin + Gérant du site ────────────────────────────────────────
+        Route::middleware('role:admin,site_manager')->group(function () {
 
-        // Partenaires
-        Route::get('/partenaires',                     [AdminPartnerController::class, 'index'])->name('partners.index');
-        Route::get('/partenaires/creer',               [AdminPartnerController::class, 'create'])->name('partners.create');
-        Route::post('/partenaires',                    [AdminPartnerController::class, 'store'])->name('partners.store');
-        Route::get('/partenaires/{partner}/modifier',  [AdminPartnerController::class, 'edit'])->name('partners.edit');
-        Route::put('/partenaires/{partner}',           [AdminPartnerController::class, 'update'])->name('partners.update');
-        Route::delete('/partenaires/{partner}',        [AdminPartnerController::class, 'destroy'])->name('partners.destroy');
+            // Statistiques et analytics
+            Route::get('/statistiques', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'index'])->name('analytics.index');
+            Route::get('/statistiques/export', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'export'])->name('analytics.export');
 
-        // Equipe de direction
-        Route::get('/equipe-direction',                         [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'index'])->name('leadership.index');
-        Route::get('/equipe-direction/creer',                   [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'create'])->name('leadership.create');
-        Route::post('/equipe-direction',                        [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'store'])->name('leadership.store');
-        Route::get('/equipe-direction/{leadership}/modifier',   [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'edit'])->name('leadership.edit');
-        Route::put('/equipe-direction/{leadership}',            [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'update'])->name('leadership.update');
-        Route::delete('/equipe-direction/{leadership}',         [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'destroy'])->name('leadership.destroy');
+            // Actualités
+            Route::get('/actualites',                 [AdminNewsController::class, 'index'])->name('news.index');
+            Route::get('/actualites/creer',           [AdminNewsController::class, 'create'])->name('news.create');
+            Route::post('/actualites',                [AdminNewsController::class, 'store'])->name('news.store');
+            Route::get('/actualites/{news}/modifier', [AdminNewsController::class, 'edit'])->name('news.edit');
+            Route::put('/actualites/{news}',          [AdminNewsController::class, 'update'])->name('news.update');
+            Route::delete('/actualites/{news}',       [AdminNewsController::class, 'destroy'])->name('news.destroy');
 
-        // Communiqués de presse
-        Route::get('/communiques',                           [AdminPressController::class, 'index'])->name('press.index');
-        Route::get('/communiques/creer',                     [AdminPressController::class, 'create'])->name('press.create');
-        Route::post('/communiques',                          [AdminPressController::class, 'store'])->name('press.store');
-        Route::get('/communiques/{pressDocument}/modifier',  [AdminPressController::class, 'edit'])->name('press.edit');
-        Route::put('/communiques/{pressDocument}',           [AdminPressController::class, 'update'])->name('press.update');
-        Route::delete('/communiques/{pressDocument}',        [AdminPressController::class, 'destroy'])->name('press.destroy');
+            // Publications
+            Route::get('/publications',                   [AdminReportController::class, 'index'])->name('reports.index');
+            Route::get('/publications/creer',             [AdminReportController::class, 'create'])->name('reports.create');
+            Route::post('/publications',                  [AdminReportController::class, 'store'])->name('reports.store');
+            Route::get('/publications/{report}/modifier', [AdminReportController::class, 'edit'])->name('reports.edit');
+            Route::put('/publications/{report}',          [AdminReportController::class, 'update'])->name('reports.update');
+            Route::delete('/publications/{report}',       [AdminReportController::class, 'destroy'])->name('reports.destroy');
 
-        // Médiathèque
-        Route::get('/media',                  [AdminMediaController::class, 'index'])->name('media.index');
-        Route::get('/media/creer',            [AdminMediaController::class, 'create'])->name('media.create');
-        Route::get('/media/upload-multiple',  [AdminMediaController::class, 'createBulk'])->name('media.bulk');
-        Route::post('/media/upload-multiple', [AdminMediaController::class, 'storeBulk'])->name('media.bulk.store');
-        Route::delete('/media/bulk-delete',   [AdminMediaController::class, 'bulkDelete'])->name('media.bulk.delete');
-        Route::post('/media',                 [AdminMediaController::class, 'store'])->name('media.store');
-        Route::get('/media/{media}/modifier', [AdminMediaController::class, 'edit'])->name('media.edit');
-        Route::put('/media/{media}',          [AdminMediaController::class, 'update'])->name('media.update');
-        Route::delete('/media/{media}',       [AdminMediaController::class, 'destroy'])->name('media.destroy');
+            // Partenaires
+            Route::get('/partenaires',                     [AdminPartnerController::class, 'index'])->name('partners.index');
+            Route::get('/partenaires/creer',               [AdminPartnerController::class, 'create'])->name('partners.create');
+            Route::post('/partenaires',                    [AdminPartnerController::class, 'store'])->name('partners.store');
+            Route::get('/partenaires/{partner}/modifier',  [AdminPartnerController::class, 'edit'])->name('partners.edit');
+            Route::put('/partenaires/{partner}',           [AdminPartnerController::class, 'update'])->name('partners.update');
+            Route::delete('/partenaires/{partner}',        [AdminPartnerController::class, 'destroy'])->name('partners.destroy');
 
-        // Albums Photo
-        Route::get('/albums',                  [AdminPhotoAlbumController::class, 'index'])->name('albums.index');
-        Route::get('/albums/creer',            [AdminPhotoAlbumController::class, 'create'])->name('albums.create');
-        Route::post('/albums',                 [AdminPhotoAlbumController::class, 'store'])->name('albums.store');
-        Route::get('/albums/{album}',          [AdminPhotoAlbumController::class, 'show'])->name('albums.show');
-        Route::get('/albums/{album}/modifier', [AdminPhotoAlbumController::class, 'edit'])->name('albums.edit');
-        Route::put('/albums/{album}',          [AdminPhotoAlbumController::class, 'update'])->name('albums.update');
-        Route::delete('/albums/{album}',       [AdminPhotoAlbumController::class, 'destroy'])->name('albums.destroy');
+            // Equipe de direction
+            Route::get('/equipe-direction',                        [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'index'])->name('leadership.index');
+            Route::get('/equipe-direction/creer',                  [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'create'])->name('leadership.create');
+            Route::post('/equipe-direction',                       [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'store'])->name('leadership.store');
+            Route::get('/equipe-direction/{leadership}/modifier',  [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'edit'])->name('leadership.edit');
+            Route::put('/equipe-direction/{leadership}',           [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'update'])->name('leadership.update');
+            Route::delete('/equipe-direction/{leadership}',        [\App\Http\Controllers\Admin\AdminLeadershipController::class, 'destroy'])->name('leadership.destroy');
 
-        // Certifications (ISO, EITI, ESG)
-        Route::get('/certifications', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'index'])->name('certifications.index');
-        Route::get('/certifications/creer', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'create'])->name('certifications.create');
-        Route::post('/certifications', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'store'])->name('certifications.store');
-        Route::get('/certifications/{certification}/modifier', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'edit'])->name('certifications.edit');
-        Route::put('/certifications/{certification}', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'update'])->name('certifications.update');
-        Route::delete('/certifications/{certification}', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'destroy'])->name('certifications.destroy');
-        Route::post('/certifications/reorder', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'reorder'])->name('certifications.reorder');
+            // Communiqués de presse
+            Route::get('/communiques',                          [AdminPressController::class, 'index'])->name('press.index');
+            Route::get('/communiques/creer',                    [AdminPressController::class, 'create'])->name('press.create');
+            Route::post('/communiques',                         [AdminPressController::class, 'store'])->name('press.store');
+            Route::get('/communiques/{pressDocument}/modifier', [AdminPressController::class, 'edit'])->name('press.edit');
+            Route::put('/communiques/{pressDocument}',          [AdminPressController::class, 'update'])->name('press.update');
+            Route::delete('/communiques/{pressDocument}',       [AdminPressController::class, 'destroy'])->name('press.destroy');
 
-        // Paramètres du site
-        Route::get('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'index'])->name('settings.index');
-        Route::post('/parametres', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'update'])->name('settings.update');
-        Route::post('/parametres/test-email', [\App\Http\Controllers\Admin\AdminSiteSettingController::class, 'sendTestEmail'])->name('settings.test-email');
-        Route::get('/contenu', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'index'])->name('site-content.index');
-        Route::post('/contenu', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'store'])->name('site-content.store');
-        Route::put('/contenu/{siteContent}', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'update'])->name('site-content.update');
-        Route::delete('/contenu/{siteContent}', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'destroy'])->name('site-content.destroy');
+            // Médiathèque
+            Route::get('/media',                  [AdminMediaController::class, 'index'])->name('media.index');
+            Route::get('/media/creer',            [AdminMediaController::class, 'create'])->name('media.create');
+            Route::get('/media/upload-multiple',  [AdminMediaController::class, 'createBulk'])->name('media.bulk');
+            Route::post('/media/upload-multiple', [AdminMediaController::class, 'storeBulk'])->name('media.bulk.store');
+            Route::delete('/media/bulk-delete',   [AdminMediaController::class, 'bulkDelete'])->name('media.bulk.delete');
+            Route::post('/media',                 [AdminMediaController::class, 'store'])->name('media.store');
+            Route::get('/media/{media}/modifier', [AdminMediaController::class, 'edit'])->name('media.edit');
+            Route::put('/media/{media}',          [AdminMediaController::class, 'update'])->name('media.update');
+            Route::delete('/media/{media}',       [AdminMediaController::class, 'destroy'])->name('media.destroy');
 
-        // Messages de contact
-        Route::get('/messages',                   [AdminMessageController::class, 'index'])->name('messages.index');
-        Route::get('/messages/{message}',         [AdminMessageController::class, 'show'])->name('messages.show');
-        Route::patch('/messages/{message}/status', [AdminMessageController::class, 'updateStatus'])->name('messages.updateStatus');
-        Route::delete('/messages/{message}',      [AdminMessageController::class, 'destroy'])->name('messages.destroy');
+            // Albums Photo
+            Route::get('/albums',                  [AdminPhotoAlbumController::class, 'index'])->name('albums.index');
+            Route::get('/albums/creer',            [AdminPhotoAlbumController::class, 'create'])->name('albums.create');
+            Route::post('/albums',                 [AdminPhotoAlbumController::class, 'store'])->name('albums.store');
+            Route::get('/albums/{album}',          [AdminPhotoAlbumController::class, 'show'])->name('albums.show');
+            Route::get('/albums/{album}/modifier', [AdminPhotoAlbumController::class, 'edit'])->name('albums.edit');
+            Route::put('/albums/{album}',          [AdminPhotoAlbumController::class, 'update'])->name('albums.update');
+            Route::delete('/albums/{album}',       [AdminPhotoAlbumController::class, 'destroy'])->name('albums.destroy');
 
-        // Newsletter abonnés
-        Route::get('/newsletter', [\App\Http\Controllers\Admin\AdminNewsletterSubscriberController::class, 'index'])->name('newsletter.index');
-        Route::get('/newsletter/export', [\App\Http\Controllers\Admin\AdminNewsletterSubscriberController::class, 'export'])->name('newsletter.export');
-        Route::delete('/newsletter/{subscriber}', [\App\Http\Controllers\Admin\AdminNewsletterSubscriberController::class, 'destroy'])->name('newsletter.destroy');
+            // Certifications (ISO, EITI, ESG)
+            Route::get('/certifications', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'index'])->name('certifications.index');
+            Route::get('/certifications/creer', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'create'])->name('certifications.create');
+            Route::post('/certifications', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'store'])->name('certifications.store');
+            Route::get('/certifications/{certification}/modifier', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'edit'])->name('certifications.edit');
+            Route::put('/certifications/{certification}', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'update'])->name('certifications.update');
+            Route::delete('/certifications/{certification}', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'destroy'])->name('certifications.destroy');
+            Route::post('/certifications/reorder', [\App\Http\Controllers\Admin\AdminCertificationController::class, 'reorder'])->name('certifications.reorder');
 
-        // Candidatures
-        Route::get('/candidatures',                              [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'index'])->name('applications.index');
-        Route::get('/candidatures/{application}',                [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'show'])->name('applications.show');
-        Route::get('/candidatures/{application}/cv',             [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'downloadCv'])->name('applications.cv');
-        Route::get('/candidatures/{application}/lettre',         [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'downloadCoverLetter'])->name('applications.cover-letter');
-        Route::patch('/candidatures/{application}/statut',       [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'updateStatus'])->name('applications.status');
-        Route::delete('/candidatures/{application}',             [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'destroy'])->name('applications.destroy');
+            Route::get('/contenu', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'index'])->name('site-content.index');
+            Route::post('/contenu', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'store'])->name('site-content.store');
+            Route::put('/contenu/{siteContent}', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'update'])->name('site-content.update');
+            Route::delete('/contenu/{siteContent}', [\App\Http\Controllers\Admin\AdminSiteContentController::class, 'destroy'])->name('site-content.destroy');
 
-        // Karma → Organigramme
-        Route::get('/karma/organigramme',                              [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'index'])->name('karma-departments.index');
-        Route::get('/karma/organigramme/creer',                        [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'create'])->name('karma-departments.create');
-        Route::post('/karma/organigramme',                             [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'store'])->name('karma-departments.store');
-        Route::get('/karma/organigramme/{karmaDepartment}/modifier',   [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'edit'])->name('karma-departments.edit');
-        Route::put('/karma/organigramme/{karmaDepartment}',            [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'update'])->name('karma-departments.update');
-        Route::delete('/karma/organigramme/{karmaDepartment}',         [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'destroy'])->name('karma-departments.destroy');
+            // Karma → Organigramme
+            Route::get('/karma/organigramme',                            [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'index'])->name('karma-departments.index');
+            Route::get('/karma/organigramme/creer',                      [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'create'])->name('karma-departments.create');
+            Route::post('/karma/organigramme',                           [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'store'])->name('karma-departments.store');
+            Route::get('/karma/organigramme/{karmaDepartment}/modifier', [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'edit'])->name('karma-departments.edit');
+            Route::put('/karma/organigramme/{karmaDepartment}',          [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'update'])->name('karma-departments.update');
+            Route::delete('/karma/organigramme/{karmaDepartment}',       [\App\Http\Controllers\Admin\AdminKarmaDepartmentController::class, 'destroy'])->name('karma-departments.destroy');
 
-        // Hero Slideshow (carrousel page d'accueil)
-        Route::get('/hero-slideshow',                     [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'index'])->name('hero.index');
-        Route::get('/hero-slideshow/ajouter',             [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'create'])->name('hero.create');
-        Route::post('/hero-slideshow',                    [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'store'])->name('hero.store');
-        Route::get('/hero-slideshow/{heroSlide}/modifier', [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'edit'])->name('hero.edit');
-        Route::put('/hero-slideshow/{heroSlide}',         [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'update'])->name('hero.update');
-        Route::patch('/hero-slideshow/{heroSlide}/toggle', [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'toggle'])->name('hero.toggle');
-        Route::post('/hero-slideshow/reorder',            [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'reorder'])->name('hero.reorder');
-        Route::delete('/hero-slideshow/{heroSlide}',      [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'destroy'])->name('hero.destroy');
+            // Hero Slideshow (carrousel page d'accueil)
+            Route::get('/hero-slideshow',                      [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'index'])->name('hero.index');
+            Route::get('/hero-slideshow/ajouter',              [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'create'])->name('hero.create');
+            Route::post('/hero-slideshow',                     [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'store'])->name('hero.store');
+            Route::get('/hero-slideshow/{heroSlide}/modifier', [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'edit'])->name('hero.edit');
+            Route::put('/hero-slideshow/{heroSlide}',          [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'update'])->name('hero.update');
+            Route::patch('/hero-slideshow/{heroSlide}/toggle', [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'toggle'])->name('hero.toggle');
+            Route::post('/hero-slideshow/reorder',             [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'reorder'])->name('hero.reorder');
+            Route::delete('/hero-slideshow/{heroSlide}',       [\App\Http\Controllers\Admin\AdminHeroSlideController::class, 'destroy'])->name('hero.destroy');
+        });
 
-        // Gestion des utilisateurs administrateurs
-        Route::get('/utilisateurs',                        [\App\Http\Controllers\Admin\AdminUserController::class, 'index'])->name('users.index');
-        Route::get('/utilisateurs/creer',                  [\App\Http\Controllers\Admin\AdminUserController::class, 'create'])->name('users.create');
-        Route::post('/utilisateurs',                       [\App\Http\Controllers\Admin\AdminUserController::class, 'store'])->name('users.store');
-        Route::get('/utilisateurs/{user}',                 [\App\Http\Controllers\Admin\AdminUserController::class, 'show'])->name('users.show');
-        Route::get('/utilisateurs/{user}/modifier',        [\App\Http\Controllers\Admin\AdminUserController::class, 'edit'])->name('users.edit');
-        Route::put('/utilisateurs/{user}',                 [\App\Http\Controllers\Admin\AdminUserController::class, 'update'])->name('users.update');
-        Route::patch('/utilisateurs/{user}/toggle',        [\App\Http\Controllers\Admin\AdminUserController::class, 'toggleStatus'])->name('users.toggle');
-        Route::delete('/utilisateurs/{user}',              [\App\Http\Controllers\Admin\AdminUserController::class, 'destroy'])->name('users.destroy');
-    });
-});
+        // ── Admin + RH ────────────────────────────────────────────────────
+        Route::middleware('role:admin,hr')->group(function () {
+
+            // Offres d'emploi
+            Route::get('/emploi',                  [AdminJobController::class, 'index'])->name('jobs.index');
+            Route::get('/emploi/creer',            [AdminJobController::class, 'create'])->name('jobs.create');
+            Route::post('/emploi',                 [AdminJobController::class, 'store'])->name('jobs.store');
+            Route::get('/emploi/{job}/modifier',   [AdminJobController::class, 'edit'])->name('jobs.edit');
+            Route::put('/emploi/{job}',            [AdminJobController::class, 'update'])->name('jobs.update');
+            Route::delete('/emploi/{job}',         [AdminJobController::class, 'destroy'])->name('jobs.destroy');
+
+            // Messages de contact
+            Route::get('/messages',                    [AdminMessageController::class, 'index'])->name('messages.index');
+            Route::get('/messages/{message}',          [AdminMessageController::class, 'show'])->name('messages.show');
+            Route::patch('/messages/{message}/status', [AdminMessageController::class, 'updateStatus'])->name('messages.updateStatus');
+            Route::delete('/messages/{message}',       [AdminMessageController::class, 'destroy'])->name('messages.destroy');
+
+            // Newsletter abonnés
+            Route::get('/newsletter',                   [\App\Http\Controllers\Admin\AdminNewsletterSubscriberController::class, 'index'])->name('newsletter.index');
+            Route::get('/newsletter/export',            [\App\Http\Controllers\Admin\AdminNewsletterSubscriberController::class, 'export'])->name('newsletter.export');
+            Route::delete('/newsletter/{subscriber}',   [\App\Http\Controllers\Admin\AdminNewsletterSubscriberController::class, 'destroy'])->name('newsletter.destroy');
+
+            // Candidatures
+            Route::get('/candidatures',                          [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'index'])->name('applications.index');
+            Route::get('/candidatures/{application}',            [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'show'])->name('applications.show');
+            Route::get('/candidatures/{application}/cv',         [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'downloadCv'])->name('applications.cv');
+            Route::get('/candidatures/{application}/lettre',     [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'downloadCoverLetter'])->name('applications.cover-letter');
+            Route::patch('/candidatures/{application}/statut',   [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'updateStatus'])->name('applications.status');
+            Route::delete('/candidatures/{application}',         [\App\Http\Controllers\Admin\AdminJobApplicationController::class, 'destroy'])->name('applications.destroy');
+        }); // end role:admin,hr
+
+    }); // end middleware admin.auth
+}); // end prefix gestion-nm

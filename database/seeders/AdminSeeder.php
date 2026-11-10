@@ -27,7 +27,7 @@ class AdminSeeder extends Seeder
             [
                 'name'     => 'Administrateur Néré Mining',
                 'password' => Hash::make($password),
-                'is_admin' => true,
+                'role' => 'admin',
             ]
         );
     }

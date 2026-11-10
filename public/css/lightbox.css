@@ -1,0 +1,54 @@
+/* Visionneuse d'images (lightbox) — utilisée par public/js/lightbox.js */
+[data-lightbox] { cursor: zoom-in; }
+[data-lightbox]:focus-visible { outline: 3px solid #ffc247; outline-offset: 3px; }
+
+.lb-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    display: none; align-items: center; justify-content: center;
+    background: rgba(20, 12, 10, .94);
+    padding: 64px 72px;
+    -webkit-tap-highlight-color: transparent;
+}
+.lb-overlay.is-open { display: flex; }
+.lb-img {
+    display: block; max-width: 100%; max-height: 100%;
+    width: auto; height: auto; object-fit: contain;
+    border-radius: 6px; box-shadow: 0 12px 48px rgba(0, 0, 0, .5);
+    cursor: default; user-select: none;
+}
+.lb-btn {
+    position: absolute; display: flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; border: 0; border-radius: 50%;
+    background: rgba(255, 255, 255, .92); color: #281d18;
+    font: 400 28px/1 Inter, Arial, sans-serif; cursor: pointer;
+    transition: background .2s, transform .2s;
+}
+.lb-btn:hover { background: #fff; }
+.lb-btn:focus-visible { outline: 3px solid #ffc247; outline-offset: 2px; }
+.lb-close { top: 14px; right: 14px; }
+.lb-prev, .lb-next { top: 50%; transform: translateY(-50%); }
+.lb-prev { left: 12px; }
+.lb-next { right: 12px; }
+.lb-prev:hover, .lb-next:hover { transform: translateY(-50%) scale(1.08); }
+.lb-counter {
+    position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+    padding: 6px 16px; border-radius: 20px;
+    background: rgba(255, 255, 255, .92); color: #281d18;
+    font: 600 13px Inter, Arial, sans-serif;
+}
+.lb-overlay.is-single .lb-prev,
+.lb-overlay.is-single .lb-next,
+.lb-overlay.is-single .lb-counter { display: none; }
+
+@media (max-width: 600px) {
+    .lb-overlay { padding: 64px 8px 72px; }
+    .lb-btn { width: 44px; height: 44px; font-size: 24px; }
+    .lb-prev, .lb-next { top: auto; bottom: 10px; transform: none; }
+    .lb-prev:hover, .lb-next:hover { transform: none; }
+    .lb-prev { left: 10px; }
+    .lb-next { right: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lb-btn { transition: none; }
+}

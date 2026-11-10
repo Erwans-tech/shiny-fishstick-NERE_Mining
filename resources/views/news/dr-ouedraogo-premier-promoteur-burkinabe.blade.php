@@ -41,7 +41,7 @@
         </p>
     </div>
     
-    <img src="{{ asset('images/news/ouedraogo-ceo-interview.jpeg') }}" alt="Dr Elie Justin OUEDRAOGO" class="news-detail-image">
+    <img src="{{ asset('images/news/ouedraogo-ceo-interview.jpeg') }}" alt="Dr Elie Justin OUEDRAOGO" class="news-detail-image" data-lightbox="article">
     
     <div class="news-detail-content">
         <p>
@@ -84,7 +84,7 @@
             Depuis sa reprise en mars 2022 auprès de la multinationale Endeavour Mining, la mine a connu des 02 incidents majeurs de sécurité (attaques armées), causant des incendies de véhicules et deux décès. Malgré tout, la mine a maintenu ses activités.
         </p>
 
-        <img src="{{ asset('images/news/karma-mine-map.jpg') }}" alt="Carte de la mine de Karma" class="news-detail-image-secondary">
+        <img src="{{ asset('images/news/karma-mine-map.jpg') }}" alt="Carte de la mine de Karma" class="news-detail-image-secondary" data-lightbox="article">
 
         <h3>Riverstone Karma poursuit ses investissements communautaires</h3>
         
@@ -122,3 +122,11 @@
 </section>
 
 @endsection
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/lightbox.css') }}?v={{ filemtime(public_path('css/lightbox.css')) }}">
+@endpush
+
+@push('scripts')
+<script src="{{ asset('js/lightbox.js') }}?v={{ filemtime(public_path('js/lightbox.js')) }}"></script>
+@endpush

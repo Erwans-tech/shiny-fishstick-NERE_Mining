@@ -68,6 +68,7 @@
     <link rel="stylesheet" href="{{ asset('css/sustainability-animations.css') }}">
     <script src="{{ asset('js/sustainability-animations.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/responsive-fixes.css') }}?v={{ filemtime(public_path('css/responsive-fixes.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/lightbox.css') }}?v={{ filemtime(public_path('css/lightbox.css')) }}">
 </head>
 <body>
     @include('partials._nav', ['locale' => $locale ?? 'fr', 'section' => 'news'])
@@ -86,7 +87,7 @@
         </div>
 
         @if($newsImagePath)
-            <img class="article-cover sa-reveal sa-delay-1" src="{{ \App\Helpers\StorageHelper::uploadUrl($newsImagePath) }}" alt="{{ $news->title }}" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <img class="article-cover sa-reveal sa-delay-1" src="{{ \App\Helpers\StorageHelper::uploadUrl($newsImagePath) }}" alt="{{ $news->title }}" data-lightbox="article" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
             <img class="article-cover sa-reveal sa-delay-1" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}" style="display:none;">
         @else
             <img class="article-cover sa-reveal sa-delay-1" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}">
@@ -104,7 +105,7 @@
             @if(!empty($newsGalleryImages))
                 <div class="article-gallery" aria-label="{{ $en ? 'Article images' : 'Images de l\'article' }}">
                     @foreach($newsGalleryImages as $galleryImage)
-                        <img src="{{ \App\Helpers\StorageHelper::uploadUrl($galleryImage) }}" alt="{{ $news->title }}" loading="lazy">
+                        <img src="{{ \App\Helpers\StorageHelper::uploadUrl($galleryImage) }}" alt="{{ $news->title }}" loading="lazy" data-lightbox="article">
                     @endforeach
                 </div>
             @endif
@@ -112,5 +113,6 @@
     </div>
 
 @include('partials._footer', ['loc' => $loc, 'en' => $en])
+<script src="{{ asset('js/lightbox.js') }}?v={{ filemtime(public_path('js/lightbox.js')) }}"></script>
 </body>
 </html>

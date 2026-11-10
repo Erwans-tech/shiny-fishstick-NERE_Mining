@@ -3,8 +3,10 @@
 namespace Tests\Feature;
 
 use App\Models\JobOffer;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -14,8 +16,15 @@ class JobOfferDeadlineTest extends TestCase
 
     private function adminSession(): array
     {
+        $admin = User::firstOrCreate(
+            ['email' => 'admin-test@nere-mining.bf'],
+            ['name' => 'Admin Test', 'password' => Hash::make('password'), 'role' => 'admin']
+        );
+
         return [
-            'admin_logged_in' => true,
+            'admin_logged_in'       => true,
+            'admin_id'              => $admin->id,
+            'admin_role'            => 'admin',
             'admin_session_renewed' => true,
         ];
     }
