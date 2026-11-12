@@ -1,4 +1,4 @@
-@php $en = ($locale ?? 'fr') === 'en'; @endphp
+@php $loc = $locale ?? 'fr'; $en = $loc === 'en'; @endphp
 <!DOCTYPE html>
 <html lang="{{ $locale ?? 'fr' }}">
 <head>
