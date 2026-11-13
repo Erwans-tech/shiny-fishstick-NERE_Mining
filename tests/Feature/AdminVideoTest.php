@@ -40,7 +40,7 @@ class AdminVideoTest extends TestCase
 
         $this->get(route('home'))
             ->assertOk()
-            ->assertSeeInOrder(['Néré Mining, le film', 'Néré Mining au SAMAO 2026'])
+            ->assertSeeInOrder(['Novembre bleu à Néré Mining', 'Néré Mining au SAMAO 2026'])
             ->assertDontSee('Vidéo masquée');
     }
 
@@ -64,7 +64,7 @@ class AdminVideoTest extends TestCase
 
         $this->get(route('home'))
             ->assertOk()
-            ->assertSeeInOrder(['Visite de la mine', 'Néré Mining, le film']);
+            ->assertSeeInOrder(['Visite de la mine', 'Novembre bleu à Néré Mining']);
     }
 
     public function test_deleting_a_bundled_video_keeps_its_public_file(): void
