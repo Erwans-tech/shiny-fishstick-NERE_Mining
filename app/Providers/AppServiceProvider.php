@@ -27,6 +27,12 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
+        // IIS hands PHP the rewritten URL (/index.php/...), so Laravel would put
+        // /index.php in every generated link: build them from APP_URL instead.
+        if (app()->environment('production') && config('app.url')) {
+            URL::forceRootUrl(config('app.url'));
+        }
+
         // ── 2. URL publiques R2 ──────────────────────────────────────
         // Storage::url('path/file.jpg') doit retourner l'URL publique
         // du bucket R2, pas une URL S3 signée.
