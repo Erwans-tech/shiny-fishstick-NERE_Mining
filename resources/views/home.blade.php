@@ -46,8 +46,12 @@
         ],
     ]);
     
-    $heroDuration = count($heroImages) * 5;
-    $heroSlot = 100 / max(count($heroImages), 1);
+    // Each slide is shown $heroSlotSeconds, cross-fading over $heroFadeSeconds
+    // with the next one; every slide shares the same keyframes, offset by a delay.
+    $heroSlotSeconds = 6;
+    $heroFadeSeconds = 1.4;
+    $heroDuration = count($heroImages) * $heroSlotSeconds;
+    $heroPct = fn (float $seconds) => round($seconds / max($heroDuration, 1) * 100, 3);
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $loc }}">
@@ -123,10 +127,10 @@
         .hero-slide {
             position:absolute; inset:0;
             background-size:cover; background-position:center;
-            opacity:0; transform:scale(1.07);
+            opacity:0; transform:scale(1.14);
             filter:saturate(1.03) contrast(1.04) brightness(.9);
-            will-change:opacity,transform,filter;
-            transition:opacity 900ms ease-in-out, transform 1600ms cubic-bezier(.2,.8,.2,1), filter 900ms ease-in-out;
+            will-change:opacity,transform;
+            backface-visibility:hidden;
         }
         .hero-slide:nth-child(even), .hero-slide-video:nth-child(even) { transform-origin:right center; }
         .hero-slide:nth-child(odd), .hero-slide-video:nth-child(odd) { transform-origin:left center; }
@@ -136,7 +140,6 @@
             opacity:0;
             pointer-events:none;
             will-change:opacity,transform;
-            transition:opacity 900ms ease-in-out, transform 1800ms cubic-bezier(.2,.8,.2,1), filter 900ms ease-in-out;
         }
         .hero-slide-video iframe {
             position:absolute;
@@ -157,31 +160,62 @@
             object-fit:cover;
             pointer-events:none;
         }
+        @php
+            $fadeIn  = $heroPct($heroFadeSeconds);
+            $fadeOut = $heroPct($heroSlotSeconds);
+            $fadeEnd = $heroPct($heroSlotSeconds + $heroFadeSeconds);
+        @endphp
+        /* Image: smooth cross-fade, plus a slow continuous zoom (Ken Burns) */
+        @keyframes heroFade {
+            0%                { opacity:0; animation-timing-function:cubic-bezier(.45,0,.55,1); }
+            {{ $fadeIn }}%    { opacity:1; }
+            {{ $fadeOut }}%   { opacity:1; animation-timing-function:cubic-bezier(.45,0,.55,1); }
+            {{ $fadeEnd }}%, 100% { opacity:0; }
+        }
+        @keyframes heroZoom {
+            0%                { transform:scale(1.14) translate3d(0,0,0); }
+            {{ $fadeEnd }}%, 100% { transform:scale(1.02) translate3d(0,0,0); }
+        }
+        /* Text: comes in once the image is mostly there, leaves just before the next one */
+        @keyframes heroCopy {
+            0%, {{ $heroPct($heroFadeSeconds * .55) }}% { opacity:0; transform:translate3d(0,26px,0); filter:blur(8px); animation-timing-function:cubic-bezier(.16,1,.3,1); }
+            {{ $heroPct($heroFadeSeconds + .5) }}% { opacity:1; transform:translate3d(0,0,0); filter:blur(0); }
+            {{ $heroPct($heroSlotSeconds - .15) }}% { opacity:1; transform:translate3d(0,0,0); filter:blur(0); animation-timing-function:cubic-bezier(.7,0,.84,0); }
+            {{ $heroPct($heroSlotSeconds + .45) }}%, 100% { opacity:0; transform:translate3d(0,-14px,0); filter:blur(6px); }
+        }
+        @keyframes heroProgress {
+            from { transform:scaleX(0); }
+            to   { transform:scaleX(1); }
+        }
+        .hero-slide, .hero-slide-video {
+            animation:heroFade {{ $heroDuration }}s infinite, heroZoom {{ $heroDuration }}s linear infinite;
+        }
+        .hero-copy-slide { animation:heroCopy {{ $heroDuration }}s infinite; }
         @foreach($heroImages as $index => $heroImage)
-        @php $bgUrl = is_array($heroImage) ? ($heroImage['url'] ?? '') : $heroImage; @endphp
-        .hero-slide:nth-child({{ $index + 1 }}) { @if($index === 0) background-image:url('{{ $bgUrl }}'); @endif animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
-        .hero-slide-video:nth-child({{ $index + 1 }}) { animation:heroSlide{{ $index }} {{ $heroDuration }}s infinite; }
-        @keyframes heroSlide{{ $index }} {
-            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:scale(1.08); }
-            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:scale(1.02); }
-            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:scale(1.05); }
-        }
-        @keyframes heroCopySlide{{ $index }} {
-            @if($index % 3 === 0)
-            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:translateY(16px) scale(.98); }
-            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:translateY(0) scale(1); }
-            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:translateY(-8px) scale(1.01); }
-            @elseif($index % 3 === 1)
-            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:translateX(-24px) rotate(-1deg); }
-            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:translateX(0) rotate(0); }
-            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:translateX(18px) rotate(1deg); }
-            @else
-            0%,{{ max(0, $index * $heroSlot - 5) }}% { opacity:0; transform:scale(.9) translateY(8px); }
-            {{ max(0, $index * $heroSlot - 1) }}%,{{ min(100, ($index + 1) * $heroSlot - 5) }}% { opacity:1; transform:scale(1) translateY(0); }
-            {{ min(100, ($index + 1) * $heroSlot - 1) }}%,100% { opacity:0; transform:scale(1.03) translateY(-6px); }
-            @endif
-        }
+        @php
+            $bgUrl = is_array($heroImage) ? ($heroImage['url'] ?? '') : $heroImage;
+            $delay = round($index * $heroSlotSeconds - $heroFadeSeconds, 2);
+        @endphp
+        .hero-slide:nth-child({{ $index + 1 }}), .hero-slide-video:nth-child({{ $index + 1 }}), .hero-copy-slide:nth-child({{ $index + 1 }}) { animation-delay:{{ $delay }}s; }
+        @if($index === 0)
+        .hero-slide:nth-child(1) { background-image:url('{{ $bgUrl }}'); }
+        @endif
         @endforeach
+        /* Time left on the current slide */
+        .hero-progress {
+            position:absolute; left:0; right:0; bottom:4px; height:3px; z-index:3;
+            background:rgba(255,255,255,.12); overflow:hidden; pointer-events:none;
+        }
+        .hero-progress::after {
+            content:''; position:absolute; inset:0;
+            background:linear-gradient(to right, var(--gold2), var(--gold));
+            transform-origin:left center;
+            animation:heroProgress {{ $heroSlotSeconds }}s linear infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-slide, .hero-slide-video { animation-name:heroFade, none; transform:none; }
+            .hero-copy-slide { filter:none; }
+        }
         /* Overlays */
         .hero-ov {
             position:absolute; inset:0; z-index:1;
@@ -207,7 +241,7 @@
             display:flex; align-items:center; justify-content:flex-start;
         }
         .hero-copy-slide {
-            position:absolute; inset:0; opacity:0;
+            position:absolute; inset:0; opacity:0; will-change:opacity,transform,filter;
             min-height:200px; width:100%;
             display:flex; align-items:center;
             padding:20px 0;
@@ -710,11 +744,12 @@
         <div class="hero-ov" aria-hidden="true"></div>
         <div class="hero-copy">
             @foreach($heroImages as $index => $heroImage)
-            <div class="hero-copy-slide" style="animation:heroCopySlide{{ $index }} {{ $heroDuration }}s infinite;">
+            <div class="hero-copy-slide">
                 <span class="hero-copy-title">{{ $heroImage['copy'] ?? '' }}</span>
             </div>
             @endforeach
         </div>
+        <div class="hero-progress" aria-hidden="true"></div>
         <div class="hero-accent" aria-hidden="true"></div>
 
         <button type="button" class="hero-arrow hero-arrow--prev" data-hero-step="-1" aria-label="{{ $en ? 'Previous slide' : 'Diapositive précédente' }}">
@@ -1128,18 +1163,49 @@
     </script>
 
     <script>
-        // The slideshow runs on CSS keyframes; the arrows move every slide
-        // animation to the start of the target slot so the cycle continues from there.
+        // The slideshow runs on CSS keyframes that share one timeline (each slide
+        // is offset by an animation-delay). The arrows seek every animation to the
+        // target slide; a fading copy of the outgoing image and text keeps the change smooth.
         (function () {
-            var slotMs = 5000;
+            var slotMs = {{ $heroSlotSeconds * 1000 }};
             var count = {{ count($heroImages) }};
             var cycleMs = slotMs * count;
+            var names = ['heroFade', 'heroZoom', 'heroCopy', 'heroProgress'];
             var hero = document.querySelector('.hero');
             if (!hero || count < 2 || !hero.getAnimations) return;
+            var bg = hero.querySelector('.hero-bg');
+            var copy = hero.querySelector('.hero-copy');
 
-            function slideAnimations() {
-                return Array.from(hero.querySelectorAll('.hero-slide, .hero-slide-video, .hero-copy-slide'))
-                    .flatMap(function (el) { return el.getAnimations(); });
+            function heroAnimations() {
+                return hero.getAnimations({ subtree: true }).filter(function (animation) {
+                    return names.indexOf(animation.animationName) !== -1;
+                });
+            }
+
+            function mostVisible(selector) {
+                var best = null, bestOpacity = 0;
+                hero.querySelectorAll(selector).forEach(function (el) {
+                    var opacity = parseFloat(getComputedStyle(el).opacity);
+                    if (opacity > bestOpacity) { best = el; bestOpacity = opacity; }
+                });
+                return best;
+            }
+
+            function fadeOutCopyOf(el, parent, keyframes, duration) {
+                if (!el) return;
+                var style = getComputedStyle(el);
+                var ghost = el.cloneNode(true);
+                ghost.removeAttribute('data-hero-bg');
+                ghost.style.animation = 'none';
+                ghost.style.opacity = style.opacity;
+                ghost.style.transform = style.transform;
+                ghost.style.filter = style.filter;
+                ghost.style.backgroundImage = style.backgroundImage;
+                ghost.style.zIndex = '2';
+                ghost.setAttribute('aria-hidden', 'true');
+                parent.appendChild(ghost);
+                ghost.animate(keyframes, { duration: duration, easing: 'cubic-bezier(.45,0,.55,1)', fill: 'forwards' })
+                    .finished.then(function () { ghost.remove(); });
             }
 
             hero.querySelectorAll('[data-hero-step]').forEach(function (button) {
@@ -1149,12 +1215,18 @@
                             slide.style.backgroundImage = "url('" + slide.dataset.heroBg + "')";
                         }
                     });
-                    var animations = slideAnimations();
+                    var animations = heroAnimations();
                     if (!animations.length) return;
+
                     var elapsed = (animations[0].currentTime || 0) % cycleMs;
                     var current = Math.floor(elapsed / slotMs);
                     var target = (current + Number(button.dataset.heroStep) + count) % count;
-                    var time = target * slotMs + 50;
+
+                    fadeOutCopyOf(mostVisible('.hero-slide, .hero-slide-video'), bg, [{ opacity: 1 }, { opacity: 0 }], 900);
+                    fadeOutCopyOf(mostVisible('.hero-copy-slide'), copy,
+                        [{ opacity: 1, transform: 'translate3d(0,0,0)' }, { opacity: 0, transform: 'translate3d(0,-14px,0)', filter: 'blur(6px)' }], 400);
+
+                    var time = cycleMs * 2 + target * slotMs;
                     animations.forEach(function (animation) {
                         animation.currentTime = time;
                         animation.play();
