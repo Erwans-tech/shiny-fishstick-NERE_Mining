@@ -103,6 +103,7 @@
         }
     </style>
     <link rel="stylesheet" href="{{ asset('css/responsive-fixes.css') }}?v={{ filemtime(public_path('css/responsive-fixes.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/upload-progress.css') }}?v={{ filemtime(public_path('css/upload-progress.css')) }}">
 </head>
 <body>
 @include('partials._nav', ['locale' => $loc, 'section' => 'careers'])
@@ -384,5 +385,6 @@ function copyJobUrl(btn) {
     });
 })();
 </script>
+<script src="{{ asset('js/upload-progress.js') }}?v={{ filemtime(public_path('js/upload-progress.js')) }}"></script>
 </body>
 </html>

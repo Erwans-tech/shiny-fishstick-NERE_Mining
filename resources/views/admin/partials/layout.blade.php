@@ -457,6 +457,7 @@
             .form-group.full { grid-column: span 1; }
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('css/upload-progress.css') }}?v={{ filemtime(public_path('css/upload-progress.css')) }}">
 </head>
 <body>
 
@@ -645,6 +646,7 @@
 
 @stack('scripts')
 
+<script src="{{ asset('js/upload-progress.js') }}?v={{ filemtime(public_path('js/upload-progress.js')) }}"></script>
 <script src="{{ asset('js/admin-animations.js') }}"></script>
 <script>
 // Mobile sidebar toggle

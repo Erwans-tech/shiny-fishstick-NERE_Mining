@@ -368,18 +368,9 @@
             return;
         }
 
+        // The real progress is shown by public/js/upload-progress.js.
         uploadZone.classList.add('uploading');
-        submitBtn.disabled = true;
         submitBtn.textContent = '⏳ Upload en cours...';
-        progressBar.style.display = 'block';
-        
-        // Simulate progress (real progress would need AJAX)
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += 5;
-            progressFill.style.width = progress + '%';
-            if (progress >= 90) clearInterval(interval);
-        }, 100);
     });
 
     // Update file input when files change
