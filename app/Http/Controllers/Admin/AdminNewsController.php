@@ -41,6 +41,8 @@ class AdminNewsController extends Controller
             'gallery_images.*' => ['image', 'max:4096'],
             'gallery' => ['nullable', 'array', 'max:12'],
             'gallery.*' => ['image', 'max:4096'],
+            'video'        => ['nullable', 'file', 'mimetypes:video/mp4,video/webm', 'max:204800'],
+            'remove_video' => ['nullable', 'boolean'],
             'published_at' => ['nullable', 'date'],
         ]);
 
@@ -54,7 +56,10 @@ class AdminNewsController extends Controller
             }
         }
         $data['gallery_images'] = $this->storeGalleryImages($request);
-        unset($data['image']);
+        if ($request->hasFile('video')) {
+            $data['video_path'] = $request->file('video')->store('news/videos', config('filesystems.default'));
+        }
+        unset($data['image'], $data['video'], $data['remove_video']);
 
         News::create($data);
 
@@ -79,6 +84,8 @@ class AdminNewsController extends Controller
             'gallery_images.*' => ['image', 'max:4096'],
             'gallery' => ['nullable', 'array', 'max:12'],
             'gallery.*' => ['image', 'max:4096'],
+            'video'        => ['nullable', 'file', 'mimetypes:video/mp4,video/webm', 'max:204800'],
+            'remove_video' => ['nullable', 'boolean'],
             'published_at' => ['nullable', 'date'],
         ]);
 
@@ -99,7 +106,15 @@ class AdminNewsController extends Controller
             $this->deleteGalleryImages($news->gallery_images ?? []);
             $data['gallery_images'] = $newGalleryImages;
         }
-        unset($data['image']);
+        if ($request->hasFile('video') || $request->boolean('remove_video')) {
+            if ($news->video_path) {
+                Storage::disk(config('filesystems.default'))->delete($news->video_path);
+            }
+            $data['video_path'] = $request->hasFile('video')
+                ? $request->file('video')->store('news/videos', config('filesystems.default'))
+                : null;
+        }
+        unset($data['image'], $data['video'], $data['remove_video']);
 
         $news->update($data);
 
@@ -113,6 +128,9 @@ class AdminNewsController extends Controller
             Storage::disk(config('filesystems.default'))->delete($news->image_path);
         }
         $this->deleteGalleryImages($news->gallery_images ?? []);
+        if ($news->video_path) {
+            Storage::disk(config('filesystems.default'))->delete($news->video_path);
+        }
         $news->delete();
 
         return redirect()->route('admin.news.index')

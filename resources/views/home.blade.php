@@ -3,7 +3,23 @@
     $loc = $locale ?? 'fr';
     
     // HARDCODED HERO IMAGES - No database dependency
+    $heroFilm = [
+        'video'  => asset('videos/nere-mining-film-720p.mp4'),
+        'poster' => asset('videos/nere-mining-film-poster.jpg'),
+    ];
+
     $heroImages = collect([
+        [
+            'type' => 'video',
+            'url' => $heroFilm['poster'],
+            'video_url' => $heroFilm['video'],
+            'embed_url' => null,
+            'is_local_video' => true,
+            'title' => 'Néré Mining',
+            'caption' => null,
+            'kicker' => 'Néré Mining',
+            'copy' => $en ? 'Discover Néré Mining on film' : 'Découvrez Néré Mining en images'
+        ],
         [
             'type' => 'image', 
             'url' => asset('images/hero/7I0F6l1lmLkgswXMdTDm4ayucFaHUgcMJcnzn0im.webp'),
@@ -291,6 +307,26 @@
         .hero-stat:hover .hero-stat-lbl {
             color:#fff;
         }
+        /* Film button and player */
+        .hero-film-btn {
+            position:absolute; right:5vw; bottom:34px; z-index:4;
+            display:inline-flex; align-items:center; gap:10px;
+            padding:12px 20px; border:1px solid rgba(255,255,255,.45); border-radius:999px;
+            background:rgba(26,5,5,.55); color:#fff; cursor:pointer;
+            font:600 12px Inter,sans-serif; letter-spacing:.08em; text-transform:uppercase;
+            backdrop-filter:blur(6px); transition:background .2s, border-color .2s;
+        }
+        .hero-film-btn:hover, .hero-film-btn:focus-visible { background:var(--red); border-color:var(--red); }
+        .hero-film-btn svg { width:18px; height:18px; flex:none; }
+        .film-modal { position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:center; padding:5vw; background:rgba(10,3,3,.92); }
+        .film-modal.open { display:flex; }
+        .film-modal video { width:min(1280px, 100%); max-height:100%; aspect-ratio:16/9; background:#000; border-radius:8px; }
+        .film-modal-close {
+            position:absolute; top:18px; right:22px; width:44px; height:44px; border:0; border-radius:50%;
+            background:rgba(255,255,255,.12); color:#fff; font-size:26px; line-height:1; cursor:pointer;
+        }
+        .film-modal-close:hover { background:var(--red); }
+        @media (max-width:640px) { .hero-film-btn { right:50%; transform:translateX(50%); bottom:70px; white-space:nowrap; } }
         /* Scroll hint */
         .hero-scroll {
             position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:3;
@@ -671,6 +707,11 @@
             @endforeach
         </div>
         <div class="hero-accent" aria-hidden="true"></div>
+
+        <button type="button" class="hero-film-btn" data-film-open aria-haspopup="dialog">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            {{ $en ? 'Watch the film with sound' : 'Voir le film avec le son' }}
+        </button>
 
     </section>
 
@@ -1067,7 +1108,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const slides = Array.from(document.querySelectorAll('.hero-slide[data-hero-bg]'));
-            slides.slice(1).forEach(function (slide, index) {
+            slides.forEach(function (slide, index) {
                 window.setTimeout(function () {
                     const image = new Image();
                     image.onload = function () {
@@ -1077,6 +1118,43 @@
                 }, (index + 1) * 1500);
             });
         });
+    </script>
+
+    <div class="film-modal" id="film-modal" role="dialog" aria-modal="true" aria-label="{{ $en ? 'Néré Mining film' : 'Film Néré Mining' }}">
+        <button type="button" class="film-modal-close" data-film-close aria-label="{{ $en ? 'Close' : 'Fermer' }}">&times;</button>
+        <video id="film-player" controls playsinline preload="none" poster="{{ $heroFilm['poster'] }}">
+            <source src="{{ $heroFilm['video'] }}" type="video/mp4">
+        </video>
+    </div>
+    <script>
+        (function () {
+            var modal = document.getElementById('film-modal');
+            var player = document.getElementById('film-player');
+            var opener = document.querySelector('[data-film-open]');
+            if (!modal || !player || !opener) return;
+
+            function open() {
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                player.currentTime = 0;
+                player.muted = false;
+                player.play().catch(function () {});
+                modal.querySelector('[data-film-close]').focus();
+            }
+            function close() {
+                player.pause();
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+                opener.focus();
+            }
+
+            opener.addEventListener('click', open);
+            modal.querySelector('[data-film-close]').addEventListener('click', close);
+            modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('open')) close();
+            });
+        })();
     </script>
 </body>
 </html>

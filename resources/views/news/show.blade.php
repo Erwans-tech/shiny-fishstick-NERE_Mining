@@ -50,6 +50,7 @@
         .article-body h3{color:var(--green);font-size:20px;font-weight:500;margin:28px 0 10px;}
         .article-body img{max-width:100%;border-radius:6px;margin:24px 0;}
         .article-cover{width:100%;max-height:480px;object-fit:cover;border-radius:8px;margin-bottom:40px;}
+        .article-video{display:block;max-height:none;aspect-ratio:16/9;background:#000;object-fit:contain;}
         .article-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:36px;}
         .article-gallery img{width:100%;height:260px;object-fit:cover;border-radius:8px;margin:0;}
         .back-link{display:inline-flex;align-items:center;gap:8px;color:var(--red);font:600 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;margin-bottom:32px;}
@@ -86,7 +87,12 @@
             <span>{{ $news->category }}</span>
         </div>
 
-        @if($newsImagePath)
+        @if($news->video_path)
+            <video class="article-cover article-video sa-reveal sa-delay-1" controls playsinline preload="metadata"
+                   @if($newsImagePath) poster="{{ \App\Helpers\StorageHelper::uploadUrl($newsImagePath) }}" @endif>
+                <source src="{{ \App\Helpers\StorageHelper::uploadUrl($news->video_path) }}" type="video/mp4">
+            </video>
+        @elseif($newsImagePath)
             <img class="article-cover sa-reveal sa-delay-1" src="{{ \App\Helpers\StorageHelper::uploadUrl($newsImagePath) }}" alt="{{ $news->title }}" data-lightbox="article" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';">
             <img class="article-cover sa-reveal sa-delay-1" src="{{ asset('images/placeholders/default-image.svg') }}" alt="{{ __('site.news_img_placeholder') }}" style="display:none;">
         @else

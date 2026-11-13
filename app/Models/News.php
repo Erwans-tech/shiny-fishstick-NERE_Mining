@@ -23,6 +23,7 @@ class News extends Model
         'content',
         'image_path',
         'gallery_images',
+        'video_path',
         'published_at',
     ];
 

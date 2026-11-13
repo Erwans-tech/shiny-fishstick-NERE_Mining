@@ -88,6 +88,18 @@
                     @error('gallery_images')<div class="form-error">{{ $message }}</div>@enderror
                     @error('gallery_images.*')<div class="form-error">{{ $message }}</div>@enderror
                 </div>
+                <div class="form-group full">
+                    <label for="video">Vidéo de l'article</label>
+                    @if($news->video_path)
+                    <video src="{{ \App\Helpers\StorageHelper::uploadUrl($news->video_path) }}" controls preload="metadata" style="display:block;width:320px;max-width:100%;border-radius:6px;margin-bottom:8px;"></video>
+                    <label style="display:flex;gap:8px;align-items:center;font-weight:400;margin-bottom:8px;">
+                        <input type="checkbox" name="remove_video" value="1"> Supprimer la vidéo actuelle
+                    </label>
+                    @endif
+                    <input id="video" type="file" name="video" accept="video/mp4,video/webm">
+                    <span class="form-hint">MP4 ou WebM, 200 Mo maximum. Comprimez la vidéo en 1080p avant l'envoi pour un chargement rapide.</span>
+                    @error('video')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
                 <div class="form-actions full">
                     <button type="submit" class="btn btn-primary">
                         {{ $news->exists ? '✓ Enregistrer' : '+ Créer l\'article' }}
