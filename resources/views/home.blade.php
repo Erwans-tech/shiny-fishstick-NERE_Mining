@@ -307,6 +307,23 @@
         .hero-stat:hover .hero-stat-lbl {
             color:#fff;
         }
+        /* Carousel arrows */
+        .hero-arrow {
+            position:absolute; top:50%; z-index:4; transform:translateY(-50%);
+            width:48px; height:48px; border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            border:1px solid rgba(255,255,255,.4); background:rgba(26,5,5,.4); color:#fff;
+            cursor:pointer; backdrop-filter:blur(4px); transition:background .2s, border-color .2s;
+        }
+        .hero-arrow:hover, .hero-arrow:focus-visible { background:var(--red); border-color:var(--red); }
+        .hero-arrow svg { width:22px; height:22px; }
+        .hero-arrow--prev { left:2.5vw; }
+        .hero-arrow--next { right:2.5vw; }
+        @media (max-width:640px) {
+            .hero-arrow { width:40px; height:40px; top:auto; bottom:128px; transform:none; }
+            .hero-arrow--prev { left:16px; }
+            .hero-arrow--next { right:16px; }
+        }
         /* Film button and player */
         .hero-film-btn {
             position:absolute; right:5vw; bottom:34px; z-index:4;
@@ -707,6 +724,13 @@
             @endforeach
         </div>
         <div class="hero-accent" aria-hidden="true"></div>
+
+        <button type="button" class="hero-arrow hero-arrow--prev" data-hero-step="-1" aria-label="{{ $en ? 'Previous slide' : 'Diapositive précédente' }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="hero-arrow hero-arrow--next" data-hero-step="1" aria-label="{{ $en ? 'Next slide' : 'Diapositive suivante' }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
 
         <button type="button" class="hero-film-btn" data-film-open aria-haspopup="dialog">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -1118,6 +1142,43 @@
                 }, (index + 1) * 1500);
             });
         });
+    </script>
+
+    <script>
+        // The slideshow runs on CSS keyframes; the arrows move every slide
+        // animation to the start of the target slot so the cycle continues from there.
+        (function () {
+            var slotMs = 5000;
+            var count = {{ count($heroImages) }};
+            var cycleMs = slotMs * count;
+            var hero = document.querySelector('.hero');
+            if (!hero || count < 2 || !hero.getAnimations) return;
+
+            function slideAnimations() {
+                return Array.from(hero.querySelectorAll('.hero-slide, .hero-slide-video, .hero-copy-slide'))
+                    .flatMap(function (el) { return el.getAnimations(); });
+            }
+
+            hero.querySelectorAll('[data-hero-step]').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    hero.querySelectorAll('.hero-slide[data-hero-bg]').forEach(function (slide) {
+                        if (!slide.style.backgroundImage) {
+                            slide.style.backgroundImage = "url('" + slide.dataset.heroBg + "')";
+                        }
+                    });
+                    var animations = slideAnimations();
+                    if (!animations.length) return;
+                    var elapsed = (animations[0].currentTime || 0) % cycleMs;
+                    var current = Math.floor(elapsed / slotMs);
+                    var target = (current + Number(button.dataset.heroStep) + count) % count;
+                    var time = target * slotMs + 50;
+                    animations.forEach(function (animation) {
+                        animation.currentTime = time;
+                        animation.play();
+                    });
+                });
+            });
+        })();
     </script>
 
     <div class="film-modal" id="film-modal" role="dialog" aria-modal="true" aria-label="{{ $en ? 'Néré Mining film' : 'Film Néré Mining' }}">
