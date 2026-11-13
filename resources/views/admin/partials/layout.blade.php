@@ -488,6 +488,10 @@
            class="nav-item {{ request()->routeIs('admin.news.*') ? 'active' : '' }}">
             <span class="nav-icon">📰</span> Actualités
         </a>
+        <a href="{{ route('admin.videos.index') }}"
+           class="nav-item {{ request()->routeIs('admin.videos.*') ? 'active' : '' }}">
+            <span class="nav-icon">🎬</span> Vidéos
+        </a>
         <a href="{{ route('admin.reports.index') }}"
            class="nav-item {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
             <span class="nav-icon">📄</span> Publications

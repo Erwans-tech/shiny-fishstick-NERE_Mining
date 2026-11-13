@@ -3,23 +3,7 @@
     $loc = $locale ?? 'fr';
     
     // HARDCODED HERO IMAGES - No database dependency
-    $heroFilm = [
-        'video'  => asset('videos/nere-mining-film-720p.mp4'),
-        'poster' => asset('videos/nere-mining-film-poster.jpg'),
-    ];
-
     $heroImages = collect([
-        [
-            'type' => 'video',
-            'url' => $heroFilm['poster'],
-            'video_url' => $heroFilm['video'],
-            'embed_url' => null,
-            'is_local_video' => true,
-            'title' => 'Néré Mining',
-            'caption' => null,
-            'kicker' => 'Néré Mining',
-            'copy' => $en ? 'Discover Néré Mining on film' : 'Découvrez Néré Mining en images'
-        ],
         [
             'type' => 'image', 
             'url' => asset('images/hero/7I0F6l1lmLkgswXMdTDm4ayucFaHUgcMJcnzn0im.webp'),
@@ -324,26 +308,6 @@
             .hero-arrow--prev { left:16px; }
             .hero-arrow--next { right:16px; }
         }
-        /* Film button and player */
-        .hero-film-btn {
-            position:absolute; right:5vw; bottom:34px; z-index:4;
-            display:inline-flex; align-items:center; gap:10px;
-            padding:12px 20px; border:1px solid rgba(255,255,255,.45); border-radius:999px;
-            background:rgba(26,5,5,.55); color:#fff; cursor:pointer;
-            font:600 12px Inter,sans-serif; letter-spacing:.08em; text-transform:uppercase;
-            backdrop-filter:blur(6px); transition:background .2s, border-color .2s;
-        }
-        .hero-film-btn:hover, .hero-film-btn:focus-visible { background:var(--red); border-color:var(--red); }
-        .hero-film-btn svg { width:18px; height:18px; flex:none; }
-        .film-modal { position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:center; padding:5vw; background:rgba(10,3,3,.92); }
-        .film-modal.open { display:flex; }
-        .film-modal video { width:min(1280px, 100%); max-height:100%; aspect-ratio:16/9; background:#000; border-radius:8px; }
-        .film-modal-close {
-            position:absolute; top:18px; right:22px; width:44px; height:44px; border:0; border-radius:50%;
-            background:rgba(255,255,255,.12); color:#fff; font-size:26px; line-height:1; cursor:pointer;
-        }
-        .film-modal-close:hover { background:var(--red); }
-        @media (max-width:640px) { .hero-film-btn { right:50%; transform:translateX(50%); bottom:70px; white-space:nowrap; } }
         /* Scroll hint */
         .hero-scroll {
             position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:3;
@@ -447,6 +411,34 @@
 
 
 
+
+        /* ── VIDEOS ──────────────────────────────── */
+        .videos-sec { background:#fbfaf7; border-top:1px solid var(--line); }
+        .videos-grid {
+            display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+            gap:28px; max-width:1280px; margin:0 auto;
+        }
+        .video-card { background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 10px 30px rgba(75,23,22,.06); }
+        .video-frame { position:relative; aspect-ratio:16/9; background:#000; }
+        .video-frame video { width:100%; height:100%; display:block; object-fit:cover; background:#000; }
+        .video-frame.is-playing video { object-fit:contain; }
+        .video-play {
+            position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+            border:0; background:linear-gradient(180deg, rgba(26,5,5,0) 40%, rgba(26,5,5,.45)); cursor:pointer;
+        }
+        .video-play span {
+            width:84px; height:84px; border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            background:linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            box-shadow:0 12px 40px rgba(212,175,55,.55); transition:transform .25s ease;
+        }
+        .video-play svg { width:34px; height:34px; margin-left:4px; }
+        .video-play:hover span, .video-play:focus-visible span { transform:scale(1.08); }
+        .video-frame.is-playing .video-play { display:none; }
+        .video-meta { padding:18px 22px 20px; display:flex; flex-direction:column; gap:6px; }
+        .video-date { color:var(--gold2); font:700 11px Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase; }
+        .video-title { color:var(--green); font:600 18px/1.35 Inter,sans-serif; }
+        @media (max-width:640px) { .video-play span { width:64px; height:64px; } .video-play svg { width:26px; height:26px; } }
 
         /* ── NEWS ────────────────────────────────── */
         .news-sec { background:#fff; border-top:1px solid var(--line); }
@@ -732,11 +724,6 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
         </button>
 
-        <button type="button" class="hero-film-btn" data-film-open aria-haspopup="dialog">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-            {{ $en ? 'Watch the film with sound' : 'Voir le film avec le son' }}
-        </button>
-
     </section>
 
     {{-- Chiffres clés sous l'image du hero --}}
@@ -756,7 +743,7 @@
     ════════════════════════════════════════ --}}
     <section class="sec intro-sec sa-animated-section" aria-labelledby="intro-nere-h">
         <div class="sa-particles-container" data-count="5"></div>
-        <div class="intro-inner" style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:2.5rem; align-items:start; max-width:1280px; margin:0 auto; position:relative; z-index:2;">
+        <div class="intro-inner" style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:2.5rem; align-items:center; max-width:1280px; margin:0 auto; position:relative; z-index:2;">
             
             {{-- Colonne gauche : Texte + Vidéo --}}
             <div class="intro-left">
@@ -766,41 +753,6 @@
                 </p>
             </div>
 
-            {{-- Vidéo de présentation --}}
-            <div class="intro-video sa-reveal sa-delay-2">
-                <div style="background: rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
-                    <div id="video-container" style="position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; cursor: pointer;" onclick="document.getElementById('nere-video').play(); document.getElementById('nere-video').setAttribute('controls', 'controls'); this.style.cursor='default'; document.getElementById('play-btn-overlay').style.display='none';">
-                        
-                        <video 
-                            id="nere-video"
-                            playsinline
-                            poster="{{ asset('images/video-cover-nere-samao-2026.png') }}"
-                            style="width: 100%; height: 100%; object-fit: cover; background: #000; display: block;"
-                            preload="metadata">
-                            <source src="{{ asset('videos/presentation-nere-mining.mp4') }}" type="video/mp4">
-                            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
-                        </video>
-                        
-                        {{-- Bouton Play superposé --}}
-                        <div id="play-btn-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 48px rgba(212, 175, 55, 0.6); pointer-events: none; transition: transform 0.3s ease;">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-left: 4px;">
-                                <path d="M8 5v14l11-7z" fill="#1a1a1a"/>
-                            </svg>
-                        </div>
-                    </div>
-                    
-                    <style>
-                        #video-container:hover #play-btn-overlay {
-                            transform: translate(-50%, -50%) scale(1.1);
-                            box-shadow: 0 16px 64px rgba(212, 175, 55, 0.8);
-                        }
-                    </style>
-                    
-                    <p style="margin-top: 12px; font-size: 1rem; color: #C8102E; font-weight: 700; text-align: center; letter-spacing: 0.03em; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
-                        {{ $en ? 'Discover Néré Mining in video' : 'Découvrez Néré Mining en vidéo' }}
-                    </p>
-                </div>
-            </div>
             </div>{{-- Fin intro-left --}}
 
             {{-- Colonne droite : Les 3 points --}}
@@ -811,6 +763,37 @@
             </div>
         </div>
     </section>
+
+    {{-- ════════════════════════════════════════
+         VIDÉOS (gérées dans l'admin, plus récentes d'abord)
+    ════════════════════════════════════════ --}}
+    @if(($videos ?? collect())->isNotEmpty())
+    <section class="sec videos-sec sa-animated-section" id="videos" aria-labelledby="videos-h">
+        <div class="news-head sa-reveal">
+            <div>
+                <h2 id="videos-h" class="sec-h2">{{ $en ? 'Néré Mining in video' : 'Néré Mining en vidéo' }}</h2>
+            </div>
+        </div>
+        <div class="videos-grid">
+            @foreach($videos as $video)
+            <article class="video-card sa-reveal">
+                <div class="video-frame">
+                    <video playsinline preload="none" @if($video->posterUrl()) poster="{{ $video->posterUrl() }}" @endif>
+                        <source src="{{ $video->videoUrl() }}" type="video/mp4">
+                    </video>
+                    <button type="button" class="video-play" aria-label="{{ ($en ? 'Play: ' : 'Lire : ') . $video->titleFor($loc) }}">
+                        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="#1a1a1a"/></svg></span>
+                    </button>
+                </div>
+                <div class="video-meta">
+                    <span class="video-date">{{ $video->video_date->locale($loc)->translatedFormat('d F Y') }}</span>
+                    <h3 class="video-title">{{ $video->titleFor($loc) }}</h3>
+                </div>
+            </article>
+            @endforeach
+        </div>
+    </section>
+    @endif
 
     {{-- ════════════════════════════════════════
          3 · CHIFFRES DÉTAILLÉS (ENRICHISSEMENT)
@@ -1181,39 +1164,23 @@
         })();
     </script>
 
-    <div class="film-modal" id="film-modal" role="dialog" aria-modal="true" aria-label="{{ $en ? 'Néré Mining film' : 'Film Néré Mining' }}">
-        <button type="button" class="film-modal-close" data-film-close aria-label="{{ $en ? 'Close' : 'Fermer' }}">&times;</button>
-        <video id="film-player" controls playsinline preload="none" poster="{{ $heroFilm['poster'] }}">
-            <source src="{{ $heroFilm['video'] }}" type="video/mp4">
-        </video>
-    </div>
     <script>
+        // Video section: start a video on click and pause the others.
         (function () {
-            var modal = document.getElementById('film-modal');
-            var player = document.getElementById('film-player');
-            var opener = document.querySelector('[data-film-open]');
-            if (!modal || !player || !opener) return;
-
-            function open() {
-                modal.classList.add('open');
-                document.body.style.overflow = 'hidden';
-                player.currentTime = 0;
-                player.muted = false;
-                player.play().catch(function () {});
-                modal.querySelector('[data-film-close]').focus();
-            }
-            function close() {
-                player.pause();
-                modal.classList.remove('open');
-                document.body.style.overflow = '';
-                opener.focus();
-            }
-
-            opener.addEventListener('click', open);
-            modal.querySelector('[data-film-close]').addEventListener('click', close);
-            modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape' && modal.classList.contains('open')) close();
+            var frames = document.querySelectorAll('.video-frame');
+            frames.forEach(function (frame) {
+                var video = frame.querySelector('video');
+                frame.querySelector('.video-play').addEventListener('click', function () {
+                    frame.classList.add('is-playing');
+                    video.controls = true;
+                    video.play().catch(function () {});
+                });
+                video.addEventListener('play', function () {
+                    frames.forEach(function (other) {
+                        var otherVideo = other.querySelector('video');
+                        if (otherVideo !== video && !otherVideo.paused) otherVideo.pause();
+                    });
+                });
             });
         })();
     </script>

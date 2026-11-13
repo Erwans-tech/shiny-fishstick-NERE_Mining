@@ -139,6 +139,7 @@ $homeHandler = function (string $locale) {
         'partners' => $partners,
         'slides'   => $slides,
         'featuredAlbum' => $featuredAlbum,
+        'videos'   => \Illuminate\Support\Facades\Schema::hasTable('videos') ? \App\Models\Video::forSite()->get() : collect(),
     ]);
 };
 
@@ -654,6 +655,14 @@ Route::prefix('gestion-nm')->name('admin.')->group(function () {
             Route::get('/actualites/{news}/modifier', [AdminNewsController::class, 'edit'])->name('news.edit');
             Route::put('/actualites/{news}',          [AdminNewsController::class, 'update'])->name('news.update');
             Route::delete('/actualites/{news}',       [AdminNewsController::class, 'destroy'])->name('news.destroy');
+
+            // Vidéos
+            Route::get('/videos',                   [\App\Http\Controllers\Admin\AdminVideoController::class, 'index'])->name('videos.index');
+            Route::get('/videos/creer',             [\App\Http\Controllers\Admin\AdminVideoController::class, 'create'])->name('videos.create');
+            Route::post('/videos',                  [\App\Http\Controllers\Admin\AdminVideoController::class, 'store'])->name('videos.store');
+            Route::get('/videos/{video}/modifier',  [\App\Http\Controllers\Admin\AdminVideoController::class, 'edit'])->name('videos.edit');
+            Route::put('/videos/{video}',           [\App\Http\Controllers\Admin\AdminVideoController::class, 'update'])->name('videos.update');
+            Route::delete('/videos/{video}',        [\App\Http\Controllers\Admin\AdminVideoController::class, 'destroy'])->name('videos.destroy');
 
             // Publications
             Route::get('/publications',                   [AdminReportController::class, 'index'])->name('reports.index');
