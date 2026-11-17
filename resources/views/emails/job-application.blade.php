@@ -157,7 +157,7 @@
             <!-- Appel à action -->
             @if($application->id)
             <p style="text-align: center; margin-top: 30px;">
-                <a href="{{ route('admin.job-applications.show', $application->id) }}" style="background-color: #C8102E; color: white; padding: 10px 20px; border-radius: 5px; display: inline-block; text-decoration: none;">
+                <a href="{{ route('admin.applications.show', $application->id) }}" style="background-color: #C8102E; color: white; padding: 10px 20px; border-radius: 5px; display: inline-block; text-decoration: none;">
                     Consulter la candidature
                 </a>
             </p>
