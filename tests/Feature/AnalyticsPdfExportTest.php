@@ -44,6 +44,53 @@ class AnalyticsPdfExportTest extends TestCase
         }
     }
 
+    public function test_pages_and_sources_are_merged(): void
+    {
+        $visits = [
+            ['https://www.nere-mining.bf/index.php/karma', null],
+            ['https://www.nere-mining.bf/karma?lang=fr', ''],
+            ['https://www.nere-mining.bf/index.php', 'https://www.nere-mining.bf/contact'],
+            ['https://www.nere-mining.bf/', 'https://nere-mining.bf/'],
+            ['https://www.nere-mining.bf/', 'https://www.google.com/search?q=nere'],
+        ];
+
+        foreach ($visits as $i => [$url, $referrer]) {
+            SiteAnalytics::create(['page_url' => $url, 'referrer' => $referrer, 'ip_address' => 'v' . $i, 'visited_at' => now()]);
+        }
+
+        $admin = User::firstOrCreate(
+            ['email' => 'admin-test@nere-mining.bf'],
+            ['name' => 'Admin Test', 'password' => Hash::make('password'), 'role' => 'admin']
+        );
+
+        $response = $this->withSession([
+            'admin_logged_in'       => true,
+            'admin_id'              => $admin->id,
+            'admin_role'            => 'admin',
+            'admin_session_renewed' => true,
+        ])->get(route('admin.analytics.index'))->assertOk();
+
+        $this->assertSame(
+            [['url' => '/', 'visits' => 3], ['url' => '/karma', 'visits' => 2]],
+            $response->viewData('topPages')->all()
+        );
+        $this->assertEqualsCanonicalizing(
+            [
+                ['source' => 'Direct', 'visits' => 2],
+                ['source' => 'Navigation sur le site', 'visits' => 2],
+                ['source' => 'www.google.com', 'visits' => 1],
+            ],
+            $response->viewData('referrers')->all()
+        );
+    }
+
+    public function test_visits_are_recorded_without_index_php(): void
+    {
+        SiteAnalytics::track(\Illuminate\Http\Request::create('https://www.nere-mining.bf/index.php/karma?x=1', 'GET', server: ['SCRIPT_NAME' => '/index.php', 'SCRIPT_FILENAME' => public_path('index.php')]));
+
+        $this->assertStringNotContainsString('index.php', SiteAnalytics::latest('id')->value('page_url'));
+    }
+
     public function test_statistics_page_still_renders(): void
     {
         $admin = User::firstOrCreate(

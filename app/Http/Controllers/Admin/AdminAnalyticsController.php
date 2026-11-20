@@ -178,7 +178,8 @@ class AdminAnalyticsController extends Controller
             ->groupBy('page_url')
             ->get()
             // Same page reached with different query strings or hosts: count it once
-            ->groupBy(fn ($page) => rtrim(parse_url($page->page_url, PHP_URL_PATH) ?: '/', '/') ?: '/')
+            // (older visits were recorded with IIS's /index.php prefix)
+            ->groupBy(fn ($page) => rtrim(preg_replace('#^/index\.php(?=/|$)#', '', parse_url($page->page_url, PHP_URL_PATH) ?: '/'), '/') ?: '/')
             ->map(fn ($rows, $url) => ['url' => $url, 'visits' => (int) $rows->sum('visits')])
             ->sortByDesc('visits')
             ->take(10)
@@ -218,11 +219,16 @@ class AdminAnalyticsController extends Controller
             ->groupBy('referrer')
             ->get()
             // One line per site, whatever page of it the visitor came from
-            ->groupBy(fn ($ref) => parse_url($ref->referrer, PHP_URL_HOST) ?: 'Direct')
-            ->map(fn ($rows, $domain) => ['source' => $domain, 'visits' => (int) $rows->sum('count')])
-            ->sortByDesc('visits')
-            ->take(10)
-            ->values();
+            ->groupBy(function ($ref) {
+                $host = strtolower((string) parse_url($ref->referrer, PHP_URL_HOST));
+
+                return match (true) {
+                    $host === '' => 'Direct',
+                    (bool) preg_match('/(^|\.)nere-mining\.(bf|com)$/', $host) => 'Navigation sur le site',
+                    default => $host,
+                };
+            })
+            ->map(fn ($rows) => (int) $rows->sum('count'));
 
         $directVisits = SiteAnalytics::where('visited_at', '>=', $startDate)
             ->where(function ($q) {
@@ -231,8 +237,14 @@ class AdminAnalyticsController extends Controller
             ->count();
 
         if ($directVisits > 0) {
-            $referrers->prepend(['source' => 'Direct', 'visits' => $directVisits]);
+            $referrers['Direct'] = $referrers->get('Direct', 0) + $directVisits;
         }
+
+        $referrers = $referrers
+            ->map(fn ($visits, $source) => ['source' => $source, 'visits' => $visits])
+            ->sortByDesc('visits')
+            ->take(10)
+            ->values();
 
         // ═══ HEURES DE POINTE ════════════════════════════════════════
 

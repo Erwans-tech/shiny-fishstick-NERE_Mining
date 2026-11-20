@@ -31,7 +31,8 @@ class SiteAnalytics extends Model
         $userAgent = $request->userAgent();
         
         return static::create([
-            'page_url' => $request->fullUrl(),
+            // url() uses APP_URL in production, so IIS's /index.php never ends up in the stats
+            'page_url' => url($request->path()) . (($query = $request->getQueryString()) ? '?' . $query : ''),
             'page_title' => null, // Sera rempli par JavaScript côté client
             'referrer' => $request->header('referer'),
             'user_agent' => $userAgent,
