@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactMessage;
+use App\Models\JobApplication;
+use App\Models\News;
+use App\Models\NewsletterSubscriber;
 use App\Models\SiteAnalytics;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,16 +43,28 @@ class AdminAnalyticsController extends Controller
         }
     }
 
+    private function periodDays($value): int
+    {
+        $days = (int) $value;
+
+        return in_array($days, [7, 30, 90, 365], true) ? $days : 30;
+    }
+
     public function index()
     {
-        // Période sélectionnée (par défaut : 30 derniers jours)
-        $days = (int) request('days', 30);
-        $days = in_array($days, [7, 30, 90, 365], true) ? $days : 30;
-        
-        // Filtres optionnels
-        $pageFilter = request('page', '');
-        $deviceFilter = request('device', '');
-        
+        $days = $this->periodDays(request('days', 30));
+
+        return view('admin.analytics.index', $this->siteStats($days) + [
+            'pageFilter'   => request('page', ''),
+            'deviceFilter' => request('device', ''),
+        ]);
+    }
+
+    /**
+     * Figures shown on the statistics page, shared with the PDF export.
+     */
+    private function siteStats(int $days): array
+    {
         $startDate = now()->subDays($days);
 
         // ═══ STATISTIQUES GLOBALES ═══════════════════════════════════
@@ -159,15 +176,13 @@ class AdminAnalyticsController extends Controller
         $topPages = SiteAnalytics::select('page_url', DB::raw('COUNT(*) as visits'))
             ->where('visited_at', '>=', $startDate)
             ->groupBy('page_url')
-            ->orderByDesc('visits')
-            ->limit(10)
             ->get()
-            ->map(function ($page) {
-                return [
-                    'url' => parse_url($page->page_url, PHP_URL_PATH) ?: '/',
-                    'visits' => $page->visits,
-                ];
-            });
+            // Same page reached with different query strings or hosts: count it once
+            ->groupBy(fn ($page) => rtrim(parse_url($page->page_url, PHP_URL_PATH) ?: '/', '/') ?: '/')
+            ->map(fn ($rows, $url) => ['url' => $url, 'visits' => (int) $rows->sum('visits')])
+            ->sortByDesc('visits')
+            ->take(10)
+            ->values();
 
         // ═══ APPAREILS ═══════════════════════════════════════════════
 
@@ -201,16 +216,13 @@ class AdminAnalyticsController extends Controller
             ->whereNotNull('referrer')
             ->where('referrer', '!=', '')
             ->groupBy('referrer')
-            ->orderByDesc('count')
-            ->limit(10)
             ->get()
-            ->map(function ($ref) {
-                $domain = parse_url($ref->referrer, PHP_URL_HOST);
-                return [
-                    'source' => $domain ?: 'Direct',
-                    'visits' => $ref->count,
-                ];
-            });
+            // One line per site, whatever page of it the visitor came from
+            ->groupBy(fn ($ref) => parse_url($ref->referrer, PHP_URL_HOST) ?: 'Direct')
+            ->map(fn ($rows, $domain) => ['source' => $domain, 'visits' => (int) $rows->sum('count')])
+            ->sortByDesc('visits')
+            ->take(10)
+            ->values();
 
         $directVisits = SiteAnalytics::where('visited_at', '>=', $startDate)
             ->where(function ($q) {
@@ -241,7 +253,7 @@ class AdminAnalyticsController extends Controller
             ];
         });
 
-        return view('admin.analytics.index', compact(
+        return compact(
             'totalVisits',
             'previousTotalVisits',
             'visitsChange',
@@ -262,19 +274,31 @@ class AdminAnalyticsController extends Controller
             'totalPageViews',
             'thisWeekVisits',
             'lastWeekVisits',
-            'weeklyChange',
-            'pageFilter',
-            'deviceFilter'
-        ));
+            'weeklyChange'
+        );
     }
 
     public function export(Request $request)
     {
-        $days = (int) $request->input('days', 30);
-        $days = in_array($days, [7, 30, 90, 365], true) ? $days : 30;
-        $format = $request->input('format', 'csv'); // csv ou json
+        $days = $this->periodDays($request->input('days', 30));
+        $format = $request->input('format', 'csv'); // csv, json ou pdf
         $startDate = now()->subDays($days);
         
+        if ($format === 'pdf') {
+            $exportDate = now();
+            $activity = [
+                'messages'     => ContactMessage::where('created_at', '>=', $startDate)->count(),
+                'applications' => JobApplication::where('created_at', '>=', $startDate)->count(),
+                'newsletter'   => NewsletterSubscriber::where('created_at', '>=', $startDate)->count(),
+                'news'         => News::where('created_at', '>=', $startDate)->count(),
+            ];
+
+            $pdf = Pdf::loadView('admin.analytics.pdf', $this->siteStats($days) + compact('startDate', 'exportDate', 'activity'))
+                ->setPaper('A4', 'portrait');
+
+            return $pdf->download('nere-mining-statistiques-' . $days . 'j-' . $exportDate->format('Y-m-d') . '.pdf');
+        }
+
         $rows = SiteAnalytics::where('visited_at', '>=', $startDate)
             ->latest('visited_at')
             ->get(['visited_at', 'page_url', 'referrer', 'device_type', 'country']);

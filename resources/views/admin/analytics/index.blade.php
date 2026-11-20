@@ -32,6 +32,9 @@
                 <a href="{{ route('admin.analytics.export', ['days' => $days, 'format' => 'json']) }}" class="btn-action btn-export" title="Exporter en JSON">
                     <span>📄 Export JSON</span>
                 </a>
+                <a href="{{ route('admin.analytics.export', ['days' => $days, 'format' => 'pdf']) }}" class="btn-action btn-export" title="Exporter en PDF" style="background-color:#4b1716; color:#ffc247; font-weight:600;">
+                    <span>📄 Exporter en PDF</span>
+                </a>
                 <button class="btn-action btn-refresh" onclick="location.reload()" title="Actualiser">
                     <span>🔄 Actualiser</span>
                 </button>
